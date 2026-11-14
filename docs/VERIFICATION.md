@@ -44,3 +44,7 @@ Both product pilots were pushed to branches. No product main was merged and no p
 - Spring dropdown, Dynamic menu and Morph popover now promote to the browser top layer where supported and reposition against the trigger and visual viewport. An absolutely positioned fallback keeps the keyboard and pointer contract available. The overlay regression tests exercise clipped ancestors, bounds, Escape/focus return and outside dismissal. The Thinking Text test uses a controlled clock to verify intermediate and terminal states.
 
 - Desktop Chromium 1440 and iPhone-profile WebKit 390 captured each of the 82 specimens at rest. The [visual index](evidence/studio/catalog/index.md) records the review findings by category and shows the updated three-step layout. Axe returned zero violations for the 82 initial stages at 390px in Chromium with reduced motion. Active-state and assistive technology acceptance remain per-item review tasks.
+
+## Studio V6
+
+See [V6 acceptance](STUDIO-V6-ACCEPTANCE.md) for the current clean-consumer checks, visual evidence, configured examples and remaining release checks. V5 measurements above are historical.

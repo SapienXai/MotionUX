@@ -6,7 +6,7 @@ A tab indicator that follows the selection. A card deck that moves with your dra
 
 [Run Studio](#run-motionux-studio) · [Install a component](#install-your-first-component) · [Browse all 82 previews](docs/REFERENCE-INVENTORY.md) · [Use with Codex](#use-with-codex)
 
-[![MotionUX Studio V5 with its coral sidebar, live lavender preview stages, and two-column gallery](docs/evidence/studio-v5/desktop-1536x1024-light.png)](#run-motionux-studio)
+[![MotionUX Studio V5 with its coral sidebar, live lavender preview stages, and two-column gallery](docs/evidence/studio-v6/desktop-1536x1024-light.png)](#run-motionux-studio)
 
 ## Run MotionUX Studio
 
@@ -19,7 +19,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. Try a live card in Gallery, click **Open playground**, and open **Preview settings** to switch between neutral, BookPlace, and DineWallet themes, try a narrower stage, or compare reduced motion. Use **Install** for the pinned command and **Usage** for the React example. **Code** lets you inspect and copy the component’s TypeScript and CSS. **Source** links the reference and the component test.
+Open the local URL printed by Vite. Try a live card in Gallery and click **Open playground**. Use **Props** and **States** to edit the component while the preview stays on screen. Use **Preview settings** to switch between neutral, BookPlace, and DineWallet themes, try a narrower stage, or compare reduced motion. Use **Install** for the pinned command and **Usage** for the React example. **Code** lets you inspect and copy the same TypeScript and CSS that the pinned installation supplies. The first six cards use dedicated Gallery presets. Choose **Gallery example** under Preview settings to switch between a preset and its base component. **Source** links the reference and the component test.
 
 | Try first | What to do |
 | --- | --- |
@@ -28,7 +28,7 @@ Open the local URL printed by Vite. Try a live card in Gallery, click **Open pla
 | **Signature Pad** | Draw a stroke, undo it, or enter a typed signature. |
 | **Glass Player** | Play, pause, and seek a local audio sample. |
 
-[Desktop reference comparison](docs/evidence/studio-v5/reference-comparison.png) · [Mobile Gallery](docs/evidence/studio-v5/mobile-390-light.png) · [See the Playground](docs/evidence/studio-v5/playground-desktop.png)
+[Desktop reference comparison](docs/evidence/studio-v5/reference-comparison.png) · [Mobile Gallery](docs/evidence/studio-v6/mobile-390-light.png) · [See the live settings](docs/evidence/studio-v6/playground-properties.png)
 
 ## Install your first component
 
@@ -94,8 +94,12 @@ Copy the [`sapienx-motion-system` skill folder](skills/sapienx-motion-system) in
 
 For automatic use on SapienX React and Next.js work, merge the [AGENTS.md section](skills/global-agents-section.md) into your existing rules.
 
+## Install a Gallery preset
+
+Open **Install** in the Playground to copy the exact checkpoint for the selected package. The installed preset includes its TypeScript, styles and demonstration assets. Open **Usage** to copy an example with your selected configuration. Your app supplies real application state, content and actions. To match a Studio theme in your app, set the semantic `--mx-*` tokens on the surrounding surface and use the same font and space as the preview. [Theme tokens](docs/MOTION-TOKENS.md) · [Checkpoint guide](docs/PARITY-MANIFEST.md)
+
 ## Verification and license
 
-Studio V5 passed **306 browser checks** across desktop Chromium, touch Chromium, and iPhone-profile WebKit. The registry smoke test installed and typechecked **86 registry entries** in a clean React project. The V5 report includes the 1536 × 1024 reference comparison and the first-viewport performance measurements. [V5 verification](docs/STUDIO-V5-VERIFICATION.md) · [GitHub Actions](https://github.com/SapienXai/MotionUX/actions/workflows/ci.yml?query=branch%3Amain) · [Registry verification](docs/VERIFICATION.md)
+Studio V6 adds per-component control checks, configured TypeScript examples and installation of the **92-item registry** in a clean React project. The first six Gallery presets have an installed screenshot and accessibility comparison. Individual premium acceptance remains open. [V6 verification](docs/STUDIO-V6-ACCEPTANCE.md) · [GitHub Actions](https://github.com/SapienXai/MotionUX/actions/workflows/ci.yml?query=branch%3Amain) · [Registry verification](docs/VERIFICATION.md)
 
 MotionUX is MIT licensed. Adapted components retain their upstream notices. [License](LICENSE) · [Source review](docs/SOURCE-REVIEW.md) · [Changelog](CHANGELOG.md)

@@ -72,3 +72,12 @@ test("every reference exposes a control that changes its real specimen", async (
     await expect.poll(async () => (await preview.innerHTML()).includes(value), { message: row.id, timeout: 3500 }).toBe(true);
   }
 });
+
+test("Gallery selection and preset arrive intact in the Playground", async ({ page }) => {
+  await page.goto("/");
+  const card = page.locator('[data-card="designbookmark-tab-pill"]');
+  await card.getByRole("tab", { name: "Members" }).click();
+  await card.getByRole("link", { name: /Open playground/ }).click();
+  await expect(page.getByTestId("specimen-interaction").getByRole("tab", { name: "Members" })).toHaveAttribute("aria-selected", "true");
+  await expect(page).toHaveURL(/preset=gallery/);
+});

@@ -1,5 +1,12 @@
 # Changelog
 
+## Studio V6 · candidate previews
+
+- Install the six featured Studio compositions as separate presets with their public props, primitive sources, styles and MIT fixture assets.
+- Edit real props in Playground, share a bounded configuration and copy generated React usage.
+- Resolve installation pins against the same source files shown in Code. GitHub CI installs and compares the six Gallery presets in an isolated consumer.
+- Require explicit caller state for the Loading Outcome. Add continuous Goo Menu lobes, shared-size Morph Island motion and configurable swipe and pull thresholds.
+
 ## Studio previews · unreleased
 
 - MotionUX Studio runs the source-qualified catalog with 82 interactive references, copyable registry pins and examples, three theme previews, width and language controls, and reduced-motion comparison.

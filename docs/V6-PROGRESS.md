@@ -1,12 +1,8 @@
 # V6 checkpoints
 
-- Done — audited 82 mappings, added build-time pin validation, packaged six Gallery presets and compared the real local shadcn installs against Studio across 72 viewport, theme and state combinations.
-- Remaining — pin the pushed preset source after running the same consumer matrix against GitHub. Add personalized configurations, catalog craft and release evidence.
-- Blocked — physical-device and screen reader acceptance has no recorded evidence.
-- Next — run the isolated consumer matrix against the immutable remote checkpoint.
-
-## Interactive Playground checkpoint
-
-- Done — per-component editor fields for all 82 base examples and six Gallery presets. Browser sweep checks one meaningful change per base example. TypeScript compiles 170 default, configured and preset examples.
-- Done — visible neutral idle state for loading, configurable disclosure and deck properties, and connected Goo Menu lobes with a static reduced-motion version.
-- Remaining — publish the updated source, then refresh the install pin after the new consumer run. Compare supported devices and visual states individually before setting release status.
+- Done — audited 82 mappings and replaced stale pins with file and registry contract verification. Published six Gallery presets without changing the existing entry names.
+- Done — the pushed component checkpoint passed 72 isolated screen and ARIA comparisons. Clean React mounted 82 base examples and six customized presets. Next.js 16 with Tailwind 3 and 4 built the presets and seven representative base items.
+- Done — added per-component Playground fields, configuration sharing, selected preset state transfer and 170 typechecked default and configured examples. Improved the loading, deck, disclosure, Goo Menu and pull interactions.
+- Remaining — paired visual and behavior parity for 76 base-only Gallery entries, full controls and animation quality acceptance for each reference, and additional normal-motion/reversal footage.
+- Blocked — physical-device and screen reader acceptance has no recorded V6 evidence.
+- Next — make the remaining rich Studio compositions reproducible in the consumer before changing the inventory readiness flags.

@@ -51,3 +51,23 @@ test("all 82 live references have a distinct registry and Studio entry with sour
     }
   }
 });
+
+test("the parity ledger covers every reference and binds accepted evidence to an exact registry pin", async () => {
+  const parity = await read("../metadata/parity-manifest.json");
+  assert.deepEqual(parity.items.map(item => item.id), reference.items.map(item => item.id));
+  for (const row of parity.items) {
+    assert.ok(implementationPaths.has(row.installItem));
+    if (row.pin) {
+      assert.match(row.pin, /^[a-f0-9]{40}$/);
+      for (const file of row.files) assert.match(file.sha256, /^[a-f0-9]{64}$/);
+    }
+    if (row.parity === "parity-ok") {
+      assert.equal(row.pin, row.evidence.pin, row.id);
+      const report = JSON.parse(await readFile(row.evidence.report, "utf8"));
+      assert.equal(report.pin, row.pin, row.id);
+      const cases = report.cases.filter(item => item.item === row.installItem);
+      assert.equal(cases.length, 12, row.id);
+      assert.ok(cases.every(item => item.differentPixels <= .025), row.id);
+    }
+  }
+});

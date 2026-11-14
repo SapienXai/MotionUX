@@ -6,4 +6,4 @@
 
 ## V5 Gallery
 
-The room roof, fictional Emma Carter portrait and Aegean imagery are original ImageGen fixtures. They were generated for the Studio gallery and exported as local WebP crops. They contain no customer data and are excluded from registry items. The supplied design-reference PNG is documentation only.
+The room roof, fictional Emma Carter portrait and Aegean imagery are original ImageGen fixtures. They were generated for the Studio gallery and exported as local WebP crops. They contain no customer data and ship only with their V6 Gallery presets as text-encoded WebP fixtures. The supplied design-reference PNG is documentation only.

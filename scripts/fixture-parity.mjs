@@ -15,6 +15,7 @@ if (!/^[a-f0-9]{40}$/.test(pin)) throw new Error("Use a full published SHA.");
 const presets = Object.entries(manifest.presets);
 const temp = await mkdtemp(join(tmpdir(), "motionux-v6-react-"));
 const src = join(temp, "src");
+const manager = process.env.MOTIONUX_PACKAGE_MANAGER === "pnpm" ? "pnpm" : "npm";
 const cli = resolve("node_modules/.bin/shadcn");
 const run = (bin, args, capture = false) => execFileSync(bin, args, { cwd: temp, stdio: capture ? "pipe" : "inherit", maxBuffer: 16 * 1024 * 1024 });
 const write = (name, contents) => writeFile(join(temp, name), typeof contents === "string" ? contents : JSON.stringify(contents));
@@ -39,9 +40,10 @@ try {
     tailwind: { config: "", css: "src/index.css", baseColor: "neutral", cssVariables: true, prefix: "" },
     aliases: { components: "@/components", ui: "@/components/ui", utils: "@/lib/utils", lib: "@/lib", hooks: "@/hooks" } });
   await write("src/index.css", "");
-  const addresses = presets.map(([, spec]) => local ? resolve(`public/r/${spec.item}.json`) : `SapienXai/MotionUX/${spec.item}#${pin}`);
+  const address = item => local ? resolve(`public/r/${item}.json`) : `SapienXai/MotionUX/${item}#${pin}`;
+  const addresses = presets.map(([, spec]) => address(spec.item));
   run(cli, ["view", ...addresses], true);
-  run("npm", ["install", "--no-audit", "--no-fund"]);
+  run(manager, manager === "pnpm" ? ["install", "--ignore-scripts"] : ["install", "--no-audit", "--no-fund"]);
   run(cli, ["add", "--dry-run", ...addresses], true);
   run(cli, ["add", "--yes", ...addresses]);
   for (const [, { item }] of presets) {
@@ -52,31 +54,97 @@ try {
       if (!installed.equals(expected)) throw new Error(`Installed content differs for ${item}: ${target}`);
     }
   }
+  const host = await createServer({ root, server: { middlewareMode: true, hmr: false, watch: null }, appType: "custom" });
+  let base;
+  try {
+    const { previews, references } = await host.ssrLoadModule("/studio/catalog.ts");
+    const { featuredUsage, featuredDefinition } = await host.ssrLoadModule("/studio/playground/featured.ts");
+    base = await Promise.all(references.map(async row => {
+      const { default: specimen } = await previews[row.id]();
+      const source = specimen.usage.startsWith('"use client"') ? specimen.usage : '"use client";\n' + specimen.usage;
+      const entry = source.match(/export function (\w+)/)?.[1];
+      if (!entry) throw new Error(`No exported consumer example for ${row.id}`);
+      const params = {
+        "designbookmark-command-palette": "onOpen={() => {}}",
+        "kokonut-toolbar": "bold={false} toggleBold={() => {}}",
+        "designbookmark-spring-dropdown": 'onSelect={() => {}}',
+        "designbookmark-rubber-dock": 'activeHref="/workspace"',
+        "designbookmark-glass-lens": 'imageUrl="/quiet-hills.webp"',
+        "designbookmark-bottom-bar": 'pathname="/account"',
+        "designbookmark-dynamic-menu": 'onSelect={() => {}}',
+        "kokonut-thinking-text": 'visiblePhase="Ready" announcedState="Ready" working={false}',
+        "kokonut-glass-player": 'audioUrl="/field-tones.wav"',
+        "kokonut-morph-popover": 'onSelect={() => {}}',
+        "smoothui-music-toggle": 'audioUrl="/field-tones.wav"',
+        "designbookmark-streaming-reply": 'stateLabel="Ready" text="" pending={false} abort={() => {}}',
+        "kokonut-voice-input": 'state="idle" message="Ready" start={() => {}} stop={() => {}}',
+      }[row.id] ?? "";
+      const definition = featuredDefinition(row.id);
+      if (definition) {
+        const custom = Object.fromEntries(definition.fields.filter(field => field.section === "Props").map(field => [
+          field.key, field.type === "text" ? "Verified example" : field.default,
+        ]));
+        await write(`src/${row.id}-configured.tsx`, featuredUsage(row.id, custom, false, true));
+      }
+      await write(`src/${row.id}.tsx`, source + `\nexport default function Fixture() { return <${entry} ${params} />; }\n`);
+      return row;
+    }));
+  } finally { await host.close(); }
+  for (let i = 0; i < base.length; i += 16) run(cli, ["add", "--yes", ...base.slice(i, i + 16).map(row => address(row.registryItem))], true);
+  for (const asset of ["quiet-hills.webp", "field-tones.wav"]) {
+    await mkdir(join(temp, "public"), { recursive: true });
+    await writeFile(join(temp, "public", asset), await readFile(join(root, "studio/assets", asset)));
+  }
   const imports = presets.map(([, { item, export: name }]) =>
     `import { ${name} } from "./components/sapienx-motion/presets/showcase/${item.replace(/-gallery$/, "")}";`).join("\n");
   const rendered = presets.map(([id, { export: name }]) => `case "${id}": return ${name === "LoadingOutcome" ?
     "<LoadingOutcome onStart={() => setState('success')} state={state} simulation reducedMotion />" : `<${name} reducedMotion />`};`).join("\n");
+  await write("vite.config.mjs", `export default { resolve: { alias: { "@": new URL("./src", import.meta.url).pathname } } };`);
   await write("src/main.tsx", `import "@fontsource-variable/inter";
-import { useState } from "react";
+import { lazy, Suspense, useState, type ComponentType } from "react";
 import { createRoot } from "react-dom/client";
 ${imports}
+const examples = {
+${[...base.map(row => row.id), ...presets.map(([id]) => id + "-configured")].map(id => `"${id}": () => import("./${id}")`).join(",\n")}
+} as unknown as Record<string, () => Promise<{ default: ComponentType; Example?: ComponentType }>>;
+const id = new URLSearchParams(location.search).get("item");
+const mode = new URLSearchParams(location.search).get("mode");
+const base = mode === "base" ? lazy(examples[id!]) : null;
+const Configured = mode === "configured" ? lazy(() => examples[id + "-configured"]().then(value => ({ default: value.Example! }))) : null;
+const Base = base;
 function Fixture() {
  const [state, setState] = useState<"idle" | "success">("idle");
- switch (new URLSearchParams(location.search).get("item")) {
+ if (Base) return <section data-consumer-example><Base /></section>;
+ if (Configured) return <section data-consumer-example><Configured /></section>;
+ switch (id) {
   ${rendered}
   default: return null;
  }
 }
-createRoot(document.getElementById("root")!).render(<Fixture />);
+createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><Fixture /></Suspense>);
 `);
   await write("index.html", '<!doctype html><html lang="en"><meta name="viewport" content="width=device-width, initial-scale=1"><div id="root"></div><script type="module" src="/src/main.tsx"></script></html>');
   run(resolve("node_modules/.bin/tsc"), ["-p", join(temp, "tsconfig.json")]);
   // The fixture consumes the installed files from a separate production build.
-  await build({ root: temp, configFile: false, logLevel: "error" });
+  await build({ root: temp, logLevel: "error" });
   consumer = await preview({ root: temp, configFile: false, logLevel: "error", preview: { host: "127.0.0.1", port: 0 } });
   studio = await createServer({ root, logLevel: "error", server: { host: "127.0.0.1", port: 0 } });
   await studio.listen();
   [chrome, safari] = await Promise.all([chromium.launch(), webkit.launch()]);
+  const smoke = await chrome.newPage({ viewport: { width: 1024, height: 900 }, reducedMotion: "reduce" });
+  const errors = [];
+  smoke.on("pageerror", error => errors.push(error.message));
+  for (const { id } of base) {
+    await smoke.goto(`${origin(consumer)}/?mode=base&item=${id}`);
+    await expect(smoke.locator("[data-consumer-example]")).toBeVisible();
+    if (!await smoke.locator("[data-consumer-example]").evaluate(node => node.childElementCount)) throw new Error(`Empty consumer example ${id}`);
+  }
+  for (const [id] of presets) {
+    await smoke.goto(`${origin(consumer)}/?mode=configured&item=${id}`);
+    await expect(smoke.locator("[data-consumer-example] .mx-feature")).toBeVisible();
+  }
+  await smoke.close();
+  if (errors.length) throw new Error(errors.join("\n"));
   const summaries = [];
   for (const width of [390, 768, 1536]) {
     for (const scheme of ["light", "dark"]) {
@@ -133,8 +201,8 @@ createRoot(document.getElementById("root")!).render(<Fixture />);
       await Promise.all([gallery.close(), isolated.close()]);
     }
   }
-  await writeFile(join(evidence, "report.json"), JSON.stringify({ pin: local ? null : pin, cases: summaries }, null, 2) + "\n");
-  console.log(`${summaries.length} installed React preset comparisons passed (ARIA and ≤2.5% visually differing pixels).`);
+  await writeFile(join(evidence, "report.json"), JSON.stringify({ pin: local ? null : pin, manager, baseUsageMounts: base.length, customizedPresetMounts: presets.length, cases: summaries }, null, 2) + "\n");
+  console.log(`${base.length} base and ${presets.length} customized preset examples mounted in an isolated production build.\n${summaries.length} installed React preset comparisons passed (ARIA and ≤2.5% visually differing pixels).`);
 } finally {
   if (studio) await studio.close();
   if (consumer) await new Promise(resolveClose => consumer.httpServer.close(resolveClose));

@@ -8,6 +8,8 @@ Numeric values record the observed scope on the [0–5 quality scale](QUALITY-GA
 - **Performance 3** applies only to the three sampled routes measured at 4× CPU throttling.
 - **Production 2** records a shared registry install and TypeScript check. Full product, device and per-item acceptance stays open.
 
+For V6, six Gallery presets also passed clean consumer screenshot and ARIA parity under reduced motion. The evidence does not change individual readiness. [V6 acceptance report](STUDIO-V6-ACCEPTANCE.md) · [Contract manifest](../metadata/parity-manifest.json)
+
 | Reference | Visual | Interaction | Accessibility | Performance | Production | Open review |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
 | Plan switch · DesignBookmark | 3 | 3 | 3 | — | 2 | Review active states, reference fidelity and physical-device behavior. |

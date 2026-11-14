@@ -57,7 +57,7 @@ function Inspector({ item, panel, story, preset, usage }: { item: Reference; pan
   const version = registryVersion(item, preset);
   if (panel === "Code") return <SourceCode key={version?.item} item={item} preset={preset} />;
   if (panel === "Install") return version?.pin ? <>
-    <p>Install this preview checkpoint in a project with a shadcn configuration.</p>
+    <p>Install this preview checkpoint in a project with a shadcn configuration. {preset ? "This package includes the Gallery composition and its styles." : "This command installs the base component and its public styles. The Studio supplies the demo content."}</p>
     <CopyBlock content={`npx shadcn@4.23.0 add 'SapienXai/MotionUX/${version.item}#${version.pin}'`} label="Copy install command" />
   </> : <p>A matching published installation pin is unavailable for this build.</p>;
   if (panel === "Source") return <>
@@ -130,7 +130,7 @@ export default function Playground({ item, route, back, reduced, systemReduced }
         <label>Language <select aria-label="Language" value={language} onChange={event => setLanguage(event.target.value as "en" | "tr")}><option value="en">English</option><option value="tr">Türkçe</option></select></label>
         <label className="mx-check"><input type="checkbox" checked={minimize} disabled={systemReduced} onChange={event => setQuiet(event.target.checked)} /> Reduced motion</label>
         <button type="button" className="mx-button" aria-pressed={compare} onClick={() => setCompare(!compare)}>Compare</button>
-        {hasFeatured && <button type="button" className="mx-button" aria-pressed={galleryExample} onClick={() => setGalleryExample(!galleryExample)}>Gallery example</button>}
+        {hasFeatured && <button type="button" className="mx-button" aria-pressed={galleryExample} onClick={() => { setGalleryExample(!galleryExample); setDraft({}); }}>Gallery example</button>}
         {item.id === "designbookmark-tab-pill" && galleryExample &&
           <label className="mx-check"><input type="checkbox" checked={booleanValue(config, "disableAnalytics") ?? false} onChange={event => update("disableAnalytics", event.target.checked)} /> Disable Analytics</label>}
       </div></details>

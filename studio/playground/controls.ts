@@ -34,8 +34,8 @@ export const stringValue = (config: Config | undefined, key: string) => typeof c
 export const numberValue = (config: Config | undefined, key: string) => typeof config?.[key] === "number" ? config[key] : undefined;
 export const booleanValue = (config: Config | undefined, key: string) => typeof config?.[key] === "boolean" ? config[key] : undefined;
 
-export function example(name: string, module: string, props: Record<string, unknown>, runtime?: { setup: string; handlers: Record<string, string> }) {
+export function example(name: string, module: string, props: Record<string, unknown>, runtime?: { setup: string; handlers: Record<string, string>; hooks?: readonly string[] }) {
   const values = Object.entries(props).filter(([, value]) => value !== undefined).map(([key, value]) => `${key}={${JSON.stringify(value)}}`);
   const handlers = Object.entries(runtime?.handlers ?? {}).map(([key, source]) => `${key}={${source}}`);
-  return `"use client";\n\n${runtime ? 'import { useState } from "react";\n' : ""}import { ${name} } from "@/components/sapienx-motion/${module}";\n\nexport function Example() {\n${runtime ? `  ${runtime.setup}\n` : ""}  return <${name} ${[...values, ...handlers].join(" ")} />;\n}`;
+  return `"use client";\n\n${runtime ? (`import { ${runtime.hooks?.join(", ") ?? "useState"} } from "react";\n`) : ""}import { ${name} } from "@/components/sapienx-motion/${module}";\n\nexport function Example() {\n${runtime ? `  ${runtime.setup}\n` : ""}  return <${name} ${[...values, ...handlers].join(" ")} />;\n}`;
 }

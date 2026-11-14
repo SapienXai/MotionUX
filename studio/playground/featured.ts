@@ -76,8 +76,14 @@ export function featuredUsage(id: string, config: Config, tr: boolean, reducedMo
       setup: `const [value, setValue] = useState(${JSON.stringify(stringValue(config, "value") ?? "overview")});`, handlers: { value: "value", onValueChange: "setValue" },
     });
     case "designbookmark-loading-to-success": return example(name, module, { ...common, labels: outcomeLabels(config, tr), simulation: true }, {
-      setup: `const [state, setState] = useState<${JSON.stringify("idle")} | "pending" | "success" | "error">(${JSON.stringify((stringValue(config, "state") ?? "idle") as OutcomeState)});`,
-      handlers: { state: "state", onStart: '() => { setState("pending"); window.setTimeout(() => setState("success"), 720); }' },
+      setup: `const [state, setState] = useState<"idle" | "pending" | "success" | "error">(${JSON.stringify((stringValue(config, "state") ?? "idle") as OutcomeState)});
+  useEffect(() => {
+    if (state !== "pending") return;
+    const reduced = ${reducedMotion} || matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const timer = window.setTimeout(() => setState("success"), reduced ? 0 : 720);
+    return () => window.clearTimeout(timer);
+  }, [state]);`,
+      handlers: { state: "state", onStart: '() => setState("pending")' }, hooks: ["useEffect", "useState"],
     });
     case "designbookmark-expand-card": return example(name, module, { ...common, ...roomProps(config, tr), defaultExpanded: stringValue(config, "expanded") });
     case "kokonut-morph-popover": return example(name, module, { ...common, ...menuProps(config, tr), defaultOpen: booleanValue(config, "open") });

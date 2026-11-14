@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "defaultPin": "556273c551538fe733651fa3616ab54fbf60e499",
+  "defaultPin": "c22952178d8dab976fcb33becece567136c647e4",
   "featured": [
     "designbookmark-tab-pill",
     "designbookmark-loading-to-success",
@@ -42,7 +42,7 @@
       "installItem": "plan-switch",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -94,7 +94,7 @@
       "installItem": "letter-limit",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
@@ -147,7 +147,7 @@
       "installItem": "pull-cord",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/pull-cord.tsx",
@@ -199,7 +199,7 @@
       "installItem": "morph-tooltip",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/morph-tooltip.tsx",
@@ -251,7 +251,7 @@
       "installItem": "spring-dropdown",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/action-menu.tsx",
@@ -304,12 +304,12 @@
       "installItem": "file-drop",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
           "target": "@components/sapienx-motion/special-fields.tsx",
-          "sha256": "6a126b3613fe10b79674483a61a78716424aaca11055c4f7e25452886d19e754"
+          "sha256": "7d648818a066bdd02d7246f006093f6ec6d9ef2d999827d88b6744b8d3bfadee"
         },
         {
           "path": "components/inputs/special-fields.css",
@@ -348,7 +348,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-command-button",
@@ -356,7 +356,7 @@
       "installItem": "designbookmark-command-button",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -408,17 +408,17 @@
       "installItem": "morph-island",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
           "target": "@components/sapienx-motion/disclosure-cards.tsx",
-          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
         },
         {
           "path": "components/gestures/disclosure-cards.css",
           "target": "@components/sapienx-motion/disclosure-cards.css",
-          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
         }
       ],
       "publicContract": {
@@ -453,7 +453,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-goo-menu",
@@ -461,17 +461,17 @@
       "installItem": "goo-menu",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
           "target": "@components/sapienx-motion/goo-studies.tsx",
-          "sha256": "f266b388411ddd6749ff987e532e6803e79fac3836f568f4e715d71460e1747b"
+          "sha256": "de041bf2fdafa09840221021af7c793a7702aa807531257e44607ab8bef0d76f"
         },
         {
           "path": "components/gestures/goo-studies.css",
           "target": "@components/sapienx-motion/goo-studies.css",
-          "sha256": "e7c020bb4d484e93fe91474ddb61be2216fefdec41771e172b198f1f9c42e7f7"
+          "sha256": "27b3fee3291731667ca1a84b0e710a4fd91f420e5d50de1f4f92074806d20d45"
         }
       ],
       "publicContract": {
@@ -506,7 +506,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-jelly-slider",
@@ -514,7 +514,7 @@
       "installItem": "jelly-slider",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -567,7 +567,7 @@
       "installItem": "hold-to-publish",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/confirmation-controls.tsx",
@@ -620,12 +620,12 @@
       "installItem": "destination-deck-gallery",
       "preview": "DestinationDeck",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/showcase/destination-deck.tsx",
           "target": "@components/sapienx-motion/presets/showcase/destination-deck.tsx",
-          "sha256": "e60eb8419203b62699203cfae30bb2731a022dcf71ee345d56f3e6d45e3d04ab"
+          "sha256": "3fc17acc3cd26e22da173d3d1e54704b735fbb8d1bea2d7f62f647f778b4aabd"
         },
         {
           "path": "components/showcase/preset-frame.tsx",
@@ -696,7 +696,7 @@
         ]
       },
       "base": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "files": [
           {
             "path": "components/gestures/deck-and-page.tsx",
@@ -741,7 +741,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "report": "docs/evidence/studio-v6/consumer-parity.json",
         "states": [
           "idle",
@@ -758,7 +758,7 @@
         ],
         "motion": "reduced"
       },
-      "parity": "blocked"
+      "parity": "parity-ok"
     },
     {
       "id": "designbookmark-springy-input",
@@ -766,7 +766,7 @@
       "installItem": "springy-input",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
@@ -819,7 +819,7 @@
       "installItem": "rubber-dock",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/rubber-dock.tsx",
@@ -871,12 +871,12 @@
       "installItem": "parallax-ticket",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
           "target": "@components/sapienx-motion/interactive-surfaces.tsx",
-          "sha256": "c6082b3be757356efaf312ca57c678aea323a3a68c689cac21925e8ff319638e"
+          "sha256": "c1a48d669661ff83edf26bf2f8291bf9245c8a613c056e843f09f611c3f83d80"
         },
         {
           "path": "components/gestures/interactive-surfaces.css",
@@ -916,7 +916,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-glass-lens",
@@ -924,12 +924,12 @@
       "installItem": "glass-lens",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
           "target": "@components/sapienx-motion/interactive-surfaces.tsx",
-          "sha256": "c6082b3be757356efaf312ca57c678aea323a3a68c689cac21925e8ff319638e"
+          "sha256": "c1a48d669661ff83edf26bf2f8291bf9245c8a613c056e843f09f611c3f83d80"
         },
         {
           "path": "components/gestures/interactive-surfaces.css",
@@ -969,7 +969,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-pull-to-refresh",
@@ -977,12 +977,12 @@
       "installItem": "pull-to-refresh",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
           "target": "@components/sapienx-motion/interactive-surfaces.tsx",
-          "sha256": "c6082b3be757356efaf312ca57c678aea323a3a68c689cac21925e8ff319638e"
+          "sha256": "c1a48d669661ff83edf26bf2f8291bf9245c8a613c056e843f09f611c3f83d80"
         },
         {
           "path": "components/gestures/interactive-surfaces.css",
@@ -1022,7 +1022,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-word-roll",
@@ -1030,7 +1030,7 @@
       "installItem": "word-roll",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1082,7 +1082,7 @@
       "installItem": "weight-wave",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1134,17 +1134,17 @@
       "installItem": "goo-morph",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
           "target": "@components/sapienx-motion/goo-studies.tsx",
-          "sha256": "f266b388411ddd6749ff987e532e6803e79fac3836f568f4e715d71460e1747b"
+          "sha256": "de041bf2fdafa09840221021af7c793a7702aa807531257e44607ab8bef0d76f"
         },
         {
           "path": "components/gestures/goo-studies.css",
           "target": "@components/sapienx-motion/goo-studies.css",
-          "sha256": "e7c020bb4d484e93fe91474ddb61be2216fefdec41771e172b198f1f9c42e7f7"
+          "sha256": "27b3fee3291731667ca1a84b0e710a4fd91f420e5d50de1f4f92074806d20d45"
         }
       ],
       "publicContract": {
@@ -1179,7 +1179,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-scramble-text",
@@ -1187,7 +1187,7 @@
       "installItem": "scramble-text",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1239,7 +1239,7 @@
       "installItem": "read-along",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1291,7 +1291,7 @@
       "installItem": "roll-links",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1343,7 +1343,7 @@
       "installItem": "prompt-box",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/ai/composer.tsx",
@@ -1395,7 +1395,7 @@
       "installItem": "streaming-reply",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -1448,7 +1448,7 @@
       "installItem": "ghost-suggestion",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/ai/composer.tsx",
@@ -1500,7 +1500,7 @@
       "installItem": "goo-thinking",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/tool-approval.tsx",
@@ -1553,12 +1553,12 @@
       "installItem": "expandable-room-gallery",
       "preview": "ExpandableRoom",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/showcase/expandable-room.tsx",
           "target": "@components/sapienx-motion/presets/showcase/expandable-room.tsx",
-          "sha256": "61b797315a8d172bfe942deb43e670a32b7634f85e39fb0ae5828bf66354258c"
+          "sha256": "71645d44f3809d877113fadee70b3be4bf1a21ad3e48e57697a1f89ed5a403e2"
         },
         {
           "path": "components/showcase/preset-frame.tsx",
@@ -1578,12 +1578,12 @@
         {
           "path": "components/gestures/disclosure-cards.tsx",
           "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.tsx",
-          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
         },
         {
           "path": "components/gestures/disclosure-cards.css",
           "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css",
-          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
         }
       ],
       "publicContract": {
@@ -1629,17 +1629,17 @@
         ]
       },
       "base": {
-        "pin": null,
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "files": [
           {
             "path": "components/gestures/disclosure-cards.tsx",
             "target": "@components/sapienx-motion/disclosure-cards.tsx",
-            "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+            "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
           },
           {
             "path": "components/gestures/disclosure-cards.css",
             "target": "@components/sapienx-motion/disclosure-cards.css",
-            "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+            "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
           }
         ],
         "publicContract": {
@@ -1674,7 +1674,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "report": "docs/evidence/studio-v6/consumer-parity.json",
         "states": [
           "idle",
@@ -1691,7 +1691,7 @@
         ],
         "motion": "reduced"
       },
-      "parity": "blocked"
+      "parity": "parity-ok"
     },
     {
       "id": "designbookmark-fan-cards",
@@ -1699,7 +1699,7 @@
       "installItem": "fan-cards",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/gestures/deck-and-page.tsx",
@@ -1752,17 +1752,17 @@
       "installItem": "stat-card",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
           "target": "@components/sapienx-motion/disclosure-cards.tsx",
-          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
         },
         {
           "path": "components/gestures/disclosure-cards.css",
           "target": "@components/sapienx-motion/disclosure-cards.css",
-          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
         }
       ],
       "publicContract": {
@@ -1797,7 +1797,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-profile-card",
@@ -1805,12 +1805,12 @@
       "installItem": "featured-profile-gallery",
       "preview": "FeaturedProfile",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/showcase/featured-profile.tsx",
           "target": "@components/sapienx-motion/presets/showcase/featured-profile.tsx",
-          "sha256": "f329e3ffbf84b497cb385aae73be4d18dd14a8936beade0aa2ca860a4a76d209"
+          "sha256": "affc1b4d9c0d5180b93d03828206a6cd2c5c4f9a586421e5218a6cbe84847940"
         },
         {
           "path": "components/showcase/preset-frame.tsx",
@@ -1830,12 +1830,12 @@
         {
           "path": "components/gestures/disclosure-cards.tsx",
           "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.tsx",
-          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
         },
         {
           "path": "components/gestures/disclosure-cards.css",
           "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css",
-          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
         }
       ],
       "publicContract": {
@@ -1881,17 +1881,17 @@
         ]
       },
       "base": {
-        "pin": null,
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "files": [
           {
             "path": "components/gestures/disclosure-cards.tsx",
             "target": "@components/sapienx-motion/disclosure-cards.tsx",
-            "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+            "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
           },
           {
             "path": "components/gestures/disclosure-cards.css",
             "target": "@components/sapienx-motion/disclosure-cards.css",
-            "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+            "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
           }
         ],
         "publicContract": {
@@ -1926,7 +1926,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "report": "docs/evidence/studio-v6/consumer-parity.json",
         "states": [
           "idle",
@@ -1943,7 +1943,7 @@
         ],
         "motion": "reduced"
       },
-      "parity": "blocked"
+      "parity": "parity-ok"
     },
     {
       "id": "designbookmark-magnetic-button",
@@ -1951,7 +1951,7 @@
       "installItem": "magnetic-button",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -2004,7 +2004,7 @@
       "installItem": "loading-outcome-gallery",
       "preview": "LoadingOutcome",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/showcase/loading-outcome.tsx",
@@ -2070,7 +2070,7 @@
         ]
       },
       "base": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "files": [
           {
             "path": "components/feedback/feedback-actions.tsx",
@@ -2115,7 +2115,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "report": "docs/evidence/studio-v6/consumer-parity.json",
         "states": [
           "idle",
@@ -2140,7 +2140,7 @@
       "installItem": "copy-button",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -2193,7 +2193,7 @@
       "installItem": "like-burst",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -2246,7 +2246,7 @@
       "installItem": "sliding-tab-pill-gallery",
       "preview": "SlidingTabPill",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/showcase/sliding-tab-pill.tsx",
@@ -2312,7 +2312,7 @@
         ]
       },
       "base": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "files": [
           {
             "path": "components/navigation/motion-selector.tsx",
@@ -2356,7 +2356,7 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "report": "docs/evidence/studio-v6/consumer-parity.json",
         "states": [
           "idle",
@@ -2381,7 +2381,7 @@
       "installItem": "bottom-bar",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/motion-selector.tsx",
@@ -2433,7 +2433,7 @@
       "installItem": "dynamic-menu",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/action-menu.tsx",
@@ -2486,7 +2486,7 @@
       "installItem": "segmented-control",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/motion-selector.tsx",
@@ -2538,7 +2538,7 @@
       "installItem": "sidebar-collapse",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/sidebar-collapse.tsx",
@@ -2591,7 +2591,7 @@
       "installItem": "command-palette",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/command-palette.tsx",
@@ -2643,7 +2643,7 @@
       "installItem": "step-progress",
       "preview": "studio/catalog.ts",
       "legacyPin": "baa132e0c01e7ed96a0c02415a5c271911d01482",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/progress-sequence.tsx",
@@ -2696,7 +2696,7 @@
       "installItem": "otp-code",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
@@ -2749,7 +2749,7 @@
       "installItem": "toggle-switch",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -2801,7 +2801,7 @@
       "installItem": "star-rating",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -2854,7 +2854,7 @@
       "installItem": "tag-input",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
@@ -2907,7 +2907,7 @@
       "installItem": "number-stepper",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -2960,7 +2960,7 @@
       "installItem": "range-slider",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -3013,7 +3013,7 @@
       "installItem": "password-strength",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
@@ -3066,7 +3066,7 @@
       "installItem": "checkbox-list",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -3119,7 +3119,7 @@
       "installItem": "detent-dial",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -3172,7 +3172,7 @@
       "installItem": "siri-orb",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
@@ -3225,7 +3225,7 @@
       "installItem": "agent-steps",
       "preview": "studio/catalog.ts",
       "legacyPin": "baa132e0c01e7ed96a0c02415a5c271911d01482",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/progress-sequence.tsx",
@@ -3278,7 +3278,7 @@
       "installItem": "hold-button",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/confirmation-controls.tsx",
@@ -3331,7 +3331,7 @@
       "installItem": "exposure-slider",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -3384,17 +3384,17 @@
       "installItem": "boarding-pass",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
           "target": "@components/sapienx-motion/disclosure-cards.tsx",
-          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
         },
         {
           "path": "components/gestures/disclosure-cards.css",
           "target": "@components/sapienx-motion/disclosure-cards.css",
-          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
         }
       ],
       "publicContract": {
@@ -3429,7 +3429,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-marker-text",
@@ -3437,7 +3437,7 @@
       "installItem": "marker-text",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -3489,7 +3489,7 @@
       "installItem": "smooth-tab",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/swipe-tabs.tsx",
@@ -3561,17 +3561,17 @@
       "installItem": "unlock-face-id",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
           "target": "@components/sapienx-motion/goo-studies.tsx",
-          "sha256": "f266b388411ddd6749ff987e532e6803e79fac3836f568f4e715d71460e1747b"
+          "sha256": "de041bf2fdafa09840221021af7c793a7702aa807531257e44607ab8bef0d76f"
         },
         {
           "path": "components/gestures/goo-studies.css",
           "target": "@components/sapienx-motion/goo-studies.css",
-          "sha256": "e7c020bb4d484e93fe91474ddb61be2216fefdec41771e172b198f1f9c42e7f7"
+          "sha256": "27b3fee3291731667ca1a84b0e710a4fd91f420e5d50de1f4f92074806d20d45"
         }
       ],
       "publicContract": {
@@ -3606,7 +3606,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-slide-to-confirm",
@@ -3614,7 +3614,7 @@
       "installItem": "slide-to-confirm",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/confirmation-controls.tsx",
@@ -3667,7 +3667,7 @@
       "installItem": "notification-stack",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/notification-stack.tsx",
@@ -3720,12 +3720,12 @@
       "installItem": "wheel-picker",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
           "target": "@components/sapienx-motion/special-fields.tsx",
-          "sha256": "6a126b3613fe10b79674483a61a78716424aaca11055c4f7e25452886d19e754"
+          "sha256": "7d648818a066bdd02d7246f006093f6ec6d9ef2d999827d88b6744b8d3bfadee"
         },
         {
           "path": "components/inputs/special-fields.css",
@@ -3764,7 +3764,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-dynamic-text",
@@ -3772,7 +3772,7 @@
       "installItem": "dynamic-text",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -3824,7 +3824,7 @@
       "installItem": "voice-input",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -3877,7 +3877,7 @@
       "installItem": "tool-approval",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/tool-approval.tsx",
@@ -3930,7 +3930,7 @@
       "installItem": "toolbar",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/motion-toolbar.tsx",
@@ -3980,7 +3980,7 @@
       "installItem": "scrubber",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
@@ -4033,7 +4033,7 @@
       "installItem": "cart-button",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -4086,7 +4086,7 @@
       "installItem": "page-flip",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/gestures/deck-and-page.tsx",
@@ -4139,12 +4139,12 @@
       "installItem": "signature-pad",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
           "target": "@components/sapienx-motion/special-fields.tsx",
-          "sha256": "6a126b3613fe10b79674483a61a78716424aaca11055c4f7e25452886d19e754"
+          "sha256": "7d648818a066bdd02d7246f006093f6ec6d9ef2d999827d88b6744b8d3bfadee"
         },
         {
           "path": "components/inputs/special-fields.css",
@@ -4183,7 +4183,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-undo-button",
@@ -4191,7 +4191,7 @@
       "installItem": "undo-button",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -4244,12 +4244,12 @@
       "installItem": "card-field",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
           "target": "@components/sapienx-motion/special-fields.tsx",
-          "sha256": "6a126b3613fe10b79674483a61a78716424aaca11055c4f7e25452886d19e754"
+          "sha256": "7d648818a066bdd02d7246f006093f6ec6d9ef2d999827d88b6744b8d3bfadee"
         },
         {
           "path": "components/inputs/special-fields.css",
@@ -4288,7 +4288,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "blocked"
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-stack-panel",
@@ -4296,7 +4296,7 @@
       "installItem": "stack-panel",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/stack-panel.tsx",
@@ -4349,7 +4349,7 @@
       "installItem": "typewriter",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -4401,7 +4401,7 @@
       "installItem": "thinking-text",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -4454,7 +4454,7 @@
       "installItem": "glass-player",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
@@ -4507,7 +4507,7 @@
       "installItem": "bell-button",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -4560,12 +4560,12 @@
       "installItem": "morph-dropdown-gallery",
       "preview": "MorphDropdown",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": null,
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/showcase/morph-dropdown.tsx",
           "target": "@components/sapienx-motion/presets/showcase/morph-dropdown.tsx",
-          "sha256": "b8a24054937877640a9ec6a70d312e7cf39f2d2951430896f957d2f2165d1674"
+          "sha256": "3f52256e690d5999bd3047411d21393e707e7d2f6cd3e24bf0f6cd368c46ca9c"
         },
         {
           "path": "components/showcase/preset-frame.tsx",
@@ -4626,7 +4626,7 @@
         ]
       },
       "base": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "files": [
           {
             "path": "components/navigation/action-menu.tsx",
@@ -4671,7 +4671,7 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": "c22952178d8dab976fcb33becece567136c647e4",
         "report": "docs/evidence/studio-v6/consumer-parity.json",
         "states": [
           "idle",
@@ -4688,7 +4688,7 @@
         ],
         "motion": "reduced"
       },
-      "parity": "blocked"
+      "parity": "parity-ok"
     },
     {
       "id": "smoothui-task-list",
@@ -4696,7 +4696,7 @@
       "installItem": "task-list",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -4749,7 +4749,7 @@
       "installItem": "music-toggle",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
@@ -4802,7 +4802,7 @@
       "installItem": "kokonut-command-button",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -4854,7 +4854,7 @@
       "installItem": "pagination-dots",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": "c22952178d8dab976fcb33becece567136c647e4",
       "files": [
         {
           "path": "components/navigation/pagination-dots.tsx",

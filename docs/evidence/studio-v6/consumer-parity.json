@@ -1,5 +1,8 @@
 {
-  "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+  "pin": "c22952178d8dab976fcb33becece567136c647e4",
+  "manager": "npm",
+  "baseUsageMounts": 82,
+  "customizedPresetMounts": 6,
   "cases": [
     {
       "item": "sliding-tab-pill-gallery",

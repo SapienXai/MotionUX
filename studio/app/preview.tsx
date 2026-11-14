@@ -14,8 +14,8 @@ function requestStory(id: string) {
 }
 let featured: ReturnType<typeof loadFeatured> | undefined;
 function loadFeatured() { return import("../demos/gallery-featured"); }
-function FeaturedPreview({ item, reduced, config, update, language }: {
-  item: Reference; reduced: boolean; config?: Config; update?: (key: string, value: Value) => void; language?: "en" | "tr";
+function FeaturedPreview({ item, reduced, config, update, onStateChange, language }: {
+  item: Reference; reduced: boolean; config?: Config; update?: (key: string, value: Value) => void; onStateChange?: (key: string, value: Value) => void; language?: "en" | "tr";
 }) {
   const [module, setModule] = useState<Awaited<ReturnType<typeof loadFeatured>>>();
   const [error, setError] = useState(false);
@@ -30,7 +30,7 @@ function FeaturedPreview({ item, reduced, config, update, language }: {
     return () => { live = false; };
   }, [attempt]);
   if (error) return <PreviewError retry={() => { setError(false); setAttempt(value => value + 1); }} />;
-  return module ? <module.default id={item.id} reduced={reduced} config={config} update={update} language={language} /> : <PreviewLoading />;
+  return module ? <module.default id={item.id} reduced={reduced} config={config} update={update} onStateChange={onStateChange} language={language} /> : <PreviewLoading />;
 }
 
 export function useStory(item: Reference) {
@@ -59,10 +59,10 @@ export class PreviewBoundary extends Component<{ children: ReactNode; onRetry?: 
   }
 }
 
-export function GalleryPreview({ item, reduced, lead, config, update, language }: {
-  item: Reference; reduced: boolean; lead: boolean; config?: Config; update?: (key: string, value: Value) => void; language?: "en" | "tr";
+export function GalleryPreview({ item, reduced, lead, config, update, onStateChange, language }: {
+  item: Reference; reduced: boolean; lead: boolean; config?: Config; update?: (key: string, value: Value) => void; onStateChange?: (key: string, value: Value) => void; language?: "en" | "tr";
 }) {
-  return <PreviewBoundary>{lead ? <FeaturedPreview item={item} reduced={reduced} config={config} update={update} language={language} />
+  return <PreviewBoundary>{lead ? <FeaturedPreview item={item} reduced={reduced} config={config} update={update} onStateChange={onStateChange} language={language} />
     : <StandardPreview item={item} reduced={reduced} />}</PreviewBoundary>;
 }
 function StandardPreview({ item, reduced }: { item: Reference; reduced: boolean }) {
