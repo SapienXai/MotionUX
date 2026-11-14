@@ -28,9 +28,7 @@ Open the local URL printed by Vite. Try a live card in Gallery, click **Open pla
 | **Signature Pad** | Draw a stroke, undo it, or enter a typed signature. |
 | **Glass Player** | Play, pause, and seek a local audio sample. |
 
-[Desktop reference comparison](docs/evidence/studio-v5/reference-comparison.png) · [Mobile Gallery](docs/evidence/studio-v5/mobile-390-light.png)
-
-[Try the featured examples](#run-motionux-studio) · [See the Playground](docs/evidence/studio-v5/playground-desktop.png)
+[Desktop reference comparison](docs/evidence/studio-v5/reference-comparison.png) · [Mobile Gallery](docs/evidence/studio-v5/mobile-390-light.png) · [See the Playground](docs/evidence/studio-v5/playground-desktop.png)
 
 ## Install your first component
 
@@ -98,6 +96,6 @@ For automatic use on SapienX React and Next.js work, merge the [AGENTS.md sectio
 
 ## Verification and license
 
-The catalog checkpoint passed **282 browser checks** across desktop Chromium, touch Chromium, and iPhone-profile WebKit. GitHub CI installed and typechecked **86 registry entries** in a clean React project. Representative items also built with Next.js 16 and Tailwind 3 and 4. [CI run](https://github.com/SapienXai/MotionUX/actions/runs/43598270900) · [Registry verification](docs/VERIFICATION.md) · [V5 Studio verification](docs/STUDIO-V5-VERIFICATION.md)
+Studio V5 passed **306 browser checks** across desktop Chromium, touch Chromium, and iPhone-profile WebKit. The registry smoke test installed and typechecked **86 registry entries** in a clean React project. The V5 report includes the 1536 × 1024 reference comparison and the first-viewport performance measurements. [V5 verification](docs/STUDIO-V5-VERIFICATION.md) · [GitHub Actions](https://github.com/SapienXai/MotionUX/actions/workflows/ci.yml?query=branch%3Amain) · [Registry verification](docs/VERIFICATION.md)
 
 MotionUX is MIT licensed. Adapted components retain their upstream notices. [License](LICENSE) · [Source review](docs/SOURCE-REVIEW.md) · [Changelog](CHANGELOG.md)
