@@ -213,6 +213,208 @@
           "target": "@components/sapienx-motion/pull-cord.css"
         }
       ]
+    },
+    {
+      "name": "morph-tooltip",
+      "type": "registry:component",
+      "title": "Morph tooltip",
+      "description": "Reveal concise help on hover, focus or tap; close on Escape without stealing focus.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/morph-tooltip.tsx",
+          "target": "@components/sapienx-motion/morph-tooltip.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/navigation/morph-tooltip.css",
+          "target": "@components/sapienx-motion/morph-tooltip.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "spring-dropdown",
+      "type": "registry:component",
+      "title": "Spring dropdown",
+      "description": "Open from the trigger, choose an option with arrows or touch, and restore trigger focus.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/action-menu.tsx",
+          "target": "@components/sapienx-motion/action-menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/navigation/action-menu.css",
+          "target": "@components/sapienx-motion/action-menu.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "dynamic-menu",
+      "type": "registry:component",
+      "title": "Dynamic menu",
+      "description": "Expand a compact menu into a labelled action list; dismiss and return focus.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/action-menu.tsx",
+          "target": "@components/sapienx-motion/action-menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/navigation/action-menu.css",
+          "target": "@components/sapienx-motion/action-menu.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "morph-popover",
+      "type": "registry:component",
+      "title": "Morph popover",
+      "description": "Expand from an actionable trigger, restore focus and support outside dismissal.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/action-menu.tsx",
+          "target": "@components/sapienx-motion/action-menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/navigation/action-menu.css",
+          "target": "@components/sapienx-motion/action-menu.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "rubber-dock",
+      "type": "registry:component",
+      "title": "Rubber dock",
+      "description": "Move between real destinations; give the selected dock item elastic continuity.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/rubber-dock.tsx",
+          "target": "@components/sapienx-motion/rubber-dock.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/navigation/rubber-dock.css",
+          "target": "@components/sapienx-motion/rubber-dock.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-collapse",
+      "type": "registry:component",
+      "title": "Sidebar collapse",
+      "description": "Open or close a navigation rail while preserving focus, labels and route state.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/sidebar-collapse.tsx",
+          "target": "@components/sapienx-motion/sidebar-collapse.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/navigation/sidebar-collapse.css",
+          "target": "@components/sapienx-motion/sidebar-collapse.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "smooth-tab",
+      "type": "registry:component",
+      "title": "Smooth tab",
+      "description": "Swipe between real tab panels while retaining arrow-key and direct selection.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/swipe-tabs.tsx",
+          "target": "@components/sapienx-motion/swipe-tabs.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/navigation/swipe-tabs.css",
+          "target": "@components/sapienx-motion/swipe-tabs.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "components/navigation/motion-selector.tsx",
+          "target": "@components/sapienx-motion/motion-selector.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/navigation/motion-selector.css",
+          "target": "@components/sapienx-motion/motion-selector.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "toolbar",
+      "type": "registry:component",
+      "title": "Toolbar",
+      "description": "Group actions with roving focus, named shortcuts and actual callbacks.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "components/navigation/motion-toolbar.tsx",
+          "target": "@components/sapienx-motion/motion-toolbar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/navigation/motion-toolbar.css",
+          "target": "@components/sapienx-motion/motion-toolbar.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "stack-panel",
+      "type": "registry:component",
+      "title": "Stack panel",
+      "description": "Select and reveal a stack of panels while keeping offscreen actions out of the focus order.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/stack-panel.tsx",
+          "target": "@components/sapienx-motion/stack-panel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/navigation/stack-panel.css",
+          "target": "@components/sapienx-motion/stack-panel.css",
+          "type": "registry:file"
+        }
+      ]
     }
   ]
 }

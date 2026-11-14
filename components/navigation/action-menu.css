@@ -1,0 +1,13 @@
+[data-mx-action-menu] { position: relative; display: inline-block; max-inline-size: 100%; color: var(--mx-ink, CanvasText); }
+.mx-menu-trigger, .mx-menu-items button { display: flex; align-items: center; gap: .55rem; min-block-size: 44px; padding: .5rem .75rem; font: inherit; color: inherit; text-align: start; cursor: pointer; }
+.mx-menu-trigger { background: var(--mx-surface, Canvas); border: 1px solid var(--mx-line, GrayText); border-radius: .62rem; font-weight: 620; }
+[data-mx-action-menu="dynamic"] .mx-menu-trigger { border-radius: 999px; }
+.mx-menu-items { position: absolute; z-index: 2; inset-block-start: calc(100% + .3rem); inset-inline-start: 0; min-inline-size: 11rem; max-inline-size: calc(100vw - 2rem); padding: .3rem; background: var(--mx-surface, Canvas); border-radius: .75rem; box-shadow: 0 9px 28px rgb(41 26 13 / .25); transform-origin: top left; }
+[data-mx-action-menu][data-above="true"] .mx-menu-items { inset-block-start: auto; inset-block-end: calc(100% + .3rem); transform-origin: bottom left; }
+[data-mx-action-menu]:dir(rtl) .mx-menu-items { transform-origin: top right; }
+[data-mx-action-menu][data-above="true"]:dir(rtl) .mx-menu-items { transform-origin: bottom right; }
+.mx-menu-items button { inline-size: 100%; background: transparent; border: 0; border-radius: .4rem; overflow-wrap: anywhere; }
+.mx-menu-items button > span { display: flex; flex-shrink: 0; }
+.mx-menu-items button:is(:hover,:focus-visible) { background: var(--mx-selected, ButtonFace); }
+.mx-menu-items button:disabled { opacity: .5; cursor: default; }
+[data-mx-action-menu] :is(button):focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: -2px; }

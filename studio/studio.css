@@ -137,3 +137,5 @@ body { margin: 0; }
   .mx-views { gap: .15rem; margin-block: .55rem; }
   .mx-views button { font-size: .76rem; padding-inline: .4rem; }
 }
+
+@media (min-width: 960px) { .mx-specimen { grid-column: 2; grid-row: 1; } .mx-index { grid-column: 1; grid-row: 1; } }

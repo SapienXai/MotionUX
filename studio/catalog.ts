@@ -24,4 +24,13 @@ export const previews: Record<string, () => Promise<{ default: Specimen }>> = {
   "designbookmark-pagination-dots": () => import("./demos/pagination-dots"),
   "designbookmark-command-palette": () => import("./demos/command-palette"),
   "designbookmark-pull-cord": () => import("./demos/pull-cord"),
+  "designbookmark-morph-tooltip": () => import("./demos/morph-tooltip"),
+  "designbookmark-spring-dropdown": () => import("./demos/action-menus").then((module) => ({ default: module.menuStory("dropdown") })),
+  "designbookmark-dynamic-menu": () => import("./demos/action-menus").then((module) => ({ default: module.menuStory("dynamic") })),
+  "kokonut-morph-popover": () => import("./demos/action-menus").then((module) => ({ default: module.menuStory("morph") })),
+  "designbookmark-rubber-dock": () => import("./demos/rubber-dock"),
+  "designbookmark-sidebar-collapse": () => import("./demos/sidebar-collapse"),
+  "kokonut-smooth-tab": () => import("./demos/swipe-tabs"),
+  "kokonut-toolbar": () => import("./demos/motion-toolbar"),
+  "kokonut-stack-panel": () => import("./demos/stack-panel"),
 };

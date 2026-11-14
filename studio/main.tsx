@@ -122,7 +122,7 @@ function Studio() {
       <section className="mx-intro" aria-labelledby="title">
         <div><h1 id="title">A field guide to<br/><em>interface motion.</em></h1>
           <p>Try a gesture. Change its setting. Take the React source into your own interface.</p>
-          <a href="#specimen" className="mx-explore">Try the featured specimen <ArrowDown size={17} aria-hidden /></a>
+          <a href="#specimen" className="mx-explore">Try the current specimen <ArrowDown size={17} aria-hidden /></a>
         </div>
         <div className="mx-plate">
           <div className="mx-plate-forms" aria-hidden="true"><i/><i/><i/><i/><i/></div>
@@ -130,34 +130,6 @@ function Studio() {
         </div>
       </section>
       <section className="mx-workspace" aria-label="Component catalog">
-        <aside className="mx-index" id="index" aria-labelledby="index-title">
-          <div className="mx-index-title"><h2 id="index-title">Catalog</h2><span>{Object.keys(previews).length} live · {references.length} references</span></div>
-          <label className="mx-search"><Search size={17} aria-hidden /><input type="search" placeholder="Find a component" aria-label="Find a component" value={query} onChange={(event) => setQuery(event.target.value)} /></label>
-          <div className="mx-filters">
-            <select aria-label="Category" value={category} onChange={(event) => setCategory(event.target.value)}>
-              <option value="all">All categories</option>{Object.entries(labels).map(([key, name]) => <option key={key} value={key}>{name}</option>)}
-            </select>
-            <select aria-label="Provider" value={provider} onChange={(event) => setProvider(event.target.value)}>
-              <option value="all">All sources</option>{["DesignBookmark", "Kokonut UI", "SmoothUI"].map((name) => <option key={name}>{name}</option>)}
-            </select>
-            <select aria-label="Status" value={filter} onChange={(event) => setFilter(event.target.value as Filter)}>
-              <option value="all">All statuses</option><option value="demos">Live demo</option><option value="ready">Ready</option><option value="needs-review">Needs review</option><option value="blocked">Blocked</option>
-            </select>
-            <select aria-label="Sort" value={sort} onChange={(event) => setSort(event.target.value)}><option value="catalog">Catalog order</option><option value="name">Title A–Z</option><option value="live">Live first</option></select>
-          </div>
-          <p className="mx-result-count" role="status">{filtered.length} matches</p>
-          <ul className="mx-items" aria-label="Specimens">
-            {filtered.map((entry) => <li key={entry.id}>
-              <a href={`?item=${entry.id}#specimen`} aria-current={entry.id === item?.id ? "true" : undefined}
-                onClick={(event) => { if (!(event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)) { event.preventDefault(); open(entry.id); } }}>
-                <span>{String(entry.order).padStart(2, "0")}</span>
-                <span>{entry.name}<small>{entry.provider}</small></span>
-                <small className="mx-item-status">{previews[entry.id] ? "Live" : "Pending"}</small>
-              </a>
-            </li>)}
-          </ul>
-          {!filtered.length && <p className="mx-empty">Try a different name or filter.</p>}
-        </aside>
         <article className="mx-specimen" data-testid="specimen">
           <a className="mx-back" href="#index">Browse the catalog <ArrowDown size={15} aria-hidden /></a>
           {item ? <>
@@ -202,6 +174,34 @@ function Studio() {
             </div>}
           </> : <div className="mx-inspector"><h2 id="specimen" tabIndex={-1}>Specimen unavailable</h2><button onClick={() => open(featured)}><ArrowLeft size={16} aria-hidden /> Open the featured specimen</button></div>}
         </article>
+        <aside className="mx-index" id="index" tabIndex={-1} aria-labelledby="index-title">
+          <div className="mx-index-title"><h2 id="index-title">Catalog</h2><span>{Object.keys(previews).length} live · {references.length} references</span></div>
+          <label className="mx-search"><Search size={17} aria-hidden /><input type="search" placeholder="Find a component" aria-label="Find a component" value={query} onChange={(event) => setQuery(event.target.value)} /></label>
+          <div className="mx-filters">
+            <select aria-label="Category" value={category} onChange={(event) => setCategory(event.target.value)}>
+              <option value="all">All categories</option>{Object.entries(labels).map(([key, name]) => <option key={key} value={key}>{name}</option>)}
+            </select>
+            <select aria-label="Provider" value={provider} onChange={(event) => setProvider(event.target.value)}>
+              <option value="all">All sources</option>{["DesignBookmark", "Kokonut UI", "SmoothUI"].map((name) => <option key={name}>{name}</option>)}
+            </select>
+            <select aria-label="Status" value={filter} onChange={(event) => setFilter(event.target.value as Filter)}>
+              <option value="all">All statuses</option><option value="demos">Live demo</option><option value="ready">Ready</option><option value="needs-review">Needs review</option><option value="blocked">Blocked</option>
+            </select>
+            <select aria-label="Sort" value={sort} onChange={(event) => setSort(event.target.value)}><option value="catalog">Catalog order</option><option value="name">Title A–Z</option><option value="live">Live first</option></select>
+          </div>
+          <p className="mx-result-count" role="status">{filtered.length} matches</p>
+          <ul className="mx-items" aria-label="Specimens">
+            {filtered.map((entry) => <li key={entry.id}>
+              <a href={`?item=${entry.id}#specimen`} aria-current={entry.id === item?.id ? "true" : undefined}
+                onClick={(event) => { if (!(event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)) { event.preventDefault(); open(entry.id); } }}>
+                <span>{String(entry.order).padStart(2, "0")}</span>
+                <span>{entry.name}<small>{entry.provider}</small></span>
+                <small className="mx-item-status">{previews[entry.id] ? "Live" : "Pending"}</small>
+              </a>
+            </li>)}
+          </ul>
+          {!filtered.length && <p className="mx-empty">Try a different name or filter.</p>}
+        </aside>
       </section>
     </main>
     <footer className="mx-footer"><span>MotionUX Studio</span><a href="?legacy=1">v1 examples <ArrowRight size={15} aria-hidden /></a><a href="https://github.com/SapienXai/MotionUX/blob/main/docs/IMPLEMENTATION-STATUS.md">Implementation status <ArrowUpRight size={15} aria-hidden /></a></footer>

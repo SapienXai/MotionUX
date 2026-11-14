@@ -1,0 +1,6 @@
+[data-mx-toolbar] { display: inline-flex; flex-wrap: wrap; gap: .22rem; padding: .24rem; border: 1px solid var(--mx-line, GrayText); border-radius: .68rem; background: var(--mx-surface, Canvas); }
+[data-mx-toolbar] button { min-inline-size: 44px; min-block-size: 44px; border: 0; border-radius: .44rem; background: transparent; color: var(--mx-ink, CanvasText); cursor: pointer; }
+[data-mx-toolbar] button > span { display: grid; place-items: center; }
+[data-mx-toolbar] button:is(:hover,[aria-pressed="true"]) { color: var(--mx-accent, LinkText); background: var(--mx-selected, ButtonFace); }
+[data-mx-toolbar] button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: -2px; }
+[data-mx-toolbar] button:disabled { opacity: .5; cursor: default; }

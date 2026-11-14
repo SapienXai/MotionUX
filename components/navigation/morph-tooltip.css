@@ -1,0 +1,5 @@
+[data-mx-tooltip] { position: relative; display: inline-block; }
+[data-mx-tooltip] button { border: 1px solid var(--mx-line, GrayText); border-radius: 999px; background: var(--mx-surface, Canvas); color: var(--mx-ink, CanvasText); display: grid; place-items: center; min-inline-size: 44px; min-block-size: 44px; padding: .35rem .7rem; font: inherit; cursor: pointer; }
+[data-mx-tooltip] button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 2px; }
+[data-mx-tooltip] [role="tooltip"] { position: absolute; z-index: 1; inset-block-end: 100%; inset-inline-start: 50%; transform: translateX(-50%); padding-block-end: .3rem; inline-size: max-content; max-inline-size: min(14rem, 70vw); }
+[data-mx-tooltip] [role="tooltip"] > span { display: block; padding: .55rem .75rem; border-radius: .5rem; background: var(--mx-ink, CanvasText); color: var(--mx-surface, Canvas); text-align: start; overflow-wrap: anywhere; transform-origin: bottom center; }

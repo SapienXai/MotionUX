@@ -10,3 +10,7 @@ The live inventory contains 82 references across DesignBookmark (51), Kokonut UI
 | 3–7 | Pending implementation and acceptance. |
 
 **Release pending.** See the [per-reference ledger](REFERENCE-INVENTORY.md).
+
+Studio review cleared the first navigation preview milestone after mobile findings were addressed. It did not certify catalog-wide parity. The six live previews remain under review until their evidence and install pins are recorded.
+
+Wave 2 adds nine navigation previews, including keyboard-operated menus, a pointer-sensitive dock, swipe tabs, a toolbar, a collapsible rail and a stack. These are independent implementations. The dynamic and morph menus share one action engine with distinct presets. Reference parity and advanced positioning remain review items.

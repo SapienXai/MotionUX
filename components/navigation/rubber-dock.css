@@ -1,0 +1,5 @@
+[data-mx-rubber-dock] { display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem; padding: .42rem; border: 1px solid var(--mx-line, GrayText); border-radius: 1rem; background: var(--mx-surface, Canvas); color: var(--mx-ink, CanvasText); }
+[data-mx-rubber-dock] a { display: grid; justify-items: center; min-inline-size: 3.4rem; min-block-size: 44px; gap: .3rem; padding: .35rem .25rem; border-radius: .64rem; color: inherit; font: inherit; font-size: .75rem; text-decoration: none; overflow-wrap: anywhere; }
+[data-mx-rubber-dock] a > span { display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; background: var(--mx-selected, ButtonFace); color: var(--mx-accent, LinkText); border-radius: .6rem; transform-origin: bottom center; }
+[data-mx-rubber-dock] a[aria-current] { background: var(--mx-selected, ButtonFace); color: var(--mx-accent, LinkText); font-weight: 680; }
+[data-mx-rubber-dock] a:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: -2px; }

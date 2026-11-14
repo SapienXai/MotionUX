@@ -69,9 +69,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "morph-tooltip",
       "version": null,
-      "test": null,
+      "test": "tests/navigation.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-morph-tooltip",
       "status": "needs-review"
     },
     {
@@ -87,9 +87,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "spring-dropdown",
       "version": null,
-      "test": null,
+      "test": "tests/navigation.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-spring-dropdown",
       "status": "needs-review"
     },
     {
@@ -249,9 +249,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "rubber-dock",
       "version": null,
-      "test": null,
+      "test": "tests/navigation.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-rubber-dock",
       "status": "needs-review"
     },
     {
@@ -681,9 +681,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "dynamic-menu",
       "version": null,
-      "test": null,
+      "test": "tests/navigation.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-dynamic-menu",
       "status": "needs-review"
     },
     {
@@ -717,9 +717,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "sidebar-collapse",
       "version": null,
-      "test": null,
+      "test": "tests/navigation.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-sidebar-collapse",
       "status": "needs-review"
     },
     {
@@ -1041,9 +1041,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "smooth-tab",
       "version": null,
-      "test": null,
+      "test": "tests/navigation.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-smooth-tab",
       "status": "needs-review"
     },
     {
@@ -1185,9 +1185,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "toolbar",
       "version": null,
-      "test": null,
+      "test": "tests/navigation.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-toolbar",
       "status": "needs-review"
     },
     {
@@ -1311,9 +1311,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "stack-panel",
       "version": null,
-      "test": null,
+      "test": "tests/navigation.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-stack-panel",
       "status": "needs-review"
     },
     {
@@ -1401,9 +1401,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "morph-popover",
       "version": null,
-      "test": null,
+      "test": "tests/navigation.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-morph-popover",
       "status": "needs-review"
     },
     {

@@ -95,6 +95,87 @@
       "consumers": [],
       "evidence": "tests/studio.spec.ts",
       "referenceId": "designbookmark-pull-cord"
+    },
+    "morph-tooltip": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/navigation.spec.ts",
+      "referenceId": "designbookmark-morph-tooltip"
+    },
+    "spring-dropdown": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/navigation.spec.ts",
+      "referenceId": "designbookmark-spring-dropdown"
+    },
+    "dynamic-menu": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/navigation.spec.ts",
+      "referenceId": "designbookmark-dynamic-menu"
+    },
+    "morph-popover": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/navigation.spec.ts",
+      "referenceId": "kokonut-morph-popover"
+    },
+    "rubber-dock": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/navigation.spec.ts",
+      "referenceId": "designbookmark-rubber-dock"
+    },
+    "sidebar-collapse": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/navigation.spec.ts",
+      "referenceId": "designbookmark-sidebar-collapse"
+    },
+    "smooth-tab": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/navigation.spec.ts",
+      "referenceId": "kokonut-smooth-tab"
+    },
+    "toolbar": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/navigation.spec.ts",
+      "referenceId": "kokonut-toolbar"
+    },
+    "stack-panel": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/navigation.spec.ts",
+      "referenceId": "kokonut-stack-panel"
     }
   }
 }

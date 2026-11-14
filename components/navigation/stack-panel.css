@@ -1,0 +1,7 @@
+[data-mx-stack] { display: grid; gap: .36rem; color: var(--mx-ink, CanvasText); }
+[data-mx-stack] > div { border: 1px solid var(--mx-line, GrayText); border-radius: .64rem; background: var(--mx-surface, Canvas); }
+[data-mx-stack] > div[data-open="true"] { background: var(--mx-selected, ButtonFace); }
+[data-mx-stack] button { min-block-size: 44px; display: flex; align-items: center; gap: .55rem; inline-size: 100%; padding: .4rem .65rem; border: 0; border-radius: .64rem; text-align: start; color: inherit; font: inherit; font-weight: 620; background: transparent; cursor: pointer; }
+[data-mx-stack] button svg { flex-shrink: 0; }
+[data-mx-stack] button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: -2px; }
+.mx-stack-body { padding: .15rem .67rem .65rem; overflow-wrap: anywhere; }
