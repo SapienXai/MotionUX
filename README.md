@@ -1,68 +1,16 @@
 # MotionUX
 
-**Make everyday interactions feel finished.**
+**Give your interface a sense of touch.**
 
-Give people a clear cue when they change pages, open a detail, or finish a task. MotionUX is a shadcn registry for React teams that want thoughtful motion and accessible interaction without redesigning their product. Install one component, style it with your own tokens, and edit the source right in your project.
+A tab indicator that follows the selection. A card deck that moves with your drag. A confirmation button that gives you time to change your mind. MotionUX is a shadcn registry of these interactions for React. Try them in Studio, then install the TypeScript and CSS for the one you want to make your own.
 
-[Install your first component](#quick-start) · [Browse the components](#components) · [Run the interactive demo](#try-the-demo) · [View v1.0.0](https://github.com/SapienXai/MotionUX/tree/v1.0.0)
+[Run Studio](#run-motionux-studio) · [Install a component](#install-your-first-component) · [Browse all 82 previews](docs/REFERENCE-INVENTORY.md) · [Use with Codex](#use-with-codex)
 
-[![MotionUX Studio displays its catalog beside an interactive tab specimen](docs/evidence/studio/studio-catalog-desktop.png)](#try-the-demo)
+[![MotionUX Studio showing the interaction catalog and the Tab Pill preview](docs/evidence/studio/studio-catalog-desktop.png)](#run-motionux-studio)
 
-- **Keep your design.** MotionUX supplies interaction behavior and timing. Your app sets the colors, typography, layout, and copy.
-- **Own the code you ship.** The shadcn CLI copies TypeScript and CSS into your project from the tagged GitHub registry. Review the diff and adapt the files as your product evolves. The app runs with those local files.
-- **Make the interaction work at rest.** The dock and disclosure use native controls. The status pill keeps its message visible through transitions. All three respect system reduced-motion preferences.
+## Run MotionUX Studio
 
-## Quick start
-
-In a React 19 project with an existing shadcn `components.json`, add the disclosure:
-
-```sh
-npx shadcn@latest add 'SapienXai/MotionUX/motion-disclosure#v1.0.0'
-```
-
-Then render it anywhere you would otherwise use a details element. This example assumes `aliases.components` is `@/components`. Adjust the import to match yours.
-
-```tsx
-import { MotionDisclosure } from "@/components/sapienx-motion/motion-disclosure";
-
-export function DeliveryDetails() {
-  return (
-    <MotionDisclosure label="Delivery and returns">
-      <p>Orders ship in two business days. Returns are accepted within 30 days.</p>
-    </MotionDisclosure>
-  );
-}
-```
-
-Click the label or focus it and press Enter. The details open with a short transition when motion is enabled. The component imports its companion CSS. Pass `className` to fit it into your layout.
-
-<details>
-<summary>Preview changes or use pnpm</summary>
-
-```sh
-npx shadcn@latest view 'SapienXai/MotionUX/motion-disclosure#v1.0.0'
-npx shadcn@latest add 'SapienXai/MotionUX/motion-disclosure#v1.0.0' --dry-run
-pnpm dlx shadcn@latest add 'SapienXai/MotionUX/motion-disclosure#v1.0.0'
-```
-
-The CLI installs into the `sapienx-motion/` subdirectory of your configured component alias. If your app has no `components.json`, set one up using its existing aliases and stylesheet. [shadcn configuration reference](https://ui.shadcn.com/docs/components-json)
-
-</details>
-
-## Components
-
-| Component | Reach for it when… |
-| --- | --- |
-| [`motion-dock`](components/motion-dock.tsx) | Your mobile navigation needs a subtle cue for the active destination. Pass in your own links and set `aria-current` from your router. |
-| [`motion-disclosure`](components/motion-disclosure.tsx) | Details such as delivery terms, room photos, or advanced options should stay out of the way until someone asks for them. |
-| [`motion-status-pill`](components/motion-status-pill.tsx) | Someone needs to know whether an operation is pending, succeeded, or failed. Pass in the real state and a localised label. Use `announce` for a single changing result. |
-| [`motion-foundations`](components/motion-provider.tsx) | You want consistent feedback timing and springs for your own animations. The status pill installs this dependency automatically. |
-
-Use the same `SapienXai/MotionUX/<item>#v1.0.0` format to install any of these. The catalog covers dependencies, API details, and source attribution. [Component catalog](docs/COMPONENTS.md)
-
-## Try the demo
-
-Run MotionUX Studio to explore 82 live interactions, from a moving tab indicator and a swipeable deck to form controls and a local audio player. Open a specimen to try it, change the theme or viewport, compare reduced motion, and inspect its React API or pinned install. Use the local URL printed by Vite.
+Explore **82 interactive previews** across navigation, feedback, forms, gestures, typography, AI interfaces, and media.
 
 ```sh
 git clone https://github.com/SapienXai/MotionUX.git
@@ -71,20 +19,85 @@ npm ci
 npm run dev
 ```
 
-The registry has test coverage for keyboard, touch, and reduced motion across Chromium and WebKit. The verification report records what was tested in the demo and in product pilots. [Mobile screenshot](docs/evidence/motionux-registry-webkit.png) · [Verification report](docs/VERIFICATION.md)
+Open the local URL printed by Vite. Select a demo in the catalog and open **Preview settings** to switch between neutral, BookPlace, and DineWallet themes, try a narrower stage, or compare reduced motion. Use **Install** for the pinned command and **Usage** for the React example. **Source** links the reference and the component test.
+
+| Try first | What to do |
+| --- | --- |
+| **Tab Pill** | Use the arrow keys or click a tab. Watch the indicator follow the selected panel. |
+| **Swipe Deck** | Drag a card across the stage. The previous and next buttons offer the same navigation. |
+| **Signature Pad** | Draw a stroke, undo it, or enter a typed signature. |
+| **Glass Player** | Play, pause, and seek a local audio sample. |
+
+[Desktop and mobile gallery](docs/evidence/studio/catalog/index.md)
+
+![Tab Pill in motion as the selection moves from Overview to Notes to Files and back](docs/evidence/studio/tab-pill-demo.gif)
+
+## Install your first component
+
+The **stable registry** contains four entries at [`v1.0.0`](https://github.com/SapienXai/MotionUX/tree/v1.0.0). The **Studio catalog** contains 82 installable previews pinned to Git commits. Each preview has a working demo and a behavior test. Per-component visual and device acceptance remains in review, and v2 has yet to be released. [Component catalog](docs/COMPONENTS.md) · [Acceptance status](docs/IMPLEMENTATION-STATUS.md)
+
+### Start with the stable disclosure
+
+In a React 19 project with a shadcn `components.json`, run:
+
+```sh
+npx shadcn@4.23.0 add 'SapienXai/MotionUX/motion-disclosure#v1.0.0'
+```
+
+```tsx
+import { MotionDisclosure } from "@/components/sapienx-motion/motion-disclosure";
+
+export function RoomDetails() {
+  return (
+    <MotionDisclosure label="What’s included">
+      <p>Breakfast, late checkout, and access to the rooftop terrace.</p>
+    </MotionDisclosure>
+  );
+}
+```
+
+The disclosure uses native `details` and `summary`. Click it or focus the label and press Enter. The example assumes the component alias is `@/components`. Match the import to your project’s alias. [shadcn configuration](https://ui.shadcn.com/docs/components-json)
+
+### Try the animated Tab Pill preview
+
+```sh
+npx shadcn@4.23.0 add 'SapienXai/MotionUX/tab-pill#03173314f6e8ce3c69ff448930d3278a9af90822'
+```
+
+```tsx
+"use client";
+
+import { TabPill } from "@/components/sapienx-motion/motion-selector";
+
+export function ProjectTabs() {
+  return (
+    <TabPill
+      label="Project sections"
+      options={[
+        { value: "overview", label: "Overview", panel: <p>Project summary</p> },
+        { value: "notes", label: "Notes", panel: <p>Working notes</p> },
+      ]}
+    />
+  );
+}
+```
+
+## Make it fit your app
+
+- **Keep your visual identity.** Use your product’s colors and typography. Studio preview components expose CSS custom properties for surfaces, text, borders, accents, and selected states. [Theme and motion tokens](docs/MOTION-TOKENS.md)
+- **Keep application state in your app.** Give controls their labels, links, and callbacks. Pass the actual result into feedback components so the user sees whether an operation is pending, succeeded, or failed.
+- **Review code like any other change.** shadcn installs source and companion CSS under your configured component alias. Use `view` to inspect the item and `add --dry-run` to see what would change. Update by comparing a newer pin with your local files. [GitHub registry guide](https://ui.shadcn.com/docs/registry/github) · [Update and release workflow](docs/RELEASE.md)
 
 ## Use with Codex
 
-The optional MotionUX skill gives Codex a repeatable workflow for selecting a component, previewing a pinned install, and adapting it to the current app. Copy the `skills/sapienx-motion-system` folder into `~/.agents/skills/`, then ask Codex to use `$sapienx-motion-system` on an interaction in your project. The included AGENTS section makes it a default for SapienX UI work. [Skill source](skills/sapienx-motion-system/SKILL.md) · [AGENTS section](skills/global-agents-section.md)
+Copy the [`sapienx-motion-system` skill folder](skills/sapienx-motion-system) into `~/.agents/skills/` and start a new Codex session. Give it a real interaction to work on.
 
-## License
+> Use $sapienx-motion-system to add a keyboard-accessible room details disclosure. Keep the hotel’s existing theme. Inspect the pinned MotionUX component before installing it.
 
-MotionUX is open source under MIT. Adapted components retain their upstream notices. [License](LICENSE) · [Source review](docs/SOURCE-REVIEW.md)
+For automatic use on SapienX React and Next.js work, merge the [AGENTS.md section](skills/global-agents-section.md) into your existing rules.
 
-## MotionUX Studio development
+## Verification and license
 
-Studio previews are available at exact commit SHAs while their visual and adoption reviews continue. The four tagged v1 items are the stable release. Open `/?item=designbookmark-swipe-deck#specimen` for a drag interaction, `/?item=kokonut-signature-pad#specimen` for a form control, or `/?legacy=1` for the original examples.
+The catalog checkpoint passed **282 browser checks** across desktop Chromium, touch Chromium, and iPhone-profile WebKit. GitHub CI installed and typechecked **86 registry entries** in a clean React project. Representative items also built with Next.js 16 and Tailwind 3 and 4. [CI run](https://github.com/SapienXai/MotionUX/actions/runs/43598270900) · [Verification report](docs/VERIFICATION.md)
 
-Use the Studio Install view for the exact pin. Update a vendored component by inspecting the newer pin with `shadcn view` and `add --dry-run`, then reconcile the diff with your local changes. See the [release checklist](docs/RELEASE.md) and [changelog](CHANGELOG.md).
-
-[Implementation status](docs/IMPLEMENTATION-STATUS.md) · [Reference inventory](docs/REFERENCE-INVENTORY.md) · [Studio design](DESIGN.md)
+MotionUX is MIT licensed. Adapted components retain their upstream notices. [License](LICENSE) · [Source review](docs/SOURCE-REVIEW.md) · [Changelog](CHANGELOG.md)
