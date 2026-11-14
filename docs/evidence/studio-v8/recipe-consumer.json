@@ -1,0 +1,1240 @@
+{
+  "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+  "manager": "npm",
+  "baseUsageMounts": 82,
+  "customizedPresetMounts": 6,
+  "customizedRecipeMounts": 76,
+  "cases": [],
+  "timeline": [],
+  "recipeCases": [
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-plan-switch",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-letter-limit",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-pull-cord",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-morph-tooltip",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-spring-dropdown",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-file-drop",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-command-button",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-morph-island",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0.00004978096375945838,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-goo-menu",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-jelly-slider",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0.0008722490606548577,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-hold-to-publish",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-springy-input",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-rubber-dock",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-parallax-ticket",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "reducedMotion": "no-preference",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-glass-lens",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0.000014697236919459142,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-pull-to-refresh",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-word-roll",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-weight-wave",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-goo-morph",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-scramble-text",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "reducedMotion": "no-preference",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-read-along",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-roll-links",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-prompt-box",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-streaming-reply",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-ghost-suggestion",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-goo-thinking",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-fan-cards",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-stat-card",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-magnetic-button",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-copy-button",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-like-burst",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-bottom-bar",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-dynamic-menu",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-segmented-control",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-sidebar-collapse",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-command-palette",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-step-progress",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-otp-code",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-toggle-switch",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-star-rating",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-tag-input",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-number-stepper",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-range-slider",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-password-strength",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-checkbox-list",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-detent-dial",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "smoothui-siri-orb",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-agent-steps",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-hold-button",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "smoothui-exposure-slider",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-boarding-pass",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-marker-text",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-smooth-tab",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "smoothui-unlock-face-id",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0.00011136566119383989,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-slide-to-confirm",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "reducedMotion": "reduce",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-notification-stack",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-wheel-picker",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-dynamic-text",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-voice-input",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0.000021285653469561517,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-tool-approval",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-toolbar",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "smoothui-scrubber",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-cart-button",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-page-flip",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-signature-pad",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-undo-button",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-card-field",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-stack-panel",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-typewriter",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "reducedMotion": "no-preference",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-thinking-text",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-glass-player",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "reducedMotion": "reduce",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-bell-button",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "smoothui-task-list",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "id": "smoothui-music-toggle",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "reducedMotion": "reduce",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "kokonut-command-button",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    },
+    {
+      "reducedMotion": "reduce",
+      "id": "designbookmark-pagination-dots",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "ariaMatch": true,
+      "differentPixels": 0,
+      "result": "parity-ok"
+    }
+  ],
+  "recipeBehavior": [
+    {
+      "id": "designbookmark-plan-switch",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-letter-limit",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-pull-cord",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-morph-tooltip",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-spring-dropdown",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-file-drop",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-command-button",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-morph-island",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-goo-menu",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-jelly-slider",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-hold-to-publish",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-springy-input",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-rubber-dock",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-parallax-ticket",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-glass-lens",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-pull-to-refresh",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-word-roll",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-weight-wave",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-goo-morph",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-scramble-text",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-read-along",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-roll-links",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-prompt-box",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-streaming-reply",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-ghost-suggestion",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-goo-thinking",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-fan-cards",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-stat-card",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-magnetic-button",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-copy-button",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-like-burst",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-bottom-bar",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-dynamic-menu",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-segmented-control",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-sidebar-collapse",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-command-palette",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-step-progress",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-otp-code",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-toggle-switch",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-star-rating",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-tag-input",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-number-stepper",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-range-slider",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-password-strength",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-checkbox-list",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-detent-dial",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "smoothui-siri-orb",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-agent-steps",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-hold-button",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "smoothui-exposure-slider",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-boarding-pass",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-marker-text",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-smooth-tab",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "smoothui-unlock-face-id",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-slide-to-confirm",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-notification-stack",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-wheel-picker",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-dynamic-text",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-voice-input",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-tool-approval",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-toolbar",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "smoothui-scrubber",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-cart-button",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-page-flip",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-signature-pad",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-undo-button",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-card-field",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-stack-panel",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-typewriter",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-thinking-text",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-glass-player",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-bell-button",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "smoothui-task-list",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "smoothui-music-toggle",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "kokonut-command-button",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    },
+    {
+      "id": "designbookmark-pagination-dots",
+      "ariaMatch": true,
+      "semanticMatch": true,
+      "result": "parity-ok"
+    }
+  ],
+  "runs": {
+    "full": "Initial full fixture",
+    "retest": [
+      "designbookmark-parallax-ticket",
+      "designbookmark-scramble-text",
+      "kokonut-slide-to-confirm",
+      "kokonut-typewriter",
+      "kokonut-glass-player",
+      "smoothui-music-toggle"
+    ]
+  }
+}

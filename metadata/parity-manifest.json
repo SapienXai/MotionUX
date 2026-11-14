@@ -87,7 +87,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-letter-limit",
@@ -141,7 +148,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-pull-cord",
@@ -194,7 +208,14 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-morph-tooltip",
@@ -247,7 +268,14 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-spring-dropdown",
@@ -301,7 +329,14 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-file-drop",
@@ -354,7 +389,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-command-button",
@@ -407,7 +449,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-morph-island",
@@ -461,7 +510,14 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-goo-menu",
@@ -515,7 +571,14 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-jelly-slider",
@@ -569,7 +632,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-hold-to-publish",
@@ -623,7 +693,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-swipe-deck",
@@ -821,7 +898,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-rubber-dock",
@@ -874,7 +958,14 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-parallax-ticket",
@@ -928,7 +1019,14 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-glass-lens",
@@ -982,7 +1080,14 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-pull-to-refresh",
@@ -1036,7 +1141,14 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-word-roll",
@@ -1089,7 +1201,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-weight-wave",
@@ -1142,7 +1261,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-goo-morph",
@@ -1196,7 +1322,14 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-scramble-text",
@@ -1249,7 +1382,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-read-along",
@@ -1302,7 +1442,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-roll-links",
@@ -1355,7 +1502,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-prompt-box",
@@ -1408,7 +1562,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-streaming-reply",
@@ -1462,7 +1623,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-ghost-suggestion",
@@ -1515,7 +1683,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-goo-thinking",
@@ -1569,7 +1744,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-expand-card",
@@ -1767,7 +1949,14 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-stat-card",
@@ -1821,7 +2010,14 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-profile-card",
@@ -2019,7 +2215,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-loading-to-success",
@@ -2207,7 +2410,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-like-burst",
@@ -2261,7 +2471,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-tab-pill",
@@ -2447,7 +2664,14 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-dynamic-menu",
@@ -2501,7 +2725,14 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-segmented-control",
@@ -2554,7 +2785,14 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-sidebar-collapse",
@@ -2608,7 +2846,14 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-command-palette",
@@ -2661,7 +2906,14 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-step-progress",
@@ -2715,7 +2967,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-otp-code",
@@ -2769,7 +3028,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-toggle-switch",
@@ -2822,7 +3088,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-star-rating",
@@ -2876,7 +3149,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-tag-input",
@@ -2930,7 +3210,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-number-stepper",
@@ -2984,7 +3271,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-range-slider",
@@ -3038,7 +3332,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-password-strength",
@@ -3092,7 +3393,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-checkbox-list",
@@ -3146,7 +3454,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-detent-dial",
@@ -3200,7 +3515,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "smoothui-siri-orb",
@@ -3254,7 +3576,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-agent-steps",
@@ -3308,7 +3637,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-hold-button",
@@ -3362,7 +3698,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "smoothui-exposure-slider",
@@ -3416,7 +3759,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-boarding-pass",
@@ -3470,7 +3820,14 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-marker-text",
@@ -3523,7 +3880,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-smooth-tab",
@@ -3596,7 +3960,14 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "smoothui-unlock-face-id",
@@ -3650,7 +4021,14 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-slide-to-confirm",
@@ -3704,7 +4082,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-notification-stack",
@@ -3758,7 +4143,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-wheel-picker",
@@ -3811,7 +4203,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-dynamic-text",
@@ -3864,7 +4263,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-voice-input",
@@ -3918,7 +4324,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-tool-approval",
@@ -3972,7 +4385,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-toolbar",
@@ -4023,7 +4443,14 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "smoothui-scrubber",
@@ -4077,7 +4504,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-cart-button",
@@ -4131,7 +4565,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-page-flip",
@@ -4185,7 +4626,14 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-signature-pad",
@@ -4238,7 +4686,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-undo-button",
@@ -4292,7 +4747,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-card-field",
@@ -4345,7 +4807,14 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-stack-panel",
@@ -4399,7 +4868,14 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-typewriter",
@@ -4452,7 +4928,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-thinking-text",
@@ -4506,7 +4989,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-glass-player",
@@ -4560,7 +5050,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-bell-button",
@@ -4614,7 +5111,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-morph-popover",
@@ -4802,7 +5306,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "smoothui-music-toggle",
@@ -4856,7 +5367,14 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "kokonut-command-button",
@@ -4909,7 +5427,14 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     },
     {
       "id": "designbookmark-pagination-dots",
@@ -4963,7 +5488,14 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "not-tested",
+      "recipeEvidence": {
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/recipe-consumer.json",
+        "staticParity": "parity-ok",
+        "interactionParity": "parity-ok",
+        "motionParity": "not-tested"
+      }
     }
   ],
   "recipes": {

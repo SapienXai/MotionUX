@@ -5,7 +5,7 @@ import { join, resolve } from "node:path";
 import { build, createServer, preview } from "vite";
 import { chromium, webkit, devices, expect } from "@playwright/test";
 import { featuredTimeline, prepareTimelinePage } from "./featured-timeline.mjs";
-import { activateRecipes, recipeInteractions } from "./recipe-interactions.mjs";
+import { activateRecipes, normalizeRecipeAria, recipeInteractions } from "./recipe-interactions.mjs";
 
 const root = process.cwd();
 const local = process.argv.includes("--local");
@@ -19,7 +19,7 @@ const recipes = registry.items.filter(entry => entry.name.startsWith("gallery-re
 const quick = process.argv.includes("--quick");
 const recipesOnly = process.argv.includes("--recipes-only");
 const featuredOnly = process.argv.includes("--featured-only");
-const requested = process.env.MOTIONUX_RECIPE_CASE;
+const requested = process.env.MOTIONUX_RECIPE_CASE?.split(",");
 const viewportFilter = Number(process.env.MOTIONUX_FEATURED_WIDTH);
 const runFeatured = !recipesOnly;
 const runRecipes = !quick && !featuredOnly;
@@ -243,9 +243,12 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
       }
     }
   }
-  if (runRecipes) for (const { id } of base.filter(row => !Object.hasOwn(manifest.presets, row.id) && (!requested || requested === row.id))) {
+  if (runRecipes) for (const { id } of base.filter(row => !Object.hasOwn(manifest.presets, row.id) && (!requested || requested.includes(row.id)))) {
     const scheme = "light";
-    const options = { viewport: { width: 1536, height: 1024 }, reducedMotion: "reduce", colorScheme: scheme };
+    const interaction = recipeInteractions[id];
+    if (!interaction) throw new Error(`Missing paired interaction for ${id}`);
+    const reducedMotion = interaction.normalMotion ? "no-preference" : "reduce";
+    const options = { viewport: { width: 1536, height: 1024 }, reducedMotion, colorScheme: scheme };
     const [gallery, isolated] = await Promise.all([chrome.newPage(options), chrome.newPage(options)]);
     try {
       await Promise.all([gallery.goto(origin(studio)), isolated.goto(`${origin(consumer)}/?item=${id}`)]);
@@ -266,22 +269,18 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
         sample.ariaSnapshot(), installed.ariaSnapshot(),
       ]);
       const differentPixels = await imageDifference(isolated, a, b);
-      // React generated fragment IDs differ across app trees. The link order,
-      // accessible names, selected state and all other ARIA content still match.
-      const normalize = snapshot => snapshot.replace(/#dock-[^\s]+-(\d+)/g, "#dock-:instance-$1");
-      const ariaMatch = normalize(ariaA) === normalize(ariaB);
-      recipeCases.push({ id, width: 1536, scheme, stage: "idle", ariaMatch, differentPixels, ...(!ariaMatch ? { studioAria: ariaA, consumerAria: ariaB } : {}), result: ariaMatch && differentPixels <= .025 ? "parity-ok" : "parity-broken" });
+      const ariaMatch = normalizeRecipeAria(ariaA) === normalizeRecipeAria(ariaB);
+      recipeCases.push({ id, width: 1536, scheme, stage: "idle", reducedMotion, ariaMatch, differentPixels, ...(!ariaMatch ? { studioAria: ariaA, consumerAria: ariaB } : {}), result: ariaMatch && differentPixels <= .025 ? "parity-ok" : "parity-broken" });
       if (!ariaMatch || differentPixels > .025) console.error(`${id}: idle mismatch ${differentPixels.toFixed(5)} (ARIA ${ariaMatch})`);
       else console.log(`Recipe ${id}`);
-      if (recipeInteractions[id]) {
-        try {
-          const behavior = await activateRecipes([sample, installed], id);
-          const result = behavior.ariaMatch && behavior.semanticMatch ? "parity-ok" : "parity-broken";
-          recipeBehavior.push({ id, ...behavior, result });
-        } catch (error) {
-          recipeBehavior.push({ id, result: "parity-broken", error: error.message });
-          console.error(`${id}: active-state mismatch: ${error.message}`);
-        }
+      try {
+        const behavior = await activateRecipes([sample, installed], id);
+        const result = behavior.ariaMatch && behavior.semanticMatch ? "parity-ok" : "parity-broken";
+        recipeBehavior.push({ id, ...behavior, result });
+        if (result === "parity-broken") console.error(`${id}: active-state mismatch (ARIA ${behavior.ariaMatch}, semantics ${behavior.semanticMatch})`);
+      } catch (error) {
+        recipeBehavior.push({ id, result: "parity-broken", error: error.message });
+        console.error(`${id}: active-state mismatch: ${error.message}`);
       }
     } finally { await Promise.all([gallery.close(), isolated.close()]); }
   }

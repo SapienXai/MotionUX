@@ -1,0 +1,117 @@
+{
+  "viewport": {
+    "width": 1536,
+    "height": 1024
+  },
+  "browser": "Chromium",
+  "cpuThrottling": 4,
+  "origin": "Local production preview; no network shaping; fresh browser contexts",
+  "baseline": {
+    "commit": "497b140f3498bf25fe879aefb13922fd4b8a0186",
+    "runs": [
+      {
+        "firstViewportJS": 170271,
+        "scriptRequests": 23,
+        "initialMounts": 6,
+        "finalMounts": 8,
+        "interactionsWallMs": {
+          "theme": 121,
+          "filter": 100,
+          "scrollToLast": 199
+        },
+        "lcpMs": 256,
+        "cls": 0.00007582657660047215,
+        "longestEventMs": 88,
+        "longTasksMs": [],
+        "pageErrors": []
+      },
+      {
+        "firstViewportJS": 170271,
+        "scriptRequests": 23,
+        "initialMounts": 6,
+        "finalMounts": 8,
+        "interactionsWallMs": {
+          "theme": 138,
+          "filter": 108,
+          "scrollToLast": 180
+        },
+        "lcpMs": 312,
+        "cls": 0.00007582657660047215,
+        "longestEventMs": 96,
+        "longTasksMs": [
+          59
+        ],
+        "pageErrors": []
+      },
+      {
+        "firstViewportJS": 170271,
+        "scriptRequests": 23,
+        "initialMounts": 6,
+        "finalMounts": 8,
+        "interactionsWallMs": {
+          "theme": 169,
+          "filter": 108,
+          "scrollToLast": 194
+        },
+        "lcpMs": 316,
+        "cls": 0.00007582657660047215,
+        "longestEventMs": 112,
+        "longTasksMs": [],
+        "pageErrors": []
+      }
+    ]
+  },
+  "v8": {
+    "commit": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+    "runs": [
+      {
+        "firstViewportJS": 211254,
+        "scriptRequests": 26,
+        "initialMounts": 6,
+        "finalMounts": 4,
+        "interactionsWallMs": {
+          "theme": 108,
+          "filter": 71,
+          "scrollToLast": 152
+        },
+        "lcpMs": 160,
+        "cls": 0.009277876880433824,
+        "longestEventMs": 64,
+        "longTasksMs": [],
+        "pageErrors": []
+      },
+      {
+        "firstViewportJS": 211254,
+        "scriptRequests": 26,
+        "initialMounts": 6,
+        "finalMounts": 4,
+        "interactionsWallMs": {
+          "theme": 101,
+          "filter": 73,
+          "scrollToLast": 168
+        },
+        "lcpMs": 172,
+        "cls": 0.009277876880433824,
+        "longestEventMs": 72,
+        "longTasksMs": [],
+        "pageErrors": []
+      },
+      {
+        "firstViewportJS": 211254,
+        "scriptRequests": 26,
+        "initialMounts": 6,
+        "finalMounts": 4,
+        "interactionsWallMs": {
+          "theme": 110,
+          "filter": 72,
+          "scrollToLast": 153
+        },
+        "lcpMs": 184,
+        "cls": 0.009277876880433824,
+        "longestEventMs": 64,
+        "longTasksMs": [],
+        "pageErrors": []
+      }
+    ]
+  }
+}
