@@ -42,9 +42,9 @@ The Code panel loads source from this build. Install uses the catalog’s previo
 | Initial preview mounts / catalog size | 6 / 82 |
 | LCP | 264 ms |
 | CLS | 0.000076 |
-| Longest observed interaction event | 80 ms |
-| Long tasks / page errors | 0 / 0 |
-| Tab / dropdown / swipe wall time | 116 / 41 / 193 ms |
-| Theme / filter / scroll-to-tail wall time | 119 / 117 / 176 ms |
+| Longest observed interaction event | 64–80 ms |
+| Long tasks / page errors | 0–1 / 0 (longest task: 54 ms) |
+| Tab / dropdown / swipe wall time | 94–116 / 23–41 / 168–193 ms |
+| Theme / filter / scroll-to-tail wall time | 91–119 / 86–117 / 144–176 ms |
 
 The baseline was rebuilt from `3387b75` and measured under the same conditions with one live preview. Visuals can be recaptured using `MOTIONUX_V5_URL=http://127.0.0.1:4193 node scripts/capture-studio-v5.mjs <output-directory>`. [GitHub Actions](https://github.com/SapienXai/MotionUX/actions/workflows/ci.yml?query=branch%3Amain) runs the suite and installs the registry into a clean consumer.

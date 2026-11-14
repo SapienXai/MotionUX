@@ -1,6 +1,6 @@
 import { ArrowRight, BookOpen, Bookmark, ChevronDown, CodeXml, Compass, CreditCard, Grid2X2, Hand, Layers3, Menu, Moon, MousePointer2, Search, Sparkle, SquareStack, Sun, Type, X, Zap, Headphones } from "lucide-react";
 import { LayoutGroup, motion } from "motion/react";
-import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { catalogCounts, categories, FEATURED, hrefFor, repoURL, type Category, type Route } from "./catalog-view";
 import { references } from "../catalog";
 
@@ -87,7 +87,7 @@ export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, redu
   const searchOrigin = useRef<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const swipe = useRef<{ x: number; y: number } | null>(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     function key(event: KeyboardEvent) {
       if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k" || event.isComposing || drawer.current?.open) return;
       event.preventDefault();
