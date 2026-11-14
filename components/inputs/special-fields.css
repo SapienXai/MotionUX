@@ -1,0 +1,33 @@
+[data-mx-special] { display: grid; gap: .65rem; inline-size: min(100%, 29rem); text-align: start; color: var(--mx-ink, CanvasText); }
+fieldset[data-mx-special] { box-sizing: border-box; min-inline-size: 0; margin: 0; padding: .7rem; border: 1px solid var(--mx-line, GrayText); border-radius: .8rem; }
+[data-mx-special] legend { font-weight: 700; }
+[data-mx-special] label:not(.mx-file-zone) { display: grid; min-inline-size: 0; gap: .3rem; font-weight: 620; }
+[data-mx-special] input:not([type="file"], [type="radio"]) { box-sizing: border-box; inline-size: 100%; min-block-size: 2.75rem; padding: .4rem .55rem; border: 1px solid var(--mx-line, GrayText); border-radius: .65rem; background: var(--mx-surface, Canvas); color: inherit; font: inherit; }
+[data-mx-special] :is(button, input):focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 3px; }
+.mx-file-zone { position: relative; display: grid; justify-items: center; align-content: center; gap: .45rem; padding: 1rem; min-block-size: 8rem; border: 1px dashed var(--mx-accent, GrayText); border-radius: .9rem; background: var(--mx-surface, Canvas); text-align: center; cursor: pointer; }
+.mx-file-zone input { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; opacity: 0; cursor: inherit; }
+.mx-file-zone:focus-within { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 3px; }
+.mx-file-zone[data-dragging="true"] { background: var(--mx-selected, ButtonFace); border-style: solid; }
+.mx-file-zone[data-disabled="true"] { opacity: .6; cursor: default; }
+.mx-file-zone svg { color: var(--mx-accent, LinkText); }
+.mx-file-zone span, [data-mx-special="file"] li { font-size: .8rem; overflow-wrap: anywhere; }
+[data-mx-special="file"] ul { margin: 0; padding-inline-start: 1.25rem; }
+.mx-file-errors { font-weight: 650; }
+.mx-card-fields { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; }
+.mx-signature-surface { position: relative; border: 1px solid var(--mx-line, GrayText); border-radius: .75rem; overflow: hidden; background: var(--mx-surface, Canvas); }
+.mx-signature-surface > svg:first-child { position: absolute; bottom: .7rem; left: .7rem; pointer-events: none; color: var(--mx-muted, GrayText); }
+.mx-signature-surface > svg:last-child { display: block; inline-size: 100%; aspect-ratio: 5 / 2; touch-action: none; cursor: crosshair; }
+[data-mx-special="signature"]:disabled .mx-signature-surface > svg:last-child { touch-action: auto; cursor: default; }
+.mx-signature-actions { display: flex; gap: .4rem; }
+.mx-signature-actions button { display: grid; place-items: center; min-inline-size: 2.75rem; min-block-size: 2.75rem; border: 1px solid var(--mx-line, GrayText); border-radius: .65rem; background: var(--mx-surface, Canvas); color: inherit; }
+.mx-signature-actions button:disabled { opacity: .55; }
+.mx-wheel-viewport { position: relative; display: grid; block-size: 8.25rem; scroll-padding-block: 2.75rem; overflow-y: auto; scroll-snap-type: y mandatory; overscroll-behavior: contain; }
+.mx-wheel-viewport label { position: relative; place-items: center; min-block-size: 2.75rem; scroll-snap-align: start; border-radius: .6rem; }
+.mx-wheel-viewport label:has(input:checked) { background: var(--mx-selected, ButtonFace); }
+.mx-wheel-viewport label:focus-within { outline: 2px solid var(--mx-accent, Highlight); outline-offset: -2px; }
+.mx-wheel-viewport input { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; opacity: 0; margin: 0; cursor: pointer; }
+@media (forced-colors: active) {
+  .mx-wheel-viewport label:has(input:checked) { border: 2px solid Highlight; }
+}
+
+.mx-wheel-viewport::before, .mx-wheel-viewport::after { content: ""; min-block-size: 2.75rem; }

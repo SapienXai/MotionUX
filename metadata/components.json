@@ -347,6 +347,150 @@
       "consumers": [],
       "evidence": "tests/feedback.spec.ts",
       "referenceId": "designbookmark-goo-thinking"
+    },
+    "letter-limit": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "designbookmark-letter-limit"
+    },
+    "springy-input": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "designbookmark-springy-input"
+    },
+    "otp-code": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "designbookmark-otp-code"
+    },
+    "tag-input": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "designbookmark-tag-input"
+    },
+    "password-strength": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "designbookmark-password-strength"
+    },
+    "jelly-slider": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "designbookmark-jelly-slider"
+    },
+    "exposure-slider": {
+      "source": "https://smoothui.dev/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "smoothui-exposure-slider"
+    },
+    "detent-dial": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "kokonut-detent-dial"
+    },
+    "range-slider": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "designbookmark-range-slider"
+    },
+    "number-stepper": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "designbookmark-number-stepper"
+    },
+    "star-rating": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "designbookmark-star-rating"
+    },
+    "checkbox-list": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "designbookmark-checkbox-list"
+    },
+    "file-drop": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "designbookmark-file-drop"
+    },
+    "card-field": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "kokonut-card-field"
+    },
+    "signature-pad": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "kokonut-signature-pad"
+    },
+    "wheel-picker": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/inputs.spec.ts",
+      "referenceId": "kokonut-wheel-picker"
     }
   }
 }

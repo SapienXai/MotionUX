@@ -829,6 +829,354 @@
           "type": "registry:file"
         }
       ]
+    },
+    {
+      "name": "letter-limit",
+      "type": "registry:component",
+      "title": "Letter limit",
+      "description": "Type or paste into a bounded field; count graphemes and expose the remaining limit.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "target": "@components/sapienx-motion/text-fields.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "target": "@components/sapienx-motion/text-fields.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "springy-input",
+      "type": "registry:component",
+      "title": "Springy input",
+      "description": "Focus and type; animate boundary feedback while validation stays immediate.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "target": "@components/sapienx-motion/text-fields.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "target": "@components/sapienx-motion/text-fields.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "otp-code",
+      "type": "registry:component",
+      "title": "OTP code",
+      "description": "Enter or paste a code into a semantically labelled field with one-time-code autocomplete.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "target": "@components/sapienx-motion/text-fields.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "target": "@components/sapienx-motion/text-fields.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "tag-input",
+      "type": "registry:component",
+      "title": "Tag input",
+      "description": "Commit a tag with Enter, remove individual tags and preserve IME composition.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "target": "@components/sapienx-motion/text-fields.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "target": "@components/sapienx-motion/text-fields.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "password-strength",
+      "type": "registry:component",
+      "title": "Password strength",
+      "description": "Evaluate visible password requirements as the user types without exposing the value.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "target": "@components/sapienx-motion/text-fields.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "target": "@components/sapienx-motion/text-fields.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "jelly-slider",
+      "type": "registry:component",
+      "title": "Jelly slider",
+      "description": "Drag a value with elastic thumb feedback and keyboard range access.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "exposure-slider",
+      "type": "registry:component",
+      "title": "Exposure slider",
+      "description": "Adjust a numeric exposure setting and preview the resulting image brightness.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "detent-dial",
+      "type": "registry:component",
+      "title": "Detent dial",
+      "description": "Rotate or use arrows to select a discrete value with a spring pointer.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "range-slider",
+      "type": "registry:component",
+      "title": "Range slider",
+      "description": "Edit both endpoints without crossings and expose distinct input names.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "number-stepper",
+      "type": "registry:component",
+      "title": "Number stepper",
+      "description": "Increment, decrement or enter a value inside bounds.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "star-rating",
+      "type": "registry:component",
+      "title": "Star rating",
+      "description": "Choose a rating by click, tap or arrows with an accessible numeric value.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "checkbox-list",
+      "type": "registry:component",
+      "title": "Checkbox list",
+      "description": "Check options by mouse, tap or Space; expose selected count.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "file-drop",
+      "type": "registry:component",
+      "title": "File drop",
+      "description": "Drop accepted files or select them with a real file input; reject type and size errors.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/special-fields.tsx",
+          "target": "@components/sapienx-motion/special-fields.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/special-fields.css",
+          "target": "@components/sapienx-motion/special-fields.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "card-field",
+      "type": "registry:component",
+      "title": "Card field",
+      "description": "Edit labelled payment fields and show formatting without claiming payment processing.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/special-fields.tsx",
+          "target": "@components/sapienx-motion/special-fields.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/special-fields.css",
+          "target": "@components/sapienx-motion/special-fields.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "signature-pad",
+      "type": "registry:component",
+      "title": "Signature pad",
+      "description": "Draw into a local pad, clear or undo and expose a non-drawing alternative.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/special-fields.tsx",
+          "target": "@components/sapienx-motion/special-fields.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/special-fields.css",
+          "target": "@components/sapienx-motion/special-fields.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "wheel-picker",
+      "type": "registry:component",
+      "title": "Wheel picker",
+      "description": "Scroll to a snap detent or use keyboard controls to select a value.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/inputs/special-fields.tsx",
+          "target": "@components/sapienx-motion/special-fields.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/inputs/special-fields.css",
+          "target": "@components/sapienx-motion/special-fields.css",
+          "type": "registry:file"
+        }
+      ]
     }
   ]
 }

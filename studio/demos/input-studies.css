@@ -1,0 +1,2 @@
+.mx-exposure-demo { display: grid; inline-size: min(100%, 27rem); gap: .7rem; }
+.mx-exposure-demo img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: .75rem; }
