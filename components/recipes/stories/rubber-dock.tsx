@@ -1,6 +1,6 @@
-import { stringValue } from "../values";
+import { booleanValue, numberValue, stringValue } from "../values";
 import { useState } from "react";
-import { Aperture, Compass, FolderOpen, Send } from "lucide-react";
+import { Home, Search, Inbox, User } from "lucide-react";
 import { RubberDock } from "../../navigation/rubber-dock";
 import type { Specimen } from "../specimen";
 import "./demo.css";
@@ -11,9 +11,9 @@ const story: Specimen = {
     const labels = language === "tr" ? ["Keşfet", "Çekim", "Arşiv", "Gönder"] : ["Explore", "Capture", "Archive", "Send"];
     const hrefs = ["#explore", "#capture", "#archive", "#send"];
     return <div className="mx-demo mx-demo-center">
-      <div className="mx-demo-sample"><p>{language === "tr" ? "Çalışma alanı" : "Workspace"}</p><strong>{labels[hrefs.indexOf(active)]}</strong></div>
-      <RubberDock label={stringValue(config, "label") ?? (language === "tr" ? "Kamera menüsü" : "Camera workspace")} activeHref={active} reducedMotion={reduced}
-        links={[Compass, Aperture, FolderOpen, Send].map((Icon, i) => ({ href: hrefs[i], label: i === 0 ? stringValue(config, "firstLabel") ?? labels[0] : labels[i], icon: <Icon size={21} /> }))}
+      <div className="mx-demo-sr" role="status"><p>{language === "tr" ? "Çalışma alanı" : "Workspace"}</p><strong>{labels[hrefs.indexOf(active)]}</strong></div>
+      <RubberDock label={stringValue(config, "label") ?? (language === "tr" ? "Kamera menüsü" : "Camera workspace")} activeHref={active} compact={booleanValue(config, "compact") ?? true} magnification={numberValue(config, "magnification")} reducedMotion={reduced}
+        links={[Home, Search, Inbox, User].map((Icon, i) => ({ href: hrefs[i], label: i === 0 ? stringValue(config, "firstLabel") ?? labels[0] : labels[i], icon: <Icon size={21} /> }))}
         onNavigate={(event, href) => {
           if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
           event.preventDefault(); setActive(href);

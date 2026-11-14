@@ -13,7 +13,7 @@
 [data-mx-goo="menu"]:has(.mx-goo-lobes) { gap: .25rem; }
 [data-mx-goo="menu"]:has(.mx-goo-lobes) button { inline-size: 44px; block-size: 44px; }
 @media (forced-colors: active) { .mx-goo-lobes { display: none; } }
-[data-mx-goo="menu"][data-layout="arc"] { display: grid; position: relative; justify-items: center; align-items: end; inline-size: min(100%, 256px); block-size: 174px; padding-block-end: 10px; }
+[data-mx-goo="menu"][data-layout="arc"] { display: grid; grid-template-columns: minmax(0, 1fr); position: relative; justify-items: center; align-items: end; inline-size: min(100%, 256px); block-size: 174px; padding-block-end: 10px; }
 [data-layout="arc"] > .mx-goo-trigger { position: relative; z-index: 1; inline-size: 60px; block-size: 60px; }
 [data-layout="arc"] > .mx-goo-lobes { inset: 0 auto auto 50%; translate: -50% 0; max-inline-size: none; }
 [data-layout="arc"] .mx-goo-options { position: absolute; inset-inline-start: 50%; inset-block-end: 40px; inline-size: 0; block-size: 0; }

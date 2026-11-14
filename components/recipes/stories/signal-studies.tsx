@@ -141,7 +141,7 @@ export function signalStory(kind: Kind): Specimen {
             describe={(n, total) => t(`${n} of ${total} complete`, `${total} görevden ${n} tanesi tamamlandı`)} />; break;
         case "siri-orb":
           control = <><SignalOrb active={booleanValue(config, "active") ?? index % 2 !== 0} status={stringValue(config, "status") ?? (index % 2 ? t("Simulated signal active", "Örnek sinyal etkin") : t("Signal at rest", "Sinyal durağan"))}
-            reducedMotion={reduced} />{replay(t("Toggle signal", "Sinyali değiştir"))}</>; break;
+            reducedMotion={reduced} tension={numberValue(config, "tension")} />{replay(t("Toggle signal", "Sinyali değiştir"))}</>; break;
         case "scrubber":
           control = <TimeScrubber label={label("Seek position", "Oynatma konumu")} elapsed={elapsed} duration={numberValue(config, "duration") ?? 120} disabled={disabled} onSeek={setElapsed} format={time} />; break;
         case "glass-player": case "music-toggle":

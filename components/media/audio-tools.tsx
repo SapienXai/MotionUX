@@ -62,16 +62,23 @@ function AudioSession({ src, title, subtitle, playLabel, pauseLabel, errorLabel,
   </section>;
 }
 
-export function SignalOrb({ active, status, reducedMotion }: { active: boolean; status: string; reducedMotion?: boolean }) {
+const orbPaths = [
+  "M50 20 C67 17 81 31 78 46 C74 65 66 80 48 80 C30 80 17 65 21 50 C24 35 34 23 50 20Z",
+  "M47 12 C61 16 84 36 81 49 C80 66 73 84 55 86 C37 87 13 72 16 54 C18 34 33 8 47 12Z",
+];
+export function SignalOrb({ active, status, reducedMotion, tension = 235 }: { active: boolean; status: string; reducedMotion?: boolean; tension?: number }) {
   const system = useReducedMotion();
   const quiet = system || reducedMotion;
+  const stiffness = Number.isFinite(tension) ? Math.min(650, Math.max(120, tension)) : 235;
+  const settle = quiet ? { duration: 0 } : { type: "spring" as const, stiffness, damping: 24, mass: .85 };
   return <div data-mx-audio="orb">
-    <motion.div className="mx-orb-sphere" data-active={active} aria-hidden="true" initial={false}
-      animate={{ scale: quiet || !active ? 1 : 1.15, rotate: quiet || !active ? 0 : 16 }}
-      transition={quiet ? { duration: 0 } : { type: "spring", stiffness: 235, damping: 20, mass: .9 }}>
-      <motion.i initial={false} animate={{ x: active && !quiet ? 13 : 0, y: active && !quiet ? -7 : 0 }}
-        transition={quiet ? { duration: 0 } : { type: "spring", stiffness: 210, damping: 24 }} />
-    </motion.div>
+    <div className="mx-orb-sphere" data-active={active} aria-hidden="true">
+      <svg viewBox="0 0 100 100">
+        <motion.path initial={false} animate={{ d: orbPaths[active ? 1 : 0] }} transition={settle} />
+        <motion.path initial={false} animate={{ d: orbPaths[active ? 0 : 1], rotate: active && !quiet ? -22 : 16 }}
+          transition={settle} />
+      </svg>
+    </div>
     <span role="status">{status}</span>
   </div>;
 }

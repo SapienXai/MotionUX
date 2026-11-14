@@ -1,5 +1,16 @@
 [data-mx-rubber-dock] { display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem; padding: .42rem; border: 1px solid var(--mx-line, GrayText); border-radius: 1rem; background: var(--mx-surface, Canvas); color: var(--mx-ink, CanvasText); }
 [data-mx-rubber-dock] a { display: grid; justify-items: center; min-inline-size: 3.4rem; min-block-size: 44px; gap: .3rem; padding: .35rem .25rem; border-radius: .64rem; color: inherit; font: inherit; font-size: .75rem; text-decoration: none; overflow-wrap: anywhere; }
-[data-mx-rubber-dock] a > span { display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; background: var(--mx-selected, ButtonFace); color: var(--mx-accent, LinkText); border-radius: .6rem; transform-origin: bottom center; }
+[data-mx-rubber-dock] a > .mx-rubber-icon { display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; background: var(--mx-selected, ButtonFace); color: var(--mx-accent, LinkText); border-radius: .6rem; transform-origin: bottom center; }
 [data-mx-rubber-dock] a[aria-current] { background: var(--mx-selected, ButtonFace); color: var(--mx-accent, LinkText); font-weight: 680; }
 [data-mx-rubber-dock] a:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: -2px; }
+
+[data-mx-rubber-dock][data-compact] { gap: 4px; padding: 5px; border: 0; border-radius: 999px; }
+[data-mx-rubber-dock][data-compact] a { position: relative; display: grid; place-items: center; isolation: isolate; flex: 0 0 auto; min-inline-size: 44px; inline-size: 52px; block-size: 52px; padding: 0; gap: 0; border-radius: 50%; }
+[data-mx-rubber-dock][data-compact] a[aria-current] { background: none; color: var(--mx-on-accent, HighlightText); }
+[data-compact] .mx-rubber-icon { pointer-events: none; color: inherit; background: none; }
+.mx-rubber-indicator { position: absolute; z-index: -1; inset: 0; border-radius: 50%; background: var(--mx-accent, Highlight); pointer-events: none; }
+[data-compact] .mx-rubber-label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (forced-colors: active) {
+  [data-compact] .mx-rubber-indicator { outline: 2px solid Highlight; outline-offset: -3px; }
+  [data-mx-rubber-dock][data-compact] a[aria-current] { color: Highlight; }
+}
