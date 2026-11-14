@@ -1,19 +1,20 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { ChevronDown, Ellipsis } from "lucide-react";
 import "./action-menu.css";
 
 export type MenuAction = { id: string; label: string; icon?: ReactNode; disabled?: boolean };
-export function ActionMenu({ label, actions, onAction, variant = "dropdown", reducedMotion, className }: {
+export function ActionMenu({ label, actions, onAction, variant = "dropdown", reducedMotion, className, defaultOpen = false, inline = false, triggerIcon }: {
   label: string; actions: readonly MenuAction[]; onAction: (id: string) => void;
-  variant?: "dropdown" | "dynamic" | "morph"; reducedMotion?: boolean; className?: string;
+  variant?: "dropdown" | "dynamic" | "morph"; reducedMotion?: boolean; className?: string; defaultOpen?: boolean; inline?: boolean; triggerIcon?: ReactNode;
 }) {
   const id = useId();
   const pref = useReducedMotion();
   const noMotion = reducedMotion || pref;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
+  const shouldFocus = useRef(!defaultOpen);
   const [above, setAbove] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -25,7 +26,7 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
   useLayoutEffect(() => {
     const layer = overlay.current;
     const button = trigger.current;
-    if (!open || !layer || !button || typeof layer.showPopover !== "function") return;
+    if (inline || !open || !layer || !button || typeof layer.showPopover !== "function") return;
     layer.setAttribute("popover", "manual");
     layer.showPopover();
     const place = () => {
@@ -74,12 +75,13 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
       if (layer.matches(":popover-open")) layer.hidePopover();
       layer.removeAttribute("popover");
     };
-  }, [open]);
+  }, [open, inline]);
 
   useEffect(() => {
     if (!open) return;
     const controls = enabled();
-    controls.at(position.current === -1 ? -1 : 0)?.focus();
+    if (shouldFocus.current) controls.at(position.current === -1 ? -1 : 0)?.focus();
+    shouldFocus.current = true;
     const dismiss = (event: PointerEvent) => {
       if (event.target instanceof Node && !root.current?.contains(event.target)) setOpen(false);
     };
@@ -99,19 +101,20 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
     if (restore) trigger.current?.focus();
   }
 
-  return <div ref={root} data-mx-action-menu={variant} data-above={above} className={className}
+  return <div ref={root} data-mx-action-menu={variant} data-above={above} className={className} data-inline={inline || undefined}
     onBlur={(e) => { if (e.relatedTarget && !e.currentTarget.contains(e.relatedTarget)) setOpen(false); }}>
     <button type="button" ref={trigger} aria-haspopup="menu" aria-expanded={open} aria-controls={open ? id : undefined}
       onClick={() => open ? close(true) : openMenu()}
       onKeyDown={(e) => {
         if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); openMenu(e.key === "ArrowUp"); }
       }} className="mx-menu-trigger">
-      {variant === "dynamic" && <Ellipsis size={17} aria-hidden />}{label}
+      {variant === "dynamic" && <Ellipsis size={17} aria-hidden />}{triggerIcon && <span aria-hidden="true">{triggerIcon}</span>}{label}
       {variant !== "dynamic" && <ChevronDown size={15} aria-hidden />}
     </button>
-    {open && <div ref={overlay} className="mx-menu-layer"><motion.div ref={menu} id={id} role="menu" aria-label={label} className="mx-menu-items"
-      initial={noMotion ? false : { opacity: .65, y: above ? 6 : -6, scale: variant === "morph" ? .84 : .96 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+    {(open || inline) && <div ref={overlay} className="mx-menu-layer" inert={!open}><AnimatePresence initial={false}>{open && <motion.div ref={menu} id={id} role="menu" aria-label={label} className="mx-menu-items"
+      initial={noMotion ? false : variant === "morph" ? { opacity: .25, y: -5, clipPath: "inset(0% 12% 72% 12% round 20px)" } : { opacity: .65, y: above ? 6 : -6, scale: .96 }}
+      animate={variant === "morph" ? { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0% round 13px)", transitionEnd: { clipPath: "none" } } : { opacity: 1, y: 0, scale: 1 }}
+      exit={inline ? { opacity: 0, y: -3, clipPath: "inset(0% 12% 72% 12% round 20px)" } : undefined}
       transition={noMotion ? { duration: 0 } : { type: "spring", stiffness: 445, damping: 34 }}
       onKeyDown={(e) => {
         if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(true); return; }
@@ -127,6 +130,6 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
       }}>
       {actions.map((item) => <button type="button" role="menuitem" key={item.id} tabIndex={-1} disabled={item.disabled}
         onClick={() => { close(true); onAction(item.id); }}><span aria-hidden="true">{item.icon}</span>{item.label}</button>)}
-    </motion.div></div>}
+    </motion.div>}</AnimatePresence></div>}
   </div>;
 }

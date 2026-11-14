@@ -1,0 +1,80 @@
+.mx-hero { padding: 44px 30px 44px 35px; }
+.mx-hero h1 { margin: 0; font-size: clamp(34px, 3.0vw, 46px); line-height: 1.045; font-weight: 790; letter-spacing: -.046em; }
+.mx-hero p { margin: 8px 0 0; color: var(--muted); font-size: 18px; font-weight: 430; letter-spacing: -.005em; }
+.mx-gallery { display: grid; gap: 15px 12px; padding: 0 9px 30px 19px; grid-template-columns: minmax(0, .98fr) minmax(0, 1fr); }
+.mx-gallery-card {
+  display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: 19px; min-inline-size: 0;
+  min-block-size: 239px; padding: 10px 13px 11px 10px; border: 1px solid var(--line); border-radius: 18px;
+  background: var(--surface); transition: transform .18s, box-shadow .18s, border-color .18s;
+}
+.mx-gallery-card:nth-child(n+3) { min-block-size: 252px; }
+@media (hover: hover) and (pointer: fine) {
+  .mx-gallery-card:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--line), var(--accent) 12%); box-shadow: 0 5px 18px #29223b0d; }
+}
+.mx-stage {
+  --mx-bg: var(--stage); --mx-surface: #fcfbfd; --mx-ink: #17151c; --mx-muted: #4f485a;
+  --mx-line: #e2dde8; --mx-accent: #9d2c34; --mx-on-accent: #fff; --mx-selected: #f9d8d9;
+  color: var(--mx-ink); background: var(--mx-bg);
+}
+.mx-stage[data-theme="bookplace"] { --mx-bg: #f3ebdb; --mx-surface: #fff9ef; --mx-ink: #35271e; --mx-muted: #655447; --mx-line: #d6c1aa; --mx-accent: #7d4722; --mx-selected: #ebd8bc; }
+.mx-stage[data-theme="dinewallet"] { --mx-bg: #f0efeb; --mx-surface: #faf9f6; --mx-ink: #202520; --mx-muted: #4d544d; --mx-line: #c9ccc5; --mx-accent: #26553e; --mx-selected: #dbe6dc; }
+.mx-studio[data-scheme="dark"] .mx-stage { --mx-surface: #332e40; --mx-ink: #f8f4fb; --mx-muted: #d4cce3; --mx-line: #514961; --mx-accent: #ffaaa7; --mx-on-accent: #241419; --mx-selected: #59333f; }
+.mx-studio[data-scheme="dark"] .mx-stage[data-theme="bookplace"] { --mx-bg: #2b2119; --mx-surface: #34271d; --mx-ink: #ffedda; --mx-muted: #dac5a9; --mx-line: #76604b; --mx-accent: #f4b47d; --mx-selected: #4b3828; }
+.mx-studio[data-scheme="dark"] .mx-stage[data-theme="dinewallet"] { --mx-bg: #1c211e; --mx-surface: #252c27; --mx-ink: #f2f5ee; --mx-muted: #bfcbc1; --mx-line: #56665a; --mx-accent: #a6d6ad; --mx-selected: #35473c; }
+.mx-gallery-stage { position: relative; display: grid; place-items: center; min-inline-size: 0; border-radius: 13px; padding: 10px; container-type: inline-size; }
+.mx-gallery-stage > :is(.mx-demo,.mx-feature) { inline-size: 100%; min-inline-size: 0; }
+.mx-gallery-stage > .mx-demo { max-block-size: 205px; padding: 4px; overflow: auto; overscroll-behavior: auto; }
+.mx-gallery-stage .mx-demo :is(p, h3) { overflow-wrap: anywhere; }
+.mx-card-reset { position: absolute; z-index: 2; inset: 5px 5px auto auto; inline-size: 36px; block-size: 36px; display: grid; place-items: center; background: var(--mx-surface); color: var(--mx-ink); border: 1px solid var(--mx-line); border-radius: 10px; opacity: 0; transition: opacity .15s; }
+.mx-card-reset:focus-visible, .mx-gallery-stage:focus-within > .mx-card-reset { opacity: 1; }
+@media (hover: hover) { .mx-gallery-stage:hover > .mx-card-reset { opacity: 1; } }
+.mx-card-copy { display: flex; flex-direction: column; align-items: flex-start; min-inline-size: 0; padding-block: 9px 12px; }
+.mx-card-copy h2 { margin: 0; font-size: 20px; line-height: 1.16; font-weight: 775; letter-spacing: -.034em; overflow-wrap: anywhere; }
+.mx-card-copy p { margin: 7px 0 10px; color: var(--muted); font-size: 14.75px; line-height: 1.42; font-weight: 435; letter-spacing: -.009em; overflow-wrap: anywhere; }
+.mx-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-block-start: auto; margin-block-end: 17px; min-inline-size: 0; }
+.mx-tags span { background: var(--chip); border-radius: 8px; font-size: 11px; padding: 5px 10px; color: var(--muted); font-weight: 570; overflow-wrap: anywhere; }
+.mx-open-playground { display: flex; inline-size: 100%; min-block-size: 37px; align-items: center; gap: 9px; padding: 4px 9px 4px 11px; border: 1px solid var(--line); border-radius: 9px; background: var(--canvas); text-decoration: none; font-weight: 610; font-size: 12px; letter-spacing: -.02em; }
+.mx-open-playground span { flex: 1; }
+.mx-open-playground svg { flex: 0 0 auto; }
+.mx-open-playground svg:last-child { transition: transform .16s; }
+.mx-open-playground:hover svg:last-child { transform: translateX(2px); }
+.mx-open-playground:active { background: var(--active); color: var(--accent); }
+.mx-load-error { text-align: center; padding: 10px; }
+.mx-load-error p { margin: 5px 0; }
+.mx-empty { padding: 25px 35px; }
+.mx-empty h2 { margin: 0; }
+.mx-result-count { margin: -23px 20px 12px 35px; color: var(--muted); font-size: 13px; }
+@media (min-width: 1600px) {
+  .mx-gallery-card { grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); }
+}
+@media (max-width: 1439px) and (min-width: 1200px) {
+  .mx-studio { --side-width: 235px; }
+  .mx-gallery-card { gap: 12px; grid-template-columns: minmax(0, 1.52fr) minmax(0, 1fr); }
+}
+@media (max-width: 1199px) {
+  .mx-hero { padding: 30px 22px 25px; }
+  .mx-result-count { margin: -10px 22px 12px; }
+  .mx-gallery { grid-template-columns: minmax(0, 1fr); padding: 0 20px 25px; }
+  .mx-gallery-card { min-block-size: 230px; }
+  .mx-open-playground { min-block-size: 44px; }
+}
+@media (max-width: 767px) {
+  .mx-hero { padding: 24px 14px 23px; }
+  .mx-hero h1 { max-inline-size: 20ch; font-size: clamp(31px, 7.9vw, 40px); }
+  .mx-hero p { font-size: 15px; }
+  .mx-gallery { padding: 0 12px max(20px, env(safe-area-inset-bottom)); gap: 12px; }
+  .mx-gallery-card, .mx-gallery-card:nth-child(n+3) { grid-template-columns: minmax(0, 1fr); gap: 11px; padding: 8px; min-block-size: 0; }
+  .mx-gallery-stage { min-block-size: 205px; }
+  .mx-card-copy { padding: 1px 3px 3px; }
+  .mx-card-copy h2 { font-size: 19px; }
+  .mx-tags { margin-block-end: 10px; }
+  .mx-card-reset { inline-size: 44px; block-size: 44px; }
+  .mx-result-count { margin-inline: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mx-gallery-card, .mx-open-playground svg:last-child, .mx-card-reset { transition: none; }
+  .mx-gallery-card:hover, .mx-open-playground:hover svg:last-child { transform: none; }
+}
+
+.mx-gallery-stage:has(.mx-feature-room) { padding-block-end: 2px; align-items: end; }
+.mx-gallery-card:nth-child(n+7) { content-visibility: auto; contain-intrinsic-block-size: 230px; }

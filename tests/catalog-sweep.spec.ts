@@ -30,7 +30,9 @@ test("representative specimens expose labelled native controls in tablet dark mo
   await page.setViewportSize({ width: 768, height: 1024 });
   for (const id of ["designbookmark-tab-pill", "designbookmark-hold-to-publish", "kokonut-signature-pad", "designbookmark-glass-lens", "designbookmark-prompt-box", "kokonut-glass-player"]) {
     await page.goto(`/?item=${id}`);
-    await page.getByRole("button", { name: "Switch to dark mode" }).click();
+    const theme = page.getByRole("button", { name: "Switch to dark mode" });
+    if (await theme.isVisible()) await theme.click();
+    await expect(page.locator(".mx-studio")).toHaveAttribute("data-scheme", "dark");
     const stage = page.getByTestId("specimen-interaction");
     await expect(stage.locator(".mx-demo")).toBeVisible();
     const { violations } = await new AxeBuilder({ page }).include("[data-testid=specimen-interaction]").analyze();

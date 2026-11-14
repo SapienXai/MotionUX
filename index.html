@@ -2,9 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Explore and try reusable React interactions in MotionUX Studio." />
-    <title>MotionUX Studio — A field guide to interface motion</title>
+    <script>
+      try {
+        const saved = localStorage.getItem("mx-studio-scheme");
+        if (saved === "dark" || saved === "light") document.documentElement.dataset.mxScheme = saved;
+      } catch {}
+    </script>
+    <style>html[data-mx-scheme="dark"] { background: #141319; color-scheme: dark; }</style>
+    <title>MotionUX Studio — Beautiful motion. Ready to use.</title>
   </head>
   <body>
     <div id="root"></div>
