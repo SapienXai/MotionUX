@@ -81,6 +81,7 @@ body { margin: 0; }
   .mx-sidebar { display: none; }
   .mx-main-frame { margin-inline-start: 0; }
   .mx-top { position: sticky; top: 0; z-index: 5; padding: max(14px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 11px max(20px, env(safe-area-inset-left)); background: var(--canvas); border-block-end: 1px solid var(--line); gap: 10px; }
+  .mx-studio :is(#studio-main, #specimen) { scroll-margin-block-start: calc(73px + env(safe-area-inset-top)); }
   .mx-mobile-brand, .mx-menu-open { display: inline-grid; }
   .mx-mobile-brand { margin-inline-end: 8px; }
   .mx-mobile-brand .mx-brand svg { inline-size: 42px; block-size: 35px; }
@@ -107,6 +108,7 @@ body { margin: 0; }
   .mx-top .mx-github { display: inline-grid; }
   .mx-top .mx-search { grid-row: 2; grid-column: 1 / -1; padding-inline: 10px; }
   .mx-search input { font-size: 16px; }
+  .mx-studio :is(#studio-main, #specimen) { scroll-margin-block-start: calc(128px + env(safe-area-inset-top)); }
 }
 @media (prefers-reduced-motion: reduce) {
   .mx-studio :is(.mx-icon svg, .mx-view-playground, .mx-drawer-panel) { animation: none; }

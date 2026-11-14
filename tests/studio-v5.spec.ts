@@ -120,6 +120,12 @@ test("mobile drawer handles focus, backdrop, and real navigation", async ({ page
   await opener.click();
   await drawer.getByRole("link", { name: "Examples" }).click();
   await expect(page.getByRole("link", { name: /Open the v1 demos/ })).toHaveAttribute("href", "?legacy=1");
+  await page.goto("/?item=designbookmark-tab-pill#specimen");
+  const title = page.getByRole("heading", { level: 1 });
+  await expect(title).toBeVisible();
+  await title.evaluate(heading => heading.scrollIntoView());
+  const [heading, header] = await Promise.all([title.boundingBox(), page.locator(".mx-top").boundingBox()]);
+  expect(heading!.y).toBeGreaterThanOrEqual(header!.y + header!.height);
 });
 
 test("responsive Gallery fits supported widths and preserves dark preference", async ({ page }) => {
