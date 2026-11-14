@@ -6,7 +6,7 @@ A tab indicator that follows the selection. A card deck that moves with your dra
 
 [Run Studio](#run-motionux-studio) · [Install a component](#install-your-first-component) · [Browse all 82 previews](docs/REFERENCE-INVENTORY.md) · [Use with Codex](#use-with-codex)
 
-[![MotionUX Studio V5 with its coral sidebar, live lavender preview stages, and two-column gallery](docs/evidence/studio-v6/desktop-1536x1024-light.png)](#run-motionux-studio)
+[![MotionUX Studio showing live Plan Switch, Letter Limit, and Pull Cord previews in dark mode](docs/evidence/studio-v8/desktop-dark.jpg)](#run-motionux-studio)
 
 ## Run MotionUX Studio
 
@@ -19,7 +19,11 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. Try a live card in Gallery and click **Open playground**. Use **Props** and **States** to edit the component while the preview stays on screen. Use **Preview settings** to switch between neutral, BookPlace, and DineWallet themes, try a narrower stage, or compare reduced motion. Use **Install** for the pinned command and **Usage** for the React example. **Code** lets you inspect and copy the same TypeScript and CSS that the pinned installation supplies. Every card opens the example you saw in Gallery. Choose **Gallery example** under Preview settings to switch between that composition and the standalone component. When a component offers adjustable motion, use **Motion** to tune it and copy the result from Usage. **Source** links the reference and the component test.
+Open the local URL printed by Vite. You can also run `pnpm dev` once dependencies are installed.
+
+1. **Try it in Gallery.** Move the pointer across Rubber Dock, pull the cord, or switch the billing period. The Gallery follows your system appearance until you choose a theme in the header.
+2. **Make it yours in Playground.** Open a card with its play icon. Change the component through **Props**, **States**, or, where supported, **Motion**. Resize the stage, try reduced motion, and test your settings in neutral, BookPlace, or DineWallet colors. Turn off **Gallery example** to explore the standalone component.
+3. **Take the code with you.** Copy the pinned shadcn command from **Install** and the configured React example from **Usage**. **Code** shows the TypeScript and CSS supplied by the selected package. **Source** links the reference and behavior test.
 
 | Try first | What to do |
 | --- | --- |
@@ -28,7 +32,7 @@ Open the local URL printed by Vite. Try a live card in Gallery and click **Open 
 | **Signature Pad** | Draw a stroke, undo it, or enter a typed signature. |
 | **Glass Player** | Play, pause, and seek a local audio sample. |
 
-[Desktop reference comparison](docs/evidence/studio-v5/reference-comparison.png) · [Mobile Gallery](docs/evidence/studio-v6/mobile-390-light.png) · [See the live settings](docs/evidence/studio-v6/playground-properties.png)
+[Light Gallery](docs/evidence/studio-v8/desktop-light.jpg) · [Mobile Gallery](docs/evidence/studio-v8/mobile-dark.jpg) · [V8 acceptance report](docs/V8-ACCEPTANCE.md)
 
 ## Install your first component
 
@@ -100,6 +104,6 @@ Open **Install** in the Playground to copy the exact checkpoint for the selected
 
 ## Verification and license
 
-The **97-item registry** includes six dedicated Gallery presets and five recipe families that share the other 76 Studio examples. Consumer checks build generated examples in a separate React project. Coverage for responsive screenshots, animation trajectories and individual quality acceptance is tracked in the V7 reports. [Consumer parity](docs/V7-PARITY-MATRIX.md) · [Quality ledger](docs/V7-QUALITY-LEDGER.md) · [GitHub Actions](https://github.com/SapienXai/MotionUX/actions/workflows/ci.yml?query=branch%3Amain) · [Registry verification](docs/VERIFICATION.md)
+The **97-item registry** includes six dedicated Gallery presets and five recipe families that supply the other 76 Studio examples. Consumer checks install the pinned packages and build generated examples in a separate React project. The acceptance report records the reference sweep, screenshot comparisons, sampled motion and outstanding device and component checks. [V8 acceptance report](docs/V8-ACCEPTANCE.md) · [GitHub Actions](https://github.com/SapienXai/MotionUX/actions/workflows/ci.yml?query=branch%3Amain) · [Registry verification](docs/VERIFICATION.md)
 
 MotionUX is MIT licensed. Adapted components retain their upstream notices. [License](LICENSE) · [Source review](docs/SOURCE-REVIEW.md) · [Changelog](CHANGELOG.md)

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased · Studio V8
+
+- Rebuilt the Gallery around live previews in a monochrome layout with system light and dark modes, direct Playground links and responsive filtering.
+- Reworked the Plan Switch, Letter Limit and Pull Cord examples. Added geometry changes and motion controls for radial actions, inline menus, Morph Island, Rubber Dock and Siri Orb. Added touch tracking to Glass Lens and progressive drag resistance to Pull to Refresh.
+- Published the shared theme with the installed presets and expanded the isolated React interaction suite to 41 recipe scenarios. [V8 acceptance report](docs/V8-ACCEPTANCE.md)
+
 ## Unreleased · Studio V7
 
 - Shared the Gallery compositions with React consumers through five installable recipe families.

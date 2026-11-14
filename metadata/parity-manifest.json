@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "defaultPin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+  "defaultPin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
   "featured": [
     "designbookmark-tab-pill",
     "designbookmark-loading-to-success",
@@ -43,7 +43,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -87,14 +87,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-letter-limit",
@@ -103,12 +96,12 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
           "target": "@components/sapienx-motion/text-fields.tsx",
-          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+          "sha256": "98b1487983cc56ec790c076252edd6f741ed0ac362516a136ff343b67c6f5838"
         },
         {
           "path": "components/inputs/text-fields.css",
@@ -148,14 +141,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-pull-cord",
@@ -164,17 +150,17 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/pull-cord.tsx",
           "target": "@components/sapienx-motion/pull-cord.tsx",
-          "sha256": "186dad9627c59a734f83d8ff3a4186954ce0b6b9ddf192db98f4207f25d164f0"
+          "sha256": "f8f758102a64e0c5aa72096914474ce56e215e9964aa934cac8067b6fc36e815"
         },
         {
           "path": "components/navigation/pull-cord.css",
           "target": "@components/sapienx-motion/pull-cord.css",
-          "sha256": "3eb1841e4651d75c56cfe2577bd515b41b6f8943fc7596940cc9069ac6e45d30"
+          "sha256": "a7a26789be4af97f685a7b61a561cef13eeeb78891e7821c0648ea83dd9a3ff5"
         }
       ],
       "publicContract": {
@@ -208,14 +194,7 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-morph-tooltip",
@@ -224,7 +203,7 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/morph-tooltip.tsx",
@@ -268,14 +247,7 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-spring-dropdown",
@@ -284,12 +256,12 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/action-menu.tsx",
           "target": "@components/sapienx-motion/action-menu.tsx",
-          "sha256": "d549711014b934b2bdf1cc1e80835573ad6a331ad5fe7d267dcf9c8bb20eadd4"
+          "sha256": "bf5cc4008d6649a18d1274795d3baffc17950d87861b629d69ace434f9c9335f"
         },
         {
           "path": "components/navigation/action-menu.css",
@@ -329,14 +301,7 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-file-drop",
@@ -345,7 +310,7 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -389,14 +354,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-command-button",
@@ -405,7 +363,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -449,14 +407,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-morph-island",
@@ -465,17 +416,17 @@
       "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
           "target": "@components/sapienx-motion/disclosure-cards.tsx",
-          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
+          "sha256": "adcc3051c9c7f3db78af3b413c33cc5fe907dec2b2648fa3d9426fd46a0507f3"
         },
         {
           "path": "components/gestures/disclosure-cards.css",
           "target": "@components/sapienx-motion/disclosure-cards.css",
-          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
+          "sha256": "2bc3528bb7dc12ecce9185a30a26efada6575dfa45b75876c2637a318eeba20a"
         }
       ],
       "publicContract": {
@@ -510,14 +461,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-goo-menu",
@@ -526,17 +470,17 @@
       "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
           "target": "@components/sapienx-motion/goo-studies.tsx",
-          "sha256": "de041bf2fdafa09840221021af7c793a7702aa807531257e44607ab8bef0d76f"
+          "sha256": "93fb46b0617a7986fbd5e7c075a123a6c0749074b83640edffebdc5396a7455d"
         },
         {
           "path": "components/gestures/goo-studies.css",
           "target": "@components/sapienx-motion/goo-studies.css",
-          "sha256": "27b3fee3291731667ca1a84b0e710a4fd91f420e5d50de1f4f92074806d20d45"
+          "sha256": "2a71a2034ecfb47f2362e42a98add88163814848c621c37e8570c35f356cc409"
         }
       ],
       "publicContract": {
@@ -571,14 +515,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-jelly-slider",
@@ -587,7 +524,7 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -632,14 +569,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-hold-to-publish",
@@ -648,7 +578,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/confirmation-controls.tsx",
@@ -693,14 +623,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-swipe-deck",
@@ -708,7 +631,7 @@
       "installItem": "destination-deck-gallery",
       "preview": "DestinationDeck",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/showcase/destination-deck.tsx",
@@ -723,7 +646,7 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
+          "sha256": "9f4f135e6e26980f1bcc5688f59d3139379e150ee6912cb34dd475ff912d6781"
         },
         {
           "path": "components/showcase/deck-fixtures.ts",
@@ -739,6 +662,11 @@
           "path": "components/gestures/deck-and-page.css",
           "target": "@components/sapienx-motion/presets/gestures/deck-and-page.css",
           "sha256": "901ddf5f3b5943e2a1cdac353177f28fef086fd8ae353b3c1ed48a154e53520e"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "target": "@components/sapienx-motion/presets/recipes/theme.css",
+          "sha256": "5e133773bda674932e1ddc8f54521e367ea1268f365f82c3026841670e8d75dc"
         }
       ],
       "publicContract": {
@@ -748,7 +676,8 @@
         "description": "MotionUX Studio’s installable Destination Deck composition and default fixture data.",
         "dependencies": [
           "motion@14.14.0",
-          "lucide-react@0.454.0"
+          "lucide-react@0.454.0",
+          "@fontsource-variable/inter@5.3.0"
         ],
         "files": [
           {
@@ -780,11 +709,16 @@
             "path": "components/gestures/deck-and-page.css",
             "type": "registry:file",
             "target": "@components/sapienx-motion/presets/gestures/deck-and-page.css"
+          },
+          {
+            "path": "components/recipes/theme.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/recipes/theme.css"
           }
         ]
       },
       "base": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
         "files": [
           {
             "path": "components/gestures/deck-and-page.tsx",
@@ -829,8 +763,8 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/featured-consumer.json",
         "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
@@ -842,12 +776,12 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
           "target": "@components/sapienx-motion/text-fields.tsx",
-          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+          "sha256": "98b1487983cc56ec790c076252edd6f741ed0ac362516a136ff343b67c6f5838"
         },
         {
           "path": "components/inputs/text-fields.css",
@@ -887,14 +821,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-rubber-dock",
@@ -903,17 +830,17 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/rubber-dock.tsx",
           "target": "@components/sapienx-motion/rubber-dock.tsx",
-          "sha256": "2adaa146b835a726c170ca1d4fd47f57cd1f1bde4c2ddb45766df57d0dbc3a2b"
+          "sha256": "97e9d1c514fc2896002738e80742517d3f967181ca373d8e1e42e6b5c04030a5"
         },
         {
           "path": "components/navigation/rubber-dock.css",
           "target": "@components/sapienx-motion/rubber-dock.css",
-          "sha256": "d62ad295bd28e2a92363336635315f282257ccfa78aae9dd73d96df4985ebc45"
+          "sha256": "9393b7e3eeb0a56b636158cd5fdbb554d0134c79fd460a1c570f50873fb4a7a2"
         }
       ],
       "publicContract": {
@@ -947,14 +874,7 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-parallax-ticket",
@@ -963,17 +883,17 @@
       "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
           "target": "@components/sapienx-motion/interactive-surfaces.tsx",
-          "sha256": "c1a48d669661ff83edf26bf2f8291bf9245c8a613c056e843f09f611c3f83d80"
+          "sha256": "ec0a2d62dd7c64057deadee62b63e05beaf1b36ec2ebc4549dfd58faec1c9f85"
         },
         {
           "path": "components/gestures/interactive-surfaces.css",
           "target": "@components/sapienx-motion/interactive-surfaces.css",
-          "sha256": "c2b7b65c372030389b2aad7d79a723b69642381aa1de8aad1de53ea71bf14792"
+          "sha256": "af7fb6635d1a0ff79722391975e51a23bbfdfd1127ef720814d3413b9fdbd966"
         }
       ],
       "publicContract": {
@@ -1008,14 +928,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-glass-lens",
@@ -1024,17 +937,17 @@
       "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
           "target": "@components/sapienx-motion/interactive-surfaces.tsx",
-          "sha256": "c1a48d669661ff83edf26bf2f8291bf9245c8a613c056e843f09f611c3f83d80"
+          "sha256": "ec0a2d62dd7c64057deadee62b63e05beaf1b36ec2ebc4549dfd58faec1c9f85"
         },
         {
           "path": "components/gestures/interactive-surfaces.css",
           "target": "@components/sapienx-motion/interactive-surfaces.css",
-          "sha256": "c2b7b65c372030389b2aad7d79a723b69642381aa1de8aad1de53ea71bf14792"
+          "sha256": "af7fb6635d1a0ff79722391975e51a23bbfdfd1127ef720814d3413b9fdbd966"
         }
       ],
       "publicContract": {
@@ -1069,14 +982,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-pull-to-refresh",
@@ -1085,17 +991,17 @@
       "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
           "target": "@components/sapienx-motion/interactive-surfaces.tsx",
-          "sha256": "c1a48d669661ff83edf26bf2f8291bf9245c8a613c056e843f09f611c3f83d80"
+          "sha256": "ec0a2d62dd7c64057deadee62b63e05beaf1b36ec2ebc4549dfd58faec1c9f85"
         },
         {
           "path": "components/gestures/interactive-surfaces.css",
           "target": "@components/sapienx-motion/interactive-surfaces.css",
-          "sha256": "c2b7b65c372030389b2aad7d79a723b69642381aa1de8aad1de53ea71bf14792"
+          "sha256": "af7fb6635d1a0ff79722391975e51a23bbfdfd1127ef720814d3413b9fdbd966"
         }
       ],
       "publicContract": {
@@ -1130,14 +1036,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-word-roll",
@@ -1146,7 +1045,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1190,14 +1089,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-weight-wave",
@@ -1206,7 +1098,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1250,14 +1142,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-goo-morph",
@@ -1266,17 +1151,17 @@
       "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
           "target": "@components/sapienx-motion/goo-studies.tsx",
-          "sha256": "de041bf2fdafa09840221021af7c793a7702aa807531257e44607ab8bef0d76f"
+          "sha256": "93fb46b0617a7986fbd5e7c075a123a6c0749074b83640edffebdc5396a7455d"
         },
         {
           "path": "components/gestures/goo-studies.css",
           "target": "@components/sapienx-motion/goo-studies.css",
-          "sha256": "27b3fee3291731667ca1a84b0e710a4fd91f420e5d50de1f4f92074806d20d45"
+          "sha256": "2a71a2034ecfb47f2362e42a98add88163814848c621c37e8570c35f356cc409"
         }
       ],
       "publicContract": {
@@ -1311,14 +1196,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-scramble-text",
@@ -1327,7 +1205,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1371,14 +1249,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-read-along",
@@ -1387,7 +1258,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1431,14 +1302,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-roll-links",
@@ -1447,7 +1311,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1491,14 +1355,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-prompt-box",
@@ -1507,7 +1364,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/ai/composer.tsx",
@@ -1551,14 +1408,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-streaming-reply",
@@ -1567,7 +1417,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -1612,14 +1462,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-ghost-suggestion",
@@ -1628,7 +1471,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/ai/composer.tsx",
@@ -1672,14 +1515,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-goo-thinking",
@@ -1688,7 +1524,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/tool-approval.tsx",
@@ -1733,14 +1569,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-expand-card",
@@ -1748,7 +1577,7 @@
       "installItem": "expandable-room-gallery",
       "preview": "ExpandableRoom",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/showcase/expandable-room.tsx",
@@ -1763,7 +1592,7 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
+          "sha256": "9f4f135e6e26980f1bcc5688f59d3139379e150ee6912cb34dd475ff912d6781"
         },
         {
           "path": "components/showcase/room-fixtures.ts",
@@ -1773,12 +1602,17 @@
         {
           "path": "components/gestures/disclosure-cards.tsx",
           "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.tsx",
-          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
+          "sha256": "adcc3051c9c7f3db78af3b413c33cc5fe907dec2b2648fa3d9426fd46a0507f3"
         },
         {
           "path": "components/gestures/disclosure-cards.css",
           "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css",
-          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
+          "sha256": "2bc3528bb7dc12ecce9185a30a26efada6575dfa45b75876c2637a318eeba20a"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "target": "@components/sapienx-motion/presets/recipes/theme.css",
+          "sha256": "5e133773bda674932e1ddc8f54521e367ea1268f365f82c3026841670e8d75dc"
         }
       ],
       "publicContract": {
@@ -1788,7 +1622,8 @@
         "description": "MotionUX Studio’s installable Expandable Room composition and default fixture data.",
         "dependencies": [
           "motion@14.14.0",
-          "lucide-react@0.454.0"
+          "lucide-react@0.454.0",
+          "@fontsource-variable/inter@5.3.0"
         ],
         "files": [
           {
@@ -1820,21 +1655,26 @@
             "path": "components/gestures/disclosure-cards.css",
             "type": "registry:file",
             "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css"
+          },
+          {
+            "path": "components/recipes/theme.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/recipes/theme.css"
           }
         ]
       },
       "base": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
         "files": [
           {
             "path": "components/gestures/disclosure-cards.tsx",
             "target": "@components/sapienx-motion/disclosure-cards.tsx",
-            "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
+            "sha256": "adcc3051c9c7f3db78af3b413c33cc5fe907dec2b2648fa3d9426fd46a0507f3"
           },
           {
             "path": "components/gestures/disclosure-cards.css",
             "target": "@components/sapienx-motion/disclosure-cards.css",
-            "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
+            "sha256": "2bc3528bb7dc12ecce9185a30a26efada6575dfa45b75876c2637a318eeba20a"
           }
         ],
         "publicContract": {
@@ -1869,8 +1709,8 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/featured-consumer.json",
         "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
@@ -1882,7 +1722,7 @@
       "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/gestures/deck-and-page.tsx",
@@ -1927,14 +1767,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-stat-card",
@@ -1943,17 +1776,17 @@
       "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
           "target": "@components/sapienx-motion/disclosure-cards.tsx",
-          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
+          "sha256": "adcc3051c9c7f3db78af3b413c33cc5fe907dec2b2648fa3d9426fd46a0507f3"
         },
         {
           "path": "components/gestures/disclosure-cards.css",
           "target": "@components/sapienx-motion/disclosure-cards.css",
-          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
+          "sha256": "2bc3528bb7dc12ecce9185a30a26efada6575dfa45b75876c2637a318eeba20a"
         }
       ],
       "publicContract": {
@@ -1988,14 +1821,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-profile-card",
@@ -2003,7 +1829,7 @@
       "installItem": "featured-profile-gallery",
       "preview": "FeaturedProfile",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/showcase/featured-profile.tsx",
@@ -2018,7 +1844,7 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
+          "sha256": "9f4f135e6e26980f1bcc5688f59d3139379e150ee6912cb34dd475ff912d6781"
         },
         {
           "path": "components/showcase/profile-fixtures.ts",
@@ -2028,12 +1854,17 @@
         {
           "path": "components/gestures/disclosure-cards.tsx",
           "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.tsx",
-          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
+          "sha256": "adcc3051c9c7f3db78af3b413c33cc5fe907dec2b2648fa3d9426fd46a0507f3"
         },
         {
           "path": "components/gestures/disclosure-cards.css",
           "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css",
-          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
+          "sha256": "2bc3528bb7dc12ecce9185a30a26efada6575dfa45b75876c2637a318eeba20a"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "target": "@components/sapienx-motion/presets/recipes/theme.css",
+          "sha256": "5e133773bda674932e1ddc8f54521e367ea1268f365f82c3026841670e8d75dc"
         }
       ],
       "publicContract": {
@@ -2043,7 +1874,8 @@
         "description": "MotionUX Studio’s installable Featured Profile composition and default fixture data.",
         "dependencies": [
           "motion@14.14.0",
-          "lucide-react@0.454.0"
+          "lucide-react@0.454.0",
+          "@fontsource-variable/inter@5.3.0"
         ],
         "files": [
           {
@@ -2075,21 +1907,26 @@
             "path": "components/gestures/disclosure-cards.css",
             "type": "registry:file",
             "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css"
+          },
+          {
+            "path": "components/recipes/theme.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/recipes/theme.css"
           }
         ]
       },
       "base": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
         "files": [
           {
             "path": "components/gestures/disclosure-cards.tsx",
             "target": "@components/sapienx-motion/disclosure-cards.tsx",
-            "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
+            "sha256": "adcc3051c9c7f3db78af3b413c33cc5fe907dec2b2648fa3d9426fd46a0507f3"
           },
           {
             "path": "components/gestures/disclosure-cards.css",
             "target": "@components/sapienx-motion/disclosure-cards.css",
-            "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
+            "sha256": "2bc3528bb7dc12ecce9185a30a26efada6575dfa45b75876c2637a318eeba20a"
           }
         ],
         "publicContract": {
@@ -2124,8 +1961,8 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/featured-consumer.json",
         "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
@@ -2137,7 +1974,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -2182,14 +2019,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-loading-to-success",
@@ -2197,7 +2027,7 @@
       "installItem": "loading-outcome-gallery",
       "preview": "LoadingOutcome",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/showcase/loading-outcome.tsx",
@@ -2212,7 +2042,7 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
+          "sha256": "9f4f135e6e26980f1bcc5688f59d3139379e150ee6912cb34dd475ff912d6781"
         },
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -2223,6 +2053,11 @@
           "path": "components/feedback/feedback-actions.css",
           "target": "@components/sapienx-motion/presets/feedback/feedback-actions.css",
           "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "target": "@components/sapienx-motion/presets/recipes/theme.css",
+          "sha256": "5e133773bda674932e1ddc8f54521e367ea1268f365f82c3026841670e8d75dc"
         }
       ],
       "publicContract": {
@@ -2232,7 +2067,8 @@
         "description": "MotionUX Studio’s installable Loading Outcome composition and default fixture data.",
         "dependencies": [
           "motion@14.14.0",
-          "lucide-react@0.454.0"
+          "lucide-react@0.454.0",
+          "@fontsource-variable/inter@5.3.0"
         ],
         "files": [
           {
@@ -2259,11 +2095,16 @@
             "path": "components/feedback/feedback-actions.css",
             "type": "registry:file",
             "target": "@components/sapienx-motion/presets/feedback/feedback-actions.css"
+          },
+          {
+            "path": "components/recipes/theme.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/recipes/theme.css"
           }
         ]
       },
       "base": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
         "files": [
           {
             "path": "components/feedback/feedback-actions.tsx",
@@ -2308,8 +2149,8 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/featured-consumer.json",
         "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
@@ -2321,7 +2162,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -2366,14 +2207,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-like-burst",
@@ -2382,7 +2216,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -2427,14 +2261,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-tab-pill",
@@ -2442,7 +2269,7 @@
       "installItem": "sliding-tab-pill-gallery",
       "preview": "SlidingTabPill",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/showcase/sliding-tab-pill.tsx",
@@ -2457,7 +2284,7 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
+          "sha256": "9f4f135e6e26980f1bcc5688f59d3139379e150ee6912cb34dd475ff912d6781"
         },
         {
           "path": "components/navigation/motion-selector.tsx",
@@ -2468,6 +2295,11 @@
           "path": "components/navigation/motion-selector.css",
           "target": "@components/sapienx-motion/presets/navigation/motion-selector.css",
           "sha256": "013cac85be169ab630df43ce581d4f874b8fa5699e87ab68ca408768429696d7"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "target": "@components/sapienx-motion/presets/recipes/theme.css",
+          "sha256": "5e133773bda674932e1ddc8f54521e367ea1268f365f82c3026841670e8d75dc"
         }
       ],
       "publicContract": {
@@ -2477,7 +2309,8 @@
         "description": "MotionUX Studio’s installable Sliding Tab Pill composition and default fixture data.",
         "dependencies": [
           "motion@14.14.0",
-          "lucide-react@0.454.0"
+          "lucide-react@0.454.0",
+          "@fontsource-variable/inter@5.3.0"
         ],
         "files": [
           {
@@ -2504,11 +2337,16 @@
             "path": "components/navigation/motion-selector.css",
             "type": "registry:file",
             "target": "@components/sapienx-motion/presets/navigation/motion-selector.css"
+          },
+          {
+            "path": "components/recipes/theme.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/recipes/theme.css"
           }
         ]
       },
       "base": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
         "files": [
           {
             "path": "components/navigation/motion-selector.tsx",
@@ -2552,8 +2390,8 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/featured-consumer.json",
         "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
@@ -2565,7 +2403,7 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/motion-selector.tsx",
@@ -2609,14 +2447,7 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-dynamic-menu",
@@ -2625,12 +2456,12 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/action-menu.tsx",
           "target": "@components/sapienx-motion/action-menu.tsx",
-          "sha256": "d549711014b934b2bdf1cc1e80835573ad6a331ad5fe7d267dcf9c8bb20eadd4"
+          "sha256": "bf5cc4008d6649a18d1274795d3baffc17950d87861b629d69ace434f9c9335f"
         },
         {
           "path": "components/navigation/action-menu.css",
@@ -2670,14 +2501,7 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-segmented-control",
@@ -2686,7 +2510,7 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/motion-selector.tsx",
@@ -2730,14 +2554,7 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-sidebar-collapse",
@@ -2746,7 +2563,7 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/sidebar-collapse.tsx",
@@ -2791,14 +2608,7 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-command-palette",
@@ -2807,7 +2617,7 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/command-palette.tsx",
@@ -2851,14 +2661,7 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-step-progress",
@@ -2867,7 +2670,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "baa132e0c01e7ed96a0c02415a5c271911d01482",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/progress-sequence.tsx",
@@ -2912,14 +2715,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-otp-code",
@@ -2928,12 +2724,12 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
           "target": "@components/sapienx-motion/text-fields.tsx",
-          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+          "sha256": "98b1487983cc56ec790c076252edd6f741ed0ac362516a136ff343b67c6f5838"
         },
         {
           "path": "components/inputs/text-fields.css",
@@ -2973,14 +2769,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-toggle-switch",
@@ -2989,7 +2778,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -3033,14 +2822,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-star-rating",
@@ -3049,7 +2831,7 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -3094,14 +2876,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-tag-input",
@@ -3110,12 +2885,12 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
           "target": "@components/sapienx-motion/text-fields.tsx",
-          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+          "sha256": "98b1487983cc56ec790c076252edd6f741ed0ac362516a136ff343b67c6f5838"
         },
         {
           "path": "components/inputs/text-fields.css",
@@ -3155,14 +2930,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-number-stepper",
@@ -3171,7 +2939,7 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -3216,14 +2984,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-range-slider",
@@ -3232,7 +2993,7 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -3277,14 +3038,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-password-strength",
@@ -3293,12 +3047,12 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
           "target": "@components/sapienx-motion/text-fields.tsx",
-          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+          "sha256": "98b1487983cc56ec790c076252edd6f741ed0ac362516a136ff343b67c6f5838"
         },
         {
           "path": "components/inputs/text-fields.css",
@@ -3338,14 +3092,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-checkbox-list",
@@ -3354,7 +3101,7 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -3399,14 +3146,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-detent-dial",
@@ -3415,7 +3155,7 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -3460,14 +3200,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "smoothui-siri-orb",
@@ -3476,17 +3209,17 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
           "target": "@components/sapienx-motion/audio-tools.tsx",
-          "sha256": "151ca2d3824f6b8a3bf8c145adfdf9ccc15cf396ba4a44a914aa2cde4ab60b39"
+          "sha256": "37bfc066f81d981ee59acef9e30bdfd6a9f2dfe1b40cc1289ed8ddc57c5bdd62"
         },
         {
           "path": "components/media/audio-tools.css",
           "target": "@components/sapienx-motion/audio-tools.css",
-          "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
+          "sha256": "c52b097e484712667ac62974c2a9fe703feae26d3544b24bfc23388d77db312f"
         }
       ],
       "publicContract": {
@@ -3521,14 +3254,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-agent-steps",
@@ -3537,7 +3263,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "baa132e0c01e7ed96a0c02415a5c271911d01482",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/progress-sequence.tsx",
@@ -3582,14 +3308,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-hold-button",
@@ -3598,7 +3317,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/confirmation-controls.tsx",
@@ -3643,14 +3362,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "smoothui-exposure-slider",
@@ -3659,7 +3371,7 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
@@ -3704,14 +3416,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-boarding-pass",
@@ -3720,17 +3425,17 @@
       "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
           "target": "@components/sapienx-motion/disclosure-cards.tsx",
-          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
+          "sha256": "adcc3051c9c7f3db78af3b413c33cc5fe907dec2b2648fa3d9426fd46a0507f3"
         },
         {
           "path": "components/gestures/disclosure-cards.css",
           "target": "@components/sapienx-motion/disclosure-cards.css",
-          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
+          "sha256": "2bc3528bb7dc12ecce9185a30a26efada6575dfa45b75876c2637a318eeba20a"
         }
       ],
       "publicContract": {
@@ -3765,14 +3470,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-marker-text",
@@ -3781,7 +3479,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -3825,14 +3523,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-smooth-tab",
@@ -3841,7 +3532,7 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/swipe-tabs.tsx",
@@ -3905,14 +3596,7 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "smoothui-unlock-face-id",
@@ -3921,17 +3605,17 @@
       "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
           "target": "@components/sapienx-motion/goo-studies.tsx",
-          "sha256": "de041bf2fdafa09840221021af7c793a7702aa807531257e44607ab8bef0d76f"
+          "sha256": "93fb46b0617a7986fbd5e7c075a123a6c0749074b83640edffebdc5396a7455d"
         },
         {
           "path": "components/gestures/goo-studies.css",
           "target": "@components/sapienx-motion/goo-studies.css",
-          "sha256": "27b3fee3291731667ca1a84b0e710a4fd91f420e5d50de1f4f92074806d20d45"
+          "sha256": "2a71a2034ecfb47f2362e42a98add88163814848c621c37e8570c35f356cc409"
         }
       ],
       "publicContract": {
@@ -3966,14 +3650,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-slide-to-confirm",
@@ -3982,7 +3659,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/confirmation-controls.tsx",
@@ -4027,14 +3704,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-notification-stack",
@@ -4043,7 +3713,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/notification-stack.tsx",
@@ -4088,14 +3758,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-wheel-picker",
@@ -4104,7 +3767,7 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -4148,14 +3811,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-dynamic-text",
@@ -4164,7 +3820,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -4208,14 +3864,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-voice-input",
@@ -4224,7 +3873,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -4269,14 +3918,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-tool-approval",
@@ -4285,7 +3927,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/tool-approval.tsx",
@@ -4330,14 +3972,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-toolbar",
@@ -4346,7 +3981,7 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/motion-toolbar.tsx",
@@ -4388,14 +4023,7 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "smoothui-scrubber",
@@ -4404,17 +4032,17 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
           "target": "@components/sapienx-motion/audio-tools.tsx",
-          "sha256": "151ca2d3824f6b8a3bf8c145adfdf9ccc15cf396ba4a44a914aa2cde4ab60b39"
+          "sha256": "37bfc066f81d981ee59acef9e30bdfd6a9f2dfe1b40cc1289ed8ddc57c5bdd62"
         },
         {
           "path": "components/media/audio-tools.css",
           "target": "@components/sapienx-motion/audio-tools.css",
-          "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
+          "sha256": "c52b097e484712667ac62974c2a9fe703feae26d3544b24bfc23388d77db312f"
         }
       ],
       "publicContract": {
@@ -4449,14 +4077,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "parity-ok",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-cart-button",
@@ -4465,7 +4086,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -4510,14 +4131,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-page-flip",
@@ -4526,7 +4140,7 @@
       "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/gestures/deck-and-page.tsx",
@@ -4571,14 +4185,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-signature-pad",
@@ -4587,7 +4194,7 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -4631,14 +4238,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-undo-button",
@@ -4647,7 +4247,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -4692,14 +4292,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-card-field",
@@ -4708,7 +4301,7 @@
       "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -4752,14 +4345,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-stack-panel",
@@ -4768,7 +4354,7 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/stack-panel.tsx",
@@ -4813,14 +4399,7 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-typewriter",
@@ -4829,7 +4408,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -4873,14 +4452,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-thinking-text",
@@ -4889,7 +4461,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -4934,14 +4506,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-glass-player",
@@ -4950,17 +4515,17 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
           "target": "@components/sapienx-motion/audio-tools.tsx",
-          "sha256": "151ca2d3824f6b8a3bf8c145adfdf9ccc15cf396ba4a44a914aa2cde4ab60b39"
+          "sha256": "37bfc066f81d981ee59acef9e30bdfd6a9f2dfe1b40cc1289ed8ddc57c5bdd62"
         },
         {
           "path": "components/media/audio-tools.css",
           "target": "@components/sapienx-motion/audio-tools.css",
-          "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
+          "sha256": "c52b097e484712667ac62974c2a9fe703feae26d3544b24bfc23388d77db312f"
         }
       ],
       "publicContract": {
@@ -4995,14 +4560,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-bell-button",
@@ -5011,7 +4569,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -5056,14 +4614,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-morph-popover",
@@ -5071,12 +4622,12 @@
       "installItem": "morph-dropdown-gallery",
       "preview": "MorphDropdown",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/showcase/morph-dropdown.tsx",
           "target": "@components/sapienx-motion/presets/showcase/morph-dropdown.tsx",
-          "sha256": "3f52256e690d5999bd3047411d21393e707e7d2f6cd3e24bf0f6cd368c46ca9c"
+          "sha256": "a193e1938a001b2c22a119521a76dfe3f08e0d455012224d5e4e765532b2b098"
         },
         {
           "path": "components/showcase/preset-frame.tsx",
@@ -5086,17 +4637,22 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
+          "sha256": "9f4f135e6e26980f1bcc5688f59d3139379e150ee6912cb34dd475ff912d6781"
         },
         {
           "path": "components/navigation/action-menu.tsx",
           "target": "@components/sapienx-motion/presets/navigation/action-menu.tsx",
-          "sha256": "d549711014b934b2bdf1cc1e80835573ad6a331ad5fe7d267dcf9c8bb20eadd4"
+          "sha256": "bf5cc4008d6649a18d1274795d3baffc17950d87861b629d69ace434f9c9335f"
         },
         {
           "path": "components/navigation/action-menu.css",
           "target": "@components/sapienx-motion/presets/navigation/action-menu.css",
           "sha256": "a9e61704a2e6d1a714a3aed1fab6fd58fcd289ff8cc8c06e0e66fe25fad62c02"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "target": "@components/sapienx-motion/presets/recipes/theme.css",
+          "sha256": "5e133773bda674932e1ddc8f54521e367ea1268f365f82c3026841670e8d75dc"
         }
       ],
       "publicContract": {
@@ -5106,7 +4662,8 @@
         "description": "MotionUX Studio’s installable Morph Dropdown composition and default fixture data.",
         "dependencies": [
           "motion@14.14.0",
-          "lucide-react@0.454.0"
+          "lucide-react@0.454.0",
+          "@fontsource-variable/inter@5.3.0"
         ],
         "files": [
           {
@@ -5133,16 +4690,21 @@
             "path": "components/navigation/action-menu.css",
             "type": "registry:file",
             "target": "@components/sapienx-motion/presets/navigation/action-menu.css"
+          },
+          {
+            "path": "components/recipes/theme.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/recipes/theme.css"
           }
         ]
       },
       "base": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
         "files": [
           {
             "path": "components/navigation/action-menu.tsx",
             "target": "@components/sapienx-motion/action-menu.tsx",
-            "sha256": "d549711014b934b2bdf1cc1e80835573ad6a331ad5fe7d267dcf9c8bb20eadd4"
+            "sha256": "bf5cc4008d6649a18d1274795d3baffc17950d87861b629d69ace434f9c9335f"
           },
           {
             "path": "components/navigation/action-menu.css",
@@ -5182,8 +4744,8 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
+        "report": "docs/evidence/studio-v8/featured-consumer.json",
         "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
@@ -5195,7 +4757,7 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -5240,14 +4802,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "smoothui-music-toggle",
@@ -5256,17 +4811,17 @@
       "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
           "target": "@components/sapienx-motion/audio-tools.tsx",
-          "sha256": "151ca2d3824f6b8a3bf8c145adfdf9ccc15cf396ba4a44a914aa2cde4ab60b39"
+          "sha256": "37bfc066f81d981ee59acef9e30bdfd6a9f2dfe1b40cc1289ed8ddc57c5bdd62"
         },
         {
           "path": "components/media/audio-tools.css",
           "target": "@components/sapienx-motion/audio-tools.css",
-          "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
+          "sha256": "c52b097e484712667ac62974c2a9fe703feae26d3544b24bfc23388d77db312f"
         }
       ],
       "publicContract": {
@@ -5301,14 +4856,7 @@
       "browserTest": "tests/media.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "kokonut-command-button",
@@ -5317,7 +4865,7 @@
       "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -5361,14 +4909,7 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     },
     {
       "id": "designbookmark-pagination-dots",
@@ -5377,7 +4918,7 @@
       "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/navigation/pagination-dots.tsx",
@@ -5422,19 +4963,12 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested",
-      "recipeEvidence": {
-        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
-        "report": "docs/evidence/studio-v7/recipe-consumer.json",
-        "staticParity": "parity-ok",
-        "interactionParity": "not-tested",
-        "motionParity": "not-tested"
-      }
+      "parity": "not-tested"
     }
   ],
   "recipes": {
     "gallery-recipes-navigation": {
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/recipes/navigation.tsx",
@@ -5459,7 +4993,7 @@
         {
           "path": "components/recipes/theme.css",
           "target": "@components/sapienx-motion/recipes/theme.css",
-          "sha256": "17010ca8e06a26a623b398bdb6f91a32ec50e14e4f3352d09867c2db6dd9b3c1"
+          "sha256": "5e133773bda674932e1ddc8f54521e367ea1268f365f82c3026841670e8d75dc"
         },
         {
           "path": "components/recipes/stories/tab-pill.tsx",
@@ -5479,7 +5013,7 @@
         {
           "path": "components/recipes/stories/demo.css",
           "target": "@components/sapienx-motion/recipes/stories/demo.css",
-          "sha256": "19c0f1774ab76bbc713b2315a3cc5d7c209750ff937656f4f9b9b089545d32bf"
+          "sha256": "59bcb3dc779c89c89ad914428bbfab00b62855230d51363263be4a8ec39f826b"
         },
         {
           "path": "components/recipes/stories/bottom-bar.tsx",
@@ -5524,17 +5058,17 @@
         {
           "path": "components/recipes/stories/pull-cord.tsx",
           "target": "@components/sapienx-motion/recipes/stories/pull-cord.tsx",
-          "sha256": "ed929d1fd28bb3035b2f301cc532db364f53a2b33af4421a1f20b9b72504f139"
+          "sha256": "1755b76f566431ba6229bc94147837034a796114a1fbcde1204e68f46ccdfb04"
         },
         {
           "path": "components/navigation/pull-cord.tsx",
           "target": "@components/sapienx-motion/navigation/pull-cord.tsx",
-          "sha256": "186dad9627c59a734f83d8ff3a4186954ce0b6b9ddf192db98f4207f25d164f0"
+          "sha256": "f8f758102a64e0c5aa72096914474ce56e215e9964aa934cac8067b6fc36e815"
         },
         {
           "path": "components/navigation/pull-cord.css",
           "target": "@components/sapienx-motion/navigation/pull-cord.css",
-          "sha256": "3eb1841e4651d75c56cfe2577bd515b41b6f8943fc7596940cc9069ac6e45d30"
+          "sha256": "a7a26789be4af97f685a7b61a561cef13eeeb78891e7821c0648ea83dd9a3ff5"
         },
         {
           "path": "components/recipes/stories/morph-tooltip.tsx",
@@ -5554,12 +5088,12 @@
         {
           "path": "components/recipes/stories/action-menus.tsx",
           "target": "@components/sapienx-motion/recipes/stories/action-menus.tsx",
-          "sha256": "947c418da593250dd704f411add7ca881340d72a54f7a9d515e03c93a58e339a"
+          "sha256": "9c352d5252be9a354512b4207e3e27e7efaed190d304af75b0cddfcf0a58c99e"
         },
         {
           "path": "components/navigation/action-menu.tsx",
           "target": "@components/sapienx-motion/navigation/action-menu.tsx",
-          "sha256": "d549711014b934b2bdf1cc1e80835573ad6a331ad5fe7d267dcf9c8bb20eadd4"
+          "sha256": "bf5cc4008d6649a18d1274795d3baffc17950d87861b629d69ace434f9c9335f"
         },
         {
           "path": "components/navigation/action-menu.css",
@@ -5569,17 +5103,17 @@
         {
           "path": "components/recipes/stories/rubber-dock.tsx",
           "target": "@components/sapienx-motion/recipes/stories/rubber-dock.tsx",
-          "sha256": "2daa3646c081d64ef00cb6f12e87f18b10fba1312e99a9f52cc06fe66062785e"
+          "sha256": "a2aa9ff09737a6f8bf8d28a9ace1657afcf293752ea1e2e50aac0cae042f7ff1"
         },
         {
           "path": "components/navigation/rubber-dock.tsx",
           "target": "@components/sapienx-motion/navigation/rubber-dock.tsx",
-          "sha256": "2adaa146b835a726c170ca1d4fd47f57cd1f1bde4c2ddb45766df57d0dbc3a2b"
+          "sha256": "97e9d1c514fc2896002738e80742517d3f967181ca373d8e1e42e6b5c04030a5"
         },
         {
           "path": "components/navigation/rubber-dock.css",
           "target": "@components/sapienx-motion/navigation/rubber-dock.css",
-          "sha256": "d62ad295bd28e2a92363336635315f282257ccfa78aae9dd73d96df4985ebc45"
+          "sha256": "9393b7e3eeb0a56b636158cd5fdbb554d0134c79fd460a1c570f50873fb4a7a2"
         },
         {
           "path": "components/recipes/stories/sidebar-collapse.tsx",
@@ -5862,7 +5396,7 @@
       }
     },
     "gallery-recipes-feedback": {
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/recipes/feedback.tsx",
@@ -5887,12 +5421,12 @@
         {
           "path": "components/recipes/theme.css",
           "target": "@components/sapienx-motion/recipes/theme.css",
-          "sha256": "17010ca8e06a26a623b398bdb6f91a32ec50e14e4f3352d09867c2db6dd9b3c1"
+          "sha256": "5e133773bda674932e1ddc8f54521e367ea1268f365f82c3026841670e8d75dc"
         },
         {
           "path": "components/recipes/stories/feedback-studies.tsx",
           "target": "@components/sapienx-motion/recipes/stories/feedback-studies.tsx",
-          "sha256": "1e9e8f0d8b8b289904a736c20c20e28731868d057879375475150fc2652e767a"
+          "sha256": "e618fd4a1a693f944536642365bc1e4d8fdaef6c4d010d310b5645ca5b4913f1"
         },
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -5957,7 +5491,7 @@
         {
           "path": "components/recipes/stories/demo.css",
           "target": "@components/sapienx-motion/recipes/stories/demo.css",
-          "sha256": "19c0f1774ab76bbc713b2315a3cc5d7c209750ff937656f4f9b9b089545d32bf"
+          "sha256": "59bcb3dc779c89c89ad914428bbfab00b62855230d51363263be4a8ec39f826b"
         }
       ],
       "publicContract": {
@@ -6070,7 +5604,7 @@
       }
     },
     "gallery-recipes-inputs": {
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/recipes/inputs.tsx",
@@ -6095,17 +5629,17 @@
         {
           "path": "components/recipes/theme.css",
           "target": "@components/sapienx-motion/recipes/theme.css",
-          "sha256": "17010ca8e06a26a623b398bdb6f91a32ec50e14e4f3352d09867c2db6dd9b3c1"
+          "sha256": "5e133773bda674932e1ddc8f54521e367ea1268f365f82c3026841670e8d75dc"
         },
         {
           "path": "components/recipes/stories/input-studies.tsx",
           "target": "@components/sapienx-motion/recipes/stories/input-studies.tsx",
-          "sha256": "da1bd47668bee40e21eff65ef614c81b6a254c7fd583e07633b5e4829d88eeea"
+          "sha256": "054dc95c5896b7e5403aae14201abf6cce0564e2c1db98ac387214c7462b1bec"
         },
         {
           "path": "components/inputs/text-fields.tsx",
           "target": "@components/sapienx-motion/inputs/text-fields.tsx",
-          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+          "sha256": "98b1487983cc56ec790c076252edd6f741ed0ac362516a136ff343b67c6f5838"
         },
         {
           "path": "components/inputs/text-fields.css",
@@ -6145,12 +5679,12 @@
         {
           "path": "components/recipes/stories/demo.css",
           "target": "@components/sapienx-motion/recipes/stories/demo.css",
-          "sha256": "19c0f1774ab76bbc713b2315a3cc5d7c209750ff937656f4f9b9b089545d32bf"
+          "sha256": "59bcb3dc779c89c89ad914428bbfab00b62855230d51363263be4a8ec39f826b"
         },
         {
           "path": "components/recipes/stories/input-studies.css",
           "target": "@components/sapienx-motion/recipes/stories/input-studies.css",
-          "sha256": "3ab382aa645dadd1d22bb599d395a41730f9d544a0f91a23abb24c7bfdcc86a0"
+          "sha256": "ae5112d90a968b853010d3be16505bfe724a63a9678462d7e18b7e753e201e8b"
         }
       ],
       "publicContract": {
@@ -6248,7 +5782,7 @@
       }
     },
     "gallery-recipes-gestures": {
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/recipes/gestures.tsx",
@@ -6273,12 +5807,12 @@
         {
           "path": "components/recipes/theme.css",
           "target": "@components/sapienx-motion/recipes/theme.css",
-          "sha256": "17010ca8e06a26a623b398bdb6f91a32ec50e14e4f3352d09867c2db6dd9b3c1"
+          "sha256": "5e133773bda674932e1ddc8f54521e367ea1268f365f82c3026841670e8d75dc"
         },
         {
           "path": "components/recipes/stories/card-studies.tsx",
           "target": "@components/sapienx-motion/recipes/stories/card-studies.tsx",
-          "sha256": "d9d97bd9b692d464fced5cb805093fd10b5d415e2cdafbf95f86804972ccced6"
+          "sha256": "9f2d14ec64982135343c712a38044d9fbdd116f53cfd228a5a0c2a11a66701fe"
         },
         {
           "path": "components/gestures/deck-and-page.tsx",
@@ -6293,32 +5827,32 @@
         {
           "path": "components/gestures/disclosure-cards.tsx",
           "target": "@components/sapienx-motion/gestures/disclosure-cards.tsx",
-          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
+          "sha256": "adcc3051c9c7f3db78af3b413c33cc5fe907dec2b2648fa3d9426fd46a0507f3"
         },
         {
           "path": "components/gestures/disclosure-cards.css",
           "target": "@components/sapienx-motion/gestures/disclosure-cards.css",
-          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
+          "sha256": "2bc3528bb7dc12ecce9185a30a26efada6575dfa45b75876c2637a318eeba20a"
         },
         {
           "path": "components/gestures/goo-studies.tsx",
           "target": "@components/sapienx-motion/gestures/goo-studies.tsx",
-          "sha256": "de041bf2fdafa09840221021af7c793a7702aa807531257e44607ab8bef0d76f"
+          "sha256": "93fb46b0617a7986fbd5e7c075a123a6c0749074b83640edffebdc5396a7455d"
         },
         {
           "path": "components/gestures/goo-studies.css",
           "target": "@components/sapienx-motion/gestures/goo-studies.css",
-          "sha256": "27b3fee3291731667ca1a84b0e710a4fd91f420e5d50de1f4f92074806d20d45"
+          "sha256": "2a71a2034ecfb47f2362e42a98add88163814848c621c37e8570c35f356cc409"
         },
         {
           "path": "components/gestures/interactive-surfaces.tsx",
           "target": "@components/sapienx-motion/gestures/interactive-surfaces.tsx",
-          "sha256": "c1a48d669661ff83edf26bf2f8291bf9245c8a613c056e843f09f611c3f83d80"
+          "sha256": "ec0a2d62dd7c64057deadee62b63e05beaf1b36ec2ebc4549dfd58faec1c9f85"
         },
         {
           "path": "components/gestures/interactive-surfaces.css",
           "target": "@components/sapienx-motion/gestures/interactive-surfaces.css",
-          "sha256": "c2b7b65c372030389b2aad7d79a723b69642381aa1de8aad1de53ea71bf14792"
+          "sha256": "af7fb6635d1a0ff79722391975e51a23bbfdfd1127ef720814d3413b9fdbd966"
         },
         {
           "path": "components/recipes/quiet-hills.ts",
@@ -6333,7 +5867,7 @@
         {
           "path": "components/recipes/stories/demo.css",
           "target": "@components/sapienx-motion/recipes/stories/demo.css",
-          "sha256": "19c0f1774ab76bbc713b2315a3cc5d7c209750ff937656f4f9b9b089545d32bf"
+          "sha256": "59bcb3dc779c89c89ad914428bbfab00b62855230d51363263be4a8ec39f826b"
         }
       ],
       "publicContract": {
@@ -6436,7 +5970,7 @@
       }
     },
     "gallery-recipes-signals": {
-      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "pin": "aa749796f3540c71eee8f9f155788cc6f169e07a",
       "files": [
         {
           "path": "components/recipes/signals.tsx",
@@ -6461,12 +5995,12 @@
         {
           "path": "components/recipes/theme.css",
           "target": "@components/sapienx-motion/recipes/theme.css",
-          "sha256": "17010ca8e06a26a623b398bdb6f91a32ec50e14e4f3352d09867c2db6dd9b3c1"
+          "sha256": "5e133773bda674932e1ddc8f54521e367ea1268f365f82c3026841670e8d75dc"
         },
         {
           "path": "components/recipes/stories/signal-studies.tsx",
           "target": "@components/sapienx-motion/recipes/stories/signal-studies.tsx",
-          "sha256": "5fb138361c0736258cefe69b1ae5e30e22db980c9a2725a2bf332f97ed862cac"
+          "sha256": "993a5a1fd717ffbe323c50a6f58db9ff2240661e23a41d230904c6d8cd76db26"
         },
         {
           "path": "components/text/animated-type.tsx",
@@ -6501,12 +6035,12 @@
         {
           "path": "components/media/audio-tools.tsx",
           "target": "@components/sapienx-motion/media/audio-tools.tsx",
-          "sha256": "151ca2d3824f6b8a3bf8c145adfdf9ccc15cf396ba4a44a914aa2cde4ab60b39"
+          "sha256": "37bfc066f81d981ee59acef9e30bdfd6a9f2dfe1b40cc1289ed8ddc57c5bdd62"
         },
         {
           "path": "components/media/audio-tools.css",
           "target": "@components/sapienx-motion/media/audio-tools.css",
-          "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
+          "sha256": "c52b097e484712667ac62974c2a9fe703feae26d3544b24bfc23388d77db312f"
         },
         {
           "path": "components/recipes/field-tones.ts",
@@ -6521,7 +6055,7 @@
         {
           "path": "components/recipes/stories/demo.css",
           "target": "@components/sapienx-motion/recipes/stories/demo.css",
-          "sha256": "19c0f1774ab76bbc713b2315a3cc5d7c209750ff937656f4f9b9b089545d32bf"
+          "sha256": "59bcb3dc779c89c89ad914428bbfab00b62855230d51363263be4a8ec39f826b"
         },
         {
           "path": "components/recipes/stories/signal-studies.css",

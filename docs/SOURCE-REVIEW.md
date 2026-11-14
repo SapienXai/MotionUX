@@ -8,3 +8,7 @@
 | [Motion for React](https://motion.dev/docs/react) and [shadcn GitHub registry](https://ui.shadcn.com/docs/registry/github) | Official React and CLI integration documentation. | Scoped Motion via LazyMotion only where status feedback benefits; GitHub registry copies pinned files with no registry server. |
 
 No complete upstream component is copied verbatim. Upgrade reviewed code by comparing the exact upstream diff and updating attribution, lane tests and the pinned install separately.
+
+## Studio V8 reference review
+
+The browser sweep recorded 82 public preview titles and providers across desktop and phone profiles. The published gallery and terms did not establish redistribution rights for DesignBookmark implementation files or assets. V8 implements the observed interactions in MotionUX code and continues to ship the registry's existing source and asset notices. [DesignBookmark Motion](https://designbookmark.com/motion) · [DesignBookmark terms](https://designbookmark.com/terms)

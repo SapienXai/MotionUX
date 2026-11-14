@@ -1,0 +1,1646 @@
+{
+  "desktop": [
+    {
+      "id": "designbookmark-plan-switch",
+      "upstream": "Plan switch",
+      "local": true,
+      "host": "shadow",
+      "controls": 3,
+      "svg": 4,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-letter-limit",
+      "upstream": "Letter limit",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-pull-cord",
+      "upstream": "Pull cord",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 5,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-morph-tooltip",
+      "upstream": "Morph tooltip",
+      "local": true,
+      "host": "shadow",
+      "controls": 5,
+      "svg": 6,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-spring-dropdown",
+      "upstream": "Spring dropdown",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 6,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-file-drop",
+      "upstream": "File drop",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 5,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-command-button",
+      "upstream": "Command button",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-morph-island",
+      "upstream": "Morph island",
+      "local": true,
+      "host": "shadow",
+      "controls": 6,
+      "svg": 4,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-goo-menu",
+      "upstream": "Goo menu",
+      "local": true,
+      "host": "shadow",
+      "controls": 5,
+      "svg": 6,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-jelly-slider",
+      "upstream": "Jelly slider",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-hold-to-publish",
+      "upstream": "Hold to publish",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-swipe-deck",
+      "upstream": "Swipe deck",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-springy-input",
+      "upstream": "Springy input",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-rubber-dock",
+      "upstream": "Rubber dock",
+      "local": true,
+      "host": "shadow",
+      "controls": 7,
+      "svg": 9,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-parallax-ticket",
+      "upstream": "Parallax ticket",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-glass-lens",
+      "upstream": "Glass lens",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-pull-to-refresh",
+      "upstream": "Pull to refresh",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-word-roll",
+      "upstream": "Word roll",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-weight-wave",
+      "upstream": "Weight wave",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-goo-morph",
+      "upstream": "Goo morph",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-scramble-text",
+      "upstream": "Scramble text",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-read-along",
+      "upstream": "Read along",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-roll-links",
+      "upstream": "Roll links",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-prompt-box",
+      "upstream": "Prompt box",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-streaming-reply",
+      "upstream": "Streaming reply",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-ghost-suggestion",
+      "upstream": "Ghost suggestion",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-goo-thinking",
+      "upstream": "Goo thinking",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-expand-card",
+      "upstream": "Expand card",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-fan-cards",
+      "upstream": "Fan cards",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-stat-card",
+      "upstream": "Stat card",
+      "local": true,
+      "host": "shadow",
+      "controls": 3,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-profile-card",
+      "upstream": "Profile card",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-magnetic-button",
+      "upstream": "Magnetic button",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-loading-to-success",
+      "upstream": "Loading to success",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-copy-button",
+      "upstream": "Copy button",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-like-burst",
+      "upstream": "Like burst",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-tab-pill",
+      "upstream": "Tab pill",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-bottom-bar",
+      "upstream": "Bottom bar",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 4,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-dynamic-menu",
+      "upstream": "Dynamic menu",
+      "local": true,
+      "host": "shadow",
+      "controls": 5,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-segmented-control",
+      "upstream": "Segmented control",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-sidebar-collapse",
+      "upstream": "Sidebar collapse",
+      "local": true,
+      "host": "shadow",
+      "controls": 6,
+      "svg": 6,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-command-palette",
+      "upstream": "Command palette",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-step-progress",
+      "upstream": "Step progress",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 4,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-otp-code",
+      "upstream": "OTP code",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-toggle-switch",
+      "upstream": "Toggle switch",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-star-rating",
+      "upstream": "Star rating",
+      "local": true,
+      "host": "shadow",
+      "controls": 5,
+      "svg": 5,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-tag-input",
+      "upstream": "Tag input",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-number-stepper",
+      "upstream": "Number stepper",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-range-slider",
+      "upstream": "Range slider",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-password-strength",
+      "upstream": "Password strength",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-checkbox-list",
+      "upstream": "Checkbox list",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 4,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-detent-dial",
+      "upstream": "Detent dial",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-siri-orb",
+      "upstream": "Siri orb",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-agent-steps",
+      "upstream": "Agent steps",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-hold-button",
+      "upstream": "Hold button",
+      "local": true,
+      "host": "dom",
+      "controls": 3,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-exposure-slider",
+      "upstream": "Exposure slider",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-boarding-pass",
+      "upstream": "Boarding pass",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 5,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-marker-text",
+      "upstream": "Marker text",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-smooth-tab",
+      "upstream": "Smooth tab",
+      "local": true,
+      "host": "dom",
+      "controls": 4,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-unlock-face-id",
+      "upstream": "Unlock Face ID",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-slide-to-confirm",
+      "upstream": "Slide to confirm",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-notification-stack",
+      "upstream": "Notification stack",
+      "local": true,
+      "host": "dom",
+      "controls": 5,
+      "svg": 8,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-wheel-picker",
+      "upstream": "Wheel picker",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-dynamic-text",
+      "upstream": "Dynamic text",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-voice-input",
+      "upstream": "Voice input",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-tool-approval",
+      "upstream": "Tool approval",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-toolbar",
+      "upstream": "Toolbar",
+      "local": true,
+      "host": "dom",
+      "controls": 8,
+      "svg": 9,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-scrubber",
+      "upstream": "Scrubber",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-cart-button",
+      "upstream": "Cart button",
+      "local": true,
+      "host": "dom",
+      "controls": 6,
+      "svg": 8,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-page-flip",
+      "upstream": "Page flip",
+      "local": true,
+      "host": "dom",
+      "controls": 2,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-signature-pad",
+      "upstream": "Signature pad",
+      "local": true,
+      "host": "dom",
+      "controls": 2,
+      "svg": 0,
+      "canvas": 1,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-undo-button",
+      "upstream": "Undo button",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-card-field",
+      "upstream": "Card field",
+      "local": true,
+      "host": "dom",
+      "controls": 3,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-stack-panel",
+      "upstream": "Stack panel",
+      "local": true,
+      "host": "dom",
+      "controls": 10,
+      "svg": 10,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-typewriter",
+      "upstream": "Typewriter",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-thinking-text",
+      "upstream": "Thinking text",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-glass-player",
+      "upstream": "Glass player",
+      "local": true,
+      "host": "dom",
+      "controls": 3,
+      "svg": 5,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-bell-button",
+      "upstream": "Bell button",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-morph-popover",
+      "upstream": "Morph popover",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-task-list",
+      "upstream": "Task list",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 7,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-music-toggle",
+      "upstream": "Music toggle",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-command-button",
+      "upstream": "Command button",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-pagination-dots",
+      "upstream": "Pagination dots",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    }
+  ],
+  "mobile": [
+    {
+      "id": "designbookmark-plan-switch",
+      "upstream": "Plan switch",
+      "local": true,
+      "host": "shadow",
+      "controls": 3,
+      "svg": 4,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-letter-limit",
+      "upstream": "Letter limit",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-pull-cord",
+      "upstream": "Pull cord",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 5,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-morph-tooltip",
+      "upstream": "Morph tooltip",
+      "local": true,
+      "host": "shadow",
+      "controls": 5,
+      "svg": 6,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-spring-dropdown",
+      "upstream": "Spring dropdown",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 6,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-file-drop",
+      "upstream": "File drop",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 5,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-command-button",
+      "upstream": "Command button",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-morph-island",
+      "upstream": "Morph island",
+      "local": true,
+      "host": "shadow",
+      "controls": 6,
+      "svg": 4,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-goo-menu",
+      "upstream": "Goo menu",
+      "local": true,
+      "host": "shadow",
+      "controls": 5,
+      "svg": 6,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-jelly-slider",
+      "upstream": "Jelly slider",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-hold-to-publish",
+      "upstream": "Hold to publish",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-swipe-deck",
+      "upstream": "Swipe deck",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-springy-input",
+      "upstream": "Springy input",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-rubber-dock",
+      "upstream": "Rubber dock",
+      "local": true,
+      "host": "shadow",
+      "controls": 7,
+      "svg": 9,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-parallax-ticket",
+      "upstream": "Parallax ticket",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-glass-lens",
+      "upstream": "Glass lens",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-pull-to-refresh",
+      "upstream": "Pull to refresh",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-word-roll",
+      "upstream": "Word roll",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-weight-wave",
+      "upstream": "Weight wave",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-goo-morph",
+      "upstream": "Goo morph",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-scramble-text",
+      "upstream": "Scramble text",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-read-along",
+      "upstream": "Read along",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-roll-links",
+      "upstream": "Roll links",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-prompt-box",
+      "upstream": "Prompt box",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-streaming-reply",
+      "upstream": "Streaming reply",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-ghost-suggestion",
+      "upstream": "Ghost suggestion",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-goo-thinking",
+      "upstream": "Goo thinking",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-expand-card",
+      "upstream": "Expand card",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-fan-cards",
+      "upstream": "Fan cards",
+      "local": true,
+      "host": "shadow",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-stat-card",
+      "upstream": "Stat card",
+      "local": true,
+      "host": "shadow",
+      "controls": 3,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-profile-card",
+      "upstream": "Profile card",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-magnetic-button",
+      "upstream": "Magnetic button",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-loading-to-success",
+      "upstream": "Loading to success",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-copy-button",
+      "upstream": "Copy button",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-like-burst",
+      "upstream": "Like burst",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-tab-pill",
+      "upstream": "Tab pill",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-bottom-bar",
+      "upstream": "Bottom bar",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 4,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-dynamic-menu",
+      "upstream": "Dynamic menu",
+      "local": true,
+      "host": "shadow",
+      "controls": 5,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-segmented-control",
+      "upstream": "Segmented control",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-sidebar-collapse",
+      "upstream": "Sidebar collapse",
+      "local": true,
+      "host": "shadow",
+      "controls": 6,
+      "svg": 6,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-command-palette",
+      "upstream": "Command palette",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-step-progress",
+      "upstream": "Step progress",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 4,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-otp-code",
+      "upstream": "OTP code",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-toggle-switch",
+      "upstream": "Toggle switch",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-star-rating",
+      "upstream": "Star rating",
+      "local": true,
+      "host": "shadow",
+      "controls": 5,
+      "svg": 5,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-tag-input",
+      "upstream": "Tag input",
+      "local": true,
+      "host": "shadow",
+      "controls": 3,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-number-stepper",
+      "upstream": "Number stepper",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-range-slider",
+      "upstream": "Range slider",
+      "local": true,
+      "host": "shadow",
+      "controls": 2,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-password-strength",
+      "upstream": "Password strength",
+      "local": true,
+      "host": "shadow",
+      "controls": 1,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-checkbox-list",
+      "upstream": "Checkbox list",
+      "local": true,
+      "host": "shadow",
+      "controls": 4,
+      "svg": 4,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-detent-dial",
+      "upstream": "Detent dial",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-siri-orb",
+      "upstream": "Siri orb",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-agent-steps",
+      "upstream": "Agent steps",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-hold-button",
+      "upstream": "Hold button",
+      "local": true,
+      "host": "dom",
+      "controls": 3,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-exposure-slider",
+      "upstream": "Exposure slider",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-boarding-pass",
+      "upstream": "Boarding pass",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 5,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-marker-text",
+      "upstream": "Marker text",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-smooth-tab",
+      "upstream": "Smooth tab",
+      "local": true,
+      "host": "dom",
+      "controls": 4,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-unlock-face-id",
+      "upstream": "Unlock Face ID",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-slide-to-confirm",
+      "upstream": "Slide to confirm",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-notification-stack",
+      "upstream": "Notification stack",
+      "local": true,
+      "host": "dom",
+      "controls": 2,
+      "svg": 8,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-wheel-picker",
+      "upstream": "Wheel picker",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-dynamic-text",
+      "upstream": "Dynamic text",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-voice-input",
+      "upstream": "Voice input",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-tool-approval",
+      "upstream": "Tool approval",
+      "local": true,
+      "host": "dom",
+      "controls": 3,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-toolbar",
+      "upstream": "Toolbar",
+      "local": true,
+      "host": "dom",
+      "controls": 8,
+      "svg": 9,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-scrubber",
+      "upstream": "Scrubber",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-cart-button",
+      "upstream": "Cart button",
+      "local": true,
+      "host": "dom",
+      "controls": 5,
+      "svg": 7,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-page-flip",
+      "upstream": "Page flip",
+      "local": true,
+      "host": "dom",
+      "controls": 2,
+      "svg": 3,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-signature-pad",
+      "upstream": "Signature pad",
+      "local": true,
+      "host": "dom",
+      "controls": 2,
+      "svg": 0,
+      "canvas": 1,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-undo-button",
+      "upstream": "Undo button",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-card-field",
+      "upstream": "Card field",
+      "local": true,
+      "host": "dom",
+      "controls": 3,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-stack-panel",
+      "upstream": "Stack panel",
+      "local": true,
+      "host": "dom",
+      "controls": 4,
+      "svg": 4,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-typewriter",
+      "upstream": "Typewriter",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-thinking-text",
+      "upstream": "Thinking text",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-glass-player",
+      "upstream": "Glass player",
+      "local": true,
+      "host": "dom",
+      "controls": 3,
+      "svg": 5,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-bell-button",
+      "upstream": "Bell button",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-morph-popover",
+      "upstream": "Morph popover",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 1,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-task-list",
+      "upstream": "Task list",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 7,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "smoothui-music-toggle",
+      "upstream": "Music toggle",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 2,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "kokonut-command-button",
+      "upstream": "Command button",
+      "local": true,
+      "host": "dom",
+      "controls": 1,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    },
+    {
+      "id": "designbookmark-pagination-dots",
+      "upstream": "Pagination dots",
+      "local": true,
+      "host": "dom",
+      "controls": 0,
+      "svg": 0,
+      "canvas": 0,
+      "visibleCopy": []
+    }
+  ]
+}
