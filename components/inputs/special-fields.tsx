@@ -135,8 +135,8 @@ export function SignaturePad({ label, typeLabel, undoLabel, clearLabel, value, o
         onPointerMove={(event) => {
           const current = stroke.current;
           if (!current || current.pointer !== event.pointerId || current.points.length >= 1500) return;
-          current.points = [...current.points, point(event)];
-          setDraft(current.points);
+          current.points.push(point(event));
+          setDraft(current.points.slice());
         }}
         onPointerUp={(event) => { if (stroke.current?.pointer === event.pointerId) finish(true); }}
         onPointerCancel={(event) => { if (stroke.current?.pointer === event.pointerId) finish(false); }}

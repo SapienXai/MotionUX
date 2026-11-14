@@ -1,3 +1,4 @@
+import { booleanValue, stringValue } from "../playground/controls";
 import { Archive, BookOpen, CalendarDays, Check, Copy, Ellipsis, FolderOpen, Link2, Pin } from "lucide-react";
 import { useState } from "react";
 import { ActionMenu } from "../../components/navigation/action-menu";
@@ -14,17 +15,17 @@ const examples = {
 export function menuStory(variant: Variant): Specimen {
   const sample = examples[variant];
   return {
-    component: function Example({ reduced, language }) {
+    component: function Example({ reduced, language, config }) {
       const [value, select] = useState(0);
       const tr = language === "tr";
       const names = tr ? sample.trOptions : sample.options;
-      const label = tr ? sample.trLabel : sample.label;
+      const label = stringValue(config, "label") ?? (tr ? sample.trLabel : sample.label);
       return <div className="mx-demo mx-demo-center">
         <div className="mx-demo-sample"><Ellipsis size={19} aria-hidden /><strong>{tr ? sample.tr : sample.subject}</strong>
           <p role="status">{names[value]}</p></div>
-        <ActionMenu label={label} variant={variant} actions={names.map((name, i) => {
+        <ActionMenu label={label} variant={(stringValue(config, "variant") ?? variant) as Variant} actions={names.map((name, i) => {
           const Icon = sample.icons[i];
-          return { id: String(i), label: name, icon: <Icon size={17} />, disabled: i === 2 && variant === "dynamic" };
+          return { id: String(i), label: name, icon: <Icon size={17} />, disabled: i === 2 && (booleanValue(config, "disabled") ?? variant === "dynamic") };
         })} onAction={(id) => select(Number(id))} reducedMotion={reduced} />
       </div>;
     },

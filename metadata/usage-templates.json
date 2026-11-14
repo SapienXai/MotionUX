@@ -1,0 +1,1836 @@
+{
+  "designbookmark-plan-switch": {
+    "setup": "\"use client\";\n\nimport { PlanSwitch } from \"@/components/sapienx-motion/state-buttons\";\n\nexport function Example() {\n  return <",
+    "component": "PlanSwitch",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Billing cycle\""
+      }
+    ],
+    "suffix": ">{annual => <p>{annual ? \"$120 per year\" : \"$12 per month\"}</p>}</PlanSwitch>;\n}"
+  },
+  "designbookmark-letter-limit": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { LetterLimit } from \"@/components/sapienx-motion/text-fields\";\n\nexport function Example() {\n  const [value, setValue] = useState(\"\");\n  return <",
+    "component": "LetterLimit",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Caption\""
+      },
+      {
+        "key": "value",
+        "text": "value={value}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setValue}"
+      },
+      {
+        "key": "limit",
+        "text": "limit={40}"
+      },
+      {
+        "key": "describe",
+        "text": "describe={n => `${n} remaining`}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-pull-cord": {
+    "setup": "\"use client\";\n\nimport { PullCord } from \"@/components/sapienx-motion/pull-cord\";\n\nexport function LightControl() {\n  return <",
+    "component": "PullCord",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Studio light\""
+      },
+      {
+        "key": "defaultChecked",
+        "text": "defaultChecked={false}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-morph-tooltip": {
+    "setup": "\"use client\";\n\nimport { MorphTooltip } from \"@/components/sapienx-motion/morph-tooltip\";\n\nexport function ExportHelp() {\n  return <",
+    "component": "MorphTooltip",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"About image quality\""
+      },
+      {
+        "key": "description",
+        "text": "description=\"Higher quality can increase the exported file size.\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-spring-dropdown": {
+    "setup": "\"use client\";\n\nimport { ActionMenu } from \"@/components/sapienx-motion/action-menu\";\n\nexport function Actions({ onSelect }: { onSelect: (id: string) => void }) {\n  return <",
+    "component": "ActionMenu",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Sort by\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"dropdown\""
+      },
+      {
+        "key": "actions",
+        "text": "actions={[\n    { id: \"first\", label: \"Newest\" },\n    { id: \"second\", label: \"Oldest\" },\n  ]}"
+      },
+      {
+        "key": "onAction",
+        "text": "onAction={onSelect}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-file-drop": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { FileDrop } from \"@/components/sapienx-motion/special-fields\";\n\nexport function Example() {\n  const [files, setFiles] = useState<File[]>([]);\n  return <",
+    "component": "FileDrop",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Choose files\""
+      },
+      {
+        "key": "accept",
+        "text": "accept=\".txt\""
+      },
+      {
+        "key": "maxBytes",
+        "text": "maxBytes={16384}"
+      },
+      {
+        "key": "files",
+        "text": "files={files}"
+      },
+      {
+        "key": "onFiles",
+        "text": "onFiles={setFiles}"
+      },
+      {
+        "key": "describeError",
+        "text": "describeError={error => `${error.file.name}: ${error.reason}`}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-command-button": {
+    "setup": "\"use client\";\n\nimport { CommandButton } from \"@/components/sapienx-motion/state-buttons\";\n\nexport function Example() {\n  return <",
+    "component": "CommandButton",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Export draft\""
+      },
+      {
+        "key": "shortcutLabel",
+        "text": "shortcutLabel=\"Alt E\""
+      },
+      {
+        "key": "chord",
+        "text": "chord={{ modifier: \"alt\", key: \"e\" }}"
+      },
+      {
+        "key": "onExecute",
+        "text": "onExecute={() => console.info(\"Export requested\")}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-morph-island": {
+    "setup": "\"use client\";\n\nimport { DisclosureCard } from \"@/components/sapienx-motion/disclosure-cards\";\n\nexport function Example() {\n  return <",
+    "component": "DisclosureCard",
+    "attributes": [
+      {
+        "key": "variant",
+        "text": "variant=\"island\""
+      },
+      {
+        "key": "title",
+        "text": "title=\"Transfer in progress\""
+      },
+      {
+        "key": "openLabel",
+        "text": "openLabel=\"Details\""
+      },
+      {
+        "key": "closeLabel",
+        "text": "closeLabel=\"Hide\""
+      },
+      {
+        "key": "detail",
+        "text": "detail={<p>Waiting for the response.</p>}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-goo-menu": {
+    "setup": "\"use client\";\n\nimport { GooMenu } from \"@/components/sapienx-motion/goo-studies\";\n\nexport function Example() {\n  const actions = [{ id: \"draft\", label: \"New draft\", icon: <span aria-hidden>+</span> }];\n  return <",
+    "component": "GooMenu",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Add to journal\""
+      },
+      {
+        "key": "actions",
+        "text": "actions={actions}"
+      },
+      {
+        "key": "onAction",
+        "text": "onAction={id => console.info(id)}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-jelly-slider": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { ValueSlider } from \"@/components/sapienx-motion/value-controls\";\n\nexport function Example() {\n  const [amount, setAmount] = useState(35);\n  return <",
+    "component": "ValueSlider",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Elasticity\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"jelly\""
+      },
+      {
+        "key": "value",
+        "text": "value={amount}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setAmount}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-hold-to-publish": {
+    "setup": "\"use client\";\n\nimport { HoldConfirm } from \"@/components/sapienx-motion/confirmation-controls\";\n\nexport function Example() {\n  return <",
+    "component": "HoldConfirm",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Hold to publish\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"publish\""
+      },
+      {
+        "key": "onConfirm",
+        "text": "onConfirm={() => console.info(\"Confirmed intent\")}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-swipe-deck": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { CardDeck } from \"@/components/sapienx-motion/deck-and-page\";\n\nexport function Example() {\n  const [index, setIndex] = useState(0);\n  const cards = [{ id: \"1\", title: \"Ridge\", body: <p>Watch the clouds.</p> }, { id: \"2\", title: \"River\", body: <p>Cross at the bridge.</p> }];\n  return <",
+    "component": "CardDeck",
+    "attributes": [
+      {
+        "key": "cards",
+        "text": "cards={cards}"
+      },
+      {
+        "key": "index",
+        "text": "index={index}"
+      },
+      {
+        "key": "onIndexChange",
+        "text": "onIndexChange={setIndex}"
+      },
+      {
+        "key": "label",
+        "text": "label=\"Field notes\""
+      },
+      {
+        "key": "previousLabel",
+        "text": "previousLabel=\"Previous\""
+      },
+      {
+        "key": "nextLabel",
+        "text": "nextLabel=\"Next\""
+      },
+      {
+        "key": "describe",
+        "text": "describe={(n, total) => `${n} of ${total}`}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-springy-input": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { SpringField } from \"@/components/sapienx-motion/text-fields\";\n\nexport function Example() {\n  const [value, setValue] = useState(\"\");\n  return <",
+    "component": "SpringField",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Project name\""
+      },
+      {
+        "key": "value",
+        "text": "value={value}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setValue}"
+      },
+      {
+        "key": "error",
+        "text": "error={value.length > 18 ? \"Use 18 characters or fewer\" : undefined}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-rubber-dock": {
+    "setup": "\"use client\";\n\nimport { RubberDock } from \"@/components/sapienx-motion/rubber-dock\";\n\nexport function Dock({ activeHref }: { activeHref: string }) {\n  return <",
+    "component": "RubberDock",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Workspace\""
+      },
+      {
+        "key": "activeHref",
+        "text": "activeHref={activeHref}"
+      },
+      {
+        "key": "links",
+        "text": "links={[\n    { href: \"/workspace\", label: \"Workspace\", icon: <span>W</span> },\n    { href: \"/archive\", label: \"Archive\", icon: <span>A</span> },\n  ]}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-parallax-ticket": {
+    "setup": "\"use client\";\n\nimport { ParallaxTicket } from \"@/components/sapienx-motion/interactive-surfaces\";\n\nexport function Example() {\n  return <",
+    "component": "ParallaxTicket",
+    "attributes": [
+      {
+        "key": "title",
+        "text": "title=\"Night train\""
+      },
+      {
+        "key": "subtitle",
+        "text": "subtitle=\"Field study admission\""
+      },
+      {
+        "key": "serial",
+        "text": "serial=\"MX 0418\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-glass-lens": {
+    "setup": "\"use client\";\n\nimport { GlassLens } from \"@/components/sapienx-motion/interactive-surfaces\";\n\nexport function Example({ imageUrl }: { imageUrl: string }) {\n  return <",
+    "component": "GlassLens",
+    "attributes": [
+      {
+        "key": "image",
+        "text": "image={{ src: imageUrl, alt: \"A misty ridge\" }}"
+      },
+      {
+        "key": "label",
+        "text": "label=\"Toggle magnification\""
+      },
+      {
+        "key": "hint",
+        "text": "hint=\"Use the arrow keys to move the lens.\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-pull-to-refresh": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { PullRefresh } from \"@/components/sapienx-motion/interactive-surfaces\";\n\nexport function Example() {\n  const [revision, setRevision] = useState(0);\n  return <",
+    "component": "PullRefresh",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Refresh\""
+      },
+      {
+        "key": "handleLabel",
+        "text": "handleLabel=\"Pull down here\""
+      },
+      {
+        "key": "status",
+        "text": "status={`Revision ${revision}`}"
+      },
+      {
+        "key": "pending",
+        "text": "pending={false}"
+      },
+      {
+        "key": "onRefresh",
+        "text": "onRefresh={() => setRevision(revision + 1)}"
+      }
+    ],
+    "suffix": "><p>Local feed</p></PullRefresh>;\n}"
+  },
+  "designbookmark-word-roll": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { PhraseSwap } from \"@/components/sapienx-motion/animated-type\";\n\nexport function Example() {\n  const [word, setWord] = useState(\"Horizon\");\n  return <><",
+    "component": "PhraseSwap",
+    "attributes": [
+      {
+        "key": "text",
+        "text": "text={word}"
+      }
+    ],
+    "suffix": " /><button type=\"button\" onClick={() => setWord(word === \"Horizon\" ? \"Canopy\" : \"Horizon\")}>Switch word</button></>;\n}"
+  },
+  "designbookmark-weight-wave": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { EmphasisText } from \"@/components/sapienx-motion/animated-type\";\n\nexport function Example() {\n  const [revision, setRevision] = useState(0);\n  return <><",
+    "component": "EmphasisText",
+    "attributes": [
+      {
+        "key": "variant",
+        "text": "variant=\"weight\""
+      },
+      {
+        "key": "text",
+        "text": "text=\"A slower journey\""
+      },
+      {
+        "key": "trigger",
+        "text": "trigger={revision}"
+      }
+    ],
+    "suffix": " /><button type=\"button\" onClick={() => setRevision(revision + 1)}>Replay</button></>;\n}"
+  },
+  "designbookmark-goo-morph": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { GooMorph } from \"@/components/sapienx-motion/goo-studies\";\n\nexport function Example() {\n  const [shape, setShape] = useState<0 | 1>(0);\n  return <",
+    "component": "GooMorph",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Change shape\""
+      },
+      {
+        "key": "names",
+        "text": "names={[\"Tide\", \"Current\"]}"
+      },
+      {
+        "key": "index",
+        "text": "index={shape}"
+      },
+      {
+        "key": "onIndexChange",
+        "text": "onIndexChange={setShape}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-scramble-text": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { TextReveal } from \"@/components/sapienx-motion/animated-type\";\n\nexport function Example() {\n  const [revision, setRevision] = useState(0);\n  return <><",
+    "component": "TextReveal",
+    "attributes": [
+      {
+        "key": "text",
+        "text": "text=\"A signal through the mist\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"scramble\""
+      },
+      {
+        "key": "trigger",
+        "text": "trigger={revision}"
+      }
+    ],
+    "suffix": " /><button type=\"button\" onClick={() => setRevision(revision + 1)}>Replay</button></>;\n}"
+  },
+  "designbookmark-read-along": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { ReadAlong } from \"@/components/sapienx-motion/animated-type\";\n\nexport function Example() {\n  const [index, setIndex] = useState(0);\n  const paragraphs = [\"At first light.\", \"Follow the lower path.\"];\n  return <><",
+    "component": "ReadAlong",
+    "attributes": [
+      {
+        "key": "phrases",
+        "text": "phrases={paragraphs}"
+      },
+      {
+        "key": "current",
+        "text": "current={index}"
+      }
+    ],
+    "suffix": " /><button type=\"button\" onClick={() => setIndex((index + 1) % paragraphs.length)}>Next</button></>;\n}"
+  },
+  "designbookmark-roll-links": {
+    "setup": "\"use client\";\n\nimport { RollLink } from \"@/components/sapienx-motion/animated-type\";\n\nexport function Example() {\n  return <",
+    "component": "RollLink",
+    "attributes": [
+      {
+        "key": "href",
+        "text": "href=\"/journal\""
+      }
+    ],
+    "suffix": ">Open journal</RollLink>;\n}"
+  },
+  "designbookmark-prompt-box": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { PromptBox } from \"@/components/sapienx-motion/composer\";\n\nexport function Example() {\n  const [prompt, setPrompt] = useState(\"\");\n  return <",
+    "component": "PromptBox",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Prompt\""
+      },
+      {
+        "key": "value",
+        "text": "value={prompt}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setPrompt}"
+      },
+      {
+        "key": "onSubmit",
+        "text": "onSubmit={submitted => { console.info(submitted); setPrompt(\"\"); }}"
+      },
+      {
+        "key": "onStop",
+        "text": "onStop={() => {}}"
+      },
+      {
+        "key": "pending",
+        "text": "pending={false}"
+      },
+      {
+        "key": "sendLabel",
+        "text": "sendLabel=\"Send\""
+      },
+      {
+        "key": "stopLabel",
+        "text": "stopLabel=\"Stop\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-streaming-reply": {
+    "setup": "\"use client\";\n\nimport { StreamingReply } from \"@/components/sapienx-motion/async-feedback\";\n\nexport function Example({ stateLabel, text, pending, abort }: { stateLabel: string; text: string; pending: boolean; abort: () => void }) {\n  return <",
+    "component": "StreamingReply",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Reply\""
+      },
+      {
+        "key": "summary",
+        "text": "summary={stateLabel}"
+      },
+      {
+        "key": "text",
+        "text": "text={text}"
+      },
+      {
+        "key": "pending",
+        "text": "pending={pending}"
+      },
+      {
+        "key": "onStop",
+        "text": "onStop={abort}"
+      },
+      {
+        "key": "stopLabel",
+        "text": "stopLabel=\"Stop\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-ghost-suggestion": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { GhostSuggestion } from \"@/components/sapienx-motion/composer\";\n\nexport function Example() {\n  const [query, setQuery] = useState(\"\");\n  const suggestion = \"forest trail\";\n  const suffix = query.length >= 2 && suggestion.startsWith(query) ? suggestion.slice(query.length) : undefined;\n  return <",
+    "component": "GhostSuggestion",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Search\""
+      },
+      {
+        "key": "value",
+        "text": "value={query}"
+      },
+      {
+        "key": "completion",
+        "text": "completion={suffix}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setQuery}"
+      },
+      {
+        "key": "acceptLabel",
+        "text": "acceptLabel=\"Accept suggestion\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-goo-thinking": {
+    "setup": "\"use client\";\n\nimport { GooThinking } from \"@/components/sapienx-motion/tool-approval\";\n\nexport function Example() {\n  return <",
+    "component": "GooThinking",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Waiting for a response\""
+      },
+      {
+        "key": "pending",
+        "text": "pending"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-expand-card": {
+    "setup": "\"use client\";\n\nimport { DisclosureCard } from \"@/components/sapienx-motion/disclosure-cards\";\n\nexport function Example() {\n  return <",
+    "component": "DisclosureCard",
+    "attributes": [
+      {
+        "key": "title",
+        "text": "title=\"The winter field guide\""
+      },
+      {
+        "key": "openLabel",
+        "text": "openLabel=\"Read\""
+      },
+      {
+        "key": "closeLabel",
+        "text": "closeLabel=\"Close\""
+      },
+      {
+        "key": "detail",
+        "text": "detail={<p>Read one field note.</p>}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-fan-cards": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { FanCards } from \"@/components/sapienx-motion/deck-and-page\";\n\nexport function Example() {\n  const [index, setIndex] = useState(0);\n  const cards = [{ id: \"1\", title: \"Ridge\" }, { id: \"2\", title: \"River\" }];\n  return <",
+    "component": "FanCards",
+    "attributes": [
+      {
+        "key": "cards",
+        "text": "cards={cards}"
+      },
+      {
+        "key": "index",
+        "text": "index={index}"
+      },
+      {
+        "key": "onIndexChange",
+        "text": "onIndexChange={setIndex}"
+      },
+      {
+        "key": "label",
+        "text": "label=\"Journal\""
+      },
+      {
+        "key": "spreadLabel",
+        "text": "spreadLabel=\"Spread\""
+      },
+      {
+        "key": "gatherLabel",
+        "text": "gatherLabel=\"Gather\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-stat-card": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { StatCard } from \"@/components/sapienx-motion/disclosure-cards\";\n\nexport function Example() {\n  const [value, setValue] = useState(\"week\");\n  const windows = [{ id: \"week\", label: \"Week\", value: \"24\", trend: \"Up 4%\", samples: [1, 3, 2, 4] }, { id: \"month\", label: \"Month\", value: \"108\", trend: \"Up 8%\", samples: [4, 6, 8, 8] }];\n  return <",
+    "component": "StatCard",
+    "attributes": [
+      {
+        "key": "title",
+        "text": "title=\"Weekly activity\""
+      },
+      {
+        "key": "windows",
+        "text": "windows={windows}"
+      },
+      {
+        "key": "value",
+        "text": "value={value}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setValue}"
+      },
+      {
+        "key": "periodLabel",
+        "text": "periodLabel=\"Period\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-profile-card": {
+    "setup": "\"use client\";\n\nimport { DisclosureCard } from \"@/components/sapienx-motion/disclosure-cards\";\n\nexport function Example() {\n  return <",
+    "component": "DisclosureCard",
+    "attributes": [
+      {
+        "key": "variant",
+        "text": "variant=\"profile\""
+      },
+      {
+        "key": "title",
+        "text": "title=\"Mira Vale\""
+      },
+      {
+        "key": "openLabel",
+        "text": "openLabel=\"Contact\""
+      },
+      {
+        "key": "closeLabel",
+        "text": "closeLabel=\"Close\""
+      },
+      {
+        "key": "detail",
+        "text": "detail={<a href=\"mailto:mira@example.com\">Email Mira</a>}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-magnetic-button": {
+    "setup": "\"use client\";\n\nimport { MagneticButton } from \"@/components/sapienx-motion/feedback-actions\";\n\nexport function Example() {\n  return <",
+    "component": "MagneticButton",
+    "attributes": [
+      {
+        "key": "onClick",
+        "text": "onClick={() => console.info(\"Opened\")}"
+      }
+    ],
+    "suffix": ">Open collection</MagneticButton>;\n}"
+  },
+  "designbookmark-loading-to-success": {
+    "setup": "\"use client\";\n\nimport { ActionOutcome } from \"@/components/sapienx-motion/feedback-actions\";\n\nexport function Example() {\n  return <",
+    "component": "ActionOutcome",
+    "attributes": [
+      {
+        "key": "state",
+        "text": "state=\"pending\""
+      },
+      {
+        "key": "label",
+        "text": "label=\"Waiting for the server\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-copy-button": {
+    "setup": "\"use client\";\n\nimport { CopyTextButton } from \"@/components/sapienx-motion/feedback-actions\";\n\nexport function Example() {\n  return <",
+    "component": "CopyTextButton",
+    "attributes": [
+      {
+        "key": "text",
+        "text": "text=\"workspace-link\""
+      },
+      {
+        "key": "label",
+        "text": "label=\"Copy workspace link\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-like-burst": {
+    "setup": "\"use client\";\n\nimport { ReactionButton } from \"@/components/sapienx-motion/feedback-actions\";\n\nexport function Example() {\n  return <",
+    "component": "ReactionButton",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Like\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"like\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-tab-pill": {
+    "setup": "\"use client\";\n\nimport { TabPill } from \"@/components/sapienx-motion/motion-selector\";\n\nexport function ProjectTabs() {\n  return <",
+    "component": "TabPill",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Project sections\""
+      },
+      {
+        "key": "options",
+        "text": "options={[\n    { value: \"summary\", label: \"Summary\", panel: <p>Current project.</p> },\n    { value: \"files\", label: \"Files\", panel: <p>Project files.</p> },\n  ]}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-bottom-bar": {
+    "setup": "\"use client\";\n\nimport { BottomBar } from \"@/components/sapienx-motion/motion-selector\";\n\nexport function AccountNavigation({ pathname }: { pathname: string }) {\n  return <",
+    "component": "BottomBar",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Account navigation\""
+      },
+      {
+        "key": "activeHref",
+        "text": "activeHref={pathname}"
+      },
+      {
+        "key": "links",
+        "text": "links={[\n    { href: \"/account\", label: \"Account\", icon: null },\n    { href: \"/inbox\", label: \"Inbox\", icon: null },\n  ]}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-dynamic-menu": {
+    "setup": "\"use client\";\n\nimport { ActionMenu } from \"@/components/sapienx-motion/action-menu\";\n\nexport function Actions({ onSelect }: { onSelect: (id: string) => void }) {\n  return <",
+    "component": "ActionMenu",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"More actions\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"dynamic\""
+      },
+      {
+        "key": "actions",
+        "text": "actions={[\n    { id: \"first\", label: \"Duplicate\" },\n    { id: \"second\", label: \"Archive\" },\n  ]}"
+      },
+      {
+        "key": "onAction",
+        "text": "onAction={onSelect}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-segmented-control": {
+    "setup": "\"use client\";\n\nimport { SegmentedControl } from \"@/components/sapienx-motion/motion-selector\";\n\nexport function PeriodControl() {\n  return <",
+    "component": "SegmentedControl",
+    "attributes": [
+      {
+        "key": "name",
+        "text": "name=\"period\""
+      },
+      {
+        "key": "label",
+        "text": "label=\"Reporting period\""
+      },
+      {
+        "key": "defaultValue",
+        "text": "defaultValue=\"week\""
+      },
+      {
+        "key": "options",
+        "text": "options={[\n    { value: \"day\", label: \"Day\" }, { value: \"week\", label: \"Week\" },\n  ]}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-sidebar-collapse": {
+    "setup": "\"use client\";\n\nimport { SidebarCollapse } from \"@/components/sapienx-motion/sidebar-collapse\";\n\nexport function Sidebar() {\n  return <",
+    "component": "SidebarCollapse",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Workspace\""
+      },
+      {
+        "key": "activeHref",
+        "text": "activeHref=\"/files\""
+      },
+      {
+        "key": "links",
+        "text": "links={[\n    { href: \"/files\", label: \"Files\", icon: <span>F</span> },\n  ]}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-command-palette": {
+    "setup": "\"use client\";\n\nimport { CommandPalette } from \"@/components/sapienx-motion/command-palette\";\n\nexport function WorkspaceCommands({ onOpen }: { onOpen: () => void }) {\n  return <",
+    "component": "CommandPalette",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Workspace commands\""
+      },
+      {
+        "key": "commands",
+        "text": "commands={[\n    { id: \"open\", label: \"Open workspace\", keywords: \"project\" },\n  ]}"
+      },
+      {
+        "key": "onSelect",
+        "text": "onSelect={(id) => { if (id === \"open\") onOpen(); }}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-step-progress": {
+    "setup": "\"use client\";\n\nimport { ProgressSequence } from \"@/components/sapienx-motion/progress-sequence\";\n\nexport function Example() {\n  return <",
+    "component": "ProgressSequence",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Setup\""
+      },
+      {
+        "key": "stages",
+        "text": "stages={[{ id: \"1\", label: \"Details\", state: \"current\" }]}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-otp-code": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { OtpCode } from \"@/components/sapienx-motion/text-fields\";\n\nexport function Example() {\n  const [value, setValue] = useState(\"\");\n  return <",
+    "component": "OtpCode",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Verification code\""
+      },
+      {
+        "key": "length",
+        "text": "length={6}"
+      },
+      {
+        "key": "value",
+        "text": "value={value}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setValue}"
+      },
+      {
+        "key": "name",
+        "text": "name=\"code\""
+      },
+      {
+        "key": "required",
+        "text": "required"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-toggle-switch": {
+    "setup": "\"use client\";\n\nimport { ToggleSwitch } from \"@/components/sapienx-motion/state-buttons\";\n\nexport function Example() {\n  return <",
+    "component": "ToggleSwitch",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Quiet hours\""
+      },
+      {
+        "key": "name",
+        "text": "name=\"quiet-hours\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-star-rating": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { StarRating } from \"@/components/sapienx-motion/value-controls\";\n\nexport function Example() {\n  const [amount, setAmount] = useState(3);\n  return <",
+    "component": "StarRating",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Rating\""
+      },
+      {
+        "key": "value",
+        "text": "value={amount}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setAmount}"
+      },
+      {
+        "key": "describe",
+        "text": "describe={n => `${n} out of 5`}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-tag-input": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { TagInput } from \"@/components/sapienx-motion/text-fields\";\n\nexport function Example() {\n  const [tags, setTags] = useState<string[]>([]);\n  return <",
+    "component": "TagInput",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Tags\""
+      },
+      {
+        "key": "value",
+        "text": "value={tags}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setTags}"
+      },
+      {
+        "key": "removeLabel",
+        "text": "removeLabel={tag => `Remove ${tag}`}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-number-stepper": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { NumberStepper } from \"@/components/sapienx-motion/value-controls\";\n\nexport function Example() {\n  const [amount, setAmount] = useState(2);\n  return <",
+    "component": "NumberStepper",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Guests\""
+      },
+      {
+        "key": "name",
+        "text": "name=\"guests\""
+      },
+      {
+        "key": "min",
+        "text": "min={1}"
+      },
+      {
+        "key": "max",
+        "text": "max={8}"
+      },
+      {
+        "key": "value",
+        "text": "value={amount}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setAmount}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-range-slider": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { RangePair } from \"@/components/sapienx-motion/value-controls\";\n\nexport function Example() {\n  const [range, setRange] = useState<[number, number]>([25, 75]);\n  return <",
+    "component": "RangePair",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Budget\""
+      },
+      {
+        "key": "minimumLabel",
+        "text": "minimumLabel=\"Minimum\""
+      },
+      {
+        "key": "maximumLabel",
+        "text": "maximumLabel=\"Maximum\""
+      },
+      {
+        "key": "low",
+        "text": "low={range[0]}"
+      },
+      {
+        "key": "high",
+        "text": "high={range[1]}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setRange}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-password-strength": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { PasswordStrength } from \"@/components/sapienx-motion/text-fields\";\n\nexport function Example() {\n  const [value, setValue] = useState(\"\");\n  return <",
+    "component": "PasswordStrength",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"New password\""
+      },
+      {
+        "key": "value",
+        "text": "value={value}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setValue}"
+      },
+      {
+        "key": "describeRule",
+        "text": "describeRule={met => met ? \"Met\" : \"Not met\"}"
+      },
+      {
+        "key": "rules",
+        "text": "rules={[{ id: \"long\", label: \"12 characters\", test: value => value.length >= 12 }]}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-checkbox-list": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { CheckboxList } from \"@/components/sapienx-motion/value-controls\";\n\nexport function Example() {\n  const [tags, setTags] = useState<string[]>([]);\n  return <",
+    "component": "CheckboxList",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Amenities\""
+      },
+      {
+        "key": "choices",
+        "text": "choices={[{ value: \"desk\", label: \"Desk\" }]}"
+      },
+      {
+        "key": "value",
+        "text": "value={tags}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setTags}"
+      },
+      {
+        "key": "describe",
+        "text": "describe={n => `${n} selected`}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-detent-dial": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { ValueSlider } from \"@/components/sapienx-motion/value-controls\";\n\nexport function Example() {\n  const [amount, setAmount] = useState(4);\n  return <",
+    "component": "ValueSlider",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Gain\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"dial\""
+      },
+      {
+        "key": "min",
+        "text": "min={0}"
+      },
+      {
+        "key": "max",
+        "text": "max={10}"
+      },
+      {
+        "key": "value",
+        "text": "value={amount}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setAmount}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "smoothui-siri-orb": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { SignalOrb } from \"@/components/sapienx-motion/audio-tools\";\n\nexport function Example() {\n  const [listening, setListening] = useState(false);\n  return <><",
+    "component": "SignalOrb",
+    "attributes": [
+      {
+        "key": "active",
+        "text": "active={listening}"
+      },
+      {
+        "key": "status",
+        "text": "status={listening ? \"Active\" : \"Ready\"}"
+      }
+    ],
+    "suffix": " /><button type=\"button\" onClick={() => setListening(!listening)}>Toggle</button></>;\n}"
+  },
+  "kokonut-agent-steps": {
+    "setup": "\"use client\";\n\nimport { ProgressSequence } from \"@/components/sapienx-motion/progress-sequence\";\n\nexport function Example() {\n  return <",
+    "component": "ProgressSequence",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Task activity\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"expandable\""
+      },
+      {
+        "key": "stages",
+        "text": "stages={[{ id: \"1\", label: \"Review\", state: \"current\", detail: \"Checking source files.\" }]}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-hold-button": {
+    "setup": "\"use client\";\n\nimport { HoldConfirm } from \"@/components/sapienx-motion/confirmation-controls\";\n\nexport function Example() {\n  return <",
+    "component": "HoldConfirm",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Hold to arm\""
+      },
+      {
+        "key": "duration",
+        "text": "duration={850}"
+      },
+      {
+        "key": "onConfirm",
+        "text": "onConfirm={() => console.info(\"Confirmed intent\")}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "smoothui-exposure-slider": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { ValueSlider } from \"@/components/sapienx-motion/value-controls\";\n\nexport function Example() {\n  const [amount, setAmount] = useState(0);\n  return <",
+    "component": "ValueSlider",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Exposure\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"exposure\""
+      },
+      {
+        "key": "min",
+        "text": "min={-2}"
+      },
+      {
+        "key": "max",
+        "text": "max={2}"
+      },
+      {
+        "key": "step",
+        "text": "step={0.25}"
+      },
+      {
+        "key": "value",
+        "text": "value={amount}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setAmount}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-boarding-pass": {
+    "setup": "\"use client\";\n\nimport { DisclosureCard } from \"@/components/sapienx-motion/disclosure-cards\";\n\nexport function Example() {\n  return <",
+    "component": "DisclosureCard",
+    "attributes": [
+      {
+        "key": "variant",
+        "text": "variant=\"boarding\""
+      },
+      {
+        "key": "title",
+        "text": "title=\"Istanbul to Copenhagen\""
+      },
+      {
+        "key": "openLabel",
+        "text": "openLabel=\"Flight details\""
+      },
+      {
+        "key": "closeLabel",
+        "text": "closeLabel=\"Fold\""
+      },
+      {
+        "key": "detail",
+        "text": "detail={<p>Gate B12, seat 14A</p>}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-marker-text": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { EmphasisText } from \"@/components/sapienx-motion/animated-type\";\n\nexport function Example() {\n  const [revision, setRevision] = useState(0);\n  return <><",
+    "component": "EmphasisText",
+    "attributes": [
+      {
+        "key": "variant",
+        "text": "variant=\"marker\""
+      },
+      {
+        "key": "text",
+        "text": "text=\"On the ridge\""
+      },
+      {
+        "key": "trigger",
+        "text": "trigger={revision}"
+      }
+    ],
+    "suffix": " /><button type=\"button\" onClick={() => setRevision(revision + 1)}>Replay</button></>;\n}"
+  },
+  "kokonut-smooth-tab": {
+    "setup": "\"use client\";\n\nimport { SwipeTabs } from \"@/components/sapienx-motion/swipe-tabs\";\n\nexport function Collection() {\n  return <",
+    "component": "SwipeTabs",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Collection\""
+      },
+      {
+        "key": "pages",
+        "text": "pages={[\n    { value: \"surface\", label: \"Surface\", content: <p>Surface studies</p> },\n    { value: \"colour\", label: \"Colour\", content: <p>Colour studies</p> },\n  ]}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "smoothui-unlock-face-id": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { SimulatedUnlock } from \"@/components/sapienx-motion/goo-studies\";\n\nexport function Example() {\n  const [done, setDone] = useState(false);\n  return <",
+    "component": "SimulatedUnlock",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Play simulation\""
+      },
+      {
+        "key": "animationLabel",
+        "text": "animationLabel=\"Visual simulation\""
+      },
+      {
+        "key": "phase",
+        "text": "phase={done ? \"done\" : \"idle\"}"
+      },
+      {
+        "key": "status",
+        "text": "status={done ? \"Simulation finished\" : \"Ready\"}"
+      },
+      {
+        "key": "onRun",
+        "text": "onRun={() => setDone(true)}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-slide-to-confirm": {
+    "setup": "\"use client\";\n\nimport { SlideConfirm } from \"@/components/sapienx-motion/confirmation-controls\";\n\nexport function Example() {\n  return <",
+    "component": "SlideConfirm",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Slide to confirm\""
+      },
+      {
+        "key": "onConfirm",
+        "text": "onConfirm={() => console.info(\"Confirmed intent\")}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-notification-stack": {
+    "setup": "\"use client\";\n\nimport { NotificationStack } from \"@/components/sapienx-motion/notification-stack\";\n\nexport function Example() {\n  return <",
+    "component": "NotificationStack",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Updates\""
+      },
+      {
+        "key": "items",
+        "text": "items={[{ id: \"1\", title: \"Draft ready\" }]}"
+      },
+      {
+        "key": "onDismiss",
+        "text": "onDismiss={id => console.info(id)}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-wheel-picker": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { WheelPicker } from \"@/components/sapienx-motion/special-fields\";\n\nexport function Example() {\n  const [value, setValue] = useState(\"14\");\n  return <",
+    "component": "WheelPicker",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Check-in time\""
+      },
+      {
+        "key": "values",
+        "text": "values={[{ id: \"14\", label: \"14:00\" }, { id: \"15\", label: \"15:00\" }]}"
+      },
+      {
+        "key": "value",
+        "text": "value={value}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setValue}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-dynamic-text": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { PhraseSwap } from \"@/components/sapienx-motion/animated-type\";\n\nexport function Example() {\n  const [phrase, setPhrase] = useState(\"Quiet by the treeline\");\n  return <><",
+    "component": "PhraseSwap",
+    "attributes": [
+      {
+        "key": "variant",
+        "text": "variant=\"dynamic\""
+      },
+      {
+        "key": "text",
+        "text": "text={phrase}"
+      },
+      {
+        "key": "direction",
+        "text": "direction={1}"
+      }
+    ],
+    "suffix": " /><button type=\"button\" onClick={() => setPhrase(phrase === \"Quiet by the treeline\" ? \"Light crosses the valley\" : \"Quiet by the treeline\")}>Next phrase</button></>;\n}"
+  },
+  "kokonut-voice-input": {
+    "setup": "\"use client\";\n\nimport { VoiceInput } from \"@/components/sapienx-motion/async-feedback\";\n\nexport function Example({ state, message, start, stop }: { state: \"idle\" | \"recording\" | \"processing\"; message: string; start: () => void; stop: () => void }) {\n  return <",
+    "component": "VoiceInput",
+    "attributes": [
+      {
+        "key": "state",
+        "text": "state={state}"
+      },
+      {
+        "key": "status",
+        "text": "status={message}"
+      },
+      {
+        "key": "startLabel",
+        "text": "startLabel=\"Start\""
+      },
+      {
+        "key": "stopLabel",
+        "text": "stopLabel=\"Stop\""
+      },
+      {
+        "key": "onStart",
+        "text": "onStart={start}"
+      },
+      {
+        "key": "onStop",
+        "text": "onStop={stop}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-tool-approval": {
+    "setup": "\"use client\";\n\nimport { ToolApproval } from \"@/components/sapienx-motion/tool-approval\";\n\nexport function Example() {\n  return <",
+    "component": "ToolApproval",
+    "attributes": [
+      {
+        "key": "title",
+        "text": "title=\"Read file\""
+      },
+      {
+        "key": "description",
+        "text": "description=\"Review the requested file.\""
+      },
+      {
+        "key": "state",
+        "text": "state=\"pending\""
+      },
+      {
+        "key": "onDecision",
+        "text": "onDecision={value => console.info(value)}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-toolbar": {
+    "setup": "\"use client\";\n\nimport { MotionToolbar } from \"@/components/sapienx-motion/motion-toolbar\";\n\nexport function FormatTools({ bold, toggleBold }: { bold: boolean; toggleBold: () => void }) {\n  return <",
+    "component": "MotionToolbar",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Formatting\""
+      },
+      {
+        "key": "tools",
+        "text": "tools={[{ id: \"bold\", label: \"Bold\", icon: <strong>B</strong>, pressed: bold }]}"
+      },
+      {
+        "key": "onAction",
+        "text": "onAction={toggleBold}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "smoothui-scrubber": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { TimeScrubber } from \"@/components/sapienx-motion/audio-tools\";\n\nexport function Example() {\n  const [elapsed, setElapsed] = useState(0);\n  const formatTime = (value: number) => `${Math.floor(value / 60)}:${String(Math.floor(value % 60)).padStart(2, \"0\")}`;\n  return <",
+    "component": "TimeScrubber",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Position\""
+      },
+      {
+        "key": "elapsed",
+        "text": "elapsed={elapsed}"
+      },
+      {
+        "key": "duration",
+        "text": "duration={120}"
+      },
+      {
+        "key": "onSeek",
+        "text": "onSeek={setElapsed}"
+      },
+      {
+        "key": "format",
+        "text": "format={formatTime}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-cart-button": {
+    "setup": "\"use client\";\n\nimport { CartAction } from \"@/components/sapienx-motion/feedback-actions\";\n\nexport function Example() {\n  return <",
+    "component": "CartAction",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Add to bag\""
+      },
+      {
+        "key": "count",
+        "text": "count={0}"
+      },
+      {
+        "key": "onAdd",
+        "text": "onAdd={() => console.info(\"Add requested\")}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-page-flip": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { CardDeck } from \"@/components/sapienx-motion/deck-and-page\";\n\nexport function Example() {\n  const [index, setIndex] = useState(0);\n  const pages = [{ id: \"1\", title: \"First page\", body: <p>Notes for June.</p> }, { id: \"2\", title: \"Second page\", body: <p>Notes for July.</p> }];\n  return <",
+    "component": "CardDeck",
+    "attributes": [
+      {
+        "key": "variant",
+        "text": "variant=\"page\""
+      },
+      {
+        "key": "cards",
+        "text": "cards={pages}"
+      },
+      {
+        "key": "index",
+        "text": "index={index}"
+      },
+      {
+        "key": "onIndexChange",
+        "text": "onIndexChange={setIndex}"
+      },
+      {
+        "key": "label",
+        "text": "label=\"Notebook\""
+      },
+      {
+        "key": "previousLabel",
+        "text": "previousLabel=\"Previous page\""
+      },
+      {
+        "key": "nextLabel",
+        "text": "nextLabel=\"Next page\""
+      },
+      {
+        "key": "describe",
+        "text": "describe={(n, total) => `${n} of ${total}`}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-signature-pad": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { SignaturePad } from \"@/components/sapienx-motion/special-fields\";\n\nexport function Example() {\n  const [signature, setSignature] = useState<{ typed: string; strokes: readonly (readonly { x: number; y: number }[])[] }>({ typed: \"\", strokes: [] });\n  return <",
+    "component": "SignaturePad",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Signature\""
+      },
+      {
+        "key": "typeLabel",
+        "text": "typeLabel=\"Type your name\""
+      },
+      {
+        "key": "undoLabel",
+        "text": "undoLabel=\"Undo stroke\""
+      },
+      {
+        "key": "clearLabel",
+        "text": "clearLabel=\"Clear\""
+      },
+      {
+        "key": "value",
+        "text": "value={signature}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setSignature}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-undo-button": {
+    "setup": "\"use client\";\n\nimport { UndoAction } from \"@/components/sapienx-motion/feedback-actions\";\n\nexport function Example() {\n  return <",
+    "component": "UndoAction",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Undo\""
+      },
+      {
+        "key": "onUndo",
+        "text": "onUndo={() => console.info(\"Undo requested\")}"
+      }
+    ],
+    "suffix": ">Item moved</UndoAction>;\n}"
+  },
+  "kokonut-card-field": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { CardField } from \"@/components/sapienx-motion/special-fields\";\n\nexport function Example() {\n  const [card, setCard] = useState({ number: \"\", expiry: \"\", code: \"\" });\n  return <",
+    "component": "CardField",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Test card details\""
+      },
+      {
+        "key": "labels",
+        "text": "labels={{ number: \"Card number\", expiry: \"Expiry\", code: \"Security code\" }}"
+      },
+      {
+        "key": "value",
+        "text": "value={card}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setCard}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-stack-panel": {
+    "setup": "\"use client\";\n\nimport { StackPanel } from \"@/components/sapienx-motion/stack-panel\";\n\nexport function ProjectNotes() {\n  return <",
+    "component": "StackPanel",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Project notes\""
+      },
+      {
+        "key": "panels",
+        "text": "panels={[\n    { value: \"brief\", title: \"Brief\", body: <p>Working notes</p> },\n    { value: \"release\", title: \"Schedule\", body: <p>Release review on Thursday</p> },\n  ]}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-typewriter": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { TextReveal } from \"@/components/sapienx-motion/animated-type\";\n\nexport function Example() {\n  const [revision, setRevision] = useState(0);\n  return <><",
+    "component": "TextReveal",
+    "attributes": [
+      {
+        "key": "text",
+        "text": "text=\"The trail runs east\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"typewriter\""
+      },
+      {
+        "key": "trigger",
+        "text": "trigger={revision}"
+      }
+    ],
+    "suffix": " /><button type=\"button\" onClick={() => setRevision(revision + 1)}>Replay</button></>;\n}"
+  },
+  "kokonut-thinking-text": {
+    "setup": "\"use client\";\n\nimport { ThinkingText } from \"@/components/sapienx-motion/async-feedback\";\n\nexport function Example({ visiblePhase, announcedState, working }: { visiblePhase: string; announcedState: string; working: boolean }) {\n  return <",
+    "component": "ThinkingText",
+    "attributes": [
+      {
+        "key": "phase",
+        "text": "phase={visiblePhase}"
+      },
+      {
+        "key": "status",
+        "text": "status={announcedState}"
+      },
+      {
+        "key": "pending",
+        "text": "pending={working}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-glass-player": {
+    "setup": "\"use client\";\n\nimport { AudioControl } from \"@/components/sapienx-motion/audio-tools\";\n\nexport function Example({ audioUrl }: { audioUrl: string }) {\n  const formatTime = (seconds: number) => Math.floor(seconds) + \" seconds\";\n  return <",
+    "component": "AudioControl",
+    "attributes": [
+      {
+        "key": "src",
+        "text": "src={audioUrl}"
+      },
+      {
+        "key": "title",
+        "text": "title=\"Quiet tones\""
+      },
+      {
+        "key": "playLabel",
+        "text": "playLabel=\"Play\""
+      },
+      {
+        "key": "pauseLabel",
+        "text": "pauseLabel=\"Pause\""
+      },
+      {
+        "key": "errorLabel",
+        "text": "errorLabel=\"Could not start\""
+      },
+      {
+        "key": "seekLabel",
+        "text": "seekLabel=\"Position\""
+      },
+      {
+        "key": "format",
+        "text": "format={formatTime}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-bell-button": {
+    "setup": "\"use client\";\n\nimport { ReactionButton } from \"@/components/sapienx-motion/feedback-actions\";\n\nexport function Example() {\n  return <",
+    "component": "ReactionButton",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Alerts\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"bell\""
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-morph-popover": {
+    "setup": "\"use client\";\n\nimport { ActionMenu } from \"@/components/sapienx-motion/action-menu\";\n\nexport function Actions({ onSelect }: { onSelect: (id: string) => void }) {\n  return <",
+    "component": "ActionMenu",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Sharing options\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"morph\""
+      },
+      {
+        "key": "actions",
+        "text": "actions={[\n    { id: \"first\", label: \"Copy link\" },\n    { id: \"second\", label: \"Open folder\" },\n  ]}"
+      },
+      {
+        "key": "onAction",
+        "text": "onAction={onSelect}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "smoothui-task-list": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { TaskList } from \"@/components/sapienx-motion/async-feedback\";\n\nexport function Example() {\n  const [tasks, setTasks] = useState([{ id: \"map\", label: \"Review the map\", complete: false }]);\n  return <",
+    "component": "TaskList",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Preparation\""
+      },
+      {
+        "key": "tasks",
+        "text": "tasks={tasks}"
+      },
+      {
+        "key": "onToggle",
+        "text": "onToggle={(id, complete) => setTasks(tasks.map(task => task.id === id ? { ...task, complete } : task))}"
+      },
+      {
+        "key": "describe",
+        "text": "describe={(done, total) => `${done} of ${total} complete`}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "smoothui-music-toggle": {
+    "setup": "\"use client\";\n\nimport { AudioControl } from \"@/components/sapienx-motion/audio-tools\";\n\nexport function Example({ audioUrl }: { audioUrl: string }) {\n  const formatTime = (seconds: number) => Math.floor(seconds) + \" seconds\";\n  return <",
+    "component": "AudioControl",
+    "attributes": [
+      {
+        "key": "variant",
+        "text": "variant=\"toggle\""
+      },
+      {
+        "key": "src",
+        "text": "src={audioUrl}"
+      },
+      {
+        "key": "title",
+        "text": "title=\"Quiet tones\""
+      },
+      {
+        "key": "playLabel",
+        "text": "playLabel=\"Play\""
+      },
+      {
+        "key": "pauseLabel",
+        "text": "pauseLabel=\"Pause\""
+      },
+      {
+        "key": "errorLabel",
+        "text": "errorLabel=\"Could not start\""
+      },
+      {
+        "key": "seekLabel",
+        "text": "seekLabel=\"Position\""
+      },
+      {
+        "key": "format",
+        "text": "format={formatTime}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "kokonut-command-button": {
+    "setup": "\"use client\";\n\nimport { CommandButton } from \"@/components/sapienx-motion/state-buttons\";\n\nexport function Example() {\n  return <",
+    "component": "CommandButton",
+    "attributes": [
+      {
+        "key": "label",
+        "text": "label=\"Open workspace\""
+      },
+      {
+        "key": "variant",
+        "text": "variant=\"tile\""
+      },
+      {
+        "key": "shortcutLabel",
+        "text": "shortcutLabel=\"Alt O\""
+      },
+      {
+        "key": "chord",
+        "text": "chord={{ modifier: \"alt\", key: \"o\" }}"
+      },
+      {
+        "key": "onExecute",
+        "text": "onExecute={() => console.info(\"Open requested\")}"
+      }
+    ],
+    "suffix": " />;\n}"
+  },
+  "designbookmark-pagination-dots": {
+    "setup": "\"use client\";\n\nimport { useState } from \"react\";\nimport { PaginationDots } from \"@/components/sapienx-motion/pagination-dots\";\n\nexport function Tour() {\n  const [page, setPage] = useState(0);\n  return <><p>Step {page + 1} of 4</p>\n    <",
+    "component": "PaginationDots",
+    "attributes": [
+      {
+        "key": "count",
+        "text": "count={4}"
+      },
+      {
+        "key": "value",
+        "text": "value={page}"
+      },
+      {
+        "key": "onValueChange",
+        "text": "onValueChange={setPage}"
+      }
+    ],
+    "suffix": " />\n  </>;\n}"
+  }
+}

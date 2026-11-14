@@ -1,10 +1,11 @@
+import { stringValue } from "../playground/controls";
 import { SwipeTabs } from "../../components/navigation/swipe-tabs";
 import type { Specimen } from "../catalog";
 import "./demo.css";
 
 const story: Specimen = {
-  component: ({ reduced, language }) => <div className="mx-demo">
-    <SwipeTabs label={language === "tr" ? "Koleksiyon" : "Collection"} reducedMotion={reduced} pages={
+  component: ({ reduced, language, config }) => <div className="mx-demo">
+    <SwipeTabs label={stringValue(config, "label") ?? (language === "tr" ? "Koleksiyon" : "Collection")} reducedMotion={reduced} pages={
       (language === "tr" ? ["Yüzey", "Renk", "Biçim"] : ["Surface", "Colour", "Form"]).map((label, i) => ({
         value: String(i), label, content: <div className="mx-demo-sample"><strong>{label}</strong>
           <p>{language === "tr" ? "Bir panel seçin veya yana kaydırın." : "Select a panel or swipe sideways."}</p>

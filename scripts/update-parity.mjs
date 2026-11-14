@@ -15,6 +15,7 @@ const items = inventory.items.map(item => {
   const preset = specs.get(item.id);
   const installItem = preset?.item ?? item.registryItem;
   const selected = contract(installItem);
+  const evidence = previous.items.find(entry => entry.id === item.id)?.evidence ?? null;
   return {
     id: item.id,
     baseItem: item.registryItem,
@@ -27,8 +28,9 @@ const items = inventory.items.map(item => {
     provenance: { url: item.sourceUrl, license: item.sourceLicense, decision: item.decision },
     browserTest: item.test,
     consumerFixture: preset ? "scripts/fixture-parity.mjs" : null,
-    evidence: previous.items.find(entry => entry.id === item.id)?.evidence ?? null,
-    parity: selected.pin ? (preset || !previous.featured.includes(item.id) ? "not-tested" : "parity-broken") : "blocked",
+    evidence,
+    parity: !selected.pin ? "blocked" : evidence?.pin === selected.pin ? "parity-ok" :
+      preset || !previous.featured.includes(item.id) ? "not-tested" : "parity-broken",
   };
 });
 const next = { ...previous, defaultPin: pin, items };

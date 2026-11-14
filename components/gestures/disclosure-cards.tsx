@@ -19,6 +19,7 @@ export function DisclosureCard({ title, subtitle, detail, variant = "expand", op
   const system = useReducedMotion();
   const quiet = system || reducedMotion;
   const transition = quiet ? { duration: 0 } : settle;
+  const island = variant === "island";
   const Icon = variant === "boarding" ? Plane : variant === "profile" ? UserRound : variant === "island" ? ArrowUpRight : ChevronDown;
   function change(next: boolean) {
     if (!next) toggle.current?.focus({ preventScroll: true });
@@ -26,7 +27,7 @@ export function DisclosureCard({ title, subtitle, detail, variant = "expand", op
     onOpenChange?.(next);
   }
   return <LayoutGroup id={id}>
-    <motion.section data-mx-disclosure-card={variant} data-open={expanded} layout={quiet ? false : "position"} transition={transition}
+    <motion.section data-mx-disclosure-card={variant} data-open={expanded} layout={quiet ? false : island ? true : "position"} transition={transition}
       onKeyDown={(event) => {
         if (expanded && event.key === "Escape" && !event.defaultPrevented) {
           event.stopPropagation();

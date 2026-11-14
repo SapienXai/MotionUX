@@ -12,14 +12,15 @@ const defaults = [
   { id: "coast", title: "Coastal retreat", body: <p>Greece</p>, image: { src: hotelImage, alt: "Modern coastal hotel" } },
 ];
 
-export function DestinationDeck({ cards = defaults, label = "Greek destinations", reducedMotion, index, onIndexChange, dragThreshold,
+export function DestinationDeck({ cards = defaults, label = "Greek destinations", reducedMotion, index, defaultIndex = 0, firstTitle, onIndexChange, dragThreshold,
   onSavedChange }: {
   cards?: readonly DeckCard[]; label?: string; reducedMotion?: boolean; index?: number; onIndexChange?: (index: number) => void;
-  dragThreshold?: number; onSavedChange?: (id: string, saved: boolean) => void;
+  defaultIndex?: number; firstTitle?: string; dragThreshold?: number; onSavedChange?: (id: string, saved: boolean) => void;
 }) {
-  const [local, setLocal] = useState(0);
+  const [local, setLocal] = useState(defaultIndex);
   const [saved, setSaved] = useState<string[]>([]);
   const note = useId();
+  if (firstTitle && cards.length) cards = [{ ...cards[0], title: firstTitle }, ...cards.slice(1)];
   const position = Math.max(0, Math.min(cards.length - 1, Math.trunc(index ?? local) || 0));
   const current = cards[position];
   function change(next: number) {

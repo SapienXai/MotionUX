@@ -1,13 +1,14 @@
+import { booleanValue, stringValue } from "../playground/controls";
 import { FolderOpen, House, Settings } from "lucide-react";
 import { SidebarCollapse } from "../../components/navigation/sidebar-collapse";
 import type { Specimen } from "../catalog";
 import "./demo.css";
 
 const story: Specimen = {
-  component: ({ reduced, language }) => {
+  component: ({ reduced, language, config, update }) => {
     const tr = language === "tr";
     return <div className="mx-demo">
-      <SidebarCollapse label={tr ? "Yan menü" : "Workspace sidebar"} toggleLabel={tr ? "Menü etiketlerini göster veya gizle" : "Toggle labels"} activeHref="#home"
+      <SidebarCollapse label={stringValue(config, "label") ?? (tr ? "Yan menü" : "Workspace sidebar")} expanded={booleanValue(config, "expanded")} onExpandedChange={value => update?.("expanded", value)} toggleLabel={tr ? "Menü etiketlerini göster veya gizle" : "Toggle labels"} activeHref="#home"
         links={[House, FolderOpen, Settings].map((Icon, i) => ({
           href: ["#home", "#files", "#settings"][i],
           label: (tr ? ["Ana sayfa", "Dosyalar", "Ayarlar"] : ["Home", "Files", "Settings"])[i],

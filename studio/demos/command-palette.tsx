@@ -1,15 +1,16 @@
+import { stringValue } from "../playground/controls";
 import { useState } from "react";
 import { CommandPalette } from "../../components/navigation/command-palette";
 import type { Specimen } from "../catalog";
 import "./demo.css";
 
 const story: Specimen = {
-  component: function Example({ language }) {
+  component: function Example({ language, config }) {
     const [chosen, setChosen] = useState("");
     const tr = language === "tr";
     const commands = (tr ? ["Projeyi aç", "Not oluştur", "Ayarları göster"] : ["Open project", "Create note", "Show settings"]).map((label, i) => ({ id: String(i), label }));
     return <div className="mx-demo mx-demo-center"><CommandPalette label={tr ? "Komutlar" : "Commands"}
-      triggerLabel={tr ? "Komutları ara" : "Search commands"} searchLabel={tr ? "Ara" : "Search"} emptyLabel={tr ? "Sonuç yok" : "No matching commands"} closeLabel={tr ? "Kapat" : "Close"} commands={commands} onSelect={setChosen} />
+      triggerLabel={stringValue(config, "triggerLabel") ?? (tr ? "Komutları ara" : "Search commands")} searchLabel={tr ? "Ara" : "Search"} emptyLabel={tr ? "Sonuç yok" : "No matching commands"} closeLabel={tr ? "Kapat" : "Close"} commands={commands} onSelect={setChosen} />
       <p role="status">{commands.find((command) => command.id === chosen)?.label ?? (tr ? "Bir komut seçin." : "Choose a command.")}</p></div>;
   },
   usage: `"use client";

@@ -1,3 +1,4 @@
+import { stringValue } from "../playground/controls";
 import { useId, useState } from "react";
 import { CalendarDays, Compass, Inbox, UserRound } from "lucide-react";
 import { BottomBar } from "../../components/navigation/motion-selector";
@@ -12,14 +13,14 @@ const destinations = [
 ];
 
 const story: Specimen = {
-  component: function Example({ reduced, language }) {
+  component: function Example({ reduced, language, config }) {
     const id = useId();
     const [active, setActive] = useState(0);
     const routes = destinations.map((_, index) => `#dock-${id}-${index}`);
     const entry = destinations[active];
     return <div className="mx-demo">
       <div className="mx-demo-sample" id={routes[active].slice(1)}><strong>{language === "tr" ? entry.tr : entry.name}</strong><p>{language === "tr" ? entry.trDesc : entry.desc}</p></div>
-      <BottomBar label={language === "en" ? "Workspace navigation" : "Çalışma alanı menüsü"}
+      <BottomBar label={stringValue(config, "label") ?? (language === "en" ? "Workspace navigation" : "Çalışma alanı menüsü")}
         links={destinations.map(({ name, tr, Icon }, i) => ({ label: language === "tr" ? tr : name, href: routes[i], icon: <Icon size={19} /> }))}
         reducedMotion={reduced} activeHref={routes[active]} onNavigate={(event, href) => {
           if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;

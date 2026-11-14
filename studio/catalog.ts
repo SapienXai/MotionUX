@@ -1,8 +1,9 @@
 import type { ComponentType } from "react";
+import type { Config, Value } from "./playground/controls";
 import inventory from "../metadata/reference-inventory.json";
 
 export type Specimen = {
-  component: ComponentType<{ reduced: boolean; language: "en" | "tr"; comparison?: boolean }>;
+  component: ComponentType<{ reduced: boolean; language: "en" | "tr"; comparison?: boolean; config?: Config; update?: (key: string, value: Value) => void }>;
   usage: string;
   api: string;
   states: string;

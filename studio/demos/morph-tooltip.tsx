@@ -1,12 +1,13 @@
+import { stringValue } from "../playground/controls";
 import { CircleHelp } from "lucide-react";
 import { MorphTooltip } from "../../components/navigation/morph-tooltip";
 import type { Specimen } from "../catalog";
 import "./demo.css";
 
 const story: Specimen = {
-  component: ({ reduced, language }) => <div className="mx-demo mx-demo-center"><h3>{language === "tr" ? "Görüntü kalitesi" : "Image quality"}</h3>
-    <MorphTooltip label={language === "tr" ? "Kalite hakkında" : "About image quality"} icon={<CircleHelp size={20} aria-hidden />}
-      description={language === "tr" ? "Yüksek kalite dışa aktarılan dosyanın boyutunu artırabilir." : "Higher quality can increase the exported file size."} reducedMotion={reduced} />
+  component: ({ reduced, language, config }) => <div className="mx-demo mx-demo-center"><h3>{language === "tr" ? "Görüntü kalitesi" : "Image quality"}</h3>
+    <MorphTooltip label={stringValue(config, "label") ?? (language === "tr" ? "Kalite hakkında" : "About image quality")} icon={<CircleHelp size={20} aria-hidden />}
+      description={stringValue(config, "description") ?? (language === "tr" ? "Yüksek kalite dışa aktarılan dosyanın boyutunu artırabilir." : "Higher quality can increase the exported file size.")} reducedMotion={reduced} />
   </div>,
   usage: `"use client";
 

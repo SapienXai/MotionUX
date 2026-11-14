@@ -14,7 +14,7 @@
 [data-mx-disclosure-card="boarding"] .mx-disclosure-card-detail > div { border-top-style: dashed; }
 [data-mx-disclosure-card="boarding"] dl { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem; font-variant-numeric: tabular-nums; }
 [data-mx-disclosure-card="boarding"] dd { text-align: end; }
-[data-mx-disclosure-card="island"] { max-inline-size: 23rem; background: var(--mx-ink, CanvasText); color: var(--mx-bg, Canvas); border-radius: 1.8rem; }
+[data-mx-disclosure-card="island"] { max-inline-size: 23rem; inline-size: min(100%, 18rem); background: var(--mx-ink, CanvasText); color: var(--mx-bg, Canvas); border-radius: 1.8rem; }
 [data-mx-disclosure-card="island"] :is(small, .mx-disclosure-card-action) { color: inherit; }
 [data-mx-disclosure-card="island"] .mx-disclosure-card-icon { border-radius: 50%; }
 [data-mx-disclosure-card="stats"] { padding: .72rem; }
@@ -29,3 +29,5 @@
 .mx-stat-period label:has(input:checked) { background: var(--mx-selected, ButtonFace); }
 .mx-stat-period label:focus-within { outline: 2px solid var(--mx-accent, Highlight); }
 .mx-stat-period input { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; opacity: 0; margin: 0; cursor: pointer; }
+
+[data-mx-disclosure-card="island"][data-open="true"] { inline-size: min(100%, 23rem); }

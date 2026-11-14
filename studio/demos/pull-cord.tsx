@@ -1,14 +1,15 @@
+import { booleanValue, stringValue } from "../playground/controls";
 import { useState } from "react";
 import { PullCord } from "../../components/navigation/pull-cord";
 import type { Specimen } from "../catalog";
 import "./demo.css";
 
 const story: Specimen = {
-  component: function Example({ reduced, language }) {
+  component: function Example({ reduced, language, config }) {
     const [on, setOn] = useState(false);
     const tr = language === "tr";
     return <div className="mx-demo mx-demo-center">
-      <PullCord label={tr ? "Stüdyo ışığı" : "Studio light"} checked={on} onCheckedChange={setOn} reducedMotion={reduced} />
+      <PullCord label={stringValue(config, "label") ?? (tr ? "Stüdyo ışığı" : "Studio light")} disabled={booleanValue(config, "disabled")} checked={on} onCheckedChange={setOn} reducedMotion={reduced} />
       <p>{on ? (tr ? "Işık açık" : "Light on") : (tr ? "Işık kapalı" : "Light off")}</p>
       <p>{tr ? "İpi çekin veya düğmeye basın." : "Pull the cord or press its handle."}</p>
     </div>;

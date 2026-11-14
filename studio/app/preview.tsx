@@ -1,4 +1,5 @@
 import { Component, useEffect, useState, type ReactNode } from "react";
+import type { Config, Value } from "../playground/controls";
 import { CircleAlert } from "lucide-react";
 import { previews, type Reference, type Specimen } from "../catalog";
 
@@ -13,7 +14,9 @@ function requestStory(id: string) {
 }
 let featured: ReturnType<typeof loadFeatured> | undefined;
 function loadFeatured() { return import("../demos/gallery-featured"); }
-function FeaturedPreview({ item, reduced, disableAnalytics }: { item: Reference; reduced: boolean; disableAnalytics?: boolean }) {
+function FeaturedPreview({ item, reduced, config, update, language }: {
+  item: Reference; reduced: boolean; config?: Config; update?: (key: string, value: Value) => void; language?: "en" | "tr";
+}) {
   const [module, setModule] = useState<Awaited<ReturnType<typeof loadFeatured>>>();
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -27,7 +30,7 @@ function FeaturedPreview({ item, reduced, disableAnalytics }: { item: Reference;
     return () => { live = false; };
   }, [attempt]);
   if (error) return <PreviewError retry={() => { setError(false); setAttempt(value => value + 1); }} />;
-  return module ? <module.default id={item.id} reduced={reduced} disableAnalytics={disableAnalytics} /> : <PreviewLoading />;
+  return module ? <module.default id={item.id} reduced={reduced} config={config} update={update} language={language} /> : <PreviewLoading />;
 }
 
 export function useStory(item: Reference) {
@@ -56,8 +59,10 @@ export class PreviewBoundary extends Component<{ children: ReactNode; onRetry?: 
   }
 }
 
-export function GalleryPreview({ item, reduced, lead, disableAnalytics }: { item: Reference; reduced: boolean; lead: boolean; disableAnalytics?: boolean }) {
-  return <PreviewBoundary>{lead ? <FeaturedPreview item={item} reduced={reduced} disableAnalytics={disableAnalytics} />
+export function GalleryPreview({ item, reduced, lead, config, update, language }: {
+  item: Reference; reduced: boolean; lead: boolean; config?: Config; update?: (key: string, value: Value) => void; language?: "en" | "tr";
+}) {
+  return <PreviewBoundary>{lead ? <FeaturedPreview item={item} reduced={reduced} config={config} update={update} language={language} />
     : <StandardPreview item={item} reduced={reduced} />}</PreviewBoundary>;
 }
 function StandardPreview({ item, reduced }: { item: Reference; reduced: boolean }) {

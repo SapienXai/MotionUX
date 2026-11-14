@@ -46,3 +46,13 @@
 }
 
 .mx-studio-interaction > .mx-feature { min-block-size: 235px; }
+
+.mx-customization { margin-block-start: 13px; }
+.mx-config { border: 0; padding: 0; margin: 0 0 12px; min-inline-size: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px; }
+.mx-config legend { font-weight: 730; padding: 0; margin-block-end: 10px; }
+.mx-config-field { display: grid; gap: 5px; min-inline-size: 0; }
+.mx-config-check { display: flex; align-items: center; gap: 8px; min-block-size: 44px; }
+.mx-config input:not([type="checkbox"]), .mx-config select { min-inline-size: 0; inline-size: 100%; min-block-size: 44px; border: 1px solid var(--line); border-radius: 8px; background: var(--canvas); color: var(--ink); padding: 6px 10px; }
+.mx-config input[type="checkbox"] { accent-color: var(--accent); inline-size: 18px; block-size: 18px; }
+.mx-share-status { overflow-wrap: anywhere; }
+.mx-share-status:empty { display: none; }

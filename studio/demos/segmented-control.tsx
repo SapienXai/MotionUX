@@ -1,3 +1,4 @@
+import { stringValue } from "../playground/controls";
 import { useState } from "react";
 import { Calendar, CalendarDays, CalendarRange } from "lucide-react";
 import { SegmentedControl } from "../../components/navigation/motion-selector";
@@ -5,7 +6,7 @@ import type { Specimen } from "../catalog";
 import "./demo.css";
 
 const story: Specimen = {
-  component: function Example({ reduced, language }) {
+  component: function Example({ reduced, language, config }) {
     const [value, setValue] = useState("week");
     const tr = language === "tr";
     const cards = {
@@ -15,7 +16,7 @@ const story: Specimen = {
     };
     const active = cards[value as keyof typeof cards];
     return <div className="mx-demo">
-      <SegmentedControl name={undefined} label={tr ? "Rapor dönemi" : "Reporting period"} value={value} onValueChange={setValue}
+      <SegmentedControl name={undefined} label={stringValue(config, "label") ?? (tr ? "Rapor dönemi" : "Reporting period")} value={value} onValueChange={setValue}
         reducedMotion={reduced} options={Object.entries(cards).map(([value, { label, Icon }]) => ({ value, label, icon: <Icon size={14} aria-hidden /> }))} />
       <div className="mx-demo-sample"><p>{active.text}</p><strong>{active.count}</strong></div>
     </div>;

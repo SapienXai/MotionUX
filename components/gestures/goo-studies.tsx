@@ -24,10 +24,16 @@ export function GooMorph({ label, names, index, onIndexChange, reducedMotion }: 
   </div>;
 }
 
-export function GooMenu({ label, actions, onAction, reducedMotion }: {
+export function GooMenu({ label, actions, onAction, reducedMotion, open: controlledOpen, onOpenChange }: {
   label: string; actions: readonly { id: string; label: string; icon: ReactNode }[]; onAction: (id: string) => void; reducedMotion?: boolean;
+  open?: boolean; onOpenChange?: (open: boolean) => void;
 }) {
-  const [open, setOpen] = useState(false);
+  const [local, setLocal] = useState(false);
+  const open = controlledOpen ?? local;
+  function setOpen(value: boolean) {
+    if (controlledOpen === undefined) setLocal(value);
+    onOpenChange?.(value);
+  }
   const button = useRef<HTMLButtonElement>(null);
   const options = useRef<HTMLDivElement>(null);
   const requestFocus = useRef(false);
@@ -40,8 +46,9 @@ export function GooMenu({ label, actions, onAction, reducedMotion }: {
   const id = useId();
   const system = useReducedMotion();
   const quiet = system || reducedMotion;
+  const filter = "goo-" + id.replace(/[^a-z0-9]/gi, "");
   function close() { setOpen(false); button.current?.focus(); }
-  return <div data-mx-goo="menu" onKeyDown={(event) => {
+  return <div data-mx-goo="menu" data-reduced={quiet || undefined} onKeyDown={(event) => {
     if (open && event.key === "Escape") { event.stopPropagation(); close(); }
   }}>
     <button type="button" ref={button} aria-label={label} aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}
@@ -53,6 +60,16 @@ export function GooMenu({ label, actions, onAction, reducedMotion }: {
       }}>
       <motion.span animate={{ rotate: open && !quiet ? 45 : 0 }} transition={quiet ? { duration: 0 } : settle}><Plus aria-hidden="true" size={22} /></motion.span>
     </button>
+    {!quiet && actions.length > 0 && actions.length <= 4 && <svg className="mx-goo-lobes" aria-hidden="true" width={52 + 48 * actions.length} height="54">
+      <defs><filter id={filter}><feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" />
+      </filter></defs>
+      <g filter={`url(#${filter})`}>
+        <circle cx="22" cy="27" r="21" />
+        {actions.map(({ id: actionID }, i) => <motion.circle key={actionID} cx="22" cy="27" r="21" initial={false}
+          animate={{ x: open ? (i + 1) * 48 : 0 }} transition={{ ...settle, delay: open ? i * .035 : (actions.length - i - 1) * .02 }} />)}
+      </g>
+    </svg>}
     <div id={id} ref={options} inert={!open} className="mx-goo-options">
       <AnimatePresence initial={false}>{open && actions.map((action, index) => <motion.button type="button" key={action.id}
         initial={quiet ? false : { x: -30, scale: .6, opacity: 0 }} animate={{ x: 0, scale: 1, opacity: 1 }}

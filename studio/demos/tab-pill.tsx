@@ -1,3 +1,4 @@
+import { booleanValue, stringValue } from "../playground/controls";
 import { TabPill } from "../../components/navigation/motion-selector";
 import { Columns3, FileText, Layers } from "lucide-react";
 import type { Specimen } from "../catalog";
@@ -9,11 +10,11 @@ const details = {
 };
 
 const story: Specimen = {
-  component: ({ reduced, language }) => <div className="mx-demo">
-    <TabPill label={language === "en" ? "Project sections" : "Proje bölümleri"} reducedMotion={reduced}
+  component: ({ reduced, language, config }) => <div className="mx-demo">
+    <TabPill label={stringValue(config, "label") ?? (language === "en" ? "Project sections" : "Proje bölümleri")} reducedMotion={reduced}
       options={details[language].map(([label, title, text], i) => {
         const Icon = [Layers, FileText, Columns3][i];
-        return { value: String(i), label, icon: <Icon size={15} aria-hidden />, panel: <div className="mx-demo-sample"><strong>{title}</strong><p>{text}</p></div> };
+        return { value: String(i), label: i === 0 ? stringValue(config, "firstLabel") ?? label : label, disabled: i === 1 && booleanValue(config, "disabled"), icon: <Icon size={15} aria-hidden />, panel: <div className="mx-demo-sample"><strong>{title}</strong><p>{text}</p></div> };
       })} />
   </div>,
   usage: `"use client";

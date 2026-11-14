@@ -9,11 +9,11 @@ import { PresetFrame } from "./preset-frame";
 const icons = [BedDouble, Wifi, Coffee];
 
 export function ExpandableRoom({ title = "Premium Room", subtitle = "Sea view · 42 m²", image = { src: hotelImage, alt: "" },
-  amenities = ["King bed", "Wi-Fi", "Breakfast"], children, expanded, onExpandedChange, reducedMotion }: {
+  amenities = ["King bed", "Wi-Fi", "Breakfast"], children, expanded, defaultExpanded = "second", onExpandedChange, reducedMotion }: {
   title?: string; subtitle?: string; image?: { src: string; alt: string }; amenities?: readonly string[]; children?: ReactNode;
-  expanded?: "first" | "second" | "none"; onExpandedChange?: (value: "first" | "second" | "none") => void; reducedMotion?: boolean;
+  expanded?: "first" | "second" | "none"; defaultExpanded?: "first" | "second" | "none"; onExpandedChange?: (value: "first" | "second" | "none") => void; reducedMotion?: boolean;
 }) {
-  const [local, setLocal] = useState<"first" | "second" | "none">("second");
+  const [local, setLocal] = useState(defaultExpanded);
   const open = expanded ?? local;
   const detail = children ?? <div className="mx-room-features">{amenities.map((label, i) => {
     const Icon = icons[i % icons.length];

@@ -61,8 +61,8 @@ export function GlassLens({ image, label, hint, zoom = 2.1 }: {
   </div>;
 }
 
-export function PullRefresh({ children, label, status, pending, onRefresh, reducedMotion, handleLabel }: {
-  children: ReactNode; label: string; status: string; pending: boolean; onRefresh: () => void; reducedMotion?: boolean; handleLabel: string;
+export function PullRefresh({ children, label, status, pending, onRefresh, reducedMotion, handleLabel, threshold = 65 }: {
+  children: ReactNode; label: string; status: string; pending: boolean; onRefresh: () => void; reducedMotion?: boolean; handleLabel: string; threshold?: number;
 }) {
   const system = useReducedMotion();
   const viewport = useRef<HTMLDivElement>(null);
@@ -74,7 +74,7 @@ export function PullRefresh({ children, label, status, pending, onRefresh, reduc
     if (active?.id !== event.pointerId) return;
     start.current = null;
     pull.set(0);
-    if (commit && active.distance >= 65 && !pending) onRefresh();
+    if (commit && active.distance >= threshold && !pending) onRefresh();
   }
   return <div data-mx-surface="refresh">
     <div className="mx-refresh-commands"><button disabled={pending} type="button" onClick={onRefresh}><RefreshCw size={17} aria-hidden="true" />{label}</button>

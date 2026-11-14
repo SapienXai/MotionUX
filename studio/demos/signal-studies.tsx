@@ -1,3 +1,4 @@
+import { booleanValue, numberValue, stringValue } from "../playground/controls";
 import { useEffect, useState } from "react";
 import { EmphasisText, PhraseSwap, ReadAlong, RollLink, TextReveal } from "../../components/text/animated-type";
 import { GhostSuggestion, PromptBox } from "../../components/ai/composer";
@@ -63,9 +64,11 @@ function time(seconds: number) {
 export function signalStory(kind: Kind): Specimen {
   const [name, file, snippet, detail] = examples[kind];
   return {
-    component: function SignalStudy({ language, reduced }) {
+    component: function SignalStudy({ language, reduced, config }) {
       const tr = language === "tr";
       const t = (en: string, turkish: string) => tr ? turkish : en;
+      const label = (en: string, turkish: string) => stringValue(config, "label") ?? t(en, turkish);
+      const disabled = booleanValue(config, "disabled");
       const [index, setIndex] = useState(0);
       const [value, setValue] = useState("");
       const [prompt, setPrompt] = useState("");
@@ -89,63 +92,63 @@ export function signalStory(kind: Kind): Specimen {
         case "word-roll": case "dynamic-text": {
           const phrases = kind === "word-roll" ? [t("Horizon", "Ufuk"), t("Canopy", "Orman"), t("Current", "Akıntı")] :
             [t("Quiet by the treeline", "Ağaç sınırında sessizlik"), t("Light crosses the valley", "Işık vadiyi aşıyor"), t("Dusk settles uphill", "Alacakaranlık yamaçta")];
-          control = <><p className="mx-demo-type"><PhraseSwap text={phrases[index % phrases.length]} variant={kind === "word-roll" ? "roll" : "dynamic"} reducedMotion={reduced} /></p>
+          control = <><p className="mx-demo-type"><PhraseSwap text={stringValue(config, "text") ?? phrases[index % phrases.length]} variant={(stringValue(config, "variant") ?? (kind === "word-roll" ? "roll" : "dynamic")) as "roll" | "dynamic"} reducedMotion={reduced} /></p>
             {replay(t("Next phrase", "Sonraki ifade"))}</>; break;
         }
         case "weight-wave": case "marker-text":
-          control = <><p className="mx-demo-type"><EmphasisText text={kind === "weight-wave" ? t("A slower journey", "Daha yavaş bir yolculuk") : t("On the ridge", "Sırtın üzerinde")}
-            trigger={index} variant={kind === "weight-wave" ? "weight" : "marker"} reducedMotion={reduced} /></p>{replay(t("Replay emphasis", "Vurguyu yinele"))}</>; break;
+          control = <><p className="mx-demo-type"><EmphasisText text={stringValue(config, "text") ?? (kind === "weight-wave" ? t("A slower journey", "Daha yavaş bir yolculuk") : t("On the ridge", "Sırtın üzerinde"))}
+            trigger={index} variant={(stringValue(config, "variant") ?? (kind === "weight-wave" ? "weight" : "marker")) as "weight" | "marker"} reducedMotion={reduced} /></p>{replay(t("Replay emphasis", "Vurguyu yinele"))}</>; break;
         case "scramble-text": case "typewriter":
-          control = <><p className="mx-demo-type"><TextReveal text={kind === "scramble-text" ? t("Signal through mist", "Sisin içinden sinyal") : t("The trail runs east", "Patika doğuya uzanır")}
-            trigger={index} variant={kind === "typewriter" ? "typewriter" : "scramble"} reducedMotion={reduced} /></p>{replay(t("Replay reveal", "Açılışı yinele"))}</>; break;
+          control = <><p className="mx-demo-type"><TextReveal text={stringValue(config, "text") ?? (kind === "scramble-text" ? t("Signal through mist", "Sisin içinden sinyal") : t("The trail runs east", "Patika doğuya uzanır"))}
+            trigger={index} variant={(stringValue(config, "variant") ?? (kind === "typewriter" ? "typewriter" : "scramble")) as "typewriter" | "scramble"} reducedMotion={reduced} /></p>{replay(t("Replay reveal", "Açılışı yinele"))}</>; break;
         case "read-along":
-          control = <><ReadAlong current={index % 3} phrases={[t("At dawn, look east.", "Şafakta doğuya bakın."), t("Follow the river below the hill.", "Tepenin altındaki nehri izleyin."), t("Stop where the valley widens.", "Vadinin genişlediği yerde durun.")]} />
+          control = <><ReadAlong current={numberValue(config, "current") ?? index % 3} phrases={[t("At dawn, look east.", "Şafakta doğuya bakın."), t("Follow the river below the hill.", "Tepenin altındaki nehri izleyin."), t("Stop where the valley widens.", "Vadinin genişlediği yerde durun.")]} />
             {replay(t("Next line", "Sonraki satır"))}</>; break;
         case "roll-links":
           control = <><RollLink href="?item=designbookmark-roll-links#journal-note" onClick={(event) => {
             event.preventDefault(); setTargetShown(true);
-          }}>{t("Open journal note", "Günlük notunu aç")}</RollLink>{targetShown && <p id="journal-note" role="status">{t("A note from the valley.", "Vadiden bir not.")}</p>}</>; break;
+          }}>{stringValue(config, "children") ?? t("Open journal note", "Günlük notunu aç")}</RollLink>{targetShown && <p id="journal-note" role="status">{t("A note from the valley.", "Vadiden bir not.")}</p>}</>; break;
         case "prompt-box":
-          control = <><PromptBox label={t("Demo prompt", "Örnek istem")} value={value} onValueChange={setValue} onSubmit={(text) => { setPrompt(text); start(); }}
-            onStop={() => setState("cancelled")} pending={ready} sendLabel={t("Send demo", "Demoyu gönder")} stopLabel={t("Stop demo", "Demoyu durdur")}
+          control = <><PromptBox label={label("Demo prompt", "Örnek istem")} value={value} onValueChange={setValue} onSubmit={(text) => { setPrompt(text); start(); }}
+            onStop={() => setState("cancelled")} pending={ready} disabled={disabled} sendLabel={stringValue(config, "sendLabel") ?? t("Send demo", "Demoyu gönder")} stopLabel={t("Stop demo", "Demoyu durdur")}
             shortcutHint="Ctrl / ⌘ + Enter" error={value.length > 160 ? t("Use 160 characters or fewer", "En fazla 160 karakter kullanın") : undefined} />
             <p role="status">{progress}{prompt && ` · ${prompt}`}</p></>; break;
         case "ghost-suggestion": {
           const suggestions = tr ? ["orman patikası", "sisli vadi"] : ["forest trail", "foggy valley"];
           const match = value.length >= 2 ? suggestions.find(text => text.startsWith(value) && text !== value) : undefined;
-          control = <GhostSuggestion label={t("Try typing “fo”", "“or” yazın")} value={value} completion={match?.slice(value.length)}
+          control = <GhostSuggestion label={label("Try typing “fo”", "“or” yazın")} value={value} completion={match?.slice(value.length)} disabled={disabled}
             onValueChange={setValue} acceptLabel={t("Accept suggestion", "Öneriyi kabul et")} />; break;
         }
         case "streaming-reply": {
           const chunks = tr ? ["Gün doğarken", " sis çözülmeye başladı.", " Alt patikayı izleyin.", " Nehir kıyısında durun."] :
             ["At first light", ", the fog began to lift.", " Follow the lower path.", " Stop beside the river."];
-          control = <><StreamingReply label={t("Simulated reply", "Örnek yanıt")} summary={progress} text={state === "done" ? chunks.join("") : chunks.slice(0, index).join("")}
-            pending={ready} />
+          control = <><StreamingReply label={label("Simulated reply", "Örnek yanıt")} summary={progress} text={state === "done" ? chunks.join("") : chunks.slice(0, index).join("")}
+            pending={booleanValue(config, "pending") ?? ready} />
             {replay(ready ? t("Stop reply", "Yanıtı durdur") : t("Start reply", "Yanıtı başlat"), ready ? () => setState("cancelled") : start)}</>; break;
         }
         case "voice-input":
-          control = <VoiceInput state={state === "pending" ? "recording" : "idle"} status={state === "pending" ? t("Simulated recording", "Kayıt simülasyonu") : progress}
-            startLabel={t("Simulate recording", "Kayıt simülasyonu başlat")} stopLabel={t("Stop simulation", "Simülasyonu durdur")}
+          control = <VoiceInput state={(stringValue(config, "state") ?? (state === "pending" ? "recording" : "idle")) as "idle" | "recording" | "processing"} disabled={disabled} status={state === "pending" ? t("Simulated recording", "Kayıt simülasyonu") : progress}
+            startLabel={stringValue(config, "startLabel") ?? t("Simulate recording", "Kayıt simülasyonu başlat")} stopLabel={t("Stop simulation", "Simülasyonu durdur")}
             onStart={start} onStop={() => setState("cancelled")} reducedMotion={reduced} />; break;
         case "thinking-text":
-          control = <><ThinkingText phase={ready ? [t("Gathering", "Toplanıyor"), t("Reading", "Okunuyor"), t("Writing", "Yazılıyor")][index % 3] : progress} pending={ready} status={progress} />
+          control = <><ThinkingText phase={stringValue(config, "phase") ?? (ready ? [t("Gathering", "Toplanıyor"), t("Reading", "Okunuyor"), t("Writing", "Yazılıyor")][index % 3] : progress)} pending={booleanValue(config, "pending") ?? ready} status={progress} />
             {replay(ready ? t("Stop demo", "Demoyu durdur") : t("Try phases", "Aşamaları dene"), ready ? () => setState("cancelled") : start)}</>; break;
         case "task-list":
-          control = <TaskList label={t("Session checklist", "Oturum listesi")} tasks={[
+          control = <TaskList label={label("Session checklist", "Oturum listesi")} tasks={[
             { id: "map", label: t("Review the map", "Haritayı incele") }, { id: "notes", label: t("Prepare notes", "Notları hazırla") },
           ].map(task => ({ ...task, complete: completed.includes(task.id) }))}
             onToggle={(id, done) => setCompleted(items => done ? [...items, id] : items.filter(item => item !== id))}
             describe={(n, total) => t(`${n} of ${total} complete`, `${total} görevden ${n} tanesi tamamlandı`)} />; break;
         case "siri-orb":
-          control = <><SignalOrb active={index % 2 !== 0} status={index % 2 ? t("Simulated signal active", "Örnek sinyal etkin") : t("Signal at rest", "Sinyal durağan")}
+          control = <><SignalOrb active={booleanValue(config, "active") ?? index % 2 !== 0} status={stringValue(config, "status") ?? (index % 2 ? t("Simulated signal active", "Örnek sinyal etkin") : t("Signal at rest", "Sinyal durağan"))}
             reducedMotion={reduced} />{replay(t("Toggle signal", "Sinyali değiştir"))}</>; break;
         case "scrubber":
-          control = <TimeScrubber label={t("Seek position", "Oynatma konumu")} elapsed={elapsed} duration={120} onSeek={setElapsed} format={time} />; break;
+          control = <TimeScrubber label={label("Seek position", "Oynatma konumu")} elapsed={elapsed} duration={numberValue(config, "duration") ?? 120} disabled={disabled} onSeek={setElapsed} format={time} />; break;
         case "glass-player": case "music-toggle":
-          control = <AudioControl src={fieldTones} title={t("Field tones", "Saha tonları")} subtitle={t("Synthetic audio", "Sentetik ses")}
+          control = <AudioControl src={fieldTones} title={stringValue(config, "title") ?? t("Field tones", "Saha tonları")} muted={booleanValue(config, "muted")} subtitle={t("Synthetic audio", "Sentetik ses")}
             playLabel={t("Play sample", "Örneği oynat")} pauseLabel={t("Pause sample", "Örneği duraklat")}
             errorLabel={t("Playback unavailable", "Ses oynatılamıyor")} seekLabel={t("Sample position", "Örnek konumu")} format={time}
-            variant={kind === "glass-player" ? "glass" : "toggle"} />; break;
+            variant={(stringValue(config, "variant") ?? (kind === "glass-player" ? "glass" : "toggle")) as "glass" | "toggle"} />; break;
       }
       return <div className="mx-demo mx-demo-center">{control}</div>;
     },

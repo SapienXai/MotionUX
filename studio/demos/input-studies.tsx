@@ -1,3 +1,4 @@
+import { booleanValue, numberValue, stringValue } from "../playground/controls";
 import { useState } from "react";
 import { LetterLimit, OtpCode, PasswordStrength, SpringField, TagInput } from "../../components/inputs/text-fields";
 import { CheckboxList, NumberStepper, RangePair, StarRating, ValueSlider } from "../../components/inputs/value-controls";
@@ -50,7 +51,7 @@ type Kind = keyof typeof examples;
 export function inputStory(kind: Kind): Specimen {
   const [name, file, snippet, detail] = examples[kind];
   return {
-    component: function InputStudy({ language, reduced }) {
+    component: function InputStudy({ language, reduced, config }) {
       const [value, setValue] = useState(kind === "wheel-picker" ? "14:00" : "");
       const [tags, setTags] = useState<string[]>(kind === "tag-input" ? ["studio"] : []);
       const [amount, setAmount] = useState(kind === "number-stepper" ? 2 : kind === "jelly-slider" ? 35 : kind === "star-rating" ? 3 : kind === "detent-dial" ? 4 : 0);
@@ -62,67 +63,70 @@ export function inputStory(kind: Kind): Specimen {
       const t = (english: string, turkish: string) => tr ? turkish : english;
       const format = new Intl.NumberFormat(tr ? "tr-TR" : "en-US", { maximumFractionDigits: 2 });
       const count = (n: number, en: string, turkish: string) => `${format.format(n)} ${t(en, turkish)}`;
-      const fieldProps = { value, onValueChange: setValue };
-      const numericProps = { value: amount, onValueChange: setAmount };
+      const caption = (en: string, tr: string) => stringValue(config, "label") ?? t(en, tr);
+      const disabled = booleanValue(config, "disabled");
+      const style = (fallback: "jelly" | "exposure" | "dial") => (stringValue(config, "variant") ?? fallback) as typeof fallback;
+      const fieldProps = { value, onValueChange: setValue, disabled };
+      const numericProps = { value: amount, onValueChange: setAmount, disabled };
       let control;
       switch (kind) {
         case "letter-limit":
-          control = <LetterLimit {...fieldProps} label={t("Caption", "Açıklama")} name="caption" limit={20} locale={tr ? "tr" : "en"} describe={n => count(n, "remaining", "karakter kaldı")} />; break;
+          control = <LetterLimit {...fieldProps} label={caption("Caption", "Açıklama")} name="caption" limit={numberValue(config, "limit") ?? 20} locale={tr ? "tr" : "en"} describe={n => count(n, "remaining", "karakter kaldı")} />; break;
         case "springy-input":
-          control = <SpringField {...fieldProps} label={t("Project name", "Proje adı")} name="project" placeholder="Juniper"
+          control = <SpringField {...fieldProps} label={caption("Project name", "Proje adı")} name="project" placeholder={stringValue(config, "placeholder") ?? "Juniper"}
             hint={t("Up to 18 characters", "En fazla 18 karakter")}
             error={value.length > 18 ? t("Use 18 characters or fewer", "En fazla 18 karakter kullanın") : undefined} />; break;
         case "otp-code":
-          control = <OtpCode {...fieldProps} label={t("Verification code", "Doğrulama kodu")} name="code" required />; break;
+          control = <OtpCode {...fieldProps} label={caption("Verification code", "Doğrulama kodu")} name="code" length={numberValue(config, "length")} required />; break;
         case "tag-input":
-          control = <TagInput label={t("Tags", "Etiketler")} value={tags} onValueChange={setTags} addLabel={t("Add", "Ekle")}
+          control = <TagInput label={caption("Tags", "Etiketler")} value={tags} onValueChange={setTags} limit={numberValue(config, "limit")} disabled={disabled} addLabel={t("Add", "Ekle")}
             removeLabel={tag => t(`Remove ${tag}`, `${tag} etiketini kaldır`)} />; break;
         case "password-strength":
-          control = <PasswordStrength {...fieldProps} label={t("New password", "Yeni parola")} rules={[
+          control = <PasswordStrength {...fieldProps} label={caption("New password", "Yeni parola")} rules={[
             { id: "length", label: t("At least 12 characters", "En az 12 karakter"), test: candidate => candidate.length >= 12 },
             { id: "digit", label: t("Includes a digit", "Bir rakam içerir"), test: candidate => /\d/.test(candidate) },
           ]} describeRule={met => met ? t("Met", "Karşılandı") : t("Unmet", "Karşılanmadı")} />; break;
         case "jelly-slider":
-          control = <ValueSlider {...numericProps} label={t("Elasticity", "Esneklik")} variant="jelly" reducedMotion={reduced}
+          control = <ValueSlider {...numericProps} label={caption("Elasticity", "Esneklik")} variant={style("jelly")} reducedMotion={reduced}
             format={n => format.format(n) + "%"} />; break;
         case "exposure-slider":
           control = <div className="mx-exposure-demo">
             <img src={quietHills} alt={t("Snowy forest beneath low clouds", "Alçak bulutların altında karlı orman")} width={720} height={480}
               style={{ filter: `brightness(${2 ** (amount / 2)})` }} />
-            <ValueSlider {...numericProps} label={t("Exposure", "Pozlama")} variant="exposure" min={-2} max={2} step={.25}
+            <ValueSlider {...numericProps} label={caption("Exposure", "Pozlama")} variant={style("exposure")} min={-2} max={2} step={.25}
               format={n => format.format(n) + " EV"} reducedMotion={reduced} />
           </div>; break;
         case "detent-dial":
-          control = <ValueSlider {...numericProps} label={t("Gain", "Kazanç")} variant="dial" max={10}
+          control = <ValueSlider {...numericProps} label={caption("Gain", "Kazanç")} variant={style("dial")} max={10}
             format={n => format.format(n) + " dB"} reducedMotion={reduced} />; break;
         case "range-slider":
-          control = <RangePair label={t("Nightly budget", "Gecelik bütçe")} minimumLabel={t("Minimum", "En düşük")} maximumLabel={t("Maximum", "En yüksek")}
-            low={range[0]} high={range[1]} onValueChange={setRange} format={n => "$" + format.format(n)} />; break;
+          control = <RangePair label={caption("Nightly budget", "Gecelik bütçe")} minimumLabel={t("Minimum", "En düşük")} maximumLabel={t("Maximum", "En yüksek")}
+            low={range[0]} high={range[1]} disabled={disabled} onValueChange={setRange} format={n => "$" + format.format(n)} />; break;
         case "number-stepper":
-          control = <NumberStepper {...numericProps} label={t("Guests", "Konuklar")} name="guests" min={1} max={8}
+          control = <NumberStepper {...numericProps} label={caption("Guests", "Konuklar")} name="guests" min={1} max={numberValue(config, "max") ?? 8}
             minusLabel={t("Remove one guest", "Bir konuk çıkar")} plusLabel={t("Add one guest", "Bir konuk ekle")} />; break;
         case "star-rating":
-          control = <StarRating {...numericProps} label={t("Rate your stay", "Konaklamayı puanlayın")} name="rating"
-            describe={n => t(`${n} out of 5 stars`, `5 üzerinden ${n} yıldız`)} />; break;
+          control = <StarRating {...numericProps} label={caption("Rate your stay", "Konaklamayı puanlayın")} name="rating" max={numberValue(config, "max")}
+            describe={n => t(`${n} out of ${numberValue(config, "max") ?? 5} stars`, `${numberValue(config, "max") ?? 5} üzerinden ${n} yıldız`)} />; break;
         case "checkbox-list":
-          control = <CheckboxList label={t("Amenities", "Olanaklar")} value={tags} onValueChange={setTags} name="amenities"
+          control = <CheckboxList label={caption("Amenities", "Olanaklar")} value={tags} onValueChange={setTags} name="amenities" disabled={disabled}
             describe={n => count(n, "selected", "seçildi")} choices={[
               { value: "desk", label: t("Work desk", "Çalışma masası") },
               { value: "terrace", label: t("Private terrace", "Özel teras") },
             ]} />; break;
         case "file-drop":
-          control = <FileDrop files={files} onFiles={setFiles} label={t("Select or drop files", "Dosya seçin veya bırakın")}
-            hint={t("Plain text, up to 16 KB", "Düz metin, en fazla 16 KB")} accept=".txt,text/plain" maxBytes={16384}
+          control = <FileDrop files={files} onFiles={setFiles} label={caption("Select or drop files", "Dosya seçin veya bırakın")}
+            hint={t("Plain text, up to 16 KB", "Düz metin, en fazla 16 KB")} accept=".txt,text/plain" maxBytes={numberValue(config, "maxBytes") ?? 16384} multiple={booleanValue(config, "multiple")} disabled={disabled}
             describeError={({ file, reason }) => `${file.name} · ${reason === "type" ? t("Unsupported file type", "Desteklenmeyen dosya türü") : reason === "size" ? t("File too large", "Dosya boyutu fazla") : t("Choose one file", "Tek dosya seçin")}`} />; break;
         case "card-field":
-          control = <CardField label={t("Synthetic card details", "Örnek kart bilgileri")} labels={{ number: t("Card number", "Kart numarası"),
-            expiry: t("Expiry", "Son kullanma"), code: t("Security code", "Güvenlik kodu") }} value={card} onValueChange={setCard} />; break;
+          control = <CardField label={caption("Synthetic card details", "Örnek kart bilgileri")} labels={{ number: t("Card number", "Kart numarası"),
+            expiry: t("Expiry", "Son kullanma"), code: t("Security code", "Güvenlik kodu") }} value={card} onValueChange={setCard} disabled={disabled} />; break;
         case "signature-pad":
-          control = <SignaturePad label={t("Demo signature", "Örnek imza")} typeLabel={t("Type your name", "Adınızı yazın")}
+          control = <SignaturePad label={caption("Demo signature", "Örnek imza")} typeLabel={stringValue(config, "typeLabel") ?? t("Type your name", "Adınızı yazın")}
             undoLabel={t("Undo stroke", "Çizgiyi geri al")} clearLabel={t("Clear signature", "İmzayı temizle")}
-            value={signature} onValueChange={setSignature} />; break;
+            value={signature} onValueChange={setSignature} disabled={disabled} />; break;
         case "wheel-picker":
-          control = <WheelPicker label={t("Check-in time", "Giriş saati")} name="check-in" {...fieldProps}
+          control = <WheelPicker label={caption("Check-in time", "Giriş saati")} name="check-in" {...fieldProps}
             values={["12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"].map(id => ({ id, label: id }))} />; break;
       }
       return <div className="mx-demo mx-demo-center">{control}</div>;

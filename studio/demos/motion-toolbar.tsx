@@ -1,3 +1,4 @@
+import { booleanValue, stringValue } from "../playground/controls";
 import { useState } from "react";
 import { AlignCenter, AlignLeft, AlignRight, Bold } from "lucide-react";
 import { MotionToolbar } from "../../components/navigation/motion-toolbar";
@@ -5,13 +6,13 @@ import type { Specimen } from "../catalog";
 import "./demo.css";
 
 const story: Specimen = {
-  component: function Example({ language }) {
+  component: function Example({ language, config }) {
     const [align, setAlign] = useState<"left" | "center" | "right">("left");
     const [bold, setBold] = useState(false);
     const tr = language === "tr";
     return <div className="mx-demo">
-      <MotionToolbar label={tr ? "Metin biçimi" : "Text formatting"} tools={[
-        { id: "left", label: tr ? "Sola hizala" : "Align left", pressed: align === "left", icon: <AlignLeft size={18} /> },
+      <MotionToolbar label={stringValue(config, "label") ?? (tr ? "Metin biçimi" : "Text formatting")} tools={[
+        { id: "left", label: tr ? "Sola hizala" : "Align left", pressed: align === "left", disabled: booleanValue(config, "disabled"), icon: <AlignLeft size={18} /> },
         { id: "center", label: tr ? "Ortala" : "Align center", pressed: align === "center", icon: <AlignCenter size={18} /> },
         { id: "right", label: tr ? "Sağa hizala" : "Align right", pressed: align === "right", icon: <AlignRight size={18} /> },
         { id: "bold", label: tr ? "Kalın" : "Bold", pressed: bold, icon: <Bold size={18} /> },

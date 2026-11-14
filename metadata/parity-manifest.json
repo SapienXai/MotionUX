@@ -304,7 +304,7 @@
       "installItem": "file-drop",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -348,7 +348,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-command-button",
@@ -408,7 +408,7 @@
       "installItem": "morph-island",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
@@ -453,7 +453,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-goo-menu",
@@ -461,7 +461,7 @@
       "installItem": "goo-menu",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
@@ -506,7 +506,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-jelly-slider",
@@ -620,7 +620,7 @@
       "installItem": "destination-deck-gallery",
       "preview": "DestinationDeck",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/showcase/destination-deck.tsx",
@@ -758,7 +758,7 @@
         ],
         "motion": "reduced"
       },
-      "parity": "parity-ok"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-springy-input",
@@ -871,7 +871,7 @@
       "installItem": "parallax-ticket",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
@@ -916,7 +916,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-glass-lens",
@@ -924,7 +924,7 @@
       "installItem": "glass-lens",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
@@ -969,7 +969,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-pull-to-refresh",
@@ -977,7 +977,7 @@
       "installItem": "pull-to-refresh",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
@@ -1022,7 +1022,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-word-roll",
@@ -1134,7 +1134,7 @@
       "installItem": "goo-morph",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
@@ -1179,7 +1179,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-scramble-text",
@@ -1553,7 +1553,7 @@
       "installItem": "expandable-room-gallery",
       "preview": "ExpandableRoom",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/showcase/expandable-room.tsx",
@@ -1629,7 +1629,7 @@
         ]
       },
       "base": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": null,
         "files": [
           {
             "path": "components/gestures/disclosure-cards.tsx",
@@ -1691,7 +1691,7 @@
         ],
         "motion": "reduced"
       },
-      "parity": "parity-ok"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-fan-cards",
@@ -1752,7 +1752,7 @@
       "installItem": "stat-card",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
@@ -1797,7 +1797,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-profile-card",
@@ -1805,7 +1805,7 @@
       "installItem": "featured-profile-gallery",
       "preview": "FeaturedProfile",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/showcase/featured-profile.tsx",
@@ -1881,7 +1881,7 @@
         ]
       },
       "base": {
-        "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+        "pin": null,
         "files": [
           {
             "path": "components/gestures/disclosure-cards.tsx",
@@ -1943,7 +1943,7 @@
         ],
         "motion": "reduced"
       },
-      "parity": "parity-ok"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-magnetic-button",
@@ -3384,7 +3384,7 @@
       "installItem": "boarding-pass",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
@@ -3429,7 +3429,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "kokonut-marker-text",
@@ -3561,7 +3561,7 @@
       "installItem": "unlock-face-id",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
@@ -3606,7 +3606,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "kokonut-slide-to-confirm",
@@ -3720,7 +3720,7 @@
       "installItem": "wheel-picker",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -3764,7 +3764,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "kokonut-dynamic-text",
@@ -4139,7 +4139,7 @@
       "installItem": "signature-pad",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -4183,7 +4183,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "kokonut-undo-button",
@@ -4244,7 +4244,7 @@
       "installItem": "card-field",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -4288,7 +4288,7 @@
       "browserTest": "tests/inputs.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "kokonut-stack-panel",
@@ -4560,7 +4560,7 @@
       "installItem": "morph-dropdown-gallery",
       "preview": "MorphDropdown",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+      "pin": null,
       "files": [
         {
           "path": "components/showcase/morph-dropdown.tsx",
@@ -4688,7 +4688,7 @@
         ],
         "motion": "reduced"
       },
-      "parity": "parity-ok"
+      "parity": "blocked"
     },
     {
       "id": "smoothui-task-list",

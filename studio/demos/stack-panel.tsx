@@ -1,14 +1,15 @@
+import { stringValue } from "../playground/controls";
 import { StackPanel } from "../../components/navigation/stack-panel";
 import type { Specimen } from "../catalog";
 import "./demo.css";
 
 const story: Specimen = {
-  component: ({ reduced, language }) => {
+  component: ({ reduced, language, config }) => {
     const tr = language === "tr";
     const cards = tr ? [["Proje özeti", "Koleksiyon için çalışma notları."], ["Yayın takvimi", "İnceleme perşembe günü."]] :
       [["Project brief", "Working notes for the spring collection."], ["Release schedule", "Review takes place on Thursday."]];
-    return <div className="mx-demo"><StackPanel label={tr ? "Proje ayrıntıları" : "Project details"} defaultValue="0" reducedMotion={reduced}
-      panels={cards.map(([title, text], i) => ({ value: String(i), title, body: <p>{text}</p> }))} /></div>;
+    return <div className="mx-demo"><StackPanel label={stringValue(config, "label") ?? (tr ? "Proje ayrıntıları" : "Project details")} defaultValue="0" reducedMotion={reduced}
+      panels={cards.map(([title, text], i) => ({ value: String(i), title: i === 0 ? stringValue(config, "firstLabel") ?? title : title, body: <p>{text}</p> }))} /></div>;
   },
   usage: `"use client";
 

@@ -7,3 +7,9 @@
 [data-mx-goo="menu"] button span, [data-mx-goo="menu"] button svg { display: block; }
 .mx-goo-options { display: flex; flex-wrap: wrap; gap: .25rem; }
 .mx-unlock-art { display: grid; place-items: center; color: var(--mx-accent, Highlight); border: 1px solid var(--mx-line, GrayText); background: var(--mx-selected, ButtonFace); border-radius: 1.15rem; inline-size: 4.4rem; block-size: 4.4rem; }
+
+[data-mx-goo="menu"] { position: relative; isolation: isolate; justify-content: flex-start; }
+.mx-goo-lobes { position: absolute; inset-block-start: -5px; inset-inline-start: 0; max-inline-size: 100%; z-index: -1; pointer-events: none; fill: var(--mx-accent, Highlight); }
+[data-mx-goo="menu"]:has(.mx-goo-lobes) { gap: .25rem; }
+[data-mx-goo="menu"]:has(.mx-goo-lobes) button { inline-size: 44px; block-size: 44px; }
+@media (forced-colors: active) { .mx-goo-lobes { display: none; } }

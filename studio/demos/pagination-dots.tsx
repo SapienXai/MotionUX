@@ -1,3 +1,4 @@
+import { numberValue, stringValue } from "../playground/controls";
 import { useState } from "react";
 import { PaginationDots } from "../../components/navigation/pagination-dots";
 import type { Specimen } from "../catalog";
@@ -9,13 +10,15 @@ const pages = {
 };
 
 const story: Specimen = {
-  component: function Example({ reduced, language }) {
+  component: function Example({ reduced, language, config }) {
     const [page, setPage] = useState(0);
+    const count = numberValue(config, "count") ?? pages[language].length;
+    const selected = Math.min(page, count - 1);
     const tr = language === "tr";
     return <div className="mx-demo"><div className="mx-demo-sample">
-      <p>{page + 1} / {pages[language].length}</p><strong>{pages[language][page]}</strong>
-    </div><PaginationDots count={pages[language].length} value={page} onValueChange={setPage} reducedMotion={reduced}
-      label={tr ? "Sayfalama" : "Pagination"} pageLabel={tr ? "Sayfa" : "Page"} previousLabel={tr ? "Önceki" : "Previous"} nextLabel={tr ? "Sonraki" : "Next"} /></div>;
+      <p>{selected + 1} / {count}</p><strong>{pages[language][selected]}</strong>
+    </div><PaginationDots count={count} value={selected} onValueChange={setPage} reducedMotion={reduced}
+      label={stringValue(config, "label") ?? (tr ? "Sayfalama" : "Pagination")} pageLabel={tr ? "Sayfa" : "Page"} previousLabel={tr ? "Önceki" : "Previous"} nextLabel={tr ? "Sonraki" : "Next"} /></div>;
   },
   usage: `"use client";
 

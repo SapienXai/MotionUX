@@ -1,3 +1,4 @@
+import { booleanValue, numberValue, stringValue } from "../playground/controls";
 import { useState } from "react";
 import { ActionOutcome, CartAction, CopyTextButton, MagneticButton, ReactionButton, UndoAction } from "../../components/feedback/feedback-actions";
 import { HoldConfirm, SlideConfirm } from "../../components/feedback/confirmation-controls";
@@ -33,58 +34,62 @@ type Kind = keyof typeof configs;
 export function feedbackStory(kind: Kind): Specimen {
   const [name, file, snippet, states, api, accessibility] = configs[kind];
   return {
-    component: function Study({ reduced, language, comparison }) {
+    component: function Study({ reduced, language, comparison, config, update }) {
       const [count, setCount] = useState(0);
-      const [state, setState] = useState<"idle" | "pending" | "success" | "error">("idle");
-      const [decision, setDecision] = useState<"pending" | "approved" | "denied">("pending");
+      const [localState, setState] = useState<"idle" | "pending" | "success" | "error">("idle");
+      const [localDecision, setDecision] = useState<"pending" | "approved" | "denied">("pending");
       const [notices, setNotices] = useState([1, 2, 3]);
       const tr = language === "tr";
       const word = (en: string, turkish: string) => tr ? turkish : en;
+      const caption = (en: string, turkish: string) => stringValue(config, "label") ?? word(en, turkish);
+      const disabled = booleanValue(config, "disabled");
+      const state = (stringValue(config, "state") as typeof localState | undefined) ?? localState;
+      const decision = (stringValue(config, "state") as typeof localDecision | undefined) ?? localDecision;
       const step = () => setCount((value) => value + 1);
       const number = new Intl.NumberFormat(tr ? "tr-TR" : "en-US").format(count);
       let content;
       switch (kind) {
         case "plan-switch":
-          content = <PlanSwitch label={word("Billing cycle", "Faturalama dönemi")} reducedMotion={reduced}
-            monthlyLabel={word("Monthly", "Aylık")} annualLabel={word("Annual", "Yıllık")}>
+          content = <PlanSwitch label={caption("Billing cycle", "Faturalama dönemi")} reducedMotion={reduced}
+            monthlyLabel={word("Monthly", "Aylık")} annualLabel={stringValue(config, "annualLabel") ?? word("Annual", "Yıllık")}>
             {(annual) => <div className="mx-demo-sample"><strong>{annual ? "$120" : "$12"}</strong><p>{annual ? word("Per year · save $24", "Yıllık · 24 $ tasarruf") : word("Per month", "Aylık")}</p></div>}
           </PlanSwitch>; break;
         case "hold-button": case "hold-to-publish": case "slide-to-confirm": {
           const label = kind === "hold-button" ? word("Hold to arm", "Etkinleştirmek için basılı tutun") : kind === "hold-to-publish" ? word("Hold to publish", "Yayınlamak için basılı tutun") : word("Slide to confirm", "Onaylamak için kaydırın");
-          const props = { label, onConfirm: step, reducedMotion: reduced, confirmLabel: word("Confirm", "Onayla"), cancelLabel: word("Cancel", "Vazgeç"),
+          const props = { label: stringValue(config, "label") ?? label, disabled, onConfirm: step, reducedMotion: reduced, confirmLabel: word("Confirm", "Onayla"), cancelLabel: word("Cancel", "Vazgeç"),
             description: <p>{word("This changes only the demo state.", "Bu işlem yalnızca demo durumunu değiştirir.")}</p> };
-          content = <>{kind === "slide-to-confirm" ? <SlideConfirm {...props} /> : <HoldConfirm {...props} variant={kind === "hold-button" ? "hold" : "publish"} />}
+          content = <>{kind === "slide-to-confirm" ? <SlideConfirm {...props} /> : <HoldConfirm {...props} duration={numberValue(config, "duration")} variant={kind === "hold-button" ? "hold" : "publish"} />}
             <p role="status">{word("Confirmed intents", "Onaylanan işlemler")} · {number}</p></>; break;
         }
         case "loading-to-success": {
           const names = { idle: word("Ready", "Hazır"), pending: word("Waiting for response", "Yanıt bekleniyor"), success: word("Demo confirmed", "Demo onaylandı"), error: word("Demo failed", "Demo başarısız") };
-          content = <><label>{word("Demo result", "Demo sonucu")} <select value={state} onChange={(e) => setState(e.target.value as typeof state)}>
+          content = <><label>{word("Demo result", "Demo sonucu")} <select value={state} onChange={e => { if (config?.state !== undefined) update?.("state", e.target.value); else setState(e.target.value as typeof state); }}>
             {Object.entries(names).map(([key, title]) => <option key={key} value={key}>{title}</option>)}
-          </select></label><ActionOutcome state={state} label={names[state]} reducedMotion={reduced} /></>; break;
+          </select></label><ActionOutcome state={state} label={stringValue(config, "label") ?? names[state]} reducedMotion={reduced} /></>; break;
         }
         case "copy-button":
-          content = <><p><code>studio-access-2026</code></p><CopyTextButton text="studio-access-2026" label={word("Copy access code", "Erişim kodunu kopyala")} copiedLabel={word("Copied", "Kopyalandı")} errorLabel={word("Copy unavailable", "Kopyalanamadı")} /></>; break;
+          content = <><p><code>{stringValue(config, "text") ?? "studio-access-2026"}</code></p><CopyTextButton text={stringValue(config, "text") ?? "studio-access-2026"} label={caption("Copy access code", "Erişim kodunu kopyala")} copiedLabel={word("Copied", "Kopyalandı")} errorLabel={word("Copy unavailable", "Kopyalanamadı")} /></>; break;
         case "like-burst": case "bell-button":
-          content = <ReactionButton label={kind === "like-burst" ? word("Like", "Beğen") : word("Alerts", "Bildirimler")} variant={kind === "like-burst" ? "like" : "bell"} reducedMotion={reduced} />; break;
+          content = <ReactionButton label={kind === "like-burst" ? caption("Like", "Beğen") : caption("Alerts", "Bildirimler")} disabled={disabled} variant={(stringValue(config, "variant") ?? (kind === "like-burst" ? "like" : "bell")) as "like" | "bell"} reducedMotion={reduced} />; break;
         case "magnetic-button":
-          content = <><MagneticButton reducedMotion={reduced} onClick={step}>{word("Open collection", "Koleksiyonu aç")}</MagneticButton><p>{word("Opened", "Açıldı")} · {number}</p></>; break;
+          content = <><MagneticButton reducedMotion={reduced} onClick={step} disabled={disabled}>{stringValue(config, "children") ?? word("Open collection", "Koleksiyonu aç")}</MagneticButton><p>{word("Opened", "Açıldı")} · {number}</p></>; break;
         case "designbookmark-command-button": case "kokonut-command-button": {
           const tile = kind === "kokonut-command-button";
-          content = <><CommandButton label={tile ? word("Open workspace", "Çalışma alanını aç") : word("Export draft", "Taslağı dışa aktar")}
-            variant={tile ? "tile" : "engraved"} shortcutLabel={tile ? "Alt O" : "Alt E"}
+          content = <><CommandButton label={tile ? caption("Open workspace", "Çalışma alanını aç") : caption("Export draft", "Taslağı dışa aktar")} disabled={disabled}
+            variant={(stringValue(config, "variant") ?? (tile ? "tile" : "engraved")) as "tile" | "engraved"} shortcutLabel={tile ? "Alt O" : "Alt E"}
             chord={comparison ? undefined : { key: tile ? "o" : "e", modifier: "alt" }} onExecute={step} /><p>{word("Invocations", "Çalıştırma")} · {number}</p></>; break;
         }
         case "cart-button":
-          content = <CartAction label={word("Add to bag", "Sepete ekle")} count={count} onAdd={step} reducedMotion={reduced} />; break;
+          content = <CartAction label={caption("Add to bag", "Sepete ekle")} count={count} disabled={disabled} onAdd={step} reducedMotion={reduced} />; break;
         case "undo-button":
-          content = <UndoAction label={word("Undo", "Geri al")} onUndo={step} disabled={count > 0}>
+          content = <UndoAction label={caption("Undo", "Geri al")} onUndo={step} disabled={disabled || count > 0}>
             {count ? word("Item restored", "Öğe geri yüklendi") : word("Item moved", "Öğe taşındı")}</UndoAction>; break;
         case "toggle-switch":
-          content = <ToggleSwitch label={word("Quiet hours", "Sessiz saatler")} reducedMotion={reduced} />; break;
+          content = <ToggleSwitch label={caption("Quiet hours", "Sessiz saatler")} disabled={disabled} reducedMotion={reduced} />; break;
         case "notification-stack": {
           const titles = tr ? ["Taslak hazır", "Yorum geldi", "Dosya kaydedildi"] : ["Draft ready", "New comment", "File saved"];
-          content = <NotificationStack label={word("Updates", "Güncellemeler")} items={notices.map((id) => ({ id: String(id), title: titles[id - 1] }))}
-            onDismiss={(id) => setNotices((items) => items.filter((n) => String(n) !== id))} dismissLabel={word("Dismiss", "Kapat")} emptyLabel={word("No notifications", "Bildirim yok")} reducedMotion={reduced} />; break;
+          content = <NotificationStack label={caption("Updates", "Güncellemeler")} items={notices.map((id) => ({ id: String(id), title: titles[id - 1] }))}
+            onDismiss={(id) => setNotices((items) => items.filter((n) => String(n) !== id))} dismissLabel={word("Dismiss", "Kapat")} emptyLabel={stringValue(config, "emptyLabel") ?? word("No notifications", "Bildirim yok")} reducedMotion={reduced} />; break;
         }
         case "step-progress": case "agent-steps": {
           const agent = kind === "agent-steps";
@@ -93,16 +98,16 @@ export function feedbackStory(kind: Kind): Specimen {
           const stages = names.map((label, i): ProgressStage => ({ id: String(i), label,
             detail: word("This is a synthetic run entry.", "Bu bir demo adımıdır."),
             state: count > i ? "complete" : count === i ? "current" : "upcoming" }));
-          content = <><ProgressSequence label={word("Progress", "İlerleme")} stages={stages} variant={agent ? "expandable" : "linear"} reducedMotion={reduced} />
+          content = <><ProgressSequence label={caption("Progress", "İlerleme")} stages={stages} variant={(stringValue(config, "variant") ?? (agent ? "expandable" : "linear")) as "expandable" | "linear"} reducedMotion={reduced} />
             <button className="mx-demo-button" type="button" disabled={count >= names.length} onClick={step}>{word("Advance demo", "Demo adımını ilerlet")}</button></>; break;
         }
         case "tool-approval":
-          content = <ToolApproval title={word("Read project notes", "Proje notlarını oku")} state={decision}
+          content = <ToolApproval title={stringValue(config, "title") ?? word("Read project notes", "Proje notlarını oku")} state={decision}
             description={decision === "pending" ? word("Review the requested file.", "İstenen dosyayı inceleyin.") : decision === "approved" ? word("Demo request allowed", "Demo isteğine izin verildi") : word("Demo request denied", "Demo isteği reddedildi")}
-            parameterSummary={<code>notes.txt</code>} approveLabel={word("Allow", "İzin ver")} denyLabel={word("Deny", "Reddet")} onDecision={(allowed) => setDecision(allowed ? "approved" : "denied")} />; break;
+            parameterSummary={<code>notes.txt</code>} approveLabel={word("Allow", "İzin ver")} denyLabel={word("Deny", "Reddet")} onDecision={allowed => { const next = allowed ? "approved" : "denied"; if (config?.state !== undefined) update?.("state", next); else setDecision(next); }} />; break;
         case "goo-thinking":
-          content = <><GooThinking label={count % 2 ? word("Waiting for reply", "Yanıt bekleniyor") : word("Ready", "Hazır")} pending={count % 2 > 0} reducedMotion={reduced} />
-            <button className="mx-demo-button" type="button" onClick={step}>{count % 2 ? word("Stop demo", "Demoyu durdur") : word("Start demo", "Demoyu başlat")}</button></>; break;
+          content = <><GooThinking label={stringValue(config, "label") ?? (count % 2 ? word("Waiting for reply", "Yanıt bekleniyor") : word("Ready", "Hazır"))} pending={booleanValue(config, "pending") ?? count % 2 > 0} reducedMotion={reduced} />
+            <button className="mx-demo-button" type="button" onClick={() => { if (config?.pending !== undefined) update?.("pending", !config.pending); else step(); }}>{(booleanValue(config, "pending") ?? count % 2 > 0) ? word("Stop demo", "Demoyu durdur") : word("Start demo", "Demoyu başlat")}</button></>; break;
       }
       return <div className="mx-demo mx-demo-center">{content}</div>;
     },
