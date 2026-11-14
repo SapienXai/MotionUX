@@ -160,15 +160,17 @@ for (const [id, seek] of [["kokonut-glass-player", true], ["smoothui-music-toggl
     await page.goto(`/?item=${id}`);
     const stage = page.getByTestId("specimen-interaction");
     const audio = stage.locator("audio");
+    // The Linux headless audio sink can reach EOF before Playwright can pause.
+    await audio.evaluate((element: HTMLAudioElement) => { element.loop = true; });
     await stage.getByRole("button", { name: "Play sample" }).click();
     await expect.poll(() => audio.evaluate((element: HTMLAudioElement) => !element.paused && element.currentTime > 0)).toBe(true);
+    await stage.getByRole("button", { name: "Pause sample" }).click();
+    await expect.poll(() => audio.evaluate((element: HTMLAudioElement) => element.paused)).toBe(true);
     if (seek) {
       const range = stage.getByRole("slider", { name: "Sample position" });
       await expect(range).toBeEnabled();
       await range.press("Home");
       await expect(range).toHaveAttribute("aria-valuetext", "0:00");
     }
-    await stage.getByRole("button", { name: "Pause sample" }).click();
-    await expect.poll(() => audio.evaluate((element: HTMLAudioElement) => element.paused)).toBe(true);
   });
 }
