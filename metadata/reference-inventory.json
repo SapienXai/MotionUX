@@ -16,7 +16,7 @@
       "registryItem": "plan-switch",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=designbookmark-plan-switch",
       "status": "needs-review"
     },
@@ -34,7 +34,7 @@
       "registryItem": "letter-limit",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=designbookmark-letter-limit",
       "status": "needs-review"
     },
@@ -52,7 +52,7 @@
       "registryItem": "pull-cord",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/studio.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=designbookmark-pull-cord",
       "status": "needs-review"
     },
@@ -70,7 +70,7 @@
       "registryItem": "morph-tooltip",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/navigation.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=designbookmark-morph-tooltip",
       "status": "needs-review"
     },
@@ -88,7 +88,7 @@
       "registryItem": "spring-dropdown",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/navigation.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=designbookmark-spring-dropdown",
       "status": "needs-review"
     },
@@ -106,7 +106,7 @@
       "registryItem": "file-drop",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=designbookmark-file-drop",
       "status": "needs-review"
     },
@@ -124,7 +124,7 @@
       "registryItem": "designbookmark-command-button",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=designbookmark-command-button",
       "status": "needs-review"
     },
@@ -142,7 +142,7 @@
       "registryItem": "morph-island",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=designbookmark-morph-island",
       "status": "needs-review"
     },
@@ -160,7 +160,7 @@
       "registryItem": "goo-menu",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=designbookmark-goo-menu",
       "status": "needs-review"
     },
@@ -178,7 +178,7 @@
       "registryItem": "jelly-slider",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=designbookmark-jelly-slider",
       "status": "needs-review"
     },
@@ -232,7 +232,7 @@
       "registryItem": "springy-input",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=designbookmark-springy-input",
       "status": "needs-review"
     },
@@ -250,7 +250,7 @@
       "registryItem": "rubber-dock",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/navigation.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=designbookmark-rubber-dock",
       "status": "needs-review"
     },
@@ -268,7 +268,7 @@
       "registryItem": "parallax-ticket",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=designbookmark-parallax-ticket",
       "status": "needs-review"
     },
@@ -286,7 +286,7 @@
       "registryItem": "glass-lens",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=designbookmark-glass-lens",
       "status": "needs-review"
     },
@@ -304,7 +304,7 @@
       "registryItem": "pull-to-refresh",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=designbookmark-pull-to-refresh",
       "status": "needs-review"
     },
@@ -322,7 +322,7 @@
       "registryItem": "word-roll",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-text.jpg",
       "preview": "/?item=designbookmark-word-roll",
       "status": "needs-review"
     },
@@ -340,7 +340,7 @@
       "registryItem": "weight-wave",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-text.jpg",
       "preview": "/?item=designbookmark-weight-wave",
       "status": "needs-review"
     },
@@ -358,7 +358,7 @@
       "registryItem": "goo-morph",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=designbookmark-goo-morph",
       "status": "needs-review"
     },
@@ -376,7 +376,7 @@
       "registryItem": "scramble-text",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-text.jpg",
       "preview": "/?item=designbookmark-scramble-text",
       "status": "needs-review"
     },
@@ -394,7 +394,7 @@
       "registryItem": "read-along",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-text.jpg",
       "preview": "/?item=designbookmark-read-along",
       "status": "needs-review"
     },
@@ -412,7 +412,7 @@
       "registryItem": "roll-links",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-text.jpg",
       "preview": "/?item=designbookmark-roll-links",
       "status": "needs-review"
     },
@@ -430,7 +430,7 @@
       "registryItem": "prompt-box",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "preview": "/?item=designbookmark-prompt-box",
       "status": "needs-review"
     },
@@ -466,7 +466,7 @@
       "registryItem": "ghost-suggestion",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "preview": "/?item=designbookmark-ghost-suggestion",
       "status": "needs-review"
     },
@@ -484,7 +484,7 @@
       "registryItem": "goo-thinking",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=designbookmark-goo-thinking",
       "status": "needs-review"
     },
@@ -502,7 +502,7 @@
       "registryItem": "expand-card",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=designbookmark-expand-card",
       "status": "needs-review"
     },
@@ -520,7 +520,7 @@
       "registryItem": "fan-cards",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=designbookmark-fan-cards",
       "status": "needs-review"
     },
@@ -538,7 +538,7 @@
       "registryItem": "stat-card",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=designbookmark-stat-card",
       "status": "needs-review"
     },
@@ -556,7 +556,7 @@
       "registryItem": "profile-card",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=designbookmark-profile-card",
       "status": "needs-review"
     },
@@ -574,7 +574,7 @@
       "registryItem": "magnetic-button",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=designbookmark-magnetic-button",
       "status": "needs-review"
     },
@@ -592,7 +592,7 @@
       "registryItem": "loading-to-success",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=designbookmark-loading-to-success",
       "status": "needs-review"
     },
@@ -610,7 +610,7 @@
       "registryItem": "copy-button",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=designbookmark-copy-button",
       "status": "needs-review"
     },
@@ -628,7 +628,7 @@
       "registryItem": "like-burst",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=designbookmark-like-burst",
       "status": "needs-review"
     },
@@ -664,7 +664,7 @@
       "registryItem": "bottom-bar",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/studio.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=designbookmark-bottom-bar",
       "status": "needs-review"
     },
@@ -682,7 +682,7 @@
       "registryItem": "dynamic-menu",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/navigation.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=designbookmark-dynamic-menu",
       "status": "needs-review"
     },
@@ -700,7 +700,7 @@
       "registryItem": "segmented-control",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/studio.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=designbookmark-segmented-control",
       "status": "needs-review"
     },
@@ -718,7 +718,7 @@
       "registryItem": "sidebar-collapse",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/navigation.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=designbookmark-sidebar-collapse",
       "status": "needs-review"
     },
@@ -736,7 +736,7 @@
       "registryItem": "command-palette",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/studio.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=designbookmark-command-palette",
       "status": "needs-review"
     },
@@ -752,9 +752,9 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "step-progress",
-      "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "version": "baa132e0c01e7ed96a0c02415a5c271911d01482",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=designbookmark-step-progress",
       "status": "needs-review"
     },
@@ -772,7 +772,7 @@
       "registryItem": "otp-code",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=designbookmark-otp-code",
       "status": "needs-review"
     },
@@ -790,7 +790,7 @@
       "registryItem": "toggle-switch",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=designbookmark-toggle-switch",
       "status": "needs-review"
     },
@@ -808,7 +808,7 @@
       "registryItem": "star-rating",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=designbookmark-star-rating",
       "status": "needs-review"
     },
@@ -826,7 +826,7 @@
       "registryItem": "tag-input",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=designbookmark-tag-input",
       "status": "needs-review"
     },
@@ -844,7 +844,7 @@
       "registryItem": "number-stepper",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=designbookmark-number-stepper",
       "status": "needs-review"
     },
@@ -862,7 +862,7 @@
       "registryItem": "range-slider",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=designbookmark-range-slider",
       "status": "needs-review"
     },
@@ -880,7 +880,7 @@
       "registryItem": "password-strength",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=designbookmark-password-strength",
       "status": "needs-review"
     },
@@ -898,7 +898,7 @@
       "registryItem": "checkbox-list",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=designbookmark-checkbox-list",
       "status": "needs-review"
     },
@@ -916,7 +916,7 @@
       "registryItem": "detent-dial",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=kokonut-detent-dial",
       "status": "needs-review"
     },
@@ -934,7 +934,7 @@
       "registryItem": "siri-orb",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-media.jpg",
       "preview": "/?item=smoothui-siri-orb",
       "status": "needs-review"
     },
@@ -950,9 +950,9 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "agent-steps",
-      "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "version": "baa132e0c01e7ed96a0c02415a5c271911d01482",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=kokonut-agent-steps",
       "status": "needs-review"
     },
@@ -970,7 +970,7 @@
       "registryItem": "hold-button",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=kokonut-hold-button",
       "status": "needs-review"
     },
@@ -1006,7 +1006,7 @@
       "registryItem": "boarding-pass",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=kokonut-boarding-pass",
       "status": "needs-review"
     },
@@ -1024,7 +1024,7 @@
       "registryItem": "marker-text",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-text.jpg",
       "preview": "/?item=kokonut-marker-text",
       "status": "needs-review"
     },
@@ -1042,7 +1042,7 @@
       "registryItem": "smooth-tab",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/navigation.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=kokonut-smooth-tab",
       "status": "needs-review"
     },
@@ -1060,7 +1060,7 @@
       "registryItem": "unlock-face-id",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=smoothui-unlock-face-id",
       "status": "needs-review"
     },
@@ -1078,7 +1078,7 @@
       "registryItem": "slide-to-confirm",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=kokonut-slide-to-confirm",
       "status": "needs-review"
     },
@@ -1096,7 +1096,7 @@
       "registryItem": "notification-stack",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=kokonut-notification-stack",
       "status": "needs-review"
     },
@@ -1114,7 +1114,7 @@
       "registryItem": "wheel-picker",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=kokonut-wheel-picker",
       "status": "needs-review"
     },
@@ -1132,7 +1132,7 @@
       "registryItem": "dynamic-text",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-text.jpg",
       "preview": "/?item=kokonut-dynamic-text",
       "status": "needs-review"
     },
@@ -1150,7 +1150,7 @@
       "registryItem": "voice-input",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "preview": "/?item=kokonut-voice-input",
       "status": "needs-review"
     },
@@ -1168,7 +1168,7 @@
       "registryItem": "tool-approval",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "preview": "/?item=kokonut-tool-approval",
       "status": "needs-review"
     },
@@ -1186,7 +1186,7 @@
       "registryItem": "toolbar",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/navigation.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=kokonut-toolbar",
       "status": "needs-review"
     },
@@ -1204,7 +1204,7 @@
       "registryItem": "scrubber",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-media.jpg",
       "preview": "/?item=smoothui-scrubber",
       "status": "needs-review"
     },
@@ -1222,7 +1222,7 @@
       "registryItem": "cart-button",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=kokonut-cart-button",
       "status": "needs-review"
     },
@@ -1240,7 +1240,7 @@
       "registryItem": "page-flip",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/cards.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "preview": "/?item=kokonut-page-flip",
       "status": "needs-review"
     },
@@ -1276,7 +1276,7 @@
       "registryItem": "undo-button",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=kokonut-undo-button",
       "status": "needs-review"
     },
@@ -1294,7 +1294,7 @@
       "registryItem": "card-field",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/inputs.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "preview": "/?item=kokonut-card-field",
       "status": "needs-review"
     },
@@ -1312,7 +1312,7 @@
       "registryItem": "stack-panel",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/navigation.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=kokonut-stack-panel",
       "status": "needs-review"
     },
@@ -1330,7 +1330,7 @@
       "registryItem": "typewriter",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-text.jpg",
       "preview": "/?item=kokonut-typewriter",
       "status": "needs-review"
     },
@@ -1348,7 +1348,7 @@
       "registryItem": "thinking-text",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "preview": "/?item=kokonut-thinking-text",
       "status": "needs-review"
     },
@@ -1384,7 +1384,7 @@
       "registryItem": "bell-button",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=kokonut-bell-button",
       "status": "needs-review"
     },
@@ -1402,7 +1402,7 @@
       "registryItem": "morph-popover",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/navigation.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=kokonut-morph-popover",
       "status": "needs-review"
     },
@@ -1420,7 +1420,7 @@
       "registryItem": "task-list",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "preview": "/?item=smoothui-task-list",
       "status": "needs-review"
     },
@@ -1438,7 +1438,7 @@
       "registryItem": "music-toggle",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/media.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-media.jpg",
       "preview": "/?item=smoothui-music-toggle",
       "status": "needs-review"
     },
@@ -1456,7 +1456,7 @@
       "registryItem": "kokonut-command-button",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/feedback.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "preview": "/?item=kokonut-command-button",
       "status": "needs-review"
     },
@@ -1474,7 +1474,7 @@
       "registryItem": "pagination-dots",
       "version": "03173314f6e8ce3c69ff448930d3278a9af90822",
       "test": "tests/studio.spec.ts",
-      "evidence": null,
+      "evidence": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "preview": "/?item=designbookmark-pagination-dots",
       "status": "needs-review"
     }
