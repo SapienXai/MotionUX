@@ -6,7 +6,7 @@ The live inventory contains 82 references across DesignBookmark (51), Kokonut UI
 | --- | --- |
 | 0 | All 82 references reconciled with the brief. Independent implementation chosen wherever file-level redistribution was unverified. |
 | 1 | Studio catalog, theme and viewport controls, reduced-motion comparison and GitHub CI. The v1 demos are at `/?legacy=1`. |
-| 2 | 15 navigation previews. Additional visual review and advanced overlay positioning are open. |
+| 2 | 15 navigation previews. Native top layer and viewport positioning tested for the shared action-menu variants. |
 | 3 | 19 feedback previews with caller-owned results for consequential actions. |
 | 4 | 16 form previews. Playwright covered each of these on three browser profiles. |
 | 5 | 14 card and gesture previews. All 42 browser checks passed across three profiles. |
@@ -21,4 +21,4 @@ The live inventory contains 82 references across DesignBookmark (51), Kokonut UI
 | Kokonut UI | 25 | 0 | 25 | 0 |
 | SmoothUI | 6 | 0 | 6 | 0 |
 
-Complete visual and gesture review by reference. Known follow-ups include anchor-aware portal positioning for overlay studies, shared-layout continuity on expansion, signature stroke workload under real touch, and touch/scroll behavior outside emulation. Additional per-item reduced-motion and error cases, real-device tests, and consumer integration benchmarks are tracked in the [verification report](VERIFICATION.md).
+Complete visual and gesture review by reference. Known follow-ups include legacy-browser fallback placement for overlays, shared-layout continuity on expansion, signature stroke workload under real touch, and touch/scroll behavior outside emulation. Additional per-item reduced-motion and error cases, real-device tests, and consumer integration benchmarks are tracked in the [verification report](VERIFICATION.md).

@@ -139,3 +139,7 @@ body { margin: 0; }
 }
 
 @media (min-width: 960px) { .mx-specimen { grid-column: 2; grid-row: 1; } .mx-index { grid-column: 1; grid-row: 1; } }
+
+.mx-masthead { flex-wrap: wrap; }
+.mx-wordmark { white-space: normal; }
+.mx-index-title { flex-wrap: wrap; }
