@@ -50,7 +50,6 @@ const interactions = {
   },
 };
 
-export const featuredTimelineIds = Object.keys(interactions);
 const fallback = 0;
 
 export async function featuredTimeline(pages, id) {

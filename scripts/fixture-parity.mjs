@@ -3,8 +3,9 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { build, createServer, preview } from "vite";
-import { chromium, webkit, expect } from "@playwright/test";
+import { chromium, webkit, devices, expect } from "@playwright/test";
 import { featuredTimeline, prepareTimelinePage } from "./featured-timeline.mjs";
+import { activateRecipes, recipeInteractions } from "./recipe-interactions.mjs";
 
 const root = process.cwd();
 const local = process.argv.includes("--local");
@@ -18,8 +19,12 @@ const recipes = registry.items.filter(entry => entry.name.startsWith("gallery-re
 const quick = process.argv.includes("--quick");
 const recipesOnly = process.argv.includes("--recipes-only");
 const featuredOnly = process.argv.includes("--featured-only");
+const requested = process.env.MOTIONUX_RECIPE_CASE;
+const viewportFilter = Number(process.env.MOTIONUX_FEATURED_WIDTH);
 const runFeatured = !recipesOnly;
 const runRecipes = !quick && !featuredOnly;
+const runMounts = runRecipes && !requested;
+const widths = !runFeatured ? [] : viewportFilter ? [viewportFilter] : quick ? [1536] : [390, 768, 1536];
 const temp = await mkdtemp(join(tmpdir(), "motionux-v6-react-"));
 const src = join(temp, "src");
 const manager = process.env.MOTIONUX_PACKAGE_MANAGER === "pnpm" ? "pnpm" : "npm";
@@ -139,12 +144,12 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
   const smoke = await chrome.newPage({ viewport: { width: 1024, height: 900 }, reducedMotion: "reduce" });
   const errors = [];
   smoke.on("pageerror", error => errors.push(error.message));
-  for (const { id } of quick ? [] : base) {
+  for (const { id } of runMounts ? base : []) {
     await smoke.goto(`${origin(consumer)}/?mode=base&item=${id}`);
     await expect(smoke.locator("[data-consumer-example]")).toBeVisible();
     if (!await smoke.locator("[data-consumer-example]").evaluate(node => node.childElementCount)) throw new Error(`Empty consumer example ${id}`);
   }
-  for (const row of quick ? [] : base) {
+  for (const row of runMounts ? base : []) {
     const { id, order } = row;
     const featured = Object.hasOwn(manifest.presets, id);
     await smoke.goto(`${origin(consumer)}/?mode=configured&item=${id}`);
@@ -158,11 +163,15 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
   }
   await smoke.close();
   if (errors.length) throw new Error(errors.join("\n"));
+  const viewportOptions = (width, scheme, reducedMotion) => ({
+    ...(width === 390 ? devices["iPhone 13"] : {}),
+    viewport: { width, height: 1024 }, reducedMotion, colorScheme: scheme,
+  });
   const summaries = [];
-  for (const width of !runFeatured ? [] : quick ? [1536] : [390, 768, 1536]) {
+  for (const width of widths) {
     for (const scheme of quick ? ["light"] : ["light", "dark"]) {
       const browser = width === 390 ? safari : chrome;
-      const options = { viewport: { width, height: 1024 }, reducedMotion: "reduce", colorScheme: scheme };
+      const options = viewportOptions(width, scheme, "reduce");
       const gallery = await browser.newPage(options);
       const isolated = await browser.newPage(options);
       await gallery.addInitScript(value => localStorage.setItem("mx-studio-scheme", value), scheme);
@@ -188,13 +197,15 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
           await Promise.all([gallery.evaluate(() => document.fonts.ready), isolated.evaluate(() => document.fonts.ready)]);
           const stem = `${item}-${width}-${scheme}-${stage}`;
           const [a, b, domA, domB] = await Promise.all([
-            sample.screenshot({ path: join(evidence, stem + "-studio.png"), animations: "disabled" }),
-            installed.screenshot({ path: join(evidence, stem + "-react.png"), animations: "disabled" }),
+            sample.screenshot({ path: join(evidence, stem + "-studio.png"), animations: "disabled", scale: "css" }),
+            installed.screenshot({ path: join(evidence, stem + "-react.png"), animations: "disabled", scale: "css" }),
             sample.ariaSnapshot(), installed.ariaSnapshot(),
           ]);
           const difference = await imageDifference(isolated, a, b);
-          if (domA !== domB || difference > .025) throw new Error(`${stem}: ARIA match ${domA === domB}, pixel difference ${difference.toFixed(5)}\n${domA}\n${domB}`);
-          summaries.push({ item, width, scheme, stage, differentPixels: difference });
+          const ariaMatch = domA === domB;
+          const result = ariaMatch && difference <= .025 ? "parity-ok" : "parity-broken";
+          if (result === "parity-broken") console.error(`${stem}: ARIA match ${ariaMatch}, pixel difference ${difference.toFixed(5)}`);
+          summaries.push({ item, width, scheme, stage, differentPixels: difference, ariaMatch, result });
         }
       }
       await Promise.all([gallery.close(), isolated.close()]);
@@ -202,11 +213,12 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
   }
   const timeline = [];
   const recipeCases = [];
-  for (const width of !runFeatured ? [] : quick ? [1536] : [390, 768, 1536]) {
+  const recipeBehavior = [];
+  for (const width of widths) {
     for (const scheme of quick ? ["light"] : ["light", "dark"]) {
       const browser = width === 390 ? safari : chrome;
       for (const [id] of presets) {
-        const options = { viewport: { width, height: 1024 }, reducedMotion: "no-preference", colorScheme: scheme };
+        const options = viewportOptions(width, scheme, "no-preference");
         const gallery = await browser.newPage(options);
         const isolated = await browser.newPage(options);
         try {
@@ -224,11 +236,14 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
           await gallery.mouse.move(0, 0);
           timeline.push({ width, scheme, browser: browser.browserType().name(), ...await featuredTimeline([[gallery, sample], [isolated, installed]], id) });
           console.log(`Timeline ${id} ${width} ${scheme}`);
+        } catch (error) {
+          timeline.push({ id, width, scheme, browser: browser.browserType().name(), error: error.message });
+          console.error(`Timeline ${id} ${width} ${scheme}: ${error.message}`);
         } finally { await Promise.all([gallery.close(), isolated.close()]); }
       }
     }
   }
-  if (runRecipes) for (const { id } of base.filter(row => !Object.hasOwn(manifest.presets, row.id))) {
+  if (runRecipes) for (const { id } of base.filter(row => !Object.hasOwn(manifest.presets, row.id) && (!requested || requested === row.id))) {
     const scheme = "light";
     const options = { viewport: { width: 1536, height: 1024 }, reducedMotion: "reduce", colorScheme: scheme };
     const [gallery, isolated] = await Promise.all([chrome.newPage(options), chrome.newPage(options)]);
@@ -241,6 +256,10 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
       await Promise.all([expect(sample).toBeVisible(), expect(installed).toBeVisible()]);
       await matchContext(sample, isolated, scheme);
       await Promise.all([gallery.evaluate(() => document.fonts.ready), isolated.evaluate(() => document.fonts.ready)]);
+      // Decode the same installed artwork before taking either screenshot.
+      await Promise.all([sample, installed].map(root => root.evaluate(node =>
+        Promise.all([...node.querySelectorAll("img")].map(image => image.decode().catch(() => {})))
+      )));
       const [a, b, ariaA, ariaB] = await Promise.all([
         sample.screenshot({ path: join(evidence, id + "-gallery.png"), animations: "disabled" }),
         installed.screenshot({ path: join(evidence, id + "-react.png"), animations: "disabled" }),
@@ -254,11 +273,22 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
       recipeCases.push({ id, width: 1536, scheme, stage: "idle", ariaMatch, differentPixels, ...(!ariaMatch ? { studioAria: ariaA, consumerAria: ariaB } : {}), result: ariaMatch && differentPixels <= .025 ? "parity-ok" : "parity-broken" });
       if (!ariaMatch || differentPixels > .025) console.error(`${id}: idle mismatch ${differentPixels.toFixed(5)} (ARIA ${ariaMatch})`);
       else console.log(`Recipe ${id}`);
+      if (recipeInteractions[id]) {
+        try {
+          const behavior = await activateRecipes([sample, installed], id);
+          const result = behavior.ariaMatch && behavior.semanticMatch ? "parity-ok" : "parity-broken";
+          recipeBehavior.push({ id, ...behavior, result });
+        } catch (error) {
+          recipeBehavior.push({ id, result: "parity-broken", error: error.message });
+          console.error(`${id}: active-state mismatch: ${error.message}`);
+        }
+      }
     } finally { await Promise.all([gallery.close(), isolated.close()]); }
   }
-  await writeFile(join(evidence, "report.json"), JSON.stringify({ pin: local ? null : pin, manager, baseUsageMounts: quick ? 0 : base.length, customizedPresetMounts: quick ? 0 : presets.length, customizedRecipeMounts: quick ? 0 : base.length - presets.length, cases: summaries, timeline, recipeCases }, null, 2) + "\n");
-  if (recipeCases.some(row => row.result === "parity-broken")) throw new Error("Gallery recipe mismatches. See report.json.");
-  console.log(`${quick ? 0 : base.length} base and ${quick ? 0 : base.length} customized Gallery examples mounted in an isolated production build.\n${summaries.length} installed React preset comparisons passed (ARIA and ≤2.5% visually differing pixels).`);
+  await writeFile(join(evidence, "report.json"), JSON.stringify({ pin: local ? null : pin, manager, baseUsageMounts: runMounts ? base.length : 0, customizedPresetMounts: runMounts ? presets.length : 0, customizedRecipeMounts: runMounts ? base.length - presets.length : 0, cases: summaries, timeline, recipeCases, recipeBehavior }, null, 2) + "\n");
+  if (timeline.some(row => row.error) || summaries.some(row => row.result === "parity-broken")) throw new Error("Featured parity mismatches. See report.json.");
+  if ([...recipeCases, ...recipeBehavior].some(row => row.result === "parity-broken")) throw new Error("Gallery recipe mismatches. See report.json.");
+  console.log(`${runMounts ? base.length : 0} base and ${runMounts ? base.length : 0} customized Gallery examples mounted in an isolated production build.\n${summaries.length} installed React preset comparisons passed (ARIA and ≤2.5% visually differing pixels).`);
 } finally {
   if (studio) await new Promise(resolveClose => studio.httpServer.close(resolveClose));
   if (consumer) await new Promise(resolveClose => consumer.httpServer.close(resolveClose));
@@ -271,14 +301,18 @@ async function matchContext(sample, isolated, scheme) {
     const colors = ["--mx-font", "--mx-bg", "--mx-preset-background", "--mx-surface", "--mx-ink", "--mx-muted", "--mx-line", "--mx-accent", "--mx-on-accent", "--mx-selected"];
     const style = getComputedStyle(node);
     const { width, x, y } = node.getBoundingClientRect();
-    return { width, x: x % 1, y: y % 1, tokens: colors.map(name => [name, style.getPropertyValue(name)]) };
+    return {
+      width, x: x % 1, y: y % 1, textSizeAdjust: style.getPropertyValue("-webkit-text-size-adjust"),
+      tokens: colors.map(name => [name, style.getPropertyValue(name)]),
+    };
   });
-  await isolated.locator("#root").evaluate((node, { width, x, y, tokens, scheme }) => {
+  await isolated.locator("#root").evaluate((node, { width, x, y, tokens, scheme, textSizeAdjust }) => {
     node.style.width = width + "px";
     node.style.marginLeft = (8 + x) + "px";
     node.style.marginTop = (8 + y) + "px";
     document.body.style.margin = "0";
     document.documentElement.style.colorScheme = scheme;
+    if (textSizeAdjust) document.documentElement.style.setProperty("-webkit-text-size-adjust", textSizeAdjust);
     const preview = node.querySelector(".mx-recipe-frame") ?? node;
     if (preview !== node) preview.dataset.scheme = scheme;
     for (const [name, value] of tokens) preview.style.setProperty(name, value);
