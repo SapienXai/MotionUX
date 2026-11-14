@@ -13,7 +13,7 @@ The live inventory contains 82 references across DesignBookmark (51), Kokonut UI
 | 6 | 18 typography, simulated AI and audio previews. The playback demos use a local authored tone sample. |
 | 7 | 82/82 live previews and install paths; 320px stability sweep, 82 rest-state axe scans and desktop/mobile captures, with representative active-state visual review. Individual premium acceptance remains open. |
 
-**Release pending.** All 82 references are live previews. See the [per-reference ledger](REFERENCE-INVENTORY.md).
+**Release pending.** All 82 references are live previews. See the [per-reference ledger](REFERENCE-INVENTORY.md) and the [component acceptance review](COMPONENT-ACCEPTANCE.md).
 
 | Provider | Total | Ready | Needs review | Blocked |
 | --- | ---: | ---: | ---: | ---: |
