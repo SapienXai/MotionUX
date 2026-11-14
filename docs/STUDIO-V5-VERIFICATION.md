@@ -24,6 +24,8 @@ Optical differences remain in the original fixture photos, font rasterization, c
 
 Gallery and Playground share the existing 82 inventory items and the registry sources. Nearby previews are lazy-loaded and unmounted after they leave the viewport, unless focus is inside. The first six use gallery-specific compositions of existing components. The dropdown adds compatible options for an initially open inline specimen and a shape reveal. The default registry behavior continues to use the top-layer menu where supported.
 
+`npm run verify` passed lint, TypeScript, the registry and production builds, 2 registry unit tests, 82 copyable React examples, and 306 Playwright cases. `node scripts/registry-smoke.mjs` installed and typechecked all 86 items from the pushed V5 code in a clean consumer. A separate Chromium pass on the production build scrolled through and mounted all 82 Gallery specimens without a page error. Emulated touch events advanced the Swipe Deck and dismissed the mobile drawer, restoring focus to its opener.
+
 The [Studio interaction tests](../tests/studio-v5.spec.ts) cover desktop geometry, featured sequence, gallery isolation, arrow-key and RTL selection, disabled tab behavior, copy of actual TSX and CSS, search/history, carousel drag, loading/reset, card disclosure, backdrop and focus restoration, dark persistence and 10 supported viewport widths. The previous suite continues to verify all 82 deep links and the v1 examples. Chromium and WebKit runs use browser profiles. Supplementary Firefox smoke exercised Gallery, Tab Pill and the Install pane. Chromium 200% CSS zoom checks exercised Gallery and Turkish Playground without horizontal overflow. Physical iOS Safari, installed PWA and screen-reader hardware checks were outside these runs.
 
 The Code panel loads source from this build. Install uses the catalog’s previously verified published commit pin. The existing 82 reference records, 86 registry items and `v1.0.0` tag were preserved. BookPlace and DineWallet theme adapters run in Studio. There were no edits, releases or deploys to those products.
@@ -35,7 +37,7 @@ The Code panel loads source from this build. Install uses the catalog’s previo
 | Measurement | Observed |
 | --- | ---: |
 | First viewport JavaScript, gzip | 161,140 bytes |
-| Previously measured Studio shell + one featured preview, gzip | about 133,300 bytes |
+| First viewport JavaScript before V5, gzip | 133,283 bytes |
 | Script requests | 21 |
 | Initial preview mounts / catalog size | 6 / 82 |
 | LCP | 264 ms |
@@ -45,4 +47,4 @@ The Code panel loads source from this build. Install uses the catalog’s previo
 | Tab / dropdown / swipe wall time | 116 / 41 / 193 ms |
 | Theme / filter / scroll-to-tail wall time | 119 / 117 / 176 ms |
 
-Visuals can be recaptured using `MOTIONUX_V5_URL=http://127.0.0.1:4193 node scripts/capture-studio-v5.mjs <output-directory>`. Checkout verification uses `npm run verify`, and GitHub CI also installs the registry into a clean consumer.
+The baseline was rebuilt from `3387b75` and measured under the same conditions with one live preview. Visuals can be recaptured using `MOTIONUX_V5_URL=http://127.0.0.1:4193 node scripts/capture-studio-v5.mjs <output-directory>`. [GitHub Actions](https://github.com/SapienXai/MotionUX/actions/workflows/ci.yml?query=branch%3Amain) runs the suite and installs the registry into a clean consumer.
