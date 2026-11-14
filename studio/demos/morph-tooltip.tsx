@@ -8,7 +8,9 @@ const story: Specimen = {
     <MorphTooltip label={language === "tr" ? "Kalite hakkında" : "About image quality"} icon={<CircleHelp size={20} aria-hidden />}
       description={language === "tr" ? "Yüksek kalite dışa aktarılan dosyanın boyutunu artırabilir." : "Higher quality can increase the exported file size."} reducedMotion={reduced} />
   </div>,
-  usage: `import { MorphTooltip } from "@/components/sapienx-motion/morph-tooltip";
+  usage: `"use client";
+
+import { MorphTooltip } from "@/components/sapienx-motion/morph-tooltip";
 
 export function ExportHelp() {
   return <MorphTooltip label="About image quality"

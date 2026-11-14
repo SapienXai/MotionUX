@@ -19,15 +19,15 @@ function currentId() {
   return new URLSearchParams(location.search).get("item") || "";
 }
 
-function LiveSpecimen({ item, previewKey, reduced, language, view }: {
-  item: Reference; previewKey: number; reduced: boolean; language: "en" | "tr"; view: View;
+function LiveSpecimen({ item, previewKey, reduced, language, view, comparison }: {
+  item: Reference; previewKey: number; reduced: boolean; language: "en" | "tr"; view: View; comparison?: boolean;
 }) {
   const Preview = useMemo(() => lazy(async () => {
     const { default: story } = await previews[item.id]!();
-    return { default: ({ previewKey, reduced, language, view }: Omit<Parameters<typeof LiveSpecimen>[0], "item">) => (
+    return { default: ({ previewKey, reduced, language, view, comparison }: Omit<Parameters<typeof LiveSpecimen>[0], "item">) => (
       view === "Overview" ? <>
         <div className="mx-studio-interaction" data-testid="specimen-interaction" key={previewKey}>
-          <div lang={language}><story.component reduced={reduced} language={language} /></div>
+          <div lang={language}><story.component reduced={reduced} language={language} comparison={comparison} /></div>
         </div>
         <div className="mx-spec-notes"><p>{story.states}</p><p>{story.api}</p></div>
       </> : view === "Usage" ? <>
@@ -40,7 +40,7 @@ function LiveSpecimen({ item, previewKey, reduced, language, view }: {
     ) };
   }), [item.id]);
   return <Suspense fallback={<p className="mx-loading" role="status">Loading specimen…</p>}>
-    <Preview previewKey={previewKey} reduced={reduced} language={language} view={view} />
+    <Preview previewKey={previewKey} reduced={reduced} language={language} view={view} comparison={comparison} />
   </Suspense>;
 }
 
@@ -60,7 +60,7 @@ function Install({ item }: { item: Reference }) {
   const ref = item.version;
   if (!ref) return <p>Install instructions will appear after this component has a verified GitHub ref.</p>;
   return <><p>Run this in a React project with a shadcn configuration. The files are copied into your component alias.</p>
-    <CopyBlock content={`npx shadcn@latest add 'SapienXai/MotionUX/${item.registryItem}#${ref}'`} label="Copy install command" />
+    <CopyBlock content={`npx shadcn@4.23.0 add 'SapienXai/MotionUX/${item.registryItem}#${ref}'`} label="Copy install command" />
   </>;
 }
 
@@ -71,7 +71,7 @@ function Studio() {
   const [category, setCategory] = useState("all");
   const [provider, setProvider] = useState("all");
   const [filter, setFilter] = useState<Filter>("all");
-  const [sort, setSort] = useState("live");
+  const [sort, setSort] = useState("featured");
   const [scheme, setScheme] = useState<"light" | "dark">("light");
   const [theme, setTheme] = useState("neutral");
   const [size, setSize] = useState<Device>("Desktop");
@@ -96,7 +96,7 @@ function Studio() {
     return names.includes(query.trim().toLowerCase()) && (category === "all" || category === entry.category) &&
       (provider === "all" || provider === entry.provider) &&
       (filter === "all" || (filter === "demos" ? Boolean(previews[entry.id]) : entry.status === filter));
-  }).sort((a, b) => sort === "name" ? a.name.localeCompare(b.name) : sort === "live" ? Number(Boolean(previews[b.id])) - Number(Boolean(previews[a.id])) : a.order - b.order), [query, category, provider, filter, sort]);
+  }).sort((a, b) => sort === "name" ? a.name.localeCompare(b.name) : sort === "featured" ? Number(b.id === featured) - Number(a.id === featured) || a.order - b.order : a.order - b.order), [query, category, provider, filter, sort]);
   const open = (id: string) => {
     const url = new URL(location.href);
     url.searchParams.set("item", id);
@@ -160,7 +160,7 @@ function Studio() {
                 {compare && <section className="mx-comparison" aria-label="Reduced-motion comparison">
                   <h3>{prefersReduced ? "Reduced-motion reference" : "Compare with reduced motion"}</h3>
                   <MotionConfig reducedMotion="always">
-                    <LiveSpecimen key={item.id + "-static"} item={item} previewKey={reset} reduced language={language} view={view} />
+                    <LiveSpecimen key={item.id + "-static"} item={item} previewKey={reset} reduced language={language} view={view} comparison />
                   </MotionConfig>
                 </section>}
               </div>
@@ -168,6 +168,7 @@ function Studio() {
               {view === "Install" ? <Install item={item} /> : view === "Source" ? <>
                 <h3>{item.provider}</h3><p>{item.decision}</p><p>{item.sourceLicense}</p>
                 <a href={item.referencePreview}>View reference <ArrowUpRight size={14} aria-hidden /></a>
+                {item.version && <a href={`https://github.com/SapienXai/MotionUX/blob/${item.version}/registry.json`}>Pinned registry source <ArrowUpRight size={14} aria-hidden /></a>}
                 {item.test && <a href={`https://github.com/SapienXai/MotionUX/blob/main/${item.test}`}>Test evidence <ArrowUpRight size={14} aria-hidden /></a>}
               </> : hasDemo && shownView ? <LiveSpecimen item={item} previewKey={reset} reduced={prefersReduced} language={language} view={view} /> :
               <><p>{item.interaction}</p><p>This entry is tracked in the reference inventory. Its component and preview are pending.</p></>}
@@ -187,7 +188,7 @@ function Studio() {
             <select aria-label="Status" value={filter} onChange={(event) => setFilter(event.target.value as Filter)}>
               <option value="all">All statuses</option><option value="demos">Live demo</option><option value="ready">Ready</option><option value="needs-review">Needs review</option><option value="blocked">Blocked</option>
             </select>
-            <select aria-label="Sort" value={sort} onChange={(event) => setSort(event.target.value)}><option value="catalog">Catalog order</option><option value="name">Title A–Z</option><option value="live">Live first</option></select>
+            <select aria-label="Sort" value={sort} onChange={(event) => setSort(event.target.value)}><option value="catalog">Catalog order</option><option value="name">Title A–Z</option><option value="featured">Featured first</option></select>
           </div>
           <p className="mx-result-count" role="status">{filtered.length} matches</p>
           <ul className="mx-items" aria-label="Specimens">

@@ -5,6 +5,7 @@ import { DisclosureCard, StatCard } from "../../components/gestures/disclosure-c
 import { GooMenu, GooMorph, SimulatedUnlock } from "../../components/gestures/goo-studies";
 import { GlassLens, ParallaxTicket, PullRefresh } from "../../components/gestures/interactive-surfaces";
 import quietHills from "../assets/quiet-hills.webp";
+import { usageExample } from "./usage-example";
 import type { Specimen } from "../catalog";
 import "./demo.css";
 
@@ -19,11 +20,25 @@ const examples = {
   "fan-cards": ["FanCards", "deck-and-page", '<FanCards cards={cards} index={index} onIndexChange={setIndex} label="Journal" spreadLabel="Spread" gatherLabel="Gather" />', "Reveal the set, choose a study and return to a single card."],
   "parallax-ticket": ["ParallaxTicket", "interactive-surfaces", '<ParallaxTicket title="Night train" subtitle="Field study admission" serial="MX 0418" />', "Fine pointer movement tilts the ticket and shifts the foil. The ticket returns to rest on exit."],
   "glass-lens": ["GlassLens", "interactive-surfaces", '<GlassLens image={{ src: imageUrl, alt: "A misty ridge" }} label="Toggle magnification" hint="Use the arrow keys to move the lens." />', "Toggle the magnifier. The pointer and arrow keys move the selected inspection area."],
-  "pull-to-refresh": ["PullRefresh", "interactive-surfaces", '<PullRefresh label="Refresh" handleLabel="Pull down here" status={status} pending={pending} onRefresh={reload}><Feed /></PullRefresh>', "Pull the dedicated handle past its threshold or activate the labelled button."],
+  "pull-to-refresh": ["PullRefresh", "interactive-surfaces", '<PullRefresh label="Refresh" handleLabel="Pull down here" status={`Revision ${revision}`} pending={false} onRefresh={() => setRevision(revision + 1)}><p>Local feed</p></PullRefresh>', "Pull the dedicated handle past its threshold or activate the labelled button."],
   "goo-morph": ["GooMorph", "goo-studies", '<GooMorph label="Change shape" names={["Tide", "Current"]} index={shape} onIndexChange={setShape} />', "Two compatible paths form a single connected shape. The selected shape has a text label."],
   "goo-menu": ["GooMenu", "goo-studies", '<GooMenu label="Add to journal" actions={actions} onAction={id => console.info(id)} />', "The open action row grows from the trigger. Tab reaches each action and Escape closes it."],
-  "unlock-face-id": ["SimulatedUnlock", "goo-studies", '<SimulatedUnlock label="Play simulation" animationLabel="Visual simulation" phase={phase} status={status} onRun={play} />', "Visual simulation only. The component has no device or authentication integration."],
+  "unlock-face-id": ["SimulatedUnlock", "goo-studies", '<SimulatedUnlock label="Play simulation" animationLabel="Visual simulation" phase={done ? "done" : "idle"} status={done ? "Simulation finished" : "Ready"} onRun={() => setDone(true)} />', "Visual simulation only. The component has no device or authentication integration."],
 } as const;
+
+const exampleSetup: Partial<Record<keyof typeof examples, string>> = {
+  "stat-card": "const [value, setValue] = useState(\"week\");\n  const windows = [{ id: \"week\", label: \"Week\", value: \"24\", trend: \"Up 4%\", samples: [1, 3, 2, 4] }, { id: \"month\", label: \"Month\", value: \"108\", trend: \"Up 8%\", samples: [4, 6, 8, 8] }];",
+  "swipe-deck": "const [index, setIndex] = useState(0);\n  const cards = [{ id: \"1\", title: \"Ridge\", body: <p>Watch the clouds.</p> }, { id: \"2\", title: \"River\", body: <p>Cross at the bridge.</p> }];",
+  "page-flip": "const [index, setIndex] = useState(0);\n  const pages = [{ id: \"1\", title: \"First page\", body: <p>Notes for June.</p> }, { id: \"2\", title: \"Second page\", body: <p>Notes for July.</p> }];",
+  "fan-cards": "const [index, setIndex] = useState(0);\n  const cards = [{ id: \"1\", title: \"Ridge\" }, { id: \"2\", title: \"River\" }];",
+  "pull-to-refresh": "const [revision, setRevision] = useState(0);",
+  "goo-morph": "const [shape, setShape] = useState<0 | 1>(0);",
+  "goo-menu": "const actions = [{ id: \"draft\", label: \"New draft\", icon: <span aria-hidden>+</span> }];",
+  "unlock-face-id": "const [done, setDone] = useState(false);"
+};
+const exampleProps: Partial<Record<keyof typeof examples, string>> = {
+  "glass-lens": "{ imageUrl }: { imageUrl: string }"
+};
 
 type Kind = keyof typeof examples;
 export function cardStory(kind: Kind): Specimen {
@@ -102,7 +117,7 @@ export function cardStory(kind: Kind): Specimen {
       }
       return <div className="mx-demo mx-demo-center">{widget}</div>;
     },
-    usage: `"use client";\n\nimport { ${name} } from "@/components/sapienx-motion/${file}";\n\n// Render with your own content and state.\n${snippet}`,
+    usage: usageExample(name, `${file}`, snippet, exampleSetup[kind], exampleProps[kind]),
     states: detail, api: "Pass consumer content, labels and handlers.", accessibility: detail,
     performance: "Motion is scoped to the specimen. The associated reading and action state stays in the DOM.",
   };

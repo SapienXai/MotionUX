@@ -14,3 +14,11 @@ description: Use for React and Next.js UI work in SapienX projects, including na
 7. Run the applicable [quality gates](references/quality-gates.md) on real product routes, with mobile touch, keyboard, long localized labels, reduced motion and desktop. Document engine/device coverage, actual install, dependencies and failure cases. Never claim physical Safari or real payments from fixture or emulated testing.
 
 BookPlace public hotel styling comes from the hotel theme; do not alter its Core-owned PMS shell. DineWallet staff uses the repository's current DESIGN.md and semantic tokens; keep staff roles, history, amounts and backend-confirmed states intact.
+
+<!-- BEGIN MOTIONUX_CATALOG_AND_RELEASE -->
+## MotionUX catalog and contribution
+
+For SapienX React and Next.js UI, start from the product's existing interaction and review the [current MotionUX inventory](https://github.com/SapienXai/MotionUX/blob/main/docs/REFERENCE-INVENTORY.md). Choose a supported item for the user action and justify the fit using the route, input method and product tokens. Use stable tagged items for release work. An inventory entry with status `needs-review` is a Studio preview and can be evaluated in an isolated consumer at its reviewed commit SHA.
+
+When a reusable interaction is missing and the task authorizes a registry change, record the reference and legal provenance, specify timing and interruption, apply semantic tokens, write the API and live demo, test it, validate shadcn installation, and record the result in the inventory and changelog. Run design review and animation performance review independently. The [release checklist](https://github.com/SapienXai/MotionUX/blob/main/docs/RELEASE.md) records their evidence and the release decision.
+<!-- END MOTIONUX_CATALOG_AND_RELEASE -->

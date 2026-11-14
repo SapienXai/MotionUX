@@ -137,3 +137,13 @@ test("Unlock is clearly simulated and completes without authenticating", async (
   await stage.getByRole("button", { name: "Play simulation" }).click();
   await expect(stage.getByRole("status")).toHaveText("Simulation finished");
 });
+
+test("Rapid deck navigation keeps only the active specimen in the accessibility tree", async ({ page }) => {
+  await page.goto("/?item=designbookmark-swipe-deck");
+  const deck = page.getByRole("region", { name: "Field journal" });
+  const next = deck.getByRole("button", { name: "Next note" });
+  await next.press("Enter");
+  await next.press("Enter");
+  await expect(deck.getByRole("heading")).toHaveText("Valley notes");
+  await expect(deck.locator(".mx-deck-outgoing")).toHaveCount(0);
+});

@@ -11,6 +11,14 @@ The live inventory contains 82 references across DesignBookmark (51), Kokonut UI
 | 4 | 16 form previews. Playwright covered each of these on three browser profiles. |
 | 5 | 14 card and gesture previews. All 42 browser checks passed across three profiles. |
 | 6 | 18 typography, simulated AI and audio previews. The playback demos use a local authored tone sample. |
-| 7 | Inventory acceptance and cross-catalog quality checks in progress. |
+| 7 | 82/82 live previews and install paths; 320px stability sweep, representative axe and visual review. Individual premium acceptance remains open. |
 
-**Release pending.** See the [per-reference ledger](REFERENCE-INVENTORY.md).
+**Release pending.** All 82 references are live previews. See the [per-reference ledger](REFERENCE-INVENTORY.md).
+
+| Provider | Total | Ready | Needs review | Blocked |
+| --- | ---: | ---: | ---: | ---: |
+| DesignBookmark | 51 | 0 | 51 | 0 |
+| Kokonut UI | 25 | 0 | 25 | 0 |
+| SmoothUI | 6 | 0 | 6 | 0 |
+
+Complete visual and gesture review by reference. Known follow-ups include anchor-aware portal positioning for overlay studies, shared-layout continuity on expansion, signature stroke workload under real touch, and touch/scroll behavior outside emulation. Additional per-item reduced-motion and error cases, real-device tests, and consumer integration benchmarks are tracked in the [verification report](VERIFICATION.md).

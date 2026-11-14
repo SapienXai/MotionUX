@@ -6,12 +6,12 @@ import { useId } from "react";
 import "./async-feedback.css";
 
 export function StreamingReply({ label, summary, text, pending, onStop, stopLabel }: {
-  label: string; summary: string; text: string; pending: boolean; stopLabel: string; onStop: () => void;
+  label: string; summary: string; text: string; pending: boolean; stopLabel?: string; onStop?: () => void;
 }) {
   return <section data-mx-async="reply" aria-label={label}>
     <div className="mx-async-header"><strong>{label}</strong><span role="status">{summary}</span></div>
     <p className="mx-reply-copy" aria-busy={pending}>{text}</p>
-    {pending && <button type="button" onClick={onStop}><Square size={15} aria-hidden="true" />{stopLabel}</button>}
+    {pending && onStop && stopLabel && <button type="button" onClick={onStop}><Square size={15} aria-hidden="true" />{stopLabel}</button>}
   </section>;
 }
 

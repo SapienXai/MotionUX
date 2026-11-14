@@ -19,7 +19,9 @@ const story: Specimen = {
         }} />
     </div>;
   },
-  usage: `import { RubberDock } from "@/components/sapienx-motion/rubber-dock";
+  usage: `"use client";
+
+import { RubberDock } from "@/components/sapienx-motion/rubber-dock";
 
 export function Dock({ activeHref }: { activeHref: string }) {
   return <RubberDock label="Workspace" activeHref={activeHref} links={[

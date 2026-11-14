@@ -33,7 +33,7 @@ type Kind = keyof typeof configs;
 export function feedbackStory(kind: Kind): Specimen {
   const [name, file, snippet, states, api, accessibility] = configs[kind];
   return {
-    component: function Study({ reduced, language }) {
+    component: function Study({ reduced, language, comparison }) {
       const [count, setCount] = useState(0);
       const [state, setState] = useState<"idle" | "pending" | "success" | "error">("idle");
       const [decision, setDecision] = useState<"pending" | "approved" | "denied">("pending");
@@ -72,7 +72,7 @@ export function feedbackStory(kind: Kind): Specimen {
           const tile = kind === "kokonut-command-button";
           content = <><CommandButton label={tile ? word("Open workspace", "Çalışma alanını aç") : word("Export draft", "Taslağı dışa aktar")}
             variant={tile ? "tile" : "engraved"} shortcutLabel={tile ? "Alt O" : "Alt E"}
-            chord={{ key: tile ? "o" : "e", modifier: "alt" }} onExecute={step} /><p>{word("Invocations", "Çalıştırma")} · {number}</p></>; break;
+            chord={comparison ? undefined : { key: tile ? "o" : "e", modifier: "alt" }} onExecute={step} /><p>{word("Invocations", "Çalıştırma")} · {number}</p></>; break;
         }
         case "cart-button":
           content = <CartAction label={word("Add to bag", "Sepete ekle")} count={count} onAdd={step} reducedMotion={reduced} />; break;

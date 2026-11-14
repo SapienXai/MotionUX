@@ -1,7 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const url = (item: string) => `/?item=designbookmark-${item}`;
 const stage = "[data-testid=specimen-interaction]";
 
 test("catalog filters, themes, devices, Turkish, reset and comparison remain usable", async ({ page }) => {
@@ -31,7 +30,7 @@ test("catalog filters, themes, devices, Turkish, reset and comparison remain usa
 });
 
 test("Tab pill moves focus and shows only the associated panel", async ({ page }) => {
-  await page.goto(url("tab-pill"));
+  await page.goto("/?item=designbookmark-tab-pill");
   const tabs = page.getByRole("tablist", { name: "Project sections" });
   await tabs.getByRole("tab", { name: "Overview" }).focus();
   await page.keyboard.press("ArrowRight");
@@ -43,7 +42,7 @@ test("Tab pill moves focus and shows only the associated panel", async ({ page }
 });
 
 test("Bottom bar uses native links and presents a single current destination", async ({ page, isMobile }) => {
-  await page.goto(url("bottom-bar"));
+  await page.goto("/?item=designbookmark-bottom-bar");
   const dock = page.getByRole("navigation", { name: "Workspace navigation" });
   const inbox = dock.getByRole("link", { name: "Inbox" });
   if (isMobile) await inbox.tap();
@@ -54,7 +53,7 @@ test("Bottom bar uses native links and presents a single current destination", a
 });
 
 test("Segmented control changes the report using native radio arrows", async ({ page }) => {
-  await page.goto(url("segmented-control"));
+  await page.goto("/?item=designbookmark-segmented-control");
   await page.getByRole("radio", { name: "Week" }).focus();
   await page.keyboard.press("ArrowRight");
   await expect(page.getByRole("radio", { name: "Month" })).toBeChecked();
@@ -62,7 +61,7 @@ test("Segmented control changes the report using native radio arrows", async ({ 
 });
 
 test("Pagination dots honour boundaries and direct navigation", async ({ page }) => {
-  await page.goto(url("pagination-dots"));
+  await page.goto("/?item=designbookmark-pagination-dots");
   await expect(page.getByRole("button", { name: "Previous" })).toBeDisabled();
   await page.getByRole("button", { name: "Page 4" }).click();
   await expect(page.getByRole("button", { name: "Next" })).toBeDisabled();
@@ -70,7 +69,7 @@ test("Pagination dots honour boundaries and direct navigation", async ({ page })
 });
 
 test("Command palette exposes an empty result, executes a command and restores focus", async ({ page }) => {
-  await page.goto(url("command-palette"));
+  await page.goto("/?item=designbookmark-command-palette");
   const trigger = page.getByRole("button", { name: "Search commands" });
   await trigger.click();
   const dialog = page.getByRole("dialog", { name: "Commands" });
@@ -92,7 +91,7 @@ test("Command palette exposes an empty result, executes a command and restores f
 
 test("Pull cord supports keyboard, pointer detent and cancellation", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto(url("pull-cord"));
+  await page.goto("/?item=designbookmark-pull-cord");
   const button = page.getByRole("button", { name: "Studio light" });
   await button.press("Space");
   await expect(button).toHaveAttribute("aria-pressed", "true");
@@ -109,4 +108,17 @@ test("Pull cord supports keyboard, pointer detent and cancellation", async ({ pa
   await page.mouse.move(x, y + 58, { steps: 6 });
   await page.mouse.up();
   await expect(button).toHaveAttribute("aria-pressed", "false");
+});
+
+test("Studio copies a fully pinned install and a client usage example", async ({ page }) => {
+  await page.addInitScript(() => Object.defineProperty(navigator, "clipboard", {
+    value: { writeText: async (value: string) => { document.documentElement.dataset.copiedText = value; } },
+  }));
+  await page.goto("/?item=kokonut-glass-player");
+  await page.getByRole("button", { name: "Install", exact: true }).click();
+  await page.getByRole("button", { name: "Copy install command" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-copied-text", /npx shadcn@4\.23\.0 add 'SapienXai\/MotionUX\/glass-player#[a-f0-9]{40}'/);
+  await page.getByRole("button", { name: "Usage", exact: true }).click();
+  await page.getByRole("button", { name: "Copy React example" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-copied-text", /^"use client";\n[\s\S]+AudioControl[\s\S]+@\/components\/sapienx-motion\/audio-tools/);
 });

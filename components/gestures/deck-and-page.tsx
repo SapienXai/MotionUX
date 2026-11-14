@@ -1,8 +1,8 @@
 "use client";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useId, useRef, useState, type ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import "./deck-and-page.css";
 
 export type DeckCard = { id: string; title: string; body?: ReactNode; image?: { src: string; alt: string } };
@@ -19,39 +19,48 @@ export function CardDeck({ cards, index, onIndexChange, label, previousLabel, ne
   const system = useReducedMotion();
   const quiet = Boolean(system || reducedMotion);
   const [direction, setDirection] = useState(1);
+  const [previous, setPrevious] = useState<DeckCard | null>(null);
+  useEffect(() => {
+    if (!previous) return;
+    const timer = setTimeout(() => setPrevious(null), 420);
+    return () => clearTimeout(timer);
+  }, [previous]);
   const position = Math.max(0, Math.min(cards.length - 1, Math.trunc(index) || 0));
   const current = cards[position];
   function move(by: number) {
     const next = position + by;
     if (!cards[next]) return;
+    if (!quiet && current) setPrevious(current);
     setDirection(by);
     onIndexChange(next);
   }
   if (!current) return null;
   const page = variant === "page";
   return <section data-mx-deck={variant} aria-label={label}>
-    <div className="mx-deck-stage">
-      <AnimatePresence initial={false} mode="popLayout" custom={direction}>
-        <motion.article key={current.id} data-deck-card
-          drag={page || quiet ? false : "x"} dragConstraints={{ left: 0, right: 0 }} dragElastic={.8} dragMomentum={false}
-          onDragEnd={(_, info) => {
-            if (Math.abs(info.offset.x) >= 52 || Math.abs(info.velocity.x) >= 460 && Math.abs(info.offset.x) >= 18) move(info.offset.x < 0 ? 1 : -1);
-          }}
-          initial="arrive" animate="rest" exit="leave"
-          variants={quiet ? { arrive: { opacity: 1 }, rest: { opacity: 1 }, leave: { opacity: 0 } } : page ? {
-            arrive: (dir: number) => ({ rotateY: dir * -58, opacity: .2, x: dir * 14 }),
-            rest: { rotateY: 0, opacity: 1, x: 0 },
-            leave: (dir: number) => ({ rotateY: dir * 64, opacity: 0, x: dir * -12 }),
-          } : {
-            arrive: (dir: number) => ({ x: dir * 80, opacity: 0, rotate: dir * 4, scale: .94 }),
-            rest: { x: 0, opacity: 1, rotate: 0, scale: 1 },
-            leave: (dir: number) => ({ x: dir * -180, opacity: 0, rotate: dir * -8, scale: .96 }),
-          }} transition={quiet ? { duration: 0 } : settle}
-        >
-          {current.image && <img src={current.image.src} alt={current.image.alt} draggable={false} />}
-          <h3>{current.title}</h3>{current.body}
-        </motion.article>
-      </AnimatePresence>
+    <div className="mx-deck-stage" data-has-next={position < cards.length - 1}>
+      {!quiet && previous && previous.id !== current.id && <motion.div key={previous.id} className="mx-deck-outgoing" aria-hidden="true"
+        initial={{ opacity: .76 }}
+        animate={page ? { rotateY: direction * 64, opacity: 0, x: direction * -12 } :
+          { x: direction * -165, opacity: 0, rotate: direction * -8, scale: .96 }}
+        transition={{ duration: .34, ease: [.22, .64, .28, .98] }}>
+        <article inert>
+          {previous.image && <img src={previous.image.src} alt="" draggable={false} />}
+          <h3>{previous.title}</h3>{previous.body}
+        </article>
+      </motion.div>}
+      <motion.article key={current.id} data-deck-card
+        drag={page ? false : "x"} dragConstraints={{ left: 0, right: 0 }} dragElastic={quiet ? 0 : .8} dragMomentum={false}
+        onDragEnd={(_, info) => {
+          if (Math.abs(info.offset.x) >= 52 || Math.abs(info.velocity.x) >= 460 && Math.abs(info.offset.x) >= 18) move(info.offset.x < 0 ? 1 : -1);
+        }}
+        initial={quiet || !previous ? false : page ? { rotateY: direction * -58, opacity: .2, x: direction * 14 } :
+          { x: direction * 80, opacity: 0, rotate: direction * 4, scale: .94 }}
+        animate={page ? { rotateY: 0, opacity: 1, x: 0 } : { x: 0, opacity: 1, rotate: 0, scale: 1 }}
+        transition={quiet ? { duration: 0 } : settle}
+      >
+        {current.image && <img src={current.image.src} alt={current.image.alt} draggable={false} />}
+        <h3>{current.title}</h3>{current.body}
+      </motion.article>
     </div>
     <div className="mx-deck-controls">
       <button type="button" aria-label={previousLabel} disabled={position === 0} onClick={() => move(-1)}><ArrowLeft size={17} aria-hidden="true" /></button>

@@ -12,7 +12,9 @@ const story: Specimen = {
       }))
     } />
   </div>,
-  usage: `import { SwipeTabs } from "@/components/sapienx-motion/swipe-tabs";
+  usage: `"use client";
+
+import { SwipeTabs } from "@/components/sapienx-motion/swipe-tabs";
 
 export function Collection() {
   return <SwipeTabs label="Collection" pages={[

@@ -76,10 +76,10 @@ body { margin: 0; }
   background: var(--mx-bg); color: var(--mx-ink); min-block-size: 25rem; border: 1px solid var(--line); border-radius: .85rem; overflow: clip;
 }
 .mx-stage[data-theme="bookplace"] { --mx-bg:#f3ebdb; --mx-surface:#fff9ef; --mx-ink:#35271e; --mx-muted:#655447; --mx-line:#d6c1aa; --mx-accent:#7d4722; --mx-selected:#ebd8bc; --mx-on-accent:#fff9ef; }
-.mx-stage[data-theme="dinewallet"] { --mx-bg:#edf1e8; --mx-surface:#f8f9f3; --mx-ink:#182e23; --mx-muted:#43594b; --mx-line:#bdd0be; --mx-accent:#205439; --mx-selected:#d4e3cf; --mx-on-accent:#f4fff2; }
+.mx-stage[data-theme="dinewallet"] { --mx-bg:#f0efeb; --mx-surface:#faf9f6; --mx-ink:#202520; --mx-muted:#4d544d; --mx-line:#c9ccc5; --mx-accent:#26553e; --mx-selected:#dbe6dc; --mx-on-accent:#f7fcf5; }
 .mx-studio[data-scheme="dark"] .mx-stage { --mx-bg:#211d18; --mx-surface:#2a231b; --mx-ink:#fff4e5; --mx-muted:#d7c2ac; --mx-line:#695443; --mx-accent:#ffa281; --mx-selected:#4c3427; --mx-on-accent:#251810; }
 .mx-studio[data-scheme="dark"] .mx-stage[data-theme="bookplace"] { --mx-bg:#2b2119; --mx-surface:#34271d; --mx-ink:#ffedda; --mx-muted:#dac5a9; --mx-line:#76604b; --mx-accent:#f4b47d; --mx-selected:#4b3828; }
-.mx-studio[data-scheme="dark"] .mx-stage[data-theme="dinewallet"] { --mx-bg:#17251c; --mx-surface:#203228; --mx-ink:#f1ffeb; --mx-muted:#b8d2bc; --mx-line:#526c56; --mx-accent:#a5d7a0; --mx-selected:#344b3c; }
+.mx-studio[data-scheme="dark"] .mx-stage[data-theme="dinewallet"] { --mx-bg:#1c211e; --mx-surface:#252c27; --mx-ink:#f2f5ee; --mx-muted:#bfcbc1; --mx-line:#56665a; --mx-accent:#a6d6ad; --mx-selected:#35473c; --mx-on-accent:#16261b; }
 .mx-stage-meta { padding: .65rem .9rem; border-block-end: 1px solid var(--mx-line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: .3rem 1rem; color: var(--mx-muted); font-size: .72rem; }
 .mx-stage-body { margin-inline: auto; min-inline-size: 0; }
 .mx-studio-interaction { min-block-size: 15rem; display: grid; place-items: center; padding: 1.2rem clamp(.65rem, 3vw, 2.25rem); }

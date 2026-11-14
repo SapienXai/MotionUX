@@ -8,3 +8,7 @@
 .mx-composer-actions, .mx-ghost-suggestion { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: .5rem; }
 .mx-composer-actions small, .mx-ghost-suggestion span { color: var(--mx-muted, GrayText); overflow-wrap: anywhere; }
 .mx-composer-actions button { background: var(--mx-accent, Highlight); color: var(--mx-on-accent, HighlightText); }
+
+@media (pointer: coarse) {
+  [data-mx-composer] :is(input, textarea) { font-size: max(1em, 16px); }
+}

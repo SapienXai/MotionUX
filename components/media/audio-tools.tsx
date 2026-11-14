@@ -21,14 +21,14 @@ export function TimeScrubber({ label, elapsed, duration, onSeek, format, disable
 }
 
 type AudioProps = {
-  src: string; title: string; playLabel: string; pauseLabel: string; errorLabel: string; muted?: boolean;
+  src: string; title: string; subtitle?: string; playLabel: string; pauseLabel: string; errorLabel: string; muted?: boolean;
   seekLabel: string; format: (seconds: number) => string; variant?: "glass" | "toggle";
 };
 export function AudioControl(props: AudioProps) {
   return <AudioSession key={props.src} {...props} />;
 }
 
-function AudioSession({ src, title, playLabel, pauseLabel, errorLabel, seekLabel, format, variant = "glass", muted }: AudioProps) {
+function AudioSession({ src, title, subtitle, playLabel, pauseLabel, errorLabel, seekLabel, format, variant = "glass", muted }: AudioProps) {
   const audio = useRef<HTMLAudioElement>(null);
   const [state, setState] = useState<"idle" | "playing" | "starting" | "error">("idle");
   const [elapsed, setElapsed] = useState(0);
@@ -52,7 +52,7 @@ function AudioSession({ src, title, playLabel, pauseLabel, errorLabel, seekLabel
     <audio ref={audio} src={src} preload="none" muted={muted} onPlaying={() => setState("playing")} onPause={() => setState("idle")}
       onEnded={() => setState("idle")} onError={() => setState("error")} onTimeUpdate={(event) => setElapsed(event.currentTarget.currentTime)}
       onDurationChange={(event) => setDuration(event.currentTarget.duration)} />
-    <div className="mx-audio-identity"><Volume2 size={17} aria-hidden="true" /><strong>{title}</strong></div>
+    <div className="mx-audio-identity"><Volume2 size={17} aria-hidden="true" /><span><strong>{title}</strong>{subtitle && <small>{subtitle}</small>}</span></div>
     <button type="button" onClick={activate} aria-label={offeringPause ? pauseLabel : playLabel}>
       {offeringPause ? <Pause size={19} aria-hidden="true" /> : <Play size={19} aria-hidden="true" />}
     </button>

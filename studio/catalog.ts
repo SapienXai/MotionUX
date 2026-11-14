@@ -2,7 +2,7 @@ import type { ComponentType } from "react";
 import inventory from "../metadata/reference-inventory.json";
 
 export type Specimen = {
-  component: ComponentType<{ reduced: boolean; language: "en" | "tr" }>;
+  component: ComponentType<{ reduced: boolean; language: "en" | "tr"; comparison?: boolean }>;
   usage: string;
   api: string;
   states: string;

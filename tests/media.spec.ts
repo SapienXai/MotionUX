@@ -90,12 +90,14 @@ test("Ghost completion refuses a middle caret and accepts at the end", async ({ 
 test("Synthetic stream shows partial content and can complete after cancellation", async ({ page }) => {
   await page.goto("/?item=designbookmark-streaming-reply");
   const stage = page.getByTestId("specimen-interaction");
-  await stage.getByRole("button", { name: "Start reply" }).click();
+  await stage.getByRole("button", { name: "Start reply" }).press("Enter");
   await expect(stage.locator(".mx-reply-copy")).toContainText("At first light");
-  await stage.getByRole("button", { name: "Stop reply" }).click();
+  await expect(stage.getByRole("button", { name: "Stop reply" })).toBeFocused();
+  await stage.getByRole("button", { name: "Stop reply" }).press("Enter");
   await expect(stage.getByRole("status")).toHaveText("Demo stopped");
-  await stage.getByRole("button", { name: "Start reply" }).click();
+  await stage.getByRole("button", { name: "Start reply" }).press("Enter");
   await expect(stage.getByRole("status")).toHaveText("Demo finished");
+  await expect(stage.getByRole("button", { name: "Start reply" })).toBeFocused();
   await expect(stage.locator(".mx-reply-copy")).toContainText("Stop beside the river.");
 });
 

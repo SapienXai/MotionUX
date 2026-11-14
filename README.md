@@ -2,11 +2,11 @@
 
 **Make everyday interactions feel finished.**
 
-Give people a clear cue when they change pages, open a detail, or finish a task. MotionUX is a small shadcn registry for React teams that want thoughtful motion and accessible interaction without redesigning their product. Install one component, style it with your own tokens, and edit the source right in your project.
+Give people a clear cue when they change pages, open a detail, or finish a task. MotionUX is a shadcn registry for React teams that want thoughtful motion and accessible interaction without redesigning their product. Install one component, style it with your own tokens, and edit the source right in your project.
 
 [Install your first component](#quick-start) · [Browse the components](#components) · [Run the interactive demo](#try-the-demo) · [View v1.0.0](https://github.com/SapienXai/MotionUX/tree/v1.0.0)
 
-[![MotionUX demo showing a navigation dock, an expandable detail, and a status indicator](docs/evidence/motionux-registry-desktop.png)](#try-the-demo)
+[![MotionUX Studio displays its catalog beside an interactive tab specimen](docs/evidence/studio/studio-catalog-desktop.png)](#try-the-demo)
 
 - **Keep your design.** MotionUX supplies interaction behavior and timing. Your app sets the colors, typography, layout, and copy.
 - **Own the code you ship.** The shadcn CLI copies TypeScript and CSS into your project from the tagged GitHub registry. Review the diff and adapt the files as your product evolves. The app runs with those local files.
@@ -62,7 +62,7 @@ Use the same `SapienXai/MotionUX/<item>#v1.0.0` format to install any of these. 
 
 ## Try the demo
 
-Run the lab locally to try the dock, open the disclosure, and switch the status from pending to success or error. Use the local URL printed by Vite.
+Run MotionUX Studio to explore 82 live interactions, from a moving tab indicator and a swipeable deck to form controls and a local audio player. Open a specimen to try it, change the theme or viewport, compare reduced motion, and inspect its React API or pinned install. Use the local URL printed by Vite.
 
 ```sh
 git clone https://github.com/SapienXai/MotionUX.git
@@ -83,6 +83,8 @@ MotionUX is open source under MIT. Adapted components retain their upstream noti
 
 ## MotionUX Studio development
 
-The local demo opens Studio with the live reference index, search, theme and viewport controls. Each implemented specimen runs registry source and has its own detail view. Reference entries awaiting implementation are labelled in Studio. The v1 examples are available at `/?legacy=1`.
+Studio previews are available at exact commit SHAs while their visual and adoption reviews continue. The four tagged v1 items are the stable release. Open `/?item=designbookmark-swipe-deck#specimen` for a drag interaction, `/?item=kokonut-signature-pad#specimen` for a form control, or `/?legacy=1` for the original examples.
+
+Use the Studio Install view for the exact pin. Update a vendored component by inspecting the newer pin with `shadcn view` and `add --dry-run`, then reconcile the diff with your local changes. See the [release checklist](docs/RELEASE.md) and [changelog](CHANGELOG.md).
 
 [Implementation status](docs/IMPLEMENTATION-STATUS.md) · [Reference inventory](docs/REFERENCE-INVENTORY.md) · [Studio design](DESIGN.md)

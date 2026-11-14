@@ -15,7 +15,9 @@ const story: Specimen = {
         }))} reducedMotion={reduced} />
     </div>;
   },
-  usage: `import { SidebarCollapse } from "@/components/sapienx-motion/sidebar-collapse";
+  usage: `"use client";
+
+import { SidebarCollapse } from "@/components/sapienx-motion/sidebar-collapse";
 
 export function Sidebar() {
   return <SidebarCollapse label="Workspace" activeHref="/files" links={[

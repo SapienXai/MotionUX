@@ -13,3 +13,13 @@
 [data-mx-deck="fan"] > button { margin-top: .75rem; }
 .mx-fan-options:not([hidden]) { display: flex; justify-content: center; flex-wrap: wrap; gap: .3rem; }
 .mx-fan-options button[aria-pressed="true"] { background: var(--mx-selected, ButtonFace); }
+
+.mx-deck-outgoing { position: absolute; inset: 0; pointer-events: none; }
+[data-mx-deck="page"] .mx-deck-outgoing { transform-origin: left center; }
+[data-mx-deck="swipe"] .mx-deck-stage[data-has-next="true"] { margin-block-end: .55rem; }
+[data-mx-deck="swipe"] .mx-deck-stage[data-has-next="true"]::before,
+[data-mx-deck="swipe"] .mx-deck-stage[data-has-next="true"]::after {
+  content: ""; position: absolute; inset: .75rem .65rem -.22rem; z-index: -1;
+  background: var(--mx-selected, ButtonFace); border: 1px solid var(--mx-line, GrayText); border-radius: .72rem;
+}
+[data-mx-deck="swipe"] .mx-deck-stage[data-has-next="true"]::after { inset: 1rem 1.3rem -.42rem; z-index: -2; }

@@ -10,7 +10,9 @@ const story: Specimen = {
     return <div className="mx-demo"><StackPanel label={tr ? "Proje ayrıntıları" : "Project details"} defaultValue="0" reducedMotion={reduced}
       panels={cards.map(([title, text], i) => ({ value: String(i), title, body: <p>{text}</p> }))} /></div>;
   },
-  usage: `import { StackPanel } from "@/components/sapienx-motion/stack-panel";
+  usage: `"use client";
+
+import { StackPanel } from "@/components/sapienx-motion/stack-panel";
 
 export function ProjectNotes() {
   return <StackPanel label="Project notes" panels={[

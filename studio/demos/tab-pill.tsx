@@ -16,7 +16,9 @@ const story: Specimen = {
         return { value: String(i), label, icon: <Icon size={15} aria-hidden />, panel: <div className="mx-demo-sample"><strong>{title}</strong><p>{text}</p></div> };
       })} />
   </div>,
-  usage: `import { TabPill } from "@/components/sapienx-motion/motion-selector";
+  usage: `"use client";
+
+import { TabPill } from "@/components/sapienx-motion/motion-selector";
 
 export function ProjectTabs() {
   return <TabPill label="Project sections" options={[

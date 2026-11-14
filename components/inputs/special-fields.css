@@ -31,3 +31,7 @@ fieldset[data-mx-special] { box-sizing: border-box; min-inline-size: 0; margin: 
 }
 
 .mx-wheel-viewport::before, .mx-wheel-viewport::after { content: ""; min-block-size: 2.75rem; }
+
+@media (pointer: coarse) {
+  [data-mx-special] input:not([type="file"], [type="radio"]) { font-size: max(1em, 16px); }
+}

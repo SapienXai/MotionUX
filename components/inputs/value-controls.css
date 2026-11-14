@@ -50,3 +50,7 @@ fieldset[data-mx-values] { box-sizing: border-box; margin: 0; padding: .6rem; bo
 .mx-value-dial[data-disabled="false"] { touch-action: none; cursor: grab; }
 .mx-value-dial[data-disabled="false"]:active { cursor: grabbing; }
 .mx-value-dial i { pointer-events: none; }
+
+@media (pointer: coarse) {
+  .mx-stepper input { font-size: max(1em, 16px); }
+}

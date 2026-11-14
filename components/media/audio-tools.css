@@ -16,3 +16,6 @@
 .mx-orb-sphere { position: relative; display: grid; place-items: center; inline-size: 6rem; aspect-ratio: 1; isolation: isolate; overflow: hidden; border-radius: 50%; background: radial-gradient(circle at 62% 15%, #efe8fc 0%, #b9c1f1 31%, #534886 64%, #242340 94%); box-shadow: inset -3px -8px 22px #19172880, 0 9px 19px #4c3c7550; }
 .mx-orb-sphere i { position: absolute; inset: 17%; border-radius: 40% 60% 57% 43% / 60% 51% 49% 40%; background: radial-gradient(ellipse at 35% 50%, #fbdbf1cf 0%, #589dec90 48%, #ffffff00 75%); }
 .mx-orb-sphere[data-active="true"] { box-shadow: inset -3px -8px 22px #29216c80, 0 8px 25px #7b56c77f; }
+
+.mx-audio-identity :is(strong, small) { display: block; }
+.mx-audio-identity small { color: var(--mx-muted, GrayText); margin-block-start: .12rem; }

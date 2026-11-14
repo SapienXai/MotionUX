@@ -20,7 +20,9 @@ const story: Specimen = {
       <div className="mx-demo-sample"><p>{active.text}</p><strong>{active.count}</strong></div>
     </div>;
   },
-  usage: `import { SegmentedControl } from "@/components/sapienx-motion/motion-selector";
+  usage: `"use client";
+
+import { SegmentedControl } from "@/components/sapienx-motion/motion-selector";
 
 export function PeriodControl() {
   return <SegmentedControl name="period" label="Reporting period" defaultValue="week" options={[

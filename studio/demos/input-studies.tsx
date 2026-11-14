@@ -3,6 +3,7 @@ import { LetterLimit, OtpCode, PasswordStrength, SpringField, TagInput } from ".
 import { CheckboxList, NumberStepper, RangePair, StarRating, ValueSlider } from "../../components/inputs/value-controls";
 import { CardField, FileDrop, SignaturePad, WheelPicker, type CardDetails, type InkPoint } from "../../components/inputs/special-fields";
 import quietHills from "../assets/quiet-hills.webp";
+import { usageExample } from "./usage-example";
 import type { Specimen } from "../catalog";
 import "./demo.css";
 import "./input-studies.css";
@@ -25,6 +26,25 @@ const examples = {
   "signature-pad": ["SignaturePad", "special-fields", '<SignaturePad label="Signature" typeLabel="Type your name" undoLabel="Undo stroke" clearLabel="Clear" value={signature} onValueChange={setSignature} />', "Draw on the bounded surface or use the labelled text alternative."],
   "wheel-picker": ["WheelPicker", "special-fields", '<WheelPicker label="Check-in time" values={[{ id: "14", label: "14:00" }, { id: "15", label: "15:00" }]} value={value} onValueChange={setValue} />', "Native radio detents align to scroll snap. Arrows, Home and End select directly."],
 } as const;
+
+const exampleSetup: Partial<Record<keyof typeof examples, string>> = {
+  "letter-limit": "const [value, setValue] = useState(\"\");",
+  "springy-input": "const [value, setValue] = useState(\"\");",
+  "otp-code": "const [value, setValue] = useState(\"\");",
+  "tag-input": "const [tags, setTags] = useState<string[]>([]);",
+  "checkbox-list": "const [tags, setTags] = useState<string[]>([]);",
+  "password-strength": "const [value, setValue] = useState(\"\");",
+  "jelly-slider": "const [amount, setAmount] = useState(35);",
+  "exposure-slider": "const [amount, setAmount] = useState(0);",
+  "detent-dial": "const [amount, setAmount] = useState(4);",
+  "range-slider": "const [range, setRange] = useState<[number, number]>([25, 75]);",
+  "number-stepper": "const [amount, setAmount] = useState(2);",
+  "star-rating": "const [amount, setAmount] = useState(3);",
+  "file-drop": "const [files, setFiles] = useState<File[]>([]);",
+  "card-field": "const [card, setCard] = useState({ number: \"\", expiry: \"\", code: \"\" });",
+  "signature-pad": "const [signature, setSignature] = useState<{ typed: string; strokes: readonly (readonly { x: number; y: number }[])[] }>({ typed: \"\", strokes: [] });",
+  "wheel-picker": "const [value, setValue] = useState(\"14\");"
+};
 
 type Kind = keyof typeof examples;
 export function inputStory(kind: Kind): Specimen {
@@ -107,7 +127,7 @@ export function inputStory(kind: Kind): Specimen {
       }
       return <div className="mx-demo mx-demo-center">{control}</div>;
     },
-    usage: `"use client";\n\nimport { ${name} } from "@/components/sapienx-motion/${file}";\n\n// Render inside a client component with caller-owned values.\n${snippet}`,
+    usage: usageExample(name, `${file}`, snippet, exampleSetup[kind]),
     states: detail, api: "Control the submitted value from your form. Labels are configurable.",
     accessibility: detail, performance: "Input events are immediate. Motion is isolated from the committed form value.",
   };

@@ -26,3 +26,28 @@ test("every installable item is built from real files with catalog provenance", 
     }
   }
 });
+
+const reference = await read("../metadata/reference-inventory.json");
+const studioCatalog = await readFile(new URL("../studio/catalog.ts", import.meta.url), "utf8");
+const implementationPaths = new Set(registry.items.map(({ name }) => name));
+
+test("all 82 live references have a distinct registry and Studio entry with source and test evidence", async () => {
+  assert.equal(reference.items.length, 82);
+  for (const key of ["id", "registryItem", "order"]) {
+    assert.equal(new Set(reference.items.map((item) => item[key])).size, 82, key);
+  }
+  assert.deepEqual(Object.fromEntries(["DesignBookmark", "Kokonut UI", "SmoothUI"].map((provider) =>
+    [provider, reference.items.filter((item) => item.provider === provider).length])), { DesignBookmark: 51, "Kokonut UI": 25, SmoothUI: 6 });
+  for (const item of reference.items) {
+    assert.ok(implementationPaths.has(item.registryItem), item.id);
+    assert.ok(studioCatalog.includes(`"${item.id}": () => import(`), item.id);
+    assert.equal(item.preview, `/?item=${item.id}`);
+    assert.match(item.version, /^[0-9a-f]{40}$/);
+    assert.ok(item.sourceUrl && item.sourceLicense && item.decision, item.id);
+    const tests = await readFile(new URL(`../${item.test}`, import.meta.url), "utf8");
+    assert.ok(tests.includes(item.id), `Missing source-qualified browser case for ${item.id}`);
+    if (item.status === "ready") {
+      assert.ok(item.evidence, `Ready item ${item.id} requires reviewed visual evidence`);
+    }
+  }
+});

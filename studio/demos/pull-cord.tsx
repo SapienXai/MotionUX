@@ -13,7 +13,9 @@ const story: Specimen = {
       <p>{tr ? "İpi çekin veya düğmeye basın." : "Pull the cord or press its handle."}</p>
     </div>;
   },
-  usage: `import { PullCord } from "@/components/sapienx-motion/pull-cord";
+  usage: `"use client";
+
+import { PullCord } from "@/components/sapienx-motion/pull-cord";
 
 export function LightControl() {
   return <PullCord label="Studio light" defaultChecked={false} />;

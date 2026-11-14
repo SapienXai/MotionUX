@@ -9,10 +9,11 @@ const git = (...args) => {
   if (result.status !== 0) throw new Error(result.stderr);
   return result.stdout.trim();
 };
-const pin = process.env.MOTIONUX_REGISTRY_REF ?? git("rev-parse", "HEAD");
-if (!/^[a-f0-9]{40}$/.test(pin)) throw new Error("Provide the full published registry SHA.");
+const local = process.argv.includes("--local");
+const pin = local ? undefined : process.env.MOTIONUX_REGISTRY_REF ?? git("rev-parse", "HEAD");
+if (pin && !/^[a-f0-9]{40}$/.test(pin)) throw new Error("Provide the full published registry SHA.");
 const registry = JSON.parse(readFileSync("registry.json", "utf8"));
-const addresses = registry.items.map((item) => `SapienXai/MotionUX/${item.name}#${pin}`);
+const addresses = registry.items.map((item) => local ? resolve(`public/r/${item.name}.json`) : `SapienXai/MotionUX/${item.name}#${pin}`);
 const scratch = mkdtempSync(join(tmpdir(), "motionux-registry-"));
 const cli = resolve("node_modules/.bin/shadcn");
 
@@ -38,7 +39,7 @@ try {
   for (const offset of Array.from({ length: Math.ceil(addresses.length / 12) }, (_, index) => index * 12)) {
     run(cli, ["view", ...addresses.slice(offset, offset + 12)], true);
   }
-  console.log(`Viewed ${addresses.length} registry items at ${pin}`);
+  console.log(`Viewed ${addresses.length} registry items at ${pin ?? "the local build"}`);
   run("npm", ["install", "--no-audit", "--no-fund"]);
   for (let i = 0; i < addresses.length; i += 12) {
     const batch = addresses.slice(i, i + 12);

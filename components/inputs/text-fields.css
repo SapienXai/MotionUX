@@ -58,3 +58,7 @@
 .mx-password-rules > span { display: flex; gap: .45rem; align-items: center; }
 .mx-password-rules [data-met="false"] svg { opacity: .22; }
 .mx-rule-semantics { margin-inline-start: auto; font-weight: 700; }
+
+@media (pointer: coarse) {
+  [data-mx-field] :is(input, textarea) { font-size: max(1em, 16px); }
+}

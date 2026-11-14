@@ -28,7 +28,9 @@ const story: Specimen = {
         }} />
     </div>;
   },
-  usage: `import { BottomBar } from "@/components/sapienx-motion/motion-selector";
+  usage: `"use client";
+
+import { BottomBar } from "@/components/sapienx-motion/motion-selector";
 
 export function AccountNavigation({ pathname }: { pathname: string }) {
   return <BottomBar label="Account navigation" activeHref={pathname} links={[

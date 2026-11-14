@@ -12,3 +12,7 @@ Installable source at `SapienXai/MotionUX/<item>#v1.0.0`. All items work with Re
 The dock uses ordinary navigation semantics (not ARIA tabs or swipe gestures) and does not own routing. Selection is colored by the consumer; the 180 ms animated cue stays decorative. The disclosure opens natively even without JS and closes immediately so hidden content is never left focusable. Its ChevronDown and timing treatment come from SmoothUI; Base UI and height animation were replaced by native details and transform/opacity. The pill’s static label updates without waiting for animation; color and icon supplement the text. Kokonut’s demo editor, timers, simulated save and status logic were excluded. Set `announce` only where a meaningful state changes.
 
 See [machine-readable provenance](https://github.com/SapienXai/MotionUX/blob/v1.0.0/metadata/components.json), [source review](https://github.com/SapienXai/MotionUX/blob/main/docs/SOURCE-REVIEW.md) and [test evidence](https://github.com/SapienXai/MotionUX/blob/main/docs/VERIFICATION.md).
+
+## Studio previews
+
+Browse the [source-qualified reference inventory](https://github.com/SapienXai/MotionUX/blob/main/docs/REFERENCE-INVENTORY.md) for Studio IDs, controlled APIs, per-item tests and preview commit pins. Use the existing project package runner to inspect the pinned source and install diff. A working Studio preview is suitable for evaluation and can receive a stable release pin after acceptance.
