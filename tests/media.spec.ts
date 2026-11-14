@@ -116,11 +116,15 @@ test("Voice input simulates its state without requesting the microphone", async 
 });
 
 test("Thinking phases do not change the functional live status", async ({ page }) => {
+  await page.clock.install();
   await page.goto("/?item=kokonut-thinking-text");
   const stage = page.getByTestId("specimen-interaction");
   await stage.getByRole("button", { name: "Try phases" }).click();
+  await expect(stage.getByRole("status")).toHaveText("Demo running");
+  await page.clock.runFor(270);
   await expect(stage.getByText("Reading", { exact: true })).toBeVisible();
   await expect(stage.getByRole("status")).toHaveText("Demo running");
+  await page.clock.runFor(1500);
   await expect(stage.getByRole("status")).toHaveText("Demo finished");
 });
 

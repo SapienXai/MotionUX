@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { ChevronDown, Ellipsis } from "lucide-react";
 import "./action-menu.css";
 
@@ -17,9 +17,64 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
   const [above, setAbove] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  const overlay = useRef<HTMLDivElement>(null);
   const menu = useRef<HTMLDivElement>(null);
   const position = useRef(0);
   const enabled = () => Array.from(menu.current?.querySelectorAll<HTMLButtonElement>("button:not(:disabled)") ?? []);
+
+  useLayoutEffect(() => {
+    const layer = overlay.current;
+    const button = trigger.current;
+    if (!open || !layer || !button || typeof layer.showPopover !== "function") return;
+    layer.setAttribute("popover", "manual");
+    layer.showPopover();
+    const place = () => {
+      const target = button.getBoundingClientRect();
+      const viewport = window.visualViewport;
+      const bounds = {
+        left: viewport?.offsetLeft ?? 0, top: viewport?.offsetTop ?? 0,
+        width: viewport?.width ?? innerWidth, height: viewport?.height ?? innerHeight,
+      };
+      const gutter = 8;
+      const inlineLimit = Math.max(24, bounds.width - gutter * 2);
+      layer.style.setProperty("--mx-menu-width", inlineLimit + "px");
+      const width = layer.offsetWidth;
+      const desiredHeight = menu.current?.scrollHeight ?? layer.offsetHeight;
+      const roomBelow = bounds.top + bounds.height - target.bottom - gutter;
+      const roomAbove = target.top - bounds.top - gutter;
+      const upward = roomBelow < desiredHeight + gutter && roomAbove > roomBelow;
+      const height = Math.max(44, Math.min(desiredHeight, (upward ? roomAbove : roomBelow) - gutter));
+      const rtl = getComputedStyle(button).direction === "rtl";
+      const left = Math.min(Math.max(rtl ? target.right - width : target.left, bounds.left + gutter), bounds.left + bounds.width - width - gutter);
+      layer.style.setProperty("--mx-menu-top", (upward ? target.top - height - gutter : target.bottom + gutter) + "px");
+      layer.style.setProperty("--mx-menu-left", left + "px");
+      layer.style.setProperty("--mx-menu-height", height + "px");
+      layer.dataset.upward = String(upward);
+    };
+    place();
+    const viewport = window.visualViewport;
+    let frame = 0;
+    const schedule = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => { frame = 0; place(); });
+    };
+    window.addEventListener("resize", schedule);
+    window.addEventListener("scroll", schedule, true);
+    viewport?.addEventListener("resize", schedule);
+    viewport?.addEventListener("scroll", schedule);
+    const observer = typeof ResizeObserver === "function" ? new ResizeObserver(schedule) : undefined;
+    observer?.observe(button);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer?.disconnect();
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("scroll", schedule, true);
+      viewport?.removeEventListener("resize", schedule);
+      viewport?.removeEventListener("scroll", schedule);
+      if (layer.matches(":popover-open")) layer.hidePopover();
+      layer.removeAttribute("popover");
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -54,7 +109,7 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
       {variant === "dynamic" && <Ellipsis size={17} aria-hidden />}{label}
       {variant !== "dynamic" && <ChevronDown size={15} aria-hidden />}
     </button>
-    {open && <motion.div ref={menu} id={id} role="menu" aria-label={label} className="mx-menu-items"
+    {open && <div ref={overlay} className="mx-menu-layer"><motion.div ref={menu} id={id} role="menu" aria-label={label} className="mx-menu-items"
       initial={noMotion ? false : { opacity: .65, y: above ? 6 : -6, scale: variant === "morph" ? .84 : .96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={noMotion ? { duration: 0 } : { type: "spring", stiffness: 445, damping: 34 }}
@@ -72,6 +127,6 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
       }}>
       {actions.map((item) => <button type="button" role="menuitem" key={item.id} tabIndex={-1} disabled={item.disabled}
         onClick={() => { close(true); onAction(item.id); }}><span aria-hidden="true">{item.icon}</span>{item.label}</button>)}
-    </motion.div>}
+    </motion.div></div>}
   </div>;
 }

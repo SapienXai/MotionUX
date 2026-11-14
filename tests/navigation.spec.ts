@@ -82,3 +82,25 @@ test("Stack panel closes the previous record when another opens", async ({ page 
   await expect(page.getByRole("button", { name: "Project brief" })).toHaveAttribute("aria-expanded", "false");
   await expect(page.getByText("Review takes place on Thursday.")).toBeVisible();
 });
+
+test("Action menu escapes a clipped ancestor and stays within the viewport", async ({ page }) => {
+  await page.goto("/?item=designbookmark-spring-dropdown");
+  const trigger = page.getByRole("button", { name: "Sort by" });
+  await trigger.evaluate((element) => {
+    const root = element.parentElement!;
+    root.style.overflow = "hidden";
+  });
+  await trigger.press("ArrowDown");
+  const layer = page.locator(".mx-menu-layer");
+  const supportsTopLayer = await page.evaluate(() => typeof HTMLElement.prototype.showPopover === "function");
+  if (supportsTopLayer) {
+    await expect(layer).toHaveJSProperty("popover", "manual");
+    const bounds = await layer.boundingBox();
+    const viewport = page.viewportSize()!;
+    expect(bounds!.x).toBeGreaterThanOrEqual(0);
+    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width);
+    expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(viewport.height);
+  }
+  await page.getByRole("menuitem", { name: "Newest" }).press("Enter");
+  await expect(trigger).toBeFocused();
+});
