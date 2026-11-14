@@ -1,0 +1,22 @@
+# MotionUX
+
+<!-- impeccable:product-schema 1 -->
+
+## Platform
+
+web
+
+## Users
+
+React teams evaluating or adopting reusable product interactions. They need to feel the behavior, inspect its implementation and install a fixed version into their own app.
+
+## Capabilities and constraints
+
+MotionUX distributes individual source files through its shadcn GitHub registry. Studio runs the same components as the installed source. Consumers retain their theme, application state and business rules. The v1.0.0 tag is immutable. The v2 release depends on per-reference implementation, provenance, interaction tests and visual review.
+
+## Product principles
+
+- Let visitors try a real interaction before asking them to read its API.
+- Use motion to make position, state or action feedback easier to understand.
+- Preserve keyboard, touch and reduced-motion controls.
+- Show verification status and source rights for each reference.
