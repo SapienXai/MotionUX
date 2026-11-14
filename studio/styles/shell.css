@@ -89,11 +89,12 @@ body { margin: 0; }
   .mx-drawer::backdrop { background: #19152766; overflow: hidden; overscroll-behavior: contain; }
   .mx-studio:has(.mx-drawer[open]) .mx-main-frame { touch-action: none; }
   html:has(.mx-drawer[open]) { overscroll-behavior: none; }
-  .mx-drawer-panel { inline-size: min(320px, calc(100% - 38px)); block-size: 100%; padding-block-start: env(safe-area-inset-top); padding-block-end: max(12px, env(safe-area-inset-bottom)); border-inline-end: 1px solid var(--line); animation: mx-drawer-in .24s cubic-bezier(.2,.75,.2,1); }
+  .mx-drawer-panel { touch-action: pan-y; inline-size: min(320px, calc(100% - 38px)); block-size: 100%; padding-block-start: env(safe-area-inset-top); padding-block-end: max(12px, env(safe-area-inset-bottom)); border-inline-end: 1px solid var(--line); animation: mx-drawer-in .24s cubic-bezier(.2,.75,.2,1); }
   .mx-drawer-panel .mx-side-brand { min-block-size: 83px; padding: 15px 0 11px; gap: 10px; }
   .mx-drawer-panel .mx-side-row { min-block-size: 44px; }
   .mx-side-scroll { overscroll-behavior: contain; }
   .mx-drawer-panel .mx-promo { margin-block-start: 12px; }
+  .mx-drawer-panel .mx-side-scroll { flex: 1 1 auto; }
   .mx-drawer-panel .mx-more { min-block-size: 44px; }
 }
 @keyframes mx-drawer-in { from { transform: translateX(-100%); } }

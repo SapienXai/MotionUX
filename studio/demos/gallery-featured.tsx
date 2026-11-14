@@ -28,7 +28,7 @@ function Loading({ reduced }: { reduced: boolean }) {
     return () => clearTimeout(timeout);
   }, [state, reduced]);
   return <div className="mx-feature-loading" data-outcome={state}>
-    <button className="mx-feature-process" type="button" aria-label={state === "success" ? "Run again" : "Start simulated processing"}
+    <button className="mx-feature-process" type="button" aria-label={state === "success" ? "Processing… completed. Run again" : "Processing… start simulation"}
       aria-disabled={state === "pending"} onClick={() => { if (state !== "pending") setState("pending"); }}>
       <span className="mx-processing-ring" aria-hidden="true" />Processing…
     </button>

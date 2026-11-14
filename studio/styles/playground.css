@@ -39,6 +39,8 @@
   .mx-play-tabs { gap: 4px; padding-block-end: 7px; }
   .mx-play-tabs .mx-button { padding-inline: 7px; }
   .mx-studio-interaction { min-block-size: 235px; }
+  .mx-studio-interaction .mx-selector-track > [role="tab"] { font-size: .85rem; padding-inline: .3rem; }
+  .mx-studio-interaction .mx-selector-track > [role="tab"] svg { flex: 0 0 auto; }
   .mx-directory a { grid-template-columns: minmax(0,1fr) auto; }
   .mx-directory a svg { grid-column: 2; }
 }

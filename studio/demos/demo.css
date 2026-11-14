@@ -2,6 +2,6 @@
 .mx-demo h3 { font-weight: 680; font-size: 1rem; margin: .1rem 0 .3rem; }
 .mx-demo p { margin-block: .3rem; overflow-wrap: anywhere; color: var(--mx-muted); }
 .mx-demo-sample { padding: 1rem; background: var(--mx-surface); border: 1px solid var(--mx-line); border-radius: .75rem; min-block-size: 6rem; }
-.mx-demo-sample strong { display: block; font: 400 2.15rem/1.05 "Instrument Serif", Georgia, serif; color: var(--mx-ink); }
+.mx-demo-sample strong { display: block; font: 400 2.15rem/1.05 "Inter Variable", Inter, sans-serif; color: var(--mx-ink); }
 .mx-demo-center { display: grid; justify-items: center; gap: .75rem; text-align: center; }
 .mx-demo-button { min-block-size: 44px; padding: .45rem .7rem; border: 1px solid var(--mx-line); border-radius: .5rem; background: var(--mx-surface); color: var(--mx-ink); }

@@ -98,8 +98,8 @@ export default function Playground({ item, route, back, reduced, systemReduced }
       <details className="mx-play-settings"><summary>Preview settings</summary><div className="mx-play-controls">
         <div className="mx-play-devices" role="group" aria-label="Preview width">{Object.entries(widths).map(([name, [Icon]]) => <button type="button" className="mx-icon" key={name}
           title={name} aria-label={name} aria-pressed={device === name} onClick={() => setDevice(name as Device)}><Icon size={18} /></button>)}</div>
-        <label>Theme <select value={theme} onChange={event => setTheme(event.target.value)}><option value="neutral">Neutral</option><option value="bookplace">BookPlace</option><option value="dinewallet">DineWallet</option></select></label>
-        <label>Language <select value={language} onChange={event => setLanguage(event.target.value as "en" | "tr")}><option value="en">English</option><option value="tr">Türkçe</option></select></label>
+        <label>Theme <select aria-label="Theme" value={theme} onChange={event => setTheme(event.target.value)}><option value="neutral">Neutral</option><option value="bookplace">BookPlace</option><option value="dinewallet">DineWallet</option></select></label>
+        <label>Language <select aria-label="Language" value={language} onChange={event => setLanguage(event.target.value as "en" | "tr")}><option value="en">English</option><option value="tr">Türkçe</option></select></label>
         <label className="mx-check"><input type="checkbox" checked={minimize} disabled={systemReduced} onChange={event => setQuiet(event.target.checked)} /> Reduced motion</label>
         <button type="button" className="mx-button" aria-pressed={compare} onClick={() => setCompare(!compare)}>Compare</button>
         {hasFeatured && <button type="button" className="mx-button" aria-pressed={galleryExample} disabled={language !== "en"} onClick={() => setGalleryExample(!galleryExample)}>Gallery example</button>}
@@ -111,6 +111,6 @@ export default function Playground({ item, route, back, reduced, systemReduced }
         </div>
       </div>
       <div className="mx-play-notes">{story && <p>{story.states}</p>}</div>
-    </> : <section className="mx-inspector" aria-label={panel}><Inspector item={item} panel={panel} story={story} /></section>}
+    </> : <section className="mx-inspector" aria-label={panel}>{error && ["Props", "Variants", "States", "Usage", "Accessibility"].includes(panel) ? <PreviewError retry={retry} /> : <Inspector item={item} panel={panel} story={story} />}</section>}
   </article>;
 }

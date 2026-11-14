@@ -18,19 +18,23 @@ export function intercept(event: MouseEvent<HTMLAnchorElement>, action: () => vo
 }
 function Brand({ route, navigate }: { route: Route; navigate: Navigate }) {
   const home: Route = { ...route, page: "gallery", item: "", category: "", query: "" };
-  return <a className="mx-brand" href={hrefFor(home)} aria-label="MotionUX Studio home" onClick={event => intercept(event, () => navigate(home))}>
+  return <a className="mx-brand" href={hrefFor(home)} onClick={event => intercept(event, () => navigate(home))}>
     <svg viewBox="0 0 57 42" width="56" height="42" aria-hidden="true">
       <path fill="#fa7975" d="M7 35c-4-3-4-8-1-12L23 5c4-4 10-4 13 0 3 3 3 8 0 11L19 35c-3 4-9 4-12 0Z"/>
       <path fill="#f76868" d="M25 35c-4-3-4-8-1-12L41 5c4-4 10-4 13 0 3 3 3 8 0 11L37 35c-3 4-9 4-12 0Z"/>
       <path fill="#e95657" fillOpacity=".56" d="m22 25 12-13-5 15c-1 3-4 4-6 2-1-1-1-3-1-4Z"/>
-    </svg><span><strong>MotionUX</strong><small>Studio</small></span>
+    </svg><span><strong>MotionUX</strong>{" "}<small>Studio</small></span>
   </a>;
 }
 
 function Sidebar({ route, navigate, lastItem, reduced, mobile, close }: { route: Route; navigate: Navigate; lastItem: string; reduced: boolean; mobile?: boolean; close?: () => void }) {
-  const [more, setMore] = useState(false);
+  const [more, setMore] = useState(() => categories.slice(6).some(name => route.category === name.toLowerCase()));
   const primaryCategory = categories.slice(0, 6);
-  const selectedSecondary = categories.slice(6).some(name => route.category === name.toLowerCase());
+  const [expandedCategory, setExpandedCategory] = useState(route.category);
+  if (expandedCategory !== route.category) {
+    setExpandedCategory(route.category);
+    if (categories.slice(6).some(name => route.category === name.toLowerCase())) setMore(true);
+  }
   const active = (key: string) => !reduced && <motion.span aria-hidden="true" className="mx-active-indicator" layoutId={key} initial={false}
     transition={{ type: "spring", stiffness: 440, damping: 36, mass: .8 }} />;
   const mark = (category: Category | "") => {
@@ -59,10 +63,10 @@ function Sidebar({ route, navigate, lastItem, reduced, mobile, close }: { route:
       <nav className="mx-side-categories" aria-label="Categories">
         <h2>Categories</h2>
         {["" as const, ...primaryCategory].map(mark)}
-        <button className="mx-more" type="button" aria-expanded={more || selectedSecondary} onClick={() => setMore(!more)}>
+        <button className="mx-more" type="button" aria-expanded={more} onClick={() => setMore(!more)}>
           More categories <ChevronDown size={14} aria-hidden="true" />
         </button>
-        {(more || selectedSecondary) && categories.slice(6).map(mark)}
+        {(more) && categories.slice(6).map(mark)}
       </nav>
     </div>
     <section className="mx-promo"><Sparkle size={31} aria-hidden="true" /><h2>Use MotionUX<br/>in your project</h2>
@@ -82,6 +86,7 @@ export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, redu
   const closeButton = useRef<HTMLButtonElement | null>(null);
   const searchOrigin = useRef<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
+  const swipe = useRef<{ x: number; y: number } | null>(null);
   useEffect(() => {
     function key(event: KeyboardEvent) {
       if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k" || event.isComposing || drawer.current?.open) return;
@@ -113,7 +118,15 @@ export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, redu
     <aside className="mx-sidebar"><Sidebar {...sidebar} navigate={navigate} /></aside>
     <dialog ref={drawer} id="studio-menu" className="mx-drawer" aria-label="Studio navigation" onClose={() => setOpen(false)}
       onClick={event => { if (event.target === event.currentTarget) close(); }}>
-      {open && <div className="mx-drawer-panel"><Sidebar {...sidebar} mobile close={close} navigate={next => { close(); navigate(next); }} /></div>}
+      {open && <div className="mx-drawer-panel" onTouchStart={event => {
+        const point = event.touches[0];
+        swipe.current = event.touches.length === 1 ? { x: point.clientX, y: point.clientY } : null;
+      }} onTouchCancel={() => { swipe.current = null; }} onTouchEnd={event => {
+        const start = swipe.current;
+        const point = event.changedTouches[0];
+        swipe.current = null;
+        if (start && point && start.x - point.clientX > 66 && Math.abs(point.clientY - start.y) < 45) close();
+      }}><Sidebar {...sidebar} mobile close={close} navigate={next => { close(); navigate(next); }} /></div>}
     </dialog>
     <div className="mx-main-frame">
       <header className="mx-top">
