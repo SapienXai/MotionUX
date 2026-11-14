@@ -1,5 +1,5 @@
 import { useReducedMotion } from "motion/react";
-import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { references } from "../catalog";
 import { FEATURED, hrefFor, readRoute, visibleItems, type Route } from "./catalog-view";
 import { Gallery } from "./gallery";
@@ -9,23 +9,26 @@ import { Shell } from "./shell";
 
 const Playground = lazy(() => import("./playground"));
 const schemePreference = "(prefers-color-scheme: dark)";
-const initialScheme = () => {
+function savedScheme(): "light" | "dark" | undefined {
   const saved = document.documentElement.dataset.mxScheme;
-  return saved === "dark" || saved === "light" ? saved : matchMedia(schemePreference).matches ? "dark" : "light";
-};
+  return saved === "dark" || saved === "light" ? saved : undefined;
+}
+
+function subscribeToScheme(onChange: () => void) {
+  const media = matchMedia(schemePreference);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
+
+function systemUsesDarkScheme() {
+  return matchMedia(schemePreference).matches;
+}
 
 export default function Studio() {
   const [route, setRoute] = useState(readRoute);
-  const [scheme, setScheme] = useState<"light" | "dark">(initialScheme);
-  const schemeOverridden = useRef(Boolean(document.documentElement.dataset.mxScheme));
-  useEffect(() => {
-    const media = matchMedia(schemePreference);
-    const update = (event: MediaQueryListEvent) => {
-      if (!schemeOverridden.current) setScheme(event.matches ? "dark" : "light");
-    };
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
+  const [schemeOverride, setSchemeOverride] = useState(savedScheme);
+  const systemDark = useSyncExternalStore(subscribeToScheme, systemUsesDarkScheme);
+  const scheme = schemeOverride ?? (systemDark ? "dark" : "light");
   const [lastItem, setLastItem] = useState(route.item);
   const [entered, setEntered] = useState(false);
   const focus = useRef<"none" | "heading" | "gallery">("none");
@@ -74,10 +77,9 @@ export default function Studio() {
   }
   function toggleScheme() {
     const next = scheme === "light" ? "dark" : "light";
-    schemeOverridden.current = true;
     document.documentElement.dataset.mxScheme = next;
     try { localStorage.setItem("mx-studio-scheme", next); } catch { /* session-only preference */ }
-    setScheme(next);
+    setSchemeOverride(next);
   }
   const open = (id: string, configuration?: string, panel?: Route["panel"]) => navigate({ ...route, page: "playground", item: id, configuration, panel, preset: true });
   const clear = () => navigate({ ...route, query: "", category: "", item: "" });
