@@ -6,7 +6,7 @@
 [data-mx-surface="ticket"] article span { font: .8rem ui-monospace, monospace; letter-spacing: .12em; }
 .mx-ticket-foil { position: absolute; z-index: -1; inset: -2rem -3rem -2rem 54%; transform: skewX(-9deg); background: repeating-linear-gradient(128deg, transparent 0 10px, var(--mx-line, GrayText) 11px 12px), var(--mx-selected, ButtonFace); opacity: .62; }
 .mx-lens-plane { position: relative; display: block; padding: 0; inline-size: 100%; overflow: hidden; border: 1px solid var(--mx-line, GrayText); border-radius: .8rem; background: var(--mx-surface, Canvas); color: inherit; cursor: zoom-in; }
-.mx-lens-plane[aria-pressed="true"] { cursor: crosshair; }
+.mx-lens-plane[aria-pressed="true"] { cursor: crosshair; touch-action: none; }
 .mx-lens-plane img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 2 / 1; object-fit: cover; }
 .mx-lens-plane svg { position: absolute; inset: .55rem .55rem auto auto; padding: .28rem; box-sizing: content-box; border-radius: .4rem; background: var(--mx-surface, Canvas); }
 .mx-lens-glass { position: absolute; inline-size: min(27%, 7rem); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; border: 3px solid var(--mx-surface, Canvas); box-shadow: 0 4px 13px #0008; pointer-events: none; }

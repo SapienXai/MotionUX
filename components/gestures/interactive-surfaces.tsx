@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
+import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { Maximize, RefreshCw } from "lucide-react";
 import { useId, useRef, useState, type ReactNode, type PointerEvent } from "react";
 import "./interactive-surfaces.css";
@@ -36,26 +36,59 @@ export function GlassLens({ image, label, hint, zoom = 2.1 }: {
 }) {
   const [open, setOpen] = useState(false);
   const hintId = useId();
-  const [coords, setCoords] = useState([50, 50]);
+  const x = useMotionValue(50);
+  const y = useMotionValue(50);
+  const left = useMotionTemplate`${x}%`;
+  const top = useMotionTemplate`${y}%`;
+  const backgroundPosition = useMotionTemplate`${x}% ${y}%`;
+  const contact = useRef<{ pointerId: number; x: number; y: number; moved: boolean } | null>(null);
+  const suppressClick = useRef(false);
   const bound = (value: number) => Math.max(0, Math.min(100, value));
   const factor = Number.isFinite(zoom) ? Math.max(1, Math.min(zoom, 4)) : 2.1;
   function move(event: PointerEvent<HTMLButtonElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
-    setCoords([bound((event.clientX - rect.left) / rect.width * 100), bound((event.clientY - rect.top) / rect.height * 100)]);
+    x.set(bound((event.clientX - rect.left) / Math.max(1, rect.width) * 100));
+    y.set(bound((event.clientY - rect.top) / Math.max(1, rect.height) * 100));
   }
   return <div data-mx-surface="lens">
     <button type="button" className="mx-lens-plane" aria-label={`${label}: ${image.alt}`} aria-pressed={open} aria-describedby={hintId}
-      onClick={() => setOpen(!open)} onPointerMove={(event) => { if (open && event.pointerType !== "touch") move(event); }}
+      onClick={event => {
+        if (!event.detail || !suppressClick.current) setOpen(!open);
+        suppressClick.current = false;
+      }}
+      onPointerDown={event => {
+        suppressClick.current = false;
+        if (!open || event.pointerType === "mouse" || !event.isPrimary) return;
+        contact.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, moved: false };
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }}
+      onPointerMove={event => {
+        if (!open) return;
+        const pointer = contact.current;
+        if (event.pointerType === "mouse") move(event);
+        else if (pointer?.pointerId === event.pointerId &&
+          (pointer.moved || Math.hypot(event.clientX - pointer.x, event.clientY - pointer.y) >= 5)) {
+          pointer.moved = true;
+          move(event);
+        }
+      }}
+      onPointerUp={event => {
+        if (contact.current?.pointerId !== event.pointerId) return;
+        suppressClick.current = contact.current.moved;
+        contact.current = null;
+      }}
+      onPointerCancel={() => { contact.current = null; }}
+      onLostPointerCapture={() => { contact.current = null; }}
       onKeyDown={(event) => {
         if (!open) return;
         const arrows: Record<string, [number, number]> = { ArrowLeft: [-7, 0], ArrowRight: [7, 0], ArrowUp: [0, -7], ArrowDown: [0, 7] };
         if (event.key === "Escape") setOpen(false);
         const step = arrows[event.key];
-        if (step) { event.preventDefault(); setCoords(([x, y]) => [bound(x + step[0]), bound(y + step[1])]); }
+        if (step) { event.preventDefault(); x.set(bound(x.get() + step[0])); y.set(bound(y.get() + step[1])); }
       }}>
       <img src={image.src} alt="" draggable={false} /><Maximize size={18} aria-hidden="true" />
-      {open && <span aria-hidden="true" className="mx-lens-glass" style={{ left: `${coords[0]}%`, top: `${coords[1]}%`,
-        backgroundImage: `url(${JSON.stringify(image.src)})`, backgroundPosition: `${coords[0]}% ${coords[1]}%`, backgroundSize: `${factor * 210}%` }} />}
+      {open && <motion.span aria-hidden="true" className="mx-lens-glass" style={{ left, top,
+        backgroundImage: `url(${JSON.stringify(image.src)})`, backgroundPosition, backgroundSize: `${factor * 210}%` }} />}
     </button>
     <p id={hintId}>{hint}</p>
   </div>;
@@ -66,6 +99,7 @@ export function PullRefresh({ children, label, status, pending, onRefresh, reduc
 }) {
   const system = useReducedMotion();
   const viewport = useRef<HTMLDivElement>(null);
+  const detent = Number.isFinite(threshold) ? Math.min(180, Math.max(25, threshold)) : 65;
   const pull = useMotionValue(0);
   const transform = useSpring(pull, recoil);
   const start = useRef<{ id: number; y: number; distance: number } | null>(null);
@@ -74,7 +108,7 @@ export function PullRefresh({ children, label, status, pending, onRefresh, reduc
     if (active?.id !== event.pointerId) return;
     start.current = null;
     pull.set(0);
-    if (commit && active.distance >= threshold && !pending) onRefresh();
+    if (commit && active.distance >= detent && !pending) onRefresh();
   }
   return <div data-mx-surface="refresh">
     <div className="mx-refresh-commands"><button disabled={pending} type="button" onClick={onRefresh}><RefreshCw size={17} aria-hidden="true" />{label}</button>
@@ -88,7 +122,7 @@ export function PullRefresh({ children, label, status, pending, onRefresh, reduc
         const active = start.current;
         if (active?.id !== event.pointerId) return;
         active.distance = Math.max(0, event.clientY - active.y);
-        pull.set(Math.min(55, active.distance * .55));
+        pull.set(72 * active.distance / (active.distance + detent));
       }} onPointerUp={(event) => finish(event, true)} onPointerCancel={(event) => finish(event, false)}
         onLostPointerCapture={(event) => finish(event, false)}>{handleLabel}</div>
       <motion.div style={system || reducedMotion ? undefined : { y: transform }}>{children}</motion.div>

@@ -116,7 +116,7 @@ export function cardStory(kind: Kind): Specimen {
           widget = <ParallaxTicket title={title("Night train", "Gece treni")} subtitle={title("Field study admission", "Saha çalışması bileti")} serial={stringValue(config, "serial") ?? "MX 0418"} reducedMotion={reduced} />; break;
         case "glass-lens":
           widget = <GlassLens image={{ src: quietHills, alt: t("Snowy trees on Hurricane Ridge", "Hurricane Ridge’de karlı ağaçlar") }}
-            label={label("Toggle magnification", "Büyütmeyi değiştir")} zoom={numberValue(config, "zoom")} hint={t("Activate, then move the lens with a pointer or arrow keys.", "Etkinleştirin, ardından işaretçi veya ok tuşlarını kullanın.")} />; break;
+            label={label("Toggle magnification", "Büyütmeyi değiştir")} zoom={numberValue(config, "zoom")} hint={t("Activate, then drag the lens or move it with the arrow keys.", "Etkinleştirin, ardından işaretçi veya ok tuşlarını kullanın.")} />; break;
         case "pull-to-refresh":
           widget = <PullRefresh label={label("Refresh notes", "Notları yenile")} handleLabel={t("Pull down here", "Buradan aşağı çekin")}
             threshold={numberValue(config, "threshold")} status={phase === "preview" ? t("Refreshing demo", "Demo yenileniyor") : t(`Demo revision ${revision}`, `Demo sürümü ${revision}`)}
