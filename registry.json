@@ -1,0 +1,51 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "motionux",
+  "homepage": "https://github.com/SapienXai/MotionUX",
+  "items": [
+    {
+      "name": "motion-foundations",
+      "type": "registry:component",
+      "title": "Motion Foundations",
+      "description": "Scoped Motion provider and shared timing presets.",
+      "dependencies": ["motion@14.14.0"],
+      "files": [
+        { "path": "components/presets.ts", "type": "registry:lib", "target": "@components/sapienx-motion/presets.ts" },
+        { "path": "components/motion-provider.tsx", "type": "registry:component", "target": "@components/sapienx-motion/motion-provider.tsx" }
+      ]
+    },
+    {
+      "name": "motion-dock",
+      "type": "registry:component",
+      "title": "Motion Dock",
+      "description": "A native navigation scaffold with a quiet active icon cue.",
+      "files": [
+        { "path": "components/motion-dock.tsx", "type": "registry:component", "target": "@components/sapienx-motion/motion-dock.tsx" },
+        { "path": "components/motion-dock.css", "type": "registry:file", "target": "@components/sapienx-motion/motion-dock.css" }
+      ]
+    },
+    {
+      "name": "motion-disclosure",
+      "type": "registry:component",
+      "title": "Motion Disclosure",
+      "description": "Native details and summary with themed, reduced-motion-safe feedback.",
+      "dependencies": ["lucide-react"],
+      "files": [
+        { "path": "components/motion-disclosure.tsx", "type": "registry:component", "target": "@components/sapienx-motion/motion-disclosure.tsx" },
+        { "path": "components/motion-disclosure.css", "type": "registry:file", "target": "@components/sapienx-motion/motion-disclosure.css" }
+      ]
+    },
+    {
+      "name": "motion-status-pill",
+      "type": "registry:component",
+      "title": "Motion Status Pill",
+      "description": "Controlled status feedback with an optional live region and stable text.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["SapienXai/MotionUX/motion-foundations#v1.0.0"],
+      "files": [
+        { "path": "components/motion-status-pill.tsx", "type": "registry:component", "target": "@components/sapienx-motion/motion-status-pill.tsx" },
+        { "path": "components/motion-status-pill.css", "type": "registry:file", "target": "@components/sapienx-motion/motion-status-pill.css" }
+      ]
+    }
+  ]
+}

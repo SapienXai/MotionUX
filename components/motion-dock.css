@@ -1,0 +1,21 @@
+[data-motion-dock] > :where(a, button) {
+  min-block-size: 44px;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+[data-motion-dock] > :where(a, button):focus-visible {
+  outline: 2px solid var(--motion-dock-focus, currentColor);
+  outline-offset: -2px;
+}
+
+/* Keep the active state readable before CSS animation or hydration. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-motion-dock] > :where([aria-current]:not([aria-current="false"]), [aria-expanded="true"]) > svg {
+    animation: motionux-dock-mark 180ms cubic-bezier(.23, 1, .32, 1);
+  }
+  @keyframes motionux-dock-mark {
+    from { transform: translateY(2px); }
+    to { transform: translateY(0); }
+  }
+}

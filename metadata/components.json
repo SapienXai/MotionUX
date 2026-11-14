@@ -1,0 +1,37 @@
+{
+  "release": "v1.0.0",
+  "items": {
+    "motion-foundations": {
+      "source": "MotionUX starter, adapted by SapienX",
+      "kind": "original",
+      "license": "MIT",
+      "ref": "v1.0.0",
+      "consumers": ["DineWallet"],
+      "evidence": "tests/interaction.spec.ts — scoped provider; docs/VERIFICATION.md"
+    },
+    "motion-dock": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent adaptation; no provider source",
+      "license": "MIT (MotionUX implementation only)",
+      "ref": null,
+      "consumers": ["BookPlace", "DineWallet"],
+      "evidence": "tests/interaction.spec.ts — native dock navigation; docs/VERIFICATION.md"
+    },
+    "motion-disclosure": {
+      "source": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/collapsible/collapsible.base.tsx",
+      "kind": "licensed adaptation",
+      "license": "MIT",
+      "ref": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "consumers": ["BookPlace"],
+      "evidence": "tests/interaction.spec.ts — keyboard and reduced-motion disclosure; docs/VERIFICATION.md"
+    },
+    "motion-status-pill": {
+      "source": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/save-status.tsx",
+      "kind": "original starter with licensed check icon adaptation",
+      "license": "MIT",
+      "ref": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "consumers": ["DineWallet"],
+      "evidence": "tests/interaction.spec.ts — localized, authoritative statuses and one persistent live region; docs/VERIFICATION.md"
+    }
+  }
+}

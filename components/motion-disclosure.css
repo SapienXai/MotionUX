@@ -1,0 +1,56 @@
+/* SmoothUI Collapsible adaptation (chevron and easing).
+MIT License
+
+Copyright (c) 2024 Eduardo Calvo
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+[data-motion-disclosure] > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-block-size: 44px;
+  list-style: none;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+[data-motion-disclosure] > summary::-webkit-details-marker {
+  display: none;
+}
+
+[data-motion-disclosure] > summary:focus-visible {
+  outline: 2px solid var(--motion-disclosure-focus, currentColor);
+  outline-offset: -2px;
+}
+
+[data-motion-disclosure-icon] { flex: 0 0 auto; }
+[data-motion-disclosure][open] > summary > [data-motion-disclosure-icon] { transform: rotate(180deg); }
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-motion-disclosure-icon] { transition: transform 200ms cubic-bezier(.23, 1, .32, 1); }
+  [data-motion-disclosure][open] > [data-motion-disclosure-panel] {
+    animation: motionux-disclosure-in 200ms cubic-bezier(.23, 1, .32, 1);
+  }
+  @keyframes motionux-disclosure-in {
+    from { opacity: .7; transform: translateY(-2px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
