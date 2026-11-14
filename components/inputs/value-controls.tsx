@@ -20,8 +20,8 @@ function clamp(value: number, min: number, max: number) {
   return Number.isFinite(value) ? Math.max(min, Math.min(value, max)) : min;
 }
 
-export function ValueSlider({ label, value, onValueChange, min = 0, max = 100, step = 1, disabled, name, format = String, variant = "jelly", reducedMotion }: RangeProps & {
-  variant?: "jelly" | "exposure" | "dial"; reducedMotion?: boolean;
+export function ValueSlider({ label, value, onValueChange, min = 0, max = 100, step = 1, disabled, name, format = String, variant = "jelly", reducedMotion, elasticity = .32 }: RangeProps & {
+  variant?: "jelly" | "exposure" | "dial"; reducedMotion?: boolean; elasticity?: number;
 }) {
   const id = useId();
   const system = useReducedMotion();
@@ -31,6 +31,7 @@ export function ValueSlider({ label, value, onValueChange, min = 0, max = 100, s
   const fraction = high === low ? 0 : (current - low) / (high - low);
   const text = format(current);
   const increment = Number.isFinite(step) && step > 0 ? step : 1;
+  const squeeze = Number.isFinite(elasticity) ? clamp(elasticity, 0, .5) : .32;
   const spring = system || reducedMotion ? { duration: 0 } : { type: "spring" as const, stiffness: 420, damping: 24, mass: .65 };
   function rotate(event: PointerEvent<HTMLDivElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -57,9 +58,9 @@ export function ValueSlider({ label, value, onValueChange, min = 0, max = 100, s
       <input id={id} name={name} type="range" disabled={disabled || high === low} min={low} max={high} step={increment}
         value={current} aria-valuetext={text} onChange={(event) => onValueChange(event.target.valueAsNumber)}
         onPointerDown={() => setActive(true)} onPointerUp={() => setActive(false)} onPointerCancel={() => setActive(false)}
-        onPointerLeave={() => setActive(false)} onBlur={() => setActive(false)} />
+        onPointerLeave={() => setActive(false)} onLostPointerCapture={() => setActive(false)} onBlur={() => setActive(false)} />
       {variant === "jelly" && <span className="mx-jelly-guide" aria-hidden="true">
-        <motion.i initial={false} animate={{ scaleX: active ? 1.32 : 1, scaleY: active ? .8 : 1 }} transition={spring} />
+        <motion.i initial={false} animate={{ scaleX: active && !(system || reducedMotion) ? 1 + squeeze : 1, scaleY: active && !(system || reducedMotion) ? 1 - squeeze * .625 : 1 }} transition={spring} />
       </span>}
     </div>
   </div>;

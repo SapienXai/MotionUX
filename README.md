@@ -19,7 +19,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. Try a live card in Gallery and click **Open playground**. Use **Props** and **States** to edit the component while the preview stays on screen. Use **Preview settings** to switch between neutral, BookPlace, and DineWallet themes, try a narrower stage, or compare reduced motion. Use **Install** for the pinned command and **Usage** for the React example. **Code** lets you inspect and copy the same TypeScript and CSS that the pinned installation supplies. The first six cards use dedicated Gallery presets. Choose **Gallery example** under Preview settings to switch between a preset and its base component. **Source** links the reference and the component test.
+Open the local URL printed by Vite. Try a live card in Gallery and click **Open playground**. Use **Props** and **States** to edit the component while the preview stays on screen. Use **Preview settings** to switch between neutral, BookPlace, and DineWallet themes, try a narrower stage, or compare reduced motion. Use **Install** for the pinned command and **Usage** for the React example. **Code** lets you inspect and copy the same TypeScript and CSS that the pinned installation supplies. Every card opens the example you saw in Gallery. Choose **Gallery example** under Preview settings to switch between that composition and the standalone component. When a component offers adjustable motion, use **Motion** to tune it and copy the result from Usage. **Source** links the reference and the component test.
 
 | Try first | What to do |
 | --- | --- |
@@ -100,6 +100,6 @@ Open **Install** in the Playground to copy the exact checkpoint for the selected
 
 ## Verification and license
 
-Studio V6 adds per-component control checks, configured TypeScript examples and installation of the **92-item registry** in a clean React project. The first six Gallery presets have an installed screenshot and accessibility comparison. Individual premium acceptance remains open. [V6 verification](docs/STUDIO-V6-ACCEPTANCE.md) · [GitHub Actions](https://github.com/SapienXai/MotionUX/actions/workflows/ci.yml?query=branch%3Amain) · [Registry verification](docs/VERIFICATION.md)
+The **97-item registry** includes six dedicated Gallery presets and five recipe families that share the other 76 Studio examples. Consumer checks build generated examples in a separate React project. Coverage for responsive screenshots, animation trajectories and individual quality acceptance is tracked in the V7 reports. [Consumer parity](docs/V7-PARITY-MATRIX.md) · [Quality ledger](docs/V7-QUALITY-LEDGER.md) · [GitHub Actions](https://github.com/SapienXai/MotionUX/actions/workflows/ci.yml?query=branch%3Amain) · [Registry verification](docs/VERIFICATION.md)
 
 MotionUX is MIT licensed. Adapted components retain their upstream notices. [License](LICENSE) · [Source review](docs/SOURCE-REVIEW.md) · [Changelog](CHANGELOG.md)

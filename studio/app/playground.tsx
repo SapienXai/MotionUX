@@ -14,7 +14,7 @@ import { configuredUsage } from "../playground/base-usage";
 import { recipeFamily, recipeUsage } from "../playground/recipe-usage";
 import { Fields } from "../playground/fields";
 
-const panels = ["Preview", "Props", "Variants", "States", "Code", "Install", "Usage", "Accessibility", "Source"] as const;
+const panels = ["Preview", "Props", "Variants", "States", "Motion", "Code", "Install", "Usage", "Accessibility", "Source"] as const;
 type Panel = (typeof panels)[number];
 const widths = { Desktop: [Monitor, "100%"], Tablet: [Tablet, "768px"], Mobile: [Smartphone, "375px"] } as const;
 type Device = keyof typeof widths;
@@ -94,6 +94,7 @@ export default function Playground({ item, route, back, reduced, systemReduced, 
   const version = registryVersion(item, galleryExample);
   const base = baseFields(item.registryItem);
   const fields = galleryExample ? featuredDefinition(item.id)?.fields ?? base : base;
+  const editPanel = panel === "Props" || panel === "Variants" || panel === "States" || panel === "Motion";
   const [draft, setDraft] = useState(() => readConfig(fields, new URLSearchParams(location.search).get("config")));
   const config = cleanConfig(fields, draft);
   const update = useCallback((key: string, value: Value) => setDraft(current => ({ ...current, [key]: value })), []);
@@ -126,9 +127,9 @@ export default function Playground({ item, route, back, reduced, systemReduced, 
     <div className="mx-play-title"><div><h1 id="specimen" ref={heading} tabIndex={-1}>{item.name}</h1><p>{item.provider} · {item.status === "ready" ? "Ready" : "Studio preview"} · {version?.item ?? item.registryItem}</p></div>
       <button type="button" aria-label="Reset preview" className="mx-icon" onClick={() => { setDraft({}); setReset(value => value + 1); }}><RotateCcw size={20} /></button></div>
     <nav className="mx-play-tabs" aria-label="Specimen information">
-      {panels.map(name => <button key={name} type="button" className="mx-button" aria-pressed={panel === name} onClick={() => setPanel(name)}>{name}</button>)}
+      {panels.filter(name => name !== "Motion" || fields.some(field => field.section === "Motion")).map(name => <button key={name} type="button" className="mx-button" aria-pressed={panel === name} onClick={() => setPanel(name)}>{name}</button>)}
     </nav>
-    {(panel === "Preview" || Boolean(fields.length && (panel === "Props" || panel === "Variants" || panel === "States"))) ? <>
+    {(panel === "Preview" || Boolean(fields.length && editPanel)) ? <>
       <details className="mx-play-settings"><summary>Preview settings</summary><div className="mx-play-controls">
         <div className="mx-play-devices" role="group" aria-label="Preview width">{Object.entries(widths).map(([name, [Icon]]) => <button type="button" className="mx-icon" key={name}
           title={name} aria-label={name} aria-pressed={device === name} onClick={() => setDevice(name as Device)}><Icon size={18} /></button>)}</div>
@@ -146,9 +147,9 @@ export default function Playground({ item, route, back, reduced, systemReduced, 
           {compare && <section className="mx-compare" aria-label="Reduced-motion comparison"><h2>Reduced-motion comparison</h2>{stage(true)}</section>}
         </div>
       </div>
-      {fields.length > 0 && (panel === "Props" || panel === "Variants" || panel === "States") && <section className="mx-inspector mx-customization" aria-label={panel}>
+      {fields.length > 0 && editPanel && <section className="mx-inspector mx-customization" aria-label={panel}>
         {fields.some(field => field.section === panel) ?
-          <Fields heading={panel === "States" ? "Preview states" : "Component properties"} fields={fields.filter(field => field.section === panel)} config={draft} update={update} /> :
+          <Fields heading={panel === "States" ? "Preview states" : panel === "Motion" ? "Motion settings" : "Component properties"} fields={fields.filter(field => field.section === panel)} config={draft} update={update} /> :
           <p>{panel === "Variants" ? "Single variant in this preview." : panel === "States" ? story?.states : story?.api}</p>}
         <div className="mx-links"><button type="button" className="mx-button" onClick={() => setReset(value => value + 1)}>Replay preview</button>
           <button type="button" className="mx-button" onClick={() => void share()}>Copy share link</button></div>

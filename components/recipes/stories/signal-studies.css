@@ -1,1 +1,1 @@
-.mx-demo-type { font-family: "Inter Variable", Inter, system-ui, sans-serif; font-size: clamp(1.3rem, 4vw, 2.05rem); font-weight: 550; line-height: 1.22; margin: 0; }
+.mx-demo .mx-demo-type { font-family: "Inter Variable", Inter, system-ui, sans-serif; font-size: clamp(1.3rem, 4vw, 2.05rem); font-weight: 550; line-height: 1.22; margin-block: .3rem; }

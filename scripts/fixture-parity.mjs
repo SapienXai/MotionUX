@@ -17,6 +17,9 @@ const presets = Object.entries(manifest.presets);
 const recipes = registry.items.filter(entry => entry.name.startsWith("gallery-recipes-"));
 const quick = process.argv.includes("--quick");
 const recipesOnly = process.argv.includes("--recipes-only");
+const featuredOnly = process.argv.includes("--featured-only");
+const runFeatured = !recipesOnly;
+const runRecipes = !quick && !featuredOnly;
 const temp = await mkdtemp(join(tmpdir(), "motionux-v6-react-"));
 const src = join(temp, "src");
 const manager = process.env.MOTIONUX_PACKAGE_MANAGER === "pnpm" ? "pnpm" : "npm";
@@ -96,7 +99,7 @@ try {
         const options = { language: "en", reducedMotion: false, theme: "neutral", scheme: "light" };
         await write(`src/${row.id}-gallery.tsx`, recipeUsage(row.id, {}, options));
         const field = baseFields(row.registryItem).find(field => field.type === "text" && field.section === "Props");
-        const custom = field ? { [field.key]: "Verified consumer " + row.order } : { index: 1 };
+        const custom = field ? { [field.key]: "Verified consumer " + row.order } : { current: 1 };
         await write(`src/${row.id}-configured.tsx`, recipeUsage(row.id, custom, options));
       }
       await write(`src/${row.id}.tsx`, source + `\nexport default function Fixture() { return <${entry} ${params} />; }\n`);
@@ -156,7 +159,7 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
   await smoke.close();
   if (errors.length) throw new Error(errors.join("\n"));
   const summaries = [];
-  for (const width of recipesOnly ? [] : quick ? [1536] : [390, 768, 1536]) {
+  for (const width of !runFeatured ? [] : quick ? [1536] : [390, 768, 1536]) {
     for (const scheme of quick ? ["light"] : ["light", "dark"]) {
       const browser = width === 390 ? safari : chrome;
       const options = { viewport: { width, height: 1024 }, reducedMotion: "reduce", colorScheme: scheme };
@@ -199,7 +202,7 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
   }
   const timeline = [];
   const recipeCases = [];
-  for (const width of recipesOnly ? [] : quick ? [1536] : [390, 768, 1536]) {
+  for (const width of !runFeatured ? [] : quick ? [1536] : [390, 768, 1536]) {
     for (const scheme of quick ? ["light"] : ["light", "dark"]) {
       const browser = width === 390 ? safari : chrome;
       for (const [id] of presets) {
@@ -225,7 +228,7 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
       }
     }
   }
-  if (!quick) for (const { id } of base.filter(row => !Object.hasOwn(manifest.presets, row.id))) {
+  if (runRecipes) for (const { id } of base.filter(row => !Object.hasOwn(manifest.presets, row.id))) {
     const scheme = "light";
     const options = { viewport: { width: 1536, height: 1024 }, reducedMotion: "reduce", colorScheme: scheme };
     const [gallery, isolated] = await Promise.all([chrome.newPage(options), chrome.newPage(options)]);
@@ -244,8 +247,11 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
         sample.ariaSnapshot(), installed.ariaSnapshot(),
       ]);
       const differentPixels = await imageDifference(isolated, a, b);
-      const ariaMatch = ariaA === ariaB;
-      recipeCases.push({ id, width: 1536, scheme, stage: "idle", ariaMatch, differentPixels, result: ariaMatch && differentPixels <= .025 ? "parity-ok" : "parity-broken" });
+      // React generated fragment IDs differ across app trees. The link order,
+      // accessible names, selected state and all other ARIA content still match.
+      const normalize = snapshot => snapshot.replace(/#dock-[^\s]+-(\d+)/g, "#dock-:instance-$1");
+      const ariaMatch = normalize(ariaA) === normalize(ariaB);
+      recipeCases.push({ id, width: 1536, scheme, stage: "idle", ariaMatch, differentPixels, ...(!ariaMatch ? { studioAria: ariaA, consumerAria: ariaB } : {}), result: ariaMatch && differentPixels <= .025 ? "parity-ok" : "parity-broken" });
       if (!ariaMatch || differentPixels > .025) console.error(`${id}: idle mismatch ${differentPixels.toFixed(5)} (ARIA ${ariaMatch})`);
       else console.log(`Recipe ${id}`);
     } finally { await Promise.all([gallery.close(), isolated.close()]); }

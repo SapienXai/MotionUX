@@ -10,6 +10,8 @@ Numeric values record the observed scope on the [0–5 quality scale](QUALITY-GA
 
 For V6, six Gallery presets also passed clean consumer screenshot and ARIA parity under reduced motion. The evidence does not change individual readiness. [V6 acceptance report](STUDIO-V6-ACCEPTANCE.md) · [Contract manifest](../metadata/parity-manifest.json)
 
+V7 adds three targeted craft changes. The Swipe Deck carries release offset and bounded horizontal velocity into the outgoing card. Rubber Dock uses a smooth distance response at both ends of the pointer influence. Jelly Slider exposes thumb elasticity and keeps the thumb still in reduced motion. These changes retain the existing ratings pending individual design and device acceptance. [V7 quality ledger](V7-QUALITY-LEDGER.md)
+
 | Reference | Visual | Interaction | Accessibility | Performance | Production | Open review |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
 | Plan switch · DesignBookmark | 3 | 3 | 3 | — | 2 | Review active states, reference fidelity and physical-device behavior. |

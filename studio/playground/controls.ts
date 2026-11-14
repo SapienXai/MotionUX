@@ -1,7 +1,7 @@
 import type { Config, Value } from "../../components/recipes/values";
 export { booleanValue, numberValue, stringValue, type Config, type Value } from "../../components/recipes/values";
 
-export type Field = { key: string; label: string; section: "Props" | "Variants" | "States" } & (
+export type Field = { key: string; label: string; section: "Props" | "Variants" | "States" | "Motion" } & (
   { type: "text"; default: string; maxLength: number } |
   { type: "number"; default: number; min: number; max: number; step: number } |
   { type: "boolean"; default: boolean } |
@@ -9,6 +9,8 @@ export type Field = { key: string; label: string; section: "Props" | "Variants" 
 );
 export const text = (key: string, label: string, value: string): Field => ({ key, label, section: "Props", type: "text", default: value, maxLength: 96 });
 export const number = (key: string, label: string, value: number, min: number, max: number, step = 1): Field => ({ key, label, section: "Props", type: "number", default: value, min, max, step });
+export const motionNumber = (key: string, label: string, value: number, min: number, max: number, step = 1): Field =>
+  ({ ...number(key, label, value, min, max, step), section: "Motion" });
 export const flag = (key: string, label: string, value = false, section: Field["section"] = "States"): Field => ({ key, label, section, type: "boolean", default: value });
 export const select = (key: string, label: string, value: string, options: readonly string[], section: Field["section"] = "States"): Field => ({ key, label, section, type: "select", options, default: value });
 

@@ -17,17 +17,50 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium webkit
       - run: npm run verify
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: motionux-playwright-failures
+          path: test-results/
+          if-no-files-found: ignore
+  registry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npm run registry:build
       - if: github.event_name == 'push'
         run: node scripts/registry-smoke.mjs
       - if: github.event_name == 'pull_request'
         run: node scripts/registry-smoke.mjs --local
+  consumer-parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: [featured, recipes]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npm run registry:build
       - if: github.event_name == 'push'
-        run: node scripts/fixture-parity.mjs
+        run: node scripts/fixture-parity.mjs --${{ matrix.scope }}-only
       - if: github.event_name == 'pull_request'
-        run: node scripts/fixture-parity.mjs --local
+        run: node scripts/fixture-parity.mjs --local --${{ matrix.scope }}-only
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: motionux-browser-evidence
-          path: test-results/
+          name: motionux-consumer-${{ matrix.scope }}
+          path: test-results/consumer-parity/
           if-no-files-found: ignore

@@ -10,7 +10,10 @@ function DockItem({ item, pointer, active, reduced, onNavigate }: {
   onNavigate?: (event: MouseEvent<HTMLAnchorElement>, href: string) => void;
 }) {
   const center = useMotionValue(0);
-  const emphasis = useTransform([pointer, center], ([x, at]) => reduced ? 1 : 1 + .24 * Math.max(0, 1 - Math.abs(Number(x) - Number(at)) / 138));
+  const emphasis = useTransform([pointer, center], ([x, at]) => {
+    const proximity = Math.max(0, 1 - Math.abs(Number(x) - Number(at)) / 138);
+    return reduced ? 1 : 1 + .24 * proximity * proximity * (3 - 2 * proximity);
+  });
   const scale = useSpring(emphasis, { stiffness: 370, damping: 24 });
   const lift = useTransform(scale, [1, 1.24], [0, -6]);
   const link = useRef<HTMLAnchorElement>(null);
@@ -21,13 +24,13 @@ function DockItem({ item, pointer, active, reduced, onNavigate }: {
       const box = node!.getBoundingClientRect();
       center.set(box.left + box.width / 2);
     }
-    const observer = new ResizeObserver(measure);
-    observer.observe(node);
+    const observer = typeof ResizeObserver === "function" ? new ResizeObserver(measure) : undefined;
+    observer?.observe(node);
     window.addEventListener("resize", measure);
     window.addEventListener("scroll", measure, true);
     measure();
     return () => {
-      observer.disconnect();
+      observer?.disconnect();
       window.removeEventListener("resize", measure);
       window.removeEventListener("scroll", measure, true);
     };
@@ -46,7 +49,7 @@ export function RubberDock({ label, links, activeHref, reducedMotion, className,
   const pointer = useMotionValue(-1000);
   return <nav className={className} data-mx-rubber-dock="" aria-label={label}
     onPointerMove={(event) => { if (event.pointerType === "mouse" && !(reducedMotion || pref)) pointer.set(event.clientX); }}
-    onPointerLeave={() => pointer.set(-1000)}>
+    onPointerLeave={() => pointer.set(-1000)} onPointerCancel={() => pointer.set(-1000)}>
     {links.map((item) => <DockItem key={item.href} item={item} pointer={pointer} active={activeHref === item.href}
       reduced={Boolean(reducedMotion || pref)} onNavigate={onNavigate} />)}
   </nav>;

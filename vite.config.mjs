@@ -47,5 +47,5 @@ function registryVersions() {
 
 export default defineConfig({
   plugins: [registryVersions()],
-  optimizeDeps: { include: ["react", "react/jsx-runtime", "react-dom/client", "motion/react", "lucide-react"] },
+  optimizeDeps: { noDiscovery: true, include: ["react", "react/jsx-runtime", "react-dom/client", "motion/react", "lucide-react"] },
 });

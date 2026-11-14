@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased · Studio V7
+
+- Shared the Gallery compositions with React consumers through five installable recipe families.
+- Added fixed-clock motion comparison for the six featured presets.
+- Improved deck release continuity and dock magnification. Added live jelly thumb elasticity and a Motion panel for supported controls.
+
 ## Studio V6 · candidate previews
 
 - Install the six featured Studio compositions as separate presets with their public props, primitive sources, styles and MIT fixture assets.

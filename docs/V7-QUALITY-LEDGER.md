@@ -10,3 +10,11 @@
 | Release | Pending all required acceptance. |
 
 The 76 recipes ship in five family items. Each family shares source modules and style/assets. Review the installed base public component for application data and production callbacks. The Gallery recipes contain synthetic content and state transitions.
+
+## Craft changes
+
+| Component | Trigger and expected motion | Remaining acceptance |
+| --- | --- | --- |
+| Swipe Deck / Page Flip | Drag release carries the outgoing deck card's horizontal offset and bounded velocity into its return spring. A flick moving against its release direction cannot pass the velocity shortcut. The page-flip variant retains its hinge. | Physical-device pointer cancellation and velocity review. |
+| Rubber Dock | Smooth-step proximity blends the neighboring icon scale across a 138 px pointer field. Pointer exit or cancellation removes the field. | Interaction capture on fine pointers and in embedded scroll containers. |
+| Jelly Slider | Native range input drives the value. The decorative thumb compresses while held and releases with a spring. The public elasticity prop accepts 0–0.5. Reduced motion keeps the geometry still. | Physical touch and assistive technology acceptance. |

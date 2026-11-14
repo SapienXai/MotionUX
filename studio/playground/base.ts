@@ -1,4 +1,4 @@
-import { flag, number, select, text, type Field } from "./controls";
+import { flag, motionNumber, number, select, text, type Field } from "./controls";
 
 const label = (value: string) => text("label", "Component label", value);
 const disabled = () => flag("disabled", "Disabled");
@@ -23,8 +23,8 @@ const definitions: Record<string, readonly Field[]> = {
   "toolbar": [label("Text formatting"), flag("disabled", "Disable first tool")],
   "stack-panel": [label("Project details"), text("firstLabel", "First panel title", "Project brief")],
   "plan-switch": [label("Billing cycle"), text("annualLabel", "Annual option", "Annual")],
-  "hold-to-publish": [label("Hold to publish"), number("duration", "Hold duration (ms)", 850, 250, 2500, 50), disabled()],
-  "hold-button": [label("Hold to arm"), number("duration", "Hold duration (ms)", 850, 250, 2500, 50), disabled()],
+  "hold-to-publish": [label("Hold to publish"), motionNumber("duration", "Hold duration (ms)", 850, 250, 2500, 50), disabled()],
+  "hold-button": [label("Hold to arm"), motionNumber("duration", "Hold duration (ms)", 850, 250, 2500, 50), disabled()],
   "slide-to-confirm": [label("Slide to confirm"), disabled()],
   "loading-to-success": [label("Ready"), state("idle", ["idle", "pending", "success", "error"])],
   "copy-button": [label("Copy access code"), text("text", "Text to copy", "studio-access-2026")],
@@ -46,7 +46,7 @@ const definitions: Record<string, readonly Field[]> = {
   "otp-code": [label("Verification code"), number("length", "Digits", 6, 4, 8), disabled()],
   "tag-input": [label("Tags"), number("limit", "Maximum tags", 6, 1, 20), disabled()],
   "password-strength": [label("New password"), disabled()],
-  "jelly-slider": [label("Elasticity"), disabled(), variant("jelly", ["jelly", "dial", "exposure"])],
+  "jelly-slider": [label("Elasticity"), disabled(), variant("jelly", ["jelly", "dial", "exposure"]), motionNumber("elasticity", "Thumb elasticity", .32, 0, .5, .01)],
   "exposure-slider": [label("Exposure"), disabled(), variant("exposure", ["exposure", "jelly", "dial"])],
   "detent-dial": [label("Gain"), disabled(), variant("dial", ["dial", "jelly", "exposure"])],
   "range-slider": [label("Nightly budget"), disabled()],
@@ -57,12 +57,12 @@ const definitions: Record<string, readonly Field[]> = {
   "card-field": [label("Synthetic card details"), disabled()],
   "signature-pad": [label("Demo signature"), text("typeLabel", "Typed signature label", "Type your name"), disabled()],
   "wheel-picker": [label("Check-in time"), disabled()],
-  "swipe-deck": [label("Field journal"), number("dragThreshold", "Drag distance (px)", 52, 24, 140)],
+  "swipe-deck": [label("Field journal"), motionNumber("dragThreshold", "Drag distance (px)", 52, 24, 140)],
   "page-flip": [label("Field journal")],
   "fan-cards": [label("Field notes"), text("spreadLabel", "Spread button", "Spread notes")],
   "parallax-ticket": [title("Night train"), text("serial", "Serial", "MX 0418")],
   "glass-lens": [label("Toggle magnification"), number("zoom", "Magnification", 2.1, 1.2, 4, .1)],
-  "pull-to-refresh": [label("Refresh notes"), number("threshold", "Pull distance (px)", 65, 30, 130)],
+  "pull-to-refresh": [label("Refresh notes"), motionNumber("threshold", "Pull distance (px)", 65, 30, 130)],
   "morph-island": [title("Export activity"), flag("open", "Expanded")],
   "expand-card": [title("Winter field guide"), flag("open", "Expanded")],
   "profile-card": [title("Mira Vale"), flag("open", "Expanded")],

@@ -87,7 +87,7 @@ export function inputStory(kind: Kind): Specimen {
             { id: "digit", label: t("Includes a digit", "Bir rakam içerir"), test: candidate => /\d/.test(candidate) },
           ]} describeRule={met => met ? t("Met", "Karşılandı") : t("Unmet", "Karşılanmadı")} />; break;
         case "jelly-slider":
-          control = <ValueSlider {...numericProps} label={caption("Elasticity", "Esneklik")} variant={style("jelly")} reducedMotion={reduced}
+          control = <ValueSlider {...numericProps} label={caption("Elasticity", "Esneklik")} variant={style("jelly")} reducedMotion={reduced} elasticity={numberValue(config, "elasticity")}
             format={n => format.format(n) + "%"} />; break;
         case "exposure-slider":
           control = <div className="mx-exposure-demo">

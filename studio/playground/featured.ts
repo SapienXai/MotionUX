@@ -1,4 +1,4 @@
-import { booleanValue, example, flag, number, numberValue, select, stringValue, text, type Config, type Field } from "./controls";
+import { booleanValue, example, flag, motionNumber, number, numberValue, select, stringValue, text, type Config, type Field } from "./controls";
 import type { OutcomeState } from "../../components/showcase/loading-outcome";
 
 const definitions = {
@@ -26,7 +26,7 @@ const definitions = {
   ] },
   "designbookmark-swipe-deck": { entry: "destination-deck", name: "DestinationDeck", fields: [
     text("label", "Deck label", "Greek destinations"), text("firstTitle", "First destination", "Santorini"),
-    number("dragThreshold", "Drag distance (px)", 52, 24, 140),
+    motionNumber("dragThreshold", "Drag distance (px)", 52, 24, 140),
     number("index", "Card index", 0, 0, 2),
   ] },
 };

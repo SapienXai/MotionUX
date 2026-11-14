@@ -7,7 +7,7 @@ const pin = process.env.MOTIONUX_REGISTRY_REF ?? spawnSync("git", ["rev-parse", 
 if (!/^[a-f0-9]{40}$/.test(pin)) throw new Error("Use a published full MotionUX commit SHA.");
 const cli = resolve("node_modules/.bin/shadcn");
 const presets = ["sliding-tab-pill-gallery", "loading-outcome-gallery", "expandable-room-gallery", "morph-dropdown-gallery", "featured-profile-gallery", "destination-deck-gallery"];
-const entries = ["tab-pill", "loading-to-success", "letter-limit", "swipe-deck", "prompt-box", "glass-player", "motion-disclosure", ...presets];
+const entries = ["tab-pill", "loading-to-success", "letter-limit", "swipe-deck", "prompt-box", "glass-player", "motion-disclosure", "gallery-recipes-inputs", ...presets];
 const configs = [
   { next: "16.3.0", tailwindcss: "3.4.17", plugin: "tailwindcss" },
   { next: "16.4.3", tailwindcss: "4.3.3", plugin: "@tailwindcss/postcss" },
@@ -15,6 +15,7 @@ const configs = [
 const render = `"use client";
 
 import { useState } from "react";
+import { InputsExample } from "@/components/sapienx-motion/recipes/inputs";
 import { TabPill } from "@/components/sapienx-motion/motion-selector";
 import { ActionOutcome } from "@/components/sapienx-motion/feedback-actions";
 import { LetterLimit } from "@/components/sapienx-motion/text-fields";
@@ -44,6 +45,7 @@ export function Specimens() {
     <PromptBox label="Prompt" value={prompt} onValueChange={setPrompt} onSubmit={() => setPrompt("")} pending={false}
       onStop={() => {}} sendLabel="Send" stopLabel="Stop" />
     <TimeScrubber label="Seek" duration={120} elapsed={seconds} format={n => n + " seconds"} onSeek={setSeconds} />
+    <InputsExample id="designbookmark-jelly-slider" initialConfig={{ elasticity: .44 }} />
     <SlidingTabPill /><LoadingOutcome state="idle" onStart={() => {}} /><ExpandableRoom /><MorphDropdown /><FeaturedProfile /><DestinationDeck />
     <MotionDisclosure label="Read more"><p>Full field notes.</p></MotionDisclosure>
   </div>;

@@ -18,8 +18,10 @@ export function CardDeck({ cards, index, onIndexChange, label, previousLabel, ne
 }) {
   const system = useReducedMotion();
   const quiet = Boolean(system || reducedMotion);
+  const threshold = Number.isFinite(dragThreshold) ? Math.max(12, dragThreshold) : 52;
+  const activeCard = useRef<HTMLElement>(null);
   const [direction, setDirection] = useState(1);
-  const [previous, setPrevious] = useState<DeckCard | null>(null);
+  const [previous, setPrevious] = useState<{ card: DeckCard; x: number; velocity: number } | null>(null);
   useEffect(() => {
     if (!previous) return;
     const timer = setTimeout(() => setPrevious(null), 420);
@@ -27,10 +29,10 @@ export function CardDeck({ cards, index, onIndexChange, label, previousLabel, ne
   }, [previous]);
   const position = Math.max(0, Math.min(cards.length - 1, Math.trunc(index) || 0));
   const current = cards[position];
-  function move(by: number) {
+  function move(by: number, x = 0, velocity = 0) {
     const next = position + by;
     if (!cards[next]) return;
-    if (!quiet && current) setPrevious(current);
+    if (!quiet && current) setPrevious({ card: current, x, velocity });
     setDirection(by);
     onIndexChange(next);
   }
@@ -38,22 +40,30 @@ export function CardDeck({ cards, index, onIndexChange, label, previousLabel, ne
   const page = variant === "page";
   return <section data-mx-deck={variant} aria-label={label}>
     <div className="mx-deck-stage" data-has-next={position < cards.length - 1}>
-      {!quiet && previous && previous.id !== current.id && <motion.div key={previous.id} className="mx-deck-outgoing" aria-hidden="true"
-        initial={{ opacity: .76 }}
+      {!quiet && previous && previous.card.id !== current.id && <motion.div key={previous.card.id} className="mx-deck-outgoing" aria-hidden="true"
+        initial={{ opacity: .85, x: previous.x }}
         animate={page ? { rotateY: direction * 64, opacity: 0, x: direction * -12 } :
-          { x: direction * -165, opacity: 0, rotate: direction * -8, scale: .96 }}
-        transition={{ duration: .34, ease: [.22, .64, .28, .98] }}>
+          { x: previous.x + direction * -165, opacity: 0, rotate: direction * -8, scale: .96 }}
+        transition={page ? { duration: .34, ease: [.22, .64, .28, .98] } :
+          { ...settle, x: { ...settle, velocity: previous.velocity }, opacity: { duration: .26, ease: "easeOut" } }}>
         <article inert>
-          {previous.image && <img src={previous.image.src} alt="" draggable={false} />}
-          <h3>{previous.title}</h3>{previous.body}
+          {previous.card.image && <img src={previous.card.image.src} alt="" draggable={false} />}
+          <h3>{previous.card.title}</h3>{previous.card.body}
         </article>
       </motion.div>}
-      <motion.article key={current.id} data-deck-card
+      <motion.article key={current.id} ref={activeCard} data-deck-card
         drag={page ? false : "x"} dragConstraints={{ left: 0, right: 0 }} dragElastic={quiet ? 0 : .8} dragMomentum={false}
         onDragEnd={(event, info) => {
           if (event.type === "pointercancel") return;
           const distance = Math.abs(info.offset.x);
-          if (distance >= dragThreshold || Math.abs(info.velocity.x) >= 460 && distance >= dragThreshold / 3) move(info.offset.x < 0 ? 1 : -1);
+          const horizontal = Math.abs(info.offset.y) <= distance;
+          const sameDirection = Math.sign(info.offset.x) === Math.sign(info.velocity.x);
+          const flick = sameDirection && Math.abs(info.velocity.x) >= 460 && distance >= threshold / 3;
+          if (!horizontal || !(distance >= threshold || flick)) return;
+          const direction = info.offset.x < 0 ? 1 : -1;
+          const transform = activeCard.current ? getComputedStyle(activeCard.current).transform : "none";
+          const releasedX = transform === "none" ? 0 : new DOMMatrixReadOnly(transform).m41;
+          move(direction, releasedX, sameDirection ? Math.max(-1200, Math.min(1200, info.velocity.x)) : 0);
         }}
         initial={quiet || !previous ? false : page ? { rotateY: direction * -58, opacity: .2, x: direction * 14 } :
           { x: direction * 80, opacity: 0, rotate: direction * 4, scale: .94 }}
