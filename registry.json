@@ -8,10 +8,20 @@
       "type": "registry:component",
       "title": "Motion Foundations",
       "description": "Scoped Motion provider and shared timing presets.",
-      "dependencies": ["motion@14.14.0"],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
       "files": [
-        { "path": "components/presets.ts", "type": "registry:lib", "target": "@components/sapienx-motion/presets.ts" },
-        { "path": "components/motion-provider.tsx", "type": "registry:component", "target": "@components/sapienx-motion/motion-provider.tsx" }
+        {
+          "path": "components/presets.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/presets.ts"
+        },
+        {
+          "path": "components/motion-provider.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/motion-provider.tsx"
+        }
       ]
     },
     {
@@ -20,8 +30,16 @@
       "title": "Motion Dock",
       "description": "A native navigation scaffold with a quiet active icon cue.",
       "files": [
-        { "path": "components/motion-dock.tsx", "type": "registry:component", "target": "@components/sapienx-motion/motion-dock.tsx" },
-        { "path": "components/motion-dock.css", "type": "registry:file", "target": "@components/sapienx-motion/motion-dock.css" }
+        {
+          "path": "components/motion-dock.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/motion-dock.tsx"
+        },
+        {
+          "path": "components/motion-dock.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/motion-dock.css"
+        }
       ]
     },
     {
@@ -29,10 +47,20 @@
       "type": "registry:component",
       "title": "Motion Disclosure",
       "description": "Native details and summary with themed, reduced-motion-safe feedback.",
-      "dependencies": ["lucide-react"],
+      "dependencies": [
+        "lucide-react"
+      ],
       "files": [
-        { "path": "components/motion-disclosure.tsx", "type": "registry:component", "target": "@components/sapienx-motion/motion-disclosure.tsx" },
-        { "path": "components/motion-disclosure.css", "type": "registry:file", "target": "@components/sapienx-motion/motion-disclosure.css" }
+        {
+          "path": "components/motion-disclosure.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/motion-disclosure.tsx"
+        },
+        {
+          "path": "components/motion-disclosure.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/motion-disclosure.css"
+        }
       ]
     },
     {
@@ -40,11 +68,150 @@
       "type": "registry:component",
       "title": "Motion Status Pill",
       "description": "Controlled status feedback with an optional live region and stable text.",
-      "dependencies": ["lucide-react"],
-      "registryDependencies": ["SapienXai/MotionUX/motion-foundations#v1.0.0"],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "SapienXai/MotionUX/motion-foundations#v1.0.0"
+      ],
       "files": [
-        { "path": "components/motion-status-pill.tsx", "type": "registry:component", "target": "@components/sapienx-motion/motion-status-pill.tsx" },
-        { "path": "components/motion-status-pill.css", "type": "registry:file", "target": "@components/sapienx-motion/motion-status-pill.css" }
+        {
+          "path": "components/motion-status-pill.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/motion-status-pill.tsx"
+        },
+        {
+          "path": "components/motion-status-pill.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/motion-status-pill.css"
+        }
+      ]
+    },
+    {
+      "name": "tab-pill",
+      "type": "registry:component",
+      "title": "Tab pill",
+      "description": "Move a shared selected pill across a labelled tab list with a real associated panel.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/motion-selector.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/motion-selector.tsx"
+        },
+        {
+          "path": "components/navigation/motion-selector.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/motion-selector.css"
+        }
+      ]
+    },
+    {
+      "name": "bottom-bar",
+      "type": "registry:component",
+      "title": "Bottom bar",
+      "description": "Navigate between href destinations and move an active indicator without sacrificing native links.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/motion-selector.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/motion-selector.tsx"
+        },
+        {
+          "path": "components/navigation/motion-selector.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/motion-selector.css"
+        }
+      ]
+    },
+    {
+      "name": "segmented-control",
+      "type": "registry:component",
+      "title": "Segmented control",
+      "description": "Select an option in a labelled radio group with a spring indicator.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/motion-selector.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/motion-selector.tsx"
+        },
+        {
+          "path": "components/navigation/motion-selector.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/motion-selector.css"
+        }
+      ]
+    },
+    {
+      "name": "pagination-dots",
+      "type": "registry:component",
+      "title": "Pagination dots",
+      "description": "Select a page of content with arrow and direct controls; move a visible current marker.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/pagination-dots.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/pagination-dots.tsx"
+        },
+        {
+          "path": "components/navigation/pagination-dots.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/pagination-dots.css"
+        }
+      ]
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:component",
+      "title": "Command palette",
+      "description": "Open a search dialog, filter commands, choose one or dismiss with Escape.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/command-palette.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/command-palette.tsx"
+        },
+        {
+          "path": "components/navigation/command-palette.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/command-palette.css"
+        }
+      ]
+    },
+    {
+      "name": "pull-cord",
+      "type": "registry:component",
+      "title": "Pull cord",
+      "description": "Pull a cord past a detent or activate its button to switch the active state.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/navigation/pull-cord.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/pull-cord.tsx"
+        },
+        {
+          "path": "components/navigation/pull-cord.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/pull-cord.css"
+        }
       ]
     }
   ]

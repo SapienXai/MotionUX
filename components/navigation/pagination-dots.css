@@ -1,0 +1,8 @@
+[data-mx-pagination], .mx-page-dots { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+[data-mx-pagination] { gap: .2rem; }
+[data-mx-pagination] button { position: relative; display: grid; place-items: center; inline-size: 44px; block-size: 44px; color: var(--mx-ink, ButtonText); background: transparent; border: 0; border-radius: 50%; cursor: pointer; }
+[data-mx-pagination] button:disabled { opacity: .45; cursor: default; }
+[data-mx-pagination] button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); }
+.mx-page-seed, .mx-page-current { border-radius: 999px; pointer-events: none; }
+.mx-page-seed { background: var(--mx-muted, GrayText); inline-size: .38rem; block-size: .38rem; }
+.mx-page-current { position: absolute; inline-size: 1.25rem; block-size: .42rem; background: var(--mx-accent, LinkText); }

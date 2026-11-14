@@ -51,9 +51,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "pull-cord",
       "version": null,
-      "test": null,
+      "test": "tests/studio.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-pull-cord",
       "status": "needs-review"
     },
     {
@@ -645,9 +645,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "tab-pill",
       "version": null,
-      "test": null,
+      "test": "tests/studio.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-tab-pill",
       "status": "needs-review"
     },
     {
@@ -663,9 +663,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "bottom-bar",
       "version": null,
-      "test": null,
+      "test": "tests/studio.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-bottom-bar",
       "status": "needs-review"
     },
     {
@@ -699,9 +699,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "segmented-control",
       "version": null,
-      "test": null,
+      "test": "tests/studio.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-segmented-control",
       "status": "needs-review"
     },
     {
@@ -735,9 +735,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "command-palette",
       "version": null,
-      "test": null,
+      "test": "tests/studio.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-command-palette",
       "status": "needs-review"
     },
     {
@@ -1473,9 +1473,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "pagination-dots",
       "version": null,
-      "test": null,
+      "test": "tests/studio.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-pagination-dots",
       "status": "needs-review"
     }
   ]

@@ -80,3 +80,9 @@ The optional MotionUX skill gives Codex a repeatable workflow for selecting a co
 ## License
 
 MotionUX is open source under MIT. Adapted components retain their upstream notices. [License](LICENSE) · [Source review](docs/SOURCE-REVIEW.md)
+
+## MotionUX Studio development
+
+The local demo opens Studio with the live reference index, search, theme and viewport controls. Each implemented specimen runs registry source and has its own detail view. Reference entries awaiting implementation are labelled in Studio. The v1 examples are available at `/?legacy=1`.
+
+[Implementation status](docs/IMPLEMENTATION-STATUS.md) · [Reference inventory](docs/REFERENCE-INVENTORY.md) · [Studio design](DESIGN.md)

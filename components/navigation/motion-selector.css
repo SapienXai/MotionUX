@@ -1,0 +1,18 @@
+[data-mx-selector] { min-inline-size: 0; color: var(--mx-ink, CanvasText); }
+fieldset[data-mx-selector] { border: 0; padding: 0; margin: 0; }
+[data-mx-selector] legend { margin-block-end: .55rem; font: inherit; font-weight: 650; }
+.mx-selector-track { min-inline-size: 0; display: flex; flex-wrap: wrap; gap: .22rem; padding: .3rem; isolation: isolate; background: var(--mx-surface, Canvas); border: 1px solid var(--mx-line, GrayText); border-radius: .8rem; }
+.mx-selector-track > :is(a,button,label) { flex: 1 1 4.2rem; position: relative; display: grid; place-items: center; min-block-size: 44px; min-inline-size: 0; padding: .42rem .55rem; border: 0; border-radius: .58rem; background: transparent; color: inherit; font: inherit; font-weight: 550; text-align: center; text-decoration: none; cursor: pointer; overflow-wrap: anywhere; }
+.mx-selector-track > :is(a,button,label) > span:last-child { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .35rem; min-inline-size: 0; }
+.mx-selector-track > :is(button:disabled,[data-disabled="true"]) { opacity: .5; cursor: default; }
+.mx-selector-track > :is([aria-selected="true"],[aria-current],[data-checked="true"]) { color: var(--mx-accent, LinkText); font-weight: 680; }
+.mx-selector-track > :is(a,button,label):focus-visible, .mx-selector-track > label:has(input:focus-visible), .mx-selector-panel:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: -2px; }
+.mx-selector-track > label > input { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; }
+.mx-selector-track > label:focus-within { outline: 2px solid var(--mx-accent, Highlight); outline-offset: -2px; }
+.mx-selector-indicator { position: absolute; inset: 0; border-radius: inherit; background: var(--mx-selected, ButtonFace); pointer-events: none; }
+.mx-selector-panel { padding-block: .9rem .15rem; }
+[data-mx-selector="dock"] .mx-selector-track { padding: .32rem; border-radius: 1rem; }
+[data-mx-selector="dock"] .mx-selector-track > a { min-block-size: 56px; padding: .35rem .15rem; flex-basis: 3.45rem; font-size: .78rem; }
+[data-mx-selector="dock"] .mx-selector-track > a > span:last-child { flex-direction: column; gap: .28rem; }
+[data-mx-selector="dock"] .mx-selector-track > a > span:last-child > span { display: flex; }
+@media (hover: hover) { .mx-selector-track > :is(a, button, label):hover { text-decoration: underline; text-underline-offset: .2em; } }

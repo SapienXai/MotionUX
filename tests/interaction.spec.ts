@@ -2,7 +2,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 test("dock preserves links, focus and expanded semantics", async ({ page }, info) => {
-  await page.goto("/");
+  await page.goto("/?legacy=1");
   const dock = page.getByRole("navigation", { name: "Örnek navigasyon" });
   await expect(dock.locator("[aria-current]")).toHaveText("Ana sayfa");
   const rooms = dock.getByRole("link", { name: "Odalar" });
@@ -25,7 +25,7 @@ test("dock preserves links, focus and expanded semantics", async ({ page }, info
 
 test("room disclosure closes immediately and remains usable with reduced motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto("/?legacy=1");
   const details = page.locator("details");
   const summary = details.locator("summary");
   const link = details.getByRole("link");
@@ -44,7 +44,7 @@ test("live status stays mounted, contains one current label and supports long Tu
   const errors: string[] = [];
   page.on("pageerror", (err) => errors.push(err.message));
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto("/?legacy=1");
   const state = page.getByLabel("Test durumu");
   const status = page.getByRole("status");
   const region = await status.elementHandle();

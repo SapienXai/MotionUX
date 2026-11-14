@@ -1,0 +1,11 @@
+[data-mx-cord] { --cord: var(--mx-muted, GrayText); position: relative; inline-size: 11rem; min-block-size: 10rem; display: grid; justify-items: center; grid-auto-rows: min-content; color: var(--mx-ink, CanvasText); }
+.mx-cord-lamp { display: grid; place-items: end center; inline-size: 7.5rem; block-size: 4.25rem; border-radius: 4rem 4rem .6rem .6rem; border: 1px solid var(--mx-line, GrayText); background: var(--mx-surface, Canvas); }
+.mx-cord-lamp span { display: block; inline-size: 3.4rem; block-size: .55rem; border-radius: 1rem 1rem 0 0; background: var(--mx-line, GrayText); }
+[data-mx-cord][data-on="true"] .mx-cord-lamp { background: var(--mx-selected, ButtonFace); }
+[data-mx-cord][data-on="true"] .mx-cord-lamp span { background: var(--mx-accent, Highlight); }
+[data-mx-cord] button { position: relative; display: grid; place-items: end center; inline-size: 44px; block-size: 70px; margin-block-start: -3px; border: 0; background: none; cursor: grab; touch-action: none; }
+[data-mx-cord] button:active { cursor: grabbing; }
+[data-mx-cord] button:disabled { opacity: .45; cursor: default; }
+[data-mx-cord] button::before { position: absolute; content: ""; inline-size: 2px; block-size: 100px; inset-block-end: 12px; inset-inline-start: 50%; background: var(--cord); z-index: 0; }
+[data-mx-cord] button > span { z-index: 1; inline-size: 1rem; block-size: 1.25rem; border-radius: .45rem; background: var(--mx-accent, Highlight); }
+[data-mx-cord] button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 3px; }

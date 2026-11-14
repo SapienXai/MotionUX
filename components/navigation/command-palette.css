@@ -1,0 +1,12 @@
+.mx-command-trigger, .mx-command-dialog button { display: flex; align-items: center; gap: .6rem; min-height: 44px; padding: .45rem .75rem; border: 1px solid var(--mx-line, GrayText); border-radius: .5rem; background: var(--mx-surface, Canvas); color: var(--mx-ink, CanvasText); font: inherit; cursor: pointer; }
+.mx-command-dialog { inline-size: min(32rem, calc(100% - 2rem)); max-block-size: 85vh; padding: .8rem; border: 1px solid var(--mx-line, GrayText); border-radius: .8rem; background: var(--mx-surface, Canvas); color: var(--mx-ink, CanvasText); }
+.mx-command-dialog::backdrop { background: rgb(22 18 14 / .55); }
+.mx-command-title { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+.mx-command-title h2 { margin: 0; font-size: 1.1rem; overflow-wrap: anywhere; }
+.mx-command-input { display: flex; align-items: center; gap: .6rem; padding-inline: .6rem; border: 1px solid var(--mx-line, GrayText); margin-block-start: .65rem; border-radius: .45rem; }
+.mx-command-input input { min-inline-size: 0; inline-size: 100%; min-block-size: 44px; border: 0; color: inherit; background: transparent; font: inherit; }
+.mx-command-dialog ul { padding: 0; margin: .55rem 0 0; list-style: none; }
+.mx-command-dialog li button { inline-size: 100%; justify-content: space-between; border-color: transparent; text-align: start; }
+.mx-command-dialog li button:is(:hover,:focus-visible) { background: var(--mx-selected, ButtonFace); }
+.mx-command-dialog button:disabled { opacity: .5; cursor: default; }
+.mx-command-dialog :is(input,button):focus-visible, .mx-command-trigger:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: -2px; }
