@@ -9,3 +9,11 @@
 [data-mx-cord] button::before { position: absolute; content: ""; inline-size: 2px; block-size: 100px; inset-block-end: 12px; inset-inline-start: 50%; background: var(--cord); z-index: 0; }
 [data-mx-cord] button > span { z-index: 1; inline-size: 1rem; block-size: 1.25rem; border-radius: .45rem; background: var(--mx-accent, Highlight); }
 [data-mx-cord] button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 3px; }
+[data-mx-cord] { --lamp: color-mix(in srgb, var(--mx-ink, CanvasText) 18%, var(--mx-surface, Canvas)); min-block-size: 12rem; }
+.mx-cord-lamp { position: relative; isolation: isolate; margin-block-start: 1.65rem; border: 0; background: var(--lamp); border-radius: 4rem 4rem .75rem .75rem; }
+.mx-cord-lamp::before { content: ""; position: absolute; inset-block-end: 100%; inset-inline-start: calc(50% - 1px); inline-size: 2px; block-size: 6rem; background: var(--cord); }
+.mx-cord-lamp span { position: absolute; inset-block-start: 100%; inline-size: 2.5rem; block-size: 1.18rem; border-radius: 0 0 2rem 2rem; }
+[data-mx-cord][data-on="true"] .mx-cord-lamp span { background: var(--mx-accent, Highlight); box-shadow: 0 5px 24px color-mix(in srgb, var(--mx-accent, Highlight) 65%, transparent); }
+[data-mx-cord] button { margin-inline-start: 4.2rem; block-size: 7rem; }
+[data-mx-cord] button::before { block-size: calc(100% - 10px); }
+[data-mx-cord] button > span { block-size: 1.65rem; }

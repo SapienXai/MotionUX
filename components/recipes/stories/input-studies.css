@@ -1,2 +1,11 @@
 .mx-exposure-demo { display: grid; inline-size: min(100%, 27rem); gap: .7rem; }
 .mx-exposure-demo img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: .75rem; }
+
+.mx-caption-demo { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 5px 10px; inline-size: min(100%, 320px); padding: 16px; border-radius: 23px; background: var(--mx-surface); text-align: start; }
+.mx-caption-field { display: contents; }
+.mx-caption-field > label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.mx-caption-field > textarea { grid-column: 1 / -1; border: 0; background: transparent; min-block-size: 75px; resize: none; padding: 1px 0; }
+.mx-caption-field > span { color: var(--mx-muted); }
+.mx-caption-demo > button { min-block-size: 44px; border-radius: 999px; border: none; padding-inline: 16px; background: var(--mx-accent); color: var(--mx-on-accent); }
+.mx-caption-demo > button:disabled { opacity: .56; }
+.mx-caption-demo > p { grid-column: 1 / -1; }

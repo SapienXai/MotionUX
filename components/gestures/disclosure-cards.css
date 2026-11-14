@@ -31,3 +31,8 @@
 .mx-stat-period input { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; opacity: 0; margin: 0; cursor: pointer; }
 
 [data-mx-disclosure-card="island"][data-open="true"] { inline-size: min(100%, 23rem); }
+[data-mx-disclosure-card="island"] { border: 0; inline-size: min(100%, 14rem); }
+[data-mx-disclosure-card="island"] .mx-disclosure-card-toggle { border-radius: inherit; padding: 9px 13px; }
+[data-mx-disclosure-card="island"][data-open="true"] { inline-size: min(100%, 21rem); }
+[data-mx-disclosure-card="island"] .mx-disclosure-card-icon { background: var(--mx-bg, Canvas); }
+[data-mx-disclosure-card="island"] .mx-disclosure-card-detail > div { border: 0; padding: 3px 15px 14px; }

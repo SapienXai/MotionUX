@@ -4,7 +4,7 @@ test("Plan switch updates the billing price with arrow keys", async ({ page }) =
   await page.goto("/?item=designbookmark-plan-switch");
   await page.getByRole("radio", { name: "Monthly" }).press("ArrowRight");
   await expect(page.getByRole("radio", { name: "Annual" })).toBeChecked();
-  await expect(page.getByText("$120", { exact: true })).toBeVisible();
+  await expect(page.getByText("Billed $192 yearly", { exact: true })).toBeVisible();
 });
 
 for (const [id, name] of [

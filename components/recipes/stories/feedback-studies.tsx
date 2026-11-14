@@ -1,3 +1,5 @@
+import { Check } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { booleanValue, numberValue, stringValue } from "../values";
 import { useState } from "react";
 import { ActionOutcome, CartAction, CopyTextButton, MagneticButton, ReactionButton, UndoAction } from "../../feedback/feedback-actions";
@@ -50,9 +52,22 @@ export function feedbackStory(kind: Kind): Specimen {
       let content;
       switch (kind) {
         case "plan-switch":
-          content = <PlanSwitch label={caption("Billing cycle", "Faturalama dönemi")} reducedMotion={reduced}
+          content = <PlanSwitch className="mx-plan-demo" label={caption("Billing cycle", "Faturalama dönemi")} reducedMotion={reduced}
             monthlyLabel={word("Monthly", "Aylık")} annualLabel={stringValue(config, "annualLabel") ?? word("Annual", "Yıllık")}>
-            {(annual) => <div className="mx-demo-sample"><strong>{annual ? "$120" : "$12"}</strong><p>{annual ? word("Per year · save $24", "Yıllık · 24 $ tasarruf") : word("Per month", "Aylık")}</p></div>}
+            {(annual) => <div className="mx-plan-price">
+              <div className="mx-plan-title"><strong>Pro</strong>{annual && <span>{word("Save 20%", "%20 tasarruf")}</span>}</div>
+              <div className="mx-plan-amount"><strong aria-live="polite"><span className="mx-demo-sr">{annual ? "$16" : "$20"}</span>
+                <span aria-hidden="true" className="mx-plan-price-roll"><AnimatePresence initial={false}><motion.span key={String(annual)}
+                  initial={reduced ? false : { y: annual ? "70%" : "-70%" }} animate={{ y: 0 }}
+                  exit={reduced ? undefined : { y: annual ? "-70%" : "70%" }}
+                  transition={reduced ? { duration: 0 } : { type: "spring", stiffness: 410, damping: 34 }}>{annual ? "$16" : "$20"}</motion.span></AnimatePresence></span>
+              </strong><span>{word("/mo", "/ay")}</span></div>
+              <p>{annual ? word("Billed $192 yearly", "Yıllık 192 $") : word("Billed monthly, cancel anytime", "Aylık fatura, istediğinde iptal et")}</p>
+              <ul>{[word("Unlimited projects", "Sınırsız proje"), word("Team seats and roles", "Ekip erişimi ve roller")].map(feature =>
+                <li key={feature}><Check size={13} aria-hidden="true" />{feature}</li>)}</ul>
+              <button className="mx-demo-button" type="button" onClick={() => setCount(annual ? 2 : 1)}>{word("Select demo plan", "Demo planı seç")}</button>
+              {count > 0 && <p role="status">{count === 2 ? word("Annual demo plan selected", "Yıllık demo planı seçildi") : word("Monthly demo plan selected", "Aylık demo planı seçildi")}</p>}
+            </div>}
           </PlanSwitch>; break;
         case "hold-button": case "hold-to-publish": case "slide-to-confirm": {
           const label = kind === "hold-button" ? word("Hold to arm", "Etkinleştirmek için basılı tutun") : kind === "hold-to-publish" ? word("Hold to publish", "Yayınlamak için basılı tutun") : word("Slide to confirm", "Onaylamak için kaydırın");

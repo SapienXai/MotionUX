@@ -1,4 +1,4 @@
-import { booleanValue, example, flag, motionNumber, number, numberValue, select, stringValue, text, type Config, type Field } from "./controls";
+import { booleanValue, example, flag, menuSpringFields, motionNumber, number, numberValue, select, stringValue, text, type Config, type Field } from "./controls";
 import type { OutcomeState } from "../../components/showcase/loading-outcome";
 
 const definitions = {
@@ -17,7 +17,7 @@ const definitions = {
   ] },
   "kokonut-morph-popover": { entry: "morph-dropdown", name: "MorphDropdown", fields: [
     text("label", "Menu label", "New action"), text("create", "Create action", "Create"), text("share", "Share action", "Share"),
-    text("duplicate", "Duplicate action", "Duplicate"), flag("open", "Menu open", true),
+    text("duplicate", "Duplicate action", "Duplicate"), flag("open", "Menu open", true), ...menuSpringFields,
   ] },
   "designbookmark-profile-card": { entry: "featured-profile", name: "FeaturedProfile", fields: [
     text("title", "Profile name", "Emma Carter"), text("subtitle", "Profile role", "Product Designer"),
@@ -54,6 +54,7 @@ export function roomProps(config: Config, tr = false) {
 export function menuProps(config: Config, tr = false) {
   return {
     label: stringValue(config, "label") ?? (tr ? "Yeni işlem" : undefined),
+    stiffness: numberValue(config, "stiffness"), damping: numberValue(config, "damping"),
     actionLabels: { Create: stringValue(config, "create") ?? (tr ? "Oluştur" : undefined), Share: stringValue(config, "share") ?? (tr ? "Paylaş" : undefined), Duplicate: stringValue(config, "duplicate") ?? (tr ? "Çoğalt" : undefined) },
   };
 }

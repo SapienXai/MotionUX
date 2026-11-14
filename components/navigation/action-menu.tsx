@@ -1,15 +1,20 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { ChevronDown, Ellipsis } from "lucide-react";
 import "./action-menu.css";
 
+const defaultStiffness = 445;
+const defaultDamping = 34;
+const collapsedClip = "inset(0% 14% 88% 14% round 20px)";
+const expandedClip = "inset(0% 0% 0% 0% round 13px)";
+
 export type MenuAction = { id: string; label: string; icon?: ReactNode; disabled?: boolean };
-export function ActionMenu({ label, actions, onAction, variant = "dropdown", reducedMotion, className, defaultOpen = false, inline = false, triggerIcon, open: controlledOpen, onOpenChange }: {
+export function ActionMenu({ label, actions, onAction, variant = "dropdown", reducedMotion, className, defaultOpen = false, inline = false, triggerIcon, open: controlledOpen, onOpenChange, stiffness = defaultStiffness, damping = defaultDamping }: {
   label: string; actions: readonly MenuAction[]; onAction: (id: string) => void;
   variant?: "dropdown" | "dynamic" | "morph"; reducedMotion?: boolean; className?: string; defaultOpen?: boolean; inline?: boolean; triggerIcon?: ReactNode;
-  open?: boolean; onOpenChange?: (open: boolean) => void;
+  open?: boolean; onOpenChange?: (open: boolean) => void; stiffness?: number; damping?: number;
 }) {
   const id = useId();
   const pref = useReducedMotion();
@@ -23,6 +28,9 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
   const overlay = useRef<HTMLDivElement>(null);
   const menu = useRef<HTMLDivElement>(null);
   const position = useRef(0);
+  const safeStiffness = Number.isFinite(stiffness) ? Math.min(800, Math.max(120, stiffness)) : defaultStiffness;
+  const safeDamping = Number.isFinite(damping) ? Math.min(85, Math.max(14, damping)) : defaultDamping;
+  const transition = noMotion ? { duration: 0 } : { type: "spring" as const, stiffness: safeStiffness, damping: safeDamping };
   const enabled = () => Array.from(menu.current?.querySelectorAll<HTMLButtonElement>("button:not(:disabled)") ?? []);
   const setOpen = useCallback((value: boolean) => {
     if (controlledOpen === undefined) setLocalOpen(value);
@@ -83,11 +91,14 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
     };
   }, [open, inline]);
 
+  useLayoutEffect(() => {
+    if (!open || !shouldFocus.current) return;
+    shouldFocus.current = false;
+    enabled().at(position.current === -1 ? -1 : 0)?.focus({ preventScroll: true });
+  }, [open]);
+
   useEffect(() => {
     if (!open) return;
-    const controls = enabled();
-    if (shouldFocus.current) controls.at(position.current === -1 ? -1 : 0)?.focus();
-    shouldFocus.current = false;
     const dismiss = (event: PointerEvent) => {
       if (event.target instanceof Node && !root.current?.contains(event.target)) setOpen(false);
     };
@@ -108,6 +119,13 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
     if (restore) trigger.current?.focus();
   }
 
+  const collapsed = variant === "morph"
+    ? { opacity: 0, y: above && !inline ? 5 : -5, clipPath: collapsedClip }
+    : { opacity: 0, y: above ? 6 : -6, scale: .96 };
+  const expanded = variant === "morph"
+    ? { opacity: 1, y: 0, clipPath: expandedClip }
+    : { opacity: 1, y: 0, scale: 1 };
+
   return <div ref={root} data-mx-action-menu={variant} data-above={above} className={className} data-inline={inline || undefined}
     onBlur={(e) => { if (e.relatedTarget && !e.currentTarget.contains(e.relatedTarget)) setOpen(false); }}>
     <button type="button" ref={trigger} aria-haspopup="menu" aria-expanded={open} aria-controls={open ? id : undefined}
@@ -118,11 +136,13 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
       {variant === "dynamic" && <Ellipsis size={17} aria-hidden />}{triggerIcon && <span aria-hidden="true">{triggerIcon}</span>}{label}
       {variant !== "dynamic" && <ChevronDown size={15} aria-hidden />}
     </button>
-    {(open || inline) && <div ref={overlay} className="mx-menu-layer" inert={!open}><AnimatePresence initial={false}>{open && <motion.div ref={menu} id={id} role="menu" aria-label={label} className="mx-menu-items"
-      initial={noMotion ? false : variant === "morph" ? { opacity: .25, y: -5, clipPath: "inset(0% 12% 72% 12% round 20px)" } : { opacity: .65, y: above ? 6 : -6, scale: .96 }}
-      animate={variant === "morph" ? { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0% round 13px)", transitionEnd: { clipPath: "none" } } : { opacity: 1, y: 0, scale: 1 }}
-      exit={inline ? { opacity: 0, y: -3, clipPath: "inset(0% 12% 72% 12% round 20px)" } : undefined}
-      transition={noMotion ? { duration: 0 } : { type: "spring", stiffness: 445, damping: 34 }}
+    {(open || inline) && <div ref={overlay} className="mx-menu-layer" inert={!open} aria-hidden={!open || undefined}>
+      <motion.div ref={menu} id={id} role="menu" aria-label={label} className="mx-menu-items"
+      initial={inline || noMotion ? false : collapsed}
+      animate={open ? { ...expanded, transitionEnd: { clipPath: "none", visibility: "visible" } }
+        : { ...collapsed, transitionEnd: { visibility: "hidden" } }}
+      style={{ visibility: open ? "visible" : undefined }}
+      transition={transition}
       onKeyDown={(e) => {
         if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(true); return; }
         if (e.key === "Tab") return;
@@ -137,6 +157,6 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
       }}>
       {actions.map((item) => <button type="button" role="menuitem" key={item.id} tabIndex={-1} disabled={item.disabled}
         onClick={() => { close(true); onAction(item.id); }}><span aria-hidden="true">{item.icon}</span>{item.label}</button>)}
-    </motion.div>}</AnimatePresence></div>}
+    </motion.div></div>}
   </div>;
 }

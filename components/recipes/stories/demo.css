@@ -13,3 +13,25 @@
   padding: 4px;
   overflow: auto;
 }
+
+.mx-demo-sr { position: absolute; inline-size: 1px; block-size: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.mx-plan-demo { inline-size: min(100%, 300px); padding: 8px; border-radius: 24px; background: var(--mx-surface); }
+.mx-plan-demo legend { font-size: .82rem; margin-inline-start: .5rem; }
+.mx-plan-demo .mx-plan-switch { border-radius: 999px; font-size: .86rem; }
+.mx-plan-demo .mx-plan-highlight { border-radius: inherit; }
+.mx-plan-price { padding: 0 4px; text-align: start; }
+.mx-plan-title { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.mx-plan-title > span { padding: 4px 8px; border-radius: 999px; background: var(--mx-selected); font-size: .72rem; }
+.mx-plan-amount { display: flex; align-items: baseline; gap: .25rem; color: var(--mx-muted); }
+.mx-plan-amount strong { color: var(--mx-ink); font-size: 2.65rem; font-weight: 640; letter-spacing: -.07em; line-height: 1.16; font-variant-numeric: tabular-nums; }
+.mx-plan-price-roll { display: inline-grid; overflow: clip; }
+.mx-plan-price-roll > span { grid-area: 1 / 1; }
+.mx-plan-price p, .mx-plan-price li { font-size: .8rem; }
+.mx-plan-price ul { display: grid; gap: 5px; margin: 8px 0 12px; padding: 0; list-style: none; }
+.mx-plan-price li { display: flex; gap: 8px; align-items: center; }
+.mx-plan-price .mx-demo-button { inline-size: 100%; border: none; border-radius: 999px; background: var(--mx-accent); color: var(--mx-on-accent); font-size: .86rem; }
+.mx-cord-demo { position: relative; }
+.mx-island-demo { display: grid; justify-items: center; gap: 36px; inline-size: 100%; padding-block: 8px; }
+.mx-island-modes { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
+.mx-island-modes button { min-block-size: 44px; padding: 3px 12px; border: 0; border-radius: 999px; background: var(--mx-surface); color: var(--mx-ink); font-size: .8rem; }
+.mx-island-modes button[aria-pressed="true"] { background: var(--mx-accent); color: var(--mx-on-accent); }

@@ -53,6 +53,7 @@ export function inputStory(kind: Kind): Specimen {
   return {
     component: function InputStudy({ language, reduced, config }) {
       const [value, setValue] = useState(kind === "wheel-picker" ? "14:00" : "");
+      const [posted, setPosted] = useState("");
       const [tags, setTags] = useState<string[]>(kind === "tag-input" ? ["studio"] : []);
       const [amount, setAmount] = useState(kind === "number-stepper" ? 2 : kind === "jelly-slider" ? 35 : kind === "star-rating" ? 3 : kind === "detent-dial" ? 4 : 0);
       const [range, setRange] = useState<[number, number]>([25, 75]);
@@ -71,7 +72,16 @@ export function inputStory(kind: Kind): Specimen {
       let control;
       switch (kind) {
         case "letter-limit":
-          control = <LetterLimit {...fieldProps} label={caption("Caption", "Açıklama")} name="caption" limit={numberValue(config, "limit") ?? 20} locale={tr ? "tr" : "en"} describe={n => count(n, "remaining", "karakter kaldı")} />; break;
+          control = <form className="mx-caption-demo" onSubmit={event => {
+            event.preventDefault();
+            if (value.trim()) { setPosted(value.trim()); setValue(""); }
+          }}>
+            <LetterLimit {...fieldProps} className="mx-caption-field" label={caption("Caption", "Açıklama")} name="caption"
+              placeholder={stringValue(config, "placeholder") ?? t("Write a post", "Bir gönderi yaz")}
+              limit={numberValue(config, "limit") ?? 64} locale={tr ? "tr" : "en"} describe={n => count(n, "remaining", "karakter kaldı")} />
+            <button type="submit" className="mx-demo-button" disabled={disabled || !value.trim()}>{t("Post", "Gönder")}</button>
+            {posted && <p role="status">{t("Draft saved in preview", "Taslak önizlemede kaydedildi")}</p>}
+          </form>; break;
         case "springy-input":
           control = <SpringField {...fieldProps} label={caption("Project name", "Proje adı")} name="project" placeholder={stringValue(config, "placeholder") ?? "Juniper"}
             hint={t("Up to 18 characters", "En fazla 18 karakter")}

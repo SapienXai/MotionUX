@@ -8,9 +8,9 @@ import "./disclosure-cards.css";
 const settle = { type: "spring", stiffness: 365, damping: 36, mass: .88 } as const;
 type Variant = "expand" | "profile" | "boarding" | "island";
 
-export function DisclosureCard({ title, subtitle, detail, variant = "expand", open, onOpenChange, openLabel, closeLabel, reducedMotion, image }: {
+export function DisclosureCard({ title, subtitle, detail, variant = "expand", open, onOpenChange, openLabel, closeLabel, reducedMotion, image, layoutStiffness = settle.stiffness }: {
   title: string; subtitle?: string; detail: ReactNode; variant?: Variant; open?: boolean; onOpenChange?: (open: boolean) => void;
-  openLabel: string; closeLabel: string; reducedMotion?: boolean; image?: { src: string; alt: string };
+  openLabel: string; closeLabel: string; reducedMotion?: boolean; image?: { src: string; alt: string }; layoutStiffness?: number;
 }) {
   const [local, setLocal] = useState(false);
   const expanded = open ?? local;
@@ -18,7 +18,8 @@ export function DisclosureCard({ title, subtitle, detail, variant = "expand", op
   const id = useId();
   const system = useReducedMotion();
   const quiet = system || reducedMotion;
-  const transition = quiet ? { duration: 0 } : settle;
+  const stiffness = Number.isFinite(layoutStiffness) ? Math.min(700, Math.max(150, layoutStiffness)) : settle.stiffness;
+  const transition = quiet ? { duration: 0 } : { ...settle, stiffness };
   const island = variant === "island";
   const Icon = variant === "boarding" ? Plane : variant === "profile" ? UserRound : variant === "island" ? ArrowUpRight : ChevronDown;
   function change(next: boolean) {

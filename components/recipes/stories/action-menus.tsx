@@ -1,4 +1,4 @@
-import { booleanValue, stringValue } from "../values";
+import { booleanValue, numberValue, stringValue } from "../values";
 import { Archive, BookOpen, CalendarDays, Check, Copy, Ellipsis, FolderOpen, Link2, Pin } from "lucide-react";
 import { useState } from "react";
 import { ActionMenu } from "../../navigation/action-menu";
@@ -26,7 +26,7 @@ export function menuStory(variant: Variant): Specimen {
         <ActionMenu label={label} variant={(stringValue(config, "variant") ?? variant) as Variant} actions={names.map((name, i) => {
           const Icon = sample.icons[i];
           return { id: String(i), label: name, icon: <Icon size={17} />, disabled: i === 2 && (booleanValue(config, "disabled") ?? variant === "dynamic") };
-        })} onAction={(id) => select(Number(id))} reducedMotion={reduced} />
+        })} onAction={(id) => select(Number(id))} stiffness={numberValue(config, "stiffness")} damping={numberValue(config, "damping")} reducedMotion={reduced} />
       </div>;
     },
     usage: `"use client";
@@ -40,8 +40,8 @@ export function Actions({ onSelect }: { onSelect: (id: string) => void }) {
   ]} onAction={onSelect} />;
 }`,
     states: "Open the panel and choose an action. The result appears in the demo record above.",
-    api: "Pass named actions with optional icons and disabled state. onAction receives the selected identifier.",
+    api: "Set actions, disabled items and reveal stiffness or damping. onAction receives the selected identifier.",
     accessibility: "Arrow keys, Home and End navigate actions. Escape closes and restores focus. Clicking outside dismisses the panel.",
-    performance: "The panel mounts on demand. Only its transform and opacity animate from the trigger.",
+    performance: "Floating panels mount on demand. Inline panels retarget their reveal from the current shape.",
   };
 }

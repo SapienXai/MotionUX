@@ -4,13 +4,14 @@ import { animate, motion, useMotionValue, useReducedMotion } from "motion/react"
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import "./pull-cord.css";
 
-export function PullCord({ label, checked, defaultChecked = false, onCheckedChange, reducedMotion, disabled, className }: {
+export function PullCord({ label, checked, defaultChecked = false, onCheckedChange, reducedMotion, disabled, className, threshold = 36 }: {
   label: string; checked?: boolean; defaultChecked?: boolean; onCheckedChange?: (checked: boolean) => void;
-  reducedMotion?: boolean; disabled?: boolean; className?: string;
+  reducedMotion?: boolean; disabled?: boolean; className?: string; threshold?: number;
 }) {
   const pref = useReducedMotion();
   const [internal, setInternal] = useState(defaultChecked);
   const on = checked ?? internal;
+  const detent = Number.isFinite(threshold) ? Math.max(16, Math.min(90, threshold)) : 36;
   const start = useRef<{ id: number; y: number } | null>(null);
   const swallowClick = useRef(false);
   const offset = useMotionValue(0);
@@ -28,10 +29,10 @@ export function PullCord({ label, checked, defaultChecked = false, onCheckedChan
     start.current = null;
     if (activate && dy > 8) {
       swallowClick.current = true;
-      if (dy >= 36) toggle();
+      if (dy >= detent) toggle();
     }
     if (pref || reducedMotion) offset.set(0);
-    else animation.current = animate(offset, 0, { type: "spring", stiffness: 360, damping: 23 });
+    else animation.current = animate(offset, 0, { type: "spring", stiffness: 360, damping: 21, mass: .64 });
   }
   return <div data-mx-cord="" data-on={on} className={className}>
     <div aria-hidden="true" className="mx-cord-lamp"><span /></div>

@@ -10,8 +10,8 @@ test("catalog filters, themes, devices, Turkish, reset and comparison remain usa
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "Motion", exact: true })).toBeVisible();
   await page.getByRole("searchbox", { name: "Search components" }).fill("pagination");
-  await expect(page.locator(".mx-gallery-card").getByRole("link")).toHaveCount(1);
-  await page.getByRole("link", { name: /Pagination dots/ }).click();
+  await expect(page.locator(".mx-gallery-card")).toHaveCount(1);
+  await page.getByRole("link", { name: "Open playground for Pagination dots" }).click();
   await expect(page.getByRole("heading", { name: "Pagination dots" })).toBeFocused();
   await page.getByText("Preview settings", { exact: true }).click();
   await page.getByRole("button", { name: "Mobile" }).click();

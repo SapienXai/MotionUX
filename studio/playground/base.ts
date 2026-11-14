@@ -1,4 +1,4 @@
-import { flag, motionNumber, number, select, text, type Field } from "./controls";
+import { flag, menuSpringFields, motionNumber, number, select, text, type Field } from "./controls";
 
 const label = (value: string) => text("label", "Component label", value);
 const disabled = () => flag("disabled", "Disabled");
@@ -12,11 +12,11 @@ const definitions: Record<string, readonly Field[]> = {
   "segmented-control": [label("Reporting period")],
   "pagination-dots": [label("Pagination"), number("count", "Page count", 4, 2, 4)],
   "command-palette": [text("triggerLabel", "Trigger label", "Search commands")],
-  "pull-cord": [label("Studio light"), disabled()],
+  "pull-cord": [label("Studio light"), disabled(), motionNumber("threshold", "Pull detent (px)", 36, 16, 90)],
   "morph-tooltip": [label("About image quality"), text("description", "Tooltip text", "Higher quality can increase the exported file size.")],
-  "spring-dropdown": [label("Sort by"), flag("disabled", "Disable last action"), variant("dropdown", ["dropdown", "dynamic", "morph"])],
-  "dynamic-menu": [label("More actions"), flag("disabled", "Disable last action", true), variant("dynamic", ["dropdown", "dynamic", "morph"])],
-  "morph-popover": [label("Sharing options"), flag("disabled", "Disable last action"), variant("morph", ["dropdown", "dynamic", "morph"])],
+  "spring-dropdown": [label("Sort by"), flag("disabled", "Disable last action"), variant("dropdown", ["dropdown", "dynamic", "morph"]), ...menuSpringFields],
+  "dynamic-menu": [label("More actions"), flag("disabled", "Disable last action", true), variant("dynamic", ["dropdown", "dynamic", "morph"]), ...menuSpringFields],
+  "morph-popover": [label("Sharing options"), flag("disabled", "Disable last action"), variant("morph", ["dropdown", "dynamic", "morph"]), ...menuSpringFields],
   "rubber-dock": [label("Camera workspace"), text("firstLabel", "First destination", "Explore")],
   "sidebar-collapse": [label("Workspace sidebar"), flag("expanded", "Expanded", true)],
   "smooth-tab": [label("Collection")],
@@ -41,7 +41,7 @@ const definitions: Record<string, readonly Field[]> = {
   "agent-steps": [label("Progress"), variant("expandable", ["expandable", "linear"])],
   "tool-approval": [title("Read project notes"), state("pending", ["pending", "approved", "denied"])],
   "goo-thinking": [label("Ready"), flag("pending", "Pending")],
-  "letter-limit": [label("Caption"), number("limit", "Grapheme limit", 20, 4, 160), disabled()],
+  "letter-limit": [label("Caption"), number("limit", "Grapheme limit", 64, 4, 160), text("placeholder", "Placeholder", "Write a post"), disabled()],
   "springy-input": [label("Project name"), text("placeholder", "Placeholder", "Juniper"), disabled()],
   "otp-code": [label("Verification code"), number("length", "Digits", 6, 4, 8), disabled()],
   "tag-input": [label("Tags"), number("limit", "Maximum tags", 6, 1, 20), disabled()],
@@ -63,13 +63,13 @@ const definitions: Record<string, readonly Field[]> = {
   "parallax-ticket": [title("Night train"), text("serial", "Serial", "MX 0418")],
   "glass-lens": [label("Toggle magnification"), number("zoom", "Magnification", 2.1, 1.2, 4, .1)],
   "pull-to-refresh": [label("Refresh notes"), motionNumber("threshold", "Pull distance (px)", 65, 30, 130)],
-  "morph-island": [title("Export activity"), flag("open", "Expanded")],
+  "morph-island": [title("Export activity"), flag("open", "Expanded"), motionNumber("layoutStiffness", "Layout stiffness", 365, 150, 700, 5)],
   "expand-card": [title("Winter field guide"), flag("open", "Expanded")],
   "profile-card": [title("Mira Vale"), flag("open", "Expanded")],
   "boarding-pass": [title("Istanbul › Copenhagen"), flag("open", "Expanded")],
   "stat-card": [title("Readership")],
-  "goo-morph": [label("Change shape")],
-  "goo-menu": [label("Journal actions"), flag("open", "Expanded")],
+  "goo-morph": [label("Change shape"), motionNumber("duration", "Morph duration (seconds)", .42, .16, .9, .01)],
+  "goo-menu": [label("Journal actions"), flag("open", "Expanded"), select("layout", "Action layout", "arc", ["arc", "row"], "Variants")],
   "unlock-face-id": [label("Play simulation"), select("phase", "Simulation phase", "idle", ["idle", "preview", "done"])],
   "word-roll": [text("text", "Phrase", "Horizon"), variant("roll", ["roll", "dynamic"])],
   "dynamic-text": [text("text", "Phrase", "Quiet by the treeline"), variant("dynamic", ["dynamic", "roll"])],

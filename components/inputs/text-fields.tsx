@@ -38,17 +38,17 @@ function graphemes(value: string, locale: string | undefined) {
   return Array.from(new Intl.Segmenter(locale, { granularity: "grapheme" }).segment(value), ({ segment }) => segment);
 }
 
-export function LetterLimit({ label, value, onValueChange, limit, locale, name, disabled, required, describe }: {
+export function LetterLimit({ label, value, onValueChange, limit, locale, name, disabled, required, describe, className, placeholder }: {
   label: string; value: string; onValueChange: (value: string) => void; limit: number; locale?: string;
-  name?: string; disabled?: boolean; required?: boolean; describe: (remaining: number) => string;
+  name?: string; disabled?: boolean; required?: boolean; className?: string; placeholder?: string; describe: (remaining: number) => string;
 }) {
   const id = useId();
   const [draft, setDraft] = useState<string | null>(null);
   const cap = Number.isFinite(limit) ? Math.max(0, Math.trunc(limit)) : 0;
   const remaining = cap - graphemes(draft ?? value, locale).length;
-  return <div data-mx-field>
+  return <div className={className} data-mx-field>
     <label htmlFor={id}>{label}</label>
-    <textarea id={id} name={name} disabled={disabled} required={required} rows={3} aria-describedby={id + "-count"}
+    <textarea id={id} name={name} disabled={disabled} required={required} placeholder={placeholder} rows={3} aria-describedby={id + "-count"}
       value={draft ?? value}
       onCompositionStart={(event) => setDraft(event.currentTarget.value)}
       onCompositionEnd={(event) => { setDraft(null); onValueChange(graphemes(event.currentTarget.value, locale).slice(0, cap).join("")); }}

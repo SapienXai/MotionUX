@@ -51,6 +51,7 @@ export function cardStory(kind: Kind): Specimen {
       const label = (en: string, turkish: string) => stringValue(config, "label") ?? t(en, turkish);
       const title = (en: string, turkish: string) => stringValue(config, "title") ?? t(en, turkish);
       const controlled = { open: booleanValue(config, "open"), onOpenChange: (value: boolean) => update?.("open", value) };
+      const [activity, setActivity] = useState<"idle" | "timer" | "upload" | "call">("idle");
       const [index, setIndex] = useState(0);
       const [period, setPeriod] = useState("week");
       const [choice, setChoice] = useState("");
@@ -70,9 +71,27 @@ export function cardStory(kind: Kind): Specimen {
       const disclosure = { openLabel: t("Details", "Ayrıntılar"), closeLabel: t("Close", "Kapat"), reducedMotion: reduced };
       let widget;
       switch (kind) {
-        case "morph-island":
-          widget = <DisclosureCard {...disclosure} {...controlled} title={title("Export activity", "Dışa aktarma")} subtitle={title("One file prepared", "Bir dosya hazır")} variant="island"
-            detail={<p role="status">{t("Draft export ready for inspection.", "Taslak dışa aktarma incelemeye hazır.")}</p>} />; break;
+        case "morph-island": {
+          const activities = [
+            { id: "idle", label: t("Idle", "Boşta"), title: t("Export activity", "Dışa aktarma"), summary: t("One file prepared", "Bir dosya hazır"),
+              detail: t("Draft export ready for inspection.", "Taslak dışa aktarma incelemeye hazır.") },
+            { id: "timer", label: t("Timer", "Sayaç"), title: t("Focus timer", "Odak sayacı"), summary: "04:56",
+              detail: t("Five-minute focus session preview.", "Beş dakikalık odak oturumu önizlemesi.") },
+            { id: "upload", label: t("Upload", "Yükleme"), title: t("Preparing upload", "Yükleme hazırlanıyor"), summary: "studio-notes.zip",
+              detail: t("Waiting for confirmation to start the demo upload.", "Demo yüklemesini başlatmak için onay bekleniyor.") },
+            { id: "call", label: t("Call", "Arama"), title: t("Maya Chen", "Maya Chen"), summary: t("Incoming demo call", "Gelen demo araması"),
+              detail: t("Preview an incoming-call notification.", "Gelen arama bildirimini önizleyin.") },
+          ] as const;
+          const current = activities.find(option => option.id === activity)!;
+          widget = <div className="mx-island-demo">
+            <DisclosureCard {...disclosure} {...controlled} title={title(current.title, current.title)} subtitle={current.summary} variant="island"
+              layoutStiffness={numberValue(config, "layoutStiffness")} detail={<p role="status">{current.detail}</p>} />
+            <div role="group" aria-label={t("Activity", "Etkinlik")} className="mx-island-modes">
+              {activities.map(option => <button key={option.id} type="button" aria-pressed={activity === option.id}
+                onClick={() => setActivity(option.id)}>{option.label}</button>)}
+            </div>
+          </div>; break;
+        }
         case "expand-card":
           widget = <DisclosureCard {...disclosure} {...controlled} title={title("Winter field guide", "Kış arazi rehberi")} subtitle={title("Journal entry", "Günlük kaydı")}
             detail={<p>{t("The lower trail is sheltered after the first junction.", "Alt patika ilk kavşaktan sonra korunaklıdır.")}</p>} />; break;
@@ -106,12 +125,12 @@ export function cardStory(kind: Kind): Specimen {
           </PullRefresh>; break;
         case "goo-morph":
           widget = <GooMorph label={label("Change shape", "Şekli değiştir")} names={[t("Tide", "Gelgit"), t("Current", "Akıntı")]}
-            index={index === 0 ? 0 : 1} onIndexChange={setIndex} reducedMotion={reduced} />; break;
+            index={index === 0 ? 0 : 1} onIndexChange={setIndex} reducedMotion={reduced} duration={numberValue(config, "duration")} />; break;
         case "goo-menu": {
           const actions = [{ id: "note", label: t("Add a note", "Not ekle"), icon: <PenLine size={18} aria-hidden="true" /> },
             { id: "photo", label: t("Add a photo", "Fotoğraf ekle"), icon: <ImagePlus size={18} aria-hidden="true" /> },
             { id: "mark", label: t("Add a bookmark", "Yer imi ekle"), icon: <Bookmark size={18} aria-hidden="true" /> }];
-          widget = <><GooMenu {...controlled} label={label("Journal actions", "Günlük işlemleri")} actions={actions}
+          widget = <><GooMenu {...controlled} layout={stringValue(config, "layout") === "row" ? "row" : "arc"} label={label("Journal actions", "Günlük işlemleri")} actions={actions}
             onAction={(id) => setChoice(actions.find((action) => action.id === id)?.label ?? "")} reducedMotion={reduced} />
             {choice && <p role="status">{choice}</p>}</>; break;
         }

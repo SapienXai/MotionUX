@@ -3,8 +3,8 @@ import { expect, test } from "@playwright/test";
 test("Letter limit preserves a composed grapheme and truncates overflow", async ({ page }) => {
   await page.goto("/?item=designbookmark-letter-limit");
   const field = page.getByRole("textbox", { name: "Caption" });
-  await field.fill("👩‍🎨" + "a".repeat(24));
-  await expect(field).toHaveValue("👩‍🎨" + "a".repeat(19));
+  await field.fill("👩‍🎨" + "a".repeat(70));
+  await expect(field).toHaveValue("👩‍🎨" + "a".repeat(63));
   await expect(page.getByText("0 remaining")).toBeVisible();
 });
 

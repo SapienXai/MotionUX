@@ -1,4 +1,4 @@
-import { booleanValue, stringValue } from "../values";
+import { booleanValue, numberValue, stringValue } from "../values";
 import { useState } from "react";
 import { PullCord } from "../../navigation/pull-cord";
 import type { Specimen } from "../specimen";
@@ -8,10 +8,10 @@ const story: Specimen = {
   component: function Example({ reduced, language, config }) {
     const [on, setOn] = useState(false);
     const tr = language === "tr";
-    return <div className="mx-demo mx-demo-center">
-      <PullCord label={stringValue(config, "label") ?? (tr ? "Stüdyo ışığı" : "Studio light")} disabled={booleanValue(config, "disabled")} checked={on} onCheckedChange={setOn} reducedMotion={reduced} />
-      <p>{on ? (tr ? "Işık açık" : "Light on") : (tr ? "Işık kapalı" : "Light off")}</p>
-      <p>{tr ? "İpi çekin veya düğmeye basın." : "Pull the cord or press its handle."}</p>
+    return <div className="mx-demo mx-demo-center mx-cord-demo">
+      <PullCord label={stringValue(config, "label") ?? (tr ? "Stüdyo ışığı" : "Studio light")} disabled={booleanValue(config, "disabled")} checked={on} onCheckedChange={setOn} threshold={numberValue(config, "threshold")} reducedMotion={reduced} />
+      <p className="mx-demo-sr">{on ? (tr ? "Işık açık" : "Light on") : (tr ? "Işık kapalı" : "Light off")}</p>
+      <p className="mx-demo-sr">{tr ? "İpi çekin veya düğmeye basın." : "Pull the cord or press its handle."}</p>
     </div>;
   },
   usage: `"use client";

@@ -11,15 +11,15 @@ const defaults = [
   { id: "Duplicate", label: "Duplicate", icon: <Copy size={17} /> },
 ];
 
-export function MorphDropdown({ label = "New action", actions = defaults, actionLabels, defaultOpen = true, open, onOpenChange, onAction, reducedMotion }: {
+export function MorphDropdown({ label = "New action", actions = defaults, actionLabels, defaultOpen = true, open, onOpenChange, onAction, reducedMotion, stiffness, damping }: {
   label?: string; actions?: readonly MenuAction[]; defaultOpen?: boolean; open?: boolean; onOpenChange?: (open: boolean) => void;
-  actionLabels?: Partial<Record<string, string>>; onAction?: (id: string) => void; reducedMotion?: boolean;
+  actionLabels?: Partial<Record<string, string>>; onAction?: (id: string) => void; reducedMotion?: boolean; stiffness?: number; damping?: number;
 }) {
   const [choice, setChoice] = useState("");
   const menu = actions.map(action => ({ ...action, label: actionLabels?.[action.id] ?? action.label }));
   return <PresetFrame reducedMotion={reducedMotion}><div className="mx-feature-dropdown">
     <ActionMenu label={label} variant="morph" defaultOpen={defaultOpen} open={open} onOpenChange={onOpenChange} inline
-      triggerIcon={<Sparkles size={19} aria-hidden="true" />} reducedMotion={reducedMotion} actions={menu}
+      triggerIcon={<Sparkles size={19} aria-hidden="true" />} reducedMotion={reducedMotion} stiffness={stiffness} damping={damping} actions={menu}
       onAction={id => { setChoice(id); onAction?.(id); }} />
     {choice && <span className="mx-feature-choice" role="status">{menu.find(action => action.id === choice)?.label ?? choice} selected</span>}
   </div></PresetFrame>;
