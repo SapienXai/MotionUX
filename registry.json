@@ -1177,6 +1177,314 @@
           "type": "registry:file"
         }
       ]
+    },
+    {
+      "name": "swipe-deck",
+      "type": "registry:component",
+      "title": "Swipe deck",
+      "description": "Drag a top card to dismiss or move it with visible next and previous controls.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/deck-and-page.tsx",
+          "target": "@components/sapienx-motion/deck-and-page.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/deck-and-page.css",
+          "target": "@components/sapienx-motion/deck-and-page.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "page-flip",
+      "type": "registry:component",
+      "title": "Page flip",
+      "description": "Turn between supplied pages with keyboard controls and a bounded planar hinge.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/deck-and-page.tsx",
+          "target": "@components/sapienx-motion/deck-and-page.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/deck-and-page.css",
+          "target": "@components/sapienx-motion/deck-and-page.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "fan-cards",
+      "type": "registry:component",
+      "title": "Fan cards",
+      "description": "Fan a related set of cards, select one, and collapse the rest.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/deck-and-page.tsx",
+          "target": "@components/sapienx-motion/deck-and-page.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/deck-and-page.css",
+          "target": "@components/sapienx-motion/deck-and-page.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "parallax-ticket",
+      "type": "registry:component",
+      "title": "Parallax ticket",
+      "description": "Tilt nested ticket layers on pointer movement and return them to rest on exit.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/interactive-surfaces.tsx",
+          "target": "@components/sapienx-motion/interactive-surfaces.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/interactive-surfaces.css",
+          "target": "@components/sapienx-motion/interactive-surfaces.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "glass-lens",
+      "type": "registry:component",
+      "title": "Glass lens",
+      "description": "Move a bounded magnifier over supplied content with pointer and keyboard.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/interactive-surfaces.tsx",
+          "target": "@components/sapienx-motion/interactive-surfaces.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/interactive-surfaces.css",
+          "target": "@components/sapienx-motion/interactive-surfaces.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "pull-to-refresh",
+      "type": "registry:component",
+      "title": "Pull to refresh",
+      "description": "Pull from the top of a scroll area past a threshold or press refresh; show caller state.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/interactive-surfaces.tsx",
+          "target": "@components/sapienx-motion/interactive-surfaces.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/interactive-surfaces.css",
+          "target": "@components/sapienx-motion/interactive-surfaces.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "morph-island",
+      "type": "registry:component",
+      "title": "Morph island",
+      "description": "Expand compact activity into detailed controls while retaining visual identity.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "target": "@components/sapienx-motion/disclosure-cards.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "target": "@components/sapienx-motion/disclosure-cards.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "expand-card",
+      "type": "registry:component",
+      "title": "Expand card",
+      "description": "Expand a card to reveal details; close and restore focus to its opener.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "target": "@components/sapienx-motion/disclosure-cards.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "target": "@components/sapienx-motion/disclosure-cards.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "profile-card",
+      "type": "registry:component",
+      "title": "Profile card",
+      "description": "Expand a compact profile to reveal actions using shared layout.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "target": "@components/sapienx-motion/disclosure-cards.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "target": "@components/sapienx-motion/disclosure-cards.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "boarding-pass",
+      "type": "registry:component",
+      "title": "Boarding pass",
+      "description": "Expand itinerary details from a compact pass with a ticket-specific reveal.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "target": "@components/sapienx-motion/disclosure-cards.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "target": "@components/sapienx-motion/disclosure-cards.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "stat-card",
+      "type": "registry:component",
+      "title": "Stat card",
+      "description": "Change time window and display the updated metric and readable trend.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "target": "@components/sapienx-motion/disclosure-cards.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "target": "@components/sapienx-motion/disclosure-cards.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "goo-morph",
+      "type": "registry:component",
+      "title": "Goo morph",
+      "description": "Switch between distinct connected silhouettes with a static reduced-motion equivalent.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/goo-studies.tsx",
+          "target": "@components/sapienx-motion/goo-studies.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/goo-studies.css",
+          "target": "@components/sapienx-motion/goo-studies.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "goo-menu",
+      "type": "registry:component",
+      "title": "Goo menu",
+      "description": "Open linked lobes of actions around a trigger with sequential focus.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/goo-studies.tsx",
+          "target": "@components/sapienx-motion/goo-studies.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/goo-studies.css",
+          "target": "@components/sapienx-motion/goo-studies.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "unlock-face-id",
+      "type": "registry:component",
+      "title": "Unlock Face ID",
+      "description": "Show an explicitly simulated feedback animation with no biometric operation.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/gestures/goo-studies.tsx",
+          "target": "@components/sapienx-motion/goo-studies.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/gestures/goo-studies.css",
+          "target": "@components/sapienx-motion/goo-studies.css",
+          "type": "registry:file"
+        }
+      ]
     }
   ]
 }

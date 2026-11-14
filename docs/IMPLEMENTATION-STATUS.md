@@ -9,6 +9,7 @@ The live inventory contains 82 references across DesignBookmark (51), Kokonut UI
 | 2 | 15 navigation previews. Additional visual review and advanced overlay positioning are open. |
 | 3 | 19 feedback previews with caller-owned results for consequential actions. |
 | 4 | 16 form previews. Playwright covered each of these on three browser profiles. |
-| 5–7 | Pending implementation and acceptance. |
+| 5 | 14 card and gesture previews. All 42 browser checks passed across three profiles. |
+| 6–7 | Pending implementation and acceptance. |
 
 **Release pending.** See the [per-reference ledger](REFERENCE-INVENTORY.md).

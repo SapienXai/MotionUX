@@ -491,6 +491,132 @@
       "consumers": [],
       "evidence": "tests/inputs.spec.ts",
       "referenceId": "kokonut-wheel-picker"
+    },
+    "swipe-deck": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "designbookmark-swipe-deck"
+    },
+    "page-flip": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "kokonut-page-flip"
+    },
+    "fan-cards": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "designbookmark-fan-cards"
+    },
+    "parallax-ticket": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "designbookmark-parallax-ticket"
+    },
+    "glass-lens": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "designbookmark-glass-lens"
+    },
+    "pull-to-refresh": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "designbookmark-pull-to-refresh"
+    },
+    "morph-island": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "designbookmark-morph-island"
+    },
+    "expand-card": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "designbookmark-expand-card"
+    },
+    "profile-card": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "designbookmark-profile-card"
+    },
+    "boarding-pass": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "kokonut-boarding-pass"
+    },
+    "stat-card": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "designbookmark-stat-card"
+    },
+    "goo-morph": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "designbookmark-goo-morph"
+    },
+    "goo-menu": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "designbookmark-goo-menu"
+    },
+    "unlock-face-id": {
+      "source": "https://smoothui.dev/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/cards.spec.ts",
+      "referenceId": "smoothui-unlock-face-id"
     }
   }
 }

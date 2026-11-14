@@ -1,0 +1,79 @@
+"use client";
+
+import { Fingerprint, Plus } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import "./goo-studies.css";
+
+const settle = { type: "spring", stiffness: 350, damping: 28, mass: .7 } as const;
+const shapes = [
+  "M12 40 C12 22 25 13 44 13 C57 13 60 24 72 24 C84 24 90 16 103 18 C123 21 133 30 133 46 C133 61 119 73 100 72 C84 72 83 61 68 61 C53 61 50 73 35 70 C20 68 12 57 12 40Z",
+  "M12 40 C13 24 31 18 47 20 C62 22 67 9 82 9 C95 9 103 24 107 34 C112 45 129 50 129 63 C129 76 111 80 96 73 C80 66 77 58 65 60 C51 62 48 74 34 74 C18 74 11 58 12 40Z",
+];
+
+export function GooMorph({ label, names, index, onIndexChange, reducedMotion }: {
+  label: string; names: readonly [string, string]; index: 0 | 1; onIndexChange: (index: 0 | 1) => void; reducedMotion?: boolean;
+}) {
+  const system = useReducedMotion();
+  return <div data-mx-goo="morph">
+    <svg viewBox="0 0 144 84" aria-hidden="true">
+      <motion.path initial={false} animate={{ d: shapes[index] }} transition={system || reducedMotion ? { duration: 0 } : { duration: .42, ease: [.2,.83,.26,1] }} />
+    </svg>
+    <button type="button" aria-label={label} onClick={() => onIndexChange(index === 0 ? 1 : 0)}>{label}</button>
+    <span role="status">{names[index]}</span>
+  </div>;
+}
+
+export function GooMenu({ label, actions, onAction, reducedMotion }: {
+  label: string; actions: readonly { id: string; label: string; icon: ReactNode }[]; onAction: (id: string) => void; reducedMotion?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const button = useRef<HTMLButtonElement>(null);
+  const options = useRef<HTMLDivElement>(null);
+  const requestFocus = useRef(false);
+  useEffect(() => {
+    if (open && requestFocus.current) {
+      requestFocus.current = false;
+      options.current?.querySelector("button")?.focus();
+    }
+  }, [open]);
+  const id = useId();
+  const system = useReducedMotion();
+  const quiet = system || reducedMotion;
+  function close() { setOpen(false); button.current?.focus(); }
+  return <div data-mx-goo="menu" onKeyDown={(event) => {
+    if (open && event.key === "Escape") { event.stopPropagation(); close(); }
+  }}>
+    <button type="button" ref={button} aria-label={label} aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}
+      onKeyDown={(event) => {
+        if (event.key !== "ArrowDown" || !actions.length) return;
+        event.preventDefault();
+        if (open) options.current?.querySelector("button")?.focus();
+        else { requestFocus.current = true; setOpen(true); }
+      }}>
+      <motion.span animate={{ rotate: open && !quiet ? 45 : 0 }} transition={quiet ? { duration: 0 } : settle}><Plus aria-hidden="true" size={22} /></motion.span>
+    </button>
+    <div id={id} ref={options} inert={!open} className="mx-goo-options">
+      <AnimatePresence initial={false}>{open && actions.map((action, index) => <motion.button type="button" key={action.id}
+        initial={quiet ? false : { x: -30, scale: .6, opacity: 0 }} animate={{ x: 0, scale: 1, opacity: 1 }}
+        exit={{ x: quiet ? 0 : -20, scale: quiet ? 1 : .8, opacity: 0 }}
+        transition={quiet ? { duration: 0 } : { ...settle, delay: index * .03 }}
+        aria-label={action.label} onClick={() => { close(); onAction(action.id); }}>{action.icon}</motion.button>)}</AnimatePresence>
+    </div>
+  </div>;
+}
+
+export function SimulatedUnlock({ label, animationLabel, status, phase, onRun, reducedMotion }: {
+  label: string; animationLabel: string; status: string; phase: "idle" | "preview" | "done"; onRun: () => void; reducedMotion?: boolean;
+}) {
+  const system = useReducedMotion();
+  const quiet = system || reducedMotion;
+  return <div data-mx-goo="unlock">
+    <motion.div className="mx-unlock-art" aria-hidden="true" initial={false}
+      animate={{ scale: !quiet && phase === "preview" ? 1.14 : 1, rotate: !quiet && phase === "preview" ? -6 : 0 }}
+      transition={quiet ? { duration: 0 } : settle}><Fingerprint size={37} /></motion.div>
+    <strong>{animationLabel}</strong>
+    <span role="status">{status}</span>
+    <button type="button" disabled={phase === "preview"} onClick={onRun}>{label}</button>
+  </div>;
+}
