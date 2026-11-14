@@ -779,6 +779,60 @@
       "consumers": [],
       "evidence": "tests/media.spec.ts",
       "referenceId": "smoothui-music-toggle"
+    },
+    "sliding-tab-pill-gallery": {
+      "source": "MotionUX Studio V5 composition",
+      "kind": "original preset and MIT MotionUX primitives",
+      "license": "MIT",
+      "ref": null,
+      "consumers": [],
+      "evidence": "docs/STUDIO-ASSETS.md",
+      "referenceId": "designbookmark-tab-pill"
+    },
+    "loading-outcome-gallery": {
+      "source": "MotionUX Studio V5 composition",
+      "kind": "original preset and MIT MotionUX primitives",
+      "license": "MIT",
+      "ref": null,
+      "consumers": [],
+      "evidence": "docs/STUDIO-ASSETS.md",
+      "referenceId": "designbookmark-loading-to-success"
+    },
+    "expandable-room-gallery": {
+      "source": "MotionUX Studio V5 composition",
+      "kind": "original preset and MIT MotionUX primitives",
+      "license": "MIT",
+      "ref": null,
+      "consumers": [],
+      "evidence": "docs/STUDIO-ASSETS.md",
+      "referenceId": "designbookmark-expand-card"
+    },
+    "morph-dropdown-gallery": {
+      "source": "MotionUX Studio V5 composition",
+      "kind": "original preset and MIT MotionUX primitives",
+      "license": "MIT",
+      "ref": null,
+      "consumers": [],
+      "evidence": "docs/STUDIO-ASSETS.md",
+      "referenceId": "kokonut-morph-popover"
+    },
+    "featured-profile-gallery": {
+      "source": "MotionUX Studio V5 composition",
+      "kind": "original preset and MIT MotionUX primitives",
+      "license": "MIT",
+      "ref": null,
+      "consumers": [],
+      "evidence": "docs/STUDIO-ASSETS.md",
+      "referenceId": "designbookmark-profile-card"
+    },
+    "destination-deck-gallery": {
+      "source": "MotionUX Studio V5 composition",
+      "kind": "original preset and MIT MotionUX primitives",
+      "license": "MIT",
+      "ref": null,
+      "consumers": [],
+      "evidence": "docs/STUDIO-ASSETS.md",
+      "referenceId": "designbookmark-swipe-deck"
     }
   }
 }

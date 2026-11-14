@@ -1,6 +1,6 @@
 # V6 checkpoints
 
-- Done — audited the 82 preview-to-registry mappings and replaced stale install lookup with build-time validation of the published package.
-- Remaining — curated preset packaging, isolated consumer comparison, editable configurations, catalog craft and release review.
+- Done — audited 82 mappings, added build-time pin validation, packaged six Gallery presets and compared the real local shadcn installs against Studio across 72 viewport, theme and state combinations.
+- Remaining — pin the pushed preset source after running the same consumer matrix against GitHub. Add personalized configurations, catalog craft and release evidence.
 - Blocked — physical-device and screen reader acceptance has no recorded evidence.
-- Next — publish and install the first six curated presets from a verified SHA.
+- Next — run the isolated consumer matrix against the immutable remote checkpoint.

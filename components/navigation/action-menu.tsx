@@ -1,20 +1,22 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { ChevronDown, Ellipsis } from "lucide-react";
 import "./action-menu.css";
 
 export type MenuAction = { id: string; label: string; icon?: ReactNode; disabled?: boolean };
-export function ActionMenu({ label, actions, onAction, variant = "dropdown", reducedMotion, className, defaultOpen = false, inline = false, triggerIcon }: {
+export function ActionMenu({ label, actions, onAction, variant = "dropdown", reducedMotion, className, defaultOpen = false, inline = false, triggerIcon, open: controlledOpen, onOpenChange }: {
   label: string; actions: readonly MenuAction[]; onAction: (id: string) => void;
   variant?: "dropdown" | "dynamic" | "morph"; reducedMotion?: boolean; className?: string; defaultOpen?: boolean; inline?: boolean; triggerIcon?: ReactNode;
+  open?: boolean; onOpenChange?: (open: boolean) => void;
 }) {
   const id = useId();
   const pref = useReducedMotion();
   const noMotion = reducedMotion || pref;
-  const [open, setOpen] = useState(defaultOpen);
-  const shouldFocus = useRef(!defaultOpen);
+  const [localOpen, setLocalOpen] = useState(defaultOpen);
+  const open = controlledOpen ?? localOpen;
+  const shouldFocus = useRef(false);
   const [above, setAbove] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -22,6 +24,10 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
   const menu = useRef<HTMLDivElement>(null);
   const position = useRef(0);
   const enabled = () => Array.from(menu.current?.querySelectorAll<HTMLButtonElement>("button:not(:disabled)") ?? []);
+  const setOpen = useCallback((value: boolean) => {
+    if (controlledOpen === undefined) setLocalOpen(value);
+    onOpenChange?.(value);
+  }, [controlledOpen, onOpenChange]);
 
   useLayoutEffect(() => {
     const layer = overlay.current;
@@ -81,19 +87,20 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
     if (!open) return;
     const controls = enabled();
     if (shouldFocus.current) controls.at(position.current === -1 ? -1 : 0)?.focus();
-    shouldFocus.current = true;
+    shouldFocus.current = false;
     const dismiss = (event: PointerEvent) => {
       if (event.target instanceof Node && !root.current?.contains(event.target)) setOpen(false);
     };
     document.addEventListener("pointerdown", dismiss, true);
     return () => document.removeEventListener("pointerdown", dismiss, true);
-  }, [open]);
+  }, [open, setOpen]);
 
   function openMenu(last = false) {
     if (open) { enabled().at(last ? -1 : 0)?.focus(); return; }
     const rect = trigger.current?.getBoundingClientRect();
     if (rect) setAbove(window.innerHeight - rect.bottom < 220 && rect.top > window.innerHeight - rect.bottom);
     position.current = last ? -1 : 0;
+    shouldFocus.current = true;
     setOpen(true);
   }
   function close(restore: boolean) {

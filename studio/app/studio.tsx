@@ -65,7 +65,7 @@ export default function Studio() {
     try { localStorage.setItem("mx-studio-scheme", next); } catch { /* session-only preference */ }
     setScheme(next);
   }
-  const open = (id: string) => navigate({ ...route, page: "playground", item: id });
+  const open = (id: string) => navigate({ ...route, page: "playground", item: id, preset: FEATURED.some(([featured]) => featured === id) });
   const clear = () => navigate({ ...route, query: "", category: "", item: "" });
   return <div className="mx-studio" data-scheme={scheme}>
     <Shell route={route} navigate={navigate} updateQuery={setQuery} scheme={scheme} toggleScheme={toggleScheme} reduced={platformReduced} lastItem={lastItem}>

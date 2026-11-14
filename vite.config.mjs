@@ -16,8 +16,9 @@ function registryVersions() {
       const contracts = new Map(registry.items.map(item => [item.name, item]));
       const hashes = new Map();
       const pins = {};
-      for (const entry of items) {
-        const contract = contracts.get(entry.installItem);
+      function version(entry) {
+        const name = entry.publicContract.name;
+        const contract = contracts.get(name);
         for (const file of entry.files) watched.add(file.path);
         const matches = entry.pin && JSON.stringify(contract) === JSON.stringify(entry.publicContract)
           && entry.files.every(file => {
@@ -27,10 +28,10 @@ function registryVersions() {
             }
             return hashes.get(file.path) === file.sha256;
           });
-        pins[entry.id] = {
-          item: entry.installItem,
-          pin: matches ? entry.pin : null,
-        };
+        return { item: name, pin: matches ? entry.pin : null };
+      }
+      for (const entry of items) {
+        pins[entry.id] = { selected: version(entry), base: entry.base ? version(entry.base) : null };
       }
       for (const file of watched) this.addWatchFile(resolve(file));
       return `export default ${JSON.stringify(pins)}`;

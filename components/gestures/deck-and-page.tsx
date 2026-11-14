@@ -13,8 +13,8 @@ type Props = {
 };
 const settle = { type: "spring", stiffness: 330, damping: 34, mass: 0.8 } as const;
 
-export function CardDeck({ cards, index, onIndexChange, label, previousLabel, nextLabel, describe, reducedMotion, variant = "swipe" }: Props & {
-  variant?: "swipe" | "page";
+export function CardDeck({ cards, index, onIndexChange, label, previousLabel, nextLabel, describe, reducedMotion, variant = "swipe", dragThreshold = 52 }: Props & {
+  variant?: "swipe" | "page"; dragThreshold?: number;
 }) {
   const system = useReducedMotion();
   const quiet = Boolean(system || reducedMotion);
@@ -50,8 +50,10 @@ export function CardDeck({ cards, index, onIndexChange, label, previousLabel, ne
       </motion.div>}
       <motion.article key={current.id} data-deck-card
         drag={page ? false : "x"} dragConstraints={{ left: 0, right: 0 }} dragElastic={quiet ? 0 : .8} dragMomentum={false}
-        onDragEnd={(_, info) => {
-          if (Math.abs(info.offset.x) >= 52 || Math.abs(info.velocity.x) >= 460 && Math.abs(info.offset.x) >= 18) move(info.offset.x < 0 ? 1 : -1);
+        onDragEnd={(event, info) => {
+          if (event.type === "pointercancel") return;
+          const distance = Math.abs(info.offset.x);
+          if (distance >= dragThreshold || Math.abs(info.velocity.x) >= 460 && distance >= dragThreshold / 3) move(info.offset.x < 0 ? 1 : -1);
         }}
         initial={quiet || !previous ? false : page ? { rotateY: direction * -58, opacity: .2, x: direction * 14 } :
           { x: direction * 80, opacity: 0, rotate: direction * 4, scale: .94 }}

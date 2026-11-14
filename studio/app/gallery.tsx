@@ -40,7 +40,7 @@ function GalleryCard({ item, route, open, reduced }: { item: Reference; route: R
     <div className="mx-card-copy">
       <h2>{title}</h2><p>{description}</p>
       <div className="mx-tags">{tags.map(tag => <span key={tag}>{tag}</span>)}</div>
-      <a href={hrefFor({ ...route, page: "playground", item: item.id })} className="mx-open-playground" aria-label={`Open playground for ${title}`}
+      <a href={hrefFor({ ...route, page: "playground", item: item.id, preset: lead })} className="mx-open-playground" aria-label={`Open playground for ${title}`}
         onClick={event => intercept(event, () => open(item.id))}><Play size={15} aria-hidden="true" /><span>Open playground</span><ArrowRight size={15} aria-hidden="true" /></a>
     </div>
   </article>;

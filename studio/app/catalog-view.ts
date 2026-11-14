@@ -32,7 +32,7 @@ export function presentation(item: Reference) {
 }
 export const repoURL = "https://github.com/SapienXai/MotionUX";
 
-export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples"; item: string; category: string; query: string };
+export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples"; item: string; category: string; query: string; preset?: boolean };
 export function readRoute(): Route {
   const params = new URLSearchParams(location.search);
   const page = params.get("view");
@@ -42,6 +42,7 @@ export function readRoute(): Route {
     item,
     category: params.get("category") ?? "",
     query: params.get("q") ?? "",
+    preset: params.get("preset") === "gallery",
   };
 }
 export function hrefFor(route: Route) {
@@ -50,6 +51,7 @@ export function hrefFor(route: Route) {
   else if (route.page !== "gallery") params.set("view", route.page);
   if (route.category) params.set("category", route.category);
   if (route.query) params.set("q", route.query);
+  if (route.page === "playground" && route.preset) params.set("preset", "gallery");
   return params.size ? `?${params}${route.page === "playground" ? "#specimen" : ""}` : "./";
 }
 export function visibleItems(route: Route) {

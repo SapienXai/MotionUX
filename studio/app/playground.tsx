@@ -24,8 +24,12 @@ function CopyBlock({ content, label }: { content: string; label: string }) {
     <span role="status">{message}</span><pre><code>{content}</code></pre>
   </div>;
 }
-function SourceCode({ item }: { item: Reference }) {
-  const version = versions[item.id];
+function registryVersion(item: Reference, preset: boolean) {
+  const versionsForItem = versions[item.id];
+  return (preset ? versionsForItem?.selected : versionsForItem?.base) ?? versionsForItem?.selected;
+}
+function SourceCode({ item, preset }: { item: Reference; preset: boolean }) {
+  const version = registryVersion(item, preset);
   const sources = registry.items.find(entry => entry.name === (version?.item ?? item.registryItem))?.files ?? [];
   const [path, setPath] = useState(sources[0]?.path ?? "");
   const [code, setCode] = useState<{ path: string; value?: string }>({ path: "" });
@@ -44,9 +48,9 @@ function SourceCode({ item }: { item: Reference }) {
     {code.path !== path ? <PreviewLoading /> : code.value ? <CopyBlock key={path} content={code.value} label="Copy source code" /> : <p role="alert">This file could not be loaded. <a href={`${repoURL}/blob/main/${path}`}>View source on GitHub</a></p>}
   </>;
 }
-function Inspector({ item, panel, story }: { item: Reference; panel: Panel; story?: Specimen }) {
-  const version = versions[item.id];
-  if (panel === "Code") return <SourceCode item={item} />;
+function Inspector({ item, panel, story, preset }: { item: Reference; panel: Panel; story?: Specimen; preset: boolean }) {
+  const version = registryVersion(item, preset);
+  if (panel === "Code") return <SourceCode key={version?.item} item={item} preset={preset} />;
   if (panel === "Install") return version?.pin ? <>
     <p>Install this preview checkpoint in a project with a shadcn configuration.</p>
     <CopyBlock content={`npx shadcn@4.23.0 add 'SapienXai/MotionUX/${version.item}#${version.pin}'`} label="Copy install command" />
@@ -74,7 +78,7 @@ export default function Playground({ item, route, back, reduced, systemReduced }
   const [quiet, setQuiet] = useState(false);
   const [compare, setCompare] = useState(false);
   const [reset, setReset] = useState(0);
-  const [galleryExample, setGalleryExample] = useState(false);
+  const [galleryExample, setGalleryExample] = useState(Boolean(route.preset));
   const [disableAnalytics, setDisableAnalytics] = useState(false);
   const hasFeatured = FEATURED.some(([id]) => id === item.id);
   const heading = useRef<HTMLHeadingElement>(null);
@@ -117,6 +121,6 @@ export default function Playground({ item, route, back, reduced, systemReduced }
         </div>
       </div>
       <div className="mx-play-notes">{story && <p>{story.states}</p>}</div>
-    </> : <section className="mx-inspector" aria-label={panel}>{error && ["Props", "Variants", "States", "Usage", "Accessibility"].includes(panel) ? <PreviewError retry={retry} /> : <Inspector item={item} panel={panel} story={story} />}</section>}
+    </> : <section className="mx-inspector" aria-label={panel}>{error && ["Props", "Variants", "States", "Usage", "Accessibility"].includes(panel) ? <PreviewError retry={retry} /> : <Inspector item={item} panel={panel} story={story} preset={galleryExample && language === "en"} />}</section>}
   </article>;
 }

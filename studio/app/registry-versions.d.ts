@@ -1,4 +1,5 @@
 declare module "virtual:motionux-registry-versions" {
-  const versions: Record<string, { item: string; pin: string | null } | undefined>;
+  type Version = { item: string; pin: string | null };
+  const versions: Record<string, { selected: Version; base: Version | null } | undefined>;
   export default versions;
 }

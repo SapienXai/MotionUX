@@ -1871,6 +1871,243 @@
           "type": "registry:file"
         }
       ]
+    },
+    {
+      "name": "sliding-tab-pill-gallery",
+      "type": "registry:component",
+      "title": "Sliding Tab Pill · Gallery preset",
+      "description": "MotionUX Studio’s installable Sliding Tab Pill composition and default fixture data.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react@0.454.0"
+      ],
+      "files": [
+        {
+          "path": "components/showcase/sliding-tab-pill.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/sliding-tab-pill.tsx"
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+        },
+        {
+          "path": "components/navigation/motion-selector.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/navigation/motion-selector.tsx"
+        },
+        {
+          "path": "components/navigation/motion-selector.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/navigation/motion-selector.css"
+        }
+      ]
+    },
+    {
+      "name": "loading-outcome-gallery",
+      "type": "registry:component",
+      "title": "Loading Outcome · Gallery preset",
+      "description": "MotionUX Studio’s installable Loading Outcome composition and default fixture data.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react@0.454.0"
+      ],
+      "files": [
+        {
+          "path": "components/showcase/loading-outcome.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/loading-outcome.tsx"
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+        },
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/feedback/feedback-actions.tsx"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/feedback/feedback-actions.css"
+        }
+      ]
+    },
+    {
+      "name": "expandable-room-gallery",
+      "type": "registry:component",
+      "title": "Expandable Room · Gallery preset",
+      "description": "MotionUX Studio’s installable Expandable Room composition and default fixture data.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react@0.454.0"
+      ],
+      "files": [
+        {
+          "path": "components/showcase/expandable-room.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/expandable-room.tsx"
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+        },
+        {
+          "path": "components/showcase/room-fixtures.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/presets/showcase/room-fixtures.ts"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.tsx"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css"
+        }
+      ]
+    },
+    {
+      "name": "morph-dropdown-gallery",
+      "type": "registry:component",
+      "title": "Morph Dropdown · Gallery preset",
+      "description": "MotionUX Studio’s installable Morph Dropdown composition and default fixture data.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react@0.454.0"
+      ],
+      "files": [
+        {
+          "path": "components/showcase/morph-dropdown.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/morph-dropdown.tsx"
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+        },
+        {
+          "path": "components/navigation/action-menu.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/navigation/action-menu.tsx"
+        },
+        {
+          "path": "components/navigation/action-menu.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/navigation/action-menu.css"
+        }
+      ]
+    },
+    {
+      "name": "featured-profile-gallery",
+      "type": "registry:component",
+      "title": "Featured Profile · Gallery preset",
+      "description": "MotionUX Studio’s installable Featured Profile composition and default fixture data.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react@0.454.0"
+      ],
+      "files": [
+        {
+          "path": "components/showcase/featured-profile.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/featured-profile.tsx"
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+        },
+        {
+          "path": "components/showcase/profile-fixtures.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/presets/showcase/profile-fixtures.ts"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.tsx"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css"
+        }
+      ]
+    },
+    {
+      "name": "destination-deck-gallery",
+      "type": "registry:component",
+      "title": "Destination Deck · Gallery preset",
+      "description": "MotionUX Studio’s installable Destination Deck composition and default fixture data.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react@0.454.0"
+      ],
+      "files": [
+        {
+          "path": "components/showcase/destination-deck.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/destination-deck.tsx"
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+        },
+        {
+          "path": "components/showcase/deck-fixtures.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/presets/showcase/deck-fixtures.ts"
+        },
+        {
+          "path": "components/gestures/deck-and-page.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/presets/gestures/deck-and-page.tsx"
+        },
+        {
+          "path": "components/gestures/deck-and-page.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/presets/gestures/deck-and-page.css"
+        }
+      ]
     }
   ]
 }

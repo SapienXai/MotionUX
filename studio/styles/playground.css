@@ -44,3 +44,5 @@
   .mx-directory a { grid-template-columns: minmax(0,1fr) auto; }
   .mx-directory a svg { grid-column: 2; }
 }
+
+.mx-studio-interaction > .mx-feature { min-block-size: 235px; }

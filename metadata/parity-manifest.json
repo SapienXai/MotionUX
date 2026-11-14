@@ -9,7 +9,32 @@
     "designbookmark-profile-card",
     "designbookmark-swipe-deck"
   ],
-  "presets": {},
+  "presets": {
+    "designbookmark-tab-pill": {
+      "item": "sliding-tab-pill-gallery",
+      "export": "SlidingTabPill"
+    },
+    "designbookmark-loading-to-success": {
+      "item": "loading-outcome-gallery",
+      "export": "LoadingOutcome"
+    },
+    "designbookmark-expand-card": {
+      "item": "expandable-room-gallery",
+      "export": "ExpandableRoom"
+    },
+    "kokonut-morph-popover": {
+      "item": "morph-dropdown-gallery",
+      "export": "MorphDropdown"
+    },
+    "designbookmark-profile-card": {
+      "item": "featured-profile-gallery",
+      "export": "FeaturedProfile"
+    },
+    "designbookmark-swipe-deck": {
+      "item": "destination-deck-gallery",
+      "export": "DestinationDeck"
+    }
+  },
   "items": [
     {
       "id": "designbookmark-plan-switch",
@@ -30,10 +55,6 @@
           "sha256": "cbb1ec716000015e863e5fb59a03742e7247d1cfbe387cdfbd9b3a413eb6def8"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "plan-switch",
         "type": "registry:component",
@@ -55,6 +76,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -85,11 +107,6 @@
           "sha256": "7a10d3a8120050efe87ef190b50ccc83d2957a48cdb7b09eba90562420bd9437"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "letter-limit",
         "type": "registry:component",
@@ -112,6 +129,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -142,10 +160,6 @@
           "sha256": "3eb1841e4651d75c56cfe2577bd515b41b6f8943fc7596940cc9069ac6e45d30"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "pull-cord",
         "type": "registry:component",
@@ -167,6 +181,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -197,10 +212,6 @@
           "sha256": "8f8c262511487c8cd39c77fe2e3cf34cc65f636f244756f00fc1166d660459d3"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "morph-tooltip",
         "type": "registry:component",
@@ -222,6 +233,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -239,7 +251,7 @@
       "installItem": "spring-dropdown",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "pin": null,
       "files": [
         {
           "path": "components/navigation/action-menu.tsx",
@@ -252,11 +264,6 @@
           "sha256": "a9e61704a2e6d1a714a3aed1fab6fd58fcd289ff8cc8c06e0e66fe25fad62c02"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "spring-dropdown",
         "type": "registry:component",
@@ -279,6 +286,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -288,7 +296,7 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-file-drop",
@@ -309,10 +317,6 @@
           "sha256": "e3520f840e7289cd3d2a6047c6d864495faef5c8bcb39f756d79d7279b6a6f2f"
         }
       ],
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "file-drop",
         "type": "registry:component",
@@ -334,6 +338,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -364,10 +369,6 @@
           "sha256": "cbb1ec716000015e863e5fb59a03742e7247d1cfbe387cdfbd9b3a413eb6def8"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "designbookmark-command-button",
         "type": "registry:component",
@@ -389,6 +390,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -419,11 +421,6 @@
           "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "morph-island",
         "type": "registry:component",
@@ -446,6 +443,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -476,11 +474,6 @@
           "sha256": "e7c020bb4d484e93fe91474ddb61be2216fefdec41771e172b198f1f9c42e7f7"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "goo-menu",
         "type": "registry:component",
@@ -503,6 +496,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -533,11 +527,6 @@
           "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "jelly-slider",
         "type": "registry:component",
@@ -560,6 +549,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -590,11 +580,6 @@
           "sha256": "4113ada394c013788aceefe0d0c34bca8207fc6c9badbc80cc7f4ad19cd37db0"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "hold-to-publish",
         "type": "registry:component",
@@ -617,6 +602,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/designbookmark-hold-to-publish-dialog-390.png",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -631,48 +617,120 @@
     {
       "id": "designbookmark-swipe-deck",
       "baseItem": "swipe-deck",
-      "installItem": "swipe-deck",
-      "preview": "studio/catalog.ts",
+      "installItem": "destination-deck-gallery",
+      "preview": "DestinationDeck",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "pin": null,
       "files": [
         {
+          "path": "components/showcase/destination-deck.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/destination-deck.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/deck-fixtures.ts",
+          "target": "@components/sapienx-motion/presets/showcase/deck-fixtures.ts",
+          "sha256": null
+        },
+        {
           "path": "components/gestures/deck-and-page.tsx",
-          "target": "@components/sapienx-motion/deck-and-page.tsx",
-          "sha256": "0009d05172cf71add791457853120f3dca63c24369b19bf557ebd06ae2307507"
+          "target": "@components/sapienx-motion/presets/gestures/deck-and-page.tsx",
+          "sha256": null
         },
         {
           "path": "components/gestures/deck-and-page.css",
-          "target": "@components/sapienx-motion/deck-and-page.css",
-          "sha256": "901ddf5f3b5943e2a1cdac353177f28fef086fd8ae353b3c1ed48a154e53520e"
+          "target": "@components/sapienx-motion/presets/gestures/deck-and-page.css",
+          "sha256": null
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
-        "name": "swipe-deck",
+        "name": "destination-deck-gallery",
         "type": "registry:component",
-        "title": "Swipe deck",
-        "description": "Drag a top card to dismiss or move it with visible next and previous controls.",
+        "title": "Destination Deck · Gallery preset",
+        "description": "MotionUX Studio’s installable Destination Deck composition and default fixture data.",
         "dependencies": [
           "motion@14.14.0",
-          "lucide-react"
+          "lucide-react@0.454.0"
         ],
+        "files": [
+          {
+            "path": "components/showcase/destination-deck.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/destination-deck.tsx"
+          },
+          {
+            "path": "components/showcase/preset-frame.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+          },
+          {
+            "path": "components/showcase/gallery-presets.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+          },
+          {
+            "path": "components/showcase/deck-fixtures.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/presets/showcase/deck-fixtures.ts"
+          },
+          {
+            "path": "components/gestures/deck-and-page.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/gestures/deck-and-page.tsx"
+          },
+          {
+            "path": "components/gestures/deck-and-page.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/gestures/deck-and-page.css"
+          }
+        ]
+      },
+      "base": {
+        "pin": null,
         "files": [
           {
             "path": "components/gestures/deck-and-page.tsx",
             "target": "@components/sapienx-motion/deck-and-page.tsx",
-            "type": "registry:component"
+            "sha256": "0009d05172cf71add791457853120f3dca63c24369b19bf557ebd06ae2307507"
           },
           {
             "path": "components/gestures/deck-and-page.css",
             "target": "@components/sapienx-motion/deck-and-page.css",
-            "type": "registry:file"
+            "sha256": "901ddf5f3b5943e2a1cdac353177f28fef086fd8ae353b3c1ed48a154e53520e"
           }
-        ]
+        ],
+        "publicContract": {
+          "name": "swipe-deck",
+          "type": "registry:component",
+          "title": "Swipe deck",
+          "description": "Drag a top card to dismiss or move it with visible next and previous controls.",
+          "dependencies": [
+            "motion@14.14.0",
+            "lucide-react"
+          ],
+          "files": [
+            {
+              "path": "components/gestures/deck-and-page.tsx",
+              "target": "@components/sapienx-motion/deck-and-page.tsx",
+              "type": "registry:component"
+            },
+            {
+              "path": "components/gestures/deck-and-page.css",
+              "target": "@components/sapienx-motion/deck-and-page.css",
+              "type": "registry:file"
+            }
+          ]
+        }
       },
       "visualSpec": "docs/evidence/studio/designbookmark-swipe-deck-dark-390.png",
       "provenance": {
@@ -681,9 +739,9 @@
         "decision": "Independent implementation. No upstream source or assets."
       },
       "browserTest": "tests/cards.spec.ts",
-      "consumerFixture": null,
+      "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": null,
-      "parity": "parity-broken"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-springy-input",
@@ -704,11 +762,6 @@
           "sha256": "7a10d3a8120050efe87ef190b50ccc83d2957a48cdb7b09eba90562420bd9437"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "springy-input",
         "type": "registry:component",
@@ -731,6 +784,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -761,10 +815,6 @@
           "sha256": "d62ad295bd28e2a92363336635315f282257ccfa78aae9dd73d96df4985ebc45"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "rubber-dock",
         "type": "registry:component",
@@ -786,6 +836,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -816,11 +867,6 @@
           "sha256": "c2b7b65c372030389b2aad7d79a723b69642381aa1de8aad1de53ea71bf14792"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "parallax-ticket",
         "type": "registry:component",
@@ -843,6 +889,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -873,11 +920,6 @@
           "sha256": "c2b7b65c372030389b2aad7d79a723b69642381aa1de8aad1de53ea71bf14792"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "glass-lens",
         "type": "registry:component",
@@ -900,6 +942,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -930,11 +973,6 @@
           "sha256": "c2b7b65c372030389b2aad7d79a723b69642381aa1de8aad1de53ea71bf14792"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "pull-to-refresh",
         "type": "registry:component",
@@ -957,6 +995,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -987,10 +1026,6 @@
           "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "word-roll",
         "type": "registry:component",
@@ -1012,6 +1047,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1042,10 +1078,6 @@
           "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "weight-wave",
         "type": "registry:component",
@@ -1067,6 +1099,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1097,11 +1130,6 @@
           "sha256": "e7c020bb4d484e93fe91474ddb61be2216fefdec41771e172b198f1f9c42e7f7"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "goo-morph",
         "type": "registry:component",
@@ -1124,6 +1152,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1154,10 +1183,6 @@
           "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "scramble-text",
         "type": "registry:component",
@@ -1179,6 +1204,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1209,10 +1235,6 @@
           "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "read-along",
         "type": "registry:component",
@@ -1234,6 +1256,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1264,10 +1287,6 @@
           "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "roll-links",
         "type": "registry:component",
@@ -1289,6 +1308,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1319,10 +1339,6 @@
           "sha256": "7e40530f20bd0fe9e4149423b94246f460aa6a2a606dfb199705a13da95e67a6"
         }
       ],
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "prompt-box",
         "type": "registry:component",
@@ -1344,6 +1360,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1374,11 +1391,6 @@
           "sha256": "0c09fb5ef68f5a8b0fc51c78f6c1a14fe8a61a206ee92bf91f57ff5d635b0a62"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "streaming-reply",
         "type": "registry:component",
@@ -1401,6 +1413,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/designbookmark-streaming-reply-light-1440.png",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1431,10 +1444,6 @@
           "sha256": "7e40530f20bd0fe9e4149423b94246f460aa6a2a606dfb199705a13da95e67a6"
         }
       ],
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "ghost-suggestion",
         "type": "registry:component",
@@ -1456,6 +1465,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1486,11 +1496,6 @@
           "sha256": "870d5a8df195377407ba3f7a3a9829a3f11ae801b568f9694c04e4a7c6d22c7a"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "goo-thinking",
         "type": "registry:component",
@@ -1513,6 +1518,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1527,48 +1533,120 @@
     {
       "id": "designbookmark-expand-card",
       "baseItem": "expand-card",
-      "installItem": "expand-card",
-      "preview": "studio/catalog.ts",
+      "installItem": "expandable-room-gallery",
+      "preview": "ExpandableRoom",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "pin": null,
       "files": [
         {
+          "path": "components/showcase/expandable-room.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/expandable-room.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/room-fixtures.ts",
+          "target": "@components/sapienx-motion/presets/showcase/room-fixtures.ts",
+          "sha256": null
+        },
+        {
           "path": "components/gestures/disclosure-cards.tsx",
-          "target": "@components/sapienx-motion/disclosure-cards.tsx",
-          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+          "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.tsx",
+          "sha256": null
         },
         {
           "path": "components/gestures/disclosure-cards.css",
-          "target": "@components/sapienx-motion/disclosure-cards.css",
-          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+          "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css",
+          "sha256": null
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
-        "name": "expand-card",
+        "name": "expandable-room-gallery",
         "type": "registry:component",
-        "title": "Expand card",
-        "description": "Expand a card to reveal details; close and restore focus to its opener.",
+        "title": "Expandable Room · Gallery preset",
+        "description": "MotionUX Studio’s installable Expandable Room composition and default fixture data.",
         "dependencies": [
           "motion@14.14.0",
-          "lucide-react"
+          "lucide-react@0.454.0"
         ],
+        "files": [
+          {
+            "path": "components/showcase/expandable-room.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/expandable-room.tsx"
+          },
+          {
+            "path": "components/showcase/preset-frame.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+          },
+          {
+            "path": "components/showcase/gallery-presets.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+          },
+          {
+            "path": "components/showcase/room-fixtures.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/presets/showcase/room-fixtures.ts"
+          },
+          {
+            "path": "components/gestures/disclosure-cards.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.tsx"
+          },
+          {
+            "path": "components/gestures/disclosure-cards.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css"
+          }
+        ]
+      },
+      "base": {
+        "pin": "3e813117c2f89c758f196695fd79526967c24b62",
         "files": [
           {
             "path": "components/gestures/disclosure-cards.tsx",
             "target": "@components/sapienx-motion/disclosure-cards.tsx",
-            "type": "registry:component"
+            "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
           },
           {
             "path": "components/gestures/disclosure-cards.css",
             "target": "@components/sapienx-motion/disclosure-cards.css",
-            "type": "registry:file"
+            "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
           }
-        ]
+        ],
+        "publicContract": {
+          "name": "expand-card",
+          "type": "registry:component",
+          "title": "Expand card",
+          "description": "Expand a card to reveal details; close and restore focus to its opener.",
+          "dependencies": [
+            "motion@14.14.0",
+            "lucide-react"
+          ],
+          "files": [
+            {
+              "path": "components/gestures/disclosure-cards.tsx",
+              "target": "@components/sapienx-motion/disclosure-cards.tsx",
+              "type": "registry:component"
+            },
+            {
+              "path": "components/gestures/disclosure-cards.css",
+              "target": "@components/sapienx-motion/disclosure-cards.css",
+              "type": "registry:file"
+            }
+          ]
+        }
       },
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
@@ -1577,9 +1655,9 @@
         "decision": "Independent implementation. No upstream source or assets."
       },
       "browserTest": "tests/cards.spec.ts",
-      "consumerFixture": null,
+      "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": null,
-      "parity": "parity-broken"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-fan-cards",
@@ -1587,7 +1665,7 @@
       "installItem": "fan-cards",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "pin": null,
       "files": [
         {
           "path": "components/gestures/deck-and-page.tsx",
@@ -1600,11 +1678,6 @@
           "sha256": "901ddf5f3b5943e2a1cdac353177f28fef086fd8ae353b3c1ed48a154e53520e"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "fan-cards",
         "type": "registry:component",
@@ -1627,6 +1700,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1636,7 +1710,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-stat-card",
@@ -1657,11 +1731,6 @@
           "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "stat-card",
         "type": "registry:component",
@@ -1684,6 +1753,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1698,48 +1768,120 @@
     {
       "id": "designbookmark-profile-card",
       "baseItem": "profile-card",
-      "installItem": "profile-card",
-      "preview": "studio/catalog.ts",
+      "installItem": "featured-profile-gallery",
+      "preview": "FeaturedProfile",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "pin": null,
       "files": [
         {
+          "path": "components/showcase/featured-profile.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/featured-profile.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/profile-fixtures.ts",
+          "target": "@components/sapienx-motion/presets/showcase/profile-fixtures.ts",
+          "sha256": null
+        },
+        {
           "path": "components/gestures/disclosure-cards.tsx",
-          "target": "@components/sapienx-motion/disclosure-cards.tsx",
-          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+          "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.tsx",
+          "sha256": null
         },
         {
           "path": "components/gestures/disclosure-cards.css",
-          "target": "@components/sapienx-motion/disclosure-cards.css",
-          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+          "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css",
+          "sha256": null
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
-        "name": "profile-card",
+        "name": "featured-profile-gallery",
         "type": "registry:component",
-        "title": "Profile card",
-        "description": "Expand a compact profile to reveal actions using shared layout.",
+        "title": "Featured Profile · Gallery preset",
+        "description": "MotionUX Studio’s installable Featured Profile composition and default fixture data.",
         "dependencies": [
           "motion@14.14.0",
-          "lucide-react"
+          "lucide-react@0.454.0"
         ],
+        "files": [
+          {
+            "path": "components/showcase/featured-profile.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/featured-profile.tsx"
+          },
+          {
+            "path": "components/showcase/preset-frame.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+          },
+          {
+            "path": "components/showcase/gallery-presets.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+          },
+          {
+            "path": "components/showcase/profile-fixtures.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/presets/showcase/profile-fixtures.ts"
+          },
+          {
+            "path": "components/gestures/disclosure-cards.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.tsx"
+          },
+          {
+            "path": "components/gestures/disclosure-cards.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/gestures/disclosure-cards.css"
+          }
+        ]
+      },
+      "base": {
+        "pin": "3e813117c2f89c758f196695fd79526967c24b62",
         "files": [
           {
             "path": "components/gestures/disclosure-cards.tsx",
             "target": "@components/sapienx-motion/disclosure-cards.tsx",
-            "type": "registry:component"
+            "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
           },
           {
             "path": "components/gestures/disclosure-cards.css",
             "target": "@components/sapienx-motion/disclosure-cards.css",
-            "type": "registry:file"
+            "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
           }
-        ]
+        ],
+        "publicContract": {
+          "name": "profile-card",
+          "type": "registry:component",
+          "title": "Profile card",
+          "description": "Expand a compact profile to reveal actions using shared layout.",
+          "dependencies": [
+            "motion@14.14.0",
+            "lucide-react"
+          ],
+          "files": [
+            {
+              "path": "components/gestures/disclosure-cards.tsx",
+              "target": "@components/sapienx-motion/disclosure-cards.tsx",
+              "type": "registry:component"
+            },
+            {
+              "path": "components/gestures/disclosure-cards.css",
+              "target": "@components/sapienx-motion/disclosure-cards.css",
+              "type": "registry:file"
+            }
+          ]
+        }
       },
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
@@ -1748,9 +1890,9 @@
         "decision": "Independent implementation. No upstream source or assets."
       },
       "browserTest": "tests/cards.spec.ts",
-      "consumerFixture": null,
+      "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": null,
-      "parity": "parity-broken"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-magnetic-button",
@@ -1771,11 +1913,6 @@
           "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "magnetic-button",
         "type": "registry:component",
@@ -1798,6 +1935,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1812,48 +1950,110 @@
     {
       "id": "designbookmark-loading-to-success",
       "baseItem": "loading-to-success",
-      "installItem": "loading-to-success",
-      "preview": "studio/catalog.ts",
+      "installItem": "loading-outcome-gallery",
+      "preview": "LoadingOutcome",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "pin": null,
       "files": [
         {
+          "path": "components/showcase/loading-outcome.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/loading-outcome.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
+          "sha256": null
+        },
+        {
           "path": "components/feedback/feedback-actions.tsx",
-          "target": "@components/sapienx-motion/feedback-actions.tsx",
-          "sha256": "98802f8a2946d4e4c3e78f00bf7607fa10a84b2844d675bcd93875783d9384bb"
+          "target": "@components/sapienx-motion/presets/feedback/feedback-actions.tsx",
+          "sha256": null
         },
         {
           "path": "components/feedback/feedback-actions.css",
-          "target": "@components/sapienx-motion/feedback-actions.css",
-          "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
+          "target": "@components/sapienx-motion/presets/feedback/feedback-actions.css",
+          "sha256": null
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
-        "name": "loading-to-success",
+        "name": "loading-outcome-gallery",
         "type": "registry:component",
-        "title": "Loading to success",
-        "description": "Keep pending, confirmed success and failure distinct and driven by caller state.",
+        "title": "Loading Outcome · Gallery preset",
+        "description": "MotionUX Studio’s installable Loading Outcome composition and default fixture data.",
         "dependencies": [
           "motion@14.14.0",
-          "lucide-react"
+          "lucide-react@0.454.0"
         ],
+        "files": [
+          {
+            "path": "components/showcase/loading-outcome.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/loading-outcome.tsx"
+          },
+          {
+            "path": "components/showcase/preset-frame.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+          },
+          {
+            "path": "components/showcase/gallery-presets.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+          },
+          {
+            "path": "components/feedback/feedback-actions.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/feedback/feedback-actions.tsx"
+          },
+          {
+            "path": "components/feedback/feedback-actions.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/feedback/feedback-actions.css"
+          }
+        ]
+      },
+      "base": {
+        "pin": "3e813117c2f89c758f196695fd79526967c24b62",
         "files": [
           {
             "path": "components/feedback/feedback-actions.tsx",
             "target": "@components/sapienx-motion/feedback-actions.tsx",
-            "type": "registry:component"
+            "sha256": "98802f8a2946d4e4c3e78f00bf7607fa10a84b2844d675bcd93875783d9384bb"
           },
           {
             "path": "components/feedback/feedback-actions.css",
             "target": "@components/sapienx-motion/feedback-actions.css",
-            "type": "registry:file"
+            "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
           }
-        ]
+        ],
+        "publicContract": {
+          "name": "loading-to-success",
+          "type": "registry:component",
+          "title": "Loading to success",
+          "description": "Keep pending, confirmed success and failure distinct and driven by caller state.",
+          "dependencies": [
+            "motion@14.14.0",
+            "lucide-react"
+          ],
+          "files": [
+            {
+              "path": "components/feedback/feedback-actions.tsx",
+              "target": "@components/sapienx-motion/feedback-actions.tsx",
+              "type": "registry:component"
+            },
+            {
+              "path": "components/feedback/feedback-actions.css",
+              "target": "@components/sapienx-motion/feedback-actions.css",
+              "type": "registry:file"
+            }
+          ]
+        }
       },
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
@@ -1862,9 +2062,9 @@
         "decision": "Independent implementation. No upstream source or assets."
       },
       "browserTest": "tests/feedback.spec.ts",
-      "consumerFixture": null,
+      "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": null,
-      "parity": "parity-broken"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-copy-button",
@@ -1885,11 +2085,6 @@
           "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "copy-button",
         "type": "registry:component",
@@ -1912,6 +2107,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1942,11 +2138,6 @@
           "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "like-burst",
         "type": "registry:component",
@@ -1969,6 +2160,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -1983,46 +2175,109 @@
     {
       "id": "designbookmark-tab-pill",
       "baseItem": "tab-pill",
-      "installItem": "tab-pill",
-      "preview": "studio/catalog.ts",
+      "installItem": "sliding-tab-pill-gallery",
+      "preview": "SlidingTabPill",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "pin": null,
       "files": [
         {
+          "path": "components/showcase/sliding-tab-pill.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/sliding-tab-pill.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
+          "sha256": null
+        },
+        {
           "path": "components/navigation/motion-selector.tsx",
-          "target": "@components/sapienx-motion/motion-selector.tsx",
-          "sha256": "d74565a64d69d17e6d13dd23c8005e86769b3b061f60dee4ab90668790f6aee6"
+          "target": "@components/sapienx-motion/presets/navigation/motion-selector.tsx",
+          "sha256": null
         },
         {
           "path": "components/navigation/motion-selector.css",
-          "target": "@components/sapienx-motion/motion-selector.css",
-          "sha256": "013cac85be169ab630df43ce581d4f874b8fa5699e87ab68ca408768429696d7"
+          "target": "@components/sapienx-motion/presets/navigation/motion-selector.css",
+          "sha256": null
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
-        "name": "tab-pill",
+        "name": "sliding-tab-pill-gallery",
         "type": "registry:component",
-        "title": "Tab pill",
-        "description": "Move a shared selected pill across a labelled tab list with a real associated panel.",
+        "title": "Sliding Tab Pill · Gallery preset",
+        "description": "MotionUX Studio’s installable Sliding Tab Pill composition and default fixture data.",
         "dependencies": [
-          "motion@14.14.0"
+          "motion@14.14.0",
+          "lucide-react@0.454.0"
         ],
         "files": [
           {
+            "path": "components/showcase/sliding-tab-pill.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/sliding-tab-pill.tsx"
+          },
+          {
+            "path": "components/showcase/preset-frame.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+          },
+          {
+            "path": "components/showcase/gallery-presets.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+          },
+          {
             "path": "components/navigation/motion-selector.tsx",
             "type": "registry:component",
-            "target": "@components/sapienx-motion/motion-selector.tsx"
+            "target": "@components/sapienx-motion/presets/navigation/motion-selector.tsx"
           },
           {
             "path": "components/navigation/motion-selector.css",
             "type": "registry:file",
-            "target": "@components/sapienx-motion/motion-selector.css"
+            "target": "@components/sapienx-motion/presets/navigation/motion-selector.css"
           }
         ]
+      },
+      "base": {
+        "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+        "files": [
+          {
+            "path": "components/navigation/motion-selector.tsx",
+            "target": "@components/sapienx-motion/motion-selector.tsx",
+            "sha256": "d74565a64d69d17e6d13dd23c8005e86769b3b061f60dee4ab90668790f6aee6"
+          },
+          {
+            "path": "components/navigation/motion-selector.css",
+            "target": "@components/sapienx-motion/motion-selector.css",
+            "sha256": "013cac85be169ab630df43ce581d4f874b8fa5699e87ab68ca408768429696d7"
+          }
+        ],
+        "publicContract": {
+          "name": "tab-pill",
+          "type": "registry:component",
+          "title": "Tab pill",
+          "description": "Move a shared selected pill across a labelled tab list with a real associated panel.",
+          "dependencies": [
+            "motion@14.14.0"
+          ],
+          "files": [
+            {
+              "path": "components/navigation/motion-selector.tsx",
+              "type": "registry:component",
+              "target": "@components/sapienx-motion/motion-selector.tsx"
+            },
+            {
+              "path": "components/navigation/motion-selector.css",
+              "type": "registry:file",
+              "target": "@components/sapienx-motion/motion-selector.css"
+            }
+          ]
+        }
       },
       "visualSpec": "docs/evidence/studio/designbookmark-tab-pill-light-1440.png",
       "provenance": {
@@ -2031,9 +2286,9 @@
         "decision": "Independent implementation. No upstream source or assets."
       },
       "browserTest": "tests/studio.spec.ts",
-      "consumerFixture": null,
+      "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": null,
-      "parity": "parity-broken"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-bottom-bar",
@@ -2054,10 +2309,6 @@
           "sha256": "013cac85be169ab630df43ce581d4f874b8fa5699e87ab68ca408768429696d7"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "bottom-bar",
         "type": "registry:component",
@@ -2079,6 +2330,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2096,7 +2348,7 @@
       "installItem": "dynamic-menu",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "pin": null,
       "files": [
         {
           "path": "components/navigation/action-menu.tsx",
@@ -2109,11 +2361,6 @@
           "sha256": "a9e61704a2e6d1a714a3aed1fab6fd58fcd289ff8cc8c06e0e66fe25fad62c02"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "dynamic-menu",
         "type": "registry:component",
@@ -2136,6 +2383,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2145,7 +2393,7 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "designbookmark-segmented-control",
@@ -2166,10 +2414,6 @@
           "sha256": "013cac85be169ab630df43ce581d4f874b8fa5699e87ab68ca408768429696d7"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "segmented-control",
         "type": "registry:component",
@@ -2191,6 +2435,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2221,11 +2466,6 @@
           "sha256": "290ff4d132679dd2e5ab7a479e265a8238d65e632bcffbe37510d05de104f09e"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "sidebar-collapse",
         "type": "registry:component",
@@ -2248,6 +2488,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2278,10 +2519,6 @@
           "sha256": "1b7ab8c4f9391f20421a681583de35f96407be78fcacdc2be4519c577f20939f"
         }
       ],
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "command-palette",
         "type": "registry:component",
@@ -2303,6 +2540,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2333,11 +2571,6 @@
           "sha256": "db8d18a606d2f3bede8d7b888e4479adb8b688943906389d3e00e6e13da8161b"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "step-progress",
         "type": "registry:component",
@@ -2360,6 +2593,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2390,11 +2624,6 @@
           "sha256": "7a10d3a8120050efe87ef190b50ccc83d2957a48cdb7b09eba90562420bd9437"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "otp-code",
         "type": "registry:component",
@@ -2417,6 +2646,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2447,10 +2677,6 @@
           "sha256": "cbb1ec716000015e863e5fb59a03742e7247d1cfbe387cdfbd9b3a413eb6def8"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "toggle-switch",
         "type": "registry:component",
@@ -2472,6 +2698,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2502,11 +2729,6 @@
           "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "star-rating",
         "type": "registry:component",
@@ -2529,6 +2751,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2559,11 +2782,6 @@
           "sha256": "7a10d3a8120050efe87ef190b50ccc83d2957a48cdb7b09eba90562420bd9437"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "tag-input",
         "type": "registry:component",
@@ -2586,6 +2804,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2616,11 +2835,6 @@
           "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "number-stepper",
         "type": "registry:component",
@@ -2643,6 +2857,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2673,11 +2888,6 @@
           "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "range-slider",
         "type": "registry:component",
@@ -2700,6 +2910,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2730,11 +2941,6 @@
           "sha256": "7a10d3a8120050efe87ef190b50ccc83d2957a48cdb7b09eba90562420bd9437"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "password-strength",
         "type": "registry:component",
@@ -2757,6 +2963,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2787,11 +2994,6 @@
           "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "checkbox-list",
         "type": "registry:component",
@@ -2814,6 +3016,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",
@@ -2844,11 +3047,6 @@
           "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "detent-dial",
         "type": "registry:component",
@@ -2871,6 +3069,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -2901,11 +3100,6 @@
           "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "siri-orb",
         "type": "registry:component",
@@ -2928,6 +3122,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-media.jpg",
       "provenance": {
         "url": "https://smoothui.dev/",
@@ -2958,11 +3153,6 @@
           "sha256": "db8d18a606d2f3bede8d7b888e4479adb8b688943906389d3e00e6e13da8161b"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "agent-steps",
         "type": "registry:component",
@@ -2985,6 +3175,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3015,11 +3206,6 @@
           "sha256": "4113ada394c013788aceefe0d0c34bca8207fc6c9badbc80cc7f4ad19cd37db0"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "hold-button",
         "type": "registry:component",
@@ -3042,6 +3228,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3072,11 +3259,6 @@
           "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "exposure-slider",
         "type": "registry:component",
@@ -3099,6 +3281,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/smoothui-exposure-slider-dark-1440.png",
       "provenance": {
         "url": "https://smoothui.dev/",
@@ -3129,11 +3312,6 @@
           "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "boarding-pass",
         "type": "registry:component",
@@ -3156,6 +3334,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3186,10 +3365,6 @@
           "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "marker-text",
         "type": "registry:component",
@@ -3211,6 +3386,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3251,10 +3427,6 @@
           "sha256": "013cac85be169ab630df43ce581d4f874b8fa5699e87ab68ca408768429696d7"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "smooth-tab",
         "type": "registry:component",
@@ -3286,6 +3458,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3316,11 +3489,6 @@
           "sha256": "e7c020bb4d484e93fe91474ddb61be2216fefdec41771e172b198f1f9c42e7f7"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "unlock-face-id",
         "type": "registry:component",
@@ -3343,6 +3511,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
         "url": "https://smoothui.dev/",
@@ -3373,11 +3542,6 @@
           "sha256": "4113ada394c013788aceefe0d0c34bca8207fc6c9badbc80cc7f4ad19cd37db0"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "slide-to-confirm",
         "type": "registry:component",
@@ -3400,6 +3564,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3430,11 +3595,6 @@
           "sha256": "7a70414e98b21e2967d036d45bd904f06430f7742b61e9ba93f01a3e3c107770"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "notification-stack",
         "type": "registry:component",
@@ -3457,6 +3617,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3487,10 +3648,6 @@
           "sha256": "e3520f840e7289cd3d2a6047c6d864495faef5c8bcb39f756d79d7279b6a6f2f"
         }
       ],
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "wheel-picker",
         "type": "registry:component",
@@ -3512,6 +3669,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3542,10 +3700,6 @@
           "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "dynamic-text",
         "type": "registry:component",
@@ -3567,6 +3721,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3597,11 +3752,6 @@
           "sha256": "0c09fb5ef68f5a8b0fc51c78f6c1a14fe8a61a206ee92bf91f57ff5d635b0a62"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "voice-input",
         "type": "registry:component",
@@ -3624,6 +3774,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3654,11 +3805,6 @@
           "sha256": "870d5a8df195377407ba3f7a3a9829a3f11ae801b568f9694c04e4a7c6d22c7a"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "tool-approval",
         "type": "registry:component",
@@ -3681,6 +3827,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3711,8 +3858,6 @@
           "sha256": "a143d6ab660f4406aa96c24ea7d67e2cf2e3c3a2222fe2d265b10981cc39880a"
         }
       ],
-      "dependencies": [],
-      "registryDependencies": [],
       "publicContract": {
         "name": "toolbar",
         "type": "registry:component",
@@ -3732,6 +3877,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3762,11 +3908,6 @@
           "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "scrubber",
         "type": "registry:component",
@@ -3789,6 +3930,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-media.jpg",
       "provenance": {
         "url": "https://smoothui.dev/",
@@ -3819,11 +3961,6 @@
           "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "cart-button",
         "type": "registry:component",
@@ -3846,6 +3983,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3863,7 +4001,7 @@
       "installItem": "page-flip",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "pin": null,
       "files": [
         {
           "path": "components/gestures/deck-and-page.tsx",
@@ -3876,11 +4014,6 @@
           "sha256": "901ddf5f3b5943e2a1cdac353177f28fef086fd8ae353b3c1ed48a154e53520e"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "page-flip",
         "type": "registry:component",
@@ -3903,6 +4036,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3912,7 +4046,7 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": null,
       "evidence": null,
-      "parity": "not-tested"
+      "parity": "blocked"
     },
     {
       "id": "kokonut-signature-pad",
@@ -3933,10 +4067,6 @@
           "sha256": "e3520f840e7289cd3d2a6047c6d864495faef5c8bcb39f756d79d7279b6a6f2f"
         }
       ],
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "signature-pad",
         "type": "registry:component",
@@ -3958,6 +4088,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/kokonut-signature-pad-dark-390.png",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -3988,11 +4119,6 @@
           "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "undo-button",
         "type": "registry:component",
@@ -4015,6 +4141,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -4045,10 +4172,6 @@
           "sha256": "e3520f840e7289cd3d2a6047c6d864495faef5c8bcb39f756d79d7279b6a6f2f"
         }
       ],
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "card-field",
         "type": "registry:component",
@@ -4070,6 +4193,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -4100,11 +4224,6 @@
           "sha256": "cc5b64eba2a223eab0a622bea1f8709fdf2bbe063f84578f7ac25c206621956e"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "stack-panel",
         "type": "registry:component",
@@ -4127,6 +4246,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -4157,10 +4277,6 @@
           "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "typewriter",
         "type": "registry:component",
@@ -4182,6 +4298,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -4212,11 +4329,6 @@
           "sha256": "0c09fb5ef68f5a8b0fc51c78f6c1a14fe8a61a206ee92bf91f57ff5d635b0a62"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "thinking-text",
         "type": "registry:component",
@@ -4239,6 +4351,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -4269,11 +4382,6 @@
           "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "glass-player",
         "type": "registry:component",
@@ -4296,6 +4404,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/kokonut-glass-player-light-390.png",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -4326,11 +4435,6 @@
           "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "bell-button",
         "type": "registry:component",
@@ -4353,6 +4457,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -4367,48 +4472,110 @@
     {
       "id": "kokonut-morph-popover",
       "baseItem": "morph-popover",
-      "installItem": "morph-popover",
-      "preview": "studio/catalog.ts",
+      "installItem": "morph-dropdown-gallery",
+      "preview": "MorphDropdown",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "pin": null,
       "files": [
         {
+          "path": "components/showcase/morph-dropdown.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/morph-dropdown.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/preset-frame.tsx",
+          "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx",
+          "sha256": null
+        },
+        {
+          "path": "components/showcase/gallery-presets.css",
+          "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
+          "sha256": null
+        },
+        {
           "path": "components/navigation/action-menu.tsx",
-          "target": "@components/sapienx-motion/action-menu.tsx",
-          "sha256": "19c663e1e77268e8d1a7997702ba97b1dcfdd6758748ac569152b0cd83cee5ed"
+          "target": "@components/sapienx-motion/presets/navigation/action-menu.tsx",
+          "sha256": null
         },
         {
           "path": "components/navigation/action-menu.css",
-          "target": "@components/sapienx-motion/action-menu.css",
-          "sha256": "a9e61704a2e6d1a714a3aed1fab6fd58fcd289ff8cc8c06e0e66fe25fad62c02"
+          "target": "@components/sapienx-motion/presets/navigation/action-menu.css",
+          "sha256": null
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
-        "name": "morph-popover",
+        "name": "morph-dropdown-gallery",
         "type": "registry:component",
-        "title": "Morph popover",
-        "description": "Expand from an actionable trigger, restore focus and support outside dismissal.",
+        "title": "Morph Dropdown · Gallery preset",
+        "description": "MotionUX Studio’s installable Morph Dropdown composition and default fixture data.",
         "dependencies": [
           "motion@14.14.0",
-          "lucide-react"
+          "lucide-react@0.454.0"
         ],
+        "files": [
+          {
+            "path": "components/showcase/morph-dropdown.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/morph-dropdown.tsx"
+          },
+          {
+            "path": "components/showcase/preset-frame.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/showcase/preset-frame.tsx"
+          },
+          {
+            "path": "components/showcase/gallery-presets.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css"
+          },
+          {
+            "path": "components/navigation/action-menu.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/presets/navigation/action-menu.tsx"
+          },
+          {
+            "path": "components/navigation/action-menu.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/presets/navigation/action-menu.css"
+          }
+        ]
+      },
+      "base": {
+        "pin": null,
         "files": [
           {
             "path": "components/navigation/action-menu.tsx",
             "target": "@components/sapienx-motion/action-menu.tsx",
-            "type": "registry:component"
+            "sha256": "19c663e1e77268e8d1a7997702ba97b1dcfdd6758748ac569152b0cd83cee5ed"
           },
           {
             "path": "components/navigation/action-menu.css",
             "target": "@components/sapienx-motion/action-menu.css",
-            "type": "registry:file"
+            "sha256": "a9e61704a2e6d1a714a3aed1fab6fd58fcd289ff8cc8c06e0e66fe25fad62c02"
           }
-        ]
+        ],
+        "publicContract": {
+          "name": "morph-popover",
+          "type": "registry:component",
+          "title": "Morph popover",
+          "description": "Expand from an actionable trigger, restore focus and support outside dismissal.",
+          "dependencies": [
+            "motion@14.14.0",
+            "lucide-react"
+          ],
+          "files": [
+            {
+              "path": "components/navigation/action-menu.tsx",
+              "target": "@components/sapienx-motion/action-menu.tsx",
+              "type": "registry:component"
+            },
+            {
+              "path": "components/navigation/action-menu.css",
+              "target": "@components/sapienx-motion/action-menu.css",
+              "type": "registry:file"
+            }
+          ]
+        }
       },
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
@@ -4417,9 +4584,9 @@
         "decision": "Independent implementation. No upstream source or assets."
       },
       "browserTest": "tests/navigation.spec.ts",
-      "consumerFixture": null,
+      "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": null,
-      "parity": "parity-broken"
+      "parity": "blocked"
     },
     {
       "id": "smoothui-task-list",
@@ -4440,11 +4607,6 @@
           "sha256": "0c09fb5ef68f5a8b0fc51c78f6c1a14fe8a61a206ee92bf91f57ff5d635b0a62"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "task-list",
         "type": "registry:component",
@@ -4467,6 +4629,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
       "provenance": {
         "url": "https://smoothui.dev/",
@@ -4497,11 +4660,6 @@
           "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "music-toggle",
         "type": "registry:component",
@@ -4524,6 +4682,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-media.jpg",
       "provenance": {
         "url": "https://smoothui.dev/",
@@ -4554,10 +4713,6 @@
           "sha256": "cbb1ec716000015e863e5fb59a03742e7247d1cfbe387cdfbd9b3a413eb6def8"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "kokonut-command-button",
         "type": "registry:component",
@@ -4579,6 +4734,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
       "provenance": {
         "url": "https://kokonutui.com/",
@@ -4609,11 +4765,6 @@
           "sha256": "323e65ae40fe0da4655196ebd1859ce240babe5ca94fc54a50595a3ba0ea3c59"
         }
       ],
-      "dependencies": [
-        "motion@14.14.0",
-        "lucide-react"
-      ],
-      "registryDependencies": [],
       "publicContract": {
         "name": "pagination-dots",
         "type": "registry:component",
@@ -4636,6 +4787,7 @@
           }
         ]
       },
+      "base": null,
       "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
       "provenance": {
         "url": "https://designbookmark.com/motion",

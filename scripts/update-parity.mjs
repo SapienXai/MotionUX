@@ -14,9 +14,31 @@ const specs = new Map(Object.entries(previous.presets));
 const items = inventory.items.map(item => {
   const preset = specs.get(item.id);
   const installItem = preset?.item ?? item.registryItem;
-  const source = registry.items.find(entry => entry.name === installItem);
-  const artifact = published.items.find(entry => entry.name === installItem);
-  if (!source) throw new Error(`Missing registry item ${installItem}`);
+  const selected = contract(installItem);
+  return {
+    id: item.id,
+    baseItem: item.registryItem,
+    installItem,
+    preview: preset?.export ?? "studio/catalog.ts",
+    legacyPin: item.version,
+    ...selected,
+    base: preset ? contract(item.registryItem) : null,
+    visualSpec: item.evidence,
+    provenance: { url: item.sourceUrl, license: item.sourceLicense, decision: item.decision },
+    browserTest: item.test,
+    consumerFixture: preset ? "scripts/fixture-parity.mjs" : null,
+    evidence: previous.items.find(entry => entry.id === item.id)?.evidence ?? null,
+    parity: selected.pin ? (preset || !previous.featured.includes(item.id) ? "not-tested" : "parity-broken") : "blocked",
+  };
+});
+const next = { ...previous, defaultPin: pin, items };
+writeFileSync(path, JSON.stringify(next, null, 2) + "\n");
+console.log(`Recorded ${items.length} contracts, ${items.filter(item => item.pin).length} matching ${pin}`);
+
+function contract(name) {
+  const source = registry.items.find(entry => entry.name === name);
+  const artifact = published.items.find(entry => entry.name === name);
+  if (!source) throw new Error(`Missing registry item ${name}`);
   const files = source.files.map(file => ({
     path: file.path,
     target: file.target,
@@ -25,25 +47,5 @@ const items = inventory.items.map(item => {
   }));
   const reproducible = artifact && JSON.stringify(source) === JSON.stringify(artifact) && source.files.every((file, index) =>
     files[index].sha256 === createHash("sha256").update(readFileSync(file.path)).digest("hex"));
-  return {
-    id: item.id,
-    baseItem: item.registryItem,
-    installItem,
-    preview: preset?.export ?? "studio/catalog.ts",
-    legacyPin: item.version,
-    pin: reproducible ? pin : null,
-    files,
-    dependencies: source.dependencies ?? [],
-    registryDependencies: source.registryDependencies ?? [],
-    publicContract: source,
-    visualSpec: item.evidence,
-    provenance: { url: item.sourceUrl, license: item.sourceLicense, decision: item.decision },
-    browserTest: item.test,
-    consumerFixture: preset ? "scripts/fixture-parity.mjs" : null,
-    evidence: previous.items.find(entry => entry.id === item.id)?.evidence ?? null,
-    parity: reproducible ? (preset || !previous.featured.includes(item.id) ? "not-tested" : "parity-broken") : "blocked",
-  };
-});
-const next = { ...previous, defaultPin: pin, items };
-writeFileSync(path, JSON.stringify(next, null, 2) + "\n");
-console.log(`Recorded ${items.length} contracts, ${items.filter(item => item.pin).length} matching ${pin}`);
+  return { pin: reproducible ? pin : null, files, publicContract: source };
+}
