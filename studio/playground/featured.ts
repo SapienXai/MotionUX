@@ -65,17 +65,23 @@ export function deckProps(config: Config, tr = false) {
   return { label: stringValue(config, "label") ?? (tr ? "Yunanistan rotaları" : undefined), dragThreshold: numberValue(config, "dragThreshold"), firstTitle: stringValue(config, "firstTitle") };
 }
 
-export function featuredUsage(id: string, config: Config, tr: boolean, reducedMotion: boolean) {
+export function featuredUsage(id: string, config: Config, tr: boolean, reducedMotion: boolean, appearance: { scheme: "light" | "dark"; theme: string } = { scheme: "light", theme: "neutral" }) {
   const selected = featuredDefinition(id);
   if (!selected) return undefined;
   const { name, entry } = selected;
   const module = `presets/showcase/${entry}`;
   const common = { reducedMotion };
+  const themed: typeof example = (...args) => {
+    const source = example(...args);
+    const attributes = `data-theme=${JSON.stringify(appearance.theme)} data-scheme=${JSON.stringify(appearance.scheme)}`;
+    return source.replace('"use client";', '"use client";\n\nimport "@fontsource-variable/inter";\nimport "@/components/sapienx-motion/presets/recipes/theme.css";')
+      .replace(/  return (<.*\/>);/, `  return <div className="mx-recipe-frame" ${attributes}>$1</div>;`);
+  };
   switch (id) {
-    case "designbookmark-tab-pill": return example(name, module, { ...common, ...tabProps(config, tr) }, {
+    case "designbookmark-tab-pill": return themed(name, module, { ...common, ...tabProps(config, tr) }, {
       setup: `const [value, setValue] = useState(${JSON.stringify(stringValue(config, "value") ?? "overview")});`, handlers: { value: "value", onValueChange: "setValue" },
     });
-    case "designbookmark-loading-to-success": return example(name, module, { ...common, labels: outcomeLabels(config, tr), simulation: true }, {
+    case "designbookmark-loading-to-success": return themed(name, module, { ...common, labels: outcomeLabels(config, tr), simulation: true }, {
       setup: `const [state, setState] = useState<"idle" | "pending" | "success" | "error">(${JSON.stringify((stringValue(config, "state") ?? "idle") as OutcomeState)});
   useEffect(() => {
     if (state !== "pending") return;
@@ -85,9 +91,9 @@ export function featuredUsage(id: string, config: Config, tr: boolean, reducedMo
   }, [state]);`,
       handlers: { state: "state", onStart: '() => setState("pending")' }, hooks: ["useEffect", "useState"],
     });
-    case "designbookmark-expand-card": return example(name, module, { ...common, ...roomProps(config, tr), defaultExpanded: stringValue(config, "expanded") });
-    case "kokonut-morph-popover": return example(name, module, { ...common, ...menuProps(config, tr), defaultOpen: booleanValue(config, "open") });
-    case "designbookmark-profile-card": return example(name, module, { ...common, ...profileProps(config, tr), defaultExpanded: booleanValue(config, "expanded") });
-    case "designbookmark-swipe-deck": return example(name, module, { ...common, ...deckProps(config, tr), defaultIndex: numberValue(config, "index") });
+    case "designbookmark-expand-card": return themed(name, module, { ...common, ...roomProps(config, tr), defaultExpanded: stringValue(config, "expanded") });
+    case "kokonut-morph-popover": return themed(name, module, { ...common, ...menuProps(config, tr), defaultOpen: booleanValue(config, "open") });
+    case "designbookmark-profile-card": return themed(name, module, { ...common, ...profileProps(config, tr), defaultExpanded: booleanValue(config, "expanded") });
+    case "designbookmark-swipe-deck": return themed(name, module, { ...common, ...deckProps(config, tr), defaultIndex: numberValue(config, "index") });
   }
 }

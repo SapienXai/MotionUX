@@ -9,7 +9,7 @@
 
 :is(.mx-gallery-stage, .mx-recipe-frame[data-compact="true"]) > .mx-demo {
   inline-size: 100%;
-  max-block-size: 205px;
+  max-block-size: 310px;
   padding: 4px;
   overflow: auto;
 }

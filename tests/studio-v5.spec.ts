@@ -6,28 +6,28 @@ function card(page: Page, name: string) {
   return page.locator(".mx-gallery-card").filter({ has: page.getByRole("heading", { name, exact: true }) });
 }
 
-test("gallery matches the desktop composition and mounts only nearby specimens", async ({ page }) => {
+test("gallery uses reference order, preview-first cards and lazy mounts", async ({ page }) => {
   await page.setViewportSize({ width: 1536, height: 1024 });
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Beautiful motion. Ready to use." })).toBeVisible();
-  await expect(page.locator(".mx-gallery-card")).toHaveCount(82);
-  expect(await page.locator(".mx-gallery-card h2").allTextContents().then(titles => titles.slice(0, 6))).toEqual(first);
-  await expect(page.locator(".mx-feature")).toHaveCount(6);
-  expect(await page.locator('[data-preview-mounted="true"]').count()).toBeLessThan(14);
-  const boxes = await page.locator(".mx-gallery-card").evaluateAll(els => els.slice(0, 6).map(el => {
+  await expect(page.getByRole("heading", { name: "Motion", exact: true })).toBeVisible();
+  const cards = page.locator(".mx-gallery-card");
+  await expect(cards).toHaveCount(82);
+  expect(await cards.locator("h2").allTextContents().then(titles => titles.slice(0, 3))).toEqual(["Plan switch", "Letter limit", "Pull cord"]);
+  await expect(cards.first().locator(".mx-demo")).toBeVisible();
+  expect(await page.locator('[data-preview-mounted="true"]').count()).toBeLessThan(12);
+  const boxes = await cards.evaluateAll(els => els.slice(0, 6).map(el => {
     const rect = el.getBoundingClientRect();
-    return [rect.x, rect.y, rect.width, rect.height];
+    return { x: rect.x, y: rect.y, width: rect.width };
   }));
-  expect(boxes[0][0]).toBeCloseTo(289, 0);
-  expect(boxes[0][1]).toBeGreaterThanOrEqual(230);
-  expect(boxes[0][1]).toBeLessThanOrEqual(242);
-  expect(boxes[0][1]).toBe(boxes[1][1]);
-  expect(boxes[2][1]).toBe(boxes[3][1]);
-  expect(boxes[4][1]).toBe(boxes[5][1]);
-  await expect(page.locator(".mx-sidebar")).toHaveCSS("width", "270px");
-  await page.locator(".mx-gallery-card").last().scrollIntoViewIfNeeded();
-  await expect(page.locator(".mx-gallery-card").last().locator(".mx-demo")).toBeVisible();
-  await expect(page.locator(".mx-gallery-card").first().locator(".mx-feature")).toHaveCount(0);
+  expect(boxes[0].x).toBeCloseTo(312, 0);
+  expect(boxes[0].y).toBe(boxes[2].y);
+  expect(boxes[0].width).toBeGreaterThan(350);
+  expect(boxes[3].x).toBe(boxes[0].x);
+  expect(boxes[3].y).toBeGreaterThan(boxes[0].y);
+  await expect(page.locator(".mx-sidebar")).toHaveCSS("width", "220px");
+  await cards.last().scrollIntoViewIfNeeded();
+  await expect(cards.last().locator(".mx-demo")).toBeVisible();
+  await expect(cards.first().locator(".mx-demo")).toHaveCount(0);
 });
 
 test("search, category counts, URL restoration and empty state work together", async ({ page }) => {
@@ -60,6 +60,7 @@ test("search, category counts, URL restoration and empty state work together", a
 test("the six featured specimens are live and do not navigate", async ({ page }) => {
   await page.setViewportSize({ width: 1536, height: 1024 });
   await page.goto("/");
+  await card(page, first[0]).scrollIntoViewIfNeeded();
   const tabs = card(page, first[0]).getByRole("tablist");
   await tabs.getByRole("tab", { name: "Overview" }).press("ArrowRight");
   await expect(tabs.getByRole("tab", { name: "Analytics" })).toBeFocused();
@@ -68,17 +69,20 @@ test("the six featured specimens are live and do not navigate", async ({ page })
   await tabs.getByRole("tab", { name: "Members" }).press("Home");
   await expect(tabs.getByRole("tab", { name: "Overview" })).toHaveAttribute("aria-selected", "true");
   const loading = card(page, first[1]);
+  await loading.scrollIntoViewIfNeeded();
   await loading.getByRole("button", { name: /start simulation/ }).click();
   await expect(loading.getByRole("status")).toHaveText("Completed");
   await loading.getByRole("button", { name: /Reset Loading/ }).focus();
   await loading.getByRole("button", { name: /Reset Loading/ }).press("Enter");
   await expect(loading.getByRole("button", { name: /start simulation/ })).toBeVisible();
   const room = card(page, first[2]);
+  await room.scrollIntoViewIfNeeded();
   await room.getByRole("button", { name: /Expand room/ }).click();
   await expect(room.getByRole("button", { name: /Collapse room/ })).toHaveAttribute("aria-expanded", "true");
   await room.getByRole("button", { name: /Collapse room/ }).press("Escape");
   await expect(room.getByRole("button", { name: /Expand room/ })).toBeFocused();
   const menu = card(page, first[3]);
+  await menu.scrollIntoViewIfNeeded();
   await menu.getByRole("button", { name: "New action" }).press("ArrowDown");
   await menu.getByRole("menuitem", { name: "Share" }).click();
   await expect(menu.getByRole("status")).toHaveText("Share selected");
@@ -87,9 +91,11 @@ test("the six featured specimens are live and do not navigate", async ({ page })
   await page.keyboard.press("Escape");
   await expect(menu.getByRole("button", { name: "New action" })).toBeFocused();
   const profile = card(page, first[4]);
+  await profile.scrollIntoViewIfNeeded();
   await profile.getByRole("button", { name: /Emma Carter/ }).click();
   await expect(profile.getByText(/welcoming, usable products/)).toBeVisible();
   const deck = card(page, first[5]);
+  await deck.scrollIntoViewIfNeeded();
   const face = deck.locator("[data-deck-card]");
   await face.scrollIntoViewIfNeeded();
   const bounds = (await face.boundingBox())!;
@@ -132,15 +138,15 @@ test("responsive Gallery fits supported widths and preserves dark preference", a
   for (const width of [1536, 1440, 1280, 1024, 768, 430, 390, 375, 360, 320]) {
     await page.setViewportSize({ width, height: 850 });
     await page.goto("/");
-    await expect(page.locator(".mx-feature").first()).toBeVisible();
+    await expect(page.locator(".mx-demo").first()).toBeVisible();
     const dimension = await page.evaluate(() => ({ document: document.documentElement.scrollWidth, viewport: innerWidth }));
     expect(dimension.document, `overflow at ${width}`).toBeLessThanOrEqual(dimension.viewport);
-    const direction = await card(page, first[0]).evaluate(el => {
+    const direction = await page.locator(".mx-gallery-card").first().evaluate(el => {
       const stage = el.querySelector(".mx-gallery-stage")!.getBoundingClientRect();
       const copy = el.querySelector(".mx-card-copy")!.getBoundingClientRect();
-      return stage.right <= copy.left;
+      return stage.bottom <= copy.top;
     });
-    expect(direction, `card direction at ${width}`).toBe(width >= 768);
+    expect(direction, `preview precedes caption at ${width}`).toBe(true);
   }
   await page.getByRole("button", { name: "Switch to dark mode" }).click();
   await page.reload();
@@ -163,6 +169,7 @@ test("Playground copies actual TSX and CSS source", async ({ page }) => {
 
 test("gallery tab reverses arrows in RTL", async ({ page }) => {
   await page.goto("/");
+  await card(page, first[0]).scrollIntoViewIfNeeded();
   const tabs = card(page, first[0]).getByRole("tablist");
   await tabs.evaluate(el => { el.setAttribute("dir", "rtl"); });
   await tabs.getByRole("tab", { name: "Overview" }).press("ArrowRight");

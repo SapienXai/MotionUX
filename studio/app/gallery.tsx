@@ -1,7 +1,7 @@
-import { ArrowRight, Play, RotateCcw } from "lucide-react";
+import { Code2, Download, Play, RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { Reference } from "../catalog";
-import { FEATURED, hrefFor, presentation, type Route } from "./catalog-view";
+import { categories, FEATURED, hrefFor, presentation, type Route } from "./catalog-view";
 import { GalleryPreview } from "./preview";
 import { intercept } from "./shell";
 import type { Config, Value } from "../playground/controls";
@@ -17,8 +17,8 @@ function observe(element: Element, change: (visible: boolean) => void) {
   return () => { observer?.unobserve(element); listeners.delete(element); };
 }
 
-function GalleryCard({ item, route, open, reduced }: { item: Reference; route: Route; open: (id: string, configuration?: string) => void; reduced: boolean }) {
-  const { title, description, tags } = presentation(item);
+function GalleryCard({ item, route, open, reduced, scheme }: { item: Reference; route: Route; open: (id: string, configuration?: string, panel?: Route["panel"]) => void; reduced: boolean; scheme: "light" | "dark" }) {
+  const { title } = presentation(item);
   const stage = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -36,7 +36,7 @@ function GalleryCard({ item, route, open, reduced }: { item: Reference; route: R
   }, []);
   const mounted = visible || focused || typeof IntersectionObserver === "undefined";
   return <article className="mx-gallery-card" data-card={item.id}>
-    <div className="mx-gallery-stage mx-stage" ref={stage} data-theme="neutral" data-preview-mounted={mounted}
+    <div className="mx-gallery-stage mx-stage" ref={stage} data-theme="neutral" data-scheme={scheme} data-preview-mounted={mounted}
       onFocus={() => setFocused(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
       {mounted && <>
         <button type="button" className="mx-card-reset" aria-label={`Reset ${title} preview`} onClick={() => { selected.current = {}; setRevision(value => value + 1); }}><RotateCcw size={15} aria-hidden="true" /></button>
@@ -44,15 +44,20 @@ function GalleryCard({ item, route, open, reduced }: { item: Reference; route: R
       </>}
     </div>
     <div className="mx-card-copy">
-      <h2>{title}</h2><p>{description}</p>
-      <div className="mx-tags">{tags.map(tag => <span key={tag}>{tag}</span>)}</div>
-      <a href={hrefFor({ ...route, page: "playground", item: item.id, preset: true })} className="mx-open-playground" aria-label={`Open playground for ${title}`}
-        onClick={event => intercept(event, () => open(item.id, state()))}><Play size={15} aria-hidden="true" /><span>Open playground</span><ArrowRight size={15} aria-hidden="true" /></a>
+      <div className="mx-card-caption"><h2>{title}</h2><p>{item.provider}</p></div>
+      <div className="mx-card-links">
+        <a href={hrefFor({ ...route, page: "playground", item: item.id, preset: true })} className="mx-open-playground" aria-label={`Open playground for ${title}`}
+          onClick={event => intercept(event, () => open(item.id, state()))}><Play size={14} aria-hidden="true" /> Playground</a>
+        <a href={hrefFor({ ...route, page: "playground", item: item.id, preset: true, panel: "usage" })} aria-label={`React code for ${title}`}
+          onClick={event => intercept(event, () => open(item.id, state(), "usage"))}><Code2 size={14} aria-hidden="true" /> Code</a>
+        <a href={hrefFor({ ...route, page: "playground", item: item.id, preset: true, panel: "install" })} aria-label={`Install ${title}`}
+          onClick={event => intercept(event, () => open(item.id, state(), "install"))}><Download size={13} aria-hidden="true" /> Install</a>
+      </div>
     </div>
   </article>;
 }
 
-export function Gallery({ items, route, open, reduced, clear }: { items: Reference[]; route: Route; open: (id: string, configuration?: string) => void; reduced: boolean; clear: () => void }) {
+export function Gallery({ items, route, open, reduced, clear, selectCategory, scheme }: { items: Reference[]; route: Route; open: (id: string, configuration?: string, panel?: Route["panel"]) => void; reduced: boolean; clear: () => void; selectCategory: (category: string) => void; scheme: "light" | "dark" }) {
   const filtered = Boolean(route.query.trim() || route.category);
   const grid = useRef<HTMLDivElement>(null);
   const positions = useRef(new Map<string, DOMRect>());
@@ -74,12 +79,19 @@ export function Gallery({ items, route, open, reduced, clear }: { items: Referen
     positions.current = next;
   }, [route.category, route.query, reduced]);
   return <>
-    <section className="mx-hero">
-      <h1 tabIndex={-1}>{route.category ? `${route.category[0].toUpperCase()}${route.category.slice(1)} components` : "Beautiful motion. Ready to use."}</h1>
-      <p>Premium interactive components for modern React applications.</p>
+    <section className="mx-gallery-header">
+      <h1 tabIndex={-1}>Motion</h1>
+      <p>Try interactive components and install the ones you want to use in React.</p>
+      <nav className="mx-gallery-filters" aria-label="Filter gallery">
+        {["All", ...categories].map(label => {
+          const category = label === "All" ? "" : label.toLowerCase();
+          return <a key={label} href={hrefFor({ ...route, category })} aria-current={route.category === category ? "true" : undefined}
+            onClick={event => intercept(event, () => selectCategory(category))}>{label}</a>;
+        })}
+      </nav>
     </section>
     <p className={filtered ? "mx-result-count" : "mx-sr"} role="status">{items.length} {items.length === 1 ? "component" : "components"}</p>
-    {items.length ? <div ref={grid} className="mx-gallery" aria-label="Component gallery">{items.map(item => <GalleryCard key={item.id} item={item} route={route} open={open} reduced={reduced} />)}</div>
+    {items.length ? <div ref={grid} className="mx-gallery" aria-label="Component gallery">{items.map(item => <GalleryCard key={item.id} item={item} route={route} open={open} reduced={reduced} scheme={scheme} />)}</div>
       : <Empty clear={clear}>Try a different name or clear the filters.</Empty>}
   </>;
 }

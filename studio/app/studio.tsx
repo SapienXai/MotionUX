@@ -8,11 +8,24 @@ import { PreviewLoading } from "./preview";
 import { Shell } from "./shell";
 
 const Playground = lazy(() => import("./playground"));
-const initialScheme = () => document.documentElement.dataset.mxScheme === "dark" ? "dark" : "light";
+const schemePreference = "(prefers-color-scheme: dark)";
+const initialScheme = () => {
+  const saved = document.documentElement.dataset.mxScheme;
+  return saved === "dark" || saved === "light" ? saved : matchMedia(schemePreference).matches ? "dark" : "light";
+};
 
 export default function Studio() {
   const [route, setRoute] = useState(readRoute);
   const [scheme, setScheme] = useState<"light" | "dark">(initialScheme);
+  const schemeOverridden = useRef(Boolean(document.documentElement.dataset.mxScheme));
+  useEffect(() => {
+    const media = matchMedia(schemePreference);
+    const update = (event: MediaQueryListEvent) => {
+      if (!schemeOverridden.current) setScheme(event.matches ? "dark" : "light");
+    };
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
   const [lastItem, setLastItem] = useState(route.item);
   const [entered, setEntered] = useState(false);
   const focus = useRef<"none" | "heading" | "gallery">("none");
@@ -61,16 +74,17 @@ export default function Studio() {
   }
   function toggleScheme() {
     const next = scheme === "light" ? "dark" : "light";
+    schemeOverridden.current = true;
     document.documentElement.dataset.mxScheme = next;
     try { localStorage.setItem("mx-studio-scheme", next); } catch { /* session-only preference */ }
     setScheme(next);
   }
-  const open = (id: string, configuration?: string) => navigate({ ...route, page: "playground", item: id, configuration, preset: true });
+  const open = (id: string, configuration?: string, panel?: Route["panel"]) => navigate({ ...route, page: "playground", item: id, configuration, panel, preset: true });
   const clear = () => navigate({ ...route, query: "", category: "", item: "" });
   return <div className="mx-studio" data-scheme={scheme}>
     <Shell route={route} navigate={navigate} updateQuery={setQuery} scheme={scheme} toggleScheme={toggleScheme} reduced={platformReduced} lastItem={lastItem}>
       <div className={`mx-view mx-view-${route.page}`} key={route.page} data-entering={entered || undefined}>
-        {route.page === "gallery" ? <Gallery items={items} route={route} open={open} reduced={platformReduced} clear={clear} /> :
+        {route.page === "gallery" ? <Gallery items={items} route={route} open={open} reduced={platformReduced} clear={clear} scheme={scheme} selectCategory={category => navigate({ ...route, category })} /> :
           route.page === "components" ? <Components items={items} route={route} open={open} clear={clear} /> :
           route.page === "guides" ? <Guides /> : route.page === "examples" ? <Examples route={route} open={open} /> :
           item ? <Suspense fallback={<PreviewLoading />}><Playground key={item.id} item={item} route={route}

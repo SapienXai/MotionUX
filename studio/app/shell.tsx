@@ -19,10 +19,10 @@ export function intercept(event: MouseEvent<HTMLAnchorElement>, action: () => vo
 function Brand({ route, navigate }: { route: Route; navigate: Navigate }) {
   const home: Route = { ...route, page: "gallery", item: "", category: "", query: "" };
   return <a className="mx-brand" href={hrefFor(home)} onClick={event => intercept(event, () => navigate(home))}>
-    <svg viewBox="0 0 57 42" width="56" height="42" aria-hidden="true">
-      <path fill="#fa7975" d="M7 35c-4-3-4-8-1-12L23 5c4-4 10-4 13 0 3 3 3 8 0 11L19 35c-3 4-9 4-12 0Z"/>
-      <path fill="#f76868" d="M25 35c-4-3-4-8-1-12L41 5c4-4 10-4 13 0 3 3 3 8 0 11L37 35c-3 4-9 4-12 0Z"/>
-      <path fill="#e95657" fillOpacity=".56" d="m22 25 12-13-5 15c-1 3-4 4-6 2-1-1-1-3-1-4Z"/>
+    <svg viewBox="0 0 57 42" width="33" height="29" aria-hidden="true">
+      <path fill="currentColor" d="M7 35c-4-3-4-8-1-12L23 5c4-4 10-4 13 0 3 3 3 8 0 11L19 35c-3 4-9 4-12 0Z"/>
+      <path fill="currentColor" d="M25 35c-4-3-4-8-1-12L41 5c4-4 10-4 13 0 3 3 3 8 0 11L37 35c-3 4-9 4-12 0Z"/>
+      <path fill="var(--surface)" fillOpacity=".28" d="m22 25 12-13-5 15c-1 3-4 4-6 2-1-1-1-3-1-4Z"/>
     </svg><span><strong>MotionUX</strong>{" "}<small>Studio</small></span>
   </a>;
 }
@@ -69,10 +69,9 @@ function Sidebar({ route, navigate, lastItem, reduced, mobile, close }: { route:
         {(more) && categories.slice(6).map(mark)}
       </nav>
     </div>
-    <section className="mx-promo"><Sparkle size={31} aria-hidden="true" /><h2>Use MotionUX<br/>in your project</h2>
-      <p>Install the components, copy the code, and build beautiful interfaces faster.</p>
-      <a href={hrefFor(guide)} onClick={event => intercept(event, () => navigate(guide))}>Get started <ArrowRight size={18} aria-hidden="true" /></a>
-    </section>
+    <a className="mx-side-row mx-guide-link" href={hrefFor(guide)} onClick={event => intercept(event, () => navigate(guide))}>
+      <ArrowRight size={18} aria-hidden="true" /><span>Get started</span>
+    </a>
   </LayoutGroup>;
 }
 

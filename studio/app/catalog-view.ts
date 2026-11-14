@@ -21,10 +21,7 @@ export function categoryFor(item: Reference): Category {
   return groups[item.category] ?? "Feedback";
 }
 
-export const ordered = [...references].sort((a, b) => {
-  const priority = (id: string) => { const i = FEATURED.findIndex(([featured]) => featured === id); return i < 0 ? FEATURED.length : i; };
-  return priority(a.id) - priority(b.id) || a.order - b.order;
-});
+export const ordered = [...references].sort((a, b) => a.order - b.order);
 export const catalogCounts = Object.fromEntries(categories.map(category => [category, references.filter(item => categoryFor(item) === category).length])) as Record<Category, number>;
 export function presentation(item: Reference) {
   const feature = FEATURED.find(([id]) => id === item.id);
@@ -32,16 +29,18 @@ export function presentation(item: Reference) {
 }
 export const repoURL = "https://github.com/SapienXai/MotionUX";
 
-export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples"; item: string; category: string; query: string; preset?: boolean; configuration?: string };
+export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples"; item: string; category: string; query: string; preset?: boolean; configuration?: string; panel?: "usage" | "install" };
 export function readRoute(): Route {
   const params = new URLSearchParams(location.search);
   const page = params.get("view");
   const item = params.get("item") ?? "";
+  const panel = params.get("panel");
   return {
     page: item ? "playground" : page === "components" || page === "guides" || page === "examples" ? page : "gallery",
     item,
     category: params.get("category") ?? "",
     query: params.get("q") ?? "",
+    panel: panel === "usage" || panel === "install" ? panel : undefined,
     preset: params.get("preset") === "gallery",
     configuration: params.get("config") ?? undefined,
   };
@@ -53,6 +52,7 @@ export function hrefFor(route: Route) {
   if (route.category) params.set("category", route.category);
   if (route.query) params.set("q", route.query);
   if (route.page === "playground" && route.preset) params.set("preset", "gallery");
+  if (route.page === "playground" && route.panel) params.set("panel", route.panel);
   if (route.page === "playground" && route.configuration) params.set("config", route.configuration);
   return params.size ? `?${params}${route.page === "playground" ? "#specimen" : ""}` : "./";
 }

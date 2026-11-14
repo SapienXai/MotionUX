@@ -83,7 +83,7 @@ function Inspector({ item, panel, story, preset, usage }: { item: Reference; pan
 
 export default function Playground({ item, route, back, reduced, systemReduced, scheme }: { item: Reference; route: Route; back: () => void; reduced: boolean; systemReduced: boolean; scheme: "light" | "dark" }) {
   const { story, error, retry } = useStory(item);
-  const [panel, setPanel] = useState<Panel>("Preview");
+  const [panel, setPanel] = useState<Panel>(route.panel === "install" ? "Install" : route.panel === "usage" ? "Usage" : "Preview");
   const [theme, setTheme] = useState("neutral");
   const [device, setDevice] = useState<Device>("Desktop");
   const [language, setLanguage] = useState<"en" | "tr">("en");
@@ -141,7 +141,7 @@ export default function Playground({ item, route, back, reduced, systemReduced, 
         {item.id === "designbookmark-tab-pill" && galleryExample &&
           <label className="mx-check"><input type="checkbox" checked={booleanValue(config, "disableAnalytics") ?? false} onChange={event => update("disableAnalytics", event.target.checked)} /> Disable Analytics</label>}
       </div></details>
-      <div className="mx-play-stage mx-stage" data-theme={theme}><div className="mx-stage-meta"><span>Interactive preview</span><span>{device} · {minimize ? "Reduced motion" : "Normal motion"}</span></div>
+      <div className="mx-play-stage mx-stage" data-theme={theme} data-scheme={scheme}><div className="mx-stage-meta"><span>Interactive preview</span><span>{device} · {minimize ? "Reduced motion" : "Normal motion"}</span></div>
         <div className="mx-stage-width" style={{ maxInlineSize: widths[device][1] }}>
           {stage()}
           {compare && <section className="mx-compare" aria-label="Reduced-motion comparison"><h2>Reduced-motion comparison</h2>{stage(true)}</section>}
@@ -156,6 +156,6 @@ export default function Playground({ item, route, back, reduced, systemReduced, 
         <p role="status" className="mx-share-status">{copiedLink}</p>
       </section>}
       <div className="mx-play-notes">{story && <p>{story.states}</p>}</div>
-    </> : <section className="mx-inspector" aria-label={panel}>{error && ["Props", "Variants", "States", "Usage", "Accessibility"].includes(panel) ? <PreviewError retry={retry} /> : <Inspector item={item} panel={panel} story={story} preset={galleryExample} usage={galleryExample ? hasFeatured ? featuredUsage(item.id, config, language === "tr", minimize) : recipeUsage(item.id, config, { language, reducedMotion: minimize, theme, scheme }) : configuredUsage(item.id, config)} />}</section>}
+    </> : <section className="mx-inspector" aria-label={panel}>{error && ["Props", "Variants", "States", "Usage", "Accessibility"].includes(panel) ? <PreviewError retry={retry} /> : <Inspector item={item} panel={panel} story={story} preset={galleryExample} usage={galleryExample ? hasFeatured ? featuredUsage(item.id, config, language === "tr", minimize, { scheme, theme }) : recipeUsage(item.id, config, { language, reducedMotion: minimize, theme, scheme }) : configuredUsage(item.id, config)} />}</section>}
   </article>;
 }

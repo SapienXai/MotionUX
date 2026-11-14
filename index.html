@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="description" content="Explore and try reusable React interactions in MotionUX Studio." />
     <script>
       try {
@@ -10,8 +11,12 @@
         if (saved === "dark" || saved === "light") document.documentElement.dataset.mxScheme = saved;
       } catch {}
     </script>
-    <style>html[data-mx-scheme="dark"] { background: #141319; color-scheme: dark; }</style>
-    <title>MotionUX Studio — Beautiful motion. Ready to use.</title>
+    <style>
+      html { color-scheme: light dark; }
+      html[data-mx-scheme="light"] { background: #f3f3f3; color-scheme: light; }
+      html[data-mx-scheme="dark"] { background: #000; color-scheme: dark; }
+    </style>
+    <title>MotionUX Studio — Motion components</title>
   </head>
   <body>
     <div id="root"></div>
