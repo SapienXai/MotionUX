@@ -18,12 +18,15 @@ const items = inventory.items.map(item => {
   const preset = specs.get(item.id);
   const installItem = preset?.item ?? item.registryItem;
   const selected = contract(installItem);
-  const evidence = previous.items.find(entry => entry.id === item.id)?.evidence ?? null;
+  const existing = previous.items.find(entry => entry.id === item.id);
+  const evidence = existing?.evidence ?? null;
+  const recipe = preset ? undefined : recipeSources.find(([, content]) => content.includes(`"${item.id}": () => import(`))?.[0];
   return {
     id: item.id,
     baseItem: item.registryItem,
     installItem,
-    recipe: preset ? undefined : recipeSources.find(([, content]) => content.includes(`"${item.id}": () => import(`))?.[0],
+    recipe,
+    recipeEvidence: recipe && existing?.recipeEvidence?.pin === recipes[recipe].pin ? existing?.recipeEvidence : undefined,
     preview: preset?.export ?? "studio/catalog.ts",
     legacyPin: item.version,
     ...selected,

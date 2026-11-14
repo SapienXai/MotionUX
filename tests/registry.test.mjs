@@ -58,12 +58,22 @@ test("the parity ledger covers every reference and binds accepted evidence to an
   assert.deepEqual(parity.items.map(item => item.id), reference.items.map(item => item.id));
   const recipeRows = parity.items.filter(row => row.recipe);
   assert.equal(recipeRows.length, reference.items.length - parity.featured.length);
+  const reports = new Map();
   for (const row of recipeRows) {
     assert.ok(implementationPaths.has(row.recipe), row.id);
     const recipe = parity.recipes[row.recipe];
     assert.equal(recipe.publicContract.name, row.recipe);
     assert.match(recipe.pin, /^[0-9a-f]{40}$/);
     assert.ok(recipe.files.every(file => /^[0-9a-f]{64}$/.test(file.sha256)));
+    const evidence = row.recipeEvidence;
+    if (!evidence) continue;
+    assert.equal(evidence.pin, recipe.pin);
+    if (!reports.has(evidence.report)) reports.set(evidence.report, JSON.parse(await readFile(evidence.report, "utf8")));
+    const report = reports.get(evidence.report);
+    assert.equal(report.pin, recipe.pin);
+    assert.equal(report.recipeCases.find(result => result.id === row.id)?.result, evidence.staticParity);
+    assert.equal(report.recipeBehavior.find(result => result.id === row.id)?.result ?? "not-tested", evidence.interactionParity);
+    assert.equal(evidence.motionParity, "not-tested");
   }
   for (const row of parity.items) {
     assert.ok(implementationPaths.has(row.installItem));
