@@ -617,6 +617,168 @@
       "consumers": [],
       "evidence": "tests/cards.spec.ts",
       "referenceId": "smoothui-unlock-face-id"
+    },
+    "word-roll": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "designbookmark-word-roll"
+    },
+    "weight-wave": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "designbookmark-weight-wave"
+    },
+    "scramble-text": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "designbookmark-scramble-text"
+    },
+    "read-along": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "designbookmark-read-along"
+    },
+    "roll-links": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "designbookmark-roll-links"
+    },
+    "marker-text": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "kokonut-marker-text"
+    },
+    "dynamic-text": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "kokonut-dynamic-text"
+    },
+    "typewriter": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "kokonut-typewriter"
+    },
+    "prompt-box": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "designbookmark-prompt-box"
+    },
+    "ghost-suggestion": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "designbookmark-ghost-suggestion"
+    },
+    "streaming-reply": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "designbookmark-streaming-reply"
+    },
+    "voice-input": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "kokonut-voice-input"
+    },
+    "thinking-text": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "kokonut-thinking-text"
+    },
+    "task-list": {
+      "source": "https://smoothui.dev/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "smoothui-task-list"
+    },
+    "siri-orb": {
+      "source": "https://smoothui.dev/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "smoothui-siri-orb"
+    },
+    "scrubber": {
+      "source": "https://smoothui.dev/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "smoothui-scrubber"
+    },
+    "glass-player": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "kokonut-glass-player"
+    },
+    "music-toggle": {
+      "source": "https://smoothui.dev/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/media.spec.ts",
+      "referenceId": "smoothui-music-toggle"
     }
   }
 }

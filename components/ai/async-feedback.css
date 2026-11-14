@@ -1,0 +1,21 @@
+[data-mx-async] { color: var(--mx-ink, CanvasText); }
+[data-mx-async="reply"], [data-mx-async="tasks"] { inline-size: min(100%, 29rem); min-inline-size: 0; box-sizing: border-box; margin: 0; padding: .65rem .85rem; border: 1px solid var(--mx-line, GrayText); border-radius: .75rem; background: var(--mx-surface, Canvas); text-align: start; }
+.mx-async-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .35rem; }
+.mx-async-header > span { color: var(--mx-muted, GrayText); font-size: .82rem; }
+.mx-reply-copy { overflow-wrap: anywhere; white-space: pre-wrap; min-block-size: 4lh; line-height: 1.55; margin: .5rem 0; }
+[data-mx-async] button { min-block-size: 2.75rem; display: inline-flex; gap: .35rem; justify-content: center; align-items: center; padding: .4rem .65rem; border: 1px solid var(--mx-line, GrayText); border-radius: .6rem; background: var(--mx-surface, Canvas); color: inherit; font: inherit; cursor: pointer; }
+[data-mx-async] :is(button,input):focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 2px; }
+[data-mx-async="voice"] { display: grid; justify-items: center; gap: .55rem; }
+.mx-waveform { display: flex; align-items: stretch; block-size: 3.2rem; inline-size: 9rem; gap: .25rem; }
+.mx-waveform i { flex: 1; border-radius: .3rem; background: var(--mx-accent, Highlight); }
+[data-mx-async="thinking"] { display: inline-flex; gap: .5rem; align-items: center; padding: .55rem .75rem; border: 1px solid var(--mx-line, GrayText); border-radius: 1rem; background: var(--mx-surface, Canvas); }
+[data-mx-async="thinking"] svg { color: var(--mx-accent, LinkText); }
+[data-mx-async="thinking"] [data-pending="true"] { font-weight: 650; }
+.mx-async-assist { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); margin: -1px; white-space: nowrap; }
+[data-mx-async="tasks"] ul { list-style: none; padding: 0; margin: 0; }
+[data-mx-async="tasks"] label { display: flex; gap: .5rem; padding: .35rem .45rem; min-block-size: 2.75rem; align-items: center; border-radius: .55rem; }
+[data-mx-async="tasks"] input { inline-size: 1rem; block-size: 1rem; accent-color: var(--mx-accent, Highlight); }
+[data-mx-async="tasks"] label svg { margin-inline-start: auto; opacity: 0; }
+[data-mx-async="tasks"] [data-complete="true"] { background: var(--mx-selected, ButtonFace); }
+[data-mx-async="tasks"] [data-complete="true"] svg { opacity: 1; }
+[data-mx-async="tasks"] p { margin: .35rem 0 0; font-size: .85rem; }

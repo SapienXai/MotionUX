@@ -1,0 +1,18 @@
+[data-mx-audio] { color: var(--mx-ink, CanvasText); }
+[data-mx-audio="glass"], [data-mx-audio="toggle"] { display: grid; grid-template-columns: 1fr auto; gap: .45rem; align-items: center; inline-size: min(100%, 28rem); min-inline-size: 0; text-align: start; padding: .7rem; box-sizing: border-box; border: 1px solid var(--mx-line, GrayText); border-radius: .9rem; background: var(--mx-surface, Canvas); box-shadow: inset 0 1px 0 #fff5, 0 9px 22px #0002; }
+[data-mx-audio="glass"] { background: linear-gradient(145deg, var(--mx-selected, ButtonFace), var(--mx-surface, Canvas) 65%); }
+[data-mx-audio="toggle"] { max-inline-size: 16rem; border-radius: 2rem; }
+[data-mx-audio] audio { display: none; }
+.mx-audio-identity { display: flex; gap: .5rem; align-items: center; overflow-wrap: anywhere; }
+.mx-audio-identity svg { flex: none; color: var(--mx-accent, Highlight); }
+[data-mx-audio] button { display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; border: 0; border-radius: 50%; cursor: pointer; background: var(--mx-accent, Highlight); color: var(--mx-on-accent, HighlightText); }
+[data-mx-audio] [role="status"] { grid-column: 1 / -1; }
+[data-mx-audio] [role="status"]:empty { margin: 0; }
+[data-mx-audio="scrub"] { display: grid; grid-column: 1 / -1; grid-template-columns: 1fr auto; gap: .25rem; inline-size: min(100%, 29rem); text-align: start; }
+[data-mx-audio="scrub"] span { font-variant-numeric: tabular-nums; }
+[data-mx-audio="scrub"] input { grid-column: 1 / -1; min-block-size: 2.75rem; margin: 0; min-inline-size: 0; inline-size: 100%; accent-color: var(--mx-accent, Highlight); }
+[data-mx-audio] :is(button,input):focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 3px; }
+[data-mx-audio="orb"] { display: grid; justify-items: center; gap: .85rem; }
+.mx-orb-sphere { position: relative; display: grid; place-items: center; inline-size: 6rem; aspect-ratio: 1; isolation: isolate; overflow: hidden; border-radius: 50%; background: radial-gradient(circle at 62% 15%, #efe8fc 0%, #b9c1f1 31%, #534886 64%, #242340 94%); box-shadow: inset -3px -8px 22px #19172880, 0 9px 19px #4c3c7550; }
+.mx-orb-sphere i { position: absolute; inset: 17%; border-radius: 40% 60% 57% 43% / 60% 51% 49% 40%; background: radial-gradient(ellipse at 35% 50%, #fbdbf1cf 0%, #589dec90 48%, #ffffff00 75%); }
+.mx-orb-sphere[data-active="true"] { box-shadow: inset -3px -8px 22px #29216c80, 0 8px 25px #7b56c77f; }

@@ -1,0 +1,23 @@
+[data-mx-type] { position: relative; color: var(--mx-ink, CanvasText); overflow-wrap: anywhere; }
+.mx-type-assist { position: absolute; inline-size: 1px; block-size: 1px; padding: 0; border: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+[data-mx-type="swap"] { display: inline-block; perspective: 420px; }
+.mx-type-visible { display: inline-block; }
+.mx-type-visible > span, [data-mx-type="weight"] > span:not(.mx-type-assist) > span { display: inline-block; }
+[data-mx-type="scramble"], [data-mx-type="typewriter"] { display: inline-grid; }
+.mx-type-measure, .mx-type-display { grid-area: 1 / 1; white-space: pre-wrap; }
+.mx-type-measure { visibility: hidden; }
+.mx-type-display { min-inline-size: 0; }
+.mx-marker-phrase { isolation: isolate; position: relative; white-space: normal; }
+.mx-marker-phrase > span { position: absolute; inset: 48% -.16em .03em; z-index: -1; border-radius: .14em .07em .08em .15em; background: var(--mx-selected, ButtonFace); transform-origin: left center; }
+.mx-marker-phrase:dir(rtl) > span { transform-origin: right center; }
+[data-mx-type="read"] { list-style: none; padding: 0; margin: 0; display: grid; inline-size: min(100%, 27rem); gap: .4rem; text-align: start; }
+[data-mx-type="read"] li { border-inline-start: 3px solid transparent; padding: .32rem .5rem; line-height: 1.45; }
+[data-mx-type="read"] [aria-current] { border-color: var(--mx-accent, Highlight); background: var(--mx-selected, ButtonFace); border-radius: .3rem; }
+[data-mx-type="link"] { display: inline-grid; grid-template-columns: 1fr; overflow: hidden; padding: .4rem .18rem; color: var(--mx-accent, LinkText); text-underline-offset: .2em; min-block-size: 2.75rem; align-items: center; }
+[data-mx-type="link"] span { grid-area: 1 / 1; transition: transform .24s cubic-bezier(.2,.7,.25,1), opacity .2s linear; }
+[data-mx-type="link"] span + span { transform: translateY(125%); opacity: 0; }
+[data-mx-type="link"]:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-mx-type="link"]:is(:hover,:focus-visible) span:first-child { transform: translateY(-125%); opacity: 0; }
+  [data-mx-type="link"]:is(:hover,:focus-visible) span + span { transform: none; opacity: 1; }
+}

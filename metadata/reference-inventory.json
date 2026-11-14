@@ -140,7 +140,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "morph-island",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-morph-island",
@@ -158,7 +158,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "goo-menu",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-goo-menu",
@@ -212,7 +212,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "swipe-deck",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-swipe-deck",
@@ -266,7 +266,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "parallax-ticket",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-parallax-ticket",
@@ -284,7 +284,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "glass-lens",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-glass-lens",
@@ -302,7 +302,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "pull-to-refresh",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-pull-to-refresh",
@@ -321,9 +321,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "word-roll",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-word-roll",
       "status": "needs-review"
     },
     {
@@ -339,9 +339,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "weight-wave",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-weight-wave",
       "status": "needs-review"
     },
     {
@@ -356,7 +356,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "goo-morph",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-goo-morph",
@@ -375,9 +375,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "scramble-text",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-scramble-text",
       "status": "needs-review"
     },
     {
@@ -393,9 +393,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "read-along",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-read-along",
       "status": "needs-review"
     },
     {
@@ -411,9 +411,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "roll-links",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-roll-links",
       "status": "needs-review"
     },
     {
@@ -429,9 +429,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "prompt-box",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-prompt-box",
       "status": "needs-review"
     },
     {
@@ -447,9 +447,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "streaming-reply",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-streaming-reply",
       "status": "needs-review"
     },
     {
@@ -465,9 +465,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "ghost-suggestion",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-ghost-suggestion",
       "status": "needs-review"
     },
     {
@@ -500,7 +500,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "expand-card",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-expand-card",
@@ -518,7 +518,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "fan-cards",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-fan-cards",
@@ -536,7 +536,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "stat-card",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-stat-card",
@@ -554,7 +554,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "profile-card",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-profile-card",
@@ -933,9 +933,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "siri-orb",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=smoothui-siri-orb",
       "status": "needs-review"
     },
     {
@@ -1004,7 +1004,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "boarding-pass",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=kokonut-boarding-pass",
@@ -1023,9 +1023,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "marker-text",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-marker-text",
       "status": "needs-review"
     },
     {
@@ -1058,7 +1058,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "unlock-face-id",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=smoothui-unlock-face-id",
@@ -1131,9 +1131,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "dynamic-text",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-dynamic-text",
       "status": "needs-review"
     },
     {
@@ -1149,9 +1149,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "voice-input",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-voice-input",
       "status": "needs-review"
     },
     {
@@ -1203,9 +1203,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "scrubber",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=smoothui-scrubber",
       "status": "needs-review"
     },
     {
@@ -1238,7 +1238,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "page-flip",
-      "version": null,
+      "version": "58bd0650a68e635aaad1ac6e175bf1a0b864375a",
       "test": "tests/cards.spec.ts",
       "evidence": null,
       "preview": "/?item=kokonut-page-flip",
@@ -1329,9 +1329,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "typewriter",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-typewriter",
       "status": "needs-review"
     },
     {
@@ -1347,9 +1347,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "thinking-text",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-thinking-text",
       "status": "needs-review"
     },
     {
@@ -1365,9 +1365,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "glass-player",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-glass-player",
       "status": "needs-review"
     },
     {
@@ -1419,9 +1419,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "task-list",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=smoothui-task-list",
       "status": "needs-review"
     },
     {
@@ -1437,9 +1437,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "music-toggle",
       "version": null,
-      "test": null,
+      "test": "tests/media.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=smoothui-music-toggle",
       "status": "needs-review"
     },
     {

@@ -1485,6 +1485,392 @@
           "type": "registry:file"
         }
       ]
+    },
+    {
+      "name": "word-roll",
+      "type": "registry:component",
+      "title": "Word roll",
+      "description": "Replace a word with a directional roll while retaining a stable text alternative.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "weight-wave",
+      "type": "registry:component",
+      "title": "Weight wave",
+      "description": "Increase emphasis along the text once per activation; preserve readable wording at rest.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "scramble-text",
+      "type": "registry:component",
+      "title": "Scramble text",
+      "description": "Resolve an explicitly replayed reveal to the final label; hide transient glyphs from AT.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "read-along",
+      "type": "registry:component",
+      "title": "Read along",
+      "description": "Advance the active phrase and keep all text available to read.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "roll-links",
+      "type": "registry:component",
+      "title": "Roll links",
+      "description": "Roll a decorative text layer on hover or focus; retain the real link and accessible name.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "marker-text",
+      "type": "registry:component",
+      "title": "Marker text",
+      "description": "Sweep a highlight over the specified phrase and preserve contrast at rest.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "dynamic-text",
+      "type": "registry:component",
+      "title": "Dynamic text",
+      "description": "Swap phrases with segmented motion and a stable accessible label.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "typewriter",
+      "type": "registry:component",
+      "title": "Typewriter",
+      "description": "Reveal a phrase once after explicit activation; expose the full phrase to assistive tech.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "prompt-box",
+      "type": "registry:component",
+      "title": "Prompt box",
+      "description": "Submit a composed prompt with explicit button and keyboard shortcut; validation and abort stay controllable.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/ai/composer.tsx",
+          "target": "@components/sapienx-motion/composer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/ai/composer.css",
+          "target": "@components/sapienx-motion/composer.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "ghost-suggestion",
+      "type": "registry:component",
+      "title": "Ghost suggestion",
+      "description": "Show a completion only at the relevant caret and accept it without breaking composition.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/ai/composer.tsx",
+          "target": "@components/sapienx-motion/composer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/ai/composer.css",
+          "target": "@components/sapienx-motion/composer.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "streaming-reply",
+      "type": "registry:component",
+      "title": "Streaming reply",
+      "description": "Render caller-supplied chunks incrementally; keep a readable result and support stopping.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/ai/async-feedback.tsx",
+          "target": "@components/sapienx-motion/async-feedback.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/ai/async-feedback.css",
+          "target": "@components/sapienx-motion/async-feedback.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "voice-input",
+      "type": "registry:component",
+      "title": "Voice input",
+      "description": "Display caller-driven recording state and provide a visible stop control.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/ai/async-feedback.tsx",
+          "target": "@components/sapienx-motion/async-feedback.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/ai/async-feedback.css",
+          "target": "@components/sapienx-motion/async-feedback.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "thinking-text",
+      "type": "registry:component",
+      "title": "Thinking text",
+      "description": "Show caller-driven phases without generating spurious announcements.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/ai/async-feedback.tsx",
+          "target": "@components/sapienx-motion/async-feedback.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/ai/async-feedback.css",
+          "target": "@components/sapienx-motion/async-feedback.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "task-list",
+      "type": "registry:component",
+      "title": "Task list",
+      "description": "Toggle task completion and reflect state with readable text.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/ai/async-feedback.tsx",
+          "target": "@components/sapienx-motion/async-feedback.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/ai/async-feedback.css",
+          "target": "@components/sapienx-motion/async-feedback.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "siri-orb",
+      "type": "registry:component",
+      "title": "Siri orb",
+      "description": "Show bounded state-driven organic feedback with a static preference variant.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/media/audio-tools.tsx",
+          "target": "@components/sapienx-motion/audio-tools.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/media/audio-tools.css",
+          "target": "@components/sapienx-motion/audio-tools.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "scrubber",
+      "type": "registry:component",
+      "title": "Scrubber",
+      "description": "Seek a controlled timeline through pointer or keyboard with an accessible elapsed value.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/media/audio-tools.tsx",
+          "target": "@components/sapienx-motion/audio-tools.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/media/audio-tools.css",
+          "target": "@components/sapienx-motion/audio-tools.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "glass-player",
+      "type": "registry:component",
+      "title": "Glass player",
+      "description": "Play, pause and seek consumer-provided media with labelled controls.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/media/audio-tools.tsx",
+          "target": "@components/sapienx-motion/audio-tools.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/media/audio-tools.css",
+          "target": "@components/sapienx-motion/audio-tools.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "music-toggle",
+      "type": "registry:component",
+      "title": "Music toggle",
+      "description": "Play or pause supplied audio while reflecting the media element event state.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/media/audio-tools.tsx",
+          "target": "@components/sapienx-motion/audio-tools.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/media/audio-tools.css",
+          "target": "@components/sapienx-motion/audio-tools.css",
+          "type": "registry:file"
+        }
+      ]
     }
   ]
 }

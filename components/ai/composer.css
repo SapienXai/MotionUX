@@ -1,0 +1,10 @@
+[data-mx-composer] { display: grid; text-align: start; gap: .55rem; inline-size: min(100%, 29rem); color: var(--mx-ink, CanvasText); }
+[data-mx-composer] label { font-weight: 670; }
+[data-mx-composer] :is(textarea,input,button) { box-sizing: border-box; padding: .45rem .65rem; border: 1px solid var(--mx-line, GrayText); border-radius: .6rem; min-block-size: 2.75rem; color: inherit; background: var(--mx-surface, Canvas); font: inherit; }
+[data-mx-composer] textarea { resize: vertical; }
+[data-mx-composer] :is(textarea,input,button):focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 2px; }
+[data-mx-composer] button { display: inline-flex; gap: .35rem; align-items: center; justify-content: center; font-weight: 650; cursor: pointer; }
+[data-mx-composer] button:disabled { opacity: .55; cursor: default; }
+.mx-composer-actions, .mx-ghost-suggestion { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.mx-composer-actions small, .mx-ghost-suggestion span { color: var(--mx-muted, GrayText); overflow-wrap: anywhere; }
+.mx-composer-actions button { background: var(--mx-accent, Highlight); color: var(--mx-on-accent, HighlightText); }
