@@ -1,0 +1,509 @@
+{
+  "pin": "556273c551538fe733651fa3616ab54fbf60e499",
+  "cases": [
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0.0007415952537903757
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0.00024944567627494457
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 390,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0.0004711751662971175
+    },
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0.0007141287629092507
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0.00024944567627494457
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 390,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0.0004711751662971175
+    },
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0.00003306386285109689
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0.00011572351997883912
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0.0000525000525000525
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0.000010595465140919687
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 768,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0.000010595465140919687
+    },
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0.00008265965712774223
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0.000021000021000021
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0.000052977325704598435
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 768,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0.00003178639542275906
+    },
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0.000025813779395441288
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "idle",
+      "differentPixels": 0.000025393600812595227
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 1536,
+      "scheme": "light",
+      "stage": "active",
+      "differentPixels": 0.000025393600812595227
+    },
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "sliding-tab-pill-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "loading-outcome-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "expandable-room-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "morph-dropdown-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0
+    },
+    {
+      "item": "featured-profile-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0.000025813779395441288
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "idle",
+      "differentPixels": 0.00016505840528186898
+    },
+    {
+      "item": "destination-deck-gallery",
+      "width": 1536,
+      "scheme": "dark",
+      "stage": "active",
+      "differentPixels": 0.00015236160487557134
+    }
+  ]
+}
