@@ -168,3 +168,12 @@ test("Goo indicator reports pending and settled under reduced motion", async ({ 
   await page.getByRole("button", { name: "Stop demo" }).click();
   await expect(status).toHaveText("Ready");
 });
+
+test("Three linear steps fit in one row at the narrow viewport", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 760 });
+  await page.goto("/?item=designbookmark-step-progress");
+  const steps = page.getByRole("list", { name: "Progress" }).getByRole("listitem");
+  await expect(steps).toHaveCount(3);
+  const top = await steps.evaluateAll(elements => elements.map(el => Math.round(el.getBoundingClientRect().top)));
+  expect(new Set(top).size).toBe(1);
+});

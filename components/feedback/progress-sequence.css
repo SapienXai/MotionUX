@@ -11,3 +11,7 @@
 [data-mx-sequence]:dir(rtl) .mx-sequence-track span { transform-origin: right; }
 [data-mx-sequence] button { display: flex; align-items: center; min-block-size: 44px; gap: .35rem; color: inherit; border: 0; background: transparent; padding: .25rem 0; font: inherit; font-weight: 620; text-align: start; cursor: pointer; }
 [data-mx-sequence] button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); }
+
+[data-mx-sequence="linear"] { inline-size: min(100%, 26rem); text-align: start; }
+[data-mx-sequence="linear"] ol { display: grid; grid-template-columns: repeat(var(--mx-sequence-count, 3), minmax(0, 1fr)); }
+[data-mx-sequence="linear"] li { inline-size: 100%; }

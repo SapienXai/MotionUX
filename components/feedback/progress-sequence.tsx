@@ -2,7 +2,7 @@
 
 import { Check, ChevronDown, CircleAlert } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import { useId, useState, type ReactNode } from "react";
+import { useId, useState, type CSSProperties, type ReactNode } from "react";
 import "./progress-sequence.css";
 
 export type ProgressStage = { id: string; label: string; detail?: ReactNode; state: "complete" | "current" | "upcoming" | "error" };
@@ -18,7 +18,9 @@ export function ProgressSequence({ label, stages, variant = "linear", reducedMot
       {pref || reducedMotion ? <span style={{ transform: `scaleX(${portion})` }} />
         : <motion.span initial={false} animate={{ scaleX: portion }} transition={{ type: "spring", stiffness: 390, damping: 32 }} />}
     </div>}
-    <ol aria-label={label}>
+    <ol aria-label={label} style={variant === "linear" ? {
+      "--mx-sequence-count": Math.max(1, Math.min(5, stages.length)),
+    } as CSSProperties : undefined}>
       {stages.map((stage, index) => {
         const detailId = `${id}-${index}`;
         return <li key={stage.id} data-state={stage.state} aria-current={stage.state === "current" ? "step" : undefined}>
