@@ -1,0 +1,18 @@
+[data-mx-action] { color: var(--mx-ink, CanvasText); max-inline-size: 100%; }
+[data-mx-action] button { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-block-size: 44px; padding: .45rem .72rem; border: 1px solid var(--mx-line, GrayText); border-radius: .55rem; color: inherit; background: var(--mx-surface, Canvas); font: inherit; font-weight: 620; cursor: pointer; }
+[data-mx-action] button[aria-pressed="true"] { background: var(--mx-selected, ButtonFace); color: var(--mx-accent, LinkText); }
+[data-mx-action] button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 2px; }
+[data-mx-action] button:disabled { opacity: .48; cursor: default; }
+[data-mx-action] button > span { display: inline-flex; }
+[data-mx-action="copy"], [data-mx-action="undo"] { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; }
+[data-mx-action="magnetic"] { display: inline-flex; padding: .8rem; }
+.mx-action-count { font-variant-numeric: tabular-nums; background: var(--mx-selected, ButtonFace); min-inline-size: 1.6rem; min-block-size: 1.6rem; justify-content: center; align-items: center; border-radius: 2rem; }
+.mx-like-rays { position: absolute; inset-inline-start: .45rem; inline-size: 1.5rem; block-size: 1.5rem; border-radius: 50%; border: 1px dashed currentColor; pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .mx-like-rays { animation: mx-like-burst .42s ease-out both; }
+  @keyframes mx-like-burst { from { transform: scale(.75); opacity: 1 } to { transform: scale(1.9); opacity: 0 } }
+}
+[data-mx-outcome] { display: inline-flex; align-items: center; gap: .55rem; min-block-size: 44px; max-inline-size: 100%; border: 1px solid var(--mx-line, GrayText); border-radius: .55rem; padding: .45rem .72rem; background: var(--mx-surface, Canvas); color: var(--mx-ink, CanvasText); font-weight: 620; overflow-wrap: anywhere; }
+[data-mx-outcome] > span { display: inline-flex; flex-shrink: 0; }
+[data-mx-outcome="success"], [data-mx-outcome="error"] { color: var(--mx-accent, LinkText); background: var(--mx-selected, ButtonFace); }
+.mx-outcome-pending { inline-size: .7rem; block-size: .7rem; border: 2px solid currentColor; border-radius: 50%; }

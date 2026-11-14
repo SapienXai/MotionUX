@@ -1,0 +1,14 @@
+[data-mx-confirm] { color: var(--mx-ink, CanvasText); }
+.mx-confirm-button { isolation: isolate; position: relative; display: flex; align-items: center; justify-content: space-between; gap: .55rem; min-height: 48px; overflow: hidden; padding: .65rem 1rem; border: 1px solid var(--mx-line, GrayText); background: var(--mx-surface, Canvas); color: inherit; border-radius: .65rem; font: inherit; font-weight: 650; cursor: pointer; }
+.mx-confirm-fill { position: absolute; inset: 0; z-index: -1; background: var(--mx-selected, ButtonFace); transform-origin: left center; }
+[data-mx-confirm]:dir(rtl) .mx-confirm-fill { transform-origin: right center; }
+.mx-slide-track { position: relative; display: grid; place-items: center; inline-size: min(100%, 20rem); min-block-size: 54px; padding: .28rem 3rem; border: 1px solid var(--mx-line, GrayText); border-radius: 999px; background: var(--mx-selected, ButtonFace); }
+.mx-slide-track > span { text-align: center; font-weight: 650; overflow-wrap: anywhere; }
+.mx-slide-track > button { position: absolute; inset-inline-start: .25rem; inset-block-start: .25rem; display: grid; place-items: center; inline-size: 44px; block-size: 44px; padding: 0; border: 0; border-radius: 50%; color: var(--mx-on-accent, HighlightText); background: var(--mx-accent, Highlight); touch-action: pan-y; cursor: grab; }
+.mx-confirm-dialog { inline-size: min(24rem, calc(100vw - 2rem)); border: 1px solid var(--mx-line, GrayText); padding: 1rem; border-radius: .72rem; background: var(--mx-surface, Canvas); color: var(--mx-ink, CanvasText); }
+.mx-confirm-dialog::backdrop { background: rgb(20 14 10 / .55); }
+.mx-confirm-dialog h2 { margin-block-start: 0; font-size: 1.1rem; }
+.mx-confirm-dialog form { display: flex; justify-content: end; gap: .5rem; flex-wrap: wrap; }
+.mx-confirm-dialog button { min-block-size: 44px; padding: .38rem .7rem; border: 1px solid var(--mx-line, GrayText); border-radius: .45rem; background: var(--mx-selected, ButtonFace); color: inherit; font: inherit; cursor: pointer; }
+[data-mx-confirm] button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 2px; }
+[data-mx-confirm] button:disabled { opacity: .48; cursor: default; }

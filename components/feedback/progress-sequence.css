@@ -1,0 +1,13 @@
+[data-mx-sequence] { color: var(--mx-ink, CanvasText); }
+[data-mx-sequence] ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6rem; }
+[data-mx-sequence] li { min-inline-size: 0; display: flex; align-items: flex-start; gap: .45rem; overflow-wrap: anywhere; }
+[data-mx-sequence="linear"] li { flex: 1 1 4.3rem; flex-direction: column; font-size: .875rem; }
+[data-mx-sequence="expandable"] ol { display: grid; }
+[data-mx-sequence="expandable"] li { align-items: baseline; }
+.mx-sequence-node { display: grid; place-items: center; inline-size: 1.85rem; block-size: 1.85rem; flex: 0 0 auto; border: 1px solid var(--mx-line, GrayText); border-radius: 50%; font-variant-numeric: tabular-nums; }
+[data-state="complete"] > .mx-sequence-node, [data-state="current"] > .mx-sequence-node { background: var(--mx-selected, ButtonFace); color: var(--mx-accent, LinkText); border-color: currentColor; }
+.mx-sequence-track { border-radius: 1rem; overflow: hidden; background: var(--mx-line, GrayText); margin-block-end: .65rem; }
+.mx-sequence-track span { display: block; block-size: .27rem; background: var(--mx-accent, LinkText); transform-origin: left; }
+[data-mx-sequence]:dir(rtl) .mx-sequence-track span { transform-origin: right; }
+[data-mx-sequence] button { display: flex; align-items: center; min-block-size: 44px; gap: .35rem; color: inherit; border: 0; background: transparent; padding: .25rem 0; font: inherit; font-weight: 620; text-align: start; cursor: pointer; }
+[data-mx-sequence] button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); }

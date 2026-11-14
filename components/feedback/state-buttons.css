@@ -1,0 +1,20 @@
+[data-mx-switch] { display: inline-flex; align-items: center; gap: .55rem; position: relative; min-block-size: 44px; color: var(--mx-ink, CanvasText); cursor: pointer; }
+[data-mx-switch] input, [data-mx-plan] input { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; }
+.mx-switch-track { display: flex; align-items: center; inline-size: 2.9rem; block-size: 1.7rem; padding-inline: .17rem; border-radius: 1rem; background: var(--mx-line, GrayText); flex-shrink: 0; }
+[data-mx-switch][data-active="true"] .mx-switch-track { justify-content: flex-end; background: var(--mx-accent, Highlight); }
+.mx-switch-thumb { display: block; inline-size: 1.35rem; block-size: 1.35rem; border-radius: 50%; background: var(--mx-surface, Canvas); }
+[data-mx-switch] input:focus-visible + span { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 3px; }
+[data-mx-switch] input:disabled ~ span { opacity: .45; cursor: default; }
+[data-mx-plan] { margin: 0; padding: 0; border: 0; min-inline-size: 0; color: var(--mx-ink, CanvasText); }
+[data-mx-plan] legend { font-weight: 620; margin-block-end: .45rem; }
+.mx-plan-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); position: relative; isolation: isolate; padding: .23rem; border: 1px solid var(--mx-line, GrayText); background: var(--mx-surface, Canvas); border-radius: .68rem; }
+.mx-plan-switch label { min-block-size: 44px; display: grid; place-items: center; padding-inline: .44rem; position: relative; cursor: pointer; }
+.mx-plan-switch input:focus-visible + span { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 5px; border-radius: .15rem; }
+.mx-plan-highlight { position: absolute; z-index: -1; inset-block: .23rem; inset-inline-start: .23rem; inline-size: calc(50% - .23rem); background: var(--mx-selected, ButtonFace); border-radius: .48rem; }
+[data-mx-plan][data-annual="true"] .mx-plan-highlight { inset-inline-start: 50%; }
+.mx-plan-content { padding-block-start: .65rem; }
+[data-mx-command-button] { display: inline-flex; min-block-size: 44px; align-items: center; gap: .7rem; border: 1px solid var(--mx-line, GrayText); border-radius: .55rem; color: var(--mx-ink, CanvasText); background: var(--mx-surface, Canvas); padding: .4rem .72rem; font: inherit; cursor: pointer; }
+[data-mx-command-button][data-mx-command-button="tile"] { color: var(--mx-on-accent, HighlightText); background: var(--mx-accent, Highlight); }
+[data-mx-command-button] kbd { border: 1px solid currentColor; border-radius: .28rem; padding: .1rem .27rem; font-size: .75em; }
+[data-mx-command-button]:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 2px; }
+[data-mx-command-button]:disabled { opacity: .45; cursor: default; }

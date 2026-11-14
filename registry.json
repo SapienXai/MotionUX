@@ -415,6 +415,420 @@
           "type": "registry:file"
         }
       ]
+    },
+    {
+      "name": "plan-switch",
+      "type": "registry:component",
+      "title": "Plan switch",
+      "description": "Switch between monthly and annual billing; update price and savings without submitting.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/state-buttons.tsx",
+          "target": "@components/sapienx-motion/state-buttons.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/state-buttons.css",
+          "target": "@components/sapienx-motion/state-buttons.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "hold-to-publish",
+      "type": "registry:component",
+      "title": "Hold to publish",
+      "description": "Release early to cancel intent; expose standard confirmation and await caller state.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/confirmation-controls.tsx",
+          "target": "@components/sapienx-motion/confirmation-controls.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/confirmation-controls.css",
+          "target": "@components/sapienx-motion/confirmation-controls.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "hold-button",
+      "type": "registry:component",
+      "title": "Hold button",
+      "description": "Hold a control to request activation, cancel early, or use its keyboard alternative.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/confirmation-controls.tsx",
+          "target": "@components/sapienx-motion/confirmation-controls.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/confirmation-controls.css",
+          "target": "@components/sapienx-motion/confirmation-controls.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "slide-to-confirm",
+      "type": "registry:component",
+      "title": "Slide to confirm",
+      "description": "Drag to the end of a track or request confirmation with the keyboard.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/confirmation-controls.tsx",
+          "target": "@components/sapienx-motion/confirmation-controls.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/confirmation-controls.css",
+          "target": "@components/sapienx-motion/confirmation-controls.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "loading-to-success",
+      "type": "registry:component",
+      "title": "Loading to success",
+      "description": "Keep pending, confirmed success and failure distinct and driven by caller state.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:component",
+      "title": "Copy button",
+      "description": "Write the actual configured text to the clipboard and report success or failure.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "like-burst",
+      "type": "registry:component",
+      "title": "Like burst",
+      "description": "Toggle a pressed state and show a brief burst when the state changes to liked.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "magnetic-button",
+      "type": "registry:component",
+      "title": "Magnetic button",
+      "description": "Track fine-pointer proximity with bounded return physics; activate normally with keyboard.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "designbookmark-command-button",
+      "type": "registry:component",
+      "title": "Command button",
+      "description": "Activate one command from a visible keycap button; show its supplied result.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/state-buttons.tsx",
+          "target": "@components/sapienx-motion/state-buttons.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/state-buttons.css",
+          "target": "@components/sapienx-motion/state-buttons.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "kokonut-command-button",
+      "type": "registry:component",
+      "title": "Command button",
+      "description": "Run a visible command from a keyboard chord without intercepting editable fields.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/state-buttons.tsx",
+          "target": "@components/sapienx-motion/state-buttons.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/state-buttons.css",
+          "target": "@components/sapienx-motion/state-buttons.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "cart-button",
+      "type": "registry:component",
+      "title": "Cart button",
+      "description": "Change item count on a real callback and animate the count.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "bell-button",
+      "type": "registry:component",
+      "title": "Bell button",
+      "description": "Toggle a notification preference with a compact physical ring cue.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "undo-button",
+      "type": "registry:component",
+      "title": "Undo button",
+      "description": "Request reversal of a supplied action with an explicit callback and status.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "toggle-switch",
+      "type": "registry:component",
+      "title": "Toggle switch",
+      "description": "Switch a binary setting through a native checkbox and moving thumb.",
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/state-buttons.tsx",
+          "target": "@components/sapienx-motion/state-buttons.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/state-buttons.css",
+          "target": "@components/sapienx-motion/state-buttons.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "notification-stack",
+      "type": "registry:component",
+      "title": "Notification stack",
+      "description": "Expand queued notices, dismiss one and keep remaining notices available.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/notification-stack.tsx",
+          "target": "@components/sapienx-motion/notification-stack.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/notification-stack.css",
+          "target": "@components/sapienx-motion/notification-stack.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "step-progress",
+      "type": "registry:component",
+      "title": "Step progress",
+      "description": "Show a controlled sequence with current, complete and upcoming stages.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/progress-sequence.tsx",
+          "target": "@components/sapienx-motion/progress-sequence.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/progress-sequence.css",
+          "target": "@components/sapienx-motion/progress-sequence.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "agent-steps",
+      "type": "registry:component",
+      "title": "Agent steps",
+      "description": "Expand a set of real supplied steps and expose their progress states.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/progress-sequence.tsx",
+          "target": "@components/sapienx-motion/progress-sequence.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/progress-sequence.css",
+          "target": "@components/sapienx-motion/progress-sequence.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "tool-approval",
+      "type": "registry:component",
+      "title": "Tool approval",
+      "description": "Review tool name and input; explicitly approve or deny and keep caller result authoritative.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/tool-approval.tsx",
+          "target": "@components/sapienx-motion/tool-approval.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/tool-approval.css",
+          "target": "@components/sapienx-motion/tool-approval.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "goo-thinking",
+      "type": "registry:component",
+      "title": "Goo thinking",
+      "description": "Represent an externally supplied pending state with a short organic motion cue and static label.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "components/feedback/tool-approval.tsx",
+          "target": "@components/sapienx-motion/tool-approval.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "components/feedback/tool-approval.css",
+          "target": "@components/sapienx-motion/tool-approval.css",
+          "type": "registry:file"
+        }
+      ]
     }
   ]
 }

@@ -15,9 +15,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "plan-switch",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-plan-switch",
       "status": "needs-review"
     },
     {
@@ -50,7 +50,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "pull-cord",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/studio.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-pull-cord",
@@ -68,7 +68,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "morph-tooltip",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/navigation.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-morph-tooltip",
@@ -86,7 +86,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "spring-dropdown",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/navigation.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-spring-dropdown",
@@ -123,9 +123,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "designbookmark-command-button",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-command-button",
       "status": "needs-review"
     },
     {
@@ -195,9 +195,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "hold-to-publish",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-hold-to-publish",
       "status": "needs-review"
     },
     {
@@ -248,7 +248,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "rubber-dock",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/navigation.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-rubber-dock",
@@ -483,9 +483,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "goo-thinking",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-goo-thinking",
       "status": "needs-review"
     },
     {
@@ -573,9 +573,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "magnetic-button",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-magnetic-button",
       "status": "needs-review"
     },
     {
@@ -591,9 +591,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "loading-to-success",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-loading-to-success",
       "status": "needs-review"
     },
     {
@@ -609,9 +609,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "copy-button",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-copy-button",
       "status": "needs-review"
     },
     {
@@ -627,9 +627,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "like-burst",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-like-burst",
       "status": "needs-review"
     },
     {
@@ -644,7 +644,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "tab-pill",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/studio.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-tab-pill",
@@ -662,7 +662,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "bottom-bar",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/studio.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-bottom-bar",
@@ -680,7 +680,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "dynamic-menu",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/navigation.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-dynamic-menu",
@@ -698,7 +698,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "segmented-control",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/studio.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-segmented-control",
@@ -716,7 +716,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "sidebar-collapse",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/navigation.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-sidebar-collapse",
@@ -734,7 +734,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "command-palette",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/studio.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-command-palette",
@@ -753,9 +753,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "step-progress",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-step-progress",
       "status": "needs-review"
     },
     {
@@ -789,9 +789,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "toggle-switch",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=designbookmark-toggle-switch",
       "status": "needs-review"
     },
     {
@@ -951,9 +951,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "agent-steps",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-agent-steps",
       "status": "needs-review"
     },
     {
@@ -969,9 +969,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "hold-button",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-hold-button",
       "status": "needs-review"
     },
     {
@@ -1040,7 +1040,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "smooth-tab",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/navigation.spec.ts",
       "evidence": null,
       "preview": "/?item=kokonut-smooth-tab",
@@ -1077,9 +1077,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "slide-to-confirm",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-slide-to-confirm",
       "status": "needs-review"
     },
     {
@@ -1095,9 +1095,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "notification-stack",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-notification-stack",
       "status": "needs-review"
     },
     {
@@ -1167,9 +1167,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "tool-approval",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-tool-approval",
       "status": "needs-review"
     },
     {
@@ -1184,7 +1184,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "toolbar",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/navigation.spec.ts",
       "evidence": null,
       "preview": "/?item=kokonut-toolbar",
@@ -1221,9 +1221,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "cart-button",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-cart-button",
       "status": "needs-review"
     },
     {
@@ -1275,9 +1275,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "undo-button",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-undo-button",
       "status": "needs-review"
     },
     {
@@ -1310,7 +1310,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "stack-panel",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/navigation.spec.ts",
       "evidence": null,
       "preview": "/?item=kokonut-stack-panel",
@@ -1383,9 +1383,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "bell-button",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-bell-button",
       "status": "needs-review"
     },
     {
@@ -1400,7 +1400,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "morph-popover",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/navigation.spec.ts",
       "evidence": null,
       "preview": "/?item=kokonut-morph-popover",
@@ -1455,9 +1455,9 @@
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "kokonut-command-button",
       "version": null,
-      "test": null,
+      "test": "tests/feedback.spec.ts",
       "evidence": null,
-      "preview": null,
+      "preview": "/?item=kokonut-command-button",
       "status": "needs-review"
     },
     {
@@ -1472,7 +1472,7 @@
       "sourceLicense": "Unverified for this individual work",
       "decision": "Independent implementation. No upstream source or assets.",
       "registryItem": "pagination-dots",
-      "version": null,
+      "version": "055bb63e20c9ed77d3f1c2ec5c4ae913529914c4",
       "test": "tests/studio.spec.ts",
       "evidence": null,
       "preview": "/?item=designbookmark-pagination-dots",

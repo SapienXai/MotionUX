@@ -1,0 +1,7 @@
+[data-mx-notifications] { min-inline-size: 0; color: var(--mx-ink, CanvasText); }
+[data-mx-notifications] button { display: inline-flex; align-items: center; gap: .4rem; min-block-size: 44px; min-inline-size: 44px; padding: .42rem .55rem; border: 1px solid var(--mx-line, GrayText); border-radius: .5rem; color: inherit; background: var(--mx-surface, Canvas); font: inherit; cursor: pointer; }
+[data-mx-notifications] button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 2px; }
+.mx-notice-toggle > span { padding-inline: .25rem; color: var(--mx-accent, LinkText); font-weight: 680; }
+[data-mx-notifications] ul { display: grid; gap: .4rem; list-style: none; padding: 0; margin-block: .55rem .6rem; position: relative; isolation: isolate; }
+[data-mx-notifications] ul[data-stacked="true"]::after { content: ""; position: absolute; z-index: -1; inset: .5rem .65rem -.35rem; border: 1px solid var(--mx-line, GrayText); border-radius: .55rem; background: var(--mx-selected, ButtonFace); }
+[data-mx-notifications] li { display: flex; align-items: center; justify-content: space-between; gap: .5rem; border: 1px solid var(--mx-line, GrayText); border-radius: .6rem; padding: .55rem .68rem; background: var(--mx-surface, Canvas); overflow-wrap: anywhere; }

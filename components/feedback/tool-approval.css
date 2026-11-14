@@ -1,0 +1,12 @@
+[data-mx-approval] { display: grid; gap: .5rem; padding: .85rem; border: 1px solid var(--mx-line, GrayText); border-radius: .72rem; background: var(--mx-surface, Canvas); color: var(--mx-ink, CanvasText); overflow-wrap: anywhere; }
+[data-mx-approval] > div { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
+[data-mx-approval] > p { margin: 0; }
+[data-mx-approval] > div > svg { color: var(--mx-accent, LinkText); }
+.mx-approval-actions { justify-content: end; }
+.mx-approval-actions button { min-block-size: 44px; padding: .4rem .7rem; border: 1px solid var(--mx-line, GrayText); border-radius: .45rem; background: var(--mx-surface, Canvas); color: inherit; font: inherit; cursor: pointer; }
+.mx-approval-actions button:last-child { background: var(--mx-accent, Highlight); color: var(--mx-on-accent, HighlightText); }
+.mx-approval-actions button:focus-visible { outline: 2px solid var(--mx-accent, Highlight); outline-offset: 2px; }
+[data-mx-thinking] { display: inline-flex; align-items: center; gap: .55rem; color: var(--mx-ink, CanvasText); }
+.mx-thinking-shape { position: relative; display: grid; place-items: center; inline-size: 2.25rem; block-size: 1.3rem; flex-shrink: 0; }
+.mx-thinking-shape i { position: absolute; inline-size: .68rem; block-size: .68rem; border-radius: 50%; background: var(--mx-accent, Highlight); }
+[data-mx-thinking][data-pending="false"] .mx-thinking-shape { opacity: .55; }

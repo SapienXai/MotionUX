@@ -176,6 +176,177 @@
       "consumers": [],
       "evidence": "tests/navigation.spec.ts",
       "referenceId": "kokonut-stack-panel"
+    },
+    "plan-switch": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "designbookmark-plan-switch"
+    },
+    "hold-to-publish": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "designbookmark-hold-to-publish"
+    },
+    "hold-button": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "kokonut-hold-button"
+    },
+    "slide-to-confirm": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "kokonut-slide-to-confirm"
+    },
+    "loading-to-success": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "designbookmark-loading-to-success"
+    },
+    "copy-button": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "designbookmark-copy-button"
+    },
+    "like-burst": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "designbookmark-like-burst"
+    },
+    "magnetic-button": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "designbookmark-magnetic-button"
+    },
+    "designbookmark-command-button": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "designbookmark-command-button"
+    },
+    "kokonut-command-button": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "kokonut-command-button"
+    },
+    "cart-button": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "kokonut-cart-button"
+    },
+    "bell-button": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "kokonut-bell-button"
+    },
+    "undo-button": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "kokonut-undo-button"
+    },
+    "toggle-switch": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "designbookmark-toggle-switch"
+    },
+    "notification-stack": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "kokonut-notification-stack"
+    },
+    "step-progress": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "designbookmark-step-progress"
+    },
+    "agent-steps": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "kokonut-agent-steps"
+    },
+    "tool-approval": {
+      "source": "https://kokonutui.com/",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "kokonut-tool-approval"
+    },
+    "goo-thinking": {
+      "source": "https://designbookmark.com/motion",
+      "kind": "independent implementation",
+      "license": "MIT (MotionUX only)",
+      "ref": null,
+      "consumers": [],
+      "evidence": "tests/feedback.spec.ts",
+      "referenceId": "designbookmark-goo-thinking"
     }
   }
 }
