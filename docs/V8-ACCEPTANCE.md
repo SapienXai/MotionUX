@@ -25,7 +25,7 @@ The browser sweep matched the 82 reference titles and providers to MotionUX card
 | Sliding Tab Pill, Loading to Success, Expand Card, Profile Card, Swipe Deck | Preserved their main behavior and applied the neutral installed preset theme. Compared sampled trajectories with installed React and captured MotionUX interaction frames. |
 | Smooth Tab, Notification Stack | Captured MotionUX interaction frames with the existing motion implementation. Individual reference comparison and craft revision remain open. |
 
-Plan Switch, Letter Limit, and Pull Cord also received new Gallery compositions and were included in the motion capture. In total, 20 MotionUX scenarios ran on desktop and emulated iPhone with before, early, intermediate, and settled frames. Upstream motion was sampled for Goo Menu and Morph Island. Physics, gestures, and every state across all 82 upstream components remain open.
+Plan Switch, Letter Limit, and Pull Cord also received new Gallery compositions and were included in the motion capture. The 17 priority components and these three examples were sampled in both MotionUX and the public reference on desktop and emulated iPhone. The capture includes before, early, intermediate, and late frames after input or during an autonomous animation. The references use different controls and timings in some cases. Discrepancies remain in the Goo Menu action count, Swipe Deck composition, and Glass Lens image, placement, and activation. Physics, gestures, and each state across the entire catalog still need individual comparison. [Reference motion samples](evidence/studio-v8/priority-reference.json)
 
 ## Independent React installation
 
@@ -37,7 +37,7 @@ All 82 base examples and all 82 configured Gallery examples mounted in an isolat
 
 ## Browser and performance
 
-Local verification passed 340 Playwright checks with two conditional skips across desktop Chromium, touch Chromium, and iPhone-profile WebKit. The five focused V8 checks also passed in Firefox. Browser automation covers emulated viewport and input combinations. It uses no physical phones.
+The browser suite runs desktop Chromium and Firefox, touch Chromium, and iPhone-profile WebKit. The responsive check measures whether the preview overlaps its caption at widths from 320 to 1536 px. It allows 0.01 CSS px for engine rounding at the shared grid edge. Browser automation covers emulated viewport and input combinations. It uses no physical phones.
 
 Production builds of V7 and V8 were profiled at 1536×1024 in Chromium on the same Mac, with 4× CPU throttling and no network shaping. The table reports medians from three runs of each build. Initial JavaScript is the sum of the gzip sizes of scripts requested before the first input. The event duration comes from Event Timing in the sampled interactions.
 

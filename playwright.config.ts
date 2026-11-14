@@ -17,5 +17,6 @@ export default defineConfig({
     { name: "desktop Chromium", use: { browserName: "chromium", viewport: { width: 1440, height: 900 } } },
     { name: "touch Chromium", use: { ...devices["iPhone 13"], browserName: "chromium", viewport: { width: 375, height: 812 } } },
     { name: "touch WebKit", use: { ...devices["iPhone 13"], browserName: "webkit" } },
+    { name: "desktop Firefox", use: { browserName: "firefox", viewport: { width: 1440, height: 900 } } },
   ],
 });

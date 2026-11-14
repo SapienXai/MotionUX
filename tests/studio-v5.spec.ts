@@ -141,12 +141,13 @@ test("responsive Gallery fits supported widths and preserves dark preference", a
     await expect(page.locator(".mx-demo").first()).toBeVisible();
     const dimension = await page.evaluate(() => ({ document: document.documentElement.scrollWidth, viewport: innerWidth }));
     expect(dimension.document, `overflow at ${width}`).toBeLessThanOrEqual(dimension.viewport);
-    const direction = await page.locator(".mx-gallery-card").first().evaluate(el => {
+    const overlap = await page.locator(".mx-gallery-card").first().evaluate(el => {
       const stage = el.querySelector(".mx-gallery-stage")!.getBoundingClientRect();
       const copy = el.querySelector(".mx-card-copy")!.getBoundingClientRect();
-      return stage.bottom <= copy.top;
+      return stage.bottom - copy.top;
     });
-    expect(direction, `preview precedes caption at ${width}`).toBe(true);
+    // Engines round the shared grid edge independently in each DOMRect.
+    expect(overlap, `preview precedes caption at ${width}`).toBeLessThanOrEqual(0.01);
   }
   await page.getByRole("button", { name: "Switch to dark mode" }).click();
   await page.reload();

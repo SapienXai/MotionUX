@@ -1,0 +1,1097 @@
+{
+  "url": "https://designbookmark.com/motion",
+  "browser": "Chromium",
+  "scope": "Screenshots around an interaction or an autonomous loop. Timings include screenshot overhead. A frame change does not establish matching interaction, paint or physics.",
+  "profiles": {
+    "desktop": {
+      "width": 1536,
+      "samples": [
+        {
+          "name": "Plan switch",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "42b12baae08a675697605c2fa34c9608131e47d05ef2d53b729b2f665ff534ed"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 84,
+              "sha256": "7077d4f823b6d53c86aa4ffa685f23033af4751b32c672ec9961e54b6b3e0253"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 301,
+              "sha256": "f986a3174c3ab4882f78d41e0de010dd0cf7d6d02db5646ac7b492cd3cdb1165"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 734,
+              "sha256": "6c4b4fd9ea2a9cce124cdc1f964a59536474fa084a09b781d368990f0e5a9884"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Letter limit",
+          "action": "type",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "1cb0e40c7297fd44f4d5659931c54c3820f9b31ea49bb5de9236c7112efa07fd"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 284,
+              "sha256": "2a60900f70a49f82ef6b2df98aa3eff578059d7c4c6e98c8b7374d9d58100736"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 496,
+              "sha256": "2a60900f70a49f82ef6b2df98aa3eff578059d7c4c6e98c8b7374d9d58100736"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 930,
+              "sha256": "fba7eb35c29dfe84620b59c517be7268d54ff0cbd6aa8c6e49ddd47d91fa4300"
+            }
+          ],
+          "different": 3
+        },
+        {
+          "name": "Pull cord",
+          "action": "drag",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "8400bf8c77d74f5326141665b0aa946485bc210d118bc8ea0853e13cf0dd0b78"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 170,
+              "sha256": "fbb06968ee1c0b23bc950957748c071c03a6b29eb83d9ec355bc50bddb3d0880"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 385,
+              "sha256": "d4667863b1d841c772a4d04d865010e94bb70838eeb8ce81e42a18f315c20ff1"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 817,
+              "sha256": "b931da2d03401035bbc9010e6473d82a9ff79116029b0eafaca30c307bab1c52"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Morph island",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "ac463c9d494366e7ec0aed4f2cc6055102e2ebd4452ea6d45c6eb5d7b91485fa"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 84,
+              "sha256": "37251a907384e8fde8efa1cbd1599f9593744c2161127bdbaa15f62c0809547b"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 300,
+              "sha256": "4529f1905e3eb57a8c9a8372a02c425e79d71e206d5a79cbb593d378e2d0ee0b"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 733,
+              "sha256": "2c1bcf2c20ccc75718b6fd56a05ff277a809fc451e6df4f65ba1c3b8bd14f2ce"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Goo menu",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "50f3ad5fd2bb43326bd9d58b1862c4a7d3d5d48e9f9d34aaa485e392de073dd7"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 101,
+              "sha256": "bae8b12f8cedc9d65407c3f224b36f9ddf96144c127bd35fb9478db843d3caf2"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 318,
+              "sha256": "561d798ace06281953a8b53334c5f9676d119255307a19b0f4c59ee1b32a0ab3"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 752,
+              "sha256": "3be4ffbfe1e53864ece367aa8c295795e3fd4f40f1c514ceccba57ea66e70f25"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Goo morph",
+          "action": "auto",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "1b8ca3603459ff1497a0a63f737e60e3ba37fcfa2f085f74f74e4a9712c66253"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 68,
+              "sha256": "1b8ca3603459ff1497a0a63f737e60e3ba37fcfa2f085f74f74e4a9712c66253"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 286,
+              "sha256": "1b8ca3603459ff1497a0a63f737e60e3ba37fcfa2f085f74f74e4a9712c66253"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 1321,
+              "sha256": "6bf1f910db6e237f9dc5e4bdd33a2b9a08371d3ab4a1c7f970cfd11c9635c0d2"
+            }
+          ],
+          "different": 2
+        },
+        {
+          "name": "Morph popover",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "901feb7f61f3bd819dd39bb538d6ca1ddb570a163e89be46f3171953998a1fe9"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 119,
+              "sha256": "2e3c0ded29026d36ec925964fb1f85dbf45708c4692ae47e36d75ba8ea77b732"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 335,
+              "sha256": "067b0ffa9991d9a04f1c6ea2ecfc9ce8e3cb7c9ec82c27422bad7eb9af9e2997"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 766,
+              "sha256": "d88160fcb6b3cf814fc01e253881bf4e60f213e25f93c4acb1d7c3f4882aa148"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Dynamic menu",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "b690fd9fa734dec8dd255e030b543927054ebc4bb93c65a4f522a5b0c79b4cd9"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 84,
+              "sha256": "1cffc457a4dc9e6df56641fcda8d6f8d6637637a425a79c33af2c2644c2baa71"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 300,
+              "sha256": "191c323440111fe3f0699b5831338e93bdd3d5d27422904b078b7c856c90de43"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 733,
+              "sha256": "c3fee7a2fe3c715001ee288b5717907f16a1b2bf1465fa048575dbce9d81b99f"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Swipe deck",
+          "action": "drag",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "a8f8c82a941ebfd42e1bc3b48712686f649dbaf7afacc533de66271ae6230b9e"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 170,
+              "sha256": "160c19ca40e74eaa5590604b51c1b5ebf3b17685c320ee39e61dbc94c4568dbe"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 400,
+              "sha256": "fb9180ff50fcd6ea2694773a55f29f58d5639ea3de9d07b117354cd8b0ca89bc"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 833,
+              "sha256": "2f0afa2915307b63d726e647c48d54f845f7ffe800f32119806305f1b8fcd174"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Rubber dock",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "55ea6245b102daefd2128877edc79f63e11d05718018e65e70c5514df408574e"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 83,
+              "sha256": "6fe6c097b3871c4153e627bd4686983e414b83fc975705fd80fd3f4c5cad4b98"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 298,
+              "sha256": "914824997a26d6fb4809eb992fb152c5f34f3e0db487ba59b52cf59698c2d0db"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 730,
+              "sha256": "b561b5b39c6acd05e013e7349ab9c29d01a3ce505405e878de00ff91cf4a36b6"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Tab pill",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "86f1a68b7703312b51bc7010b87e9599e7f9ac47cb6e99fa4410f01824545896"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 85,
+              "sha256": "3909c9ca7e54ac73489784d68bf7177cec4431252f5eb0fb1367d7750ae93869"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 299,
+              "sha256": "dd7f51bee8b74fd3a561fc5caa4e384949148aadfb7957b2ac1a17e982d05521"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 749,
+              "sha256": "dd7f51bee8b74fd3a561fc5caa4e384949148aadfb7957b2ac1a17e982d05521"
+            }
+          ],
+          "different": 3
+        },
+        {
+          "name": "Spring dropdown",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "c00099b744fabbdd79e4590a671980f17871bca9fd1323db5d5c7cd1ddf1a2a0"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 83,
+              "sha256": "6b9afceb0595374d93e66c7e06493a2c4aef07c53883d67b30ca3757d6a4d953"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 299,
+              "sha256": "5919741ebe3cc5672fb240406bd52095f364757511a885765d07539e0e7f09c8"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 733,
+              "sha256": "ab53ed1733782caf832428bfd6da8a2ce024bcacd031064413418d7ebdd5316f"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Expand card",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "fafce8bfefecef3c63efe673adc1fb5e2ee5c1192b75a4a457bd6e9e0601794f"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 82,
+              "sha256": "9e27aa245bfdc22a6fda6dcf792742b718b4d640188e0c389b1daa4afb913bc7"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 297,
+              "sha256": "c61e08997c89015afde16a2c3e793b157288d7ebe06b27840db33bca4876caa3"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 728,
+              "sha256": "4e9b9d9dac827dba4f802350ac04b1c183fd7d56764ed79945f6ddc8455d0e8b"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Profile card",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "e01c55ce18e53e7b375d72b6c6ef5f4809e163d6156a02f2c76c9c15dd5f81a3"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 82,
+              "sha256": "33c71e79c435828afbf9b169a96bc7c372708b2ddcd56f0c7f5c23cc9df9b72f"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 298,
+              "sha256": "0a93453b06c6d6bbb72cc0cab22bd23525b64d0bafe2ca5c91e044649869ca94"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 733,
+              "sha256": "7de65ee092666920d8c0256dc4a44417b8924da608474ee080c89c09e50661be"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Loading to success",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "7324725d33bdb66001055431b5f1712cd2f5d6132fdf68cd3bc2a74bca65fd5f"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 80,
+              "sha256": "7324725d33bdb66001055431b5f1712cd2f5d6132fdf68cd3bc2a74bca65fd5f"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 296,
+              "sha256": "7324725d33bdb66001055431b5f1712cd2f5d6132fdf68cd3bc2a74bca65fd5f"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 1313,
+              "sha256": "26d90f2ae202197c10bb550d4487c24f59f9ba0b326ec16d267177d0a29046f2"
+            }
+          ],
+          "different": 2
+        },
+        {
+          "name": "Glass lens",
+          "action": "pointer",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "d600a192edb0d7dc78bb9793814e4a86164f08d6d4021fa3f6aa4941479387a2"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 101,
+              "sha256": "56fdbfff9e9b3c6853a8452dee64aeb226e26929ad5afb04cdb832c3bfd406e5"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 333,
+              "sha256": "6cebbdafca01333c53a6e37644aa2f15f9c6f207688b29b280ced79bebeb2922"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 785,
+              "sha256": "ca1f353823f50398d0e62e261314971a36fed1dbfe0b1301f04c2de53a03cd44"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Pull to refresh",
+          "action": "drag",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "1d8093eb71edb93629fd68714b6a972fae46b824ad038c94555c9ed84eb166bc"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 186,
+              "sha256": "9024bac6970f8dc300be0f3f7b5524e4492d675093b8a220bd832b1b4e01cc91"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 419,
+              "sha256": "2cde536f66529ae1604a181a8312601a391918cca70d570652f8bfa20b91c0f0"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 852,
+              "sha256": "686b0ff907562740cfa39668ee86b2cb80fb0187edcd4dece81a465f91678750"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Siri orb",
+          "action": "auto",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "a38a9039eda2858849c0af38dfceac245d465bf06a0d004a5ecdf0a1134e7368"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 82,
+              "sha256": "d60f1bf762df2f16331f6043f1b85bbd7b55653f66de61f6ae141ba8b9339e91"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 301,
+              "sha256": "02ac7833b5787f494b478861fe40e579c630647ad0adfba8a2ee0e06a104f4c8"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 1334,
+              "sha256": "f105c9ee56ec23181b25de0da3a7115a1d7a0f75471f734d33fbdd9f0871c7ae"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Smooth tab",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "6353019ffcb0c365a365a7c5cd7e46fd817c5911be23f75d77028b8e0da603a7"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 116,
+              "sha256": "ddb1b9cf1e7c056d906a106d901d385f8f80b5aa57a07ed26e25d4a7272c6585"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 334,
+              "sha256": "3649f44e323168619d0126fc8c31615a1b8ff953cbe6220db5ffb532e3422b46"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 765,
+              "sha256": "d52111dc87ed4fba701161d8c9b60ff65409701281f9acb34cf7924b4c6acbdd"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Notification stack",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "49f9fe2f9ab8ae515f45b30d75876291081e2598ba1fda183369824f7c862be9"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 86,
+              "sha256": "92d36a8de704a63d87e6d64cad5d2114f647f316e9e2dfd98ee45865da6293cd"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 301,
+              "sha256": "bca2721e286486dfe05beaf5abae3bd98f671ec224e987923b78d726226cf171"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 735,
+              "sha256": "83ca4d69eacba12781bd5b552090bd8d41205b05ddea2a47c9e0b4d4879d0647"
+            }
+          ],
+          "different": 4
+        }
+      ]
+    },
+    "mobile": {
+      "width": 390,
+      "samples": [
+        {
+          "name": "Plan switch",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "265ab63c0c48759a5635bd898f174b02fde90aa259c3ba8e3aeddf5b55bcbb0c"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 83,
+              "sha256": "3d8d84abd9bec91a4c9d060f2165aaac6d368bba065153f24c332273e291479b"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 301,
+              "sha256": "e9c7583809c871b120f71c18fa338fab1e5405b4f340b84c6d4c6b82bf0dee77"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 735,
+              "sha256": "60559b2a6a6dad0644e5c4f8f11e56ba9018cf375492be6ab68d8a1a6b060af7"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Letter limit",
+          "action": "type",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "e050a0730518452c68576b0df6303dbd89ddbce475b58406d8a1b5176667bbfa"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 302,
+              "sha256": "96bd3dcbe2c3840dd7133eea51cfa81bb1b474f18c0eb724b816890009b0894d"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 516,
+              "sha256": "96bd3dcbe2c3840dd7133eea51cfa81bb1b474f18c0eb724b816890009b0894d"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 955,
+              "sha256": "1962feee8f21c20869d29bb3eea71f8af19507b3060c6328f4a1da6c403ddff1"
+            }
+          ],
+          "different": 3
+        },
+        {
+          "name": "Pull cord",
+          "action": "drag",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "07a15d942e95bb28269cf304928cbacbab5643470da66bd4078e39318f4adea0"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 186,
+              "sha256": "ae2a550e877cc4e847f6c7130ccbadd62bae61647d34a95d7dc1a9c6cef6c8c6"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 424,
+              "sha256": "b5663d329528f8501776d102f0cee5f748a252555127d9f41a03e9e33a1ea6a6"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 858,
+              "sha256": "b5c6c3a827af28a5975039dbdee34a0d39992d6027a4187dd4dda7ce8c5e230c"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Morph island",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "94eb0ac7f75e725b32198a381210c21ec2fc8b8f577fa250ee0a177fb2a7dd3a"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 88,
+              "sha256": "112b1d356c063118c66904048bc44639a47c0f39b2aa44b319d7c656a201e424"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 302,
+              "sha256": "d48e94aed267c0a90926386461d8d7b6f3cd15f6717050f337ed0644e3e73d72"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 733,
+              "sha256": "1bca59355e78e366858a898c04b03fcd5f37f4762fc26cf0e8bd72fcd5b4ce55"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Goo menu",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "c8847f0793392a7b7cd31ef04fa83b72f5410e3e049d41e0aa278d382c70c950"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 84,
+              "sha256": "9ffcfae8112e7e38f5bb700b0cae16e76d503420437e9420466930683ee59590"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 297,
+              "sha256": "d212cbf7f2a0743b1558875d6a0fdebe9d83faf84757d4f729ae872de08e2e07"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 730,
+              "sha256": "3acd1c0002e9f778b12a3978a146c9c82b06e1d005d0bdf1adbcc0d28d012fd0"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Goo morph",
+          "action": "auto",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "27e918d540b71cce8a7a80c7545ed16ba775c0bd27e3155f5b5d1283cf36cb79"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 68,
+              "sha256": "27e918d540b71cce8a7a80c7545ed16ba775c0bd27e3155f5b5d1283cf36cb79"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 283,
+              "sha256": "27e918d540b71cce8a7a80c7545ed16ba775c0bd27e3155f5b5d1283cf36cb79"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 1301,
+              "sha256": "fb28fc96635d1c39ba051d4447d933427219a717a9e574a4ef098e2e7194ca2a"
+            }
+          ],
+          "different": 2
+        },
+        {
+          "name": "Morph popover",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "4ea9ca10c83c065605e0fb395159fcffb971e7a67b0f5c0706582c266f091b24"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 100,
+              "sha256": "c621d7f6b376b66a405a9e2f0b9260173e34c0d1f31c35ba62b15437253731e2"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 317,
+              "sha256": "9d39aa367a787289f6f2ce990ab3abef89eab2de195ae41f91187300abdcc158"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 750,
+              "sha256": "7e9eae37979db6cef4b41c971528905bbf159f61ab7da5a84aa7960c10aea0d8"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Dynamic menu",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "a342bf93910972e9d6cd436ade173b53fbd356951de2d191084c93636a781c9e"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 83,
+              "sha256": "a093f74761b847135f3d35fb534588b17380e7ec792e4dc7436187ecaa297bc1"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 304,
+              "sha256": "4f0f8b5b0bde9beb213d1170015cb37382129b657c01a72472956aa624271570"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 732,
+              "sha256": "c2453a26f673744e532a75084ea82be091ed00a9842eddffbe6b1ead24666a1e"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Swipe deck",
+          "action": "drag",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "77f4a008836909e37e714beaa5faf8ec50f454a4c24035c212b1cd6d4d47edef"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 186,
+              "sha256": "87413ff5175c9fe8d54b8f82fbccd770e0c7782eb2db026341d547a936a3111e"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 419,
+              "sha256": "7e849eef4dfb5454277720d2f5a161cb4544a7a4472addbca75c1ebf534d7fc9"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 857,
+              "sha256": "7134290e76d5ff92b657c701dd09175ad0b3ac0f1eb83b72d6329e099e079aea"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Rubber dock",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "ebc1016475295627408e1e57ba017fb22d58e215709872aee5ecf8d5f71127de"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 94,
+              "sha256": "89b9466cd37d00e400e25899d07f78552bcd94ad8248becbab36b5d667479a7e"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 314,
+              "sha256": "352e52eac6b54e988a39e6a3479407cd9a7cabd19d5b2a6429a1c1a01fb5da03"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 745,
+              "sha256": "67333eb02cbdbdf6c38a56b7c670ba7fc776be1c9785933fec5e722dd9e41ba8"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Tab pill",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "c1e7d73b2bc232fda43be37453b4d263d2c1b6ea7a26aaae37a14cd5d943ecac"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 84,
+              "sha256": "c7908d18cfeb2ce8d6f684c02854e559a55d2f5bcb01df9ab86163c298042843"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 300,
+              "sha256": "24ffbb70647dc6b14f2deacaabab40ca1afa3d3bbe72530d458641595fed2cdc"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 736,
+              "sha256": "24ffbb70647dc6b14f2deacaabab40ca1afa3d3bbe72530d458641595fed2cdc"
+            }
+          ],
+          "different": 3
+        },
+        {
+          "name": "Spring dropdown",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "9385fe37d54399b79c6a1dc2a7e247a93b0990976ad742c41fb001cfba19fd3f"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 85,
+              "sha256": "1cf4084356c0537d28b44270a3698a074af54414e3d1f48bc3886eafa3c977ee"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 301,
+              "sha256": "4439cf7aea50283bccdbb6f4a691a3f78e13b7cafa598afac2805a720026e9e3"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 735,
+              "sha256": "8ce15710f90eb3e57e685939235c37f37a3f43a037bcb76730b1b4989675fef7"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Expand card",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "fcf01e49065c7ca7fc4637938333102ee48c45105cb5acbefa45a6626242eef2"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 122,
+              "sha256": "63729663ea67dcd9fea4cbb3733e0ae300b89cd3de0a1ba21e26c8010e671ee2"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 355,
+              "sha256": "2c986f340a546159fec9b4e9ac8f648a5d19ee3260fb71aa9c89b73190beb3bd"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 805,
+              "sha256": "436e40e8cb910537638b15a42674cf07743ce37fc23e67c8296fb75c00d8aa76"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Profile card",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "7334b754d0616abc4e0ef354db80844dcc9916a6ca11006e0ed1ab4811ae248e"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 94,
+              "sha256": "6cdde68adddf072bfb2b959932b33259eb9e7fcdf5cec46dd8e98f44e2305d0a"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 310,
+              "sha256": "87e1a7f2f4132829f4c461dfaf38785e70ac332043e183678734086c1036f9d9"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 742,
+              "sha256": "3be687870e5b38cdc66e6c57ecb838d7874a63ed0635f9f5df7d57dfbd4e6170"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Loading to success",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "d65473b6c6f98125b65ff31702f3dae187108ef0f518589866b7fbcb933b6611"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 83,
+              "sha256": "fb5087aaffd352c9e52b4caab260099109e732adeee3060d42d47fe421c99bcc"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 299,
+              "sha256": "54a2ff6596a8ffee9406ce02c202687b380361a7d94350d10c0020169ccbb336"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 1316,
+              "sha256": "048d8f41c3bfa9f44e350bbff4bb62ec019538667f07a0e2f77ab2f79df0c4a8"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Glass lens",
+          "action": "pointer",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "080e4f8bb0c5ae01772e49881b89e9953c0f9e813e2cafe72d3750fa84c7edf1"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 119,
+              "sha256": "17302b689d3f79955ec4cfd91694477a1c6cb826d73def1049cb72dc232bb99a"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 352,
+              "sha256": "b6a2681594248c55feddd5cdb96419d58797057f4055d0f4ea4d9530526e7668"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 801,
+              "sha256": "3260397e055bafa22e417e8d66318f5d019c6a644e98ced92ab33cabe731fff7"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Pull to refresh",
+          "action": "drag",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "ee285573859d7ae275957bcb8c0c9b021ce1b18bb9921d3b76b8735e62d67df2"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 183,
+              "sha256": "0047b1cf7cb0dad7768317689b3f9fad2716a3b99fb24ce12d10e3a28da2bdc7"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 426,
+              "sha256": "a378565cb8e925170f10eaabc8a679b389fe713932f9d4f9470078beeca71e10"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 868,
+              "sha256": "ee285573859d7ae275957bcb8c0c9b021ce1b18bb9921d3b76b8735e62d67df2"
+            }
+          ],
+          "different": 3
+        },
+        {
+          "name": "Siri orb",
+          "action": "auto",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "c1b4aeb74075cc16c1ca93b7426879e54795e0f312f75e4d37977b38e94bcfd8"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 68,
+              "sha256": "f200d36cc8a8daea23a862d43808346a3f56bd1c0f2d2245d5c72ffb2b82e8d2"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 284,
+              "sha256": "24345ba2ddb54222dfcf59025703e978f8739f0cfdabdedd9ec9406b2dfb5773"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 1318,
+              "sha256": "397fb9ed7ead6c3c010ec1abbd66289452a27a7566dbfe99c7a693f4360a2779"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Smooth tab",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "265d6a9d8f01dfe521fd7fdf892b109cf3db3ff6f82fab533140bbcfe9ce33f1"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 97,
+              "sha256": "2fddd3a6b1263bb62eee40a3a4e87d1fa8318fd05578838ec492784eb11dc3cd"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 314,
+              "sha256": "c2e254ad65e4294d0ce08a2517528e4085711c2752636df6f7feb7aceb16b55a"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 745,
+              "sha256": "2b0b67b7b5fb89bb6f170d65292be49a15776d3777a3953dee78a1ed8aac67e7"
+            }
+          ],
+          "different": 4
+        },
+        {
+          "name": "Notification stack",
+          "action": "activate",
+          "frames": [
+            {
+              "frame": "before",
+              "elapsedMs": null,
+              "sha256": "e752986af2872e1894efce1a09f0ac7c8fe8bd543b484cfbb33bc5e43fa0ca1b"
+            },
+            {
+              "frame": "early",
+              "elapsedMs": 86,
+              "sha256": "da12cc51b5025cb3db8c86e0023074ed4213e6a2911c21e1ee9755569363f877"
+            },
+            {
+              "frame": "mid",
+              "elapsedMs": 302,
+              "sha256": "d615320e7fec55bdcd9f28ad6664673cb581c29df53724370ed1ff7da2bd1698"
+            },
+            {
+              "frame": "late",
+              "elapsedMs": 736,
+              "sha256": "048198e1db41bf602c7e8fc1fb8714a0adc54fc666b3dd6a8526b2d31039fd8e"
+            }
+          ],
+          "different": 4
+        }
+      ]
+    }
+  }
+}

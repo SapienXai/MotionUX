@@ -15,7 +15,7 @@ jobs:
           node-version: "24"
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium webkit
+      - run: npx playwright install --with-deps chromium webkit firefox
       - run: npm run verify
         env:
           MOTIONUX_TEST_PREVIEW: "1"
