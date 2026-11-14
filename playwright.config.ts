@@ -1,12 +1,16 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const productionPreview = process.env.MOTIONUX_TEST_PREVIEW === "1";
+
 export default defineConfig({
   testDir: "./tests",
   testMatch: "**/*.spec.ts",
   workers: 2,
   use: { baseURL: "http://127.0.0.1:4186" },
   webServer: {
-    command: "npm run dev -- --port 4186 --strictPort",
+    command: productionPreview
+      ? "npm exec -- vite preview --host 127.0.0.1 --port 4186 --strictPort"
+      : "npm run dev -- --port 4186 --strictPort",
     url: "http://127.0.0.1:4186",
   },
   projects: [
