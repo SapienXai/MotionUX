@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "defaultPin": "c22952178d8dab976fcb33becece567136c647e4",
+  "defaultPin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
   "featured": [
     "designbookmark-tab-pill",
     "designbookmark-loading-to-success",
@@ -40,9 +40,10 @@
       "id": "designbookmark-plan-switch",
       "baseItem": "plan-switch",
       "installItem": "plan-switch",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -92,9 +93,10 @@
       "id": "designbookmark-letter-limit",
       "baseItem": "letter-limit",
       "installItem": "letter-limit",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
@@ -145,9 +147,10 @@
       "id": "designbookmark-pull-cord",
       "baseItem": "pull-cord",
       "installItem": "pull-cord",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/pull-cord.tsx",
@@ -197,9 +200,10 @@
       "id": "designbookmark-morph-tooltip",
       "baseItem": "morph-tooltip",
       "installItem": "morph-tooltip",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/morph-tooltip.tsx",
@@ -249,9 +253,10 @@
       "id": "designbookmark-spring-dropdown",
       "baseItem": "spring-dropdown",
       "installItem": "spring-dropdown",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/action-menu.tsx",
@@ -302,9 +307,10 @@
       "id": "designbookmark-file-drop",
       "baseItem": "file-drop",
       "installItem": "file-drop",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -354,9 +360,10 @@
       "id": "designbookmark-command-button",
       "baseItem": "designbookmark-command-button",
       "installItem": "designbookmark-command-button",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -406,9 +413,10 @@
       "id": "designbookmark-morph-island",
       "baseItem": "morph-island",
       "installItem": "morph-island",
+      "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
@@ -459,9 +467,10 @@
       "id": "designbookmark-goo-menu",
       "baseItem": "goo-menu",
       "installItem": "goo-menu",
+      "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
@@ -512,14 +521,15 @@
       "id": "designbookmark-jelly-slider",
       "baseItem": "jelly-slider",
       "installItem": "jelly-slider",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
           "target": "@components/sapienx-motion/value-controls.tsx",
-          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+          "sha256": "f9b4f7d80f1d9832670c9fa602919746d721be5073a4108ae82dff92cd457ba7"
         },
         {
           "path": "components/inputs/value-controls.css",
@@ -565,9 +575,10 @@
       "id": "designbookmark-hold-to-publish",
       "baseItem": "hold-to-publish",
       "installItem": "hold-to-publish",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/confirmation-controls.tsx",
@@ -620,7 +631,7 @@
       "installItem": "destination-deck-gallery",
       "preview": "DestinationDeck",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/showcase/destination-deck.tsx",
@@ -635,7 +646,7 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "89bdb0fca5b773b089343df17bbe7b89601b4cee4656a34ebc399d9c57902c03"
+          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
         },
         {
           "path": "components/showcase/deck-fixtures.ts",
@@ -645,7 +656,7 @@
         {
           "path": "components/gestures/deck-and-page.tsx",
           "target": "@components/sapienx-motion/presets/gestures/deck-and-page.tsx",
-          "sha256": "e31e51f683ed945421db29ec6edf07277fdcc3c4b0e5ffc0bb32b0bdab9e62ea"
+          "sha256": "704a63bd6c4cff2452b1843a5f4351f6196d5960169b995f5a40c5a76e88adb6"
         },
         {
           "path": "components/gestures/deck-and-page.css",
@@ -696,12 +707,12 @@
         ]
       },
       "base": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
         "files": [
           {
             "path": "components/gestures/deck-and-page.tsx",
             "target": "@components/sapienx-motion/deck-and-page.tsx",
-            "sha256": "e31e51f683ed945421db29ec6edf07277fdcc3c4b0e5ffc0bb32b0bdab9e62ea"
+            "sha256": "704a63bd6c4cff2452b1843a5f4351f6196d5960169b995f5a40c5a76e88adb6"
           },
           {
             "path": "components/gestures/deck-and-page.css",
@@ -741,22 +752,9 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
-        "report": "docs/evidence/studio-v6/consumer-parity.json",
-        "states": [
-          "idle",
-          "active"
-        ],
-        "themes": [
-          "light",
-          "dark"
-        ],
-        "viewports": [
-          390,
-          768,
-          1536
-        ],
-        "motion": "reduced"
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
     },
@@ -764,9 +762,10 @@
       "id": "designbookmark-springy-input",
       "baseItem": "springy-input",
       "installItem": "springy-input",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
@@ -817,14 +816,15 @@
       "id": "designbookmark-rubber-dock",
       "baseItem": "rubber-dock",
       "installItem": "rubber-dock",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/rubber-dock.tsx",
           "target": "@components/sapienx-motion/rubber-dock.tsx",
-          "sha256": "55c2300d3a255b94b50378c674cbbe7419a5f05102fd3a191590f5a77de44e93"
+          "sha256": "2adaa146b835a726c170ca1d4fd47f57cd1f1bde4c2ddb45766df57d0dbc3a2b"
         },
         {
           "path": "components/navigation/rubber-dock.css",
@@ -869,9 +869,10 @@
       "id": "designbookmark-parallax-ticket",
       "baseItem": "parallax-ticket",
       "installItem": "parallax-ticket",
+      "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
@@ -922,9 +923,10 @@
       "id": "designbookmark-glass-lens",
       "baseItem": "glass-lens",
       "installItem": "glass-lens",
+      "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
@@ -975,9 +977,10 @@
       "id": "designbookmark-pull-to-refresh",
       "baseItem": "pull-to-refresh",
       "installItem": "pull-to-refresh",
+      "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/gestures/interactive-surfaces.tsx",
@@ -1028,9 +1031,10 @@
       "id": "designbookmark-word-roll",
       "baseItem": "word-roll",
       "installItem": "word-roll",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1080,9 +1084,10 @@
       "id": "designbookmark-weight-wave",
       "baseItem": "weight-wave",
       "installItem": "weight-wave",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1132,9 +1137,10 @@
       "id": "designbookmark-goo-morph",
       "baseItem": "goo-morph",
       "installItem": "goo-morph",
+      "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
@@ -1185,9 +1191,10 @@
       "id": "designbookmark-scramble-text",
       "baseItem": "scramble-text",
       "installItem": "scramble-text",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1237,9 +1244,10 @@
       "id": "designbookmark-read-along",
       "baseItem": "read-along",
       "installItem": "read-along",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1289,9 +1297,10 @@
       "id": "designbookmark-roll-links",
       "baseItem": "roll-links",
       "installItem": "roll-links",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -1341,9 +1350,10 @@
       "id": "designbookmark-prompt-box",
       "baseItem": "prompt-box",
       "installItem": "prompt-box",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/ai/composer.tsx",
@@ -1393,9 +1403,10 @@
       "id": "designbookmark-streaming-reply",
       "baseItem": "streaming-reply",
       "installItem": "streaming-reply",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -1446,9 +1457,10 @@
       "id": "designbookmark-ghost-suggestion",
       "baseItem": "ghost-suggestion",
       "installItem": "ghost-suggestion",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/ai/composer.tsx",
@@ -1498,9 +1510,10 @@
       "id": "designbookmark-goo-thinking",
       "baseItem": "goo-thinking",
       "installItem": "goo-thinking",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/tool-approval.tsx",
@@ -1553,7 +1566,7 @@
       "installItem": "expandable-room-gallery",
       "preview": "ExpandableRoom",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/showcase/expandable-room.tsx",
@@ -1568,7 +1581,7 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "89bdb0fca5b773b089343df17bbe7b89601b4cee4656a34ebc399d9c57902c03"
+          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
         },
         {
           "path": "components/showcase/room-fixtures.ts",
@@ -1629,7 +1642,7 @@
         ]
       },
       "base": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
         "files": [
           {
             "path": "components/gestures/disclosure-cards.tsx",
@@ -1674,22 +1687,9 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
-        "report": "docs/evidence/studio-v6/consumer-parity.json",
-        "states": [
-          "idle",
-          "active"
-        ],
-        "themes": [
-          "light",
-          "dark"
-        ],
-        "viewports": [
-          390,
-          768,
-          1536
-        ],
-        "motion": "reduced"
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
     },
@@ -1697,14 +1697,15 @@
       "id": "designbookmark-fan-cards",
       "baseItem": "fan-cards",
       "installItem": "fan-cards",
+      "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/gestures/deck-and-page.tsx",
           "target": "@components/sapienx-motion/deck-and-page.tsx",
-          "sha256": "e31e51f683ed945421db29ec6edf07277fdcc3c4b0e5ffc0bb32b0bdab9e62ea"
+          "sha256": "704a63bd6c4cff2452b1843a5f4351f6196d5960169b995f5a40c5a76e88adb6"
         },
         {
           "path": "components/gestures/deck-and-page.css",
@@ -1750,9 +1751,10 @@
       "id": "designbookmark-stat-card",
       "baseItem": "stat-card",
       "installItem": "stat-card",
+      "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
@@ -1805,7 +1807,7 @@
       "installItem": "featured-profile-gallery",
       "preview": "FeaturedProfile",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/showcase/featured-profile.tsx",
@@ -1820,7 +1822,7 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "89bdb0fca5b773b089343df17bbe7b89601b4cee4656a34ebc399d9c57902c03"
+          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
         },
         {
           "path": "components/showcase/profile-fixtures.ts",
@@ -1881,7 +1883,7 @@
         ]
       },
       "base": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
         "files": [
           {
             "path": "components/gestures/disclosure-cards.tsx",
@@ -1926,22 +1928,9 @@
       "browserTest": "tests/cards.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
-        "report": "docs/evidence/studio-v6/consumer-parity.json",
-        "states": [
-          "idle",
-          "active"
-        ],
-        "themes": [
-          "light",
-          "dark"
-        ],
-        "viewports": [
-          390,
-          768,
-          1536
-        ],
-        "motion": "reduced"
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
     },
@@ -1949,9 +1938,10 @@
       "id": "designbookmark-magnetic-button",
       "baseItem": "magnetic-button",
       "installItem": "magnetic-button",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -2004,7 +1994,7 @@
       "installItem": "loading-outcome-gallery",
       "preview": "LoadingOutcome",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/showcase/loading-outcome.tsx",
@@ -2019,7 +2009,7 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "89bdb0fca5b773b089343df17bbe7b89601b4cee4656a34ebc399d9c57902c03"
+          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
         },
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -2070,7 +2060,7 @@
         ]
       },
       "base": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
         "files": [
           {
             "path": "components/feedback/feedback-actions.tsx",
@@ -2115,22 +2105,9 @@
       "browserTest": "tests/feedback.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
-        "report": "docs/evidence/studio-v6/consumer-parity.json",
-        "states": [
-          "idle",
-          "active"
-        ],
-        "themes": [
-          "light",
-          "dark"
-        ],
-        "viewports": [
-          390,
-          768,
-          1536
-        ],
-        "motion": "reduced"
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
     },
@@ -2138,9 +2115,10 @@
       "id": "designbookmark-copy-button",
       "baseItem": "copy-button",
       "installItem": "copy-button",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -2191,9 +2169,10 @@
       "id": "designbookmark-like-burst",
       "baseItem": "like-burst",
       "installItem": "like-burst",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -2246,7 +2225,7 @@
       "installItem": "sliding-tab-pill-gallery",
       "preview": "SlidingTabPill",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/showcase/sliding-tab-pill.tsx",
@@ -2261,7 +2240,7 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "89bdb0fca5b773b089343df17bbe7b89601b4cee4656a34ebc399d9c57902c03"
+          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
         },
         {
           "path": "components/navigation/motion-selector.tsx",
@@ -2312,7 +2291,7 @@
         ]
       },
       "base": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
         "files": [
           {
             "path": "components/navigation/motion-selector.tsx",
@@ -2356,22 +2335,9 @@
       "browserTest": "tests/studio.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
-        "report": "docs/evidence/studio-v6/consumer-parity.json",
-        "states": [
-          "idle",
-          "active"
-        ],
-        "themes": [
-          "light",
-          "dark"
-        ],
-        "viewports": [
-          390,
-          768,
-          1536
-        ],
-        "motion": "reduced"
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
     },
@@ -2379,9 +2345,10 @@
       "id": "designbookmark-bottom-bar",
       "baseItem": "bottom-bar",
       "installItem": "bottom-bar",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/motion-selector.tsx",
@@ -2431,9 +2398,10 @@
       "id": "designbookmark-dynamic-menu",
       "baseItem": "dynamic-menu",
       "installItem": "dynamic-menu",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/action-menu.tsx",
@@ -2484,9 +2452,10 @@
       "id": "designbookmark-segmented-control",
       "baseItem": "segmented-control",
       "installItem": "segmented-control",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/motion-selector.tsx",
@@ -2536,9 +2505,10 @@
       "id": "designbookmark-sidebar-collapse",
       "baseItem": "sidebar-collapse",
       "installItem": "sidebar-collapse",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/sidebar-collapse.tsx",
@@ -2589,9 +2559,10 @@
       "id": "designbookmark-command-palette",
       "baseItem": "command-palette",
       "installItem": "command-palette",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/command-palette.tsx",
@@ -2641,9 +2612,10 @@
       "id": "designbookmark-step-progress",
       "baseItem": "step-progress",
       "installItem": "step-progress",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "baa132e0c01e7ed96a0c02415a5c271911d01482",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/progress-sequence.tsx",
@@ -2694,9 +2666,10 @@
       "id": "designbookmark-otp-code",
       "baseItem": "otp-code",
       "installItem": "otp-code",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
@@ -2747,9 +2720,10 @@
       "id": "designbookmark-toggle-switch",
       "baseItem": "toggle-switch",
       "installItem": "toggle-switch",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -2799,14 +2773,15 @@
       "id": "designbookmark-star-rating",
       "baseItem": "star-rating",
       "installItem": "star-rating",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
           "target": "@components/sapienx-motion/value-controls.tsx",
-          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+          "sha256": "f9b4f7d80f1d9832670c9fa602919746d721be5073a4108ae82dff92cd457ba7"
         },
         {
           "path": "components/inputs/value-controls.css",
@@ -2852,9 +2827,10 @@
       "id": "designbookmark-tag-input",
       "baseItem": "tag-input",
       "installItem": "tag-input",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
@@ -2905,14 +2881,15 @@
       "id": "designbookmark-number-stepper",
       "baseItem": "number-stepper",
       "installItem": "number-stepper",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
           "target": "@components/sapienx-motion/value-controls.tsx",
-          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+          "sha256": "f9b4f7d80f1d9832670c9fa602919746d721be5073a4108ae82dff92cd457ba7"
         },
         {
           "path": "components/inputs/value-controls.css",
@@ -2958,14 +2935,15 @@
       "id": "designbookmark-range-slider",
       "baseItem": "range-slider",
       "installItem": "range-slider",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
           "target": "@components/sapienx-motion/value-controls.tsx",
-          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+          "sha256": "f9b4f7d80f1d9832670c9fa602919746d721be5073a4108ae82dff92cd457ba7"
         },
         {
           "path": "components/inputs/value-controls.css",
@@ -3011,9 +2989,10 @@
       "id": "designbookmark-password-strength",
       "baseItem": "password-strength",
       "installItem": "password-strength",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/text-fields.tsx",
@@ -3064,14 +3043,15 @@
       "id": "designbookmark-checkbox-list",
       "baseItem": "checkbox-list",
       "installItem": "checkbox-list",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
           "target": "@components/sapienx-motion/value-controls.tsx",
-          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+          "sha256": "f9b4f7d80f1d9832670c9fa602919746d721be5073a4108ae82dff92cd457ba7"
         },
         {
           "path": "components/inputs/value-controls.css",
@@ -3117,14 +3097,15 @@
       "id": "kokonut-detent-dial",
       "baseItem": "detent-dial",
       "installItem": "detent-dial",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
           "target": "@components/sapienx-motion/value-controls.tsx",
-          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+          "sha256": "f9b4f7d80f1d9832670c9fa602919746d721be5073a4108ae82dff92cd457ba7"
         },
         {
           "path": "components/inputs/value-controls.css",
@@ -3170,9 +3151,10 @@
       "id": "smoothui-siri-orb",
       "baseItem": "siri-orb",
       "installItem": "siri-orb",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
@@ -3223,9 +3205,10 @@
       "id": "kokonut-agent-steps",
       "baseItem": "agent-steps",
       "installItem": "agent-steps",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "baa132e0c01e7ed96a0c02415a5c271911d01482",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/progress-sequence.tsx",
@@ -3276,9 +3259,10 @@
       "id": "kokonut-hold-button",
       "baseItem": "hold-button",
       "installItem": "hold-button",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/confirmation-controls.tsx",
@@ -3329,14 +3313,15 @@
       "id": "smoothui-exposure-slider",
       "baseItem": "exposure-slider",
       "installItem": "exposure-slider",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/value-controls.tsx",
           "target": "@components/sapienx-motion/value-controls.tsx",
-          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+          "sha256": "f9b4f7d80f1d9832670c9fa602919746d721be5073a4108ae82dff92cd457ba7"
         },
         {
           "path": "components/inputs/value-controls.css",
@@ -3382,9 +3367,10 @@
       "id": "kokonut-boarding-pass",
       "baseItem": "boarding-pass",
       "installItem": "boarding-pass",
+      "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/gestures/disclosure-cards.tsx",
@@ -3435,9 +3421,10 @@
       "id": "kokonut-marker-text",
       "baseItem": "marker-text",
       "installItem": "marker-text",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -3487,9 +3474,10 @@
       "id": "kokonut-smooth-tab",
       "baseItem": "smooth-tab",
       "installItem": "smooth-tab",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/swipe-tabs.tsx",
@@ -3559,9 +3547,10 @@
       "id": "smoothui-unlock-face-id",
       "baseItem": "unlock-face-id",
       "installItem": "unlock-face-id",
+      "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/gestures/goo-studies.tsx",
@@ -3612,9 +3601,10 @@
       "id": "kokonut-slide-to-confirm",
       "baseItem": "slide-to-confirm",
       "installItem": "slide-to-confirm",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/confirmation-controls.tsx",
@@ -3665,9 +3655,10 @@
       "id": "kokonut-notification-stack",
       "baseItem": "notification-stack",
       "installItem": "notification-stack",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/notification-stack.tsx",
@@ -3718,9 +3709,10 @@
       "id": "kokonut-wheel-picker",
       "baseItem": "wheel-picker",
       "installItem": "wheel-picker",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -3770,9 +3762,10 @@
       "id": "kokonut-dynamic-text",
       "baseItem": "dynamic-text",
       "installItem": "dynamic-text",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -3822,9 +3815,10 @@
       "id": "kokonut-voice-input",
       "baseItem": "voice-input",
       "installItem": "voice-input",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -3875,9 +3869,10 @@
       "id": "kokonut-tool-approval",
       "baseItem": "tool-approval",
       "installItem": "tool-approval",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/tool-approval.tsx",
@@ -3928,9 +3923,10 @@
       "id": "kokonut-toolbar",
       "baseItem": "toolbar",
       "installItem": "toolbar",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/motion-toolbar.tsx",
@@ -3978,9 +3974,10 @@
       "id": "smoothui-scrubber",
       "baseItem": "scrubber",
       "installItem": "scrubber",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
@@ -4031,9 +4028,10 @@
       "id": "kokonut-cart-button",
       "baseItem": "cart-button",
       "installItem": "cart-button",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -4084,14 +4082,15 @@
       "id": "kokonut-page-flip",
       "baseItem": "page-flip",
       "installItem": "page-flip",
+      "recipe": "gallery-recipes-gestures",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/gestures/deck-and-page.tsx",
           "target": "@components/sapienx-motion/deck-and-page.tsx",
-          "sha256": "e31e51f683ed945421db29ec6edf07277fdcc3c4b0e5ffc0bb32b0bdab9e62ea"
+          "sha256": "704a63bd6c4cff2452b1843a5f4351f6196d5960169b995f5a40c5a76e88adb6"
         },
         {
           "path": "components/gestures/deck-and-page.css",
@@ -4137,9 +4136,10 @@
       "id": "kokonut-signature-pad",
       "baseItem": "signature-pad",
       "installItem": "signature-pad",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -4189,9 +4189,10 @@
       "id": "kokonut-undo-button",
       "baseItem": "undo-button",
       "installItem": "undo-button",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -4242,9 +4243,10 @@
       "id": "kokonut-card-field",
       "baseItem": "card-field",
       "installItem": "card-field",
+      "recipe": "gallery-recipes-inputs",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/inputs/special-fields.tsx",
@@ -4294,9 +4296,10 @@
       "id": "kokonut-stack-panel",
       "baseItem": "stack-panel",
       "installItem": "stack-panel",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/stack-panel.tsx",
@@ -4347,9 +4350,10 @@
       "id": "kokonut-typewriter",
       "baseItem": "typewriter",
       "installItem": "typewriter",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/text/animated-type.tsx",
@@ -4399,9 +4403,10 @@
       "id": "kokonut-thinking-text",
       "baseItem": "thinking-text",
       "installItem": "thinking-text",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -4452,9 +4457,10 @@
       "id": "kokonut-glass-player",
       "baseItem": "glass-player",
       "installItem": "glass-player",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
@@ -4505,9 +4511,10 @@
       "id": "kokonut-bell-button",
       "baseItem": "bell-button",
       "installItem": "bell-button",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/feedback-actions.tsx",
@@ -4560,7 +4567,7 @@
       "installItem": "morph-dropdown-gallery",
       "preview": "MorphDropdown",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/showcase/morph-dropdown.tsx",
@@ -4575,7 +4582,7 @@
         {
           "path": "components/showcase/gallery-presets.css",
           "target": "@components/sapienx-motion/presets/showcase/gallery-presets.css",
-          "sha256": "89bdb0fca5b773b089343df17bbe7b89601b4cee4656a34ebc399d9c57902c03"
+          "sha256": "7ae09950279dfebe09cc3ba9cb1089e237973f823388349afa58e9ebe4a6e433"
         },
         {
           "path": "components/navigation/action-menu.tsx",
@@ -4626,7 +4633,7 @@
         ]
       },
       "base": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
         "files": [
           {
             "path": "components/navigation/action-menu.tsx",
@@ -4671,22 +4678,9 @@
       "browserTest": "tests/navigation.spec.ts",
       "consumerFixture": "scripts/fixture-parity.mjs",
       "evidence": {
-        "pin": "c22952178d8dab976fcb33becece567136c647e4",
-        "report": "docs/evidence/studio-v6/consumer-parity.json",
-        "states": [
-          "idle",
-          "active"
-        ],
-        "themes": [
-          "light",
-          "dark"
-        ],
-        "viewports": [
-          390,
-          768,
-          1536
-        ],
-        "motion": "reduced"
+        "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+        "report": "docs/evidence/studio-v7/featured-consumer.json",
+        "scope": "Reduced-motion idle and active images/ARIA; six normal-motion sampled trajectories."
       },
       "parity": "parity-ok"
     },
@@ -4694,9 +4688,10 @@
       "id": "smoothui-task-list",
       "baseItem": "task-list",
       "installItem": "task-list",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/ai/async-feedback.tsx",
@@ -4747,9 +4742,10 @@
       "id": "smoothui-music-toggle",
       "baseItem": "music-toggle",
       "installItem": "music-toggle",
+      "recipe": "gallery-recipes-signals",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/media/audio-tools.tsx",
@@ -4800,9 +4796,10 @@
       "id": "kokonut-command-button",
       "baseItem": "kokonut-command-button",
       "installItem": "kokonut-command-button",
+      "recipe": "gallery-recipes-feedback",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/feedback/state-buttons.tsx",
@@ -4852,9 +4849,10 @@
       "id": "designbookmark-pagination-dots",
       "baseItem": "pagination-dots",
       "installItem": "pagination-dots",
+      "recipe": "gallery-recipes-navigation",
       "preview": "studio/catalog.ts",
       "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
-      "pin": "c22952178d8dab976fcb33becece567136c647e4",
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
       "files": [
         {
           "path": "components/navigation/pagination-dots.tsx",
@@ -4901,5 +4899,1207 @@
       "evidence": null,
       "parity": "not-tested"
     }
-  ]
+  ],
+  "recipes": {
+    "gallery-recipes-navigation": {
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "files": [
+        {
+          "path": "components/recipes/navigation.tsx",
+          "target": "@components/sapienx-motion/recipes/navigation.tsx",
+          "sha256": "3ce12e31f40a77956ee12d57bbc4465702fe9480d11f097d50a967c11ded690f"
+        },
+        {
+          "path": "components/recipes/example.tsx",
+          "target": "@components/sapienx-motion/recipes/example.tsx",
+          "sha256": "3aff43cfcb104a68d4a3261cbff25404defadddc6d02948368edb547bcd89c4f"
+        },
+        {
+          "path": "components/recipes/specimen.ts",
+          "target": "@components/sapienx-motion/recipes/specimen.ts",
+          "sha256": "e1b0c8ad1f82654ccfc5963ac33f619911429ca09403fbd87158e4cc446589d5"
+        },
+        {
+          "path": "components/recipes/values.ts",
+          "target": "@components/sapienx-motion/recipes/values.ts",
+          "sha256": "52c0809955f3aa5c9a744b45b50cbe32795a97b93b538f8697d1a6f1e7453b22"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "target": "@components/sapienx-motion/recipes/theme.css",
+          "sha256": "17010ca8e06a26a623b398bdb6f91a32ec50e14e4f3352d09867c2db6dd9b3c1"
+        },
+        {
+          "path": "components/recipes/stories/tab-pill.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/tab-pill.tsx",
+          "sha256": "0de4da238010e7d5d116f5d6f89f544f63f26a647d0245c1a303fbe82ba5cdb2"
+        },
+        {
+          "path": "components/navigation/motion-selector.tsx",
+          "target": "@components/sapienx-motion/navigation/motion-selector.tsx",
+          "sha256": "d74565a64d69d17e6d13dd23c8005e86769b3b061f60dee4ab90668790f6aee6"
+        },
+        {
+          "path": "components/navigation/motion-selector.css",
+          "target": "@components/sapienx-motion/navigation/motion-selector.css",
+          "sha256": "013cac85be169ab630df43ce581d4f874b8fa5699e87ab68ca408768429696d7"
+        },
+        {
+          "path": "components/recipes/stories/demo.css",
+          "target": "@components/sapienx-motion/recipes/stories/demo.css",
+          "sha256": "19c0f1774ab76bbc713b2315a3cc5d7c209750ff937656f4f9b9b089545d32bf"
+        },
+        {
+          "path": "components/recipes/stories/bottom-bar.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/bottom-bar.tsx",
+          "sha256": "4adbd3f6a2fe06c2258b25a6c2648adabc313f4b398903c14fa857d0ee46510e"
+        },
+        {
+          "path": "components/recipes/stories/segmented-control.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/segmented-control.tsx",
+          "sha256": "8dffbf2014cda45b76dc4e54ae47cff68947134118778827d3a86d1c296c1565"
+        },
+        {
+          "path": "components/recipes/stories/pagination-dots.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/pagination-dots.tsx",
+          "sha256": "957c2a2b85e83e08e6b27b28f8aed234d91d0169ccd1ca840e2a90732d5c85d0"
+        },
+        {
+          "path": "components/navigation/pagination-dots.tsx",
+          "target": "@components/sapienx-motion/navigation/pagination-dots.tsx",
+          "sha256": "f92bf6a47bac92c056b8028e503308034d770a2a41e69f4c0a09fcea039fcd78"
+        },
+        {
+          "path": "components/navigation/pagination-dots.css",
+          "target": "@components/sapienx-motion/navigation/pagination-dots.css",
+          "sha256": "323e65ae40fe0da4655196ebd1859ce240babe5ca94fc54a50595a3ba0ea3c59"
+        },
+        {
+          "path": "components/recipes/stories/command-palette.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/command-palette.tsx",
+          "sha256": "9882294ea37d32f37f5b34805ab880bb38eed6550954253309aab1d151b7528b"
+        },
+        {
+          "path": "components/navigation/command-palette.tsx",
+          "target": "@components/sapienx-motion/navigation/command-palette.tsx",
+          "sha256": "5d89dd49d97be9d156e03e34ab24b8e6fe9602e808b98e1525a492f0eb76f3f3"
+        },
+        {
+          "path": "components/navigation/command-palette.css",
+          "target": "@components/sapienx-motion/navigation/command-palette.css",
+          "sha256": "1b7ab8c4f9391f20421a681583de35f96407be78fcacdc2be4519c577f20939f"
+        },
+        {
+          "path": "components/recipes/stories/pull-cord.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/pull-cord.tsx",
+          "sha256": "ed929d1fd28bb3035b2f301cc532db364f53a2b33af4421a1f20b9b72504f139"
+        },
+        {
+          "path": "components/navigation/pull-cord.tsx",
+          "target": "@components/sapienx-motion/navigation/pull-cord.tsx",
+          "sha256": "186dad9627c59a734f83d8ff3a4186954ce0b6b9ddf192db98f4207f25d164f0"
+        },
+        {
+          "path": "components/navigation/pull-cord.css",
+          "target": "@components/sapienx-motion/navigation/pull-cord.css",
+          "sha256": "3eb1841e4651d75c56cfe2577bd515b41b6f8943fc7596940cc9069ac6e45d30"
+        },
+        {
+          "path": "components/recipes/stories/morph-tooltip.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/morph-tooltip.tsx",
+          "sha256": "239ddb281c8b086e67e4612e6e4a844542f7783ed3e5f94d56d8c302ef19a450"
+        },
+        {
+          "path": "components/navigation/morph-tooltip.tsx",
+          "target": "@components/sapienx-motion/navigation/morph-tooltip.tsx",
+          "sha256": "c799b106debaf430896ccb2018f779744903dfd36486291d217d943afd5bf47c"
+        },
+        {
+          "path": "components/navigation/morph-tooltip.css",
+          "target": "@components/sapienx-motion/navigation/morph-tooltip.css",
+          "sha256": "8f8c262511487c8cd39c77fe2e3cf34cc65f636f244756f00fc1166d660459d3"
+        },
+        {
+          "path": "components/recipes/stories/action-menus.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/action-menus.tsx",
+          "sha256": "947c418da593250dd704f411add7ca881340d72a54f7a9d515e03c93a58e339a"
+        },
+        {
+          "path": "components/navigation/action-menu.tsx",
+          "target": "@components/sapienx-motion/navigation/action-menu.tsx",
+          "sha256": "d549711014b934b2bdf1cc1e80835573ad6a331ad5fe7d267dcf9c8bb20eadd4"
+        },
+        {
+          "path": "components/navigation/action-menu.css",
+          "target": "@components/sapienx-motion/navigation/action-menu.css",
+          "sha256": "a9e61704a2e6d1a714a3aed1fab6fd58fcd289ff8cc8c06e0e66fe25fad62c02"
+        },
+        {
+          "path": "components/recipes/stories/rubber-dock.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/rubber-dock.tsx",
+          "sha256": "2daa3646c081d64ef00cb6f12e87f18b10fba1312e99a9f52cc06fe66062785e"
+        },
+        {
+          "path": "components/navigation/rubber-dock.tsx",
+          "target": "@components/sapienx-motion/navigation/rubber-dock.tsx",
+          "sha256": "2adaa146b835a726c170ca1d4fd47f57cd1f1bde4c2ddb45766df57d0dbc3a2b"
+        },
+        {
+          "path": "components/navigation/rubber-dock.css",
+          "target": "@components/sapienx-motion/navigation/rubber-dock.css",
+          "sha256": "d62ad295bd28e2a92363336635315f282257ccfa78aae9dd73d96df4985ebc45"
+        },
+        {
+          "path": "components/recipes/stories/sidebar-collapse.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/sidebar-collapse.tsx",
+          "sha256": "2681941f89f1878c7e3e690b3685260ec1ec0fd37130182363fc5aa12cc01ac1"
+        },
+        {
+          "path": "components/navigation/sidebar-collapse.tsx",
+          "target": "@components/sapienx-motion/navigation/sidebar-collapse.tsx",
+          "sha256": "2a13a25153dcd6d86eed2cc117f0ad554eddde03cc9cec231626475b302bf5fd"
+        },
+        {
+          "path": "components/navigation/sidebar-collapse.css",
+          "target": "@components/sapienx-motion/navigation/sidebar-collapse.css",
+          "sha256": "290ff4d132679dd2e5ab7a479e265a8238d65e632bcffbe37510d05de104f09e"
+        },
+        {
+          "path": "components/recipes/stories/swipe-tabs.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/swipe-tabs.tsx",
+          "sha256": "e6351406ed8b5a28e62ef7447a9d787392a354a5b947175f290a8102e936e437"
+        },
+        {
+          "path": "components/navigation/swipe-tabs.tsx",
+          "target": "@components/sapienx-motion/navigation/swipe-tabs.tsx",
+          "sha256": "8e73ecc2c178c7b8a4ad955c623f91e847a7841ea6959a918850a83ed5c97670"
+        },
+        {
+          "path": "components/navigation/swipe-tabs.css",
+          "target": "@components/sapienx-motion/navigation/swipe-tabs.css",
+          "sha256": "3aff4680758c8b601cf7db4017b9deab1ac2fc25f7164bdee218ad7d9f8601a6"
+        },
+        {
+          "path": "components/recipes/stories/motion-toolbar.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/motion-toolbar.tsx",
+          "sha256": "9fecdf0f3916d98ec11cfff4cf4250df9d0a2a83e3ff609df060ea9570a738f4"
+        },
+        {
+          "path": "components/navigation/motion-toolbar.tsx",
+          "target": "@components/sapienx-motion/navigation/motion-toolbar.tsx",
+          "sha256": "4d3dbcd90ca5febfbe4e628a6ad7d75691b058de893381cd923c821e32e0d159"
+        },
+        {
+          "path": "components/navigation/motion-toolbar.css",
+          "target": "@components/sapienx-motion/navigation/motion-toolbar.css",
+          "sha256": "a143d6ab660f4406aa96c24ea7d67e2cf2e3c3a2222fe2d265b10981cc39880a"
+        },
+        {
+          "path": "components/recipes/stories/stack-panel.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/stack-panel.tsx",
+          "sha256": "f57f1dd0b38c4d0dc4b389f80d05fd4b9ba58cd72a07a2c57eda0b2d25914112"
+        },
+        {
+          "path": "components/navigation/stack-panel.tsx",
+          "target": "@components/sapienx-motion/navigation/stack-panel.tsx",
+          "sha256": "c0eab1b33c8c3a1eb6dbe4c09c3011c89b0ee6c4b41d72d35e3f953630ab06e4"
+        },
+        {
+          "path": "components/navigation/stack-panel.css",
+          "target": "@components/sapienx-motion/navigation/stack-panel.css",
+          "sha256": "cc5b64eba2a223eab0a622bea1f8709fdf2bbe063f84578f7ac25c206621956e"
+        }
+      ],
+      "publicContract": {
+        "name": "gallery-recipes-navigation",
+        "type": "registry:component",
+        "title": "Gallery recipes · Navigation",
+        "description": "The same interactive examples used in MotionUX Studio, including sample content, component styles and semantic theme tokens.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react@0.454.0",
+          "@fontsource-variable/inter@5.3.0"
+        ],
+        "files": [
+          {
+            "path": "components/recipes/navigation.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/navigation.tsx"
+          },
+          {
+            "path": "components/recipes/example.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/example.tsx"
+          },
+          {
+            "path": "components/recipes/specimen.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/specimen.ts"
+          },
+          {
+            "path": "components/recipes/values.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/values.ts"
+          },
+          {
+            "path": "components/recipes/theme.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/theme.css"
+          },
+          {
+            "path": "components/recipes/stories/tab-pill.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/tab-pill.tsx"
+          },
+          {
+            "path": "components/navigation/motion-selector.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/navigation/motion-selector.tsx"
+          },
+          {
+            "path": "components/navigation/motion-selector.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/navigation/motion-selector.css"
+          },
+          {
+            "path": "components/recipes/stories/demo.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/stories/demo.css"
+          },
+          {
+            "path": "components/recipes/stories/bottom-bar.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/bottom-bar.tsx"
+          },
+          {
+            "path": "components/recipes/stories/segmented-control.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/segmented-control.tsx"
+          },
+          {
+            "path": "components/recipes/stories/pagination-dots.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/pagination-dots.tsx"
+          },
+          {
+            "path": "components/navigation/pagination-dots.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/navigation/pagination-dots.tsx"
+          },
+          {
+            "path": "components/navigation/pagination-dots.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/navigation/pagination-dots.css"
+          },
+          {
+            "path": "components/recipes/stories/command-palette.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/command-palette.tsx"
+          },
+          {
+            "path": "components/navigation/command-palette.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/navigation/command-palette.tsx"
+          },
+          {
+            "path": "components/navigation/command-palette.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/navigation/command-palette.css"
+          },
+          {
+            "path": "components/recipes/stories/pull-cord.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/pull-cord.tsx"
+          },
+          {
+            "path": "components/navigation/pull-cord.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/navigation/pull-cord.tsx"
+          },
+          {
+            "path": "components/navigation/pull-cord.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/navigation/pull-cord.css"
+          },
+          {
+            "path": "components/recipes/stories/morph-tooltip.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/morph-tooltip.tsx"
+          },
+          {
+            "path": "components/navigation/morph-tooltip.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/navigation/morph-tooltip.tsx"
+          },
+          {
+            "path": "components/navigation/morph-tooltip.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/navigation/morph-tooltip.css"
+          },
+          {
+            "path": "components/recipes/stories/action-menus.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/action-menus.tsx"
+          },
+          {
+            "path": "components/navigation/action-menu.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/navigation/action-menu.tsx"
+          },
+          {
+            "path": "components/navigation/action-menu.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/navigation/action-menu.css"
+          },
+          {
+            "path": "components/recipes/stories/rubber-dock.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/rubber-dock.tsx"
+          },
+          {
+            "path": "components/navigation/rubber-dock.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/navigation/rubber-dock.tsx"
+          },
+          {
+            "path": "components/navigation/rubber-dock.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/navigation/rubber-dock.css"
+          },
+          {
+            "path": "components/recipes/stories/sidebar-collapse.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/sidebar-collapse.tsx"
+          },
+          {
+            "path": "components/navigation/sidebar-collapse.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/navigation/sidebar-collapse.tsx"
+          },
+          {
+            "path": "components/navigation/sidebar-collapse.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/navigation/sidebar-collapse.css"
+          },
+          {
+            "path": "components/recipes/stories/swipe-tabs.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/swipe-tabs.tsx"
+          },
+          {
+            "path": "components/navigation/swipe-tabs.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/navigation/swipe-tabs.tsx"
+          },
+          {
+            "path": "components/navigation/swipe-tabs.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/navigation/swipe-tabs.css"
+          },
+          {
+            "path": "components/recipes/stories/motion-toolbar.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/motion-toolbar.tsx"
+          },
+          {
+            "path": "components/navigation/motion-toolbar.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/navigation/motion-toolbar.tsx"
+          },
+          {
+            "path": "components/navigation/motion-toolbar.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/navigation/motion-toolbar.css"
+          },
+          {
+            "path": "components/recipes/stories/stack-panel.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/stack-panel.tsx"
+          },
+          {
+            "path": "components/navigation/stack-panel.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/navigation/stack-panel.tsx"
+          },
+          {
+            "path": "components/navigation/stack-panel.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/navigation/stack-panel.css"
+          }
+        ]
+      }
+    },
+    "gallery-recipes-feedback": {
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "files": [
+        {
+          "path": "components/recipes/feedback.tsx",
+          "target": "@components/sapienx-motion/recipes/feedback.tsx",
+          "sha256": "a9d5b46d433f65ea01b50f8d587ef250fb6baed5e483540d05acc41c4e359ed4"
+        },
+        {
+          "path": "components/recipes/example.tsx",
+          "target": "@components/sapienx-motion/recipes/example.tsx",
+          "sha256": "3aff43cfcb104a68d4a3261cbff25404defadddc6d02948368edb547bcd89c4f"
+        },
+        {
+          "path": "components/recipes/specimen.ts",
+          "target": "@components/sapienx-motion/recipes/specimen.ts",
+          "sha256": "e1b0c8ad1f82654ccfc5963ac33f619911429ca09403fbd87158e4cc446589d5"
+        },
+        {
+          "path": "components/recipes/values.ts",
+          "target": "@components/sapienx-motion/recipes/values.ts",
+          "sha256": "52c0809955f3aa5c9a744b45b50cbe32795a97b93b538f8697d1a6f1e7453b22"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "target": "@components/sapienx-motion/recipes/theme.css",
+          "sha256": "17010ca8e06a26a623b398bdb6f91a32ec50e14e4f3352d09867c2db6dd9b3c1"
+        },
+        {
+          "path": "components/recipes/stories/feedback-studies.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/feedback-studies.tsx",
+          "sha256": "1e9e8f0d8b8b289904a736c20c20e28731868d057879375475150fc2652e767a"
+        },
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback/feedback-actions.tsx",
+          "sha256": "98802f8a2946d4e4c3e78f00bf7607fa10a84b2844d675bcd93875783d9384bb"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback/feedback-actions.css",
+          "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
+        },
+        {
+          "path": "components/feedback/confirmation-controls.tsx",
+          "target": "@components/sapienx-motion/feedback/confirmation-controls.tsx",
+          "sha256": "bda4d5d7570bbbe1784f09967a4229cb65c59c06c9f9221236867d808fe63a84"
+        },
+        {
+          "path": "components/feedback/confirmation-controls.css",
+          "target": "@components/sapienx-motion/feedback/confirmation-controls.css",
+          "sha256": "4113ada394c013788aceefe0d0c34bca8207fc6c9badbc80cc7f4ad19cd37db0"
+        },
+        {
+          "path": "components/feedback/state-buttons.tsx",
+          "target": "@components/sapienx-motion/feedback/state-buttons.tsx",
+          "sha256": "f229ae2e3271b8063ad613ab358b9252dcc71c6cc8f6ef90948672c9cdf096d7"
+        },
+        {
+          "path": "components/feedback/state-buttons.css",
+          "target": "@components/sapienx-motion/feedback/state-buttons.css",
+          "sha256": "cbb1ec716000015e863e5fb59a03742e7247d1cfbe387cdfbd9b3a413eb6def8"
+        },
+        {
+          "path": "components/feedback/progress-sequence.tsx",
+          "target": "@components/sapienx-motion/feedback/progress-sequence.tsx",
+          "sha256": "8b19aa98ebfb760ae485ee523dd0f413e8494922f6947e9648d23b3411ba805c"
+        },
+        {
+          "path": "components/feedback/progress-sequence.css",
+          "target": "@components/sapienx-motion/feedback/progress-sequence.css",
+          "sha256": "db8d18a606d2f3bede8d7b888e4479adb8b688943906389d3e00e6e13da8161b"
+        },
+        {
+          "path": "components/feedback/notification-stack.tsx",
+          "target": "@components/sapienx-motion/feedback/notification-stack.tsx",
+          "sha256": "10f4acac2654bdc28ae2eb23ed7cb8ed691ce617d5d3d97c4e0c62aadbdc6137"
+        },
+        {
+          "path": "components/feedback/notification-stack.css",
+          "target": "@components/sapienx-motion/feedback/notification-stack.css",
+          "sha256": "7a70414e98b21e2967d036d45bd904f06430f7742b61e9ba93f01a3e3c107770"
+        },
+        {
+          "path": "components/feedback/tool-approval.tsx",
+          "target": "@components/sapienx-motion/feedback/tool-approval.tsx",
+          "sha256": "c18d969f61150abc0c6664427895a01c02d5bbb59c69e5f0f3462db76f5f3218"
+        },
+        {
+          "path": "components/feedback/tool-approval.css",
+          "target": "@components/sapienx-motion/feedback/tool-approval.css",
+          "sha256": "870d5a8df195377407ba3f7a3a9829a3f11ae801b568f9694c04e4a7c6d22c7a"
+        },
+        {
+          "path": "components/recipes/stories/demo.css",
+          "target": "@components/sapienx-motion/recipes/stories/demo.css",
+          "sha256": "19c0f1774ab76bbc713b2315a3cc5d7c209750ff937656f4f9b9b089545d32bf"
+        }
+      ],
+      "publicContract": {
+        "name": "gallery-recipes-feedback",
+        "type": "registry:component",
+        "title": "Gallery recipes · Feedback",
+        "description": "The same interactive examples used in MotionUX Studio, including sample content, component styles and semantic theme tokens.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react@0.454.0",
+          "@fontsource-variable/inter@5.3.0"
+        ],
+        "files": [
+          {
+            "path": "components/recipes/feedback.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/feedback.tsx"
+          },
+          {
+            "path": "components/recipes/example.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/example.tsx"
+          },
+          {
+            "path": "components/recipes/specimen.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/specimen.ts"
+          },
+          {
+            "path": "components/recipes/values.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/values.ts"
+          },
+          {
+            "path": "components/recipes/theme.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/theme.css"
+          },
+          {
+            "path": "components/recipes/stories/feedback-studies.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/feedback-studies.tsx"
+          },
+          {
+            "path": "components/feedback/feedback-actions.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/feedback/feedback-actions.tsx"
+          },
+          {
+            "path": "components/feedback/feedback-actions.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/feedback/feedback-actions.css"
+          },
+          {
+            "path": "components/feedback/confirmation-controls.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/feedback/confirmation-controls.tsx"
+          },
+          {
+            "path": "components/feedback/confirmation-controls.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/feedback/confirmation-controls.css"
+          },
+          {
+            "path": "components/feedback/state-buttons.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/feedback/state-buttons.tsx"
+          },
+          {
+            "path": "components/feedback/state-buttons.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/feedback/state-buttons.css"
+          },
+          {
+            "path": "components/feedback/progress-sequence.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/feedback/progress-sequence.tsx"
+          },
+          {
+            "path": "components/feedback/progress-sequence.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/feedback/progress-sequence.css"
+          },
+          {
+            "path": "components/feedback/notification-stack.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/feedback/notification-stack.tsx"
+          },
+          {
+            "path": "components/feedback/notification-stack.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/feedback/notification-stack.css"
+          },
+          {
+            "path": "components/feedback/tool-approval.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/feedback/tool-approval.tsx"
+          },
+          {
+            "path": "components/feedback/tool-approval.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/feedback/tool-approval.css"
+          },
+          {
+            "path": "components/recipes/stories/demo.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/stories/demo.css"
+          }
+        ]
+      }
+    },
+    "gallery-recipes-inputs": {
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "files": [
+        {
+          "path": "components/recipes/inputs.tsx",
+          "target": "@components/sapienx-motion/recipes/inputs.tsx",
+          "sha256": "1a91898bfbe1b4057c4fe17fd631eab6c6ab87aec45aec2e8ca14d2efd31ddd0"
+        },
+        {
+          "path": "components/recipes/example.tsx",
+          "target": "@components/sapienx-motion/recipes/example.tsx",
+          "sha256": "3aff43cfcb104a68d4a3261cbff25404defadddc6d02948368edb547bcd89c4f"
+        },
+        {
+          "path": "components/recipes/specimen.ts",
+          "target": "@components/sapienx-motion/recipes/specimen.ts",
+          "sha256": "e1b0c8ad1f82654ccfc5963ac33f619911429ca09403fbd87158e4cc446589d5"
+        },
+        {
+          "path": "components/recipes/values.ts",
+          "target": "@components/sapienx-motion/recipes/values.ts",
+          "sha256": "52c0809955f3aa5c9a744b45b50cbe32795a97b93b538f8697d1a6f1e7453b22"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "target": "@components/sapienx-motion/recipes/theme.css",
+          "sha256": "17010ca8e06a26a623b398bdb6f91a32ec50e14e4f3352d09867c2db6dd9b3c1"
+        },
+        {
+          "path": "components/recipes/stories/input-studies.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/input-studies.tsx",
+          "sha256": "da1bd47668bee40e21eff65ef614c81b6a254c7fd583e07633b5e4829d88eeea"
+        },
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "target": "@components/sapienx-motion/inputs/text-fields.tsx",
+          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "target": "@components/sapienx-motion/inputs/text-fields.css",
+          "sha256": "7a10d3a8120050efe87ef190b50ccc83d2957a48cdb7b09eba90562420bd9437"
+        },
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/inputs/value-controls.tsx",
+          "sha256": "f9b4f7d80f1d9832670c9fa602919746d721be5073a4108ae82dff92cd457ba7"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/inputs/value-controls.css",
+          "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
+        },
+        {
+          "path": "components/inputs/special-fields.tsx",
+          "target": "@components/sapienx-motion/inputs/special-fields.tsx",
+          "sha256": "7d648818a066bdd02d7246f006093f6ec6d9ef2d999827d88b6744b8d3bfadee"
+        },
+        {
+          "path": "components/inputs/special-fields.css",
+          "target": "@components/sapienx-motion/inputs/special-fields.css",
+          "sha256": "e3520f840e7289cd3d2a6047c6d864495faef5c8bcb39f756d79d7279b6a6f2f"
+        },
+        {
+          "path": "components/recipes/quiet-hills.ts",
+          "target": "@components/sapienx-motion/recipes/quiet-hills.ts",
+          "sha256": "644cbad39f02e145d9524c7505a1a4cc3fc8bf7471f075e1dba81b4f7df113e2"
+        },
+        {
+          "path": "components/recipes/stories/usage-example.ts",
+          "target": "@components/sapienx-motion/recipes/stories/usage-example.ts",
+          "sha256": "3b8bb413656fafb4bd8b02c1de0644d3602306f4de2de10cefa9d990df63d623"
+        },
+        {
+          "path": "components/recipes/stories/demo.css",
+          "target": "@components/sapienx-motion/recipes/stories/demo.css",
+          "sha256": "19c0f1774ab76bbc713b2315a3cc5d7c209750ff937656f4f9b9b089545d32bf"
+        },
+        {
+          "path": "components/recipes/stories/input-studies.css",
+          "target": "@components/sapienx-motion/recipes/stories/input-studies.css",
+          "sha256": "3ab382aa645dadd1d22bb599d395a41730f9d544a0f91a23abb24c7bfdcc86a0"
+        }
+      ],
+      "publicContract": {
+        "name": "gallery-recipes-inputs",
+        "type": "registry:component",
+        "title": "Gallery recipes · Form controls",
+        "description": "The same interactive examples used in MotionUX Studio, including sample content, component styles and semantic theme tokens.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react@0.454.0",
+          "@fontsource-variable/inter@5.3.0"
+        ],
+        "files": [
+          {
+            "path": "components/recipes/inputs.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/inputs.tsx"
+          },
+          {
+            "path": "components/recipes/example.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/example.tsx"
+          },
+          {
+            "path": "components/recipes/specimen.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/specimen.ts"
+          },
+          {
+            "path": "components/recipes/values.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/values.ts"
+          },
+          {
+            "path": "components/recipes/theme.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/theme.css"
+          },
+          {
+            "path": "components/recipes/stories/input-studies.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/input-studies.tsx"
+          },
+          {
+            "path": "components/inputs/text-fields.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/inputs/text-fields.tsx"
+          },
+          {
+            "path": "components/inputs/text-fields.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/inputs/text-fields.css"
+          },
+          {
+            "path": "components/inputs/value-controls.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/inputs/value-controls.tsx"
+          },
+          {
+            "path": "components/inputs/value-controls.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/inputs/value-controls.css"
+          },
+          {
+            "path": "components/inputs/special-fields.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/inputs/special-fields.tsx"
+          },
+          {
+            "path": "components/inputs/special-fields.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/inputs/special-fields.css"
+          },
+          {
+            "path": "components/recipes/quiet-hills.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/quiet-hills.ts"
+          },
+          {
+            "path": "components/recipes/stories/usage-example.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/stories/usage-example.ts"
+          },
+          {
+            "path": "components/recipes/stories/demo.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/stories/demo.css"
+          },
+          {
+            "path": "components/recipes/stories/input-studies.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/stories/input-studies.css"
+          }
+        ]
+      }
+    },
+    "gallery-recipes-gestures": {
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "files": [
+        {
+          "path": "components/recipes/gestures.tsx",
+          "target": "@components/sapienx-motion/recipes/gestures.tsx",
+          "sha256": "33246e93b8e5f0ef853e7864968bf59cdead94df3e9a33561359c92ad802987e"
+        },
+        {
+          "path": "components/recipes/example.tsx",
+          "target": "@components/sapienx-motion/recipes/example.tsx",
+          "sha256": "3aff43cfcb104a68d4a3261cbff25404defadddc6d02948368edb547bcd89c4f"
+        },
+        {
+          "path": "components/recipes/specimen.ts",
+          "target": "@components/sapienx-motion/recipes/specimen.ts",
+          "sha256": "e1b0c8ad1f82654ccfc5963ac33f619911429ca09403fbd87158e4cc446589d5"
+        },
+        {
+          "path": "components/recipes/values.ts",
+          "target": "@components/sapienx-motion/recipes/values.ts",
+          "sha256": "52c0809955f3aa5c9a744b45b50cbe32795a97b93b538f8697d1a6f1e7453b22"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "target": "@components/sapienx-motion/recipes/theme.css",
+          "sha256": "17010ca8e06a26a623b398bdb6f91a32ec50e14e4f3352d09867c2db6dd9b3c1"
+        },
+        {
+          "path": "components/recipes/stories/card-studies.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/card-studies.tsx",
+          "sha256": "d9d97bd9b692d464fced5cb805093fd10b5d415e2cdafbf95f86804972ccced6"
+        },
+        {
+          "path": "components/gestures/deck-and-page.tsx",
+          "target": "@components/sapienx-motion/gestures/deck-and-page.tsx",
+          "sha256": "704a63bd6c4cff2452b1843a5f4351f6196d5960169b995f5a40c5a76e88adb6"
+        },
+        {
+          "path": "components/gestures/deck-and-page.css",
+          "target": "@components/sapienx-motion/gestures/deck-and-page.css",
+          "sha256": "901ddf5f3b5943e2a1cdac353177f28fef086fd8ae353b3c1ed48a154e53520e"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "target": "@components/sapienx-motion/gestures/disclosure-cards.tsx",
+          "sha256": "ac9266e030348ec753b517c2dbe82ce13e041b55e93f56378700ba8688880c5b"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "target": "@components/sapienx-motion/gestures/disclosure-cards.css",
+          "sha256": "82ce0b2d053e8ba10dc68bc3f3766dee1651f09d376c9d4285031aa32137233d"
+        },
+        {
+          "path": "components/gestures/goo-studies.tsx",
+          "target": "@components/sapienx-motion/gestures/goo-studies.tsx",
+          "sha256": "de041bf2fdafa09840221021af7c793a7702aa807531257e44607ab8bef0d76f"
+        },
+        {
+          "path": "components/gestures/goo-studies.css",
+          "target": "@components/sapienx-motion/gestures/goo-studies.css",
+          "sha256": "27b3fee3291731667ca1a84b0e710a4fd91f420e5d50de1f4f92074806d20d45"
+        },
+        {
+          "path": "components/gestures/interactive-surfaces.tsx",
+          "target": "@components/sapienx-motion/gestures/interactive-surfaces.tsx",
+          "sha256": "c1a48d669661ff83edf26bf2f8291bf9245c8a613c056e843f09f611c3f83d80"
+        },
+        {
+          "path": "components/gestures/interactive-surfaces.css",
+          "target": "@components/sapienx-motion/gestures/interactive-surfaces.css",
+          "sha256": "c2b7b65c372030389b2aad7d79a723b69642381aa1de8aad1de53ea71bf14792"
+        },
+        {
+          "path": "components/recipes/quiet-hills.ts",
+          "target": "@components/sapienx-motion/recipes/quiet-hills.ts",
+          "sha256": "644cbad39f02e145d9524c7505a1a4cc3fc8bf7471f075e1dba81b4f7df113e2"
+        },
+        {
+          "path": "components/recipes/stories/usage-example.ts",
+          "target": "@components/sapienx-motion/recipes/stories/usage-example.ts",
+          "sha256": "3b8bb413656fafb4bd8b02c1de0644d3602306f4de2de10cefa9d990df63d623"
+        },
+        {
+          "path": "components/recipes/stories/demo.css",
+          "target": "@components/sapienx-motion/recipes/stories/demo.css",
+          "sha256": "19c0f1774ab76bbc713b2315a3cc5d7c209750ff937656f4f9b9b089545d32bf"
+        }
+      ],
+      "publicContract": {
+        "name": "gallery-recipes-gestures",
+        "type": "registry:component",
+        "title": "Gallery recipes · Gestures and cards",
+        "description": "The same interactive examples used in MotionUX Studio, including sample content, component styles and semantic theme tokens.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react@0.454.0",
+          "@fontsource-variable/inter@5.3.0"
+        ],
+        "files": [
+          {
+            "path": "components/recipes/gestures.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/gestures.tsx"
+          },
+          {
+            "path": "components/recipes/example.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/example.tsx"
+          },
+          {
+            "path": "components/recipes/specimen.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/specimen.ts"
+          },
+          {
+            "path": "components/recipes/values.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/values.ts"
+          },
+          {
+            "path": "components/recipes/theme.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/theme.css"
+          },
+          {
+            "path": "components/recipes/stories/card-studies.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/card-studies.tsx"
+          },
+          {
+            "path": "components/gestures/deck-and-page.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/gestures/deck-and-page.tsx"
+          },
+          {
+            "path": "components/gestures/deck-and-page.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/gestures/deck-and-page.css"
+          },
+          {
+            "path": "components/gestures/disclosure-cards.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/gestures/disclosure-cards.tsx"
+          },
+          {
+            "path": "components/gestures/disclosure-cards.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/gestures/disclosure-cards.css"
+          },
+          {
+            "path": "components/gestures/goo-studies.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/gestures/goo-studies.tsx"
+          },
+          {
+            "path": "components/gestures/goo-studies.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/gestures/goo-studies.css"
+          },
+          {
+            "path": "components/gestures/interactive-surfaces.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/gestures/interactive-surfaces.tsx"
+          },
+          {
+            "path": "components/gestures/interactive-surfaces.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/gestures/interactive-surfaces.css"
+          },
+          {
+            "path": "components/recipes/quiet-hills.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/quiet-hills.ts"
+          },
+          {
+            "path": "components/recipes/stories/usage-example.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/stories/usage-example.ts"
+          },
+          {
+            "path": "components/recipes/stories/demo.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/stories/demo.css"
+          }
+        ]
+      }
+    },
+    "gallery-recipes-signals": {
+      "pin": "2c9ed3c8a3a6ade876bcfaf00a5a105fc23120c9",
+      "files": [
+        {
+          "path": "components/recipes/signals.tsx",
+          "target": "@components/sapienx-motion/recipes/signals.tsx",
+          "sha256": "208d1d0c5c5c94b0e51259e9ba4c4a83831c34882f826c00cf003af0f0f3defd"
+        },
+        {
+          "path": "components/recipes/example.tsx",
+          "target": "@components/sapienx-motion/recipes/example.tsx",
+          "sha256": "3aff43cfcb104a68d4a3261cbff25404defadddc6d02948368edb547bcd89c4f"
+        },
+        {
+          "path": "components/recipes/specimen.ts",
+          "target": "@components/sapienx-motion/recipes/specimen.ts",
+          "sha256": "e1b0c8ad1f82654ccfc5963ac33f619911429ca09403fbd87158e4cc446589d5"
+        },
+        {
+          "path": "components/recipes/values.ts",
+          "target": "@components/sapienx-motion/recipes/values.ts",
+          "sha256": "52c0809955f3aa5c9a744b45b50cbe32795a97b93b538f8697d1a6f1e7453b22"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "target": "@components/sapienx-motion/recipes/theme.css",
+          "sha256": "17010ca8e06a26a623b398bdb6f91a32ec50e14e4f3352d09867c2db6dd9b3c1"
+        },
+        {
+          "path": "components/recipes/stories/signal-studies.tsx",
+          "target": "@components/sapienx-motion/recipes/stories/signal-studies.tsx",
+          "sha256": "5fb138361c0736258cefe69b1ae5e30e22db980c9a2725a2bf332f97ed862cac"
+        },
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/text/animated-type.tsx",
+          "sha256": "bc1a553e886cd8066a6e6b7bd22c1e8e778f263bf553180cd458a492c1ad2a67"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/text/animated-type.css",
+          "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
+        },
+        {
+          "path": "components/ai/composer.tsx",
+          "target": "@components/sapienx-motion/ai/composer.tsx",
+          "sha256": "c5ee9e3a9f0730bdffe4b56b7c31a56314529ac9c5a8914a3cb712cc33eaf674"
+        },
+        {
+          "path": "components/ai/composer.css",
+          "target": "@components/sapienx-motion/ai/composer.css",
+          "sha256": "7e40530f20bd0fe9e4149423b94246f460aa6a2a606dfb199705a13da95e67a6"
+        },
+        {
+          "path": "components/ai/async-feedback.tsx",
+          "target": "@components/sapienx-motion/ai/async-feedback.tsx",
+          "sha256": "a88405ede77f70bb9f53e12a98b15749c69ab9ba8c60dcaebb6bd041f17980c7"
+        },
+        {
+          "path": "components/ai/async-feedback.css",
+          "target": "@components/sapienx-motion/ai/async-feedback.css",
+          "sha256": "0c09fb5ef68f5a8b0fc51c78f6c1a14fe8a61a206ee92bf91f57ff5d635b0a62"
+        },
+        {
+          "path": "components/media/audio-tools.tsx",
+          "target": "@components/sapienx-motion/media/audio-tools.tsx",
+          "sha256": "151ca2d3824f6b8a3bf8c145adfdf9ccc15cf396ba4a44a914aa2cde4ab60b39"
+        },
+        {
+          "path": "components/media/audio-tools.css",
+          "target": "@components/sapienx-motion/media/audio-tools.css",
+          "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
+        },
+        {
+          "path": "components/recipes/field-tones.ts",
+          "target": "@components/sapienx-motion/recipes/field-tones.ts",
+          "sha256": "7fdb313ed9ca57446290db64310b63313a18924631eccb958f2efa8158ab72e5"
+        },
+        {
+          "path": "components/recipes/stories/usage-example.ts",
+          "target": "@components/sapienx-motion/recipes/stories/usage-example.ts",
+          "sha256": "3b8bb413656fafb4bd8b02c1de0644d3602306f4de2de10cefa9d990df63d623"
+        },
+        {
+          "path": "components/recipes/stories/demo.css",
+          "target": "@components/sapienx-motion/recipes/stories/demo.css",
+          "sha256": "19c0f1774ab76bbc713b2315a3cc5d7c209750ff937656f4f9b9b089545d32bf"
+        },
+        {
+          "path": "components/recipes/stories/signal-studies.css",
+          "target": "@components/sapienx-motion/recipes/stories/signal-studies.css",
+          "sha256": "1d259a2c2213d9840e3c13b1956a7bbf17e3fad4f8d990d4a8d4c3a0640b5108"
+        }
+      ],
+      "publicContract": {
+        "name": "gallery-recipes-signals",
+        "type": "registry:component",
+        "title": "Gallery recipes · Typography, AI and media",
+        "description": "The same interactive examples used in MotionUX Studio, including sample content, component styles and semantic theme tokens.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react@0.454.0",
+          "@fontsource-variable/inter@5.3.0"
+        ],
+        "files": [
+          {
+            "path": "components/recipes/signals.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/signals.tsx"
+          },
+          {
+            "path": "components/recipes/example.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/example.tsx"
+          },
+          {
+            "path": "components/recipes/specimen.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/specimen.ts"
+          },
+          {
+            "path": "components/recipes/values.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/values.ts"
+          },
+          {
+            "path": "components/recipes/theme.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/theme.css"
+          },
+          {
+            "path": "components/recipes/stories/signal-studies.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/recipes/stories/signal-studies.tsx"
+          },
+          {
+            "path": "components/text/animated-type.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/text/animated-type.tsx"
+          },
+          {
+            "path": "components/text/animated-type.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/text/animated-type.css"
+          },
+          {
+            "path": "components/ai/composer.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/ai/composer.tsx"
+          },
+          {
+            "path": "components/ai/composer.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/ai/composer.css"
+          },
+          {
+            "path": "components/ai/async-feedback.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/ai/async-feedback.tsx"
+          },
+          {
+            "path": "components/ai/async-feedback.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/ai/async-feedback.css"
+          },
+          {
+            "path": "components/media/audio-tools.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/media/audio-tools.tsx"
+          },
+          {
+            "path": "components/media/audio-tools.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/media/audio-tools.css"
+          },
+          {
+            "path": "components/recipes/field-tones.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/field-tones.ts"
+          },
+          {
+            "path": "components/recipes/stories/usage-example.ts",
+            "type": "registry:lib",
+            "target": "@components/sapienx-motion/recipes/stories/usage-example.ts"
+          },
+          {
+            "path": "components/recipes/stories/demo.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/stories/demo.css"
+          },
+          {
+            "path": "components/recipes/stories/signal-studies.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/recipes/stories/signal-studies.css"
+          }
+        ]
+      }
+    }
+  }
 }

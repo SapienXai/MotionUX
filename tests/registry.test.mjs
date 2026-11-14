@@ -56,6 +56,15 @@ test("all 82 live references have a distinct registry and Studio entry with sour
 test("the parity ledger covers every reference and binds accepted evidence to an exact registry pin", async () => {
   const parity = await read("../metadata/parity-manifest.json");
   assert.deepEqual(parity.items.map(item => item.id), reference.items.map(item => item.id));
+  const recipeRows = parity.items.filter(row => row.recipe);
+  assert.equal(recipeRows.length, reference.items.length - parity.featured.length);
+  for (const row of recipeRows) {
+    assert.ok(implementationPaths.has(row.recipe), row.id);
+    const recipe = parity.recipes[row.recipe];
+    assert.equal(recipe.publicContract.name, row.recipe);
+    assert.match(recipe.pin, /^[0-9a-f]{40}$/);
+    assert.ok(recipe.files.every(file => /^[0-9a-f]{64}$/.test(file.sha256)));
+  }
   for (const row of parity.items) {
     assert.ok(implementationPaths.has(row.installItem));
     if (row.pin) {
@@ -69,6 +78,11 @@ test("the parity ledger covers every reference and binds accepted evidence to an
       const cases = report.cases.filter(item => item.item === row.installItem);
       assert.equal(cases.length, 12, row.id);
       assert.ok(cases.every(item => item.differentPixels <= .025), row.id);
+      if (report.timeline) {
+        const timeline = report.timeline.filter(item => item.id === row.id);
+        assert.equal(timeline.length, 6, row.id);
+        assert.ok(timeline.every(item => !item.error && item.studio.length === item.consumer.length), row.id);
+      }
     }
   }
 });

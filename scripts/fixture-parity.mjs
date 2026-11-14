@@ -66,7 +66,7 @@ try {
       if (!installed.equals(expected)) throw new Error(`Installed content differs for ${item}: ${target}`);
     }
   }
-  const host = await createServer({ root, server: { middlewareMode: true, hmr: false, watch: null }, appType: "custom", optimizeDeps: { noDiscovery: true } });
+  const host = await createServer({ root, server: { middlewareMode: true, hmr: false, ws: false, watch: null }, appType: "custom", optimizeDeps: { noDiscovery: true } });
   let base;
   try {
     const { previews, references } = await host.ssrLoadModule("/studio/catalog.ts");
