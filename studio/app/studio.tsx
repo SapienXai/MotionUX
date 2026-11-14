@@ -14,6 +14,7 @@ export default function Studio() {
   const [route, setRoute] = useState(readRoute);
   const [scheme, setScheme] = useState<"light" | "dark">(initialScheme);
   const [lastItem, setLastItem] = useState(route.item);
+  const [entered, setEntered] = useState(false);
   const focus = useRef<"none" | "heading" | "gallery">("none");
   const scroll = useRef(0);
   const selectedCard = useRef("");
@@ -25,6 +26,7 @@ export default function Studio() {
     const href = hrefFor(next);
     if (hrefFor(route) !== href) history[replace ? "replaceState" : "pushState"](null, "", href);
     if (next.item) setLastItem(next.item);
+    if (!replace) setEntered(route.page !== next.page);
     if (!replace) focus.current = next.page === "gallery" && route.page === "playground" ? "gallery" : "heading";
     setRoute(next);
   }
@@ -32,6 +34,7 @@ export default function Studio() {
     function pop() {
       const next = readRoute();
       focus.current = next.page === "gallery" ? "gallery" : "heading";
+      setEntered(false);
       setRoute(next);
       if (next.item) setLastItem(next.item);
     }
@@ -66,7 +69,7 @@ export default function Studio() {
   const clear = () => navigate({ ...route, query: "", category: "", item: "" });
   return <div className="mx-studio" data-scheme={scheme}>
     <Shell route={route} navigate={navigate} updateQuery={setQuery} scheme={scheme} toggleScheme={toggleScheme} reduced={platformReduced} lastItem={lastItem}>
-      <div className={`mx-view mx-view-${route.page}`} key={route.page}>
+      <div className={`mx-view mx-view-${route.page}`} key={route.page} data-entering={entered || undefined}>
         {route.page === "gallery" ? <Gallery items={items} route={route} open={open} reduced={platformReduced} clear={clear} /> :
           route.page === "components" ? <Components items={items} route={route} open={open} clear={clear} /> :
           route.page === "guides" ? <Guides /> : route.page === "examples" ? <Examples route={route} open={open} /> :

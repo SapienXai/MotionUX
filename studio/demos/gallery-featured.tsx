@@ -12,10 +12,10 @@ import santorini from "../assets/santorini-study.webp";
 import aegean from "../assets/aegean-study.webp";
 import "./gallery-featured.css";
 
-function Tabs({ reduced }: { reduced: boolean }) {
+function Tabs({ reduced, disableAnalytics }: { reduced: boolean; disableAnalytics?: boolean }) {
   return <div className="mx-feature-tab"><TabPill label="Project sections" reducedMotion={reduced} options={[
     { value: "overview", label: "Overview", icon: <House size={16} aria-hidden="true" />, panel: <span className="mx-sr">Workspace overview</span> },
-    { value: "analytics", label: "Analytics", icon: <ChartNoAxesColumn size={15} aria-hidden="true" />, panel: <span className="mx-sr">Workspace analytics</span> },
+    { value: "analytics", label: "Analytics", disabled: disableAnalytics, icon: <ChartNoAxesColumn size={15} aria-hidden="true" />, panel: <span className="mx-sr">Workspace analytics</span> },
     { value: "members", label: "Members", icon: <Users size={16} aria-hidden="true" />, panel: <span className="mx-sr">Workspace members</span> },
   ]} /></div>;
 }
@@ -100,7 +100,7 @@ const specimens = {
   "designbookmark-tab-pill": Tabs, "designbookmark-loading-to-success": Loading, "designbookmark-expand-card": Room,
   "kokonut-morph-popover": Dropdown, "designbookmark-profile-card": Profile, "designbookmark-swipe-deck": Deck,
 };
-export default function Featured({ id, reduced }: { id: string; reduced: boolean }) {
+export default function Featured({ id, reduced, disableAnalytics }: { id: string; reduced: boolean; disableAnalytics?: boolean }) {
   const Demo = specimens[id as keyof typeof specimens];
-  return <div className="mx-feature"><Demo reduced={reduced} /></div>;
+  return <div className="mx-feature"><Demo reduced={reduced} disableAnalytics={disableAnalytics} /></div>;
 }

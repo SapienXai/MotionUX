@@ -10,7 +10,7 @@ const listeners = new Map<Element, (visible: boolean) => void>();
 function observe(element: Element, change: (visible: boolean) => void) {
   observer ??= new IntersectionObserver(entries => {
     for (const entry of entries) listeners.get(entry.target)?.(entry.isIntersecting);
-  }, { rootMargin: "24px 0px" });
+  }, { rootMargin: "0px" });
   listeners.set(element, change);
   observer.observe(element);
   return () => { observer?.unobserve(element); listeners.delete(element); };

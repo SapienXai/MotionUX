@@ -30,6 +30,8 @@ test("representative specimens expose labelled native controls in tablet dark mo
   await page.setViewportSize({ width: 768, height: 1024 });
   for (const id of ["designbookmark-tab-pill", "designbookmark-hold-to-publish", "kokonut-signature-pad", "designbookmark-glass-lens", "designbookmark-prompt-box", "kokonut-glass-player"]) {
     await page.goto(`/?item=${id}`);
+    await expect(page.locator(".mx-studio")).toBeVisible();
+
     const theme = page.getByRole("button", { name: "Switch to dark mode" });
     if (await theme.isVisible()) await theme.click();
     await expect(page.locator(".mx-studio")).toHaveAttribute("data-scheme", "dark");

@@ -34,7 +34,7 @@
 .mx-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-block-start: auto; margin-block-end: 17px; min-inline-size: 0; }
 .mx-tags span { background: var(--chip); border-radius: 8px; font-size: 11px; padding: 5px 10px; color: var(--muted); font-weight: 570; overflow-wrap: anywhere; }
 .mx-open-playground { display: flex; inline-size: 100%; min-block-size: 37px; align-items: center; gap: 9px; padding: 4px 9px 4px 11px; border: 1px solid var(--line); border-radius: 9px; background: var(--canvas); text-decoration: none; font-weight: 610; font-size: 12px; letter-spacing: -.02em; }
-.mx-open-playground span { flex: 1; }
+.mx-open-playground span { flex: 1; min-inline-size: 0; overflow-wrap: anywhere; }
 .mx-open-playground svg { flex: 0 0 auto; }
 .mx-open-playground svg:last-child { transition: transform .16s; }
 .mx-open-playground:hover svg:last-child { transform: translateX(2px); }

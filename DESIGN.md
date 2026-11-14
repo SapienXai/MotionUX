@@ -1,9 +1,11 @@
-# MotionUX Studio design
+# MotionUX Studio V5
 
-An editorial field guide to interface motion. The reader browses a numbered index, tests one specimen at a time and opens its implementation notes when ready.
+MotionUX opens directly into a two-column gallery on desktop. The supplied V5 image defines the persistent 270px sidebar, toolbar, heading, card proportions, and the compositions of the first six live previews. See the [reference spec](docs/design-reference/STUDIO-V5-DESIGN-SPEC.md).
 
-- Studio chrome uses parchment, ink and burnt orange. Light mode uses `#f5f1e9` and `#211f1b`; dark uses `#191813` and `#faf1e4`. The accent denotes current selection and primary links.
-- Instrument Serif carries the masthead. Inter handles navigation, labels and interaction controls. Use tabular numerals for specimen numbers and measured values.
-- The specimen stage has a fixed visual frame and a workspace that can be narrowed independently of the page. The catalog stays searchable when a specimen changes. Avoid tearing down focus or shifting the frame on interaction.
-- Stage themes offer neutral, BookPlace and DineWallet examples. These variables belong to Studio and are separate from component defaults. App CSS can style a shared component without global body rules.
-- Native controls carry semantics. Connected shapes use a damped spring. Direct manipulation tracks the pointer and settles on release. State labels are present at rest. Reduced motion removes spatial interpolation.
+- Inter Variable sets the type. Near-white surfaces, dark ink, soft lavender preview stages and coral selection connect Gallery, Playground and the supporting pages. Dark mode uses the same layout and persists locally.
+- The gallery stage and its Playground link are separate interaction surfaces. The catalog is indexed by the existing inventory. Visibility controls how many demos are mounted, and a card keeps focused controls mounted.
+- Tablet keeps horizontal cards. Phones stack stage and description, provide 44px controls, and open navigation in a native modal drawer.
+- Motion explains state. The sidebar uses a shared indicator, the featured dropdown reveals its menu shape, and swipe follows the pointer. Reduced motion preserves all results and actions.
+- Neutral, BookPlace and DineWallet themes are scoped to the Playground stage. The source and install panels distinguish current source from published catalog pins.
+
+[Visual comparison](docs/evidence/studio-v5/reference-comparison.png) · [Verification](docs/STUDIO-V5-VERIFICATION.md)

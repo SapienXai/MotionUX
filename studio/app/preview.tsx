@@ -13,7 +13,7 @@ function requestStory(id: string) {
 }
 let featured: ReturnType<typeof loadFeatured> | undefined;
 function loadFeatured() { return import("../demos/gallery-featured"); }
-function FeaturedPreview({ item, reduced }: { item: Reference; reduced: boolean }) {
+function FeaturedPreview({ item, reduced, disableAnalytics }: { item: Reference; reduced: boolean; disableAnalytics?: boolean }) {
   const [module, setModule] = useState<Awaited<ReturnType<typeof loadFeatured>>>();
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -27,7 +27,7 @@ function FeaturedPreview({ item, reduced }: { item: Reference; reduced: boolean 
     return () => { live = false; };
   }, [attempt]);
   if (error) return <PreviewError retry={() => { setError(false); setAttempt(value => value + 1); }} />;
-  return module ? <module.default id={item.id} reduced={reduced} /> : <PreviewLoading />;
+  return module ? <module.default id={item.id} reduced={reduced} disableAnalytics={disableAnalytics} /> : <PreviewLoading />;
 }
 
 export function useStory(item: Reference) {
@@ -56,8 +56,8 @@ export class PreviewBoundary extends Component<{ children: ReactNode; onRetry?: 
   }
 }
 
-export function GalleryPreview({ item, reduced, lead }: { item: Reference; reduced: boolean; lead: boolean }) {
-  return <PreviewBoundary>{lead ? <FeaturedPreview item={item} reduced={reduced} />
+export function GalleryPreview({ item, reduced, lead, disableAnalytics }: { item: Reference; reduced: boolean; lead: boolean; disableAnalytics?: boolean }) {
+  return <PreviewBoundary>{lead ? <FeaturedPreview item={item} reduced={reduced} disableAnalytics={disableAnalytics} />
     : <StandardPreview item={item} reduced={reduced} />}</PreviewBoundary>;
 }
 function StandardPreview({ item, reduced }: { item: Reference; reduced: boolean }) {

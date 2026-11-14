@@ -6,7 +6,7 @@ A tab indicator that follows the selection. A card deck that moves with your dra
 
 [Run Studio](#run-motionux-studio) · [Install a component](#install-your-first-component) · [Browse all 82 previews](docs/REFERENCE-INVENTORY.md) · [Use with Codex](#use-with-codex)
 
-[![MotionUX Studio showing the interaction catalog and the Tab Pill preview](docs/evidence/studio/studio-catalog-desktop.png)](#run-motionux-studio)
+[![MotionUX Studio V5 with its coral sidebar, live lavender preview stages, and two-column gallery](docs/evidence/studio-v5/desktop-1536x1024-light.png)](#run-motionux-studio)
 
 ## Run MotionUX Studio
 
@@ -19,7 +19,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. Select a demo in the catalog and open **Preview settings** to switch between neutral, BookPlace, and DineWallet themes, try a narrower stage, or compare reduced motion. Use **Install** for the pinned command and **Usage** for the React example. **Source** links the reference and the component test.
+Open the local URL printed by Vite. Try a live card in Gallery, click **Open playground**, and open **Preview settings** to switch between neutral, BookPlace, and DineWallet themes, try a narrower stage, or compare reduced motion. Use **Install** for the pinned command and **Usage** for the React example. **Code** lets you inspect and copy the component’s TypeScript and CSS. **Source** links the reference and the component test.
 
 | Try first | What to do |
 | --- | --- |
@@ -28,9 +28,9 @@ Open the local URL printed by Vite. Select a demo in the catalog and open **Prev
 | **Signature Pad** | Draw a stroke, undo it, or enter a typed signature. |
 | **Glass Player** | Play, pause, and seek a local audio sample. |
 
-[Desktop and mobile gallery](docs/evidence/studio/catalog/index.md)
+[Desktop reference comparison](docs/evidence/studio-v5/reference-comparison.png) · [Mobile Gallery](docs/evidence/studio-v5/mobile-390-light.png)
 
-![Tab Pill in motion as the selection moves from Overview to Notes to Files and back](docs/evidence/studio/tab-pill-demo.gif)
+[Try the featured examples](#run-motionux-studio) · [See the Playground](docs/evidence/studio-v5/playground-desktop.png)
 
 ## Install your first component
 
@@ -98,6 +98,6 @@ For automatic use on SapienX React and Next.js work, merge the [AGENTS.md sectio
 
 ## Verification and license
 
-The catalog checkpoint passed **282 browser checks** across desktop Chromium, touch Chromium, and iPhone-profile WebKit. GitHub CI installed and typechecked **86 registry entries** in a clean React project. Representative items also built with Next.js 16 and Tailwind 3 and 4. [CI run](https://github.com/SapienXai/MotionUX/actions/runs/43598270900) · [Verification report](docs/VERIFICATION.md)
+The catalog checkpoint passed **282 browser checks** across desktop Chromium, touch Chromium, and iPhone-profile WebKit. GitHub CI installed and typechecked **86 registry entries** in a clean React project. Representative items also built with Next.js 16 and Tailwind 3 and 4. [CI run](https://github.com/SapienXai/MotionUX/actions/runs/43598270900) · [Registry verification](docs/VERIFICATION.md) · [V5 Studio verification](docs/STUDIO-V5-VERIFICATION.md)
 
 MotionUX is MIT licensed. Adapted components retain their upstream notices. [License](LICENSE) · [Source review](docs/SOURCE-REVIEW.md) · [Changelog](CHANGELOG.md)

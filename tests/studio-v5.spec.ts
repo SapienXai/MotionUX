@@ -162,3 +162,14 @@ test("gallery tab reverses arrows in RTL", async ({ page }) => {
   await tabs.getByRole("tab", { name: "Overview" }).press("ArrowRight");
   await expect(tabs.getByRole("tab", { name: "Members" })).toBeFocused();
 });
+
+test("Playground changes an actual preview prop and skips the disabled tab", async ({ page }) => {
+  await page.goto("/?item=designbookmark-tab-pill");
+  await page.getByText("Preview settings", { exact: true }).click();
+  await page.getByRole("button", { name: "Gallery example" }).click();
+  await page.getByRole("checkbox", { name: "Disable Analytics" }).check();
+  const tabs = page.getByTestId("specimen-interaction").getByRole("tablist");
+  await expect(tabs.getByRole("tab", { name: "Analytics" })).toBeDisabled();
+  await tabs.getByRole("tab", { name: "Overview" }).press("ArrowRight");
+  await expect(tabs.getByRole("tab", { name: "Members" })).toBeFocused();
+});

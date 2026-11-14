@@ -72,6 +72,7 @@ export default function Playground({ item, route, back, reduced, systemReduced }
   const [compare, setCompare] = useState(false);
   const [reset, setReset] = useState(0);
   const [galleryExample, setGalleryExample] = useState(false);
+  const [disableAnalytics, setDisableAnalytics] = useState(false);
   const hasFeatured = FEATURED.some(([id]) => id === item.id);
   const heading = useRef<HTMLHeadingElement>(null);
   useLayoutEffect(() => {
@@ -82,7 +83,7 @@ export default function Playground({ item, route, back, reduced, systemReduced }
   const stage = (comparison = false) => <MotionConfig reducedMotion={comparison || minimize ? "always" : "never"}>
     <div className="mx-studio-interaction" data-testid="specimen-interaction" data-reduced={comparison || minimize} lang={language}>
       <PreviewBoundary key={reset}>
-        {galleryExample && language === "en" ? <GalleryPreview item={item} reduced={comparison || minimize} lead /> :
+        {galleryExample && language === "en" ? <GalleryPreview item={item} reduced={comparison || minimize} disableAnalytics={disableAnalytics} lead /> :
           error ? <PreviewError retry={retry} /> : story ? <story.component reduced={comparison || minimize} language={language} comparison={comparison} /> : <PreviewLoading />}
       </PreviewBoundary>
     </div>
@@ -103,6 +104,8 @@ export default function Playground({ item, route, back, reduced, systemReduced }
         <label className="mx-check"><input type="checkbox" checked={minimize} disabled={systemReduced} onChange={event => setQuiet(event.target.checked)} /> Reduced motion</label>
         <button type="button" className="mx-button" aria-pressed={compare} onClick={() => setCompare(!compare)}>Compare</button>
         {hasFeatured && <button type="button" className="mx-button" aria-pressed={galleryExample} disabled={language !== "en"} onClick={() => setGalleryExample(!galleryExample)}>Gallery example</button>}
+        {item.id === "designbookmark-tab-pill" && galleryExample && language === "en" &&
+          <label className="mx-check"><input type="checkbox" checked={disableAnalytics} onChange={event => setDisableAnalytics(event.target.checked)} /> Disable Analytics</label>}
       </div></details>
       <div className="mx-play-stage mx-stage" data-theme={theme}><div className="mx-stage-meta"><span>Interactive preview</span><span>{device} · {minimize ? "Reduced motion" : "Normal motion"}</span></div>
         <div className="mx-stage-width" style={{ maxInlineSize: widths[device][1] }}>
