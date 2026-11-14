@@ -2,7 +2,7 @@
 
 The Gallery keeps the selected V5 shell. Its desktop layout still has a 270 px sidebar, two horizontal cards per row, and first row origins near (289, 236) and (908, 236) at 1536 × 1024. Loading now shows Ready with a Simulation label before activation. The six presets ship their composition, styles, and relevant fixture media through the registry.
 
-[Original V5 reference](design-reference/motionux-studio-v5-reference.png) · [V5 implementation](evidence/studio-v5/desktop-1536x1024-light.png) · [V6 desktop](evidence/studio-v6/desktop-1536x1024-light.png) · [Dark desktop](evidence/studio-v6/desktop-dark.png) · [Tablet](evidence/studio-v6/tablet-768.png) · [Mobile light](evidence/studio-v6/mobile-390-light.png) · [Mobile dark](evidence/studio-v6/mobile-390-dark.png) · [Playground editing](evidence/studio-v6/playground-properties.png)
+[Original V5 reference](design-reference/motionux-studio-v5-reference.png) · [V5 implementation](evidence/studio-v5/desktop-1536x1024-light.png) · [V6 desktop](evidence/studio-v6/desktop-1536x1024-light.png) · [Reference comparison](evidence/studio-v6/reference-comparison.jpg) · [Dark desktop](evidence/studio-v6/desktop-dark.png) · [Tablet](evidence/studio-v6/tablet-768.png) · [Mobile light](evidence/studio-v6/mobile-390-light.png) · [Mobile dark](evidence/studio-v6/mobile-390-dark.png) · [Playground editing](evidence/studio-v6/playground-properties.png)
 
 ## Clean React consumer
 
@@ -29,23 +29,27 @@ The Gallery Loading Outcome is driven by explicit caller state. The Studio puts 
 
 No inventory item has been promoted to ready. The other 76 Gallery compositions still need paired consumer screenshot and behavior parity. Their installed usage mount test demonstrates that the example compiles and renders, and legacy end-to-end tests verify the Studio behavior. These are narrower than same-configuration visual fidelity.
 
-Individual normal-motion and interrupted-motion capture, device gesture testing, screen reader review, and a full premium craft decision for each of the 82 remain outstanding. The current control sweep verifies at least one meaningful control per item. Some editing fields and preview state combinations have deeper coverage than others, and most base examples depend on caller-owned content and do not bundle every Studio fixture. Keep the release review open. See the [component acceptance ledger](COMPONENT-ACCEPTANCE.md).
+The 12 priority interactions have 192 normal-motion captures across desktop Chromium and mobile WebKit, in both themes. The contact sheets show starting, first post-trigger, settled and reverse or repeat frames. Morph Island width reversal and Goo Menu interruption were also checked against live computed styles. Individual reference comparisons, additional interrupted gestures, physical device testing, screen reader review, and a full premium craft decision for each of the 82 remain outstanding. The current control sweep verifies at least one meaningful control per item. Some editing fields and preview state combinations have deeper coverage than others, and most base examples depend on caller-owned content and do not bundle every Studio fixture. Keep the release review open. See the [component acceptance ledger](COMPONENT-ACCEPTANCE.md).
+
+[Desktop light motion](evidence/studio-v6/motion-desktop-light.jpg) · [Desktop dark motion](evidence/studio-v6/motion-desktop-dark.jpg) · [Mobile light motion](evidence/studio-v6/motion-mobile-light.jpg) · [Mobile dark motion](evidence/studio-v6/motion-mobile-dark.jpg)
 
 ## Lab performance
 
-Built production assets with Vite and served them from localhost. Chromium used 4× CPU throttling and a 1536 × 1024 viewport without network shaping. The two V6 samples were captured consecutively. Event Timing is the longest observed interaction event during the script. These are local measurements.
+Built production assets with Vite and served them from localhost. Chromium used 4× CPU throttling and a 1536 × 1024 viewport without network shaping. Two measurements of the final code plus two during the candidate review were captured. Event Timing is the longest observed interaction event during the script. These are local measurements.
 
 | Measurement | V5 | V6 samples |
 | --- | ---: | ---: |
-| Initial JS, gzip | 161.1 kB | 169.6 kB |
+| Initial JS, gzip | 161.1 kB | 169.9 kB |
 | Initial live specimens | 6 | 6 |
 | Initial script requests | 21 | 23 |
-| LCP | 264 ms | 264–316 ms |
+| LCP | 264 ms | 244–316 ms |
 | CLS | 0.000076 | 0.000076 |
-| Longest observed interaction event | 64–80 ms | 72–96 ms |
-| Tab / dropdown / swipe wall time | 94–116 / 23–41 / 168–193 ms | 104–131 / 29–38 / 156–180 ms |
+| Longest observed interaction event | 64–80 ms | 64–96 ms |
+| Tab / dropdown / swipe wall time | 94–116 / 23–41 / 168–193 ms | 94–131 / 24–38 / 156–180 ms |
 | Long tasks | 0–1 | 0–1, longest 53 ms |
 
-The 8.5 kB gzip increase includes the installable fixture assets and the typed implementation shared by Gallery and its new editable previews. The upper LCP sample increased by 20% and the second run matched V5, so the measurements show variability and leave physical-device performance review open. The lazy inspector and source viewer remain off the initial route.
+The 8.8 kB gzip increase includes the installable fixture assets and the typed implementation shared by Gallery and its new editable previews. The upper LCP sample increased by 20% and the second run matched V5, so the measurements show variability and leave physical-device performance review open. The lazy inspector and source viewer remain off the initial route.
 
-The isolated React 19 run mounted 82 base examples and six customized preset examples. Next.js 16.3/Tailwind 3.4 and Next.js 16.4/Tailwind 4.3 each built and pre-rendered the six presets plus seven representative base entries. Firefox ran a separate Gallery and tab editor smoke on the production bundle.
+Initial CSS was 12 kB gzip and the Gallery mounted 2, 4 and 6 live previews at 390, 768 and 1536 px. The DevTools post-GC JS heap sample moved from 4.0 MB cold to 6.4 MB after first loading the lazy inspector and eight round trips. This sample includes the loaded inspector and does not establish a memory leak trend.
+
+Both npm and pnpm isolated React 19 runs mounted 82 base examples and six customized preset examples. Next.js 16.3/Tailwind 3.4 and Next.js 16.4/Tailwind 4.3 each built and pre-rendered the six presets plus seven representative base entries. Firefox ran a separate Gallery and tab editor smoke on the production bundle.
