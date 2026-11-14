@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowUpRight, Check, Clipboard, Monitor, RotateCcw, Smartpho
 import { MotionConfig } from "motion/react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import registry from "../../registry.json";
+import versions from "virtual:motionux-registry-versions";
 import { type Reference, type Specimen } from "../catalog";
 import { FEATURED, hrefFor, repoURL, type Route } from "./catalog-view";
 import { GalleryPreview, PreviewBoundary, PreviewError, PreviewLoading, useStory } from "./preview";
@@ -24,7 +25,8 @@ function CopyBlock({ content, label }: { content: string; label: string }) {
   </div>;
 }
 function SourceCode({ item }: { item: Reference }) {
-  const sources = registry.items.find(entry => entry.name === item.registryItem)?.files ?? [];
+  const version = versions[item.id];
+  const sources = registry.items.find(entry => entry.name === (version?.item ?? item.registryItem))?.files ?? [];
   const [path, setPath] = useState(sources[0]?.path ?? "");
   const [code, setCode] = useState<{ path: string; value?: string }>({ path: "" });
   useEffect(() => {
@@ -38,20 +40,21 @@ function SourceCode({ item }: { item: Reference }) {
     <label className="mx-source-select">Registry file <select value={path} onChange={event => setPath(event.target.value)}>
       {sources.map(entry => <option key={entry.path}>{entry.path}</option>)}
     </select></label>
-    <p>Source in this Studio build. The Install tab uses the verified catalog pin.</p>
+    <p>{version?.pin ? `Source matches registry checkpoint ${version.pin.slice(0, 12)}.` : "Working tree source. Installation is unavailable until this build matches a published checkpoint."}</p>
     {code.path !== path ? <PreviewLoading /> : code.value ? <CopyBlock key={path} content={code.value} label="Copy source code" /> : <p role="alert">This file could not be loaded. <a href={`${repoURL}/blob/main/${path}`}>View source on GitHub</a></p>}
   </>;
 }
 function Inspector({ item, panel, story }: { item: Reference; panel: Panel; story?: Specimen }) {
+  const version = versions[item.id];
   if (panel === "Code") return <SourceCode item={item} />;
-  if (panel === "Install") return item.version ? <>
-    <p>Install the pinned Studio preview in a project with a shadcn configuration. Review the generated files before use.</p>
-    <CopyBlock content={`npx shadcn@4.23.0 add 'SapienXai/MotionUX/${item.registryItem}#${item.version}'`} label="Copy install command" />
-  </> : <p>A verified installation pin is unavailable.</p>;
+  if (panel === "Install") return version?.pin ? <>
+    <p>Install this preview checkpoint in a project with a shadcn configuration.</p>
+    <CopyBlock content={`npx shadcn@4.23.0 add 'SapienXai/MotionUX/${version.item}#${version.pin}'`} label="Copy install command" />
+  </> : <p>A matching published installation pin is unavailable for this build.</p>;
   if (panel === "Source") return <>
     <h2>{item.provider}</h2><p>{item.decision}</p><p>{item.sourceLicense}</p>
     <div className="mx-links"><a href={item.referencePreview}>View reference <ArrowUpRight size={15} /></a>
-      {item.version && <a href={`${repoURL}/blob/${item.version}/registry.json`}>Pinned registry <ArrowUpRight size={15} /></a>}
+      {version?.pin && <a href={`${repoURL}/blob/${version.pin}/registry.json`}>Pinned registry <ArrowUpRight size={15} /></a>}
       {item.test && <a href={`${repoURL}/blob/main/${item.test}`}>Tests <ArrowUpRight size={15} /></a>}</div>
   </>;
   if (!story) return <PreviewLoading />;

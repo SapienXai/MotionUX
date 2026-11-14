@@ -1,0 +1,4651 @@
+{
+  "schema": 1,
+  "defaultPin": "3e813117c2f89c758f196695fd79526967c24b62",
+  "featured": [
+    "designbookmark-tab-pill",
+    "designbookmark-loading-to-success",
+    "designbookmark-expand-card",
+    "kokonut-morph-popover",
+    "designbookmark-profile-card",
+    "designbookmark-swipe-deck"
+  ],
+  "presets": {},
+  "items": [
+    {
+      "id": "designbookmark-plan-switch",
+      "baseItem": "plan-switch",
+      "installItem": "plan-switch",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/state-buttons.tsx",
+          "target": "@components/sapienx-motion/state-buttons.tsx",
+          "sha256": "f229ae2e3271b8063ad613ab358b9252dcc71c6cc8f6ef90948672c9cdf096d7"
+        },
+        {
+          "path": "components/feedback/state-buttons.css",
+          "target": "@components/sapienx-motion/state-buttons.css",
+          "sha256": "cbb1ec716000015e863e5fb59a03742e7247d1cfbe387cdfbd9b3a413eb6def8"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "plan-switch",
+        "type": "registry:component",
+        "title": "Plan switch",
+        "description": "Switch between monthly and annual billing; update price and savings without submitting.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/state-buttons.tsx",
+            "target": "@components/sapienx-motion/state-buttons.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/state-buttons.css",
+            "target": "@components/sapienx-motion/state-buttons.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-letter-limit",
+      "baseItem": "letter-limit",
+      "installItem": "letter-limit",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "target": "@components/sapienx-motion/text-fields.tsx",
+          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "target": "@components/sapienx-motion/text-fields.css",
+          "sha256": "7a10d3a8120050efe87ef190b50ccc83d2957a48cdb7b09eba90562420bd9437"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "letter-limit",
+        "type": "registry:component",
+        "title": "Letter limit",
+        "description": "Type or paste into a bounded field; count graphemes and expose the remaining limit.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/text-fields.tsx",
+            "target": "@components/sapienx-motion/text-fields.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/text-fields.css",
+            "target": "@components/sapienx-motion/text-fields.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-pull-cord",
+      "baseItem": "pull-cord",
+      "installItem": "pull-cord",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/pull-cord.tsx",
+          "target": "@components/sapienx-motion/pull-cord.tsx",
+          "sha256": "186dad9627c59a734f83d8ff3a4186954ce0b6b9ddf192db98f4207f25d164f0"
+        },
+        {
+          "path": "components/navigation/pull-cord.css",
+          "target": "@components/sapienx-motion/pull-cord.css",
+          "sha256": "3eb1841e4651d75c56cfe2577bd515b41b6f8943fc7596940cc9069ac6e45d30"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "pull-cord",
+        "type": "registry:component",
+        "title": "Pull cord",
+        "description": "Pull a cord past a detent or activate its button to switch the active state.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/pull-cord.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/pull-cord.tsx"
+          },
+          {
+            "path": "components/navigation/pull-cord.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/pull-cord.css"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/studio.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-morph-tooltip",
+      "baseItem": "morph-tooltip",
+      "installItem": "morph-tooltip",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/morph-tooltip.tsx",
+          "target": "@components/sapienx-motion/morph-tooltip.tsx",
+          "sha256": "c799b106debaf430896ccb2018f779744903dfd36486291d217d943afd5bf47c"
+        },
+        {
+          "path": "components/navigation/morph-tooltip.css",
+          "target": "@components/sapienx-motion/morph-tooltip.css",
+          "sha256": "8f8c262511487c8cd39c77fe2e3cf34cc65f636f244756f00fc1166d660459d3"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "morph-tooltip",
+        "type": "registry:component",
+        "title": "Morph tooltip",
+        "description": "Reveal concise help on hover, focus or tap; close on Escape without stealing focus.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/morph-tooltip.tsx",
+            "target": "@components/sapienx-motion/morph-tooltip.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/navigation/morph-tooltip.css",
+            "target": "@components/sapienx-motion/morph-tooltip.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/navigation.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-spring-dropdown",
+      "baseItem": "spring-dropdown",
+      "installItem": "spring-dropdown",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/action-menu.tsx",
+          "target": "@components/sapienx-motion/action-menu.tsx",
+          "sha256": "19c663e1e77268e8d1a7997702ba97b1dcfdd6758748ac569152b0cd83cee5ed"
+        },
+        {
+          "path": "components/navigation/action-menu.css",
+          "target": "@components/sapienx-motion/action-menu.css",
+          "sha256": "a9e61704a2e6d1a714a3aed1fab6fd58fcd289ff8cc8c06e0e66fe25fad62c02"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "spring-dropdown",
+        "type": "registry:component",
+        "title": "Spring dropdown",
+        "description": "Open from the trigger, choose an option with arrows or touch, and restore trigger focus.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/action-menu.tsx",
+            "target": "@components/sapienx-motion/action-menu.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/navigation/action-menu.css",
+            "target": "@components/sapienx-motion/action-menu.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/navigation.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-file-drop",
+      "baseItem": "file-drop",
+      "installItem": "file-drop",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/special-fields.tsx",
+          "target": "@components/sapienx-motion/special-fields.tsx",
+          "sha256": "6a126b3613fe10b79674483a61a78716424aaca11055c4f7e25452886d19e754"
+        },
+        {
+          "path": "components/inputs/special-fields.css",
+          "target": "@components/sapienx-motion/special-fields.css",
+          "sha256": "e3520f840e7289cd3d2a6047c6d864495faef5c8bcb39f756d79d7279b6a6f2f"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "file-drop",
+        "type": "registry:component",
+        "title": "File drop",
+        "description": "Drop accepted files or select them with a real file input; reject type and size errors.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/special-fields.tsx",
+            "target": "@components/sapienx-motion/special-fields.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/special-fields.css",
+            "target": "@components/sapienx-motion/special-fields.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-command-button",
+      "baseItem": "designbookmark-command-button",
+      "installItem": "designbookmark-command-button",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/state-buttons.tsx",
+          "target": "@components/sapienx-motion/state-buttons.tsx",
+          "sha256": "f229ae2e3271b8063ad613ab358b9252dcc71c6cc8f6ef90948672c9cdf096d7"
+        },
+        {
+          "path": "components/feedback/state-buttons.css",
+          "target": "@components/sapienx-motion/state-buttons.css",
+          "sha256": "cbb1ec716000015e863e5fb59a03742e7247d1cfbe387cdfbd9b3a413eb6def8"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "designbookmark-command-button",
+        "type": "registry:component",
+        "title": "Command button",
+        "description": "Activate one command from a visible keycap button; show its supplied result.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/state-buttons.tsx",
+            "target": "@components/sapienx-motion/state-buttons.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/state-buttons.css",
+            "target": "@components/sapienx-motion/state-buttons.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-morph-island",
+      "baseItem": "morph-island",
+      "installItem": "morph-island",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "target": "@components/sapienx-motion/disclosure-cards.tsx",
+          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "target": "@components/sapienx-motion/disclosure-cards.css",
+          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "morph-island",
+        "type": "registry:component",
+        "title": "Morph island",
+        "description": "Expand compact activity into detailed controls while retaining visual identity.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/disclosure-cards.tsx",
+            "target": "@components/sapienx-motion/disclosure-cards.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/disclosure-cards.css",
+            "target": "@components/sapienx-motion/disclosure-cards.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-goo-menu",
+      "baseItem": "goo-menu",
+      "installItem": "goo-menu",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/goo-studies.tsx",
+          "target": "@components/sapienx-motion/goo-studies.tsx",
+          "sha256": "f266b388411ddd6749ff987e532e6803e79fac3836f568f4e715d71460e1747b"
+        },
+        {
+          "path": "components/gestures/goo-studies.css",
+          "target": "@components/sapienx-motion/goo-studies.css",
+          "sha256": "e7c020bb4d484e93fe91474ddb61be2216fefdec41771e172b198f1f9c42e7f7"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "goo-menu",
+        "type": "registry:component",
+        "title": "Goo menu",
+        "description": "Open linked lobes of actions around a trigger with sequential focus.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/goo-studies.tsx",
+            "target": "@components/sapienx-motion/goo-studies.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/goo-studies.css",
+            "target": "@components/sapienx-motion/goo-studies.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-jelly-slider",
+      "baseItem": "jelly-slider",
+      "installItem": "jelly-slider",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "jelly-slider",
+        "type": "registry:component",
+        "title": "Jelly slider",
+        "description": "Drag a value with elastic thumb feedback and keyboard range access.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/value-controls.tsx",
+            "target": "@components/sapienx-motion/value-controls.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/value-controls.css",
+            "target": "@components/sapienx-motion/value-controls.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-hold-to-publish",
+      "baseItem": "hold-to-publish",
+      "installItem": "hold-to-publish",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/confirmation-controls.tsx",
+          "target": "@components/sapienx-motion/confirmation-controls.tsx",
+          "sha256": "bda4d5d7570bbbe1784f09967a4229cb65c59c06c9f9221236867d808fe63a84"
+        },
+        {
+          "path": "components/feedback/confirmation-controls.css",
+          "target": "@components/sapienx-motion/confirmation-controls.css",
+          "sha256": "4113ada394c013788aceefe0d0c34bca8207fc6c9badbc80cc7f4ad19cd37db0"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "hold-to-publish",
+        "type": "registry:component",
+        "title": "Hold to publish",
+        "description": "Release early to cancel intent; expose standard confirmation and await caller state.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/confirmation-controls.tsx",
+            "target": "@components/sapienx-motion/confirmation-controls.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/confirmation-controls.css",
+            "target": "@components/sapienx-motion/confirmation-controls.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/designbookmark-hold-to-publish-dialog-390.png",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-swipe-deck",
+      "baseItem": "swipe-deck",
+      "installItem": "swipe-deck",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/deck-and-page.tsx",
+          "target": "@components/sapienx-motion/deck-and-page.tsx",
+          "sha256": "0009d05172cf71add791457853120f3dca63c24369b19bf557ebd06ae2307507"
+        },
+        {
+          "path": "components/gestures/deck-and-page.css",
+          "target": "@components/sapienx-motion/deck-and-page.css",
+          "sha256": "901ddf5f3b5943e2a1cdac353177f28fef086fd8ae353b3c1ed48a154e53520e"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "swipe-deck",
+        "type": "registry:component",
+        "title": "Swipe deck",
+        "description": "Drag a top card to dismiss or move it with visible next and previous controls.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/deck-and-page.tsx",
+            "target": "@components/sapienx-motion/deck-and-page.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/deck-and-page.css",
+            "target": "@components/sapienx-motion/deck-and-page.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/designbookmark-swipe-deck-dark-390.png",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "parity-broken"
+    },
+    {
+      "id": "designbookmark-springy-input",
+      "baseItem": "springy-input",
+      "installItem": "springy-input",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "target": "@components/sapienx-motion/text-fields.tsx",
+          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "target": "@components/sapienx-motion/text-fields.css",
+          "sha256": "7a10d3a8120050efe87ef190b50ccc83d2957a48cdb7b09eba90562420bd9437"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "springy-input",
+        "type": "registry:component",
+        "title": "Springy input",
+        "description": "Focus and type; animate boundary feedback while validation stays immediate.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/text-fields.tsx",
+            "target": "@components/sapienx-motion/text-fields.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/text-fields.css",
+            "target": "@components/sapienx-motion/text-fields.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-rubber-dock",
+      "baseItem": "rubber-dock",
+      "installItem": "rubber-dock",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/rubber-dock.tsx",
+          "target": "@components/sapienx-motion/rubber-dock.tsx",
+          "sha256": "55c2300d3a255b94b50378c674cbbe7419a5f05102fd3a191590f5a77de44e93"
+        },
+        {
+          "path": "components/navigation/rubber-dock.css",
+          "target": "@components/sapienx-motion/rubber-dock.css",
+          "sha256": "d62ad295bd28e2a92363336635315f282257ccfa78aae9dd73d96df4985ebc45"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "rubber-dock",
+        "type": "registry:component",
+        "title": "Rubber dock",
+        "description": "Move between real destinations; give the selected dock item elastic continuity.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/rubber-dock.tsx",
+            "target": "@components/sapienx-motion/rubber-dock.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/navigation/rubber-dock.css",
+            "target": "@components/sapienx-motion/rubber-dock.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/navigation.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-parallax-ticket",
+      "baseItem": "parallax-ticket",
+      "installItem": "parallax-ticket",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/interactive-surfaces.tsx",
+          "target": "@components/sapienx-motion/interactive-surfaces.tsx",
+          "sha256": "c6082b3be757356efaf312ca57c678aea323a3a68c689cac21925e8ff319638e"
+        },
+        {
+          "path": "components/gestures/interactive-surfaces.css",
+          "target": "@components/sapienx-motion/interactive-surfaces.css",
+          "sha256": "c2b7b65c372030389b2aad7d79a723b69642381aa1de8aad1de53ea71bf14792"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "parallax-ticket",
+        "type": "registry:component",
+        "title": "Parallax ticket",
+        "description": "Tilt nested ticket layers on pointer movement and return them to rest on exit.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/interactive-surfaces.tsx",
+            "target": "@components/sapienx-motion/interactive-surfaces.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/interactive-surfaces.css",
+            "target": "@components/sapienx-motion/interactive-surfaces.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-glass-lens",
+      "baseItem": "glass-lens",
+      "installItem": "glass-lens",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/interactive-surfaces.tsx",
+          "target": "@components/sapienx-motion/interactive-surfaces.tsx",
+          "sha256": "c6082b3be757356efaf312ca57c678aea323a3a68c689cac21925e8ff319638e"
+        },
+        {
+          "path": "components/gestures/interactive-surfaces.css",
+          "target": "@components/sapienx-motion/interactive-surfaces.css",
+          "sha256": "c2b7b65c372030389b2aad7d79a723b69642381aa1de8aad1de53ea71bf14792"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "glass-lens",
+        "type": "registry:component",
+        "title": "Glass lens",
+        "description": "Move a bounded magnifier over supplied content with pointer and keyboard.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/interactive-surfaces.tsx",
+            "target": "@components/sapienx-motion/interactive-surfaces.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/interactive-surfaces.css",
+            "target": "@components/sapienx-motion/interactive-surfaces.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-pull-to-refresh",
+      "baseItem": "pull-to-refresh",
+      "installItem": "pull-to-refresh",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/interactive-surfaces.tsx",
+          "target": "@components/sapienx-motion/interactive-surfaces.tsx",
+          "sha256": "c6082b3be757356efaf312ca57c678aea323a3a68c689cac21925e8ff319638e"
+        },
+        {
+          "path": "components/gestures/interactive-surfaces.css",
+          "target": "@components/sapienx-motion/interactive-surfaces.css",
+          "sha256": "c2b7b65c372030389b2aad7d79a723b69642381aa1de8aad1de53ea71bf14792"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "pull-to-refresh",
+        "type": "registry:component",
+        "title": "Pull to refresh",
+        "description": "Pull from the top of a scroll area past a threshold or press refresh; show caller state.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/interactive-surfaces.tsx",
+            "target": "@components/sapienx-motion/interactive-surfaces.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/interactive-surfaces.css",
+            "target": "@components/sapienx-motion/interactive-surfaces.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-word-roll",
+      "baseItem": "word-roll",
+      "installItem": "word-roll",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "sha256": "bc1a553e886cd8066a6e6b7bd22c1e8e778f263bf553180cd458a492c1ad2a67"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "word-roll",
+        "type": "registry:component",
+        "title": "Word roll",
+        "description": "Replace a word with a directional roll while retaining a stable text alternative.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/text/animated-type.tsx",
+            "target": "@components/sapienx-motion/animated-type.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/text/animated-type.css",
+            "target": "@components/sapienx-motion/animated-type.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-weight-wave",
+      "baseItem": "weight-wave",
+      "installItem": "weight-wave",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "sha256": "bc1a553e886cd8066a6e6b7bd22c1e8e778f263bf553180cd458a492c1ad2a67"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "weight-wave",
+        "type": "registry:component",
+        "title": "Weight wave",
+        "description": "Increase emphasis along the text once per activation; preserve readable wording at rest.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/text/animated-type.tsx",
+            "target": "@components/sapienx-motion/animated-type.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/text/animated-type.css",
+            "target": "@components/sapienx-motion/animated-type.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-goo-morph",
+      "baseItem": "goo-morph",
+      "installItem": "goo-morph",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/goo-studies.tsx",
+          "target": "@components/sapienx-motion/goo-studies.tsx",
+          "sha256": "f266b388411ddd6749ff987e532e6803e79fac3836f568f4e715d71460e1747b"
+        },
+        {
+          "path": "components/gestures/goo-studies.css",
+          "target": "@components/sapienx-motion/goo-studies.css",
+          "sha256": "e7c020bb4d484e93fe91474ddb61be2216fefdec41771e172b198f1f9c42e7f7"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "goo-morph",
+        "type": "registry:component",
+        "title": "Goo morph",
+        "description": "Switch between distinct connected silhouettes with a static reduced-motion equivalent.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/goo-studies.tsx",
+            "target": "@components/sapienx-motion/goo-studies.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/goo-studies.css",
+            "target": "@components/sapienx-motion/goo-studies.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-scramble-text",
+      "baseItem": "scramble-text",
+      "installItem": "scramble-text",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "sha256": "bc1a553e886cd8066a6e6b7bd22c1e8e778f263bf553180cd458a492c1ad2a67"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "scramble-text",
+        "type": "registry:component",
+        "title": "Scramble text",
+        "description": "Resolve an explicitly replayed reveal to the final label; hide transient glyphs from AT.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/text/animated-type.tsx",
+            "target": "@components/sapienx-motion/animated-type.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/text/animated-type.css",
+            "target": "@components/sapienx-motion/animated-type.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-read-along",
+      "baseItem": "read-along",
+      "installItem": "read-along",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "sha256": "bc1a553e886cd8066a6e6b7bd22c1e8e778f263bf553180cd458a492c1ad2a67"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "read-along",
+        "type": "registry:component",
+        "title": "Read along",
+        "description": "Advance the active phrase and keep all text available to read.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/text/animated-type.tsx",
+            "target": "@components/sapienx-motion/animated-type.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/text/animated-type.css",
+            "target": "@components/sapienx-motion/animated-type.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-roll-links",
+      "baseItem": "roll-links",
+      "installItem": "roll-links",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "sha256": "bc1a553e886cd8066a6e6b7bd22c1e8e778f263bf553180cd458a492c1ad2a67"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "roll-links",
+        "type": "registry:component",
+        "title": "Roll links",
+        "description": "Roll a decorative text layer on hover or focus; retain the real link and accessible name.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/text/animated-type.tsx",
+            "target": "@components/sapienx-motion/animated-type.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/text/animated-type.css",
+            "target": "@components/sapienx-motion/animated-type.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-prompt-box",
+      "baseItem": "prompt-box",
+      "installItem": "prompt-box",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/ai/composer.tsx",
+          "target": "@components/sapienx-motion/composer.tsx",
+          "sha256": "c5ee9e3a9f0730bdffe4b56b7c31a56314529ac9c5a8914a3cb712cc33eaf674"
+        },
+        {
+          "path": "components/ai/composer.css",
+          "target": "@components/sapienx-motion/composer.css",
+          "sha256": "7e40530f20bd0fe9e4149423b94246f460aa6a2a606dfb199705a13da95e67a6"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "prompt-box",
+        "type": "registry:component",
+        "title": "Prompt box",
+        "description": "Submit a composed prompt with explicit button and keyboard shortcut; validation and abort stay controllable.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/ai/composer.tsx",
+            "target": "@components/sapienx-motion/composer.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/ai/composer.css",
+            "target": "@components/sapienx-motion/composer.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-streaming-reply",
+      "baseItem": "streaming-reply",
+      "installItem": "streaming-reply",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/ai/async-feedback.tsx",
+          "target": "@components/sapienx-motion/async-feedback.tsx",
+          "sha256": "a88405ede77f70bb9f53e12a98b15749c69ab9ba8c60dcaebb6bd041f17980c7"
+        },
+        {
+          "path": "components/ai/async-feedback.css",
+          "target": "@components/sapienx-motion/async-feedback.css",
+          "sha256": "0c09fb5ef68f5a8b0fc51c78f6c1a14fe8a61a206ee92bf91f57ff5d635b0a62"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "streaming-reply",
+        "type": "registry:component",
+        "title": "Streaming reply",
+        "description": "Render caller-supplied chunks incrementally; keep a readable result and support stopping.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/ai/async-feedback.tsx",
+            "target": "@components/sapienx-motion/async-feedback.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/ai/async-feedback.css",
+            "target": "@components/sapienx-motion/async-feedback.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/designbookmark-streaming-reply-light-1440.png",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-ghost-suggestion",
+      "baseItem": "ghost-suggestion",
+      "installItem": "ghost-suggestion",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/ai/composer.tsx",
+          "target": "@components/sapienx-motion/composer.tsx",
+          "sha256": "c5ee9e3a9f0730bdffe4b56b7c31a56314529ac9c5a8914a3cb712cc33eaf674"
+        },
+        {
+          "path": "components/ai/composer.css",
+          "target": "@components/sapienx-motion/composer.css",
+          "sha256": "7e40530f20bd0fe9e4149423b94246f460aa6a2a606dfb199705a13da95e67a6"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "ghost-suggestion",
+        "type": "registry:component",
+        "title": "Ghost suggestion",
+        "description": "Show a completion only at the relevant caret and accept it without breaking composition.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/ai/composer.tsx",
+            "target": "@components/sapienx-motion/composer.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/ai/composer.css",
+            "target": "@components/sapienx-motion/composer.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-goo-thinking",
+      "baseItem": "goo-thinking",
+      "installItem": "goo-thinking",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/tool-approval.tsx",
+          "target": "@components/sapienx-motion/tool-approval.tsx",
+          "sha256": "c18d969f61150abc0c6664427895a01c02d5bbb59c69e5f0f3462db76f5f3218"
+        },
+        {
+          "path": "components/feedback/tool-approval.css",
+          "target": "@components/sapienx-motion/tool-approval.css",
+          "sha256": "870d5a8df195377407ba3f7a3a9829a3f11ae801b568f9694c04e4a7c6d22c7a"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "goo-thinking",
+        "type": "registry:component",
+        "title": "Goo thinking",
+        "description": "Represent an externally supplied pending state with a short organic motion cue and static label.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/tool-approval.tsx",
+            "target": "@components/sapienx-motion/tool-approval.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/tool-approval.css",
+            "target": "@components/sapienx-motion/tool-approval.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-expand-card",
+      "baseItem": "expand-card",
+      "installItem": "expand-card",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "target": "@components/sapienx-motion/disclosure-cards.tsx",
+          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "target": "@components/sapienx-motion/disclosure-cards.css",
+          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "expand-card",
+        "type": "registry:component",
+        "title": "Expand card",
+        "description": "Expand a card to reveal details; close and restore focus to its opener.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/disclosure-cards.tsx",
+            "target": "@components/sapienx-motion/disclosure-cards.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/disclosure-cards.css",
+            "target": "@components/sapienx-motion/disclosure-cards.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "parity-broken"
+    },
+    {
+      "id": "designbookmark-fan-cards",
+      "baseItem": "fan-cards",
+      "installItem": "fan-cards",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/deck-and-page.tsx",
+          "target": "@components/sapienx-motion/deck-and-page.tsx",
+          "sha256": "0009d05172cf71add791457853120f3dca63c24369b19bf557ebd06ae2307507"
+        },
+        {
+          "path": "components/gestures/deck-and-page.css",
+          "target": "@components/sapienx-motion/deck-and-page.css",
+          "sha256": "901ddf5f3b5943e2a1cdac353177f28fef086fd8ae353b3c1ed48a154e53520e"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "fan-cards",
+        "type": "registry:component",
+        "title": "Fan cards",
+        "description": "Fan a related set of cards, select one, and collapse the rest.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/deck-and-page.tsx",
+            "target": "@components/sapienx-motion/deck-and-page.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/deck-and-page.css",
+            "target": "@components/sapienx-motion/deck-and-page.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-stat-card",
+      "baseItem": "stat-card",
+      "installItem": "stat-card",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "target": "@components/sapienx-motion/disclosure-cards.tsx",
+          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "target": "@components/sapienx-motion/disclosure-cards.css",
+          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "stat-card",
+        "type": "registry:component",
+        "title": "Stat card",
+        "description": "Change time window and display the updated metric and readable trend.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/disclosure-cards.tsx",
+            "target": "@components/sapienx-motion/disclosure-cards.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/disclosure-cards.css",
+            "target": "@components/sapienx-motion/disclosure-cards.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-profile-card",
+      "baseItem": "profile-card",
+      "installItem": "profile-card",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "target": "@components/sapienx-motion/disclosure-cards.tsx",
+          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "target": "@components/sapienx-motion/disclosure-cards.css",
+          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "profile-card",
+        "type": "registry:component",
+        "title": "Profile card",
+        "description": "Expand a compact profile to reveal actions using shared layout.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/disclosure-cards.tsx",
+            "target": "@components/sapienx-motion/disclosure-cards.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/disclosure-cards.css",
+            "target": "@components/sapienx-motion/disclosure-cards.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "parity-broken"
+    },
+    {
+      "id": "designbookmark-magnetic-button",
+      "baseItem": "magnetic-button",
+      "installItem": "magnetic-button",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "sha256": "98802f8a2946d4e4c3e78f00bf7607fa10a84b2844d675bcd93875783d9384bb"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "magnetic-button",
+        "type": "registry:component",
+        "title": "Magnetic button",
+        "description": "Track fine-pointer proximity with bounded return physics; activate normally with keyboard.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/feedback-actions.tsx",
+            "target": "@components/sapienx-motion/feedback-actions.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/feedback-actions.css",
+            "target": "@components/sapienx-motion/feedback-actions.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-loading-to-success",
+      "baseItem": "loading-to-success",
+      "installItem": "loading-to-success",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "sha256": "98802f8a2946d4e4c3e78f00bf7607fa10a84b2844d675bcd93875783d9384bb"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "loading-to-success",
+        "type": "registry:component",
+        "title": "Loading to success",
+        "description": "Keep pending, confirmed success and failure distinct and driven by caller state.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/feedback-actions.tsx",
+            "target": "@components/sapienx-motion/feedback-actions.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/feedback-actions.css",
+            "target": "@components/sapienx-motion/feedback-actions.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "parity-broken"
+    },
+    {
+      "id": "designbookmark-copy-button",
+      "baseItem": "copy-button",
+      "installItem": "copy-button",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "sha256": "98802f8a2946d4e4c3e78f00bf7607fa10a84b2844d675bcd93875783d9384bb"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "copy-button",
+        "type": "registry:component",
+        "title": "Copy button",
+        "description": "Write the actual configured text to the clipboard and report success or failure.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/feedback-actions.tsx",
+            "target": "@components/sapienx-motion/feedback-actions.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/feedback-actions.css",
+            "target": "@components/sapienx-motion/feedback-actions.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-like-burst",
+      "baseItem": "like-burst",
+      "installItem": "like-burst",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "sha256": "98802f8a2946d4e4c3e78f00bf7607fa10a84b2844d675bcd93875783d9384bb"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "like-burst",
+        "type": "registry:component",
+        "title": "Like burst",
+        "description": "Toggle a pressed state and show a brief burst when the state changes to liked.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/feedback-actions.tsx",
+            "target": "@components/sapienx-motion/feedback-actions.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/feedback-actions.css",
+            "target": "@components/sapienx-motion/feedback-actions.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-tab-pill",
+      "baseItem": "tab-pill",
+      "installItem": "tab-pill",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/motion-selector.tsx",
+          "target": "@components/sapienx-motion/motion-selector.tsx",
+          "sha256": "d74565a64d69d17e6d13dd23c8005e86769b3b061f60dee4ab90668790f6aee6"
+        },
+        {
+          "path": "components/navigation/motion-selector.css",
+          "target": "@components/sapienx-motion/motion-selector.css",
+          "sha256": "013cac85be169ab630df43ce581d4f874b8fa5699e87ab68ca408768429696d7"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "tab-pill",
+        "type": "registry:component",
+        "title": "Tab pill",
+        "description": "Move a shared selected pill across a labelled tab list with a real associated panel.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/motion-selector.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/motion-selector.tsx"
+          },
+          {
+            "path": "components/navigation/motion-selector.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/motion-selector.css"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/designbookmark-tab-pill-light-1440.png",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/studio.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "parity-broken"
+    },
+    {
+      "id": "designbookmark-bottom-bar",
+      "baseItem": "bottom-bar",
+      "installItem": "bottom-bar",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/motion-selector.tsx",
+          "target": "@components/sapienx-motion/motion-selector.tsx",
+          "sha256": "d74565a64d69d17e6d13dd23c8005e86769b3b061f60dee4ab90668790f6aee6"
+        },
+        {
+          "path": "components/navigation/motion-selector.css",
+          "target": "@components/sapienx-motion/motion-selector.css",
+          "sha256": "013cac85be169ab630df43ce581d4f874b8fa5699e87ab68ca408768429696d7"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "bottom-bar",
+        "type": "registry:component",
+        "title": "Bottom bar",
+        "description": "Navigate between href destinations and move an active indicator without sacrificing native links.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/motion-selector.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/motion-selector.tsx"
+          },
+          {
+            "path": "components/navigation/motion-selector.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/motion-selector.css"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/studio.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-dynamic-menu",
+      "baseItem": "dynamic-menu",
+      "installItem": "dynamic-menu",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/action-menu.tsx",
+          "target": "@components/sapienx-motion/action-menu.tsx",
+          "sha256": "19c663e1e77268e8d1a7997702ba97b1dcfdd6758748ac569152b0cd83cee5ed"
+        },
+        {
+          "path": "components/navigation/action-menu.css",
+          "target": "@components/sapienx-motion/action-menu.css",
+          "sha256": "a9e61704a2e6d1a714a3aed1fab6fd58fcd289ff8cc8c06e0e66fe25fad62c02"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "dynamic-menu",
+        "type": "registry:component",
+        "title": "Dynamic menu",
+        "description": "Expand a compact menu into a labelled action list; dismiss and return focus.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/action-menu.tsx",
+            "target": "@components/sapienx-motion/action-menu.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/navigation/action-menu.css",
+            "target": "@components/sapienx-motion/action-menu.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/navigation.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-segmented-control",
+      "baseItem": "segmented-control",
+      "installItem": "segmented-control",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/motion-selector.tsx",
+          "target": "@components/sapienx-motion/motion-selector.tsx",
+          "sha256": "d74565a64d69d17e6d13dd23c8005e86769b3b061f60dee4ab90668790f6aee6"
+        },
+        {
+          "path": "components/navigation/motion-selector.css",
+          "target": "@components/sapienx-motion/motion-selector.css",
+          "sha256": "013cac85be169ab630df43ce581d4f874b8fa5699e87ab68ca408768429696d7"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "segmented-control",
+        "type": "registry:component",
+        "title": "Segmented control",
+        "description": "Select an option in a labelled radio group with a spring indicator.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/motion-selector.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/motion-selector.tsx"
+          },
+          {
+            "path": "components/navigation/motion-selector.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/motion-selector.css"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/studio.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-sidebar-collapse",
+      "baseItem": "sidebar-collapse",
+      "installItem": "sidebar-collapse",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/sidebar-collapse.tsx",
+          "target": "@components/sapienx-motion/sidebar-collapse.tsx",
+          "sha256": "2a13a25153dcd6d86eed2cc117f0ad554eddde03cc9cec231626475b302bf5fd"
+        },
+        {
+          "path": "components/navigation/sidebar-collapse.css",
+          "target": "@components/sapienx-motion/sidebar-collapse.css",
+          "sha256": "290ff4d132679dd2e5ab7a479e265a8238d65e632bcffbe37510d05de104f09e"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "sidebar-collapse",
+        "type": "registry:component",
+        "title": "Sidebar collapse",
+        "description": "Open or close a navigation rail while preserving focus, labels and route state.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/sidebar-collapse.tsx",
+            "target": "@components/sapienx-motion/sidebar-collapse.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/navigation/sidebar-collapse.css",
+            "target": "@components/sapienx-motion/sidebar-collapse.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/navigation.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-command-palette",
+      "baseItem": "command-palette",
+      "installItem": "command-palette",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/command-palette.tsx",
+          "target": "@components/sapienx-motion/command-palette.tsx",
+          "sha256": "5d89dd49d97be9d156e03e34ab24b8e6fe9602e808b98e1525a492f0eb76f3f3"
+        },
+        {
+          "path": "components/navigation/command-palette.css",
+          "target": "@components/sapienx-motion/command-palette.css",
+          "sha256": "1b7ab8c4f9391f20421a681583de35f96407be78fcacdc2be4519c577f20939f"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "command-palette",
+        "type": "registry:component",
+        "title": "Command palette",
+        "description": "Open a search dialog, filter commands, choose one or dismiss with Escape.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/command-palette.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/command-palette.tsx"
+          },
+          {
+            "path": "components/navigation/command-palette.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/command-palette.css"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/studio.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-step-progress",
+      "baseItem": "step-progress",
+      "installItem": "step-progress",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "baa132e0c01e7ed96a0c02415a5c271911d01482",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/progress-sequence.tsx",
+          "target": "@components/sapienx-motion/progress-sequence.tsx",
+          "sha256": "8b19aa98ebfb760ae485ee523dd0f413e8494922f6947e9648d23b3411ba805c"
+        },
+        {
+          "path": "components/feedback/progress-sequence.css",
+          "target": "@components/sapienx-motion/progress-sequence.css",
+          "sha256": "db8d18a606d2f3bede8d7b888e4479adb8b688943906389d3e00e6e13da8161b"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "step-progress",
+        "type": "registry:component",
+        "title": "Step progress",
+        "description": "Show a controlled sequence with current, complete and upcoming stages.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/progress-sequence.tsx",
+            "target": "@components/sapienx-motion/progress-sequence.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/progress-sequence.css",
+            "target": "@components/sapienx-motion/progress-sequence.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-otp-code",
+      "baseItem": "otp-code",
+      "installItem": "otp-code",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "target": "@components/sapienx-motion/text-fields.tsx",
+          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "target": "@components/sapienx-motion/text-fields.css",
+          "sha256": "7a10d3a8120050efe87ef190b50ccc83d2957a48cdb7b09eba90562420bd9437"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "otp-code",
+        "type": "registry:component",
+        "title": "OTP code",
+        "description": "Enter or paste a code into a semantically labelled field with one-time-code autocomplete.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/text-fields.tsx",
+            "target": "@components/sapienx-motion/text-fields.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/text-fields.css",
+            "target": "@components/sapienx-motion/text-fields.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-toggle-switch",
+      "baseItem": "toggle-switch",
+      "installItem": "toggle-switch",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/state-buttons.tsx",
+          "target": "@components/sapienx-motion/state-buttons.tsx",
+          "sha256": "f229ae2e3271b8063ad613ab358b9252dcc71c6cc8f6ef90948672c9cdf096d7"
+        },
+        {
+          "path": "components/feedback/state-buttons.css",
+          "target": "@components/sapienx-motion/state-buttons.css",
+          "sha256": "cbb1ec716000015e863e5fb59a03742e7247d1cfbe387cdfbd9b3a413eb6def8"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "toggle-switch",
+        "type": "registry:component",
+        "title": "Toggle switch",
+        "description": "Switch a binary setting through a native checkbox and moving thumb.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/state-buttons.tsx",
+            "target": "@components/sapienx-motion/state-buttons.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/state-buttons.css",
+            "target": "@components/sapienx-motion/state-buttons.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-star-rating",
+      "baseItem": "star-rating",
+      "installItem": "star-rating",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "star-rating",
+        "type": "registry:component",
+        "title": "Star rating",
+        "description": "Choose a rating by click, tap or arrows with an accessible numeric value.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/value-controls.tsx",
+            "target": "@components/sapienx-motion/value-controls.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/value-controls.css",
+            "target": "@components/sapienx-motion/value-controls.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-tag-input",
+      "baseItem": "tag-input",
+      "installItem": "tag-input",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "target": "@components/sapienx-motion/text-fields.tsx",
+          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "target": "@components/sapienx-motion/text-fields.css",
+          "sha256": "7a10d3a8120050efe87ef190b50ccc83d2957a48cdb7b09eba90562420bd9437"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "tag-input",
+        "type": "registry:component",
+        "title": "Tag input",
+        "description": "Commit a tag with Enter, remove individual tags and preserve IME composition.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/text-fields.tsx",
+            "target": "@components/sapienx-motion/text-fields.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/text-fields.css",
+            "target": "@components/sapienx-motion/text-fields.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-number-stepper",
+      "baseItem": "number-stepper",
+      "installItem": "number-stepper",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "number-stepper",
+        "type": "registry:component",
+        "title": "Number stepper",
+        "description": "Increment, decrement or enter a value inside bounds.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/value-controls.tsx",
+            "target": "@components/sapienx-motion/value-controls.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/value-controls.css",
+            "target": "@components/sapienx-motion/value-controls.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-range-slider",
+      "baseItem": "range-slider",
+      "installItem": "range-slider",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "range-slider",
+        "type": "registry:component",
+        "title": "Range slider",
+        "description": "Edit both endpoints without crossings and expose distinct input names.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/value-controls.tsx",
+            "target": "@components/sapienx-motion/value-controls.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/value-controls.css",
+            "target": "@components/sapienx-motion/value-controls.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-password-strength",
+      "baseItem": "password-strength",
+      "installItem": "password-strength",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "target": "@components/sapienx-motion/text-fields.tsx",
+          "sha256": "6a044eeec3511d0906b9821d9690b805cb09783c8149f4cdbbfcbc28a38495a2"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "target": "@components/sapienx-motion/text-fields.css",
+          "sha256": "7a10d3a8120050efe87ef190b50ccc83d2957a48cdb7b09eba90562420bd9437"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "password-strength",
+        "type": "registry:component",
+        "title": "Password strength",
+        "description": "Evaluate visible password requirements as the user types without exposing the value.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/text-fields.tsx",
+            "target": "@components/sapienx-motion/text-fields.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/text-fields.css",
+            "target": "@components/sapienx-motion/text-fields.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-checkbox-list",
+      "baseItem": "checkbox-list",
+      "installItem": "checkbox-list",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "checkbox-list",
+        "type": "registry:component",
+        "title": "Checkbox list",
+        "description": "Check options by mouse, tap or Space; expose selected count.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/value-controls.tsx",
+            "target": "@components/sapienx-motion/value-controls.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/value-controls.css",
+            "target": "@components/sapienx-motion/value-controls.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-detent-dial",
+      "baseItem": "detent-dial",
+      "installItem": "detent-dial",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "detent-dial",
+        "type": "registry:component",
+        "title": "Detent dial",
+        "description": "Rotate or use arrows to select a discrete value with a spring pointer.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/value-controls.tsx",
+            "target": "@components/sapienx-motion/value-controls.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/value-controls.css",
+            "target": "@components/sapienx-motion/value-controls.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "smoothui-siri-orb",
+      "baseItem": "siri-orb",
+      "installItem": "siri-orb",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/media/audio-tools.tsx",
+          "target": "@components/sapienx-motion/audio-tools.tsx",
+          "sha256": "151ca2d3824f6b8a3bf8c145adfdf9ccc15cf396ba4a44a914aa2cde4ab60b39"
+        },
+        {
+          "path": "components/media/audio-tools.css",
+          "target": "@components/sapienx-motion/audio-tools.css",
+          "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "siri-orb",
+        "type": "registry:component",
+        "title": "Siri orb",
+        "description": "Show bounded state-driven organic feedback with a static preference variant.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/media/audio-tools.tsx",
+            "target": "@components/sapienx-motion/audio-tools.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/media/audio-tools.css",
+            "target": "@components/sapienx-motion/audio-tools.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-media.jpg",
+      "provenance": {
+        "url": "https://smoothui.dev/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-agent-steps",
+      "baseItem": "agent-steps",
+      "installItem": "agent-steps",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "baa132e0c01e7ed96a0c02415a5c271911d01482",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/progress-sequence.tsx",
+          "target": "@components/sapienx-motion/progress-sequence.tsx",
+          "sha256": "8b19aa98ebfb760ae485ee523dd0f413e8494922f6947e9648d23b3411ba805c"
+        },
+        {
+          "path": "components/feedback/progress-sequence.css",
+          "target": "@components/sapienx-motion/progress-sequence.css",
+          "sha256": "db8d18a606d2f3bede8d7b888e4479adb8b688943906389d3e00e6e13da8161b"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "agent-steps",
+        "type": "registry:component",
+        "title": "Agent steps",
+        "description": "Expand a set of real supplied steps and expose their progress states.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/progress-sequence.tsx",
+            "target": "@components/sapienx-motion/progress-sequence.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/progress-sequence.css",
+            "target": "@components/sapienx-motion/progress-sequence.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-hold-button",
+      "baseItem": "hold-button",
+      "installItem": "hold-button",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/confirmation-controls.tsx",
+          "target": "@components/sapienx-motion/confirmation-controls.tsx",
+          "sha256": "bda4d5d7570bbbe1784f09967a4229cb65c59c06c9f9221236867d808fe63a84"
+        },
+        {
+          "path": "components/feedback/confirmation-controls.css",
+          "target": "@components/sapienx-motion/confirmation-controls.css",
+          "sha256": "4113ada394c013788aceefe0d0c34bca8207fc6c9badbc80cc7f4ad19cd37db0"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "hold-button",
+        "type": "registry:component",
+        "title": "Hold button",
+        "description": "Hold a control to request activation, cancel early, or use its keyboard alternative.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/confirmation-controls.tsx",
+            "target": "@components/sapienx-motion/confirmation-controls.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/confirmation-controls.css",
+            "target": "@components/sapienx-motion/confirmation-controls.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "smoothui-exposure-slider",
+      "baseItem": "exposure-slider",
+      "installItem": "exposure-slider",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "target": "@components/sapienx-motion/value-controls.tsx",
+          "sha256": "475779b227d323d6d7296b6395c8e5b177a76ae36c5d9123ca4e8c6a26f244a7"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "target": "@components/sapienx-motion/value-controls.css",
+          "sha256": "a93f2234b6361b22a5930544c1ed0be60c5ae83969cb0251f6a8657aaaaeeef8"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "exposure-slider",
+        "type": "registry:component",
+        "title": "Exposure slider",
+        "description": "Adjust a numeric exposure setting and preview the resulting image brightness.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/value-controls.tsx",
+            "target": "@components/sapienx-motion/value-controls.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/value-controls.css",
+            "target": "@components/sapienx-motion/value-controls.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/smoothui-exposure-slider-dark-1440.png",
+      "provenance": {
+        "url": "https://smoothui.dev/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-boarding-pass",
+      "baseItem": "boarding-pass",
+      "installItem": "boarding-pass",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "target": "@components/sapienx-motion/disclosure-cards.tsx",
+          "sha256": "c267b2511c86e7e594f606c4e9a929c6ddfa53312f97e27cf155dd739a57ba9f"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "target": "@components/sapienx-motion/disclosure-cards.css",
+          "sha256": "0af5b830bdf52334f4ee829c307bf4ea0fdbff63c38d18fa39cb8dd7c9b55b66"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "boarding-pass",
+        "type": "registry:component",
+        "title": "Boarding pass",
+        "description": "Expand itinerary details from a compact pass with a ticket-specific reveal.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/disclosure-cards.tsx",
+            "target": "@components/sapienx-motion/disclosure-cards.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/disclosure-cards.css",
+            "target": "@components/sapienx-motion/disclosure-cards.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-marker-text",
+      "baseItem": "marker-text",
+      "installItem": "marker-text",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "sha256": "bc1a553e886cd8066a6e6b7bd22c1e8e778f263bf553180cd458a492c1ad2a67"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "marker-text",
+        "type": "registry:component",
+        "title": "Marker text",
+        "description": "Sweep a highlight over the specified phrase and preserve contrast at rest.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/text/animated-type.tsx",
+            "target": "@components/sapienx-motion/animated-type.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/text/animated-type.css",
+            "target": "@components/sapienx-motion/animated-type.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-smooth-tab",
+      "baseItem": "smooth-tab",
+      "installItem": "smooth-tab",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/swipe-tabs.tsx",
+          "target": "@components/sapienx-motion/swipe-tabs.tsx",
+          "sha256": "8e73ecc2c178c7b8a4ad955c623f91e847a7841ea6959a918850a83ed5c97670"
+        },
+        {
+          "path": "components/navigation/swipe-tabs.css",
+          "target": "@components/sapienx-motion/swipe-tabs.css",
+          "sha256": "3aff4680758c8b601cf7db4017b9deab1ac2fc25f7164bdee218ad7d9f8601a6"
+        },
+        {
+          "path": "components/navigation/motion-selector.tsx",
+          "target": "@components/sapienx-motion/motion-selector.tsx",
+          "sha256": "d74565a64d69d17e6d13dd23c8005e86769b3b061f60dee4ab90668790f6aee6"
+        },
+        {
+          "path": "components/navigation/motion-selector.css",
+          "target": "@components/sapienx-motion/motion-selector.css",
+          "sha256": "013cac85be169ab630df43ce581d4f874b8fa5699e87ab68ca408768429696d7"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "smooth-tab",
+        "type": "registry:component",
+        "title": "Smooth tab",
+        "description": "Swipe between real tab panels while retaining arrow-key and direct selection.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/swipe-tabs.tsx",
+            "target": "@components/sapienx-motion/swipe-tabs.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/navigation/swipe-tabs.css",
+            "target": "@components/sapienx-motion/swipe-tabs.css",
+            "type": "registry:file"
+          },
+          {
+            "path": "components/navigation/motion-selector.tsx",
+            "target": "@components/sapienx-motion/motion-selector.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/navigation/motion-selector.css",
+            "target": "@components/sapienx-motion/motion-selector.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/navigation.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "smoothui-unlock-face-id",
+      "baseItem": "unlock-face-id",
+      "installItem": "unlock-face-id",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/goo-studies.tsx",
+          "target": "@components/sapienx-motion/goo-studies.tsx",
+          "sha256": "f266b388411ddd6749ff987e532e6803e79fac3836f568f4e715d71460e1747b"
+        },
+        {
+          "path": "components/gestures/goo-studies.css",
+          "target": "@components/sapienx-motion/goo-studies.css",
+          "sha256": "e7c020bb4d484e93fe91474ddb61be2216fefdec41771e172b198f1f9c42e7f7"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "unlock-face-id",
+        "type": "registry:component",
+        "title": "Unlock Face ID",
+        "description": "Show an explicitly simulated feedback animation with no biometric operation.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/goo-studies.tsx",
+            "target": "@components/sapienx-motion/goo-studies.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/goo-studies.css",
+            "target": "@components/sapienx-motion/goo-studies.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://smoothui.dev/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-slide-to-confirm",
+      "baseItem": "slide-to-confirm",
+      "installItem": "slide-to-confirm",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/confirmation-controls.tsx",
+          "target": "@components/sapienx-motion/confirmation-controls.tsx",
+          "sha256": "bda4d5d7570bbbe1784f09967a4229cb65c59c06c9f9221236867d808fe63a84"
+        },
+        {
+          "path": "components/feedback/confirmation-controls.css",
+          "target": "@components/sapienx-motion/confirmation-controls.css",
+          "sha256": "4113ada394c013788aceefe0d0c34bca8207fc6c9badbc80cc7f4ad19cd37db0"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "slide-to-confirm",
+        "type": "registry:component",
+        "title": "Slide to confirm",
+        "description": "Drag to the end of a track or request confirmation with the keyboard.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/confirmation-controls.tsx",
+            "target": "@components/sapienx-motion/confirmation-controls.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/confirmation-controls.css",
+            "target": "@components/sapienx-motion/confirmation-controls.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-notification-stack",
+      "baseItem": "notification-stack",
+      "installItem": "notification-stack",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/notification-stack.tsx",
+          "target": "@components/sapienx-motion/notification-stack.tsx",
+          "sha256": "10f4acac2654bdc28ae2eb23ed7cb8ed691ce617d5d3d97c4e0c62aadbdc6137"
+        },
+        {
+          "path": "components/feedback/notification-stack.css",
+          "target": "@components/sapienx-motion/notification-stack.css",
+          "sha256": "7a70414e98b21e2967d036d45bd904f06430f7742b61e9ba93f01a3e3c107770"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "notification-stack",
+        "type": "registry:component",
+        "title": "Notification stack",
+        "description": "Expand queued notices, dismiss one and keep remaining notices available.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/notification-stack.tsx",
+            "target": "@components/sapienx-motion/notification-stack.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/notification-stack.css",
+            "target": "@components/sapienx-motion/notification-stack.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-wheel-picker",
+      "baseItem": "wheel-picker",
+      "installItem": "wheel-picker",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/special-fields.tsx",
+          "target": "@components/sapienx-motion/special-fields.tsx",
+          "sha256": "6a126b3613fe10b79674483a61a78716424aaca11055c4f7e25452886d19e754"
+        },
+        {
+          "path": "components/inputs/special-fields.css",
+          "target": "@components/sapienx-motion/special-fields.css",
+          "sha256": "e3520f840e7289cd3d2a6047c6d864495faef5c8bcb39f756d79d7279b6a6f2f"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "wheel-picker",
+        "type": "registry:component",
+        "title": "Wheel picker",
+        "description": "Scroll to a snap detent or use keyboard controls to select a value.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/special-fields.tsx",
+            "target": "@components/sapienx-motion/special-fields.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/special-fields.css",
+            "target": "@components/sapienx-motion/special-fields.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-dynamic-text",
+      "baseItem": "dynamic-text",
+      "installItem": "dynamic-text",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "sha256": "bc1a553e886cd8066a6e6b7bd22c1e8e778f263bf553180cd458a492c1ad2a67"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "dynamic-text",
+        "type": "registry:component",
+        "title": "Dynamic text",
+        "description": "Swap phrases with segmented motion and a stable accessible label.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/text/animated-type.tsx",
+            "target": "@components/sapienx-motion/animated-type.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/text/animated-type.css",
+            "target": "@components/sapienx-motion/animated-type.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-voice-input",
+      "baseItem": "voice-input",
+      "installItem": "voice-input",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/ai/async-feedback.tsx",
+          "target": "@components/sapienx-motion/async-feedback.tsx",
+          "sha256": "a88405ede77f70bb9f53e12a98b15749c69ab9ba8c60dcaebb6bd041f17980c7"
+        },
+        {
+          "path": "components/ai/async-feedback.css",
+          "target": "@components/sapienx-motion/async-feedback.css",
+          "sha256": "0c09fb5ef68f5a8b0fc51c78f6c1a14fe8a61a206ee92bf91f57ff5d635b0a62"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "voice-input",
+        "type": "registry:component",
+        "title": "Voice input",
+        "description": "Display caller-driven recording state and provide a visible stop control.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/ai/async-feedback.tsx",
+            "target": "@components/sapienx-motion/async-feedback.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/ai/async-feedback.css",
+            "target": "@components/sapienx-motion/async-feedback.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-tool-approval",
+      "baseItem": "tool-approval",
+      "installItem": "tool-approval",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/tool-approval.tsx",
+          "target": "@components/sapienx-motion/tool-approval.tsx",
+          "sha256": "c18d969f61150abc0c6664427895a01c02d5bbb59c69e5f0f3462db76f5f3218"
+        },
+        {
+          "path": "components/feedback/tool-approval.css",
+          "target": "@components/sapienx-motion/tool-approval.css",
+          "sha256": "870d5a8df195377407ba3f7a3a9829a3f11ae801b568f9694c04e4a7c6d22c7a"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "tool-approval",
+        "type": "registry:component",
+        "title": "Tool approval",
+        "description": "Review tool name and input; explicitly approve or deny and keep caller result authoritative.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/tool-approval.tsx",
+            "target": "@components/sapienx-motion/tool-approval.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/tool-approval.css",
+            "target": "@components/sapienx-motion/tool-approval.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-toolbar",
+      "baseItem": "toolbar",
+      "installItem": "toolbar",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/motion-toolbar.tsx",
+          "target": "@components/sapienx-motion/motion-toolbar.tsx",
+          "sha256": "4d3dbcd90ca5febfbe4e628a6ad7d75691b058de893381cd923c821e32e0d159"
+        },
+        {
+          "path": "components/navigation/motion-toolbar.css",
+          "target": "@components/sapienx-motion/motion-toolbar.css",
+          "sha256": "a143d6ab660f4406aa96c24ea7d67e2cf2e3c3a2222fe2d265b10981cc39880a"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "toolbar",
+        "type": "registry:component",
+        "title": "Toolbar",
+        "description": "Group actions with roving focus, named shortcuts and actual callbacks.",
+        "dependencies": [],
+        "files": [
+          {
+            "path": "components/navigation/motion-toolbar.tsx",
+            "target": "@components/sapienx-motion/motion-toolbar.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/navigation/motion-toolbar.css",
+            "target": "@components/sapienx-motion/motion-toolbar.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/navigation.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "smoothui-scrubber",
+      "baseItem": "scrubber",
+      "installItem": "scrubber",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/media/audio-tools.tsx",
+          "target": "@components/sapienx-motion/audio-tools.tsx",
+          "sha256": "151ca2d3824f6b8a3bf8c145adfdf9ccc15cf396ba4a44a914aa2cde4ab60b39"
+        },
+        {
+          "path": "components/media/audio-tools.css",
+          "target": "@components/sapienx-motion/audio-tools.css",
+          "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "scrubber",
+        "type": "registry:component",
+        "title": "Scrubber",
+        "description": "Seek a controlled timeline through pointer or keyboard with an accessible elapsed value.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/media/audio-tools.tsx",
+            "target": "@components/sapienx-motion/audio-tools.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/media/audio-tools.css",
+            "target": "@components/sapienx-motion/audio-tools.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-media.jpg",
+      "provenance": {
+        "url": "https://smoothui.dev/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-cart-button",
+      "baseItem": "cart-button",
+      "installItem": "cart-button",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "sha256": "98802f8a2946d4e4c3e78f00bf7607fa10a84b2844d675bcd93875783d9384bb"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "cart-button",
+        "type": "registry:component",
+        "title": "Cart button",
+        "description": "Change item count on a real callback and animate the count.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/feedback-actions.tsx",
+            "target": "@components/sapienx-motion/feedback-actions.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/feedback-actions.css",
+            "target": "@components/sapienx-motion/feedback-actions.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-page-flip",
+      "baseItem": "page-flip",
+      "installItem": "page-flip",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/gestures/deck-and-page.tsx",
+          "target": "@components/sapienx-motion/deck-and-page.tsx",
+          "sha256": "0009d05172cf71add791457853120f3dca63c24369b19bf557ebd06ae2307507"
+        },
+        {
+          "path": "components/gestures/deck-and-page.css",
+          "target": "@components/sapienx-motion/deck-and-page.css",
+          "sha256": "901ddf5f3b5943e2a1cdac353177f28fef086fd8ae353b3c1ed48a154e53520e"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "page-flip",
+        "type": "registry:component",
+        "title": "Page flip",
+        "description": "Turn between supplied pages with keyboard controls and a bounded planar hinge.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/gestures/deck-and-page.tsx",
+            "target": "@components/sapienx-motion/deck-and-page.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/gestures/deck-and-page.css",
+            "target": "@components/sapienx-motion/deck-and-page.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-gestures.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/cards.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-signature-pad",
+      "baseItem": "signature-pad",
+      "installItem": "signature-pad",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/special-fields.tsx",
+          "target": "@components/sapienx-motion/special-fields.tsx",
+          "sha256": "6a126b3613fe10b79674483a61a78716424aaca11055c4f7e25452886d19e754"
+        },
+        {
+          "path": "components/inputs/special-fields.css",
+          "target": "@components/sapienx-motion/special-fields.css",
+          "sha256": "e3520f840e7289cd3d2a6047c6d864495faef5c8bcb39f756d79d7279b6a6f2f"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "signature-pad",
+        "type": "registry:component",
+        "title": "Signature pad",
+        "description": "Draw into a local pad, clear or undo and expose a non-drawing alternative.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/special-fields.tsx",
+            "target": "@components/sapienx-motion/special-fields.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/special-fields.css",
+            "target": "@components/sapienx-motion/special-fields.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/kokonut-signature-pad-dark-390.png",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-undo-button",
+      "baseItem": "undo-button",
+      "installItem": "undo-button",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "sha256": "98802f8a2946d4e4c3e78f00bf7607fa10a84b2844d675bcd93875783d9384bb"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "undo-button",
+        "type": "registry:component",
+        "title": "Undo button",
+        "description": "Request reversal of a supplied action with an explicit callback and status.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/feedback-actions.tsx",
+            "target": "@components/sapienx-motion/feedback-actions.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/feedback-actions.css",
+            "target": "@components/sapienx-motion/feedback-actions.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-card-field",
+      "baseItem": "card-field",
+      "installItem": "card-field",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/inputs/special-fields.tsx",
+          "target": "@components/sapienx-motion/special-fields.tsx",
+          "sha256": "6a126b3613fe10b79674483a61a78716424aaca11055c4f7e25452886d19e754"
+        },
+        {
+          "path": "components/inputs/special-fields.css",
+          "target": "@components/sapienx-motion/special-fields.css",
+          "sha256": "e3520f840e7289cd3d2a6047c6d864495faef5c8bcb39f756d79d7279b6a6f2f"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "card-field",
+        "type": "registry:component",
+        "title": "Card field",
+        "description": "Edit labelled payment fields and show formatting without claiming payment processing.",
+        "dependencies": [
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/inputs/special-fields.tsx",
+            "target": "@components/sapienx-motion/special-fields.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/inputs/special-fields.css",
+            "target": "@components/sapienx-motion/special-fields.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-inputs.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/inputs.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-stack-panel",
+      "baseItem": "stack-panel",
+      "installItem": "stack-panel",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/stack-panel.tsx",
+          "target": "@components/sapienx-motion/stack-panel.tsx",
+          "sha256": "c0eab1b33c8c3a1eb6dbe4c09c3011c89b0ee6c4b41d72d35e3f953630ab06e4"
+        },
+        {
+          "path": "components/navigation/stack-panel.css",
+          "target": "@components/sapienx-motion/stack-panel.css",
+          "sha256": "cc5b64eba2a223eab0a622bea1f8709fdf2bbe063f84578f7ac25c206621956e"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "stack-panel",
+        "type": "registry:component",
+        "title": "Stack panel",
+        "description": "Select and reveal a stack of panels while keeping offscreen actions out of the focus order.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/stack-panel.tsx",
+            "target": "@components/sapienx-motion/stack-panel.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/navigation/stack-panel.css",
+            "target": "@components/sapienx-motion/stack-panel.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/navigation.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-typewriter",
+      "baseItem": "typewriter",
+      "installItem": "typewriter",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/text/animated-type.tsx",
+          "target": "@components/sapienx-motion/animated-type.tsx",
+          "sha256": "bc1a553e886cd8066a6e6b7bd22c1e8e778f263bf553180cd458a492c1ad2a67"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "target": "@components/sapienx-motion/animated-type.css",
+          "sha256": "e6a73a8dbe999c6ecd5636d1081597847a16d2e66aaf1a4f94aba4499e1a45cd"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "typewriter",
+        "type": "registry:component",
+        "title": "Typewriter",
+        "description": "Reveal a phrase once after explicit activation; expose the full phrase to assistive tech.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/text/animated-type.tsx",
+            "target": "@components/sapienx-motion/animated-type.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/text/animated-type.css",
+            "target": "@components/sapienx-motion/animated-type.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-text.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-thinking-text",
+      "baseItem": "thinking-text",
+      "installItem": "thinking-text",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/ai/async-feedback.tsx",
+          "target": "@components/sapienx-motion/async-feedback.tsx",
+          "sha256": "a88405ede77f70bb9f53e12a98b15749c69ab9ba8c60dcaebb6bd041f17980c7"
+        },
+        {
+          "path": "components/ai/async-feedback.css",
+          "target": "@components/sapienx-motion/async-feedback.css",
+          "sha256": "0c09fb5ef68f5a8b0fc51c78f6c1a14fe8a61a206ee92bf91f57ff5d635b0a62"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "thinking-text",
+        "type": "registry:component",
+        "title": "Thinking text",
+        "description": "Show caller-driven phases without generating spurious announcements.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/ai/async-feedback.tsx",
+            "target": "@components/sapienx-motion/async-feedback.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/ai/async-feedback.css",
+            "target": "@components/sapienx-motion/async-feedback.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-glass-player",
+      "baseItem": "glass-player",
+      "installItem": "glass-player",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/media/audio-tools.tsx",
+          "target": "@components/sapienx-motion/audio-tools.tsx",
+          "sha256": "151ca2d3824f6b8a3bf8c145adfdf9ccc15cf396ba4a44a914aa2cde4ab60b39"
+        },
+        {
+          "path": "components/media/audio-tools.css",
+          "target": "@components/sapienx-motion/audio-tools.css",
+          "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "glass-player",
+        "type": "registry:component",
+        "title": "Glass player",
+        "description": "Play, pause and seek consumer-provided media with labelled controls.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/media/audio-tools.tsx",
+            "target": "@components/sapienx-motion/audio-tools.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/media/audio-tools.css",
+            "target": "@components/sapienx-motion/audio-tools.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/kokonut-glass-player-light-390.png",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-bell-button",
+      "baseItem": "bell-button",
+      "installItem": "bell-button",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "target": "@components/sapienx-motion/feedback-actions.tsx",
+          "sha256": "98802f8a2946d4e4c3e78f00bf7607fa10a84b2844d675bcd93875783d9384bb"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "target": "@components/sapienx-motion/feedback-actions.css",
+          "sha256": "e27133486da73a2e822380bd7d0e59ecb807547d03cb1cf1b8b3d6e1a314c9fa"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "bell-button",
+        "type": "registry:component",
+        "title": "Bell button",
+        "description": "Toggle a notification preference with a compact physical ring cue.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/feedback-actions.tsx",
+            "target": "@components/sapienx-motion/feedback-actions.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/feedback-actions.css",
+            "target": "@components/sapienx-motion/feedback-actions.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-morph-popover",
+      "baseItem": "morph-popover",
+      "installItem": "morph-popover",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/action-menu.tsx",
+          "target": "@components/sapienx-motion/action-menu.tsx",
+          "sha256": "19c663e1e77268e8d1a7997702ba97b1dcfdd6758748ac569152b0cd83cee5ed"
+        },
+        {
+          "path": "components/navigation/action-menu.css",
+          "target": "@components/sapienx-motion/action-menu.css",
+          "sha256": "a9e61704a2e6d1a714a3aed1fab6fd58fcd289ff8cc8c06e0e66fe25fad62c02"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "morph-popover",
+        "type": "registry:component",
+        "title": "Morph popover",
+        "description": "Expand from an actionable trigger, restore focus and support outside dismissal.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/action-menu.tsx",
+            "target": "@components/sapienx-motion/action-menu.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/navigation/action-menu.css",
+            "target": "@components/sapienx-motion/action-menu.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/navigation.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "parity-broken"
+    },
+    {
+      "id": "smoothui-task-list",
+      "baseItem": "task-list",
+      "installItem": "task-list",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/ai/async-feedback.tsx",
+          "target": "@components/sapienx-motion/async-feedback.tsx",
+          "sha256": "a88405ede77f70bb9f53e12a98b15749c69ab9ba8c60dcaebb6bd041f17980c7"
+        },
+        {
+          "path": "components/ai/async-feedback.css",
+          "target": "@components/sapienx-motion/async-feedback.css",
+          "sha256": "0c09fb5ef68f5a8b0fc51c78f6c1a14fe8a61a206ee92bf91f57ff5d635b0a62"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "task-list",
+        "type": "registry:component",
+        "title": "Task list",
+        "description": "Toggle task completion and reflect state with readable text.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/ai/async-feedback.tsx",
+            "target": "@components/sapienx-motion/async-feedback.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/ai/async-feedback.css",
+            "target": "@components/sapienx-motion/async-feedback.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-ai.jpg",
+      "provenance": {
+        "url": "https://smoothui.dev/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "smoothui-music-toggle",
+      "baseItem": "music-toggle",
+      "installItem": "music-toggle",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/media/audio-tools.tsx",
+          "target": "@components/sapienx-motion/audio-tools.tsx",
+          "sha256": "151ca2d3824f6b8a3bf8c145adfdf9ccc15cf396ba4a44a914aa2cde4ab60b39"
+        },
+        {
+          "path": "components/media/audio-tools.css",
+          "target": "@components/sapienx-motion/audio-tools.css",
+          "sha256": "fdcdc0bef0873a636cd0ea646e558e5be53bfbc607898ef55f097a11b10ce0a9"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "music-toggle",
+        "type": "registry:component",
+        "title": "Music toggle",
+        "description": "Play or pause supplied audio while reflecting the media element event state.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/media/audio-tools.tsx",
+            "target": "@components/sapienx-motion/audio-tools.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/media/audio-tools.css",
+            "target": "@components/sapienx-motion/audio-tools.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-media.jpg",
+      "provenance": {
+        "url": "https://smoothui.dev/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/media.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "kokonut-command-button",
+      "baseItem": "kokonut-command-button",
+      "installItem": "kokonut-command-button",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/feedback/state-buttons.tsx",
+          "target": "@components/sapienx-motion/state-buttons.tsx",
+          "sha256": "f229ae2e3271b8063ad613ab358b9252dcc71c6cc8f6ef90948672c9cdf096d7"
+        },
+        {
+          "path": "components/feedback/state-buttons.css",
+          "target": "@components/sapienx-motion/state-buttons.css",
+          "sha256": "cbb1ec716000015e863e5fb59a03742e7247d1cfbe387cdfbd9b3a413eb6def8"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "kokonut-command-button",
+        "type": "registry:component",
+        "title": "Command button",
+        "description": "Run a visible command from a keyboard chord without intercepting editable fields.",
+        "dependencies": [
+          "motion@14.14.0"
+        ],
+        "files": [
+          {
+            "path": "components/feedback/state-buttons.tsx",
+            "target": "@components/sapienx-motion/state-buttons.tsx",
+            "type": "registry:component"
+          },
+          {
+            "path": "components/feedback/state-buttons.css",
+            "target": "@components/sapienx-motion/state-buttons.css",
+            "type": "registry:file"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-feedback.jpg",
+      "provenance": {
+        "url": "https://kokonutui.com/",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/feedback.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    },
+    {
+      "id": "designbookmark-pagination-dots",
+      "baseItem": "pagination-dots",
+      "installItem": "pagination-dots",
+      "preview": "studio/catalog.ts",
+      "legacyPin": "03173314f6e8ce3c69ff448930d3278a9af90822",
+      "pin": "3e813117c2f89c758f196695fd79526967c24b62",
+      "files": [
+        {
+          "path": "components/navigation/pagination-dots.tsx",
+          "target": "@components/sapienx-motion/pagination-dots.tsx",
+          "sha256": "f92bf6a47bac92c056b8028e503308034d770a2a41e69f4c0a09fcea039fcd78"
+        },
+        {
+          "path": "components/navigation/pagination-dots.css",
+          "target": "@components/sapienx-motion/pagination-dots.css",
+          "sha256": "323e65ae40fe0da4655196ebd1859ce240babe5ca94fc54a50595a3ba0ea3c59"
+        }
+      ],
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "publicContract": {
+        "name": "pagination-dots",
+        "type": "registry:component",
+        "title": "Pagination dots",
+        "description": "Select a page of content with arrow and direct controls; move a visible current marker.",
+        "dependencies": [
+          "motion@14.14.0",
+          "lucide-react"
+        ],
+        "files": [
+          {
+            "path": "components/navigation/pagination-dots.tsx",
+            "type": "registry:component",
+            "target": "@components/sapienx-motion/pagination-dots.tsx"
+          },
+          {
+            "path": "components/navigation/pagination-dots.css",
+            "type": "registry:file",
+            "target": "@components/sapienx-motion/pagination-dots.css"
+          }
+        ]
+      },
+      "visualSpec": "docs/evidence/studio/catalog/desktop-navigation.jpg",
+      "provenance": {
+        "url": "https://designbookmark.com/motion",
+        "license": "Unverified for this individual work",
+        "decision": "Independent implementation. No upstream source or assets."
+      },
+      "browserTest": "tests/studio.spec.ts",
+      "consumerFixture": null,
+      "evidence": null,
+      "parity": "not-tested"
+    }
+  ]
+}
