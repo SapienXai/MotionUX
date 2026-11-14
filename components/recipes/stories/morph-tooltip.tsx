@@ -1,7 +1,7 @@
-import { stringValue } from "../playground/controls";
+import { stringValue } from "../values";
 import { CircleHelp } from "lucide-react";
-import { MorphTooltip } from "../../components/navigation/morph-tooltip";
-import type { Specimen } from "../catalog";
+import { MorphTooltip } from "../../navigation/morph-tooltip";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const story: Specimen = {

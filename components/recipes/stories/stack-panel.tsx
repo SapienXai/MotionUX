@@ -1,6 +1,6 @@
-import { stringValue } from "../playground/controls";
-import { StackPanel } from "../../components/navigation/stack-panel";
-import type { Specimen } from "../catalog";
+import { stringValue } from "../values";
+import { StackPanel } from "../../navigation/stack-panel";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const story: Specimen = {

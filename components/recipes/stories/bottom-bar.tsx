@@ -1,8 +1,8 @@
-import { stringValue } from "../playground/controls";
+import { stringValue } from "../values";
 import { useId, useState } from "react";
 import { CalendarDays, Compass, Inbox, UserRound } from "lucide-react";
-import { BottomBar } from "../../components/navigation/motion-selector";
-import type { Specimen } from "../catalog";
+import { BottomBar } from "../../navigation/motion-selector";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const destinations = [

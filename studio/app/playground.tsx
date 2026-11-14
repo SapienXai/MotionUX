@@ -11,6 +11,7 @@ import { booleanValue, cleanConfig, readConfig, type Value } from "../playground
 import { featuredDefinition, featuredUsage } from "../playground/featured";
 import { baseFields } from "../playground/base";
 import { configuredUsage } from "../playground/base-usage";
+import { recipeFamily, recipeUsage } from "../playground/recipe-usage";
 import { Fields } from "../playground/fields";
 
 const panels = ["Preview", "Props", "Variants", "States", "Code", "Install", "Usage", "Accessibility", "Source"] as const;
@@ -31,6 +32,10 @@ function CopyBlock({ content, label }: { content: string; label: string }) {
 }
 function registryVersion(item: Reference, preset: boolean) {
   const versionsForItem = versions[item.id];
+  if (preset && !FEATURED.some(([id]) => id === item.id)) {
+    const family = recipeFamily(item.id);
+    return versionsForItem?.recipe ?? { item: "gallery-recipes-" + family, pin: null };
+  }
   return (preset ? versionsForItem?.selected : versionsForItem?.base) ?? versionsForItem?.selected;
 }
 function SourceCode({ item, preset }: { item: Reference; preset: boolean }) {
@@ -57,8 +62,9 @@ function Inspector({ item, panel, story, preset, usage }: { item: Reference; pan
   const version = registryVersion(item, preset);
   if (panel === "Code") return <SourceCode key={version?.item} item={item} preset={preset} />;
   if (panel === "Install") return version?.pin ? <>
-    <p>Install this preview checkpoint in a project with a shadcn configuration. {preset ? "This package includes the Gallery composition and its styles." : "This command installs the base component and its public styles. The Studio supplies the demo content."}</p>
+    <p>Install this preview checkpoint in a project with a shadcn configuration. {preset ? "This package includes the Gallery composition, its styles and any sample assets. Use the React example from Usage." : "This command installs the base component and its public styles. The Studio supplies the demo content."}</p>
     <CopyBlock content={`npx shadcn@4.23.0 add 'SapienXai/MotionUX/${version.item}#${version.pin}'`} label="Copy install command" />
+    <p>To inspect the files and dependencies first, append <code>--dry-run</code> to the install command.</p>
   </> : <p>A matching published installation pin is unavailable for this build.</p>;
   if (panel === "Source") return <>
     <h2>{item.provider}</h2><p>{item.decision}</p><p>{item.sourceLicense}</p>
@@ -75,7 +81,7 @@ function Inspector({ item, panel, story, preset, usage }: { item: Reference; pan
   return <><p>{story.api}</p><p>See Usage for supported options on this registry item. The preview settings let you test the same interaction across themes and viewport sizes.</p></>;
 }
 
-export default function Playground({ item, route, back, reduced, systemReduced }: { item: Reference; route: Route; back: () => void; reduced: boolean; systemReduced: boolean }) {
+export default function Playground({ item, route, back, reduced, systemReduced, scheme }: { item: Reference; route: Route; back: () => void; reduced: boolean; systemReduced: boolean; scheme: "light" | "dark" }) {
   const { story, error, retry } = useStory(item);
   const [panel, setPanel] = useState<Panel>("Preview");
   const [theme, setTheme] = useState("neutral");
@@ -110,8 +116,8 @@ export default function Playground({ item, route, back, reduced, systemReduced }
   const stage = (comparison = false) => <MotionConfig reducedMotion={comparison || minimize ? "always" : "never"}>
     <div className="mx-studio-interaction" data-testid="specimen-interaction" data-reduced={comparison || minimize} lang={language}>
       <PreviewBoundary key={reset}>
-        {galleryExample ? <GalleryPreview item={item} reduced={comparison || minimize} config={config} update={comparison ? undefined : update} language={language} lead /> :
-          error ? <PreviewError retry={retry} /> : story ? <story.component reduced={comparison || minimize} language={language} comparison={comparison} config={config} update={comparison ? undefined : update} /> : <PreviewLoading />}
+        {galleryExample && hasFeatured ? <GalleryPreview item={item} reduced={comparison || minimize} config={config} update={comparison ? undefined : update} language={language} lead /> :
+          error ? <PreviewError retry={retry} /> : story ? <story.component reduced={comparison || minimize} language={language} comparison={galleryExample || comparison} config={config} update={comparison ? undefined : update} /> : <PreviewLoading />}
       </PreviewBoundary>
     </div>
   </MotionConfig>;
@@ -130,7 +136,7 @@ export default function Playground({ item, route, back, reduced, systemReduced }
         <label>Language <select aria-label="Language" value={language} onChange={event => setLanguage(event.target.value as "en" | "tr")}><option value="en">English</option><option value="tr">Türkçe</option></select></label>
         <label className="mx-check"><input type="checkbox" checked={minimize} disabled={systemReduced} onChange={event => setQuiet(event.target.checked)} /> Reduced motion</label>
         <button type="button" className="mx-button" aria-pressed={compare} onClick={() => setCompare(!compare)}>Compare</button>
-        {hasFeatured && <button type="button" className="mx-button" aria-pressed={galleryExample} onClick={() => { setGalleryExample(!galleryExample); setDraft({}); }}>Gallery example</button>}
+        <button type="button" className="mx-button" aria-pressed={galleryExample} onClick={() => { setGalleryExample(!galleryExample); setDraft({}); }}>Gallery example</button>
         {item.id === "designbookmark-tab-pill" && galleryExample &&
           <label className="mx-check"><input type="checkbox" checked={booleanValue(config, "disableAnalytics") ?? false} onChange={event => update("disableAnalytics", event.target.checked)} /> Disable Analytics</label>}
       </div></details>
@@ -149,6 +155,6 @@ export default function Playground({ item, route, back, reduced, systemReduced }
         <p role="status" className="mx-share-status">{copiedLink}</p>
       </section>}
       <div className="mx-play-notes">{story && <p>{story.states}</p>}</div>
-    </> : <section className="mx-inspector" aria-label={panel}>{error && ["Props", "Variants", "States", "Usage", "Accessibility"].includes(panel) ? <PreviewError retry={retry} /> : <Inspector item={item} panel={panel} story={story} preset={galleryExample} usage={galleryExample ? featuredUsage(item.id, config, language === "tr", minimize) : configuredUsage(item.id, config)} />}</section>}
+    </> : <section className="mx-inspector" aria-label={panel}>{error && ["Props", "Variants", "States", "Usage", "Accessibility"].includes(panel) ? <PreviewError retry={retry} /> : <Inspector item={item} panel={panel} story={story} preset={galleryExample} usage={galleryExample ? hasFeatured ? featuredUsage(item.id, config, language === "tr", minimize) : recipeUsage(item.id, config, { language, reducedMotion: minimize, theme, scheme }) : configuredUsage(item.id, config)} />}</section>}
   </article>;
 }

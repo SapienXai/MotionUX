@@ -28,7 +28,8 @@ test("every installable item is built from real files with catalog provenance", 
 });
 
 const reference = await read("../metadata/reference-inventory.json");
-const studioCatalog = await readFile(new URL("../studio/catalog.ts", import.meta.url), "utf8");
+const recipeSources = await Promise.all(registry.items.filter(item => item.name.startsWith("gallery-recipes-"))
+  .map(item => readFile(new URL("../" + item.files[0].path, import.meta.url), "utf8")));
 const implementationPaths = new Set(registry.items.map(({ name }) => name));
 
 test("all 82 live references have a distinct registry and Studio entry with source and test evidence", async () => {
@@ -40,7 +41,7 @@ test("all 82 live references have a distinct registry and Studio entry with sour
     [provider, reference.items.filter((item) => item.provider === provider).length])), { DesignBookmark: 51, "Kokonut UI": 25, SmoothUI: 6 });
   for (const item of reference.items) {
     assert.ok(implementationPaths.has(item.registryItem), item.id);
-    assert.ok(studioCatalog.includes(`"${item.id}": () => import(`), item.id);
+    assert.equal(recipeSources.filter(source => source.includes(`"${item.id}": () => import(`)).length, 1, item.id);
     assert.equal(item.preview, `/?item=${item.id}`);
     assert.match(item.version, /^[0-9a-f]{40}$/);
     assert.ok(item.sourceUrl && item.sourceLicense && item.decision, item.id);

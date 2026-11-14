@@ -1,7 +1,7 @@
-import { numberValue, stringValue } from "../playground/controls";
+import { numberValue, stringValue } from "../values";
 import { useState } from "react";
-import { PaginationDots } from "../../components/navigation/pagination-dots";
-import type { Specimen } from "../catalog";
+import { PaginationDots } from "../../navigation/pagination-dots";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const pages = {

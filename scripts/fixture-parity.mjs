@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { build, createServer, preview } from "vite";
 import { chromium, webkit, expect } from "@playwright/test";
+import { featuredTimeline, prepareTimelinePage } from "./featured-timeline.mjs";
 
 const root = process.cwd();
 const local = process.argv.includes("--local");
@@ -13,6 +14,9 @@ const registry = JSON.parse(await readFile("registry.json", "utf8"));
 const pin = process.env.MOTIONUX_REGISTRY_REF ?? execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
 if (!/^[a-f0-9]{40}$/.test(pin)) throw new Error("Use a full published SHA.");
 const presets = Object.entries(manifest.presets);
+const recipes = registry.items.filter(entry => entry.name.startsWith("gallery-recipes-"));
+const quick = process.argv.includes("--quick");
+const recipesOnly = process.argv.includes("--recipes-only");
 const temp = await mkdtemp(join(tmpdir(), "motionux-v6-react-"));
 const src = join(temp, "src");
 const manager = process.env.MOTIONUX_PACKAGE_MANAGER === "pnpm" ? "pnpm" : "npm";
@@ -41,12 +45,12 @@ try {
     aliases: { components: "@/components", ui: "@/components/ui", utils: "@/lib/utils", lib: "@/lib", hooks: "@/hooks" } });
   await write("src/index.css", "");
   const address = item => local ? resolve(`public/r/${item}.json`) : `SapienXai/MotionUX/${item}#${pin}`;
-  const addresses = presets.map(([, spec]) => address(spec.item));
+  const addresses = [...presets.map(([, spec]) => spec.item), ...recipes.map(entry => entry.name)].map(address);
   run(cli, ["view", ...addresses], true);
   run(manager, manager === "pnpm" ? ["install", "--ignore-scripts"] : ["install", "--no-audit", "--no-fund"]);
   run(cli, ["add", "--dry-run", ...addresses], true);
   run(cli, ["add", "--yes", ...addresses]);
-  for (const [, { item }] of presets) {
+  for (const item of [...presets.map(([, spec]) => spec.item), ...recipes.map(entry => entry.name)]) {
     for (const file of registry.items.find(entry => entry.name === item).files) {
       const target = file.target.replace(/^@components\//, "src/components/");
       const installed = await readFile(join(temp, target));
@@ -54,10 +58,12 @@ try {
       if (!installed.equals(expected)) throw new Error(`Installed content differs for ${item}: ${target}`);
     }
   }
-  const host = await createServer({ root, server: { middlewareMode: true, hmr: false, watch: null }, appType: "custom" });
+  const host = await createServer({ root, server: { middlewareMode: true, hmr: false, watch: null }, appType: "custom", optimizeDeps: { noDiscovery: true } });
   let base;
   try {
     const { previews, references } = await host.ssrLoadModule("/studio/catalog.ts");
+    const { recipeUsage } = await host.ssrLoadModule("/studio/playground/recipe-usage.ts");
+    const { baseFields } = await host.ssrLoadModule("/studio/playground/base.ts");
     const { featuredUsage, featuredDefinition } = await host.ssrLoadModule("/studio/playground/featured.ts");
     base = await Promise.all(references.map(async row => {
       const { default: specimen } = await previews[row.id]();
@@ -85,6 +91,13 @@ try {
           field.key, field.type === "text" ? "Verified example" : field.default,
         ]));
         await write(`src/${row.id}-configured.tsx`, featuredUsage(row.id, custom, false, true));
+        await write(`src/${row.id}-gallery.tsx`, featuredUsage(row.id, {}, false, false));
+      } else {
+        const options = { language: "en", reducedMotion: false, theme: "neutral", scheme: "light" };
+        await write(`src/${row.id}-gallery.tsx`, recipeUsage(row.id, {}, options));
+        const field = baseFields(row.registryItem).find(field => field.type === "text" && field.section === "Props");
+        const custom = field ? { [field.key]: "Verified consumer " + row.order } : { index: 1 };
+        await write(`src/${row.id}-configured.tsx`, recipeUsage(row.id, custom, options));
       }
       await write(`src/${row.id}.tsx`, source + `\nexport default function Fixture() { return <${entry} ${params} />; }\n`);
       return row;
@@ -95,31 +108,19 @@ try {
     await mkdir(join(temp, "public"), { recursive: true });
     await writeFile(join(temp, "public", asset), await readFile(join(root, "studio/assets", asset)));
   }
-  const imports = presets.map(([, { item, export: name }]) =>
-    `import { ${name} } from "./components/sapienx-motion/presets/showcase/${item.replace(/-gallery$/, "")}";`).join("\n");
-  const rendered = presets.map(([id, { export: name }]) => `case "${id}": return ${name === "LoadingOutcome" ?
-    "<LoadingOutcome onStart={() => setState('success')} state={state} simulation reducedMotion />" : `<${name} reducedMotion />`};`).join("\n");
   await write("vite.config.mjs", `export default { resolve: { alias: { "@": new URL("./src", import.meta.url).pathname } } };`);
   await write("src/main.tsx", `import "@fontsource-variable/inter";
-import { lazy, Suspense, useState, type ComponentType } from "react";
+import { lazy, Suspense, type ComponentType } from "react";
 import { createRoot } from "react-dom/client";
-${imports}
 const examples = {
-${[...base.map(row => row.id), ...presets.map(([id]) => id + "-configured")].map(id => `"${id}": () => import("./${id}")`).join(",\n")}
+${base.flatMap(({ id }) => [id, id + "-configured", id + "-gallery"]).map(id => `"${id}": () => import("./${id}")`).join(",\n")}
 } as unknown as Record<string, () => Promise<{ default: ComponentType; Example?: ComponentType }>>;
 const id = new URLSearchParams(location.search).get("item");
 const mode = new URLSearchParams(location.search).get("mode");
-const base = mode === "base" ? lazy(examples[id!]) : null;
-const Configured = mode === "configured" ? lazy(() => examples[id + "-configured"]().then(value => ({ default: value.Example! }))) : null;
-const Base = base;
+const suffix = mode === "base" ? "" : mode === "configured" ? "-configured" : "-gallery";
+const Example = lazy(() => examples[id + suffix]().then(value => ({ default: value.Example && mode !== "base" ? value.Example : value.default })));
 function Fixture() {
- const [state, setState] = useState<"idle" | "success">("idle");
- if (Base) return <section data-consumer-example><Base /></section>;
- if (Configured) return <section data-consumer-example><Configured /></section>;
- switch (id) {
-  ${rendered}
-  default: return null;
- }
+  return <section data-consumer-example><Example /></section>;
 }
 createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><Fixture /></Suspense>);
 `);
@@ -128,55 +129,50 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
   // The fixture consumes the installed files from a separate production build.
   await build({ root: temp, logLevel: "error" });
   consumer = await preview({ root: temp, configFile: false, logLevel: "error", preview: { host: "127.0.0.1", port: 0 } });
-  studio = await createServer({ root, logLevel: "error", server: { host: "127.0.0.1", port: 0 } });
-  await studio.listen();
+  const studioBuild = { outDir: join(temp, "studio-dist") };
+  await build({ root, logLevel: "error", build: studioBuild });
+  studio = await preview({ root, logLevel: "error", build: studioBuild, preview: { host: "127.0.0.1", port: 0 } });
   [chrome, safari] = await Promise.all([chromium.launch(), webkit.launch()]);
   const smoke = await chrome.newPage({ viewport: { width: 1024, height: 900 }, reducedMotion: "reduce" });
   const errors = [];
   smoke.on("pageerror", error => errors.push(error.message));
-  for (const { id } of base) {
+  for (const { id } of quick ? [] : base) {
     await smoke.goto(`${origin(consumer)}/?mode=base&item=${id}`);
     await expect(smoke.locator("[data-consumer-example]")).toBeVisible();
     if (!await smoke.locator("[data-consumer-example]").evaluate(node => node.childElementCount)) throw new Error(`Empty consumer example ${id}`);
   }
-  for (const [id] of presets) {
+  for (const row of quick ? [] : base) {
+    const { id, order } = row;
+    const featured = Object.hasOwn(manifest.presets, id);
     await smoke.goto(`${origin(consumer)}/?mode=configured&item=${id}`);
-    await expect(smoke.locator("[data-consumer-example] .mx-feature")).toBeVisible();
+    const sample = smoke.locator(featured ? ".mx-feature" : ".mx-demo");
+    await expect(sample).toBeVisible();
+    if (!featured && id !== "designbookmark-read-along") {
+      await expect.poll(() => sample.innerHTML(), { message: id }).toContain("Verified consumer " + order);
+    } else if (id === "designbookmark-read-along") {
+      await expect(sample.locator("[aria-current]")).toHaveText("Follow the river below the hill.");
+    }
   }
   await smoke.close();
   if (errors.length) throw new Error(errors.join("\n"));
   const summaries = [];
-  for (const width of [390, 768, 1536]) {
-    for (const scheme of ["light", "dark"]) {
+  for (const width of recipesOnly ? [] : quick ? [1536] : [390, 768, 1536]) {
+    for (const scheme of quick ? ["light"] : ["light", "dark"]) {
       const browser = width === 390 ? safari : chrome;
       const options = { viewport: { width, height: 1024 }, reducedMotion: "reduce", colorScheme: scheme };
       const gallery = await browser.newPage(options);
       const isolated = await browser.newPage(options);
       await gallery.addInitScript(value => localStorage.setItem("mx-studio-scheme", value), scheme);
-      for (const [id, { item }] of presets) {
+      for (const [id, { item }] of quick ? [] : presets) {
         await gallery.goto(origin(studio));
         const outer = gallery.locator(`[data-card="${id}"]`);
         await outer.scrollIntoViewIfNeeded();
         const sample = outer.locator(".mx-feature");
         await expect(sample).toBeVisible();
-        const context = await sample.evaluate(node => {
-          const colors = ["--mx-font", "--mx-preset-background", "--mx-surface", "--mx-ink", "--mx-muted", "--mx-line", "--mx-accent", "--mx-on-accent", "--mx-selected"];
-          const style = getComputedStyle(node);
-          const { width, x, y } = node.getBoundingClientRect();
-          return { width, x: x % 1, y: y % 1, tokens: colors.map(name => [name, style.getPropertyValue(name)]) };
-        });
         await isolated.goto(`${origin(consumer)}/?item=${id}`);
         const installed = isolated.locator(".mx-feature");
         await expect(installed).toBeVisible();
-        await isolated.locator("#root").evaluate((node, { width, x, y, tokens, scheme }) => {
-          node.style.width = width + "px";
-          node.style.marginLeft = (8 + x) + "px";
-          node.style.marginTop = (8 + y) + "px";
-          document.body.style.margin = "0";
-          document.documentElement.style.colorScheme = scheme;
-          for (const [name, value] of tokens) node.style.setProperty(name, value);
-          document.body.style.background = node.style.getPropertyValue("--mx-preset-background");
-        }, { ...context, scheme });
+        await matchContext(sample, isolated, scheme);
         if (interactions[id].role === "menuitem") {
           await expect(sample.getByRole("menu")).toBeVisible();
           await expect(installed.getByRole("menu")).toBeVisible();
@@ -201,13 +197,87 @@ createRoot(document.getElementById("root")!).render(<Suspense fallback={null}><F
       await Promise.all([gallery.close(), isolated.close()]);
     }
   }
-  await writeFile(join(evidence, "report.json"), JSON.stringify({ pin: local ? null : pin, manager, baseUsageMounts: base.length, customizedPresetMounts: presets.length, cases: summaries }, null, 2) + "\n");
-  console.log(`${base.length} base and ${presets.length} customized preset examples mounted in an isolated production build.\n${summaries.length} installed React preset comparisons passed (ARIA and ≤2.5% visually differing pixels).`);
+  const timeline = [];
+  const recipeCases = [];
+  for (const width of recipesOnly ? [] : quick ? [1536] : [390, 768, 1536]) {
+    for (const scheme of quick ? ["light"] : ["light", "dark"]) {
+      const browser = width === 390 ? safari : chrome;
+      for (const [id] of presets) {
+        const options = { viewport: { width, height: 1024 }, reducedMotion: "no-preference", colorScheme: scheme };
+        const gallery = await browser.newPage(options);
+        const isolated = await browser.newPage(options);
+        try {
+          await gallery.addInitScript(value => localStorage.setItem("mx-studio-scheme", value), scheme);
+          await Promise.all([prepareTimelinePage(gallery), prepareTimelinePage(isolated)]);
+          await Promise.all([gallery.goto(origin(studio)), isolated.goto(`${origin(consumer)}/?item=${id}`)]);
+          const outer = gallery.locator(`[data-card="${id}"]`);
+          await outer.scrollIntoViewIfNeeded();
+          const sample = outer.locator(".mx-feature");
+          const installed = isolated.locator(".mx-feature");
+          await Promise.all([expect(sample).toBeVisible(), expect(installed).toBeVisible()]);
+          await matchContext(sample, isolated, scheme);
+          await Promise.all([gallery.evaluate(() => document.fonts.ready), isolated.evaluate(() => document.fonts.ready)]);
+          // Keep a stable interaction target as the featured row grows or shrinks.
+          await gallery.mouse.move(0, 0);
+          timeline.push({ width, scheme, browser: browser.browserType().name(), ...await featuredTimeline([[gallery, sample], [isolated, installed]], id) });
+          console.log(`Timeline ${id} ${width} ${scheme}`);
+        } finally { await Promise.all([gallery.close(), isolated.close()]); }
+      }
+    }
+  }
+  if (!quick) for (const { id } of base.filter(row => !Object.hasOwn(manifest.presets, row.id))) {
+    const scheme = "light";
+    const options = { viewport: { width: 1536, height: 1024 }, reducedMotion: "reduce", colorScheme: scheme };
+    const [gallery, isolated] = await Promise.all([chrome.newPage(options), chrome.newPage(options)]);
+    try {
+      await Promise.all([gallery.goto(origin(studio)), isolated.goto(`${origin(consumer)}/?item=${id}`)]);
+      const outer = gallery.locator(`[data-card="${id}"]`);
+      await outer.evaluate(node => node.scrollIntoView({ block: "center" }));
+      const sample = outer.locator(".mx-demo");
+      const installed = isolated.locator(".mx-demo");
+      await Promise.all([expect(sample).toBeVisible(), expect(installed).toBeVisible()]);
+      await matchContext(sample, isolated, scheme);
+      await Promise.all([gallery.evaluate(() => document.fonts.ready), isolated.evaluate(() => document.fonts.ready)]);
+      const [a, b, ariaA, ariaB] = await Promise.all([
+        sample.screenshot({ path: join(evidence, id + "-gallery.png"), animations: "disabled" }),
+        installed.screenshot({ path: join(evidence, id + "-react.png"), animations: "disabled" }),
+        sample.ariaSnapshot(), installed.ariaSnapshot(),
+      ]);
+      const differentPixels = await imageDifference(isolated, a, b);
+      const ariaMatch = ariaA === ariaB;
+      recipeCases.push({ id, width: 1536, scheme, stage: "idle", ariaMatch, differentPixels, result: ariaMatch && differentPixels <= .025 ? "parity-ok" : "parity-broken" });
+      if (!ariaMatch || differentPixels > .025) console.error(`${id}: idle mismatch ${differentPixels.toFixed(5)} (ARIA ${ariaMatch})`);
+      else console.log(`Recipe ${id}`);
+    } finally { await Promise.all([gallery.close(), isolated.close()]); }
+  }
+  await writeFile(join(evidence, "report.json"), JSON.stringify({ pin: local ? null : pin, manager, baseUsageMounts: quick ? 0 : base.length, customizedPresetMounts: quick ? 0 : presets.length, customizedRecipeMounts: quick ? 0 : base.length - presets.length, cases: summaries, timeline, recipeCases }, null, 2) + "\n");
+  if (recipeCases.some(row => row.result === "parity-broken")) throw new Error("Gallery recipe mismatches. See report.json.");
+  console.log(`${quick ? 0 : base.length} base and ${quick ? 0 : base.length} customized Gallery examples mounted in an isolated production build.\n${summaries.length} installed React preset comparisons passed (ARIA and ≤2.5% visually differing pixels).`);
 } finally {
-  if (studio) await studio.close();
+  if (studio) await new Promise(resolveClose => studio.httpServer.close(resolveClose));
   if (consumer) await new Promise(resolveClose => consumer.httpServer.close(resolveClose));
   await Promise.all([chrome?.close(), safari?.close()]);
   await rm(temp, { recursive: true, force: true });
+}
+
+async function matchContext(sample, isolated, scheme) {
+  const context = await sample.evaluate(node => {
+    const colors = ["--mx-font", "--mx-bg", "--mx-preset-background", "--mx-surface", "--mx-ink", "--mx-muted", "--mx-line", "--mx-accent", "--mx-on-accent", "--mx-selected"];
+    const style = getComputedStyle(node);
+    const { width, x, y } = node.getBoundingClientRect();
+    return { width, x: x % 1, y: y % 1, tokens: colors.map(name => [name, style.getPropertyValue(name)]) };
+  });
+  await isolated.locator("#root").evaluate((node, { width, x, y, tokens, scheme }) => {
+    node.style.width = width + "px";
+    node.style.marginLeft = (8 + x) + "px";
+    node.style.marginTop = (8 + y) + "px";
+    document.body.style.margin = "0";
+    document.documentElement.style.colorScheme = scheme;
+    const preview = node.querySelector(".mx-recipe-frame") ?? node;
+    if (preview !== node) preview.dataset.scheme = scheme;
+    for (const [name, value] of tokens) preview.style.setProperty(name, value);
+    document.body.style.background = preview.style.getPropertyValue("--mx-preset-background");
+  }, { ...context, scheme });
 }
 
 function apply(page, sample, { role, name, key, status, check }) {

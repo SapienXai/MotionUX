@@ -65,7 +65,7 @@ export default function Studio() {
     try { localStorage.setItem("mx-studio-scheme", next); } catch { /* session-only preference */ }
     setScheme(next);
   }
-  const open = (id: string, configuration?: string) => navigate({ ...route, page: "playground", item: id, configuration, preset: FEATURED.some(([featured]) => featured === id) });
+  const open = (id: string, configuration?: string) => navigate({ ...route, page: "playground", item: id, configuration, preset: true });
   const clear = () => navigate({ ...route, query: "", category: "", item: "" });
   return <div className="mx-studio" data-scheme={scheme}>
     <Shell route={route} navigate={navigate} updateQuery={setQuery} scheme={scheme} toggleScheme={toggleScheme} reduced={platformReduced} lastItem={lastItem}>
@@ -74,7 +74,7 @@ export default function Studio() {
           route.page === "components" ? <Components items={items} route={route} open={open} clear={clear} /> :
           route.page === "guides" ? <Guides /> : route.page === "examples" ? <Examples route={route} open={open} /> :
           item ? <Suspense fallback={<PreviewLoading />}><Playground key={item.id} item={item} route={route}
-            back={() => navigate({ ...route, page: "gallery", item: "" })} reduced={platformReduced} systemReduced={platformReduced} /></Suspense> :
+            back={() => navigate({ ...route, page: "gallery", item: "" })} reduced={platformReduced} systemReduced={platformReduced} scheme={scheme} /></Suspense> :
           <section className="mx-inner-page"><h1 tabIndex={-1}>Specimen unavailable</h1><button className="mx-button" type="button" onClick={() => open(FEATURED[0][0])}>Open Sliding Tab Pill</button></section>}
       </div>
     </Shell>

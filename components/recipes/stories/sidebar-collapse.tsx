@@ -1,7 +1,7 @@
-import { booleanValue, stringValue } from "../playground/controls";
+import { booleanValue, stringValue } from "../values";
 import { FolderOpen, House, Settings } from "lucide-react";
-import { SidebarCollapse } from "../../components/navigation/sidebar-collapse";
-import type { Specimen } from "../catalog";
+import { SidebarCollapse } from "../../navigation/sidebar-collapse";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const story: Specimen = {

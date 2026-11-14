@@ -1,8 +1,8 @@
-import { stringValue } from "../playground/controls";
+import { stringValue } from "../values";
 import { useState } from "react";
 import { Aperture, Compass, FolderOpen, Send } from "lucide-react";
-import { RubberDock } from "../../components/navigation/rubber-dock";
-import type { Specimen } from "../catalog";
+import { RubberDock } from "../../navigation/rubber-dock";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const story: Specimen = {

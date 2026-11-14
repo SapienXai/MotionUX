@@ -1,8 +1,8 @@
-import { booleanValue, stringValue } from "../playground/controls";
+import { booleanValue, stringValue } from "../values";
 import { Archive, BookOpen, CalendarDays, Check, Copy, Ellipsis, FolderOpen, Link2, Pin } from "lucide-react";
 import { useState } from "react";
-import { ActionMenu } from "../../components/navigation/action-menu";
-import type { Specimen } from "../catalog";
+import { ActionMenu } from "../../navigation/action-menu";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 type Variant = "dropdown" | "dynamic" | "morph";

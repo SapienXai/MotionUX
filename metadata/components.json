@@ -833,6 +833,51 @@
       "consumers": [],
       "evidence": "docs/STUDIO-ASSETS.md",
       "referenceId": "designbookmark-swipe-deck"
+    },
+    "gallery-recipes-navigation": {
+      "source": "MotionUX Studio interactive examples and component sources",
+      "kind": "original",
+      "license": "MIT",
+      "consumers": [
+        "MotionUX Studio"
+      ],
+      "evidence": "scripts/fixture-parity.mjs"
+    },
+    "gallery-recipes-feedback": {
+      "source": "MotionUX Studio interactive examples and component sources",
+      "kind": "original",
+      "license": "MIT",
+      "consumers": [
+        "MotionUX Studio"
+      ],
+      "evidence": "scripts/fixture-parity.mjs"
+    },
+    "gallery-recipes-inputs": {
+      "source": "MotionUX Studio interactive examples and component sources",
+      "kind": "original",
+      "license": "MIT",
+      "consumers": [
+        "MotionUX Studio"
+      ],
+      "evidence": "scripts/fixture-parity.mjs"
+    },
+    "gallery-recipes-gestures": {
+      "source": "MotionUX Studio interactive examples and component sources",
+      "kind": "original",
+      "license": "MIT",
+      "consumers": [
+        "MotionUX Studio"
+      ],
+      "evidence": "scripts/fixture-parity.mjs"
+    },
+    "gallery-recipes-signals": {
+      "source": "MotionUX Studio interactive examples and component sources",
+      "kind": "original",
+      "license": "MIT",
+      "consumers": [
+        "MotionUX Studio"
+      ],
+      "evidence": "scripts/fixture-parity.mjs"
     }
   }
 }

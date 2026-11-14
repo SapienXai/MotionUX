@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "test:unit": "node --test tests/registry.test.mjs",
     "test": "playwright test",
-    "test:usage": "node scripts/update-usage-templates.mjs --check && node scripts/verify-usage.mjs",
+    "test:usage": "node scripts/recipe-registry.mjs --check && node scripts/update-usage-templates.mjs --check && node scripts/verify-usage.mjs",
     "verify": "npm run lint && npm run typecheck && npm run registry:build && npm run test:unit && npm run test:usage && npm run build && npm test"
   },
   "dependencies": {

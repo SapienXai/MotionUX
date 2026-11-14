@@ -1,13 +1,13 @@
-import { booleanValue, numberValue, stringValue } from "../playground/controls";
+import { booleanValue, numberValue, stringValue } from "../values";
 import { Bookmark, ImagePlus, PenLine } from "lucide-react";
 import { useEffect, useState } from "react";
-import { CardDeck, FanCards } from "../../components/gestures/deck-and-page";
-import { DisclosureCard, StatCard } from "../../components/gestures/disclosure-cards";
-import { GooMenu, GooMorph, SimulatedUnlock } from "../../components/gestures/goo-studies";
-import { GlassLens, ParallaxTicket, PullRefresh } from "../../components/gestures/interactive-surfaces";
-import quietHills from "../assets/quiet-hills.webp";
+import { CardDeck, FanCards } from "../../gestures/deck-and-page";
+import { DisclosureCard, StatCard } from "../../gestures/disclosure-cards";
+import { GooMenu, GooMorph, SimulatedUnlock } from "../../gestures/goo-studies";
+import { GlassLens, ParallaxTicket, PullRefresh } from "../../gestures/interactive-surfaces";
+import { quietHills } from "../quiet-hills";
 import { usageExample } from "./usage-example";
-import type { Specimen } from "../catalog";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const examples = {

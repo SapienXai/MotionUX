@@ -11,7 +11,7 @@ function registryVersions() {
     resolveId(source) { if (source === id) return "\0" + id; },
     load(source) {
       if (source !== "\0" + id) return;
-      const { items } = JSON.parse(readFileSync("metadata/parity-manifest.json"));
+      const { items, recipes = {} } = JSON.parse(readFileSync("metadata/parity-manifest.json"));
       const registry = JSON.parse(readFileSync("registry.json"));
       const contracts = new Map(registry.items.map(item => [item.name, item]));
       const hashes = new Map();
@@ -30,8 +30,9 @@ function registryVersions() {
           });
         return { item: name, pin: matches ? entry.pin : null };
       }
+      const recipeVersions = new Map(Object.entries(recipes).map(([key, recipe]) => [key, version(recipe)]));
       for (const entry of items) {
-        pins[entry.id] = { selected: version(entry), base: entry.base ? version(entry.base) : null };
+        pins[entry.id] = { selected: version(entry), base: entry.base ? version(entry.base) : null, recipe: recipeVersions.get(entry.recipe) ?? null };
       }
       for (const file of watched) this.addWatchFile(resolve(file));
       return `export default ${JSON.stringify(pins)}`;
@@ -44,4 +45,7 @@ function registryVersions() {
   };
 }
 
-export default defineConfig({ plugins: [registryVersions()] });
+export default defineConfig({
+  plugins: [registryVersions()],
+  optimizeDeps: { include: ["react", "react/jsx-runtime", "react-dom/client", "motion/react", "lucide-react"] },
+});

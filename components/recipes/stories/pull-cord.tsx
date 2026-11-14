@@ -1,7 +1,7 @@
-import { booleanValue, stringValue } from "../playground/controls";
+import { booleanValue, stringValue } from "../values";
 import { useState } from "react";
-import { PullCord } from "../../components/navigation/pull-cord";
-import type { Specimen } from "../catalog";
+import { PullCord } from "../../navigation/pull-cord";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const story: Specimen = {

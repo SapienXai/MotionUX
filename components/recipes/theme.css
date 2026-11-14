@@ -1,0 +1,23 @@
+:is(.mx-stage, .mx-recipe-frame) {
+  --mx-bg: var(--mx-recipe-stage, var(--stage, #eeecf6)); --mx-surface: #fcfbfd; --mx-ink: #17151c; --mx-muted: #4f485a;
+  --mx-line: #e2dde8; --mx-accent: #9d2c34; --mx-on-accent: #fff; --mx-selected: #f9d8d9;
+  --mx-preset-background: var(--mx-recipe-stage, var(--stage, #eeecf6)); --mx-font: "Inter Variable";
+  color: var(--mx-ink); background: var(--mx-bg);
+}
+:is(.mx-stage, .mx-recipe-frame)[data-theme="bookplace"] { --mx-preset-background: #f3ebdb; --mx-bg: #f3ebdb; --mx-surface: #fff9ef; --mx-ink: #35271e; --mx-muted: #655447; --mx-line: #d6c1aa; --mx-accent: #7d4722; --mx-selected: #ebd8bc; }
+:is(.mx-stage, .mx-recipe-frame)[data-theme="dinewallet"] { --mx-preset-background: #f0efeb; --mx-bg: #f0efeb; --mx-surface: #faf9f6; --mx-ink: #202520; --mx-muted: #4d544d; --mx-line: #c9ccc5; --mx-accent: #26553e; --mx-selected: #dbe6dc; }
+:is(.mx-studio[data-scheme="dark"] .mx-stage, .mx-recipe-frame[data-scheme="dark"]) { --mx-surface: #332e40; --mx-ink: #f8f4fb; --mx-muted: #d4cce3; --mx-line: #514961; --mx-accent: #ffaaa7; --mx-on-accent: #241419; --mx-selected: #59333f; }
+:is(.mx-studio[data-scheme="dark"] .mx-stage, .mx-recipe-frame[data-scheme="dark"])[data-theme="bookplace"] { --mx-preset-background: #2b2119; --mx-bg: #2b2119; --mx-surface: #34271d; --mx-ink: #ffedda; --mx-muted: #dac5a9; --mx-line: #76604b; --mx-accent: #f4b47d; --mx-selected: #4b3828; }
+:is(.mx-studio[data-scheme="dark"] .mx-stage, .mx-recipe-frame[data-scheme="dark"])[data-theme="dinewallet"] { --mx-preset-background: #1c211e; --mx-bg: #1c211e; --mx-surface: #252c27; --mx-ink: #f2f5ee; --mx-muted: #bfcbc1; --mx-line: #56665a; --mx-accent: #a6d6ad; --mx-selected: #35473c; }
+
+.mx-recipe-frame {
+  container-type: inline-size;
+  min-inline-size: 0;
+  font: 400 16px/1.45 var(--mx-font), Inter, sans-serif;
+  color-scheme: light;
+}
+.mx-recipe-frame[data-scheme="dark"] { --mx-recipe-stage: #282434; color-scheme: dark; }
+.mx-recipe-frame *, .mx-recipe-frame *::before, .mx-recipe-frame *::after { box-sizing: border-box; }
+.mx-recipe-frame :where(input, textarea, select, button) { font: inherit; }
+.mx-recipe-frame :where(a) { color: inherit; }
+.mx-recipe-frame :where(button, a, input, select, summary, textarea):focus-visible { outline: 2px solid var(--mx-accent); outline-offset: 3px; }

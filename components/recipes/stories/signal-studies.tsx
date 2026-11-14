@@ -1,12 +1,12 @@
-import { booleanValue, numberValue, stringValue } from "../playground/controls";
+import { booleanValue, numberValue, stringValue } from "../values";
 import { useEffect, useState } from "react";
-import { EmphasisText, PhraseSwap, ReadAlong, RollLink, TextReveal } from "../../components/text/animated-type";
-import { GhostSuggestion, PromptBox } from "../../components/ai/composer";
-import { StreamingReply, TaskList, ThinkingText, VoiceInput } from "../../components/ai/async-feedback";
-import { AudioControl, SignalOrb, TimeScrubber } from "../../components/media/audio-tools";
-import fieldTones from "../assets/field-tones.wav";
+import { EmphasisText, PhraseSwap, ReadAlong, RollLink, TextReveal } from "../../text/animated-type";
+import { GhostSuggestion, PromptBox } from "../../ai/composer";
+import { StreamingReply, TaskList, ThinkingText, VoiceInput } from "../../ai/async-feedback";
+import { AudioControl, SignalOrb, TimeScrubber } from "../../media/audio-tools";
+import { fieldTones } from "../field-tones";
 import { usageExample } from "./usage-example";
-import type { Specimen } from "../catalog";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 import "./signal-studies.css";
 

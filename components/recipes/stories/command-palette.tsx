@@ -1,7 +1,7 @@
-import { stringValue } from "../playground/controls";
+import { stringValue } from "../values";
 import { useState } from "react";
-import { CommandPalette } from "../../components/navigation/command-palette";
-import type { Specimen } from "../catalog";
+import { CommandPalette } from "../../navigation/command-palette";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const story: Specimen = {

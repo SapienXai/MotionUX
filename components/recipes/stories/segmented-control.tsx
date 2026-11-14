@@ -1,8 +1,8 @@
-import { stringValue } from "../playground/controls";
+import { stringValue } from "../values";
 import { useState } from "react";
 import { Calendar, CalendarDays, CalendarRange } from "lucide-react";
-import { SegmentedControl } from "../../components/navigation/motion-selector";
-import type { Specimen } from "../catalog";
+import { SegmentedControl } from "../../navigation/motion-selector";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const story: Specimen = {

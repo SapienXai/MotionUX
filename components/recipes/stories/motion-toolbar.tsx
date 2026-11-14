@@ -1,8 +1,8 @@
-import { booleanValue, stringValue } from "../playground/controls";
+import { booleanValue, stringValue } from "../values";
 import { useState } from "react";
 import { AlignCenter, AlignLeft, AlignRight, Bold } from "lucide-react";
-import { MotionToolbar } from "../../components/navigation/motion-toolbar";
-import type { Specimen } from "../catalog";
+import { MotionToolbar } from "../../navigation/motion-toolbar";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const story: Specimen = {

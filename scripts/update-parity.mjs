@@ -11,6 +11,9 @@ if (!/^[a-f0-9]{40}$/.test(pin)) throw new Error("Use a verified, full registry 
 const git = (...args) => execFileSync("git", args, { stdio: ["ignore", "pipe", "pipe"] });
 const published = JSON.parse(git("show", `${pin}:registry.json`));
 const specs = new Map(Object.entries(previous.presets));
+const recipeItems = registry.items.filter(item => item.name.startsWith("gallery-recipes-"));
+const recipes = Object.fromEntries(recipeItems.map(item => [item.name, contract(item.name)]));
+const recipeSources = recipeItems.map(item => [item.name, readFileSync(item.files[0].path, "utf8")]);
 const items = inventory.items.map(item => {
   const preset = specs.get(item.id);
   const installItem = preset?.item ?? item.registryItem;
@@ -20,6 +23,7 @@ const items = inventory.items.map(item => {
     id: item.id,
     baseItem: item.registryItem,
     installItem,
+    recipe: preset ? undefined : recipeSources.find(([, content]) => content.includes(`"${item.id}": () => import(`))?.[0],
     preview: preset?.export ?? "studio/catalog.ts",
     legacyPin: item.version,
     ...selected,
@@ -33,7 +37,7 @@ const items = inventory.items.map(item => {
       preset || !previous.featured.includes(item.id) ? "not-tested" : "parity-broken",
   };
 });
-const next = { ...previous, defaultPin: pin, items };
+const next = { ...previous, defaultPin: pin, recipes, items };
 writeFileSync(path, JSON.stringify(next, null, 2) + "\n");
 console.log(`Recorded ${items.length} contracts, ${items.filter(item => item.pin).length} matching ${pin}`);
 

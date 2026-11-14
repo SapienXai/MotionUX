@@ -1,11 +1,11 @@
-import { booleanValue, numberValue, stringValue } from "../playground/controls";
+import { booleanValue, numberValue, stringValue } from "../values";
 import { useState } from "react";
-import { LetterLimit, OtpCode, PasswordStrength, SpringField, TagInput } from "../../components/inputs/text-fields";
-import { CheckboxList, NumberStepper, RangePair, StarRating, ValueSlider } from "../../components/inputs/value-controls";
-import { CardField, FileDrop, SignaturePad, WheelPicker, type CardDetails, type InkPoint } from "../../components/inputs/special-fields";
-import quietHills from "../assets/quiet-hills.webp";
+import { LetterLimit, OtpCode, PasswordStrength, SpringField, TagInput } from "../../inputs/text-fields";
+import { CheckboxList, NumberStepper, RangePair, StarRating, ValueSlider } from "../../inputs/value-controls";
+import { CardField, FileDrop, SignaturePad, WheelPicker, type CardDetails, type InkPoint } from "../../inputs/special-fields";
+import { quietHills } from "../quiet-hills";
 import { usageExample } from "./usage-example";
-import type { Specimen } from "../catalog";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 import "./input-studies.css";
 

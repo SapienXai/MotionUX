@@ -6,3 +6,10 @@
 .mx-demo-sample strong { display: block; font: 400 2.15rem/1.05 "Inter Variable", Inter, sans-serif; color: var(--mx-ink); }
 .mx-demo-center { display: grid; justify-items: center; gap: .75rem; text-align: center; }
 .mx-demo-button { min-block-size: 44px; padding: .45rem .7rem; border: 1px solid var(--mx-line); border-radius: .5rem; background: var(--mx-surface); color: var(--mx-ink); }
+
+:is(.mx-gallery-stage, .mx-recipe-frame[data-compact="true"]) > .mx-demo {
+  inline-size: 100%;
+  max-block-size: 205px;
+  padding: 4px;
+  overflow: auto;
+}

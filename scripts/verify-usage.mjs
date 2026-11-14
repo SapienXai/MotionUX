@@ -10,6 +10,7 @@ const scratch = await mkdtemp(join(tmpdir(), "motionux-usage-"));
 const server = await createServer({ server: { middlewareMode: true, hmr: false, watch: null }, appType: "custom" });
 try {
   const { previews, references } = await server.ssrLoadModule("/studio/catalog.ts");
+  const { recipeFamily, recipeUsage } = await server.ssrLoadModule("/studio/playground/recipe-usage.ts");
   const { baseFields } = await server.ssrLoadModule("/studio/playground/base.ts");
   const { configuredUsage } = await server.ssrLoadModule("/studio/playground/base-usage.ts");
   const { featuredDefinition, featuredUsage } = await server.ssrLoadModule("/studio/playground/featured.ts");
@@ -46,6 +47,12 @@ try {
       const preset = config.items.find(({ name }) => name === featured.entry + "-gallery");
       const code = featuredUsage(item.id, Object.fromEntries(featured.fields.map(field => [field.key, sample(field)])), true, true);
       await save(item.id + "-gallery", preset, code);
+    } else {
+      const recipe = config.items.find(({ name }) => name === "gallery-recipes-" + recipeFamily(item.id));
+      const options = { language: "tr", reducedMotion: true, theme: "bookplace", scheme: "dark" };
+      const values = Object.fromEntries(fields.map(field => [field.key, sample(field)]));
+      await save(item.id + "-gallery", recipe, recipeUsage(item.id, {}, options));
+      await save(item.id + "-gallery-custom", recipe, recipeUsage(item.id, values, options));
     }
   }
   await symlink(resolve(root, "node_modules"), join(scratch, "node_modules"), "dir");

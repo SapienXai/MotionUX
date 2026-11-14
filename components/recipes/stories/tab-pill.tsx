@@ -1,7 +1,7 @@
-import { booleanValue, stringValue } from "../playground/controls";
-import { TabPill } from "../../components/navigation/motion-selector";
+import { booleanValue, stringValue } from "../values";
+import { TabPill } from "../../navigation/motion-selector";
 import { Columns3, FileText, Layers } from "lucide-react";
-import type { Specimen } from "../catalog";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const details = {

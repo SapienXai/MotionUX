@@ -2108,6 +2108,626 @@
           "target": "@components/sapienx-motion/presets/gestures/deck-and-page.css"
         }
       ]
+    },
+    {
+      "name": "gallery-recipes-navigation",
+      "type": "registry:component",
+      "title": "Gallery recipes · Navigation",
+      "description": "The same interactive examples used in MotionUX Studio, including sample content, component styles and semantic theme tokens.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react@0.454.0",
+        "@fontsource-variable/inter@5.3.0"
+      ],
+      "files": [
+        {
+          "path": "components/recipes/navigation.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/navigation.tsx"
+        },
+        {
+          "path": "components/recipes/example.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/example.tsx"
+        },
+        {
+          "path": "components/recipes/specimen.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/specimen.ts"
+        },
+        {
+          "path": "components/recipes/values.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/values.ts"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/theme.css"
+        },
+        {
+          "path": "components/recipes/stories/tab-pill.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/tab-pill.tsx"
+        },
+        {
+          "path": "components/navigation/motion-selector.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/navigation/motion-selector.tsx"
+        },
+        {
+          "path": "components/navigation/motion-selector.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/navigation/motion-selector.css"
+        },
+        {
+          "path": "components/recipes/stories/demo.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/stories/demo.css"
+        },
+        {
+          "path": "components/recipes/stories/bottom-bar.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/bottom-bar.tsx"
+        },
+        {
+          "path": "components/recipes/stories/segmented-control.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/segmented-control.tsx"
+        },
+        {
+          "path": "components/recipes/stories/pagination-dots.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/pagination-dots.tsx"
+        },
+        {
+          "path": "components/navigation/pagination-dots.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/navigation/pagination-dots.tsx"
+        },
+        {
+          "path": "components/navigation/pagination-dots.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/navigation/pagination-dots.css"
+        },
+        {
+          "path": "components/recipes/stories/command-palette.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/command-palette.tsx"
+        },
+        {
+          "path": "components/navigation/command-palette.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/navigation/command-palette.tsx"
+        },
+        {
+          "path": "components/navigation/command-palette.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/navigation/command-palette.css"
+        },
+        {
+          "path": "components/recipes/stories/pull-cord.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/pull-cord.tsx"
+        },
+        {
+          "path": "components/navigation/pull-cord.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/navigation/pull-cord.tsx"
+        },
+        {
+          "path": "components/navigation/pull-cord.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/navigation/pull-cord.css"
+        },
+        {
+          "path": "components/recipes/stories/morph-tooltip.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/morph-tooltip.tsx"
+        },
+        {
+          "path": "components/navigation/morph-tooltip.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/navigation/morph-tooltip.tsx"
+        },
+        {
+          "path": "components/navigation/morph-tooltip.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/navigation/morph-tooltip.css"
+        },
+        {
+          "path": "components/recipes/stories/action-menus.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/action-menus.tsx"
+        },
+        {
+          "path": "components/navigation/action-menu.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/navigation/action-menu.tsx"
+        },
+        {
+          "path": "components/navigation/action-menu.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/navigation/action-menu.css"
+        },
+        {
+          "path": "components/recipes/stories/rubber-dock.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/rubber-dock.tsx"
+        },
+        {
+          "path": "components/navigation/rubber-dock.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/navigation/rubber-dock.tsx"
+        },
+        {
+          "path": "components/navigation/rubber-dock.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/navigation/rubber-dock.css"
+        },
+        {
+          "path": "components/recipes/stories/sidebar-collapse.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/sidebar-collapse.tsx"
+        },
+        {
+          "path": "components/navigation/sidebar-collapse.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/navigation/sidebar-collapse.tsx"
+        },
+        {
+          "path": "components/navigation/sidebar-collapse.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/navigation/sidebar-collapse.css"
+        },
+        {
+          "path": "components/recipes/stories/swipe-tabs.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/swipe-tabs.tsx"
+        },
+        {
+          "path": "components/navigation/swipe-tabs.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/navigation/swipe-tabs.tsx"
+        },
+        {
+          "path": "components/navigation/swipe-tabs.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/navigation/swipe-tabs.css"
+        },
+        {
+          "path": "components/recipes/stories/motion-toolbar.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/motion-toolbar.tsx"
+        },
+        {
+          "path": "components/navigation/motion-toolbar.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/navigation/motion-toolbar.tsx"
+        },
+        {
+          "path": "components/navigation/motion-toolbar.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/navigation/motion-toolbar.css"
+        },
+        {
+          "path": "components/recipes/stories/stack-panel.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/stack-panel.tsx"
+        },
+        {
+          "path": "components/navigation/stack-panel.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/navigation/stack-panel.tsx"
+        },
+        {
+          "path": "components/navigation/stack-panel.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/navigation/stack-panel.css"
+        }
+      ]
+    },
+    {
+      "name": "gallery-recipes-feedback",
+      "type": "registry:component",
+      "title": "Gallery recipes · Feedback",
+      "description": "The same interactive examples used in MotionUX Studio, including sample content, component styles and semantic theme tokens.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react@0.454.0",
+        "@fontsource-variable/inter@5.3.0"
+      ],
+      "files": [
+        {
+          "path": "components/recipes/feedback.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/feedback.tsx"
+        },
+        {
+          "path": "components/recipes/example.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/example.tsx"
+        },
+        {
+          "path": "components/recipes/specimen.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/specimen.ts"
+        },
+        {
+          "path": "components/recipes/values.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/values.ts"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/theme.css"
+        },
+        {
+          "path": "components/recipes/stories/feedback-studies.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/feedback-studies.tsx"
+        },
+        {
+          "path": "components/feedback/feedback-actions.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/feedback/feedback-actions.tsx"
+        },
+        {
+          "path": "components/feedback/feedback-actions.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/feedback/feedback-actions.css"
+        },
+        {
+          "path": "components/feedback/confirmation-controls.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/feedback/confirmation-controls.tsx"
+        },
+        {
+          "path": "components/feedback/confirmation-controls.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/feedback/confirmation-controls.css"
+        },
+        {
+          "path": "components/feedback/state-buttons.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/feedback/state-buttons.tsx"
+        },
+        {
+          "path": "components/feedback/state-buttons.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/feedback/state-buttons.css"
+        },
+        {
+          "path": "components/feedback/progress-sequence.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/feedback/progress-sequence.tsx"
+        },
+        {
+          "path": "components/feedback/progress-sequence.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/feedback/progress-sequence.css"
+        },
+        {
+          "path": "components/feedback/notification-stack.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/feedback/notification-stack.tsx"
+        },
+        {
+          "path": "components/feedback/notification-stack.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/feedback/notification-stack.css"
+        },
+        {
+          "path": "components/feedback/tool-approval.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/feedback/tool-approval.tsx"
+        },
+        {
+          "path": "components/feedback/tool-approval.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/feedback/tool-approval.css"
+        },
+        {
+          "path": "components/recipes/stories/demo.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/stories/demo.css"
+        }
+      ]
+    },
+    {
+      "name": "gallery-recipes-inputs",
+      "type": "registry:component",
+      "title": "Gallery recipes · Form controls",
+      "description": "The same interactive examples used in MotionUX Studio, including sample content, component styles and semantic theme tokens.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react@0.454.0",
+        "@fontsource-variable/inter@5.3.0"
+      ],
+      "files": [
+        {
+          "path": "components/recipes/inputs.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/inputs.tsx"
+        },
+        {
+          "path": "components/recipes/example.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/example.tsx"
+        },
+        {
+          "path": "components/recipes/specimen.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/specimen.ts"
+        },
+        {
+          "path": "components/recipes/values.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/values.ts"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/theme.css"
+        },
+        {
+          "path": "components/recipes/stories/input-studies.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/input-studies.tsx"
+        },
+        {
+          "path": "components/inputs/text-fields.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/inputs/text-fields.tsx"
+        },
+        {
+          "path": "components/inputs/text-fields.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/inputs/text-fields.css"
+        },
+        {
+          "path": "components/inputs/value-controls.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/inputs/value-controls.tsx"
+        },
+        {
+          "path": "components/inputs/value-controls.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/inputs/value-controls.css"
+        },
+        {
+          "path": "components/inputs/special-fields.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/inputs/special-fields.tsx"
+        },
+        {
+          "path": "components/inputs/special-fields.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/inputs/special-fields.css"
+        },
+        {
+          "path": "components/recipes/quiet-hills.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/quiet-hills.ts"
+        },
+        {
+          "path": "components/recipes/stories/usage-example.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/stories/usage-example.ts"
+        },
+        {
+          "path": "components/recipes/stories/demo.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/stories/demo.css"
+        },
+        {
+          "path": "components/recipes/stories/input-studies.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/stories/input-studies.css"
+        }
+      ]
+    },
+    {
+      "name": "gallery-recipes-gestures",
+      "type": "registry:component",
+      "title": "Gallery recipes · Gestures and cards",
+      "description": "The same interactive examples used in MotionUX Studio, including sample content, component styles and semantic theme tokens.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react@0.454.0",
+        "@fontsource-variable/inter@5.3.0"
+      ],
+      "files": [
+        {
+          "path": "components/recipes/gestures.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/gestures.tsx"
+        },
+        {
+          "path": "components/recipes/example.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/example.tsx"
+        },
+        {
+          "path": "components/recipes/specimen.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/specimen.ts"
+        },
+        {
+          "path": "components/recipes/values.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/values.ts"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/theme.css"
+        },
+        {
+          "path": "components/recipes/stories/card-studies.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/card-studies.tsx"
+        },
+        {
+          "path": "components/gestures/deck-and-page.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/gestures/deck-and-page.tsx"
+        },
+        {
+          "path": "components/gestures/deck-and-page.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/gestures/deck-and-page.css"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/gestures/disclosure-cards.tsx"
+        },
+        {
+          "path": "components/gestures/disclosure-cards.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/gestures/disclosure-cards.css"
+        },
+        {
+          "path": "components/gestures/goo-studies.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/gestures/goo-studies.tsx"
+        },
+        {
+          "path": "components/gestures/goo-studies.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/gestures/goo-studies.css"
+        },
+        {
+          "path": "components/gestures/interactive-surfaces.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/gestures/interactive-surfaces.tsx"
+        },
+        {
+          "path": "components/gestures/interactive-surfaces.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/gestures/interactive-surfaces.css"
+        },
+        {
+          "path": "components/recipes/quiet-hills.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/quiet-hills.ts"
+        },
+        {
+          "path": "components/recipes/stories/usage-example.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/stories/usage-example.ts"
+        },
+        {
+          "path": "components/recipes/stories/demo.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/stories/demo.css"
+        }
+      ]
+    },
+    {
+      "name": "gallery-recipes-signals",
+      "type": "registry:component",
+      "title": "Gallery recipes · Typography, AI and media",
+      "description": "The same interactive examples used in MotionUX Studio, including sample content, component styles and semantic theme tokens.",
+      "dependencies": [
+        "motion@14.14.0",
+        "lucide-react@0.454.0",
+        "@fontsource-variable/inter@5.3.0"
+      ],
+      "files": [
+        {
+          "path": "components/recipes/signals.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/signals.tsx"
+        },
+        {
+          "path": "components/recipes/example.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/example.tsx"
+        },
+        {
+          "path": "components/recipes/specimen.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/specimen.ts"
+        },
+        {
+          "path": "components/recipes/values.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/values.ts"
+        },
+        {
+          "path": "components/recipes/theme.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/theme.css"
+        },
+        {
+          "path": "components/recipes/stories/signal-studies.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/recipes/stories/signal-studies.tsx"
+        },
+        {
+          "path": "components/text/animated-type.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/text/animated-type.tsx"
+        },
+        {
+          "path": "components/text/animated-type.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/text/animated-type.css"
+        },
+        {
+          "path": "components/ai/composer.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/ai/composer.tsx"
+        },
+        {
+          "path": "components/ai/composer.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/ai/composer.css"
+        },
+        {
+          "path": "components/ai/async-feedback.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/ai/async-feedback.tsx"
+        },
+        {
+          "path": "components/ai/async-feedback.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/ai/async-feedback.css"
+        },
+        {
+          "path": "components/media/audio-tools.tsx",
+          "type": "registry:component",
+          "target": "@components/sapienx-motion/media/audio-tools.tsx"
+        },
+        {
+          "path": "components/media/audio-tools.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/media/audio-tools.css"
+        },
+        {
+          "path": "components/recipes/field-tones.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/field-tones.ts"
+        },
+        {
+          "path": "components/recipes/stories/usage-example.ts",
+          "type": "registry:lib",
+          "target": "@components/sapienx-motion/recipes/stories/usage-example.ts"
+        },
+        {
+          "path": "components/recipes/stories/demo.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/stories/demo.css"
+        },
+        {
+          "path": "components/recipes/stories/signal-studies.css",
+          "type": "registry:file",
+          "target": "@components/sapienx-motion/recipes/stories/signal-studies.css"
+        }
+      ]
     }
   ]
 }

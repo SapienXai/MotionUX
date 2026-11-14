@@ -1,6 +1,6 @@
-import { stringValue } from "../playground/controls";
-import { SwipeTabs } from "../../components/navigation/swipe-tabs";
-import type { Specimen } from "../catalog";
+import { stringValue } from "../values";
+import { SwipeTabs } from "../../navigation/swipe-tabs";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const story: Specimen = {

@@ -11,20 +11,8 @@
 @media (hover: hover) and (pointer: fine) {
   .mx-gallery-card:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--line), var(--accent) 12%); box-shadow: 0 5px 18px #29223b0d; }
 }
-.mx-stage {
-  --mx-bg: var(--stage); --mx-surface: #fcfbfd; --mx-ink: #17151c; --mx-muted: #4f485a;
-  --mx-line: #e2dde8; --mx-accent: #9d2c34; --mx-on-accent: #fff; --mx-selected: #f9d8d9;
-  --mx-preset-background: var(--stage); --mx-font: "Inter Variable";
-  color: var(--mx-ink); background: var(--mx-bg);
-}
-.mx-stage[data-theme="bookplace"] { --mx-preset-background: #f3ebdb; --mx-bg: #f3ebdb; --mx-surface: #fff9ef; --mx-ink: #35271e; --mx-muted: #655447; --mx-line: #d6c1aa; --mx-accent: #7d4722; --mx-selected: #ebd8bc; }
-.mx-stage[data-theme="dinewallet"] { --mx-preset-background: #f0efeb; --mx-bg: #f0efeb; --mx-surface: #faf9f6; --mx-ink: #202520; --mx-muted: #4d544d; --mx-line: #c9ccc5; --mx-accent: #26553e; --mx-selected: #dbe6dc; }
-.mx-studio[data-scheme="dark"] .mx-stage { --mx-surface: #332e40; --mx-ink: #f8f4fb; --mx-muted: #d4cce3; --mx-line: #514961; --mx-accent: #ffaaa7; --mx-on-accent: #241419; --mx-selected: #59333f; }
-.mx-studio[data-scheme="dark"] .mx-stage[data-theme="bookplace"] { --mx-preset-background: #2b2119; --mx-bg: #2b2119; --mx-surface: #34271d; --mx-ink: #ffedda; --mx-muted: #dac5a9; --mx-line: #76604b; --mx-accent: #f4b47d; --mx-selected: #4b3828; }
-.mx-studio[data-scheme="dark"] .mx-stage[data-theme="dinewallet"] { --mx-preset-background: #1c211e; --mx-bg: #1c211e; --mx-surface: #252c27; --mx-ink: #f2f5ee; --mx-muted: #bfcbc1; --mx-line: #56665a; --mx-accent: #a6d6ad; --mx-selected: #35473c; }
 .mx-gallery-stage { position: relative; display: grid; place-items: center; min-inline-size: 0; border-radius: 13px; padding: 10px; container-type: inline-size; }
 .mx-gallery-stage > :is(.mx-demo,.mx-feature) { inline-size: 100%; min-inline-size: 0; }
-.mx-gallery-stage > .mx-demo { max-block-size: 205px; padding: 4px; overflow: auto; overscroll-behavior: auto; }
 .mx-gallery-stage .mx-demo :is(p, h3) { overflow-wrap: anywhere; }
 .mx-card-reset { position: absolute; z-index: 2; inset: 5px 5px auto auto; inline-size: 36px; block-size: 36px; display: grid; place-items: center; background: var(--mx-surface); color: var(--mx-ink); border: 1px solid var(--mx-line); border-radius: 10px; opacity: 0; transition: opacity .15s; }
 .mx-card-reset:focus-visible, .mx-gallery-stage:focus-within > .mx-card-reset { opacity: 1; }

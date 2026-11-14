@@ -1,5 +1,6 @@
-export type Value = string | number | boolean;
-export type Config = Readonly<Record<string, Value>>;
+import type { Config, Value } from "../../components/recipes/values";
+export { booleanValue, numberValue, stringValue, type Config, type Value } from "../../components/recipes/values";
+
 export type Field = { key: string; label: string; section: "Props" | "Variants" | "States" } & (
   { type: "text"; default: string; maxLength: number } |
   { type: "number"; default: number; min: number; max: number; step: number } |
@@ -30,10 +31,6 @@ export function readConfig(fields: readonly Field[], input: string | null) {
   try { return cleanConfig(fields, JSON.parse(input)); }
   catch { return {}; }
 }
-export const stringValue = (config: Config | undefined, key: string) => typeof config?.[key] === "string" ? config[key] : undefined;
-export const numberValue = (config: Config | undefined, key: string) => typeof config?.[key] === "number" ? config[key] : undefined;
-export const booleanValue = (config: Config | undefined, key: string) => typeof config?.[key] === "boolean" ? config[key] : undefined;
-
 export function example(name: string, module: string, props: Record<string, unknown>, runtime?: { setup: string; handlers: Record<string, string>; hooks?: readonly string[] }) {
   const values = Object.entries(props).filter(([, value]) => value !== undefined).map(([key, value]) => `${key}={${JSON.stringify(value)}}`);
   const handlers = Object.entries(runtime?.handlers ?? {}).map(([key, source]) => `${key}={${source}}`);

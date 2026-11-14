@@ -1,12 +1,12 @@
-import { booleanValue, numberValue, stringValue } from "../playground/controls";
+import { booleanValue, numberValue, stringValue } from "../values";
 import { useState } from "react";
-import { ActionOutcome, CartAction, CopyTextButton, MagneticButton, ReactionButton, UndoAction } from "../../components/feedback/feedback-actions";
-import { HoldConfirm, SlideConfirm } from "../../components/feedback/confirmation-controls";
-import { PlanSwitch, ToggleSwitch, CommandButton } from "../../components/feedback/state-buttons";
-import { ProgressSequence, type ProgressStage } from "../../components/feedback/progress-sequence";
-import { NotificationStack } from "../../components/feedback/notification-stack";
-import { GooThinking, ToolApproval } from "../../components/feedback/tool-approval";
-import type { Specimen } from "../catalog";
+import { ActionOutcome, CartAction, CopyTextButton, MagneticButton, ReactionButton, UndoAction } from "../../feedback/feedback-actions";
+import { HoldConfirm, SlideConfirm } from "../../feedback/confirmation-controls";
+import { PlanSwitch, ToggleSwitch, CommandButton } from "../../feedback/state-buttons";
+import { ProgressSequence, type ProgressStage } from "../../feedback/progress-sequence";
+import { NotificationStack } from "../../feedback/notification-stack";
+import { GooThinking, ToolApproval } from "../../feedback/tool-approval";
+import type { Specimen } from "../specimen";
 import "./demo.css";
 
 const configs = {
