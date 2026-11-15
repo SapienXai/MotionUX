@@ -1,0 +1,323 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/brain/request.v1.json",
+  "title": "MotionUX Brain V1 request",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "query": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1800
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "screen": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "platform": {
+          "enum": [
+            "desktop",
+            "mobile",
+            "web",
+            "any"
+          ]
+        },
+        "designDirection": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "maxItems": 12,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "businessStateOwner": {
+          "enum": [
+            "application",
+            "unknown"
+          ]
+        },
+        "motionPolicy": {
+          "enum": [
+            "still",
+            "allow",
+            "unknown"
+          ]
+        },
+        "state": {
+          "enum": [
+            "pending",
+            "success",
+            "error",
+            "unchanged",
+            "unknown"
+          ]
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "require": {
+      "type": "object",
+      "properties": {
+        "integrationKind": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "react",
+              "html-iframe"
+            ]
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "pointer",
+              "keyboard",
+              "touch-emulated",
+              "physical-mobile",
+              "screen-reader",
+              "reduced-motion",
+              "rtl",
+              "cancel",
+              "interruptible"
+            ]
+          },
+          "maxItems": 9,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "evidenceStatus": {
+          "enum": [
+            "verified",
+            "observed",
+            "curated"
+          ]
+        },
+        "allowedDependencies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:@[a-z0-9][-a-z0-9_.]*/)?[a-zA-Z0-9][-a-zA-Z0-9_.]*$",
+            "maxLength": 120
+          },
+          "maxItems": 150,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "dependencyPins": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^(?:@[a-z0-9][-a-z0-9_.]*/)?[a-zA-Z0-9][-a-zA-Z0-9_.]*$",
+            "maxLength": 120
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "maxProperties": 128
+        },
+        "nativeProps": {
+          "type": "boolean"
+        },
+        "maxPerformanceCost": {
+          "enum": [
+            "low",
+            "moderate",
+            "high"
+          ]
+        },
+        "maxPreviewUnits": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "intent": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "maintain-context",
+              "reveal-detail",
+              "confirm-action",
+              "communicate-progress",
+              "navigate",
+              "focus-attention",
+              "compare-change",
+              "guide-gesture",
+              "express-brand",
+              "loading-placeholder",
+              "data-change",
+              "collect-input",
+              "communicate-error",
+              "request-approval"
+            ]
+          },
+          "maxItems": 14,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "pattern": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "disclosure",
+              "tabs",
+              "menu",
+              "dialog",
+              "toast",
+              "feedback",
+              "stepper",
+              "drag",
+              "carousel",
+              "picker",
+              "input",
+              "button",
+              "list-transition",
+              "text-transition",
+              "ambient-effect",
+              "canvas-effect",
+              "layout-shift",
+              "progress",
+              "card",
+              "comparison"
+            ]
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "prefer": {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "maintain-context",
+              "reveal-detail",
+              "confirm-action",
+              "communicate-progress",
+              "navigate",
+              "focus-attention",
+              "compare-change",
+              "guide-gesture",
+              "express-brand",
+              "loading-placeholder",
+              "data-change",
+              "collect-input",
+              "communicate-error",
+              "request-approval"
+            ]
+          },
+          "maxItems": 14,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "pattern": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "disclosure",
+              "tabs",
+              "menu",
+              "dialog",
+              "toast",
+              "feedback",
+              "stepper",
+              "drag",
+              "carousel",
+              "picker",
+              "input",
+              "button",
+              "list-transition",
+              "text-transition",
+              "ambient-effect",
+              "canvas-effect",
+              "layout-shift",
+              "progress",
+              "card",
+              "comparison"
+            ]
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "intensity": {
+          "enum": [
+            "subtle",
+            "expressive"
+          ]
+        },
+        "performanceCost": {
+          "enum": [
+            "low",
+            "moderate",
+            "high"
+          ]
+        },
+        "integrationKind": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "react",
+              "html-iframe"
+            ]
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "pointer",
+              "keyboard",
+              "touch-emulated",
+              "physical-mobile",
+              "screen-reader",
+              "reduced-motion",
+              "rtl",
+              "cancel",
+              "interruptible"
+            ]
+          },
+          "maxItems": 9,
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "maxResults": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 20
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "query"
+  ],
+  "additionalProperties": false
+}

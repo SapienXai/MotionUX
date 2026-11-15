@@ -1,0 +1,1070 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "smoothui-ai-diff",
+      "sourceHash": "8a982632a9a8199587d7b8cb7110ff48ddfea41e3c47b556c4b8c48fa8368b35",
+      "entry": "originals/smoothui-ai-diff/packages/smoothui/components/ai-diff/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/ai-diff/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 5
+        },
+        {
+          "symbol": "onClick",
+          "line": 191
+        }
+      ],
+      "intents": [
+        "compare-change"
+      ],
+      "patterns": [
+        "comparison"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "ai-tool-status",
+        "comparison"
+      ],
+      "note": "Displays removed and added content for review.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-ai-loader",
+      "sourceHash": "1e04ff9e826263d03e08b2b4166095337c88078d03631050825ae07188076c0b",
+      "entry": "originals/smoothui-ai-loader/packages/smoothui/components/ai-loader/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/ai-loader/index.tsx",
+      "anchors": [
+        {
+          "symbol": "AI_LOADER_CYCLE_SECONDS",
+          "line": 14
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "loading",
+          "line": 11
+        },
+        {
+          "symbol": "progress",
+          "line": 31
+        },
+        {
+          "symbol": "aria-live",
+          "line": 143
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "loading-placeholder"
+      ],
+      "patterns": [
+        "progress"
+      ],
+      "triggers": [
+        "auto"
+      ],
+      "useCases": [
+        "ai-tool-status"
+      ],
+      "note": "An indeterminate visual cue accompanies pending AI work.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-ai-response",
+      "sourceHash": "8fd80c9f7791028b494c313323bb84d94ad509c3969fcb53230a424f7f964662",
+      "entry": "originals/smoothui-ai-response/packages/smoothui/components/ai-response/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/ai-response/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 170
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "reveal-detail"
+      ],
+      "patterns": [
+        "feedback",
+        "text-transition"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "ai-tool-status"
+      ],
+      "note": "Shows response content as an assistant display, with its real response data supplied by the host.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-ai-tool-call",
+      "sourceHash": "10660c452d99d8f2dee4d5e3bc1fbcc5bc05a30dc4f937bb9c7650f92d6e948d",
+      "entry": "originals/smoothui-ai-tool-call/packages/smoothui/components/ai-tool-call/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/ai-tool-call/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 5
+        },
+        {
+          "symbol": "pending",
+          "line": 23
+        },
+        {
+          "symbol": "success",
+          "line": 23
+        },
+        {
+          "symbol": "error",
+          "line": 23
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 78
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "reveal-detail"
+      ],
+      "patterns": [
+        "disclosure",
+        "feedback"
+      ],
+      "triggers": [
+        "state-change",
+        "user-activation"
+      ],
+      "useCases": [
+        "ai-tool-status"
+      ],
+      "note": "Displays a tool call and exposes its details.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-animated-file-upload",
+      "sourceHash": "e0530add9654f58883a2029e861988cc2738190b4f99716f8383a80c17a07c68",
+      "entry": "originals/smoothui-animated-file-upload/packages/smoothui/components/animated-file-upload/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/animated-file-upload/index.tsx",
+      "anchors": [
+        {
+          "symbol": "FileIcon",
+          "line": 49
+        },
+        {
+          "symbol": "UploadIcon",
+          "line": 68
+        },
+        {
+          "symbol": "AnimatedFileUpload",
+          "line": 8
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 5
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 52
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "collect-input"
+      ],
+      "patterns": [
+        "input",
+        "progress"
+      ],
+      "triggers": [
+        "user-activation",
+        "drag"
+      ],
+      "useCases": [
+        "task-feedback"
+      ],
+      "note": "Combines file selection and an animated transfer presentation.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-animated-stepper",
+      "sourceHash": "f3b311f37b3b07f216ec6afc9ce5992f21be459a082bd05bcb290ac514507c61",
+      "entry": "components/smoothui/animated-stepper/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/animated-stepper/index.tsx",
+      "anchors": [
+        {
+          "symbol": "CheckIcon",
+          "line": 47
+        },
+        {
+          "symbol": "AnimatedStepper",
+          "line": 14
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "progress",
+          "line": 30
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 50
+        }
+      ],
+      "intents": [
+        "navigate",
+        "communicate-progress"
+      ],
+      "patterns": [
+        "stepper"
+      ],
+      "triggers": [
+        "user-activation",
+        "state-change"
+      ],
+      "useCases": [
+        "section-navigation",
+        "task-feedback"
+      ],
+      "note": "Represents a current step in a sequence and transfers visual emphasis.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-emoji-reaction",
+      "sourceHash": "197c204468a9b8e29747fdbd38adaafaf1648e150081cfece85bdb781dcbf0bd",
+      "entry": "components/smoothui/emoji-reaction/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/emoji-reaction/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 9
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 209
+        },
+        {
+          "symbol": "onSelect",
+          "line": 275
+        },
+        {
+          "symbol": "aria-label",
+          "line": 323
+        },
+        {
+          "symbol": "aria-pressed",
+          "line": 324
+        }
+      ],
+      "intents": [
+        "confirm-action",
+        "collect-input"
+      ],
+      "patterns": [
+        "button",
+        "feedback"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "task-feedback"
+      ],
+      "note": "Lets a user select a reaction with visual feedback.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-exposure-slider",
+      "sourceHash": "c0242edca130e100ccfd5944f093269a30298a3ccf510e4bf238ff9ac22efc12",
+      "entry": "components/smoothui/exposure-slider/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/exposure-slider/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useMotionValue",
+          "line": 7
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 8
+        },
+        {
+          "symbol": "useSpring",
+          "line": 9
+        },
+        {
+          "symbol": "progress",
+          "line": 15
+        },
+        {
+          "symbol": "onChange",
+          "line": 26
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "picker",
+        "drag"
+      ],
+      "triggers": [
+        "drag"
+      ],
+      "useCases": [
+        "select-value"
+      ],
+      "note": "Pointer movement sets a continuous exposure value.",
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-form",
+      "sourceHash": "d0fd055ac8a1b863321ad36473c24a1d86cd6a92bdc42805df0da33899d7fe2f",
+      "entry": "originals/smoothui-form/packages/smoothui/components/form/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/form/index.tsx",
+      "anchors": [
+        {
+          "symbol": "Form",
+          "line": 35
+        },
+        {
+          "symbol": "FormField",
+          "line": 48
+        },
+        {
+          "symbol": "FormFieldInner",
+          "line": 209
+        },
+        {
+          "symbol": "FormLabel",
+          "line": 57
+        },
+        {
+          "symbol": "FormControl",
+          "line": 292
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "communicate-error"
+      ],
+      "patterns": [
+        "input",
+        "feedback"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "validation"
+      ],
+      "note": "Supplies form field and error-message semantics. The host supplies validation and the actual submission result.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-grid-loader",
+      "sourceHash": "43f4f140b2d25b12f0a0917d5385e3509d95afd60e44bda75dd50928ee9c4a25",
+      "entry": "originals/smoothui-grid-loader/packages/smoothui/components/grid-loader/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/grid-loader/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "activeIndex",
+          "line": 716
+        },
+        {
+          "symbol": "aria-label",
+          "line": 726
+        }
+      ],
+      "intents": [
+        "loading-placeholder",
+        "communicate-progress"
+      ],
+      "patterns": [
+        "progress",
+        "ambient-effect"
+      ],
+      "triggers": [
+        "auto"
+      ],
+      "useCases": [
+        "task-feedback",
+        "ai-tool-status"
+      ],
+      "note": "A repeated grid signal conveys indeterminate work.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-motion-loader",
+      "sourceHash": "d6e48b830dc64d65b5a00bb63844ff580b264b4f2b04a2cab9868dabc5dabe07",
+      "entry": "originals/smoothui-motion-loader/packages/smoothui/components/motion-loader/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/motion-loader/index.tsx",
+      "anchors": [
+        {
+          "symbol": "MOTION_LOADER_VARIANTS",
+          "line": 11
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "aria-label",
+          "line": 530
+        },
+        {
+          "symbol": "aria-live",
+          "line": 531
+        }
+      ],
+      "intents": [
+        "loading-placeholder",
+        "communicate-progress"
+      ],
+      "patterns": [
+        "progress"
+      ],
+      "triggers": [
+        "auto"
+      ],
+      "useCases": [
+        "task-feedback",
+        "ai-tool-status"
+      ],
+      "note": "An animated loader displays pending work without establishing completion.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-new-duration-picker",
+      "sourceHash": "f1c36ea545f803ca147f118b82eb48373678900c5b02b8e32e4fcd60cd562dd0",
+      "entry": "components/smoothui/duration-picker/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/duration-picker/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "onValueChange",
+          "line": 26
+        },
+        {
+          "symbol": "preventDefault",
+          "line": 275
+        },
+        {
+          "symbol": "setPointerCapture",
+          "line": 345
+        },
+        {
+          "symbol": "aria-label",
+          "line": 387
+        }
+      ],
+      "intents": [
+        "collect-input"
+      ],
+      "patterns": [
+        "picker"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "select-value",
+        "booking"
+      ],
+      "note": "Collects a duration from structured time values.",
+      "avoidWhen": [
+        "The interaction calls for unconstrained input rather than a selection surface."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-new-file-tree",
+      "sourceHash": "654a94ffe5a9f65396dc8e400297f9e6a72b38f454d8975e582a85856853e9c5",
+      "entry": "components/smoothui/file-tree/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/file-tree/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 5
+        },
+        {
+          "symbol": "expanded",
+          "line": 28
+        },
+        {
+          "symbol": "onKeyDown",
+          "line": 86
+        },
+        {
+          "symbol": "onSelect",
+          "line": 39
+        },
+        {
+          "symbol": "isOpen",
+          "line": 111
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "navigate"
+      ],
+      "patterns": [
+        "list-transition",
+        "disclosure"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details",
+        "section-navigation"
+      ],
+      "note": "Expands descendants in place while preserving file hierarchy.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-new-morph-toggle",
+      "sourceHash": "13dafaded528ab7a8f4b005dc3f833ee65cb0cd7b64d16ac4e8c6ccb7c95dff6",
+      "entry": "components/smoothui/morph-toggle/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/morph-toggle/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "checked",
+          "line": 13
+        },
+        {
+          "symbol": "onChange",
+          "line": 26
+        },
+        {
+          "symbol": "preventDefault",
+          "line": 93
+        },
+        {
+          "symbol": "aria-checked",
+          "line": 116
+        }
+      ],
+      "intents": [
+        "confirm-action",
+        "collect-input"
+      ],
+      "patterns": [
+        "button",
+        "layout-shift"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "task-feedback"
+      ],
+      "note": "A toggle gives its boolean change a shape transition.",
+      "motions": [
+        "morph"
+      ],
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-new-pixel-brush-canvas",
+      "sourceHash": "83f01fce49d6f39383feb4ba6d2d9d5face406b6346965b61e99913104dae482",
+      "entry": "components/smoothui/pixel-brush-canvas/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/pixel-brush-canvas/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "onChange",
+          "line": 50
+        },
+        {
+          "symbol": "canvas",
+          "line": 57
+        },
+        {
+          "symbol": "error",
+          "line": 240
+        },
+        {
+          "symbol": "aria-label",
+          "line": 324
+        }
+      ],
+      "intents": [
+        "express-brand",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "canvas-effect",
+        "drag"
+      ],
+      "triggers": [
+        "drag",
+        "hover"
+      ],
+      "useCases": [
+        "gesture-actions",
+        "visual-accent"
+      ],
+      "note": "Pointer drawing feeds a pixel rendering surface.",
+      "avoidWhen": [
+        "There is a strict device or GPU budget without a matching runtime measurement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-new-power-off-slide",
+      "sourceHash": "7e2f2faf4533350314bf9fc80571b3e4dc55dabe691480ffc2f52008ca353380",
+      "entry": "components/smoothui/power-off-slide/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/power-off-slide/index.tsx",
+      "anchors": [
+        {
+          "symbol": "PowerOffSlide",
+          "line": 18
+        },
+        {
+          "symbol": "useMotionValue",
+          "line": 9
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 10
+        },
+        {
+          "symbol": "progress",
+          "line": 45
+        },
+        {
+          "symbol": "loading",
+          "line": 88
+        }
+      ],
+      "intents": [
+        "guide-gesture",
+        "request-approval"
+      ],
+      "patterns": [
+        "drag",
+        "button"
+      ],
+      "triggers": [
+        "drag"
+      ],
+      "useCases": [
+        "gesture-actions"
+      ],
+      "note": "A slide requests a deliberate action. Keep actual device operation outside the demo.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-new-social-selector",
+      "sourceHash": "a3469f197fd525f44be0f2f9d00a18ea0f2265da6da66a2851f23a68a343eb62",
+      "entry": "components/smoothui/social-selector/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/social-selector/index.tsx",
+      "anchors": [
+        {
+          "symbol": "XIcon",
+          "line": 7
+        },
+        {
+          "symbol": "ThreadsIcon",
+          "line": 23
+        },
+        {
+          "symbol": "BskyIcon",
+          "line": 42
+        },
+        {
+          "symbol": "SocialSelector",
+          "line": 89
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "maintain-context"
+      ],
+      "patterns": [
+        "picker"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "select-value"
+      ],
+      "note": "Maintains a selected choice within a group of destinations.",
+      "avoidWhen": [
+        "The interaction calls for unconstrained input rather than a selection surface."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-number-flow",
+      "sourceHash": "b06241d44ef2458941e2cda6e0b0f7519051fe03743017a24c1b4b4365dcc5d4",
+      "entry": "originals/smoothui-number-flow/packages/smoothui/components/number-flow/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/number-flow/index.tsx",
+      "anchors": [
+        {
+          "symbol": "NumberFlow",
+          "line": 38
+        },
+        {
+          "symbol": "onChange",
+          "line": 44
+        },
+        {
+          "symbol": "aria-label",
+          "line": 163
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 167
+        },
+        {
+          "symbol": "onClick",
+          "line": 240
+        }
+      ],
+      "intents": [
+        "data-change"
+      ],
+      "patterns": [
+        "text-transition"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "data-display"
+      ],
+      "note": "Animates changed numeric display values.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-organic-merge-transition",
+      "sourceHash": "73c20dfd8a8e4d5f60ef1b1ebc8eff1a6ee634ad80745042f7fe1eee44151e3e",
+      "entry": "originals/smoothui-organic-merge-transition/packages/smoothui/components/organic-merge-transition/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/organic-merge-transition/index.tsx",
+      "anchors": [
+        {
+          "symbol": "OrganicMergeTransitionProps",
+          "line": 6
+        }
+      ],
+      "intents": [
+        "express-brand",
+        "maintain-context"
+      ],
+      "patterns": [
+        "layout-shift"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "visual-accent"
+      ],
+      "note": "Wraps children in a blob transition driven by a supplied transition key.",
+      "motions": [
+        "morph"
+      ],
+      "avoidWhen": [
+        "The effect would compete with an essential interaction or needed reading."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-page-preloader",
+      "sourceHash": "e436de67fb00bcd7c34881461927f4b373b673a03e81823113538f89da6d51ab",
+      "entry": "originals/smoothui-page-preloader/packages/smoothui/components/page-preloader/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/page-preloader/index.tsx",
+      "anchors": [
+        {
+          "symbol": "PAGE_PRELOADER_VARIANTS",
+          "line": 7
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 113
+        },
+        {
+          "symbol": "aria-live",
+          "line": 375
+        }
+      ],
+      "intents": [
+        "loading-placeholder",
+        "communicate-progress"
+      ],
+      "patterns": [
+        "progress"
+      ],
+      "triggers": [
+        "auto"
+      ],
+      "useCases": [
+        "task-feedback"
+      ],
+      "note": "A page startup presentation should track actual app readiness.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-scrubber",
+      "sourceHash": "dd862752c59d1dc04ca44823da8dae454f5f08d6995c27f16dbe2b3db99eeff2",
+      "entry": "components/smoothui/scrubber/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/scrubber/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "onValueChange",
+          "line": 21
+        },
+        {
+          "symbol": "onChange",
+          "line": 64
+        },
+        {
+          "symbol": "preventDefault",
+          "line": 95
+        },
+        {
+          "symbol": "setPointerCapture",
+          "line": 96
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "picker",
+        "drag"
+      ],
+      "triggers": [
+        "drag",
+        "user-activation"
+      ],
+      "useCases": [
+        "select-value",
+        "gesture-actions"
+      ],
+      "note": "Scrubbing adjusts a quantitative value while retaining its label.",
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-siri-orb",
+      "sourceHash": "e6296c33e3efb56bafc9f4376f73184b04463ad88418e0bd5aa9a6cc8ea6f80a",
+      "entry": "components/smoothui/siri-orb/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/siri-orb/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 9
+        },
+        {
+          "symbol": "error",
+          "line": 50
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 291
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "express-brand"
+      ],
+      "patterns": [
+        "ambient-effect",
+        "feedback"
+      ],
+      "triggers": [
+        "auto",
+        "state-change"
+      ],
+      "useCases": [
+        "ai-tool-status",
+        "visual-accent"
+      ],
+      "note": "Illustrates several voice or assistant activity scenes. The host owns listening state.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-task-list",
+      "sourceHash": "ef9a68c7283d28836303b0d3257dde156d25a18ea9571c74ff04ca01ddd56a81",
+      "entry": "components/smoothui/ai-task-list/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/ai-task-list/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "pending",
+          "line": 17
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 65
+        }
+      ],
+      "intents": [
+        "data-change",
+        "communicate-progress"
+      ],
+      "patterns": [
+        "list-transition",
+        "feedback"
+      ],
+      "triggers": [
+        "state-change",
+        "user-activation"
+      ],
+      "useCases": [
+        "task-feedback",
+        "data-display"
+      ],
+      "note": "Task rows retain context as task completion changes.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "smoothui-video-modal",
+      "sourceHash": "2f7fab7ed89b8d12bb4feab03cb190b41cef0af0cf347ac5ec0742fbcf01136f",
+      "entry": "originals/smoothui-video-modal/packages/smoothui/components/video-modal/index.tsx",
+      "sourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/video-modal/index.tsx",
+      "anchors": [
+        {
+          "symbol": "useReducedMotion",
+          "line": 14
+        },
+        {
+          "symbol": "onOpenChange",
+          "line": 61
+        },
+        {
+          "symbol": "progress",
+          "line": 101
+        },
+        {
+          "symbol": "aria-label",
+          "line": 119
+        },
+        {
+          "symbol": "onClick",
+          "line": 121
+        }
+      ],
+      "intents": [
+        "reveal-detail"
+      ],
+      "patterns": [
+        "dialog"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "Opens video content in a modal from a preview control.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    }
+  ]
+}

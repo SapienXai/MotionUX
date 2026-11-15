@@ -1,0 +1,824 @@
+{
+  "version": 1,
+  "intents": {
+    "maintain-context": {
+      "definition": "Preserve a spatial or selection cue across states.",
+      "phrases": [
+        "continuity",
+        "maintain context",
+        "keep selection",
+        "selected item",
+        "seçim devamlılığı",
+        "bağlamı koru",
+        "seçili"
+      ]
+    },
+    "reveal-detail": {
+      "definition": "Expose related information or actions on demand.",
+      "phrases": [
+        "reveal details",
+        "show details",
+        "expand",
+        "disclosure",
+        "more information",
+        "açılır",
+        "ayrıntı",
+        "detay",
+        "genişlet",
+        "daha fazla bilgi",
+        "aç kapa"
+      ]
+    },
+    "confirm-action": {
+      "definition": "Reflect an application-owned outcome or a local action.",
+      "phrases": [
+        "success",
+        "confirmation",
+        "confirm action",
+        "completed",
+        "completion",
+        "onay",
+        "onayı",
+        "tamamlandı",
+        "başarı",
+        "başarılı",
+        "tamamlandığını"
+      ]
+    },
+    "communicate-progress": {
+      "definition": "Indicate activity, pending work or measured progress.",
+      "phrases": [
+        "progress",
+        "pending",
+        "working",
+        "in progress",
+        "tool progress",
+        "ilerleme",
+        "bekliyor",
+        "sürüyor",
+        "işleniyor",
+        "devam ediyor"
+      ]
+    },
+    "navigate": {
+      "definition": "Move between views, destinations or sections.",
+      "phrases": [
+        "navigation",
+        "switch sections",
+        "navigate",
+        "gezinme",
+        "bölüm değiştir",
+        "sekmeler",
+        "sekme"
+      ]
+    },
+    "focus-attention": {
+      "definition": "Highlight an object, text or change without changing app state.",
+      "phrases": [
+        "highlight",
+        "attention",
+        "spotlight",
+        "focus",
+        "vurgula",
+        "dikkat",
+        "odak"
+      ]
+    },
+    "compare-change": {
+      "definition": "Expose differences, alternatives or before and after views.",
+      "phrases": [
+        "compare",
+        "before and after",
+        "comparison",
+        "diff",
+        "karşılaştır",
+        "karşılaştırma",
+        "fark",
+        "önce sonra"
+      ]
+    },
+    "guide-gesture": {
+      "definition": "Make a physical input, threshold or release understandable.",
+      "phrases": [
+        "gesture",
+        "swipe",
+        "drag",
+        "detent",
+        "hareketle",
+        "kaydırma",
+        "sürükle",
+        "sürükleme",
+        "eşik"
+      ]
+    },
+    "express-brand": {
+      "definition": "Give an expressive visual effect to a surface.",
+      "phrases": [
+        "decorative",
+        "ambient",
+        "background",
+        "expressive",
+        "decorative effect",
+        "dekoratif",
+        "ortam",
+        "arka plan",
+        "görsel efekt"
+      ]
+    },
+    "loading-placeholder": {
+      "definition": "Signal unresolved loading or reserve space for incoming content.",
+      "phrases": [
+        "loading",
+        "loader",
+        "spinner",
+        "skeleton",
+        "yükleniyor",
+        "yükleme",
+        "iskelet"
+      ]
+    },
+    "data-change": {
+      "definition": "Make a changing value, count or ordered collection legible.",
+      "phrases": [
+        "live value",
+        "number changes",
+        "count",
+        "data change",
+        "counter",
+        "sayı",
+        "sayım",
+        "değer değişimi"
+      ]
+    },
+    "collect-input": {
+      "definition": "Let a user enter, select or adjust a value.",
+      "phrases": [
+        "input",
+        "picker",
+        "select",
+        "form",
+        "adjust",
+        "girdi",
+        "seçici",
+        "seçme",
+        "giriş",
+        "ayar"
+      ]
+    },
+    "communicate-error": {
+      "definition": "Show validation or a failure and preserve a path to recover.",
+      "phrases": [
+        "failure",
+        "error",
+        "error feedback",
+        "retry",
+        "invalid",
+        "validation",
+        "hata",
+        "başarısız",
+        "yeniden dene",
+        "geçersiz",
+        "doğrulama"
+      ]
+    },
+    "request-approval": {
+      "definition": "Ask for a deliberate decision before proceeding.",
+      "phrases": [
+        "approval",
+        "permission",
+        "approve",
+        "authorize",
+        "izin",
+        "yetkilendir",
+        "onay iste"
+      ]
+    }
+  },
+  "patterns": {
+    "disclosure": {
+      "definition": "Inline content expansion or collapse.",
+      "phrases": [
+        "disclosure",
+        "accordion",
+        "expandable",
+        "expand",
+        "açılır",
+        "akordeon",
+        "genişleyen"
+      ]
+    },
+    "tabs": {
+      "definition": "Single selection among peer panels.",
+      "phrases": [
+        "tabs",
+        "tab navigation",
+        "tab bar",
+        "tab",
+        "sekme",
+        "sekmeler"
+      ]
+    },
+    "menu": {
+      "definition": "Open a group of navigation or command choices.",
+      "phrases": [
+        "menu",
+        "dropdown",
+        "popover",
+        "menü",
+        "açılır menü"
+      ]
+    },
+    "dialog": {
+      "definition": "Focused overlay or dialog interaction.",
+      "phrases": [
+        "dialog",
+        "modal",
+        "overlay",
+        "pencere",
+        "diyalog",
+        "katman"
+      ]
+    },
+    "toast": {
+      "definition": "Transient feedback with independent presentation.",
+      "phrases": [
+        "toast",
+        "notification",
+        "banner",
+        "bildirim",
+        "uyarı"
+      ]
+    },
+    "feedback": {
+      "definition": "Visible indicator for action or status.",
+      "phrases": [
+        "feedback",
+        "status",
+        "confirmation",
+        "success",
+        "geri bildirim",
+        "geribildirim",
+        "durum",
+        "onay"
+      ]
+    },
+    "stepper": {
+      "definition": "Display or change the current step.",
+      "phrases": [
+        "stepper",
+        "step progress",
+        "steps",
+        "adım",
+        "adımlar",
+        "aşama"
+      ]
+    },
+    "drag": {
+      "definition": "Direct pointer manipulation of an item.",
+      "phrases": [
+        "drag",
+        "swipe",
+        "pull",
+        "sürükle",
+        "sürükleme",
+        "kaydırma",
+        "çekme"
+      ]
+    },
+    "carousel": {
+      "definition": "Move between items in a sequence.",
+      "phrases": [
+        "carousel",
+        "swipe deck",
+        "slider cards",
+        "card deck",
+        "karusel",
+        "kart destesi",
+        "kart kaydır"
+      ]
+    },
+    "picker": {
+      "definition": "Choose or adjust a value from a constrained range.",
+      "phrases": [
+        "picker",
+        "wheel picker",
+        "slider",
+        "dial",
+        "range",
+        "seçici",
+        "tekerlek",
+        "saat seç",
+        "aralık"
+      ]
+    },
+    "input": {
+      "definition": "Text or form input with interaction feedback.",
+      "phrases": [
+        "input",
+        "form",
+        "field",
+        "input feedback",
+        "girdi",
+        "alan"
+      ]
+    },
+    "button": {
+      "definition": "An actionable button or toggle.",
+      "phrases": [
+        "button",
+        "toggle",
+        "buton",
+        "düğme",
+        "anahtar"
+      ]
+    },
+    "list-transition": {
+      "definition": "Change an ordered collection in place.",
+      "phrases": [
+        "list",
+        "sortable",
+        "reorder",
+        "list transition",
+        "liste",
+        "sırala",
+        "yeniden sırala"
+      ]
+    },
+    "text-transition": {
+      "definition": "Change or animate rendered text or a number.",
+      "phrases": [
+        "text transition",
+        "text animation",
+        "number animation",
+        "metin",
+        "harf",
+        "sayı animasyonu"
+      ]
+    },
+    "ambient-effect": {
+      "definition": "Background, decorative or continuous visual effect.",
+      "phrases": [
+        "ambient effect",
+        "background effect",
+        "particles",
+        "decorative",
+        "arka plan",
+        "dekoratif"
+      ]
+    },
+    "canvas-effect": {
+      "definition": "Canvas or GPU visual effect.",
+      "phrases": [
+        "canvas",
+        "webgl",
+        "gpu",
+        "3d",
+        "tuval",
+        "parçacık"
+      ]
+    },
+    "layout-shift": {
+      "definition": "Change layout or morph shared geometry.",
+      "phrases": [
+        "morph",
+        "shared layout",
+        "layout transition",
+        "yerleşim",
+        "dönüşüm",
+        "morf"
+      ]
+    },
+    "progress": {
+      "definition": "Loading or progress indicator.",
+      "phrases": [
+        "loading",
+        "progress",
+        "spinner",
+        "loader",
+        "yükleniyor",
+        "ilerleme"
+      ]
+    },
+    "card": {
+      "definition": "Card surface or related card interaction.",
+      "phrases": [
+        "card",
+        "room card",
+        "kart",
+        "oda kartı"
+      ]
+    },
+    "comparison": {
+      "definition": "Side-by-side or interactive comparison.",
+      "phrases": [
+        "comparison",
+        "before and after",
+        "compare",
+        "karşılaştırma"
+      ]
+    }
+  },
+  "motions": {
+    "spring": {
+      "definition": "Spring response expressed in source or reviewed demonstration.",
+      "phrases": [
+        "spring",
+        "springy",
+        "bounce",
+        "yaylı",
+        "yay",
+        "sekme fiziği"
+      ]
+    },
+    "morph": {
+      "definition": "Visual shape or shared geometry changes.",
+      "phrases": [
+        "morph",
+        "morphing",
+        "shape change",
+        "morf",
+        "şekil değişimi"
+      ]
+    },
+    "reveal": {
+      "definition": "Content is uncovered or disclosed.",
+      "phrases": [
+        "reveal",
+        "uncover",
+        "açığa çıkar"
+      ]
+    },
+    "slide": {
+      "definition": "Positional translation between states.",
+      "phrases": [
+        "slide",
+        "sliding",
+        "kayan",
+        "kayma"
+      ]
+    },
+    "scale": {
+      "definition": "A rendered object's scale changes.",
+      "phrases": [
+        "scale",
+        "zoom",
+        "ölçek",
+        "yakınlaş"
+      ]
+    },
+    "fade": {
+      "definition": "Opacity changes between states.",
+      "phrases": [
+        "fade",
+        "crossfade",
+        "dissolve",
+        "solma",
+        "opaklık"
+      ]
+    },
+    "particle": {
+      "definition": "Independent particles or marks move.",
+      "phrases": [
+        "particle",
+        "confetti",
+        "parçacık",
+        "konfeti"
+      ]
+    },
+    "3d": {
+      "definition": "Perspective, rotation in depth or a 3D renderer.",
+      "phrases": [
+        "3d",
+        "perspective",
+        "depth",
+        "derinlik"
+      ]
+    },
+    "blur": {
+      "definition": "Blur or defocus follows state.",
+      "phrases": [
+        "blur",
+        "defocus",
+        "bulanıklık"
+      ]
+    },
+    "rotate": {
+      "definition": "An element or scene rotates.",
+      "phrases": [
+        "rotate",
+        "spin",
+        "dönme",
+        "döndür"
+      ]
+    },
+    "physics": {
+      "definition": "A custom physical simulation or continuous interaction.",
+      "phrases": [
+        "physics",
+        "inertia",
+        "momentum",
+        "fizik",
+        "atalet"
+      ]
+    },
+    "none": {
+      "definition": "Immediate visual state with no motion.",
+      "phrases": []
+    }
+  },
+  "useCases": {
+    "booking": {
+      "definition": "Booking or reservation UI. Application owns the outcome.",
+      "phrases": [
+        "booking",
+        "reservation",
+        "rezervasyon",
+        "booking receipt"
+      ]
+    },
+    "payment": {
+      "definition": "Payment or checkout feedback. Settlement comes from the application.",
+      "phrases": [
+        "checkout",
+        "payment",
+        "ödeme",
+        "tahsilat"
+      ]
+    },
+    "task-feedback": {
+      "definition": "Async activity, confirmation and failure feedback.",
+      "phrases": [
+        "operation",
+        "task",
+        "work status",
+        "işlem",
+        "görev",
+        "sonuç"
+      ]
+    },
+    "validation": {
+      "definition": "Input validation or an actionable error.",
+      "phrases": [
+        "validation",
+        "invalid",
+        "error",
+        "form validation",
+        "doğrulama",
+        "geçersiz",
+        "hata"
+      ]
+    },
+    "select-value": {
+      "definition": "Select a value, duration, date, or time.",
+      "phrases": [
+        "time picker",
+        "duration",
+        "select value",
+        "saat seç",
+        "süre",
+        "değer seç"
+      ]
+    },
+    "section-navigation": {
+      "definition": "Switch navigation destinations or sections.",
+      "phrases": [
+        "section",
+        "tab navigation",
+        "gezinme",
+        "bölüm",
+        "sekme"
+      ]
+    },
+    "content-details": {
+      "definition": "Expose nearby detail and preserve context.",
+      "phrases": [
+        "room card",
+        "details",
+        "more information",
+        "ayrıntı",
+        "detay",
+        "oda kartı"
+      ]
+    },
+    "gesture-actions": {
+      "definition": "Direct manipulation, cancellation or release.",
+      "phrases": [
+        "pull",
+        "swipe",
+        "drag",
+        "kaydırma",
+        "çekme",
+        "sürükleme"
+      ]
+    },
+    "ai-tool-status": {
+      "definition": "Feedback for a genuine tool or agent state.",
+      "phrases": [
+        "ai tool",
+        "agent progress",
+        "tool call",
+        "ai task",
+        "yapay zeka",
+        "araç çağrısı",
+        "ajan"
+      ]
+    },
+    "data-display": {
+      "definition": "Changing values, metrics, or lists.",
+      "phrases": [
+        "metric",
+        "dashboard",
+        "counter",
+        "veri",
+        "sayaç"
+      ]
+    },
+    "comparison": {
+      "definition": "Compare content, code or results.",
+      "phrases": [
+        "compare",
+        "diff",
+        "before and after",
+        "karşılaştır",
+        "fark"
+      ]
+    },
+    "visual-accent": {
+      "definition": "Optional background or brand expression.",
+      "phrases": [
+        "microinteraction",
+        "ambient",
+        "decorative",
+        "efekt",
+        "mikro etkileşim",
+        "arka plan"
+      ]
+    }
+  },
+  "triggers": {
+    "user-activation": {
+      "definition": "A deliberate click, tap or application-supplied activation.",
+      "phrases": [
+        "click",
+        "tap",
+        "tıklama",
+        "dokunma"
+      ]
+    },
+    "hover": {
+      "definition": "Pointer hover initiates the movement.",
+      "phrases": [
+        "hover",
+        "hover effect",
+        "üzerine gel"
+      ]
+    },
+    "drag": {
+      "definition": "A moving pointer controls the state.",
+      "phrases": [
+        "drag",
+        "swipe",
+        "sürükle",
+        "kaydır"
+      ]
+    },
+    "scroll": {
+      "definition": "Scroll position initiates or drives motion.",
+      "phrases": [
+        "scroll",
+        "scroll driven",
+        "kaydırma konumu"
+      ]
+    },
+    "auto": {
+      "definition": "Mount, time or an explicit external state triggers the change.",
+      "phrases": [
+        "autoplay",
+        "timed",
+        "otomatik"
+      ]
+    },
+    "state-change": {
+      "definition": "A value or state supplied by the host changes the display.",
+      "phrases": [
+        "state change",
+        "controlled",
+        "state",
+        "durum değişikliği"
+      ]
+    }
+  },
+  "qualifiers": {
+    "subtle": [
+      "calm",
+      "quiet",
+      "restrained",
+      "subtle",
+      "soft",
+      "sakin",
+      "hafif",
+      "nazik",
+      "yumuşak"
+    ],
+    "mobile": [
+      "mobile",
+      "phone",
+      "mobil",
+      "telefon"
+    ],
+    "fluid": [
+      "fluid",
+      "smooth",
+      "akışkan",
+      "akici",
+      "akıcı"
+    ]
+  },
+  "policies": {
+    "still": [
+      "no animation",
+      "without animation",
+      "do not animate",
+      "don't animate",
+      "no motion",
+      "instant only",
+      "animasyon ekleme",
+      "animasyon istemiyorum",
+      "hareketsiz",
+      "animasyonsuz",
+      "gecikmesiz",
+      "anında göster"
+    ],
+    "fraud": [
+      "fake success",
+      "simulate payment success",
+      "pretend payment succeeded",
+      "show success before",
+      "sahte başarı",
+      "ödeme tamamlanmadan",
+      "başarıyı taklit et",
+      "onay gelmeden başarılı"
+    ],
+    "physical": [
+      "physical mobile",
+      "real ios device",
+      "physical iphone",
+      "physical android",
+      "physical device",
+      "fiziksel cihaz",
+      "gerçek iphone",
+      "gerçek android"
+    ],
+    "keyboard": [
+      "keyboard verified",
+      "keyboard required",
+      "verified keyboard",
+      "klavye doğrulanmış",
+      "klavye şart",
+      "klavye ile doğrulanmış",
+      "klavye zorunlu"
+    ],
+    "touch": [
+      "emulated touch required",
+      "verified emulated touch",
+      "touch emulation required",
+      "emüle dokunma şart",
+      "dokunma emülasyonu doğrulanmış"
+    ],
+    "screenReader": [
+      "screen reader verified",
+      "verified screen reader",
+      "screen reader required",
+      "ekran okuyucu doğrulanmış",
+      "ekran okuyucu şart"
+    ],
+    "reduced": [
+      "reduced motion verified",
+      "verified reduced motion",
+      "reduced motion required",
+      "azaltılmış hareket doğrulanmış",
+      "azaltılmış hareket şart"
+    ],
+    "rtl": [
+      "rtl verified",
+      "verified rtl",
+      "rtl doğrulanmış"
+    ],
+    "lowCost": [
+      "verified low cost",
+      "verified low gpu",
+      "low gpu budget is required",
+      "low gpu budget required",
+      "düşük gpu maliyeti şart",
+      "ölçülmüş düşük maliyet"
+    ],
+    "native": [
+      "native react props required",
+      "native props required",
+      "native react props",
+      "native props",
+      "native react özellikleri şart",
+      "native props şart"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/brain/taxonomy.v1.json",
+  "title": "MotionUX Brain V1 ontology",
+  "type": "object",
+  "required": ["version", "intents", "patterns", "motions", "useCases", "triggers", "qualifiers", "policies"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 1 },
+    "intents": { "$ref": "#/$defs/concepts" },
+    "patterns": { "$ref": "#/$defs/concepts" },
+    "motions": { "$ref": "#/$defs/concepts" },
+    "useCases": { "$ref": "#/$defs/concepts" },
+    "triggers": { "$ref": "#/$defs/concepts" },
+    "qualifiers": { "type": "object", "additionalProperties": { "$ref": "#/$defs/phrases" } },
+    "policies": { "type": "object", "additionalProperties": { "$ref": "#/$defs/phrases" } }
+  },
+  "$defs": {
+    "phrases": {
+      "type": "array", "maxItems": 100, "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 140 }
+    },
+    "concepts": {
+      "type": "object", "minProperties": 1, "maxProperties": 100,
+      "propertyNames": { "pattern": "^[a-z0-9-]+$" },
+      "additionalProperties": {
+        "type": "object", "additionalProperties": false, "required": ["definition", "phrases"],
+        "properties": {
+          "definition": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "phrases": { "$ref": "#/$defs/phrases" }
+        }
+      }
+    }
+  }
+}

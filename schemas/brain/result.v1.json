@@ -1,0 +1,627 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/brain/result.v1.json",
+  "title": "MotionUX Brain V1 result",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "algorithmVersion": {
+      "const": 1
+    },
+    "mode": {
+      "enum": [
+        "search",
+        "recommend"
+      ]
+    },
+    "decision": {
+      "enum": [
+        "candidates",
+        "no-motion",
+        "no-suitable-component",
+        "need-more-context",
+        "not-prepared",
+        "stale-index"
+      ]
+    },
+    "indexFingerprint": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,95}$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "provider": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "integrationKind": {
+            "enum": [
+              "react",
+              "html-iframe"
+            ]
+          },
+          "sourceURL": {
+            "type": "string",
+            "maxLength": 1600,
+            "pattern": "^https://[^/\\s]+(?:/[^\\s]*)?$"
+          },
+          "demoURL": {
+            "type": "string",
+            "maxLength": 1600,
+            "pattern": "^https://[^/\\s]+(?:/[^\\s]*)?$"
+          },
+          "upstreamCommit": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upstreamHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "studioURL": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300
+          },
+          "installURL": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300
+          },
+          "score": {
+            "type": "number"
+          },
+          "scoreBreakdown": {
+            "type": "object",
+            "properties": {
+              "intent": {
+                "type": "number"
+              },
+              "pattern": {
+                "type": "number"
+              },
+              "motion": {
+                "type": "number"
+              },
+              "trigger": {
+                "type": "number"
+              },
+              "useCase": {
+                "type": "number"
+              },
+              "evidence": {
+                "type": "number"
+              },
+              "platform": {
+                "type": "number"
+              },
+              "preference": {
+                "type": "number"
+              },
+              "lexical": {
+                "type": "number"
+              },
+              "cost": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "intent",
+              "pattern",
+              "motion",
+              "trigger",
+              "useCase",
+              "evidence",
+              "platform",
+              "preference",
+              "lexical",
+              "cost"
+            ],
+            "additionalProperties": false
+          },
+          "matches": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "status": {
+                  "enum": [
+                    "verified",
+                    "observed",
+                    "curated",
+                    "unknown",
+                    "unsupported"
+                  ]
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/evidence"
+                  },
+                  "maxItems": 12,
+                  "minItems": 0
+                }
+              },
+              "required": [
+                "field",
+                "value",
+                "status",
+                "evidence"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 70,
+            "minItems": 0
+          },
+          "unknowns": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "maxItems": 64,
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "avoidWhen": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 700
+            },
+            "maxItems": 16,
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "disclosures": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 700
+            },
+            "maxItems": 16,
+            "minItems": 0,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "provider",
+          "integrationKind",
+          "sourceURL",
+          "demoURL",
+          "upstreamCommit",
+          "upstreamHash",
+          "studioURL",
+          "installURL",
+          "score",
+          "scoreBreakdown",
+          "matches",
+          "unknowns",
+          "avoidWhen",
+          "disclosures"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 20,
+      "minItems": 0
+    },
+    "explanation": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1200
+      },
+      "maxItems": 25,
+      "minItems": 1
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "maxItems": 64,
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "filteredReasons": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9:-]+$"
+      },
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1000000
+      }
+    },
+    "signals": {
+      "type": "object",
+      "properties": {
+        "intents": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "maintain-context",
+              "reveal-detail",
+              "confirm-action",
+              "communicate-progress",
+              "navigate",
+              "focus-attention",
+              "compare-change",
+              "guide-gesture",
+              "express-brand",
+              "loading-placeholder",
+              "data-change",
+              "collect-input",
+              "communicate-error",
+              "request-approval"
+            ]
+          },
+          "maxItems": 26,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "disclosure",
+              "tabs",
+              "menu",
+              "dialog",
+              "toast",
+              "feedback",
+              "stepper",
+              "drag",
+              "carousel",
+              "picker",
+              "input",
+              "button",
+              "list-transition",
+              "text-transition",
+              "ambient-effect",
+              "canvas-effect",
+              "layout-shift",
+              "progress",
+              "card",
+              "comparison"
+            ]
+          },
+          "maxItems": 26,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "triggers": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "user-activation",
+              "hover",
+              "drag",
+              "scroll",
+              "auto",
+              "state-change"
+            ]
+          },
+          "maxItems": 26,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "useCases": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "booking",
+              "payment",
+              "task-feedback",
+              "validation",
+              "select-value",
+              "section-navigation",
+              "content-details",
+              "gesture-actions",
+              "ai-tool-status",
+              "data-display",
+              "comparison",
+              "visual-accent"
+            ]
+          },
+          "maxItems": 26,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "motions": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "spring",
+              "morph",
+              "reveal",
+              "slide",
+              "scale",
+              "fade",
+              "particle",
+              "3d",
+              "blur",
+              "rotate",
+              "physics",
+              "none"
+            ]
+          },
+          "maxItems": 26,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "qualifiers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32
+          },
+          "maxItems": 12,
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "intents",
+        "patterns",
+        "triggers",
+        "useCases",
+        "motions",
+        "qualifiers"
+      ],
+      "additionalProperties": false
+    },
+    "tieBreaker": {
+      "const": "id-ascending"
+    },
+    "requirements": {
+      "type": "object",
+      "properties": {
+        "integrationKind": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "react",
+              "html-iframe"
+            ]
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "pointer",
+              "keyboard",
+              "touch-emulated",
+              "physical-mobile",
+              "screen-reader",
+              "reduced-motion",
+              "rtl",
+              "cancel",
+              "interruptible"
+            ]
+          },
+          "maxItems": 9,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "evidenceStatus": {
+          "enum": [
+            "verified",
+            "observed",
+            "curated"
+          ]
+        },
+        "allowedDependencies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:@[a-z0-9][-a-z0-9_.]*/)?[a-zA-Z0-9][-a-zA-Z0-9_.]*$",
+            "maxLength": 120
+          },
+          "maxItems": 150,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "dependencyPins": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^(?:@[a-z0-9][-a-z0-9_.]*/)?[a-zA-Z0-9][-a-zA-Z0-9_.]*$",
+            "maxLength": 120
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "maxProperties": 128
+        },
+        "nativeProps": {
+          "type": "boolean"
+        },
+        "maxPerformanceCost": {
+          "enum": [
+            "low",
+            "moderate",
+            "high"
+          ]
+        },
+        "maxPreviewUnits": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "intent": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "maintain-context",
+              "reveal-detail",
+              "confirm-action",
+              "communicate-progress",
+              "navigate",
+              "focus-attention",
+              "compare-change",
+              "guide-gesture",
+              "express-brand",
+              "loading-placeholder",
+              "data-change",
+              "collect-input",
+              "communicate-error",
+              "request-approval"
+            ]
+          },
+          "maxItems": 14,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "pattern": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "disclosure",
+              "tabs",
+              "menu",
+              "dialog",
+              "toast",
+              "feedback",
+              "stepper",
+              "drag",
+              "carousel",
+              "picker",
+              "input",
+              "button",
+              "list-transition",
+              "text-transition",
+              "ambient-effect",
+              "canvas-effect",
+              "layout-shift",
+              "progress",
+              "card",
+              "comparison"
+            ]
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "algorithmVersion",
+    "mode",
+    "decision",
+    "indexFingerprint",
+    "candidates",
+    "explanation",
+    "unknowns",
+    "filteredReasons",
+    "signals",
+    "tieBreaker",
+    "requirements"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "catalog",
+            "source-ast",
+            "source-review",
+            "browser-test",
+            "install-artifact"
+          ]
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1800
+        },
+        "sourcePinOrHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "testedProfile": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "recordedAt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 900
+        }
+      },
+      "required": [
+        "kind",
+        "locator",
+        "sourcePinOrHash"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

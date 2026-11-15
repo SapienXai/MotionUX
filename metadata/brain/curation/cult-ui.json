@@ -1,0 +1,433 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "cultui-direction-aware-tabs",
+      "sourceHash": "e0fd337557453325a9cfcd25c803aa5aa57d137ebccbe12658415c7162c6a260",
+      "entry": "originals/cultui-direction-aware-tabs/apps/www/registry/default/ui/direction-aware-tabs.tsx",
+      "sourceURL": "https://github.com/nolly-studio/cult-ui/blob/d71b1428b811c2779d46ea41b7ef8c9f9c9991c2/apps/www/registry/default/ui/direction-aware-tabs.tsx",
+      "anchors": [
+        {
+          "symbol": "DirectionAwareTabs",
+          "line": 25
+        },
+        {
+          "symbol": "onChange",
+          "line": 22
+        },
+        {
+          "symbol": "onClick",
+          "line": 81
+        },
+        {
+          "symbol": "layoutId",
+          "line": 93
+        }
+      ],
+      "intents": [
+        "maintain-context",
+        "navigate"
+      ],
+      "patterns": [
+        "tabs"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "section-navigation"
+      ],
+      "note": "Uses the relative tab direction to inform a panel transition.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "cultui-halo-notification",
+      "sourceHash": "89d200017f77f6fd920a680321e02b494675e54aebcbea8f67ceebd19538d18a",
+      "entry": "originals/cultui-halo-notification/apps/www/registry/default/ui/halo-notification.tsx",
+      "sourceURL": "https://github.com/nolly-studio/cult-ui/blob/d71b1428b811c2779d46ea41b7ef8c9f9c9991c2/apps/www/registry/default/ui/halo-notification.tsx",
+      "anchors": [
+        {
+          "symbol": "NotificationCardBorderTrail",
+          "line": 108
+        },
+        {
+          "symbol": "NotificationCardRimBlobs",
+          "line": 223
+        },
+        {
+          "symbol": "StaggeredGlyphLine",
+          "line": 445
+        },
+        {
+          "symbol": "HaloPolishedToastSurface",
+          "line": 4
+        },
+        {
+          "symbol": "HaloPolishedNotification",
+          "line": 5
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "confirm-action"
+      ],
+      "patterns": [
+        "toast",
+        "feedback"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "task-feedback",
+        "visual-accent"
+      ],
+      "note": "Displays notification state in a framed feedback region.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "cultui-halo-progress",
+      "sourceHash": "1ded8f484c68d9986771b2190e86044be629425d78a01b1ae1e32bf7d0e92ef9",
+      "entry": "originals/cultui-halo-progress/apps/www/registry/default/ui/halo-progress.tsx",
+      "sourceURL": "https://github.com/nolly-studio/cult-ui/blob/d71b1428b811c2779d46ea41b7ef8c9f9c9991c2/apps/www/registry/default/ui/halo-progress.tsx",
+      "anchors": [
+        {
+          "symbol": "IndeterminateBar",
+          "line": 22
+        },
+        {
+          "symbol": "HaloProgress",
+          "line": 57
+        },
+        {
+          "symbol": "progress",
+          "line": 9
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 10
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 44
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "data-change"
+      ],
+      "patterns": [
+        "progress"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "task-feedback",
+        "data-display"
+      ],
+      "note": "A progress presentation reflects input values.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "cultui-halo-tabs",
+      "sourceHash": "c79f19215f9fce4e6089cf5532d577c1bedbc9f1153d9352a285d94237d4bc35",
+      "entry": "originals/cultui-halo-tabs/apps/www/registry/default/ui/halo-tabs.tsx",
+      "sourceURL": "https://github.com/nolly-studio/cult-ui/blob/d71b1428b811c2779d46ea41b7ef8c9f9c9991c2/apps/www/registry/default/ui/halo-tabs.tsx",
+      "anchors": [
+        {
+          "symbol": "HaloTabs",
+          "line": 16
+        },
+        {
+          "symbol": "HaloTabsList",
+          "line": 37
+        },
+        {
+          "symbol": "HaloTabsTrigger",
+          "line": 61
+        },
+        {
+          "symbol": "HaloTabsIndicator",
+          "line": 84
+        },
+        {
+          "symbol": "HaloTabsContent",
+          "line": 141
+        }
+      ],
+      "intents": [
+        "maintain-context",
+        "navigate"
+      ],
+      "patterns": [
+        "tabs"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "section-navigation"
+      ],
+      "note": "Maintains a visible active state within related panel choices.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "cultui-morph-surface",
+      "sourceHash": "f8ab774c836382307e1a298ff21398718489cbf21d29e77e7344d240dc58ebc9",
+      "entry": "originals/cultui-morph-surface/apps/www/registry/default/ui/morph-surface.tsx",
+      "sourceURL": "https://github.com/nolly-studio/cult-ui/blob/d71b1428b811c2779d46ea41b7ef8c9f9c9991c2/apps/www/registry/default/ui/morph-surface.tsx",
+      "anchors": [
+        {
+          "symbol": "MorphSurface",
+          "line": 48
+        },
+        {
+          "symbol": "MorphSurfaceDock",
+          "line": 336
+        },
+        {
+          "symbol": "IconCheck",
+          "line": 399
+        },
+        {
+          "symbol": "Kbd",
+          "line": 527
+        },
+        {
+          "symbol": "isOpen",
+          "line": 30
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "maintain-context"
+      ],
+      "patterns": [
+        "layout-shift",
+        "feedback"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details",
+        "task-feedback"
+      ],
+      "note": "Morphs a surface between expanded and compact regions while preserving a shared visual anchor.",
+      "motions": [
+        "morph"
+      ],
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "cultui-popover-form",
+      "sourceHash": "1f50e32a41444d84ea4cf317a23c68041f592be6a3645b20b8ff66eaa21a33b6",
+      "entry": "originals/cultui-popover-form/apps/www/registry/default/ui/popover-form.tsx",
+      "sourceURL": "https://github.com/nolly-studio/cult-ui/blob/d71b1428b811c2779d46ea41b7ef8c9f9c9991c2/apps/www/registry/default/ui/popover-form.tsx",
+      "anchors": [
+        {
+          "symbol": "PopoverForm",
+          "line": 7
+        },
+        {
+          "symbol": "PopoverFormButton",
+          "line": 115
+        },
+        {
+          "symbol": "PopoverFormSuccess",
+          "line": 90
+        },
+        {
+          "symbol": "PopoverFormSeparator",
+          "line": 206
+        },
+        {
+          "symbol": "PopoverFormCutOutTopIcon",
+          "line": 73
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "reveal-detail"
+      ],
+      "patterns": [
+        "menu",
+        "input"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "validation",
+        "content-details"
+      ],
+      "note": "A trigger opens a compact form for data entry.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "cultui-shader-lens-blur",
+      "sourceHash": "a81ae00aa54ede35f3b221707f775cfc17733fe4619debd8d294d5b61b9d8956",
+      "entry": "originals/cultui-shader-lens-blur/apps/www/registry/default/ui/shader-lens-blur.tsx",
+      "sourceURL": "https://github.com/nolly-studio/cult-ui/blob/d71b1428b811c2779d46ea41b7ef8c9f9c9991c2/apps/www/registry/default/ui/shader-lens-blur.tsx",
+      "anchors": [
+        {
+          "symbol": "ShaderLensBlur",
+          "line": 152
+        },
+        {
+          "symbol": "ShaderLensBlur",
+          "line": 152
+        },
+        {
+          "symbol": "fragmentShader",
+          "line": 9
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 233
+        },
+        {
+          "symbol": "canvas",
+          "line": 155
+        }
+      ],
+      "intents": [
+        "express-brand",
+        "focus-attention"
+      ],
+      "patterns": [
+        "canvas-effect",
+        "ambient-effect"
+      ],
+      "triggers": [
+        "auto"
+      ],
+      "useCases": [
+        "visual-accent"
+      ],
+      "note": "A shader-driven lens blur is a visual layer rather than a state signal.",
+      "motions": [
+        "blur"
+      ],
+      "avoidWhen": [
+        "There is a strict device or GPU budget without a matching runtime measurement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "cultui-sortable-list",
+      "sourceHash": "6fd3712c00ba6d721b9481f3786c34a6d1b5eb3cdc8fd3c511bff208a51e55ee",
+      "entry": "originals/cultui-sortable-list/apps/www/registry/default/ui/sortable-list.tsx",
+      "sourceURL": "https://github.com/nolly-studio/cult-ui/blob/d71b1428b811c2779d46ea41b7ef8c9f9c9991c2/apps/www/registry/default/ui/sortable-list.tsx",
+      "anchors": [
+        {
+          "symbol": "SortableListItem",
+          "line": 26
+        },
+        {
+          "symbol": "SortableList",
+          "line": 26
+        },
+        {
+          "symbol": "checked",
+          "line": 21
+        },
+        {
+          "symbol": "layoutId",
+          "line": 94
+        },
+        {
+          "symbol": "onDragEnd",
+          "line": 97
+        }
+      ],
+      "intents": [
+        "guide-gesture",
+        "data-change"
+      ],
+      "patterns": [
+        "list-transition",
+        "drag"
+      ],
+      "triggers": [
+        "drag"
+      ],
+      "useCases": [
+        "gesture-actions",
+        "data-display"
+      ],
+      "note": "Lets the user change item ordering directly.",
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "cultui-toolbar-expandable",
+      "sourceHash": "33077d12a25dff3314e056728a04519a2c0337d82a491714f3fe2b6e1feb4ac6",
+      "entry": "originals/cultui-toolbar-expandable/apps/www/registry/default/ui/toolbar-expandable.tsx",
+      "sourceURL": "https://github.com/nolly-studio/cult-ui/blob/d71b1428b811c2779d46ea41b7ef8c9f9c9991c2/apps/www/registry/default/ui/toolbar-expandable.tsx",
+      "anchors": [
+        {
+          "symbol": "ToolbarExpandable",
+          "line": 33
+        },
+        {
+          "symbol": "expanded",
+          "line": 38
+        },
+        {
+          "symbol": "isOpen",
+          "line": 60
+        },
+        {
+          "symbol": "onClick",
+          "line": 207
+        },
+        {
+          "symbol": "aria-roledescription",
+          "line": 525
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "navigate"
+      ],
+      "patterns": [
+        "menu",
+        "layout-shift"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details",
+        "section-navigation"
+      ],
+      "note": "Expands a toolbar to reveal related actions.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    }
+  ]
+}

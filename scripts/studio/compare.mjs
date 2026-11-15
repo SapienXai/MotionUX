@@ -32,7 +32,9 @@ export async function compareSources(browser, originals, { origin, evidence, ids
         await expect(page.locator("[data-preview-lane]")).toHaveCount(3);
         const endpoints = [];
         const details = await page.request.get(origin + "/v9/catalog.json?id=" + id).then(response => response.json());
-        const install = await page.request.get(origin + details.installURL).then(response => response.json());
+        const recipe = await page.request.get(origin + details.installURL).then(response => response.body());
+        const install = JSON.parse(recipe);
+        const registryHash = createHash("sha256").update(recipe).digest("hex");
         await assertSourceBytes(origin, item, details, install);
         for (const type of labels) {
           const frame = page.locator('[data-preview-lane="' + type + '"]');
@@ -75,7 +77,7 @@ export async function compareSources(browser, originals, { origin, evidence, ids
         const interactionSampled = states.every(state => state !== undefined);
         const statesMatch = interactionSampled && new Set(states.map(state => JSON.stringify(state))).size === 1;
         assert(!interactionSampled || statesMatch, "Sampled interaction endpoints differ across contexts");
-        comparisons.push({ id, provider: item.provider, sourceKind: item.sourceKind, endpoints, sourceHash: item.upstreamHash, pixelDiffs,
+        comparisons.push({ id, provider: item.provider, sourceKind: item.sourceKind, endpoints, sourceHash: item.upstreamHash, registryHash, pixelDiffs,
           interactionSampled, statesMatch, lanes: captured.map(row => ({ ...row, screenshot: id + "-" + row.type + ".png" })) });
       } catch (error) {
         comparisons.push({ id, error: error.message.split("\n")[0] });

@@ -1,6 +1,8 @@
 import { chromium, devices } from "playwright";
 import { expect } from "@playwright/test";
 import { mkdir, writeFile } from "node:fs/promises";
+import { loadCatalog } from "../studio/catalog.mjs";
+import { sha256 } from "../studio/v11/identity.mjs";
 
 const origin = "http://127.0.0.1:5199";
 const profile = devices["iPhone 13"];
@@ -14,6 +16,7 @@ const specs = [
 ];
 const browser = await chromium.launch();
 const diagnostics = [];
+const catalog = await loadCatalog();
 await mkdir(".motionux-v9/evidence", { recursive: true });
 try {
   for (const spec of specs) {
@@ -47,7 +50,11 @@ try {
         result.push({ lane, error: error.message });
       } finally { await page.close(); }
     }
-    diagnostics.push({ id: spec.group + "-" + spec.slug, input: "Chromium CDP touchscreen", width: profile.viewport.width,
+    const id = spec.group + "-" + spec.slug;
+    const original = catalog.get(id);
+    if (!original || original.availability !== "ready") throw new Error("Missing prepared touch source " + id);
+    diagnostics.push({ id, sourceHash: original.upstreamHash, registryHash: await sha256(original.installRecipe),
+      input: "Chromium CDP touchscreen", width: profile.viewport.width,
       stateMatched: result.every(row => !row.error) && result[0].after === result[1].after, result });
   }
 } finally { await browser.close(); }

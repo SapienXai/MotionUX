@@ -1,0 +1,360 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "motionprimitives-accordion",
+      "sourceHash": "5de8206a53d083d3c5d4503fc4d203efaed734ea904de4fd77b33c1ebc991b7c",
+      "entry": "originals/motionprimitives-accordion/components/core/accordion.tsx",
+      "sourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/accordion.tsx",
+      "anchors": [
+        {
+          "symbol": "AccordionProvider",
+          "line": 26
+        },
+        {
+          "symbol": "Accordion",
+          "line": 13
+        },
+        {
+          "symbol": "AccordionItem",
+          "line": 100
+        },
+        {
+          "symbol": "AccordionTrigger",
+          "line": 129
+        },
+        {
+          "symbol": "AccordionContent",
+          "line": 156
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "maintain-context"
+      ],
+      "patterns": [
+        "disclosure"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "Interlinked accordion sections reveal additional content inline.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "motionprimitives-animated-number",
+      "sourceHash": "3b4a9f3262cb79527fba01a76576e920e340137f0643bf34a7732f7f8b1ff792",
+      "entry": "components/core/animated-number.tsx",
+      "sourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/animated-number.tsx",
+      "anchors": [
+        {
+          "symbol": "AnimatedNumber",
+          "line": 6
+        },
+        {
+          "symbol": "useSpring",
+          "line": 3
+        }
+      ],
+      "intents": [
+        "data-change"
+      ],
+      "patterns": [
+        "text-transition"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "data-display"
+      ],
+      "note": "A supplied number updates the numeric presentation.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "motionprimitives-dialog",
+      "sourceHash": "11ab87b504cb42e778f947ad722925b051b977f62638741402f170a57ca6ba2d",
+      "entry": "originals/motionprimitives-dialog/components/core/dialog.tsx",
+      "sourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/dialog.tsx",
+      "anchors": [
+        {
+          "symbol": "Dialog",
+          "line": 10
+        },
+        {
+          "symbol": "DialogTrigger",
+          "line": 143
+        },
+        {
+          "symbol": "DialogPortal",
+          "line": 167
+        },
+        {
+          "symbol": "DialogContent",
+          "line": 192
+        },
+        {
+          "symbol": "DialogHeader",
+          "line": 249
+        }
+      ],
+      "intents": [
+        "reveal-detail"
+      ],
+      "patterns": [
+        "dialog"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "Separates an overlay's trigger and content for an on-demand reveal.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "motionprimitives-disclosure",
+      "sourceHash": "6ff585f95b063f1fdcff31c117051f732ef247a99fe039fe500bcccb3dc8bd40",
+      "entry": "originals/motionprimitives-disclosure/components/core/disclosure.tsx",
+      "sourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/disclosure.tsx",
+      "anchors": [
+        {
+          "symbol": "DisclosureProvider",
+          "line": 24
+        },
+        {
+          "symbol": "Disclosure",
+          "line": 14
+        },
+        {
+          "symbol": "DisclosureTrigger",
+          "line": 105
+        },
+        {
+          "symbol": "DisclosureContent",
+          "line": 141
+        },
+        {
+          "symbol": "expanded",
+          "line": 17
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "maintain-context"
+      ],
+      "patterns": [
+        "disclosure"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "Expands associated content from a disclosure trigger.",
+      "motions": [
+        "reveal"
+      ],
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "motionprimitives-infinite-slider",
+      "sourceHash": "66bca95cd394826200cca57d9efd1824de9d08df40ecfb7dd5c61946ec6773c0",
+      "entry": "components/core/infinite-slider.tsx",
+      "sourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/infinite-slider.tsx",
+      "anchors": [
+        {
+          "symbol": "InfiniteSlider",
+          "line": 7
+        },
+        {
+          "symbol": "useMotionValue",
+          "line": 3
+        },
+        {
+          "symbol": "onHoverStart",
+          "line": 83
+        },
+        {
+          "symbol": "onHoverEnd",
+          "line": 87
+        }
+      ],
+      "intents": [
+        "navigate",
+        "express-brand"
+      ],
+      "patterns": [
+        "carousel",
+        "ambient-effect"
+      ],
+      "triggers": [
+        "auto",
+        "hover"
+      ],
+      "useCases": [
+        "visual-accent"
+      ],
+      "note": "Continuously pans a sequence of content with pointer behavior.",
+      "motions": [
+        "slide"
+      ],
+      "avoidWhen": [
+        "The effect would compete with an essential interaction or needed reading."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "motionprimitives-morphing-dialog",
+      "sourceHash": "3783289015c56be36cd74701468a4d2aa345b48676b7fa12964ace9558e4e33e",
+      "entry": "components/core/morphing-dialog.tsx",
+      "sourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/morphing-dialog.tsx",
+      "anchors": [
+        {
+          "symbol": "MorphingDialogProvider",
+          "line": 38
+        },
+        {
+          "symbol": "MorphingDialog",
+          "line": 24
+        },
+        {
+          "symbol": "MorphingDialogTrigger",
+          "line": 87
+        },
+        {
+          "symbol": "MorphingDialogContent",
+          "line": 134
+        },
+        {
+          "symbol": "MorphingDialogContainer",
+          "line": 222
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "maintain-context"
+      ],
+      "patterns": [
+        "dialog",
+        "layout-shift"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "The trigger and expanded layer share a visual transition.",
+      "motions": [
+        "morph",
+        "reveal"
+      ],
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "motionprimitives-sliding-number",
+      "sourceHash": "cc30412f3ee6d925457e8559b7cda36faf3330e29da1e832b7a3e3bd087a6290",
+      "entry": "originals/motionprimitives-sliding-number/components/core/sliding-number.tsx",
+      "sourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/sliding-number.tsx",
+      "anchors": [
+        {
+          "symbol": "Digit",
+          "line": 19
+        },
+        {
+          "symbol": "Number",
+          "line": 32
+        },
+        {
+          "symbol": "SlidingNumber",
+          "line": 77
+        },
+        {
+          "symbol": "useSpring",
+          "line": 6
+        },
+        {
+          "symbol": "layoutId",
+          "line": 67
+        }
+      ],
+      "intents": [
+        "data-change"
+      ],
+      "patterns": [
+        "text-transition"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "data-display"
+      ],
+      "note": "Digit positions roll to reflect a new value.",
+      "motions": [
+        "slide",
+        "spring"
+      ],
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "motionprimitives-transition-panel",
+      "sourceHash": "1b3c67058a09a560a034b7fe52ad1c205b589a63ed80055900e8a66830db0be2",
+      "entry": "components/core/transition-panel.tsx",
+      "sourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/transition-panel.tsx",
+      "anchors": [
+        {
+          "symbol": "TransitionPanel",
+          "line": 11
+        },
+        {
+          "symbol": "activeIndex",
+          "line": 15
+        }
+      ],
+      "intents": [
+        "navigate",
+        "maintain-context"
+      ],
+      "patterns": [
+        "tabs",
+        "layout-shift"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "section-navigation"
+      ],
+      "note": "Transitions a controlled panel keyed by selection.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    }
+  ]
+}

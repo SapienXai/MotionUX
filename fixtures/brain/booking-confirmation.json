@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "query": "Rezervasyonun tamamlandığını sakin ve anlaşılır biçimde göstermek istiyorum",
+  "context": {
+    "screen": "booking-confirmation",
+    "platform": "mobile",
+    "businessStateOwner": "application",
+    "state": "success"
+  },
+  "require": {
+    "integrationKind": [
+      "react"
+    ]
+  },
+  "prefer": {
+    "intent": [
+      "confirm-action"
+    ],
+    "intensity": "subtle",
+    "performanceCost": "low"
+  },
+  "maxResults": 5
+}

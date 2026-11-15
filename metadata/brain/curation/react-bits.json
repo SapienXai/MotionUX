@@ -1,0 +1,414 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "reactbits-accordion-gallery",
+      "sourceHash": "d442842589731f27ae1b2b429d8eda8b185cd8d0d2809c32de9eebd6007def3d",
+      "entry": "originals/reactbits-accordion-gallery/upstream/ts-default/Components/AccordionGallery/AccordionGallery.tsx",
+      "sourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/AccordionGallery/AccordionGallery.tsx",
+      "anchors": [
+        {
+          "symbol": "preventDefault",
+          "line": 194
+        },
+        {
+          "symbol": "aria-label",
+          "line": 224
+        },
+        {
+          "symbol": "onClick",
+          "line": 238
+        },
+        {
+          "symbol": "onMouseEnter",
+          "line": 239
+        },
+        {
+          "symbol": "onKeyDown",
+          "line": 241
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "maintain-context"
+      ],
+      "patterns": [
+        "disclosure",
+        "card"
+      ],
+      "triggers": [
+        "hover",
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "Expanded gallery regions expose more content while keeping nearby entries in view.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "reactbits-animated-list",
+      "sourceHash": "dcd33973cb71bb13485a2aa3ef76cb7372d0dd783c94d748709560e939152691",
+      "entry": "originals/reactbits-animated-list/upstream/ts-default/Components/AnimatedList/AnimatedList.tsx",
+      "sourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/AnimatedList/AnimatedList.tsx",
+      "anchors": [
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 280
+        },
+        {
+          "symbol": "preventDefault",
+          "line": 430
+        },
+        {
+          "symbol": "onPointerMove",
+          "line": 442
+        },
+        {
+          "symbol": "aria-activedescendant",
+          "line": 546
+        },
+        {
+          "symbol": "aria-selected",
+          "line": 566
+        }
+      ],
+      "intents": [
+        "data-change",
+        "maintain-context"
+      ],
+      "patterns": [
+        "list-transition"
+      ],
+      "triggers": [
+        "scroll",
+        "user-activation"
+      ],
+      "useCases": [
+        "data-display",
+        "section-navigation"
+      ],
+      "note": "A list stages entries as they appear and provides selection feedback.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "reactbits-comet-dial",
+      "sourceHash": "96a495a64c3b7e0fc3d4a908c9f3c95be248bb5277469d0d0cc946ac89b63559",
+      "entry": "originals/reactbits-comet-dial/upstream/ts-default/Micro/CometDial/CometDial.tsx",
+      "sourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/CometDial/CometDial.tsx",
+      "anchors": [
+        {
+          "symbol": "useMotionValue",
+          "line": 4
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "onChange",
+          "line": 44
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 161
+        },
+        {
+          "symbol": "aria-valuenow",
+          "line": 230
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "picker",
+        "drag"
+      ],
+      "triggers": [
+        "drag",
+        "user-activation"
+      ],
+      "useCases": [
+        "select-value",
+        "gesture-actions"
+      ],
+      "note": "A dial exposes its current numeric value while supporting step changes.",
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "reactbits-electric-border",
+      "sourceHash": "b5857320056dc0a54590f6e19c23135d37cb3c3b97b3c80960ec60c966620c94",
+      "entry": "components/reactbits/electric-border/ElectricBorder.tsx",
+      "sourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ElectricBorder/ElectricBorder.tsx",
+      "anchors": [
+        {
+          "symbol": "canvas",
+          "line": 345
+        },
+        {
+          "symbol": "error",
+          "line": 362
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 739
+        },
+        {
+          "symbol": "onPointerMove",
+          "line": 764
+        },
+        {
+          "symbol": "onPointerDown",
+          "line": 769
+        }
+      ],
+      "intents": [
+        "focus-attention",
+        "express-brand"
+      ],
+      "patterns": [
+        "canvas-effect",
+        "ambient-effect"
+      ],
+      "triggers": [
+        "auto"
+      ],
+      "useCases": [
+        "visual-accent"
+      ],
+      "note": "An animated border draws continuous attention around content.",
+      "avoidWhen": [
+        "There is a strict device or GPU budget without a matching runtime measurement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "reactbits-glare-hover",
+      "sourceHash": "0d9acea382c7a56cebcea377749e2a2fd902088b1a1147e79d87859f225acd51",
+      "entry": "components/reactbits/glare-hover/GlareHover.tsx",
+      "sourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/GlareHover/GlareHover.tsx",
+      "anchors": [
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 174
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 322
+        }
+      ],
+      "intents": [
+        "focus-attention",
+        "express-brand"
+      ],
+      "patterns": [
+        "card",
+        "ambient-effect"
+      ],
+      "triggers": [
+        "hover"
+      ],
+      "useCases": [
+        "visual-accent"
+      ],
+      "note": "A glare changes on pointer hover, leaving underlying content in place.",
+      "avoidWhen": [
+        "The effect would compete with an essential interaction or needed reading."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "reactbits-glide-select",
+      "sourceHash": "4ab4dec9aeafdbb84137d2e78ae4b49369604a1e17b24491c932b8891d8fb499",
+      "entry": "originals/reactbits-glide-select/upstream/ts-default/Micro/GlideSelect/GlideSelect.tsx",
+      "sourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/GlideSelect/GlideSelect.tsx",
+      "anchors": [
+        {
+          "symbol": "onChange",
+          "line": 19
+        },
+        {
+          "symbol": "preventDefault",
+          "line": 189
+        },
+        {
+          "symbol": "setPointerCapture",
+          "line": 234
+        },
+        {
+          "symbol": "aria-haspopup",
+          "line": 293
+        },
+        {
+          "symbol": "aria-expanded",
+          "line": 294
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "maintain-context"
+      ],
+      "patterns": [
+        "picker"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "select-value"
+      ],
+      "note": "Selection feedback follows movement between choices.",
+      "avoidWhen": [
+        "The interaction calls for unconstrained input rather than a selection surface."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "reactbits-hold-button",
+      "sourceHash": "73e1b82868aa1ad264d73a5e6889136e13b20bdbb081ed9c2da5bc5908fe00ed",
+      "entry": "originals/reactbits-hold-button/upstream/ts-default/Micro/HoldButton/HoldButton.tsx",
+      "sourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/HoldButton/HoldButton.tsx",
+      "anchors": [
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 118
+        },
+        {
+          "symbol": "setPointerCapture",
+          "line": 169
+        },
+        {
+          "symbol": "preventDefault",
+          "line": 204
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 256
+        },
+        {
+          "symbol": "aria-describedby",
+          "line": 290
+        }
+      ],
+      "intents": [
+        "request-approval",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "button"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "gesture-actions",
+        "task-feedback"
+      ],
+      "note": "A timed hold gates an action. The callback remains the source of the actual operation.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "reactbits-rubber-segment",
+      "sourceHash": "69d1cc3af5718faaf5d1d9a9fdab59edb26f05ea61d5c85694edd1e51664d88f",
+      "entry": "originals/reactbits-rubber-segment/upstream/ts-default/Micro/RubberSegment/RubberSegment.tsx",
+      "sourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/RubberSegment/RubberSegment.tsx",
+      "anchors": [
+        {
+          "symbol": "useMotionValue",
+          "line": 4
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 4
+        },
+        {
+          "symbol": "onChange",
+          "line": 15
+        },
+        {
+          "symbol": "aria-label",
+          "line": 31
+        },
+        {
+          "symbol": "setPointerCapture",
+          "line": 239
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "maintain-context"
+      ],
+      "patterns": [
+        "picker",
+        "layout-shift"
+      ],
+      "triggers": [
+        "user-activation",
+        "drag"
+      ],
+      "useCases": [
+        "select-value",
+        "section-navigation"
+      ],
+      "note": "Active segment feedback moves between adjacent choices.",
+      "avoidWhen": [
+        "The interaction calls for unconstrained input rather than a selection surface."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "reactbits-split-flap-text",
+      "sourceHash": "57e5653c81c0d4590353522c3772f62f0a86d2a3940dd39dd2f7c0a6b974eaff",
+      "entry": "originals/reactbits-split-flap-text/upstream/ts-default/TextAnimations/SplitFlapText/SplitFlapText.tsx",
+      "sourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/SplitFlapText/SplitFlapText.tsx",
+      "anchors": [
+        {
+          "symbol": "activeIndex",
+          "line": 214
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 324
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 434
+        }
+      ],
+      "intents": [
+        "data-change",
+        "express-brand"
+      ],
+      "patterns": [
+        "text-transition"
+      ],
+      "triggers": [
+        "auto",
+        "state-change"
+      ],
+      "useCases": [
+        "data-display",
+        "visual-accent"
+      ],
+      "note": "A flap display changes characters as a display effect.",
+      "avoidWhen": [
+        "The effect would compete with an essential interaction or needed reading."
+      ],
+      "revision": 1
+    }
+  ]
+}

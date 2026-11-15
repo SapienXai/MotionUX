@@ -4,7 +4,7 @@
 
 <p align="center">
   Start with real motion. Try a gesture, compare the original, and bring the interaction into your own product.
-  We’re building toward a way for people and coding agents to choose motion with the same care.
+  Brain helps people and coding agents choose motion by intent, with evidence for each recommendation.
 </p>
 
 <p align="center">
@@ -29,19 +29,21 @@
 - **Keep what fits.** Save favorites, build a collection for a project and leave yourself a note in My Library.
 - **Take it into your app.** Open Code, Usage and Install for the selected original. Export a shortlist with its setup instructions through Project Kit.
 
-## Where MotionUX is going
+## Brain and what comes next
 
-An animation can clarify where you are, confirm an action, or help you follow a change. Sometimes the clearest interaction is immediate. MotionUX is building toward recommendations that explain the difference and show how to verify the result in your app.
+An animation can clarify where you are, confirm an action, or help you follow a change. Sometimes the clearest interaction is immediate. Brain explains why an original fits, highlights missing evidence and can recommend an immediate state update.
 
 | Product | Status | What it does |
 | --- | --- | --- |
 | **Studio** | Available locally | Discover, try, compare and collect pinned implementations. |
-| **Brain** | Planned | Find suitable motion by intent, explain the evidence and recommend stillness when it fits. |
+| **Brain** | Available locally | Search in Turkish and English, review evidence, and choose stillness when it fits. |
 | **Agent** | Planned | Help Codex scope, integrate and verify an interaction. Local MCP tooling follows the CLI. |
 | **Motion DNA** | Planned | Record how motion should feel and behave in a specific product. |
 | **Inspector** | Planned | Find motion and accessibility issues on real routes and compare evidence before and after. |
 
-**Future workflow concept**
+Run `npm run brain:index` in a prepared workspace to search or ask for a recommendation. [Brain V1 CLI and evidence](docs/BRAIN-V1.md)
+
+**Future Agent workflow concept**
 
 > Review our booking flow. Find calm motion that makes the next step clearer and fits our design language. Use an original component if it helps. Check touch, keyboard, reduced motion and performance on the real screen.
 

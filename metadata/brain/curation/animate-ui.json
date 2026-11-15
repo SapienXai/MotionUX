@@ -1,0 +1,358 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "animateui-components-animate-tabs",
+      "sourceHash": "41ebadc7f2c858b51dbea455736a6b9c712effe4c0a24c47d6149badebd845f3",
+      "entry": "originals/animateui-components-animate-tabs/apps/v1/apps/www/registry/components/animate/tabs/index.tsx",
+      "sourceURL": "https://github.com/imskyleen/animate-ui/blob/22a9236ae107328f8564edb7e3299375da3247af/apps/v1/apps/www/registry/components/animate/tabs/index.tsx",
+      "anchors": [
+        {
+          "symbol": "Tabs",
+          "line": 4
+        },
+        {
+          "symbol": "TabsList",
+          "line": 5
+        },
+        {
+          "symbol": "TabsTrigger",
+          "line": 6
+        },
+        {
+          "symbol": "TabsContents",
+          "line": 8
+        },
+        {
+          "symbol": "TabsContent",
+          "line": 7
+        }
+      ],
+      "intents": [
+        "navigate",
+        "maintain-context"
+      ],
+      "patterns": [
+        "tabs"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "section-navigation"
+      ],
+      "note": "Transitions selection among tab panels.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "animateui-components-backgrounds-gravity-stars",
+      "sourceHash": "a9fd8bddef505504b16d3ab46398f93d3a7a3219d633abccd799b2356f565152",
+      "entry": "originals/animateui-components-backgrounds-gravity-stars/apps/v1/apps/www/registry/components/backgrounds/gravity-stars/index.tsx",
+      "sourceURL": "https://github.com/imskyleen/animate-ui/blob/22a9236ae107328f8564edb7e3299375da3247af/apps/v1/apps/www/registry/components/backgrounds/gravity-stars/index.tsx",
+      "anchors": [
+        {
+          "symbol": "GravityStarsBackground",
+          "line": 38
+        },
+        {
+          "symbol": "canvas",
+          "line": 54
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 294
+        },
+        {
+          "symbol": "onMouseMove",
+          "line": 351
+        }
+      ],
+      "intents": [
+        "express-brand"
+      ],
+      "patterns": [
+        "canvas-effect",
+        "ambient-effect"
+      ],
+      "triggers": [
+        "auto"
+      ],
+      "useCases": [
+        "visual-accent"
+      ],
+      "note": "A continuous canvas scene animates stars as a decorative background.",
+      "motions": [
+        "particle"
+      ],
+      "avoidWhen": [
+        "There is a strict device or GPU budget without a matching runtime measurement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "animateui-components-base-accordion",
+      "sourceHash": "e5a23aae9cac23f5f874230608c27a42a15387b9caa27086f592b6f86599c817",
+      "entry": "originals/animateui-components-base-accordion/apps/v1/apps/www/registry/components/base/accordion/index.tsx",
+      "sourceURL": "https://github.com/imskyleen/animate-ui/blob/22a9236ae107328f8564edb7e3299375da3247af/apps/v1/apps/www/registry/components/base/accordion/index.tsx",
+      "anchors": [
+        {
+          "symbol": "Accordion",
+          "line": 5
+        },
+        {
+          "symbol": "AccordionItem",
+          "line": 6
+        },
+        {
+          "symbol": "AccordionTrigger",
+          "line": 8
+        },
+        {
+          "symbol": "AccordionPanel",
+          "line": 9
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "maintain-context"
+      ],
+      "patterns": [
+        "disclosure"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "A group of collapsible panels reveals related information inline.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "animateui-components-base-menu",
+      "sourceHash": "cebe53f9ae31a873a6c816430cc88838b95fb0a0f81277443e99a34ceddb9b76",
+      "entry": "originals/animateui-components-base-menu/apps/v1/apps/www/registry/components/base/menu/index.tsx",
+      "sourceURL": "https://github.com/imskyleen/animate-ui/blob/22a9236ae107328f8564edb7e3299375da3247af/apps/v1/apps/www/registry/components/base/menu/index.tsx",
+      "anchors": [
+        {
+          "symbol": "Menu",
+          "line": 4
+        },
+        {
+          "symbol": "MenuTrigger",
+          "line": 5
+        },
+        {
+          "symbol": "MenuPortal",
+          "line": 6
+        },
+        {
+          "symbol": "MenuPanel",
+          "line": 62
+        },
+        {
+          "symbol": "MenuGroup",
+          "line": 9
+        }
+      ],
+      "intents": [
+        "navigate",
+        "reveal-detail"
+      ],
+      "patterns": [
+        "menu"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "section-navigation",
+        "content-details"
+      ],
+      "note": "Reveals a menu of application choices from a trigger.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "animateui-components-base-tabs",
+      "sourceHash": "25159850443f7fd6a528bdaf2628398af246e52f31e95650dc21e0e5d006b4b6",
+      "entry": "originals/animateui-components-base-tabs/apps/v1/apps/www/registry/components/base/tabs/index.tsx",
+      "sourceURL": "https://github.com/imskyleen/animate-ui/blob/22a9236ae107328f8564edb7e3299375da3247af/apps/v1/apps/www/registry/components/base/tabs/index.tsx",
+      "anchors": [
+        {
+          "symbol": "Tabs",
+          "line": 4
+        },
+        {
+          "symbol": "TabsList",
+          "line": 5
+        },
+        {
+          "symbol": "TabsTab",
+          "line": 6
+        },
+        {
+          "symbol": "TabsPanels",
+          "line": 8
+        },
+        {
+          "symbol": "TabsPanel",
+          "line": 7
+        }
+      ],
+      "intents": [
+        "navigate",
+        "maintain-context"
+      ],
+      "patterns": [
+        "tabs"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "section-navigation"
+      ],
+      "note": "Changes the selected panel while maintaining the active tab cue.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "animateui-components-community-motion-carousel",
+      "sourceHash": "b1d15514fc18da0441865587a4ffdec4431e90ad3adf68fd6395b1d3d4482233",
+      "entry": "originals/animateui-components-community-motion-carousel/apps/v1/apps/www/registry/components/community/motion-carousel/index.tsx",
+      "sourceURL": "https://github.com/imskyleen/animate-ui/blob/22a9236ae107328f8564edb7e3299375da3247af/apps/v1/apps/www/registry/components/community/motion-carousel/index.tsx",
+      "anchors": [
+        {
+          "symbol": "MotionCarousel",
+          "line": 91
+        },
+        {
+          "symbol": "DotButton",
+          "line": 25
+        },
+        {
+          "symbol": "onClick",
+          "line": 28
+        },
+        {
+          "symbol": "onSelect",
+          "line": 65
+        }
+      ],
+      "intents": [
+        "guide-gesture",
+        "navigate"
+      ],
+      "patterns": [
+        "carousel",
+        "drag"
+      ],
+      "triggers": [
+        "drag",
+        "user-activation"
+      ],
+      "useCases": [
+        "gesture-actions",
+        "section-navigation"
+      ],
+      "note": "Shows a sequence of cards with interaction-driven slide changes.",
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "animateui-components-community-notification-list",
+      "sourceHash": "59bcfc48e2fd9c7dda5acc4f85472dc5c0c203ee2c727921557b8131f9cbc4d6",
+      "entry": "originals/animateui-components-community-notification-list/apps/v1/apps/www/registry/components/community/notification-list/index.tsx",
+      "sourceURL": "https://github.com/imskyleen/animate-ui/blob/22a9236ae107328f8564edb7e3299375da3247af/apps/v1/apps/www/registry/components/community/notification-list/index.tsx",
+      "anchors": [
+        {
+          "symbol": "NotificationList",
+          "line": 61
+        },
+        {
+          "symbol": "expanded",
+          "line": 40
+        }
+      ],
+      "intents": [
+        "data-change",
+        "communicate-progress"
+      ],
+      "patterns": [
+        "toast",
+        "list-transition"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "task-feedback",
+        "data-display"
+      ],
+      "note": "Renders notifications in a changing collection.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "animateui-components-radix-sheet",
+      "sourceHash": "1c25b164f0092a70561c67187f27b5e2a4e9006c99175e859c7e30cfa60a73dc",
+      "entry": "originals/animateui-components-radix-sheet/apps/v1/apps/www/registry/components/radix/sheet/index.tsx",
+      "sourceURL": "https://github.com/imskyleen/animate-ui/blob/22a9236ae107328f8564edb7e3299375da3247af/apps/v1/apps/www/registry/components/radix/sheet/index.tsx",
+      "anchors": [
+        {
+          "symbol": "Sheet",
+          "line": 4
+        },
+        {
+          "symbol": "SheetTrigger",
+          "line": 5
+        },
+        {
+          "symbol": "SheetOverlay",
+          "line": 6
+        },
+        {
+          "symbol": "SheetClose",
+          "line": 7
+        },
+        {
+          "symbol": "SheetContent",
+          "line": 9
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "maintain-context"
+      ],
+      "patterns": [
+        "dialog"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "Opens a sheet from an explicit trigger for related content.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    }
+  ]
+}

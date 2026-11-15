@@ -1,0 +1,1046 @@
+{
+  "schemaVersion": 1,
+  "pinScope": "Gold IDs are reviewed local originals with exact entry SHA-256 references",
+  "pins": {
+    "animateui-components-community-motion-carousel": "b1d15514fc18da0441865587a4ffdec4431e90ad3adf68fd6395b1d3d4482233",
+    "cultui-direction-aware-tabs": "e0fd337557453325a9cfcd25c803aa5aa57d137ebccbe12658415c7162c6a260",
+    "designbookmark-expand-card": "abd0db4de844fd79eb3cb3477653c99e2464359e44b376960deae4aaae7234a3",
+    "designbookmark-letter-limit": "806c5b79b942cc42f3e3f1d019e9f84bbeb5557f2af4062cc45be40c17f7fdc3",
+    "designbookmark-loading-to-success": "a7984b6e0c87dcd46b3169989de7063ca65d795c818017f4ea7837b4bcb4e4ff",
+    "designbookmark-password-strength": "cb100fb20e6a54c427cc039b8f82a244b366166b9391153fa364ef529fc1bd5b",
+    "designbookmark-step-progress": "1db6d134068c4a08ec8c460aaecd48fffebba435040b768b110568b516f59cc3",
+    "designbookmark-swipe-deck": "1679678128c249439cb031ac4bfaabe5932d78f5e17cbbd4c13098b09ed2f23b",
+    "designbookmark-tab-pill": "01be2bde29713f626de972c321ed4091beabe515a0434ce94f22ecadb5a6f4fb",
+    "kokonut-agent-steps": "671e6a82878cb96f5dd30dd0c09d573dbcc7a5cc1c29f5a6a728598135642023",
+    "kokonut-ai-diff-review": "35a45bce521039f82c51f7a29948dc8464f240bfce3faad9d850830128c23e14",
+    "kokonut-ai-tool-calls": "3307d2c5e8bbcc683dd768633b1c7d7f88d50574c927847c5342666ec98fc63a",
+    "kokonut-inline-alert": "d01053963092ca49a3d9789752cb2a3430d233a8ae643177be2a6993db170eef",
+    "kokonut-promise-toast": "91ab38e33672aa0ff473f8d898b14f0771651878b69b68e6b22dc5e8a4234e18",
+    "kokonut-pull-cord": "e41497166fbd3f634b36906d624e44f6117319b6f655f4281c3b0f4c701102de",
+    "kokonut-save-status": "23746e083d79bf5653c903f27a070d2fbdae3ad73c114e7e034fd20c1dd152e5",
+    "kokonut-smooth-tab": "208d60717174642723193a624864b4323e44d5e29b2ea820be68a4de6991213c",
+    "kokonut-status-island": "79dddc9984306e15d0e243456eab6d30d939b176f400d1da75539c529e70ecf5",
+    "kokonut-undo-button": "95d18e0f7dad1f2bc3baf01d6e68c3438f10ab15d0f57324d5a629195c325cb3",
+    "kokonut-wheel-picker": "cde3515ea492971a497ab32a4ef50ea9ddff9f73b248b806b1ddce7237c6c81d",
+    "magicui-code-comparison": "46b78d47b40f52b3e491fedebd80a50a1b9f69fc526ea4ea3837b6e9edb4c092",
+    "magicui-number-ticker": "0f7dcbc6a1962615a877590304e846f33d390002a51f2226f544938577c220f4",
+    "magicui-ripple-button": "446f62f2971876799014f6fab30ee76d03b022de2411c960d491c67b31b353fa",
+    "motionprimitives-accordion": "5de8206a53d083d3c5d4503fc4d203efaed734ea904de4fd77b33c1ebc991b7c",
+    "motionprimitives-animated-number": "3b4a9f3262cb79527fba01a76576e920e340137f0643bf34a7732f7f8b1ff792",
+    "motionprimitives-disclosure": "6ff585f95b063f1fdcff31c117051f732ef247a99fe039fe500bcccb3dc8bd40",
+    "smoothui-ai-diff": "8a982632a9a8199587d7b8cb7110ff48ddfea41e3c47b556c4b8c48fa8368b35",
+    "smoothui-ai-loader": "1e04ff9e826263d03e08b2b4166095337c88078d03631050825ae07188076c0b",
+    "smoothui-ai-tool-call": "10660c452d99d8f2dee4d5e3bc1fbcc5bc05a30dc4f937bb9c7650f92d6e948d",
+    "smoothui-animated-stepper": "f3b311f37b3b07f216ec6afc9ce5992f21be459a082bd05bcb290ac514507c61",
+    "smoothui-emoji-reaction": "197c204468a9b8e29747fdbd38adaafaf1648e150081cfece85bdb781dcbf0bd",
+    "smoothui-form": "d0fd055ac8a1b863321ad36473c24a1d86cd6a92bdc42805df0da33899d7fe2f",
+    "smoothui-grid-loader": "43f4f140b2d25b12f0a0917d5385e3509d95afd60e44bda75dd50928ee9c4a25",
+    "smoothui-motion-loader": "d6e48b830dc64d65b5a00bb63844ff580b264b4f2b04a2cab9868dabc5dabe07",
+    "smoothui-new-duration-picker": "f1c36ea545f803ca147f118b82eb48373678900c5b02b8e32e4fcd60cd562dd0",
+    "smoothui-number-flow": "b06241d44ef2458941e2cda6e0b0f7519051fe03743017a24c1b4b4365dcc5d4",
+    "smoothui-scrubber": "dd862752c59d1dc04ca44823da8dae454f5f08d6995c27f16dbe2b3db99eeff2"
+  },
+  "scenarios": [
+    {
+      "id": "tr-booking-confirm",
+      "language": "tr",
+      "rationale": "Accept components with a completion state that the booking system can drive.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-promise-toast",
+        "kokonut-status-island",
+        "designbookmark-loading-to-success"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Rezervasyonun tamamlandığını sakin ve anlaşılır biçimde göstermek istiyorum",
+        "context": {
+          "screen": "booking-confirmation",
+          "platform": "mobile",
+          "businessStateOwner": "application"
+        },
+        "prefer": {
+          "intent": [
+            "confirm-action"
+          ],
+          "intensity": "subtle"
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-booking-confirm",
+      "language": "en",
+      "rationale": "The booking system supplies confirmation and the UI presents it.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-promise-toast",
+        "kokonut-status-island",
+        "designbookmark-loading-to-success"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Calm mobile booking success feedback",
+        "context": {
+          "platform": "mobile",
+          "businessStateOwner": "application"
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-booking-react",
+      "language": "tr",
+      "rationale": "React integration is required for a confirmed booking.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-promise-toast",
+        "kokonut-status-island"
+      ],
+      "hardCase": true,
+      "expectedRequirements": {
+        "integrationKind": [
+          "react"
+        ]
+      },
+      "request": {
+        "schemaVersion": 1,
+        "query": "Rezervasyon onayı için sadece React geri bildirim istiyorum",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-retry",
+      "language": "en",
+      "rationale": "Error surfaces and async status can present a host-owned failure.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-promise-toast",
+        "kokonut-inline-alert",
+        "kokonut-save-status"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "A failed operation needs an error notification and a retry path",
+        "prefer": {
+          "intent": [
+            "communicate-error"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-retry",
+      "language": "tr",
+      "rationale": "Error and retry precede any confirmation.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-promise-toast",
+        "kokonut-inline-alert",
+        "kokonut-save-status"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Rezervasyon başarısız olunca hata bildirimi ve yeniden dene seçeneği göster",
+        "context": {
+          "state": "error",
+          "businessStateOwner": "application"
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-payment-pending",
+      "language": "en",
+      "rationale": "Pending progress reflects unsettled payment.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-promise-toast",
+        "kokonut-status-island",
+        "designbookmark-loading-to-success"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Payment pending progress during checkout",
+        "context": {
+          "state": "pending",
+          "businessStateOwner": "application"
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-disclosure",
+      "language": "tr",
+      "rationale": "Inline disclosure preserves the item's context.",
+      "expected": "candidates",
+      "acceptable": [
+        "motionprimitives-disclosure",
+        "motionprimitives-accordion",
+        "designbookmark-expand-card"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Oda kartı için daha fazla bilgi açılır bölüm",
+        "require": {
+          "pattern": [
+            "disclosure"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-disclosure",
+      "language": "en",
+      "rationale": "Prefer in-place expansion and keep required information accessible.",
+      "expected": "candidates",
+      "acceptable": [
+        "motionprimitives-disclosure",
+        "motionprimitives-accordion",
+        "designbookmark-expand-card"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Show room card details with an inline disclosure",
+        "require": {
+          "pattern": [
+            "disclosure"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-tabs",
+      "language": "tr",
+      "rationale": "Good answers preserve the selected cue across peer panels.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-smooth-tab",
+        "designbookmark-tab-pill",
+        "cultui-direction-aware-tabs"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Sekmeler değişirken seçili öğeyi ve seçim devamlılığını koru",
+        "require": {
+          "pattern": [
+            "tabs"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-tabs",
+      "language": "en",
+      "rationale": "Selected tab remains visible and the panel follows it.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-smooth-tab",
+        "designbookmark-tab-pill",
+        "cultui-direction-aware-tabs"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Tab navigation with continuity and selected item",
+        "require": {
+          "pattern": [
+            "tabs"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-tabs-touch",
+      "language": "en",
+      "rationale": "Only actual CDP touch activation or gesture evidence clears the gate.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-smooth-tab"
+      ],
+      "hardCase": true,
+      "expectedRequirements": {
+        "support": [
+          "touch-emulated"
+        ]
+      },
+      "request": {
+        "schemaVersion": 1,
+        "query": "Tab navigation with emulated touch required",
+        "require": {
+          "pattern": [
+            "tabs"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-tab-touch",
+      "language": "tr",
+      "rationale": "An emulated touch gesture changed tab selection.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-smooth-tab"
+      ],
+      "hardCase": true,
+      "expectedRequirements": {
+        "support": [
+          "touch-emulated"
+        ]
+      },
+      "request": {
+        "schemaVersion": 1,
+        "query": "Sekme gezinme, dokunma emülasyonu doğrulanmış olsun",
+        "require": {
+          "pattern": [
+            "tabs"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-wheel-key",
+      "language": "en",
+      "rationale": "Require a tested key changing the value.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-wheel-picker",
+        "smoothui-scrubber"
+      ],
+      "hardCase": true,
+      "expectedRequirements": {
+        "support": [
+          "keyboard"
+        ]
+      },
+      "request": {
+        "schemaVersion": 1,
+        "query": "Wheel picker to select time, keyboard verified",
+        "require": {
+          "pattern": [
+            "picker"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-picker-touch",
+      "language": "tr",
+      "rationale": "The wheel and slider both have a pinned emulated touch result.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-wheel-picker",
+        "smoothui-scrubber"
+      ],
+      "hardCase": true,
+      "expectedRequirements": {
+        "support": [
+          "touch-emulated"
+        ]
+      },
+      "request": {
+        "schemaVersion": 1,
+        "query": "Saat seçmek için tekerlek seçici. Dokunma emülasyonu doğrulanmış olsun",
+        "require": {
+          "pattern": [
+            "picker"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-select-duration",
+      "language": "tr",
+      "rationale": "Time and duration are bounded choices.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-wheel-picker",
+        "smoothui-new-duration-picker"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Süre ve saat seçimi için değer seçici",
+        "require": {
+          "pattern": [
+            "picker"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-swipe-html",
+      "language": "en",
+      "rationale": "The HTML swipe deck has an observable drag and separate host.",
+      "expected": "candidates",
+      "acceptable": [
+        "designbookmark-swipe-deck"
+      ],
+      "hardCase": true,
+      "expectedRequirements": {
+        "integrationKind": [
+          "html-iframe"
+        ]
+      },
+      "request": {
+        "schemaVersion": 1,
+        "query": "Swipe deck with a carousel drag. Standalone HTML required.",
+        "require": {
+          "pattern": [
+            "carousel"
+          ],
+          "support": [
+            "pointer"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-drag",
+      "language": "tr",
+      "rationale": "Only interactions supporting both drag and sequence fit.",
+      "expected": "candidates",
+      "acceptable": [
+        "designbookmark-swipe-deck",
+        "animateui-components-community-motion-carousel"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Sürükleme ile kart destesi arasında gezinme",
+        "require": {
+          "pattern": [
+            "drag",
+            "carousel"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-cord",
+      "language": "en",
+      "rationale": "An original lamp-specific switch responds to a keyboard action.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-pull-cord"
+      ],
+      "hardCase": true,
+      "expectedRequirements": {
+        "support": [
+          "keyboard"
+        ]
+      },
+      "request": {
+        "schemaVersion": 1,
+        "query": "Pull a lamp cord with a keyboard verified switch",
+        "require": {
+          "pattern": [
+            "drag",
+            "button"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-form",
+      "language": "en",
+      "rationale": "The form control or inline field feedback surfaces support host validation.",
+      "expected": "candidates",
+      "acceptable": [
+        "smoothui-form",
+        "designbookmark-letter-limit",
+        "designbookmark-password-strength"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Input form validation and visible error feedback",
+        "require": {
+          "pattern": [
+            "input"
+          ],
+          "intent": [
+            "communicate-error"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-form",
+      "language": "tr",
+      "rationale": "Field or input patterns communicate validation in context.",
+      "expected": "candidates",
+      "acceptable": [
+        "smoothui-form",
+        "designbookmark-letter-limit",
+        "designbookmark-password-strength"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Form hata doğrulama metni girdi alanına yakın dursun",
+        "require": {
+          "pattern": [
+            "input"
+          ],
+          "intent": [
+            "communicate-error"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-ai-tool",
+      "language": "en",
+      "rationale": "An expanded detail or step status must report actual tool work.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-agent-steps",
+        "kokonut-ai-tool-calls",
+        "smoothui-ai-tool-call"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Show AI tool progress and details during a tool call",
+        "require": {
+          "intent": [
+            "communicate-progress"
+          ]
+        },
+        "prefer": {
+          "pattern": [
+            "disclosure"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-ai-tool",
+      "language": "tr",
+      "rationale": "Tool statuses and work steps convey the caller's activity.",
+      "expected": "candidates",
+      "acceptable": [
+        "kokonut-agent-steps",
+        "kokonut-ai-tool-calls",
+        "smoothui-ai-tool-call"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Ajan araç çağrısı ilerlemesini ve ayrıntısını göster",
+        "require": {
+          "intent": [
+            "communicate-progress"
+          ]
+        },
+        "prefer": {
+          "pattern": [
+            "disclosure"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-ai-loading",
+      "language": "en",
+      "rationale": "Indicate waiting without implying completion.",
+      "expected": "candidates",
+      "acceptable": [
+        "smoothui-ai-loader",
+        "smoothui-motion-loader",
+        "smoothui-grid-loader"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "An indeterminate AI tool loading spinner",
+        "require": {
+          "intent": [
+            "loading-placeholder"
+          ],
+          "pattern": [
+            "progress"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-ai-loading",
+      "language": "tr",
+      "rationale": "Use a loading indicator for actual pending work.",
+      "expected": "candidates",
+      "acceptable": [
+        "smoothui-ai-loader",
+        "smoothui-motion-loader",
+        "smoothui-grid-loader"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Yapay zeka aracı yükleniyor, indeterminate spinner",
+        "require": {
+          "intent": [
+            "loading-placeholder"
+          ],
+          "pattern": [
+            "progress"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-numbers",
+      "language": "en",
+      "rationale": "When the actual value changes use a numeric transition.",
+      "expected": "candidates",
+      "acceptable": [
+        "magicui-number-ticker",
+        "motionprimitives-animated-number",
+        "smoothui-number-flow"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Dashboard counter for a live numeric value",
+        "require": {
+          "intent": [
+            "data-change"
+          ],
+          "pattern": [
+            "text-transition"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-number",
+      "language": "tr",
+      "rationale": "Numeric transitions clarify a change to a real value.",
+      "expected": "candidates",
+      "acceptable": [
+        "magicui-number-ticker",
+        "motionprimitives-animated-number",
+        "smoothui-number-flow"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Sayaç ve sayı animasyonu ile veri değer değişimi",
+        "require": {
+          "intent": [
+            "data-change"
+          ],
+          "pattern": [
+            "text-transition"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-steps",
+      "language": "tr",
+      "rationale": "Current step is supplied by the workflow.",
+      "expected": "candidates",
+      "acceptable": [
+        "smoothui-animated-stepper",
+        "designbookmark-step-progress"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Adım ilerlemesini gösterecek bir adım göstergesi",
+        "require": {
+          "pattern": [
+            "stepper"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-steps",
+      "language": "en",
+      "rationale": "The workflow can show the current stage.",
+      "expected": "candidates",
+      "acceptable": [
+        "smoothui-animated-stepper",
+        "designbookmark-step-progress"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Step progress for section navigation",
+        "require": {
+          "pattern": [
+            "stepper"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-code-diff",
+      "language": "tr",
+      "rationale": "Comparison candidates expose a real diff or paired code.",
+      "expected": "candidates",
+      "acceptable": [
+        "magicui-code-comparison",
+        "kokonut-ai-diff-review",
+        "smoothui-ai-diff"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Kod değişikliklerini önce sonra karşılaştır",
+        "require": {
+          "pattern": [
+            "comparison"
+          ],
+          "intent": [
+            "compare-change"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-confirm-button",
+      "language": "en",
+      "rationale": "An immediate local action can have press or selection feedback.",
+      "expected": "candidates",
+      "acceptable": [
+        "magicui-ripple-button",
+        "smoothui-emoji-reaction",
+        "kokonut-undo-button"
+      ],
+      "request": {
+        "schemaVersion": 1,
+        "query": "Subtle button microinteraction for a local acknowledgement",
+        "require": {
+          "pattern": [
+            "button"
+          ],
+          "intent": [
+            "confirm-action"
+          ]
+        },
+        "prefer": {
+          "intensity": "subtle"
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-static-details",
+      "language": "tr",
+      "rationale": "Keep required content visible and immediate.",
+      "expected": "no-motion",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Detay zaten görünür. Animasyon ekleme.",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-static-details",
+      "language": "en",
+      "rationale": "Immediate content preserves access and reading.",
+      "expected": "no-motion",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Details are always visible, no animation on disclosure",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-static-form",
+      "language": "tr",
+      "rationale": "Give validation directly with stable focus.",
+      "expected": "no-motion",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Form hata mesajı animasyonsuz ve gecikmesiz.",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-static-form",
+      "language": "en",
+      "rationale": "An immediate text state is enough to explain a failure.",
+      "expected": "no-motion",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Show the error without animation and preserve focus",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-illicit-success",
+      "language": "en",
+      "rationale": "Do not manufacture success from pending state.",
+      "expected": "no-motion",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Simulate payment success while the receipt is pending",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-illicit-success",
+      "language": "tr",
+      "rationale": "The local engine recommends an honest immediate state.",
+      "expected": "no-motion",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Ödeme tamamlanmadan sahte başarı göster",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-static-policy",
+      "language": "en",
+      "rationale": "The explicit product motion policy calls for stillness.",
+      "expected": "no-motion",
+      "request": {
+        "schemaVersion": 1,
+        "query": "A booking confirmation has a readable state",
+        "context": {
+          "motionPolicy": "still",
+          "state": "success",
+          "businessStateOwner": "application"
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-static-policy",
+      "language": "tr",
+      "rationale": "Stillness is an explicit product policy.",
+      "expected": "no-motion",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Ayrıntı ve onay durumu her zaman erişilebilir olsun",
+        "context": {
+          "motionPolicy": "still"
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-physical",
+      "language": "en",
+      "rationale": "Emulation is not physical evidence.",
+      "expected": "no-suitable-component",
+      "hardCase": true,
+      "expectedRequirements": {
+        "support": [
+          "physical-mobile"
+        ]
+      },
+      "filterReason": "unverified:physical-mobile",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Carousel with a physical iPhone test, physical device required",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-physical",
+      "language": "tr",
+      "rationale": "Physical coverage is unavailable.",
+      "expected": "no-suitable-component",
+      "hardCase": true,
+      "expectedRequirements": {
+        "support": [
+          "physical-mobile"
+        ]
+      },
+      "filterReason": "unverified:physical-mobile",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Kaydırma gerçek iPhone ve fiziksel cihaz şart",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-reader",
+      "language": "en",
+      "rationale": "ARIA alone cannot clear a screen reader requirement.",
+      "expected": "no-suitable-component",
+      "hardCase": true,
+      "expectedRequirements": {
+        "support": [
+          "screen-reader"
+        ]
+      },
+      "filterReason": "unverified:screen-reader",
+      "request": {
+        "schemaVersion": 1,
+        "query": "A dialog, screen reader required",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-reader",
+      "language": "tr",
+      "rationale": "The examples lack physical screen reader evidence.",
+      "expected": "no-suitable-component",
+      "hardCase": true,
+      "expectedRequirements": {
+        "support": [
+          "screen-reader"
+        ]
+      },
+      "filterReason": "unverified:screen-reader",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Açılır ayrıntı, ekran okuyucu şart",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-gpu",
+      "language": "en",
+      "rationale": "A Studio scheduler class is not a measured device budget.",
+      "expected": "no-suitable-component",
+      "hardCase": true,
+      "filterReason": "unverified-performance",
+      "request": {
+        "schemaVersion": 1,
+        "query": "A decorative WebGL background with verified low GPU cost",
+        "require": {
+          "maxPerformanceCost": "low"
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-gpu",
+      "language": "tr",
+      "rationale": "No measured component-level GPU classes support the hard request.",
+      "expected": "no-suitable-component",
+      "hardCase": true,
+      "expectedRequirements": {
+        "maxPerformanceCost": "low"
+      },
+      "filterReason": "unverified-performance",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Canvas arka plan için düşük GPU maliyeti şart",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-contradiction",
+      "language": "en",
+      "rationale": "An HTML iframe cannot expose native component props.",
+      "expected": "no-suitable-component",
+      "hardCase": true,
+      "filterReason": "conflicting-requirements",
+      "request": {
+        "schemaVersion": 1,
+        "query": "HTML only with native React props required for a picker",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-contradiction",
+      "language": "tr",
+      "rationale": "The format and React property constraints conflict.",
+      "expected": "no-suitable-component",
+      "hardCase": true,
+      "filterReason": "conflicting-requirements",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Sadece HTML, native React özellikleri şart, seçici",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-reduced",
+      "language": "en",
+      "rationale": "Rendering under the preference is not a tested reduction.",
+      "expected": "no-suitable-component",
+      "hardCase": true,
+      "expectedRequirements": {
+        "support": [
+          "reduced-motion"
+        ]
+      },
+      "filterReason": "unverified:reduced-motion",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Disclosure, verified reduced motion required",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-cancel",
+      "language": "tr",
+      "rationale": "Gesture observations do not establish cancellation or interruption behavior.",
+      "expected": "no-suitable-component",
+      "hardCase": true,
+      "filterReason": "unverified:cancel",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Kaydırma hareketi kesintide ve iptalde kesin doğrulanmış olsun",
+        "require": {
+          "support": [
+            "cancel",
+            "interruptible"
+          ]
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-dependencies",
+      "language": "en",
+      "rationale": "The allowed package list is empty.",
+      "expected": "no-suitable-component",
+      "hardCase": true,
+      "filterReason": "dependency-not-allowed",
+      "request": {
+        "schemaVersion": 1,
+        "query": "React disclosure without any installed dependencies",
+        "require": {
+          "integrationKind": [
+            "react"
+          ],
+          "allowedDependencies": []
+        },
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "tr-ambiguous",
+      "language": "tr",
+      "rationale": "Style language alone has no actionable interaction intent.",
+      "expected": "need-more-context",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Daha premium ve sakin olsun",
+        "maxResults": 5
+      }
+    },
+    {
+      "id": "en-ambiguous",
+      "language": "en",
+      "rationale": "Ask for the interaction purpose before suggesting an effect.",
+      "expected": "need-more-context",
+      "request": {
+        "schemaVersion": 1,
+        "query": "Make it feel premium and calm",
+        "maxResults": 5
+      }
+    }
+  ]
+}

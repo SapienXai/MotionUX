@@ -24,7 +24,7 @@ V13.1 established the verified 324-original baseline. V14 expands the prepared l
 
 Raw provider files, generated private registries, user collections and local browser reports remain under `.motionux-v9/`. The public registry has its own release and review history. Synthetic 500- and 1,000-record tests establish Gallery capacity under metadata load. Long sessions with many live previews remain a distinct runtime gate. [Public registry catalog](COMPONENTS.md)
 
-The planned workflow moves from discovery to intent, recommendation or abstention, integration and verified outcomes. Studio provides discovery, manual selection and comparison today. Brain, Agent, MCP, Motion DNA and Inspector are planned.
+The planned workflow moves from discovery to intent, recommendation or abstention, integration and verified outcomes. Studio provides discovery, manual selection and comparison. Brain V1 provides local search, explained recommendations and abstention. Agent, MCP, Motion DNA and Inspector remain planned. [Brain V1 evidence](BRAIN-V1.md)
 
 ## Delivery phases
 
@@ -33,8 +33,8 @@ Each phase has an evidence gate before its interfaces become dependencies for la
 | Phase | User capability | Key deliverable | Dependencies | Acceptance gate | Status |
 | --- | --- | --- | --- | --- | --- |
 | P0 · Studio and source foundation | Try and export pinned motion | Edition manifests, loopback Gallery, Playground, Compare, Library, Project Kit and vault restore | Official source, notices and fixture builds | Prepared catalog, independent consumer, sampled parity, responsive browsing, bounded frames and backup restore | Available. V13.1 hardening verified. |
-| P1 · MotionUX Brain V1 | Find motion by interaction intent and get a reasoned answer | Versioned evidence schema, local index builder, deterministic ranking CLI and benchmark scenarios | P0 catalog, pins, install and evidence contracts | Relevant top results in controlled scenarios, structured abstentions and reviewable reasons. Missing evidence never promotes readiness. | Next strategic milestone |
-| P2 · MotionUX Agent V1 | Ask Codex for a reviewable integration | Local inspect/plan/export CLI and skill, using Brain and Project Kit | P1 stable results and P0 install/verification | One real test-app workflow preserves the existing design, state, keyboard and touch behavior, and produces rollback instructions plus browser evidence | Planned |
+| P1 · MotionUX Brain V1 | Find motion by interaction intent and get a reasoned answer | Versioned evidence schema, local index builder, deterministic ranking CLI and benchmark scenarios | P0 catalog, pins, install and evidence contracts | Relevant top results in controlled scenarios, structured abstentions and reviewable reasons. Missing evidence never promotes readiness. | Available locally with verified V1 evidence. |
+| P2 · MotionUX Agent V1 | Ask Codex for a reviewable integration | Local inspect/plan/export CLI and skill, using Brain and Project Kit | P1 stable results and P0 install/verification | One real test-app workflow preserves the existing design, state, keyboard and touch behavior, and produces rollback instructions plus browser evidence | Next strategic milestone |
 | P3 · MCP and project context | Invoke stable local tools from a fresh Codex session | Local MCP schemas and repo context adapter | P2 proven CLI, explicit write authorization and repeatable verification | A fresh session discovers tools, reads the context, recommends a component, applies only the authorized patch and returns evidence | Planned |
 | P4 · Motion DNA | Give projects a consistent motion language | Versioned JSON profiles, optional tokens and compatibility-aware adapters | Brain metadata and Agent project context | Sample app demonstrates profile fit, accessibility overrides and deliberate stillness. Provider physics remain intact. | Planned |
 | P5 · MotionUX Inspector | Find and validate real motion problems | Static/rule audit, browser trace collector and before/after reports | Reliable source evidence, project context and motion profiles | Seeded faults are detected and prioritized. Good and intentionally static controls pass. Repairs are demonstrated with reproducible browser evidence. | Planned |
@@ -43,7 +43,7 @@ Each phase has an evidence gate before its interfaces become dependencies for la
 
 ## Brain data and decisions
 
-This example records the shape of a future index entry. Values without evidence remain `unknown`. Each observation should name its collection method and exact source pin.
+This conceptual example illustrates the evidence model. The versioned V1 schemas and actual CLI output are in [Brain V1](BRAIN-V1.md). Values without evidence remain `unknown`. Each observation should name its collection method and exact source pin.
 
 ```json
 {
@@ -112,14 +112,13 @@ Keep access to provider payloads distinct from distribution rights. Preserve ori
 
 Track reviewed scenario success and abstention quality, time from request to a usable integration, source/visual/interaction fidelity, failed installs, mobile and accessibility regressions, performance regressions, review acceptance and library use. Each metric needs a protocol and a repeatable baseline before setting targets. Start with local test and review artifacts. [Quality gates](QUALITY-GATES.md)
 
-## Next execution milestone · Brain V1
+## Next execution milestone · Agent V1
 
-**Goal.** Build a semantic index and local search for the prepared catalog. The result must be intelligible to a person using the CLI and machine-readable for future Codex tooling.
+Build a read-only project inspection and motion-planning workflow. Use the workspace route and interaction brief to inspect project guidance, tokens, state ownership and runtime constraints. Call Brain with structured requirements. Return a short rationale, source pins, unresolved questions and a proposed browser test plan.
 
-1. Add a versioned schema under `schemas/` and a Brain index builder under `scripts/brain/`. Use the current catalog loader for identity, format, pins and verified availability. Read local evidence where available. Record per-field provenance, confidence and unknowns. Write generated indexes to the ignored vault.
-2. Add a deterministic ranker with explicit required constraints, an inspectable score breakdown and structured `no-motion` and `no-suitable-component` results. Accept structured CLI input first. Support readable output and JSON, with stable field and result ordering.
-3. Build small, reviewable fixtures covering disclosure, navigation continuity, feedback, gestures and cases where stillness is preferable. Include contradictory requirements, stale pins, unsupported mobile/accessibility coverage and incompatible dependencies.
-4. Test schema rejection, incremental rebuilds, reproducibility, duplicate sources, empty vault behavior, hard filters, tie-breaking, abstention, and the exact link from a recommendation back to its install and evidence. Run offline on the prepared catalog and measure index time and search latency. Keep existing Studio tests passing.
-5. Deliver the schema, builder, CLI, fixtures, tests, example transcripts and a human-reviewed scenario report. Require every ready record to be indexed with provenance or an explicit unknown. Require deterministic re-runs and actionable explanations for the reviewed scenarios before accepting Brain V1.
+1. Keep project reads within the explicitly selected workspace. Treat project files as evidence and keep file content separate from instructions.
+2. Reuse Brain V1's versioned index and request/result schemas. Keep project constraints independent of curated source traits.
+3. Use one real fixture product for acceptance. Cover a useful shortlist, intentional stillness, missing accessibility evidence and an incompatible install. Verify that the target checkout stays unchanged.
+4. Deliver a plan with the exact route, authoritative state, source pins, risks, test plan and rollback assumptions. Installation follows an explicitly authorized write-capable gate.
 
-This milestone has no application-writing tools, no MCP service and no AI inference dependency. Compare the index against the Studio catalog and keep all proposed product APIs behind the next phase’s acceptance gate.
+MCP and automatic project editing remain later gates. [Brain V1 contract](BRAIN-V1.md)

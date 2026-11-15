@@ -48,6 +48,7 @@ function sampleOnMount() {
       const sample = [...specimen.querySelectorAll("*")].slice(0, 80).map(node => {
         const style = getComputedStyle(node);
         return [style.opacity, style.transform, style.filter, style.clipPath, style.backgroundPosition,
+          style.backgroundImage.startsWith("linear-gradient(") ? style.backgroundImage.slice(0, 2048) : "",
           style.strokeDashoffset, style.height, node.childElementCount ? "" : node.textContent].join(" ");
       }).join("|");
       samples.push(sample);
@@ -192,7 +193,8 @@ async function interact(control, [tag, type, , role]) {
 }
 
 async function verify(page, mobile, item) {
-  const row = { id: item.id, checks: [], lanes: [], errors: [] };
+  const row = { id: item.id, sourceHash: item.upstreamHash, buildFingerprint: item.buildFingerprint,
+    checks: [], lanes: [], errors: [] };
   const errors = [];
   const onError = error => errors.push(error.message);
   const onResponse = response => {

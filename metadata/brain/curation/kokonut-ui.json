@@ -1,0 +1,1584 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "kokonut-agent-steps",
+      "sourceHash": "671e6a82878cb96f5dd30dd0c09d573dbcc7a5cc1c29f5a6a728598135642023",
+      "entry": "components/kokonutui/ai-loading.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/ai-loading.tsx",
+      "anchors": [
+        {
+          "symbol": "StepIcon",
+          "line": 157
+        },
+        {
+          "symbol": "StepLog",
+          "line": 237
+        },
+        {
+          "symbol": "WaveText",
+          "line": 327
+        },
+        {
+          "symbol": "StepRow",
+          "line": 395
+        },
+        {
+          "symbol": "AILoadingState",
+          "line": 28
+        }
+      ],
+      "intents": [
+        "communicate-progress"
+      ],
+      "patterns": [
+        "stepper",
+        "progress"
+      ],
+      "triggers": [
+        "state-change",
+        "auto"
+      ],
+      "useCases": [
+        "ai-tool-status",
+        "task-feedback"
+      ],
+      "note": "Displays a sequence of agent activity. Connect changing step state to real work.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-ai-agent-lanes",
+      "sourceHash": "1fbe115fc1444f5ecfa225b64c7b8e9f83e13f4db39981dd6d2a0e720f3cc87f",
+      "entry": "originals/kokonut-ai-agent-lanes/components/kokonutui/ai-agent-lanes.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/ai-agent-lanes.tsx",
+      "anchors": [
+        {
+          "symbol": "AIAgentLanes",
+          "line": 45
+        },
+        {
+          "symbol": "PlayIcon",
+          "line": 343
+        },
+        {
+          "symbol": "LaneLabel",
+          "line": 353
+        },
+        {
+          "symbol": "StepBar",
+          "line": 374
+        },
+        {
+          "symbol": "StepTip",
+          "line": 402
+        }
+      ],
+      "intents": [
+        "communicate-progress"
+      ],
+      "patterns": [
+        "list-transition",
+        "progress"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "ai-tool-status"
+      ],
+      "note": "Shows separate activity lanes for agent work.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-ai-code-run",
+      "sourceHash": "52c8f71b40ce3476b48f84ea94dfac086836147e6a6ba897d6b956fa952478b7",
+      "entry": "originals/kokonut-ai-code-run/components/kokonutui/ai-code-run.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/ai-code-run.tsx",
+      "anchors": [
+        {
+          "symbol": "AICodeRun",
+          "line": 30
+        },
+        {
+          "symbol": "StatusLabel",
+          "line": 270
+        },
+        {
+          "symbol": "Chart",
+          "line": 360
+        },
+        {
+          "symbol": "AutoHeight",
+          "line": 252
+        },
+        {
+          "symbol": "error",
+          "line": 25
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "communicate-error"
+      ],
+      "patterns": [
+        "progress",
+        "feedback"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "ai-tool-status",
+        "task-feedback"
+      ],
+      "note": "Presents the lifecycle and output of running code. A host supplies the execution result.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-ai-diff-review",
+      "sourceHash": "35a45bce521039f82c51f7a29948dc8464f240bfce3faad9d850830128c23e14",
+      "entry": "originals/kokonut-ai-diff-review/components/kokonutui/ai-diff-review.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/ai-diff-review.tsx",
+      "anchors": [
+        {
+          "symbol": "ChangeBar",
+          "line": 228
+        },
+        {
+          "symbol": "Hunk",
+          "line": 28
+        },
+        {
+          "symbol": "Collapse",
+          "line": 298
+        },
+        {
+          "symbol": "FileRow",
+          "line": 343
+        },
+        {
+          "symbol": "AIDiffReview",
+          "line": 43
+        }
+      ],
+      "intents": [
+        "compare-change",
+        "request-approval"
+      ],
+      "patterns": [
+        "comparison",
+        "feedback"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "ai-tool-status",
+        "comparison"
+      ],
+      "note": "Presents proposed edits as reviewable differences before a decision.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-ai-tool-calls",
+      "sourceHash": "3307d2c5e8bbcc683dd768633b1c7d7f88d50574c927847c5342666ec98fc63a",
+      "entry": "originals/kokonut-ai-tool-calls/components/kokonutui/ai-tool-calls.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/ai-tool-calls.tsx",
+      "anchors": [
+        {
+          "symbol": "AIToolCalls",
+          "line": 63
+        },
+        {
+          "symbol": "IconStack",
+          "line": 319
+        },
+        {
+          "symbol": "CallRow",
+          "line": 377
+        },
+        {
+          "symbol": "Spinner",
+          "line": 327
+        },
+        {
+          "symbol": "error",
+          "line": 26
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "reveal-detail"
+      ],
+      "patterns": [
+        "feedback",
+        "disclosure"
+      ],
+      "triggers": [
+        "state-change",
+        "user-activation"
+      ],
+      "useCases": [
+        "ai-tool-status"
+      ],
+      "note": "Surface tool call details alongside reported work status.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-amount-pad",
+      "sourceHash": "51bbc53d2688e61f2cd828486a5415e1f1a75053cbb3ac7b77d269fda9349cf0",
+      "entry": "originals/kokonut-amount-pad/components/kokonutui/amount-pad.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/amount-pad.tsx",
+      "anchors": [
+        {
+          "symbol": "AmountPad",
+          "line": 40
+        },
+        {
+          "symbol": "useMotionValue",
+          "line": 18
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 19
+        },
+        {
+          "symbol": "pending",
+          "line": 212
+        },
+        {
+          "symbol": "onKeyDown",
+          "line": 260
+        }
+      ],
+      "intents": [
+        "collect-input"
+      ],
+      "patterns": [
+        "input",
+        "picker"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "payment",
+        "select-value"
+      ],
+      "note": "A numeric keypad produces a proposed amount. The application owns payment validity.",
+      "avoidWhen": [
+        "The interaction calls for unconstrained input rather than a selection surface."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-card-stack",
+      "sourceHash": "c1c2b94515884adcc3ea2733dfe2c45395935e1bbfb744a87712c6c4f5d2a0ad",
+      "entry": "originals/kokonut-card-stack/components/kokonutui/card-stack.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/card-stack.tsx",
+      "anchors": [
+        {
+          "symbol": "CardStack",
+          "line": 49
+        },
+        {
+          "symbol": "DeckDetails",
+          "line": 779
+        },
+        {
+          "symbol": "Art",
+          "line": 42
+        },
+        {
+          "symbol": "LowSunArt",
+          "line": 935
+        },
+        {
+          "symbol": "RidgeArt",
+          "line": 954
+        }
+      ],
+      "intents": [
+        "maintain-context",
+        "navigate"
+      ],
+      "patterns": [
+        "card",
+        "carousel"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "section-navigation",
+        "content-details"
+      ],
+      "note": "Layered cards expose one item while preserving context for neighboring items.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-cradle-text",
+      "sourceHash": "79ed4e5a3051a3b5383acd5a3d21f9a077a2587ffe8f6148bf20d6703d7e2816",
+      "entry": "originals/kokonut-cradle-text/components/kokonutui/cradle-text.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/cradle-text.tsx",
+      "anchors": [
+        {
+          "symbol": "CradleText",
+          "line": 16
+        },
+        {
+          "symbol": "canvas",
+          "line": 93
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 278
+        },
+        {
+          "symbol": "setPointerCapture",
+          "line": 323
+        },
+        {
+          "symbol": "pointercancel",
+          "line": 458
+        },
+        {
+          "symbol": "setPointerCapture",
+          "line": 323
+        }
+      ],
+      "intents": [
+        "express-brand",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "text-transition",
+        "drag"
+      ],
+      "triggers": [
+        "drag",
+        "hover",
+        "auto"
+      ],
+      "useCases": [
+        "gesture-actions",
+        "visual-accent"
+      ],
+      "note": "Drag or brush rendered letters to perturb the simulated pendulums.",
+      "motions": [
+        "physics",
+        "rotate"
+      ],
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-detent-dial",
+      "sourceHash": "7cb2fb8f318049478803a310897fcb7fa9812874f4fa17b0eff744a9eafbeec0",
+      "entry": "components/kokonutui/detent-dial.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/detent-dial.tsx",
+      "anchors": [
+        {
+          "symbol": "DetentDial",
+          "line": 98
+        },
+        {
+          "symbol": "RollingValue",
+          "line": 533
+        },
+        {
+          "symbol": "useMotionValue",
+          "line": 18
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 20
+        },
+        {
+          "symbol": "onValueChange",
+          "line": 108
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "picker",
+        "drag"
+      ],
+      "triggers": [
+        "drag",
+        "user-activation"
+      ],
+      "useCases": [
+        "select-value",
+        "gesture-actions"
+      ],
+      "note": "A dial maps movement to discrete detents. Preserve the selected value in the application.",
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-file-upload",
+      "sourceHash": "6883b4e05411aa2d18844bace18da85f6fecac374c4f89eccd00294d99569363",
+      "entry": "originals/kokonut-file-upload/components/kokonutui/file-upload.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/file-upload.tsx",
+      "anchors": [
+        {
+          "symbol": "FileUpload",
+          "line": 39
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 14
+        },
+        {
+          "symbol": "progress",
+          "line": 33
+        },
+        {
+          "symbol": "error",
+          "line": 42
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 314
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "communicate-progress"
+      ],
+      "patterns": [
+        "input",
+        "progress"
+      ],
+      "triggers": [
+        "user-activation",
+        "drag"
+      ],
+      "useCases": [
+        "task-feedback"
+      ],
+      "note": "Separates file selection from upload feedback. Actual transfer state belongs to the host.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-hold-button",
+      "sourceHash": "1ea07be4804361b4b84be43a66ff336ccfb10249352722f17d6aab943a3be571",
+      "entry": "components/kokonutui/hold-button.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/hold-button.tsx",
+      "anchors": [
+        {
+          "symbol": "DrawnCheck",
+          "line": 147
+        },
+        {
+          "symbol": "HoldButton",
+          "line": 117
+        },
+        {
+          "symbol": "useMotionValue",
+          "line": 32
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 33
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 149
+        }
+      ],
+      "intents": [
+        "request-approval",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "button"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "gesture-actions",
+        "task-feedback"
+      ],
+      "note": "Holding the control is a deliberate confirmation gesture. Keep commit authority with its callback.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-inline-alert",
+      "sourceHash": "d01053963092ca49a3d9789752cb2a3430d233a8ae643177be2a6993db170eef",
+      "entry": "originals/kokonut-inline-alert/components/kokonutui/inline-alert.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/inline-alert.tsx",
+      "anchors": [
+        {
+          "symbol": "InlineAlert",
+          "line": 32
+        },
+        {
+          "symbol": "PhaseIcon",
+          "line": 190
+        },
+        {
+          "symbol": "CheckRow",
+          "line": 248
+        },
+        {
+          "symbol": "CheckGlyph",
+          "line": 367
+        },
+        {
+          "symbol": "AlertButton",
+          "line": 269
+        }
+      ],
+      "intents": [
+        "communicate-error",
+        "focus-attention"
+      ],
+      "patterns": [
+        "feedback",
+        "toast"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "validation",
+        "task-feedback"
+      ],
+      "note": "An inline alert keeps a failure or status message near the affected content.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-liquid-slider",
+      "sourceHash": "004893db99ac8c3349362d88f8aea893b7d88ed2234991bff0b8923ef6e12eb5",
+      "entry": "originals/kokonut-liquid-slider/components/kokonutui/liquid-slider.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/liquid-slider.tsx",
+      "anchors": [
+        {
+          "symbol": "LiquidSlider",
+          "line": 146
+        },
+        {
+          "symbol": "onValueChange",
+          "line": 149
+        },
+        {
+          "symbol": "aria-valuetext",
+          "line": 156
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 385
+        },
+        {
+          "symbol": "onChange",
+          "line": 410
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "picker",
+        "drag"
+      ],
+      "triggers": [
+        "drag"
+      ],
+      "useCases": [
+        "select-value",
+        "gesture-actions"
+      ],
+      "note": "A slider visualizes the current value during pointer adjustment.",
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-morph-popover",
+      "sourceHash": "9d3b201e93b145ffb13308c8ad1a0d1dc7d9dfc308fc66d0f869cdd390741a17",
+      "entry": "components/kokonutui/morph-popover.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/morph-popover.tsx",
+      "anchors": [
+        {
+          "symbol": "ChatIcon",
+          "line": 64
+        },
+        {
+          "symbol": "Spinner",
+          "line": 77
+        },
+        {
+          "symbol": "MorphPopover",
+          "line": 33
+        },
+        {
+          "symbol": "onSubmit",
+          "line": 41
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 66
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "maintain-context"
+      ],
+      "patterns": [
+        "menu",
+        "layout-shift"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "A compact control opens nearby choices with a connected transition.",
+      "motions": [
+        "morph",
+        "reveal"
+      ],
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-notification-stack",
+      "sourceHash": "e548662a15b4d9d77621957231bc6ee90f1fd5ccb4c141b5d45c96c5f1c968f8",
+      "entry": "components/kokonutui/notification-stack.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/notification-stack.tsx",
+      "anchors": [
+        {
+          "symbol": "NotificationStack",
+          "line": 162
+        },
+        {
+          "symbol": "NotificationContent",
+          "line": 645
+        },
+        {
+          "symbol": "pending",
+          "line": 200
+        },
+        {
+          "symbol": "expanded",
+          "line": 251
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 306
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "maintain-context"
+      ],
+      "patterns": [
+        "toast",
+        "list-transition"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details",
+        "task-feedback"
+      ],
+      "note": "Stacked notices expand the visible collection while keeping notification context.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-page-flip",
+      "sourceHash": "a5161dfffcf76591475ff960e42a87433095dbfbc946a9720cdf07376336c750",
+      "entry": "components/kokonutui/page-flip.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/page-flip.tsx",
+      "anchors": [
+        {
+          "symbol": "PageFlip",
+          "line": 41
+        },
+        {
+          "symbol": "Paper",
+          "line": 507
+        },
+        {
+          "symbol": "NavButton",
+          "line": 538
+        },
+        {
+          "symbol": "Course",
+          "line": 652
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 13
+        }
+      ],
+      "intents": [
+        "navigate",
+        "maintain-context"
+      ],
+      "patterns": [
+        "carousel"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "section-navigation"
+      ],
+      "note": "The component presents page changes with visual continuity.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-promise-toast",
+      "sourceHash": "91ab38e33672aa0ff473f8d898b14f0771651878b69b68e6b22dc5e8a4234e18",
+      "entry": "originals/kokonut-promise-toast/components/kokonutui/promise-toast.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/promise-toast.tsx",
+      "anchors": [
+        {
+          "symbol": "usePromiseToast",
+          "line": 102
+        },
+        {
+          "symbol": "ToastTask",
+          "line": 64
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "confirm-action",
+        "communicate-error"
+      ],
+      "patterns": [
+        "toast",
+        "feedback"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "booking",
+        "payment",
+        "task-feedback",
+        "validation"
+      ],
+      "note": "Places pending, success and error in one async feedback surface driven by promise settlement.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-pull-cord",
+      "sourceHash": "e41497166fbd3f634b36906d624e44f6117319b6f655f4281c3b0f4c701102de",
+      "entry": "originals/kokonut-pull-cord/components/kokonutui/pull-cord.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/pull-cord.tsx",
+      "anchors": [
+        {
+          "symbol": "PullCord",
+          "line": 124
+        },
+        {
+          "symbol": "checked",
+          "line": 126
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 272
+        },
+        {
+          "symbol": "preventDefault",
+          "line": 334
+        },
+        {
+          "symbol": "setPointerCapture",
+          "line": 346
+        }
+      ],
+      "intents": [
+        "guide-gesture",
+        "confirm-action"
+      ],
+      "patterns": [
+        "drag",
+        "button"
+      ],
+      "triggers": [
+        "drag",
+        "user-activation"
+      ],
+      "useCases": [
+        "gesture-actions"
+      ],
+      "note": "A simulated tether changes a lamp switch with a pull, and the button exposes a switch state.",
+      "motions": [
+        "physics"
+      ],
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-receipt-printer",
+      "sourceHash": "e42fea7b144056f76567b51eca9f0c92cf660b5d9e72630329dfa4f8361340a3",
+      "entry": "components/kokonutui/receipt-printer.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/receipt-printer.tsx",
+      "anchors": [
+        {
+          "symbol": "Receipt",
+          "line": 5
+        },
+        {
+          "symbol": "ReceiptPrinter",
+          "line": 51
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 120
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 409
+        },
+        {
+          "symbol": "setPointerCapture",
+          "line": 551
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "confirm-action"
+      ],
+      "patterns": [
+        "feedback",
+        "card"
+      ],
+      "triggers": [
+        "user-activation",
+        "state-change"
+      ],
+      "useCases": [
+        "booking",
+        "payment",
+        "task-feedback"
+      ],
+      "note": "Presents a receipt with print and tear interactions. Render it after the application has an authoritative receipt.",
+      "motions": [
+        "slide",
+        "physics"
+      ],
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-save-status",
+      "sourceHash": "23746e083d79bf5653c903f27a070d2fbdae3ad73c114e7e034fd20c1dd152e5",
+      "entry": "originals/kokonut-save-status/components/kokonutui/save-status.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/save-status.tsx",
+      "anchors": [
+        {
+          "symbol": "SaveStatus",
+          "line": 24
+        },
+        {
+          "symbol": "Kbd",
+          "line": 243
+        },
+        {
+          "symbol": "Pill",
+          "line": 186
+        },
+        {
+          "symbol": "Spinner",
+          "line": 293
+        },
+        {
+          "symbol": "DrawnCheck",
+          "line": 286
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "confirm-action",
+        "communicate-error"
+      ],
+      "patterns": [
+        "feedback"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "task-feedback",
+        "validation"
+      ],
+      "note": "Presents local save status as a feedback surface. Use the actual result of saving.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-seat-map",
+      "sourceHash": "b691f1db1afdd38261be6d363e15d9fb98830ad4759c213050a3a7451d2864f6",
+      "entry": "components/kokonutui/seat-map.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/seat-map.tsx",
+      "anchors": [
+        {
+          "symbol": "SeatMap",
+          "line": 35
+        },
+        {
+          "symbol": "SeatButton",
+          "line": 400
+        },
+        {
+          "symbol": "Legend",
+          "line": 427
+        },
+        {
+          "symbol": "Notice",
+          "line": 481
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 14
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "maintain-context"
+      ],
+      "patterns": [
+        "picker"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "booking",
+        "select-value"
+      ],
+      "note": "Seat selections represent chosen locations. Availability and booking confirmation remain application state.",
+      "avoidWhen": [
+        "The interaction calls for unconstrained input rather than a selection surface."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-signature-pad",
+      "sourceHash": "361c6f35d6fb2b6155d1f3b0d80ccd5c6fabc8fc78b85dd0508c48849886ce45",
+      "entry": "components/kokonutui/signature-pad.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/signature-pad.tsx",
+      "anchors": [
+        {
+          "symbol": "SignaturePad",
+          "line": 151
+        },
+        {
+          "symbol": "canvas",
+          "line": 39
+        },
+        {
+          "symbol": "onChange",
+          "line": 153
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 326
+        },
+        {
+          "symbol": "preventDefault",
+          "line": 350
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "input",
+        "drag"
+      ],
+      "triggers": [
+        "drag"
+      ],
+      "useCases": [
+        "gesture-actions"
+      ],
+      "note": "Records a drawn gesture. Retain a separate policy for whether a drawn signature satisfies the workflow.",
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-slide-to-confirm",
+      "sourceHash": "22d7c6de7738d4213c380fc414e46240332168e5c836dcb5926d06e386716837",
+      "entry": "components/kokonutui/slide-to-confirm.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/slide-to-confirm.tsx",
+      "anchors": [
+        {
+          "symbol": "SlideToConfirm",
+          "line": 49
+        },
+        {
+          "symbol": "useMotionValue",
+          "line": 18
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 19
+        },
+        {
+          "symbol": "progress",
+          "line": 117
+        },
+        {
+          "symbol": "onPointerDown",
+          "line": 210
+        }
+      ],
+      "intents": [
+        "request-approval",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "drag",
+        "button"
+      ],
+      "triggers": [
+        "drag"
+      ],
+      "useCases": [
+        "gesture-actions",
+        "payment"
+      ],
+      "note": "Slide distance gates the confirmation gesture. Business authorization belongs to the host.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-slot-picker",
+      "sourceHash": "acc516efd1193e46bc12a5f26433dc17d8e39b1fb46c86e28b334f03b44a1963",
+      "entry": "components/kokonutui/slot-picker.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/slot-picker.tsx",
+      "anchors": [
+        {
+          "symbol": "DayStrip",
+          "line": 192
+        },
+        {
+          "symbol": "Blocked",
+          "line": 265
+        },
+        {
+          "symbol": "ConfirmBar",
+          "line": 297
+        },
+        {
+          "symbol": "SlotPicker",
+          "line": 50
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 18
+        }
+      ],
+      "intents": [
+        "collect-input"
+      ],
+      "patterns": [
+        "picker"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "booking",
+        "select-value"
+      ],
+      "note": "Choose an appointment slot using a constrained selection surface.",
+      "avoidWhen": [
+        "The interaction calls for unconstrained input rather than a selection surface."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-smooth-drawer",
+      "sourceHash": "143c2944ca63b4c78f341a242448bce5fb744bae2ac7a9658a0897cecb04575c",
+      "entry": "originals/kokonut-smooth-drawer/components/kokonutui/smooth-drawer.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/smooth-drawer.tsx",
+      "anchors": [
+        {
+          "symbol": "RollingAmount",
+          "line": 115
+        },
+        {
+          "symbol": "SmoothDrawer",
+          "line": 59
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 17
+        },
+        {
+          "symbol": "onOpenChange",
+          "line": 74
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 129
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "maintain-context"
+      ],
+      "patterns": [
+        "dialog",
+        "layout-shift"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "Opens a drawer from the triggering control to reveal the order preview.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-smooth-tab",
+      "sourceHash": "208d60717174642723193a624864b4323e44d5e29b2ea820be68a4de6991213c",
+      "entry": "components/kokonutui/smooth-tab.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/smooth-tab.tsx",
+      "anchors": [
+        {
+          "symbol": "Stat",
+          "line": 28
+        },
+        {
+          "symbol": "SmoothTab",
+          "line": 41
+        },
+        {
+          "symbol": "useMotionValue",
+          "line": 17
+        },
+        {
+          "symbol": "onChange",
+          "line": 44
+        },
+        {
+          "symbol": "progress",
+          "line": 94
+        }
+      ],
+      "intents": [
+        "maintain-context",
+        "navigate"
+      ],
+      "patterns": [
+        "tabs"
+      ],
+      "triggers": [
+        "state-change",
+        "user-activation"
+      ],
+      "useCases": [
+        "section-navigation"
+      ],
+      "note": "Selection moves the active pill between peer panels. Preserve a single authoritative active tab.",
+      "motions": [
+        "slide"
+      ],
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-status-island",
+      "sourceHash": "79dddc9984306e15d0e243456eab6d30d939b176f400d1da75539c529e70ecf5",
+      "entry": "originals/kokonut-status-island/components/kokonutui/status-island.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/status-island.tsx",
+      "anchors": [
+        {
+          "symbol": "RollingNumber",
+          "line": 62
+        },
+        {
+          "symbol": "TaskIcon",
+          "line": 92
+        },
+        {
+          "symbol": "TaskTrailing",
+          "line": 170
+        },
+        {
+          "symbol": "TaskRow",
+          "line": 197
+        },
+        {
+          "symbol": "StatusIsland",
+          "line": 45
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "confirm-action"
+      ],
+      "patterns": [
+        "feedback",
+        "progress",
+        "layout-shift"
+      ],
+      "triggers": [
+        "user-activation",
+        "state-change"
+      ],
+      "useCases": [
+        "booking",
+        "payment",
+        "task-feedback"
+      ],
+      "note": "Expands status feedback around task controls. The demo task is illustrative and integration must reflect actual progress.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-stay-picker",
+      "sourceHash": "7b0dd0b3f0e00e486face24631ff6da110a9fbb9dfcbd51f0ad01f0f60369243",
+      "entry": "originals/kokonut-stay-picker/components/kokonutui/stay-picker.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/stay-picker.tsx",
+      "anchors": [
+        {
+          "symbol": "DayCell",
+          "line": 222
+        },
+        {
+          "symbol": "StayPicker",
+          "line": 50
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 14
+        },
+        {
+          "symbol": "onKeyDown",
+          "line": 233
+        },
+        {
+          "symbol": "aria-label",
+          "line": 249
+        }
+      ],
+      "intents": [
+        "collect-input"
+      ],
+      "patterns": [
+        "picker"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "booking",
+        "select-value"
+      ],
+      "note": "Collects a date range for a stay. Availability and pricing remain host responsibilities.",
+      "avoidWhen": [
+        "The interaction calls for unconstrained input rather than a selection surface."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-thinking-text",
+      "sourceHash": "cb7d45e671cb4fd8e5051ec394af45ba0186fa0fa0506b2f1611f8be682d9f21",
+      "entry": "components/kokonutui/ai-text-loading.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/ai-text-loading.tsx",
+      "anchors": [
+        {
+          "symbol": "AITextLoading",
+          "line": 22
+        },
+        {
+          "symbol": "aria-live",
+          "line": 108
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 122
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "loading-placeholder"
+      ],
+      "patterns": [
+        "text-transition",
+        "progress"
+      ],
+      "triggers": [
+        "auto"
+      ],
+      "useCases": [
+        "ai-tool-status",
+        "task-feedback"
+      ],
+      "note": "Animated text can mark a waiting state while content is unavailable.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-timezone-planner",
+      "sourceHash": "e8df0c035685ea18641abfabffc5a98ade80a3118b82982d661740da4078812d",
+      "entry": "components/kokonutui/timezone-planner.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/timezone-planner.tsx",
+      "anchors": [
+        {
+          "symbol": "Rolling",
+          "line": 377
+        },
+        {
+          "symbol": "Ring",
+          "line": 416
+        },
+        {
+          "symbol": "Knob",
+          "line": 457
+        },
+        {
+          "symbol": "TimezonePlanner",
+          "line": 83
+        },
+        {
+          "symbol": "HourMarks",
+          "line": 830
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "compare-change"
+      ],
+      "patterns": [
+        "picker",
+        "comparison"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "booking",
+        "select-value"
+      ],
+      "note": "Compare time slots across zones before booking.",
+      "avoidWhen": [
+        "The interaction calls for unconstrained input rather than a selection surface."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-tool-approval",
+      "sourceHash": "668742d331cd8ea3b9c4ede9a872ae0cb5bb53843abe84b7a37f6152df7ed3fc",
+      "entry": "components/kokonutui/ai-tool-approval.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/ai-tool-approval.tsx",
+      "anchors": [
+        {
+          "symbol": "ToolIcon",
+          "line": 223
+        },
+        {
+          "symbol": "ToolInput",
+          "line": 247
+        },
+        {
+          "symbol": "HoldToAllow",
+          "line": 276
+        },
+        {
+          "symbol": "ApprovalCard",
+          "line": 352
+        },
+        {
+          "symbol": "StatusIcon",
+          "line": 447
+        }
+      ],
+      "intents": [
+        "request-approval"
+      ],
+      "patterns": [
+        "feedback",
+        "button"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "ai-tool-status"
+      ],
+      "note": "Separates the request for a decision from tool completion.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-undo-button",
+      "sourceHash": "95d18e0f7dad1f2bc3baf01d6e68c3438f10ab15d0f57324d5a629195c325cb3",
+      "entry": "components/kokonutui/undo-button.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/undo-button.tsx",
+      "anchors": [
+        {
+          "symbol": "UndoButton",
+          "line": 31
+        },
+        {
+          "symbol": "Countdown",
+          "line": 287
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 14
+        },
+        {
+          "symbol": "pending",
+          "line": 29
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 180
+        }
+      ],
+      "intents": [
+        "confirm-action"
+      ],
+      "patterns": [
+        "button",
+        "feedback"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "task-feedback"
+      ],
+      "note": "Gives an undo command its own visual state. The application performs the undo.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "kokonut-wheel-picker",
+      "sourceHash": "cde3515ea492971a497ab32a4ef50ea9ddff9f73b248b806b1ddce7237c6c81d",
+      "entry": "components/kokonutui/wheel-picker.tsx",
+      "sourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/wheel-picker.tsx",
+      "anchors": [
+        {
+          "symbol": "WheelPicker",
+          "line": 117
+        },
+        {
+          "symbol": "WheelColumnView",
+          "line": 195
+        },
+        {
+          "symbol": "Drum",
+          "line": 89
+        },
+        {
+          "symbol": "useMotionValue",
+          "line": 18
+        },
+        {
+          "symbol": "useReducedMotion",
+          "line": 20
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "picker",
+        "drag"
+      ],
+      "triggers": [
+        "drag",
+        "user-activation"
+      ],
+      "useCases": [
+        "select-value",
+        "gesture-actions"
+      ],
+      "note": "Detented wheel controls expose discrete values. Use it for a bounded set of choices.",
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    }
+  ]
+}

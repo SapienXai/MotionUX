@@ -1,0 +1,449 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "magicui-animated-circular-progress-bar",
+      "sourceHash": "37bcc4d9679a80ef02b9adc6b36a8c0b578aa6bc2a69739efad6302d4bdb853c",
+      "entry": "registry/magicui/animated-circular-progress-bar.tsx",
+      "sourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/animated-circular-progress-bar.tsx",
+      "anchors": [
+        {
+          "symbol": "AnimatedCircularProgressBar",
+          "line": 3
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "data-change"
+      ],
+      "patterns": [
+        "progress"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "task-feedback",
+        "data-display"
+      ],
+      "note": "Maps a numeric value to a circular progress indicator.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "magicui-animated-list",
+      "sourceHash": "9363c5afa61d7aab1919b4500f7325cc8871b35103d5dd60a2a1625fe5e7dc58",
+      "entry": "registry/magicui/animated-list.tsx",
+      "sourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/animated-list.tsx",
+      "anchors": [
+        {
+          "symbol": "AnimatedListItem",
+          "line": 13
+        },
+        {
+          "symbol": "AnimatedList",
+          "line": 13
+        }
+      ],
+      "intents": [
+        "data-change",
+        "maintain-context"
+      ],
+      "patterns": [
+        "list-transition"
+      ],
+      "triggers": [
+        "auto",
+        "state-change"
+      ],
+      "useCases": [
+        "data-display",
+        "task-feedback"
+      ],
+      "note": "Introduces list entries while preserving continuity with the existing stack.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "magicui-code-comparison",
+      "sourceHash": "46b78d47b40f52b3e491fedebd80a50a1b9f69fc526ea4ea3837b6e9edb4c092",
+      "entry": "registry/magicui/code-comparison.tsx",
+      "sourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/code-comparison.tsx",
+      "anchors": [
+        {
+          "symbol": "CodeComparison",
+          "line": 12
+        },
+        {
+          "symbol": "error",
+          "line": 70
+        }
+      ],
+      "intents": [
+        "compare-change"
+      ],
+      "patterns": [
+        "comparison"
+      ],
+      "triggers": [
+        "state-change",
+        "user-activation"
+      ],
+      "useCases": [
+        "comparison"
+      ],
+      "note": "Keeps two code presentations available for comparison.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "magicui-file-tree",
+      "sourceHash": "19f8c8923a3aba1ef840b8a2c0eca1c7e4772f850140c38a532c0cb2d4d20875",
+      "entry": "originals/magicui-file-tree/apps/www/registry/magicui/file-tree.tsx",
+      "sourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/file-tree.tsx",
+      "anchors": [
+        {
+          "symbol": "onValueChange",
+          "line": 159
+        },
+        {
+          "symbol": "onClick",
+          "line": 357
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 368
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "navigate"
+      ],
+      "patterns": [
+        "disclosure",
+        "list-transition"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details",
+        "section-navigation"
+      ],
+      "note": "Reveals nested file and folder entries in context.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "magicui-globe",
+      "sourceHash": "76422bf378c6503883706fe7af90132f7716dbe383fab7728a95c95e4d16cfd0",
+      "entry": "originals/magicui-globe/apps/www/registry/magicui/globe.tsx",
+      "sourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/globe.tsx",
+      "anchors": [
+        {
+          "symbol": "Globe",
+          "line": 4
+        },
+        {
+          "symbol": "useMotionValue",
+          "line": 5
+        },
+        {
+          "symbol": "useSpring",
+          "line": 5
+        },
+        {
+          "symbol": "canvas",
+          "line": 46
+        },
+        {
+          "symbol": "onPointerDown",
+          "line": 115
+        }
+      ],
+      "intents": [
+        "express-brand",
+        "focus-attention"
+      ],
+      "patterns": [
+        "canvas-effect",
+        "ambient-effect"
+      ],
+      "triggers": [
+        "auto",
+        "drag"
+      ],
+      "useCases": [
+        "visual-accent"
+      ],
+      "note": "A rendered globe provides a decorative spatial visualization.",
+      "avoidWhen": [
+        "There is a strict device or GPU budget without a matching runtime measurement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "magicui-hero-video-dialog",
+      "sourceHash": "8a7a25227054b5b747e77efe12aacf3e4fff4410a55e4bcd8fda6c5bcf71b670",
+      "entry": "originals/magicui-hero-video-dialog/apps/www/registry/magicui/hero-video-dialog.tsx",
+      "sourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/hero-video-dialog.tsx",
+      "anchors": [
+        {
+          "symbol": "HeroVideoDialog",
+          "line": 70
+        },
+        {
+          "symbol": "aria-label",
+          "line": 84
+        },
+        {
+          "symbol": "onClick",
+          "line": 86
+        },
+        {
+          "symbol": "onKeyDown",
+          "line": 118
+        }
+      ],
+      "intents": [
+        "reveal-detail"
+      ],
+      "patterns": [
+        "dialog"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "Reveals video content from a preview overlay trigger.",
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "magicui-lens",
+      "sourceHash": "85e2ae91387ee22d1492224e5767788653b5954a2d65ec0fd59ca023dae6f0e3",
+      "entry": "originals/magicui-lens/apps/www/registry/magicui/lens.tsx",
+      "sourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/lens.tsx",
+      "anchors": [
+        {
+          "symbol": "Lens",
+          "line": 13
+        },
+        {
+          "symbol": "onMouseEnter",
+          "line": 114
+        },
+        {
+          "symbol": "onMouseLeave",
+          "line": 115
+        },
+        {
+          "symbol": "onMouseMove",
+          "line": 116
+        },
+        {
+          "symbol": "onKeyDown",
+          "line": 117
+        }
+      ],
+      "intents": [
+        "compare-change",
+        "focus-attention"
+      ],
+      "patterns": [
+        "comparison",
+        "card"
+      ],
+      "triggers": [
+        "hover"
+      ],
+      "useCases": [
+        "comparison",
+        "content-details"
+      ],
+      "note": "A lens magnifies a region to aid visual inspection.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "magicui-number-ticker",
+      "sourceHash": "0f7dcbc6a1962615a877590304e846f33d390002a51f2226f544938577c220f4",
+      "entry": "registry/magicui/number-ticker.tsx",
+      "sourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/number-ticker.tsx",
+      "anchors": [
+        {
+          "symbol": "NumberTicker",
+          "line": 8
+        },
+        {
+          "symbol": "useMotionValue",
+          "line": 4
+        },
+        {
+          "symbol": "useSpring",
+          "line": 4
+        }
+      ],
+      "intents": [
+        "data-change"
+      ],
+      "patterns": [
+        "text-transition"
+      ],
+      "triggers": [
+        "auto",
+        "state-change"
+      ],
+      "useCases": [
+        "data-display"
+      ],
+      "note": "Displays a number that advances toward a supplied value.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "magicui-particles",
+      "sourceHash": "f768e19deca7c0ba9c424b4683b62cae3eedd11ef3dac8b0363e65c2773f236e",
+      "entry": "originals/magicui-particles/apps/www/registry/magicui/particles.tsx",
+      "sourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/particles.tsx",
+      "anchors": [
+        {
+          "symbol": "MousePosition",
+          "line": 12
+        },
+        {
+          "symbol": "Particles",
+          "line": 38
+        },
+        {
+          "symbol": "onMouseMoveRef",
+          "line": 103
+        },
+        {
+          "symbol": "onMouseMove",
+          "line": 103
+        },
+        {
+          "symbol": "canvas",
+          "line": 92
+        }
+      ],
+      "intents": [
+        "express-brand",
+        "focus-attention"
+      ],
+      "patterns": [
+        "canvas-effect",
+        "ambient-effect"
+      ],
+      "triggers": [
+        "auto"
+      ],
+      "useCases": [
+        "visual-accent"
+      ],
+      "note": "Canvas particles animate as a decorative surface independent of application state.",
+      "motions": [
+        "particle"
+      ],
+      "avoidWhen": [
+        "There is a strict device or GPU budget without a matching runtime measurement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "magicui-ripple-button",
+      "sourceHash": "446f62f2971876799014f6fab30ee76d03b022de2411c960d491c67b31b353fa",
+      "entry": "registry/magicui/ripple-button.tsx",
+      "sourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/ripple-button.tsx",
+      "anchors": [
+        {
+          "symbol": "ButtonRipple",
+          "line": 25
+        },
+        {
+          "symbol": "RippleButton",
+          "line": 13
+        },
+        {
+          "symbol": "onClick",
+          "line": 77
+        }
+      ],
+      "intents": [
+        "confirm-action",
+        "focus-attention"
+      ],
+      "patterns": [
+        "button",
+        "feedback"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "task-feedback",
+        "visual-accent"
+      ],
+      "note": "A ripple acknowledges the button press. Async outcomes come from the application.",
+      "motions": [
+        "scale",
+        "fade"
+      ],
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "magicui-scroll-progress",
+      "sourceHash": "4d79d33956520a69ff3c74509deaee7be6036125b0e0fb54078eba7eeefe894a",
+      "entry": "originals/magicui-scroll-progress/apps/www/registry/magicui/scroll-progress.tsx",
+      "sourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/scroll-progress.tsx",
+      "anchors": [
+        {
+          "symbol": "ScrollProgress",
+          "line": 7
+        },
+        {
+          "symbol": "useScroll",
+          "line": 3
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "navigate"
+      ],
+      "patterns": [
+        "progress"
+      ],
+      "triggers": [
+        "scroll"
+      ],
+      "useCases": [
+        "section-navigation"
+      ],
+      "note": "Represents scroll position as progress through content.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    }
+  ]
+}

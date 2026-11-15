@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/brain/curation.v1.json",
+  "title": "MotionUX Brain V1 curation",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,95}$"
+          },
+          "sourceHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "entry": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[\\\\\\r\\n])[A-Za-z0-9_.@+/#?=: -]+$"
+          },
+          "sourceURL": {
+            "type": "string",
+            "maxLength": 1600,
+            "pattern": "^https://[^/\\s]+(?:/[^\\s]*)?$"
+          },
+          "anchors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "symbol": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160
+                },
+                "line": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000000
+                }
+              },
+              "required": [
+                "symbol",
+                "line"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 12,
+            "minItems": 1
+          },
+          "intents": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "maintain-context",
+                "reveal-detail",
+                "confirm-action",
+                "communicate-progress",
+                "navigate",
+                "focus-attention",
+                "compare-change",
+                "guide-gesture",
+                "express-brand",
+                "loading-placeholder",
+                "data-change",
+                "collect-input",
+                "communicate-error",
+                "request-approval"
+              ]
+            },
+            "maxItems": 12,
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "patterns": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "disclosure",
+                "tabs",
+                "menu",
+                "dialog",
+                "toast",
+                "feedback",
+                "stepper",
+                "drag",
+                "carousel",
+                "picker",
+                "input",
+                "button",
+                "list-transition",
+                "text-transition",
+                "ambient-effect",
+                "canvas-effect",
+                "layout-shift",
+                "progress",
+                "card",
+                "comparison"
+              ]
+            },
+            "maxItems": 12,
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "triggers": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "user-activation",
+                "hover",
+                "drag",
+                "scroll",
+                "auto",
+                "state-change"
+              ]
+            },
+            "maxItems": 8,
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "motions": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "spring",
+                "morph",
+                "reveal",
+                "slide",
+                "scale",
+                "fade",
+                "particle",
+                "3d",
+                "blur",
+                "rotate",
+                "physics",
+                "none"
+              ]
+            },
+            "maxItems": 12,
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "useCases": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "booking",
+                "payment",
+                "task-feedback",
+                "validation",
+                "select-value",
+                "section-navigation",
+                "content-details",
+                "gesture-actions",
+                "ai-tool-status",
+                "data-display",
+                "comparison",
+                "visual-accent"
+              ]
+            },
+            "maxItems": 12,
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1500
+          },
+          "avoidWhen": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 900
+            },
+            "maxItems": 14,
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "revision": {
+            "const": 1
+          }
+        },
+        "required": [
+          "id",
+          "sourceHash",
+          "entry",
+          "sourceURL",
+          "anchors",
+          "intents",
+          "patterns",
+          "triggers",
+          "useCases",
+          "note",
+          "avoidWhen",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 50000,
+      "minItems": 1
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "records"
+  ],
+  "additionalProperties": false
+}

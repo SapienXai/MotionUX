@@ -1,0 +1,586 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "designbookmark-expand-card",
+      "sourceHash": "abd0db4de844fd79eb3cb3477653c99e2464359e44b376960deae4aaae7234a3",
+      "entry": "public/originals/expand-card.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-expand-card.txt",
+      "anchors": [
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "success",
+          "line": 132
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 343
+        },
+        {
+          "symbol": "progress",
+          "line": 360
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "maintain-context"
+      ],
+      "patterns": [
+        "disclosure",
+        "card"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "content-details"
+      ],
+      "note": "An inline card expands to expose related content.",
+      "motions": [
+        "reveal"
+      ],
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "designbookmark-glass-lens",
+      "sourceHash": "0754192133c435723a6883687840816f3cdd49627b42b56cbc4b0b217cdbab41",
+      "entry": "public/originals/glass-lens.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-glass-lens.txt",
+      "anchors": [
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "success",
+          "line": 132
+        },
+        {
+          "symbol": "aria-label",
+          "line": 313
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 314
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 366
+        }
+      ],
+      "intents": [
+        "compare-change",
+        "focus-attention"
+      ],
+      "patterns": [
+        "comparison",
+        "card"
+      ],
+      "triggers": [
+        "hover"
+      ],
+      "useCases": [
+        "comparison",
+        "visual-accent"
+      ],
+      "note": "Pointer movement drives a local lens over a scene.",
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "designbookmark-goo-menu",
+      "sourceHash": "7847bdba89aa5510f08ccd503eb3976e63296eef4f44fec59cc92b0c1a54c16c",
+      "entry": "public/originals/goo-menu.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-goo-menu.txt",
+      "anchors": [
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "success",
+          "line": 132
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 298
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 357
+        },
+        {
+          "symbol": "aria-label",
+          "line": 405
+        }
+      ],
+      "intents": [
+        "reveal-detail",
+        "navigate"
+      ],
+      "patterns": [
+        "menu",
+        "layout-shift"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "section-navigation",
+        "content-details"
+      ],
+      "note": "Opening the menu reveals related controls from the shared trigger.",
+      "motions": [
+        "morph",
+        "reveal"
+      ],
+      "avoidWhen": [
+        "The content must remain visible or immediately actionable."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "designbookmark-jelly-slider",
+      "sourceHash": "75d630aa6f6cedad725e79ff30243832aa369692f92e7a3366e5b5d06c3a3f48",
+      "entry": "public/originals/jelly-slider.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-jelly-slider.txt",
+      "anchors": [
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "success",
+          "line": 132
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 308
+        },
+        {
+          "symbol": "aria-label",
+          "line": 320
+        },
+        {
+          "symbol": "aria-valuemin",
+          "line": 320
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "picker",
+        "drag"
+      ],
+      "triggers": [
+        "drag"
+      ],
+      "useCases": [
+        "select-value",
+        "gesture-actions"
+      ],
+      "note": "A deforming range interaction communicates adjustment.",
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "designbookmark-letter-limit",
+      "sourceHash": "806c5b79b942cc42f3e3f1d019e9f84bbeb5557f2af4062cc45be40c17f7fdc3",
+      "entry": "public/originals/letter-limit.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-letter-limit.txt",
+      "anchors": [
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "success",
+          "line": 132
+        },
+        {
+          "symbol": "aria-label",
+          "line": 311
+        },
+        {
+          "symbol": "aria-describedby",
+          "line": 311
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 312
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "communicate-error"
+      ],
+      "patterns": [
+        "input",
+        "feedback"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "validation"
+      ],
+      "note": "Shows live letter count and the field's limit.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "designbookmark-loading-to-success",
+      "sourceHash": "a7984b6e0c87dcd46b3169989de7063ca65d795c818017f4ea7837b4bcb4e4ff",
+      "entry": "public/originals/loading-to-success.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-loading-success.txt",
+      "anchors": [
+        {
+          "symbol": "loading",
+          "line": 1
+        },
+        {
+          "symbol": "success",
+          "line": 1
+        },
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "aria-live",
+          "line": 281
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 283
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "confirm-action"
+      ],
+      "patterns": [
+        "feedback",
+        "progress"
+      ],
+      "triggers": [
+        "state-change",
+        "user-activation"
+      ],
+      "useCases": [
+        "booking",
+        "payment",
+        "task-feedback"
+      ],
+      "note": "Demonstrates pending-to-completion presentation. Drive the installed behavior from the actual workflow outcome.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "designbookmark-morph-island",
+      "sourceHash": "c4a93fd6ba6066bcdb543d97ac21069df9742d54346f6bd8bff6172c3da840bc",
+      "entry": "public/originals/morph-island.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-morph-island.txt",
+      "anchors": [
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "success",
+          "line": 132
+        },
+        {
+          "symbol": "aria-pressed",
+          "line": 322
+        },
+        {
+          "symbol": "aria-live",
+          "line": 327
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 345
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "maintain-context"
+      ],
+      "patterns": [
+        "feedback",
+        "layout-shift"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "task-feedback"
+      ],
+      "note": "Morphs related status states inside a persistent island.",
+      "motions": [
+        "morph"
+      ],
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "designbookmark-password-strength",
+      "sourceHash": "cb100fb20e6a54c427cc039b8f82a244b366166b9391153fa364ef529fc1bd5b",
+      "entry": "public/originals/password-strength.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-password-strength.txt",
+      "anchors": [
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "success",
+          "line": 132
+        },
+        {
+          "symbol": "aria-label",
+          "line": 284
+        },
+        {
+          "symbol": "aria-describedby",
+          "line": 284
+        },
+        {
+          "symbol": "aria-pressed",
+          "line": 285
+        }
+      ],
+      "intents": [
+        "collect-input",
+        "communicate-error"
+      ],
+      "patterns": [
+        "input",
+        "feedback"
+      ],
+      "triggers": [
+        "state-change"
+      ],
+      "useCases": [
+        "validation"
+      ],
+      "note": "Displays password-strength feedback close to the text input. Policies belong to the application.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "designbookmark-pull-to-refresh",
+      "sourceHash": "ca7d6be578f374a3ab653e6d31b9e6067e2b589564321211ec4956cb4d6512bc",
+      "entry": "public/originals/pull-to-refresh.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-pull-refresh.txt",
+      "anchors": [
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "success",
+          "line": 132
+        },
+        {
+          "symbol": "aria-hidden",
+          "line": 302
+        },
+        {
+          "symbol": "aria-label",
+          "line": 311
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 372
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "guide-gesture"
+      ],
+      "patterns": [
+        "drag",
+        "progress"
+      ],
+      "triggers": [
+        "drag"
+      ],
+      "useCases": [
+        "gesture-actions",
+        "task-feedback"
+      ],
+      "note": "A drag threshold requests refreshing. Actual refresh state belongs to the caller.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "designbookmark-step-progress",
+      "sourceHash": "1db6d134068c4a08ec8c460aaecd48fffebba435040b768b110568b516f59cc3",
+      "entry": "public/originals/step-progress.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-step-progress.txt",
+      "anchors": [
+        {
+          "symbol": "progress",
+          "line": 1
+        },
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "success",
+          "line": 132
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 339
+        }
+      ],
+      "intents": [
+        "communicate-progress",
+        "navigate"
+      ],
+      "patterns": [
+        "stepper",
+        "progress"
+      ],
+      "triggers": [
+        "user-activation",
+        "state-change"
+      ],
+      "useCases": [
+        "task-feedback",
+        "section-navigation"
+      ],
+      "note": "Shows a step progression with a changing current state.",
+      "avoidWhen": [
+        "The application cannot supply the authoritative outcome or activity state."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "designbookmark-swipe-deck",
+      "sourceHash": "1679678128c249439cb031ac4bfaabe5932d78f5e17cbbd4c13098b09ed2f23b",
+      "entry": "public/originals/swipe-deck.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-swipe-deck.txt",
+      "anchors": [
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "success",
+          "line": 132
+        },
+        {
+          "symbol": "aria-live",
+          "line": 306
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 356
+        },
+        {
+          "symbol": "progress",
+          "line": 374
+        }
+      ],
+      "intents": [
+        "guide-gesture",
+        "navigate"
+      ],
+      "patterns": [
+        "drag",
+        "carousel"
+      ],
+      "triggers": [
+        "drag"
+      ],
+      "useCases": [
+        "gesture-actions",
+        "section-navigation"
+      ],
+      "note": "A direct swipe gesture changes the foreground card.",
+      "motions": [
+        "slide"
+      ],
+      "avoidWhen": [
+        "The gesture would be the only way to perform an essential action without equivalent input evidence."
+      ],
+      "revision": 1
+    },
+    {
+      "id": "designbookmark-tab-pill",
+      "sourceHash": "01be2bde29713f626de972c321ed4091beabe515a0434ce94f22ecadb5a6f4fb",
+      "entry": "public/originals/tab-pill.html",
+      "sourceURL": "https://designbookmark.com/motion-src/code/db-tab-pill.txt",
+      "anchors": [
+        {
+          "symbol": "expanded",
+          "line": 95
+        },
+        {
+          "symbol": "success",
+          "line": 132
+        },
+        {
+          "symbol": "aria-selected",
+          "line": 271
+        },
+        {
+          "symbol": "aria-label",
+          "line": 277
+        },
+        {
+          "symbol": "requestAnimationFrame",
+          "line": 329
+        }
+      ],
+      "intents": [
+        "maintain-context",
+        "navigate"
+      ],
+      "patterns": [
+        "tabs"
+      ],
+      "triggers": [
+        "user-activation"
+      ],
+      "useCases": [
+        "section-navigation"
+      ],
+      "note": "The active pill indicates selection across tabs.",
+      "motions": [
+        "slide"
+      ],
+      "avoidWhen": [
+        "No meaningful state or context would be clarified by the movement."
+      ],
+      "revision": 1
+    }
+  ]
+}

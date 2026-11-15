@@ -5,6 +5,8 @@ import { chromium, firefox, webkit } from "playwright";
 import { expect } from "@playwright/test";
 import { visibleSource } from "./rendering.mjs";
 import { compareSources, comparisonIds } from "./compare.mjs";
+import { loadCatalog } from "./catalog.mjs";
+import { sha256 } from "./v11/identity.mjs";
 
 import { collectGalleryOrder, expectGalleryCount } from "./gallery-checks.mjs";
 
@@ -25,6 +27,7 @@ const localSources = async () => {
   throw new Error("Launch the private app with npm run studio before running npm run studio:verify.");
 };
 const originals = await localSources();
+const localCatalog = await loadCatalog();
 assert(originals.every(item => typeof item.sourceKind === "string"), "Restart the private server using npm run studio.");
 const ids = originals.map(item => item.id);
 const total = originals.length;
@@ -129,7 +132,7 @@ async function gallery(browser) {
       const stage = card.locator("[data-original-stage]");
       await stage.evaluate(node => node.scrollIntoView({ block: "center" }));
       const rendered = await visibleSource(card.locator(lane("studio")), item);
-      report.gallery.push({ id, sourceHash: item.upstreamHash, ...rendered });
+      report.gallery.push({ id, sourceHash: item.upstreamHash, registryHash: await sha256(localCatalog.get(id).installRecipe), ...rendered });
     } catch (error) {
       report.gallery.push({ id, error: error.message.split("\n").slice(0, 5).join(" ") });
     }

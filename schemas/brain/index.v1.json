@@ -1,0 +1,3125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/brain/index.v1.json",
+  "title": "MotionUX Brain V1 index",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "indexVersion": {
+      "const": 1
+    },
+    "taxonomyVersion": {
+      "const": 1
+    },
+    "algorithmVersion": {
+      "const": 1
+    },
+    "environment": {
+      "enum": [
+        "prepared",
+        "not-prepared",
+        "synthetic"
+      ]
+    },
+    "configFingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sourceFingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "indexFingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "schemaVersion": {
+            "const": 1
+          },
+          "indexVersion": {
+            "const": 1
+          },
+          "taxonomyVersion": {
+            "const": 1
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,95}$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "provider": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "editionOrdinal": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "addedSequence": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "category": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "availability": {
+            "const": "ready"
+          },
+          "integrationKind": {
+            "enum": [
+              "react",
+              "html-iframe"
+            ]
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "upstreamCommit": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{40}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "upstreamHash": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "sourceURL": {
+                "type": "string",
+                "maxLength": 1600,
+                "pattern": "^https://[^/\\s]+(?:/[^\\s]*)?$"
+              },
+              "demoURL": {
+                "type": "string",
+                "maxLength": 1600,
+                "pattern": "^https://[^/\\s]+(?:/[^\\s]*)?$"
+              },
+              "entry": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[\\\\\\r\\n])[A-Za-z0-9_.@+/#?=: -]+$"
+              },
+              "code": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 1000,
+                      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[\\\\\\r\\n])[A-Za-z0-9_.@+/#?=: -]+$"
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "installedSHA256": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "sha256",
+                    "installedSHA256"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 2000,
+                "minItems": 1
+              },
+              "assets": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "path": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 1000,
+                          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[\\\\\\r\\n])[A-Za-z0-9_.@+/#?=: -]+$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "maxLength": 1600,
+                          "pattern": "^https://[^/\\s]+(?:/[^\\s]*)?$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "sha256",
+                    "path",
+                    "url"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 1000,
+                "minItems": 0
+              },
+              "notice": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000,
+                    "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[\\\\\\r\\n])[A-Za-z0-9_.@+/#?=: -]+$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "registryItem": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,95}$"
+              },
+              "registryPath": {
+                "type": "string",
+                "pattern": "^/v9/registry/[a-z0-9-]+\\.json$"
+              },
+              "registryHash": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "studioPath": {
+                "type": "string",
+                "pattern": "^/\\?item=[a-z0-9-]+#specimen$"
+              }
+            },
+            "required": [
+              "upstreamCommit",
+              "upstreamHash",
+              "sourceURL",
+              "demoURL",
+              "entry",
+              "code",
+              "assets",
+              "notice",
+              "registryItem",
+              "registryPath",
+              "registryHash",
+              "studioPath"
+            ],
+            "additionalProperties": false
+          },
+          "dependencies": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "pattern": "^(?:@[a-z0-9][-a-z0-9_.]*/)?[a-zA-Z0-9][-a-zA-Z0-9_.]*$",
+              "maxLength": 120
+            },
+            "additionalProperties": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "maxProperties": 128
+          },
+          "fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "curated": {
+            "type": "boolean"
+          },
+          "identity": {
+            "$ref": "#/$defs/evidence"
+          },
+          "semantic": {
+            "type": "object",
+            "properties": {
+              "intents": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "enum": [
+                            "maintain-context",
+                            "reveal-detail",
+                            "confirm-action",
+                            "communicate-progress",
+                            "navigate",
+                            "focus-attention",
+                            "compare-change",
+                            "guide-gesture",
+                            "express-brand",
+                            "loading-placeholder",
+                            "data-change",
+                            "collect-input",
+                            "communicate-error",
+                            "request-approval"
+                          ]
+                        },
+                        "maxItems": 12,
+                        "minItems": 1,
+                        "uniqueItems": true
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "array",
+                          "items": {
+                            "enum": [
+                              "maintain-context",
+                              "reveal-detail",
+                              "confirm-action",
+                              "communicate-progress",
+                              "navigate",
+                              "focus-attention",
+                              "compare-change",
+                              "guide-gesture",
+                              "express-brand",
+                              "loading-placeholder",
+                              "data-change",
+                              "collect-input",
+                              "communicate-error",
+                              "request-approval"
+                            ]
+                          },
+                          "maxItems": 12,
+                          "minItems": 1,
+                          "uniqueItems": true
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "patterns": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "enum": [
+                            "disclosure",
+                            "tabs",
+                            "menu",
+                            "dialog",
+                            "toast",
+                            "feedback",
+                            "stepper",
+                            "drag",
+                            "carousel",
+                            "picker",
+                            "input",
+                            "button",
+                            "list-transition",
+                            "text-transition",
+                            "ambient-effect",
+                            "canvas-effect",
+                            "layout-shift",
+                            "progress",
+                            "card",
+                            "comparison"
+                          ]
+                        },
+                        "maxItems": 12,
+                        "minItems": 1,
+                        "uniqueItems": true
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "array",
+                          "items": {
+                            "enum": [
+                              "disclosure",
+                              "tabs",
+                              "menu",
+                              "dialog",
+                              "toast",
+                              "feedback",
+                              "stepper",
+                              "drag",
+                              "carousel",
+                              "picker",
+                              "input",
+                              "button",
+                              "list-transition",
+                              "text-transition",
+                              "ambient-effect",
+                              "canvas-effect",
+                              "layout-shift",
+                              "progress",
+                              "card",
+                              "comparison"
+                            ]
+                          },
+                          "maxItems": 12,
+                          "minItems": 1,
+                          "uniqueItems": true
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "triggers": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "enum": [
+                            "user-activation",
+                            "hover",
+                            "drag",
+                            "scroll",
+                            "auto",
+                            "state-change"
+                          ]
+                        },
+                        "maxItems": 12,
+                        "minItems": 1,
+                        "uniqueItems": true
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "array",
+                          "items": {
+                            "enum": [
+                              "user-activation",
+                              "hover",
+                              "drag",
+                              "scroll",
+                              "auto",
+                              "state-change"
+                            ]
+                          },
+                          "maxItems": 12,
+                          "minItems": 1,
+                          "uniqueItems": true
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "useCases": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "enum": [
+                            "booking",
+                            "payment",
+                            "task-feedback",
+                            "validation",
+                            "select-value",
+                            "section-navigation",
+                            "content-details",
+                            "gesture-actions",
+                            "ai-tool-status",
+                            "data-display",
+                            "comparison",
+                            "visual-accent"
+                          ]
+                        },
+                        "maxItems": 12,
+                        "minItems": 1,
+                        "uniqueItems": true
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "array",
+                          "items": {
+                            "enum": [
+                              "booking",
+                              "payment",
+                              "task-feedback",
+                              "validation",
+                              "select-value",
+                              "section-navigation",
+                              "content-details",
+                              "gesture-actions",
+                              "ai-tool-status",
+                              "data-display",
+                              "comparison",
+                              "visual-accent"
+                            ]
+                          },
+                          "maxItems": 12,
+                          "minItems": 1,
+                          "uniqueItems": true
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "motions": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "enum": [
+                            "spring",
+                            "morph",
+                            "reveal",
+                            "slide",
+                            "scale",
+                            "fade",
+                            "particle",
+                            "3d",
+                            "blur",
+                            "rotate",
+                            "physics",
+                            "none"
+                          ]
+                        },
+                        "maxItems": 12,
+                        "minItems": 1,
+                        "uniqueItems": true
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "array",
+                          "items": {
+                            "enum": [
+                              "spring",
+                              "morph",
+                              "reveal",
+                              "slide",
+                              "scale",
+                              "fade",
+                              "particle",
+                              "3d",
+                              "blur",
+                              "rotate",
+                              "physics",
+                              "none"
+                            ]
+                          },
+                          "maxItems": 12,
+                          "minItems": 1,
+                          "uniqueItems": true
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "intensity": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "enum": [
+                          "subtle",
+                          "expressive"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "enum": [
+                            "subtle",
+                            "expressive"
+                          ]
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "avoidWhen": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 900
+                        },
+                        "maxItems": 14,
+                        "minItems": 1,
+                        "uniqueItems": true
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 900
+                          },
+                          "maxItems": 14,
+                          "minItems": 1,
+                          "uniqueItems": true
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "notes": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1500
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 1500
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "interruption": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 600
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 600
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "restart": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 600
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 600
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "intents",
+              "patterns",
+              "triggers",
+              "useCases",
+              "motions",
+              "intensity",
+              "avoidWhen",
+              "notes",
+              "interruption",
+              "restart"
+            ],
+            "additionalProperties": false
+          },
+          "support": {
+            "type": "object",
+            "properties": {
+              "pointer": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "keyboard": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "touch-emulated": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "physical-mobile": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "screen-reader": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "reduced-motion": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "rtl": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "cancel": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "interruptible": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "pointer",
+              "keyboard",
+              "touch-emulated",
+              "physical-mobile",
+              "screen-reader",
+              "reduced-motion",
+              "rtl",
+              "cancel",
+              "interruptible"
+            ],
+            "additionalProperties": false
+          },
+          "behavior": {
+            "type": "object",
+            "properties": {
+              "rendered": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "install": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "nativeProps": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "clientBoundary": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "previewAt390": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "overflowPx": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 100000
+                          },
+                          "motionPreference": {
+                            "enum": [
+                              "reduce",
+                              "no-preference"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "overflowPx",
+                          "motionPreference"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "object",
+                          "properties": {
+                            "overflowPx": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 100000
+                            },
+                            "motionPreference": {
+                              "enum": [
+                                "reduce",
+                                "no-preference"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "overflowPx",
+                            "motionPreference"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "sampledMotion": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rendered",
+              "install",
+              "nativeProps",
+              "clientBoundary",
+              "previewAt390",
+              "sampledMotion"
+            ],
+            "additionalProperties": false
+          },
+          "performance": {
+            "type": "object",
+            "properties": {
+              "measuredCost": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "enum": [
+                          "low",
+                          "moderate",
+                          "high"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "enum": [
+                            "low",
+                            "moderate",
+                            "high"
+                          ]
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "schedulerUnits": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 8
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 8
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "graphics": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "enum": [
+                          "canvas-2d",
+                          "webgl",
+                          "canvas",
+                          "shader"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "verified",
+                      "observed",
+                      "curated",
+                      "unknown",
+                      "unsupported"
+                    ]
+                  },
+                  "confidence": {
+                    "enum": [
+                      "high",
+                      "medium",
+                      "none"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidence"
+                    },
+                    "maxItems": 12,
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "value",
+                  "status",
+                  "confidence",
+                  "evidence"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unknown"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "value": {
+                          "type": "null"
+                        },
+                        "confidence": {
+                          "const": "none"
+                        },
+                        "evidence": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "value": {
+                          "enum": [
+                            "canvas-2d",
+                            "webgl",
+                            "canvas",
+                            "shader"
+                          ]
+                        },
+                        "confidence": {
+                          "enum": [
+                            "high",
+                            "medium"
+                          ]
+                        },
+                        "evidence": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "measuredCost",
+              "schedulerUnits",
+              "graphics"
+            ],
+            "additionalProperties": false
+          },
+          "visualAcceptance": {
+            "const": "pending"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "indexVersion",
+          "taxonomyVersion",
+          "id",
+          "title",
+          "provider",
+          "editionOrdinal",
+          "addedSequence",
+          "category",
+          "availability",
+          "integrationKind",
+          "source",
+          "dependencies",
+          "fingerprint",
+          "curated",
+          "identity",
+          "semantic",
+          "support",
+          "behavior",
+          "performance",
+          "visualAcceptance"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 50000,
+      "minItems": 0
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "indexVersion",
+    "taxonomyVersion",
+    "algorithmVersion",
+    "environment",
+    "configFingerprint",
+    "sourceFingerprint",
+    "indexFingerprint",
+    "records"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "catalog",
+            "source-ast",
+            "source-review",
+            "browser-test",
+            "install-artifact"
+          ]
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1800
+        },
+        "sourcePinOrHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "testedProfile": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "recordedAt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 900
+        }
+      },
+      "required": [
+        "kind",
+        "locator",
+        "sourcePinOrHash"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
