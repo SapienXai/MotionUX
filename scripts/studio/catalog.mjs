@@ -3,6 +3,7 @@ import { readFile, lstat } from "node:fs/promises";
 import { basename, resolve } from "node:path";
 import { safeFile, safeRelative } from "./v11/paths.mjs";
 import { editionGroups } from "../v12/sources.mjs";
+import { groupPattern, readEditionGroups, readEditions } from "../originals/editions.mjs";
 import { extendSources, sources } from "../v9/pilots.mjs";
 
 export const vault = resolve(".motionux-v9");
@@ -57,7 +58,17 @@ export async function loadCatalog({ diagnostics = [] } = {}) {
     const value = JSON.parse(await readFile(lastCatalog, "utf8"));
     if (Array.isArray(value)) previous = value;
   } catch (error) { if (error.code !== "ENOENT") diagnostics.push("Saved catalog recovery index could not be read."); }
-  for (const group of groups) {
+  let expansions = [];
+  try { expansions = await readEditionGroups(vault); }
+  catch {
+    diagnostics.push("Edition index unreadable. Using the saved catalog.");
+    expansions = [...new Set(previous.map(item => item?.group).filter(group => typeof group === "string" && groupPattern.test(group)))];
+  }
+  const expanded = new Set(expansions);
+  const selections = new Map((await readEditions()).flatMap(edition => edition.items.map((item, index) => [
+    edition.ordinal + ":" + (item.id ?? item.provider + "-" + item.slug), { sequence: index + 1, exclude: item.exclude },
+  ])));
+  for (const group of [...groups, ...expanded]) {
     let items;
     try {
       items = JSON.parse(await readFile(resolve(vault, "runtime", group, "catalog.json"), "utf8"));
@@ -69,6 +80,11 @@ export async function loadCatalog({ diagnostics = [] } = {}) {
     }
     const present = new Set(items.flatMap(item => typeof item?.id === "string" ? [item.id] : []));
     for (const item of [...items, ...previous.filter(item => item?.group === group && !present.has(item.id))]) {
+      if (expanded.has(group)) {
+        const selection = selections.get(item?.editionOrdinal + ":" + item?.id);
+        if (!selection || selection.exclude || selection.sequence !== item?.addedSequence) continue;
+      }
+      if (expanded.has(group) && catalog.get(item?.id)?.upstreamHash === item?.upstreamHash && item?.upstreamHash) continue;
       if (item?.group !== group || typeof item.id !== "string" || !/^[a-z0-9][a-z0-9-]{0,95}$/.test(item.id) ||
         catalog.has(item.id) || typeof item.slug !== "string" || !/^[a-z0-9-]+$/.test(item.slug) ||
         !safeRelative(item.entry) || typeof item.installRecipe !== "string" || !Array.isArray(item.codeFiles) ||
@@ -85,7 +101,7 @@ export async function loadCatalog({ diagnostics = [] } = {}) {
       const rawDocument = sourceKind === "html" ? item.slug + ".html" : "index.html";
       const available = present.has(item.id) && installed && await isFile(resolve(root, "original", "dist", rawDocument)) &&
         await hashMatches(resolve(root, "original"), item.entry, item.upstreamHash);
-      const style = classifications.get(item.id) ?? classifications.get(item.slug);
+      const style = expanded.has(group) ? undefined : classifications.get(item.id) ?? classifications.get(item.slug);
       const category = style?.category ?? labelGroups[item.category.toLowerCase()] ?? "Effects";
       catalog.set(item.id, {
         ...item, installRecipe, category, sourceKind, installed, availability: available ? "ready" : "unavailable",
@@ -93,6 +109,8 @@ export async function loadCatalog({ diagnostics = [] } = {}) {
         tags: [...new Set([category, item.category, sourceKind === "html" ? "HTML demo" : "React"])],
         preview: { height: style?.height ?? tallPreviews[item.id] ?? item.height ?? 360, rank: style?.rank },
         visualAcceptance: "pending",
+        editionOrdinal: expanded.has(group) ? item.editionOrdinal : editionGroups.includes(group) ? 12 : 10,
+        addedSequence: expanded.has(group) ? item.addedSequence : 0,
       });
     }
   }
@@ -116,7 +134,7 @@ async function isFile(path) {
 
 export function catalogSummary(item) {
   const { id, slug, group, provider, title, category, format, height, demoURL, sourceURL, upstreamHash, upstreamCommit,
-    fidelityStatus, sourceKind, installed, availability, legacyId, tags, preview, visualAcceptance } = item;
+    fidelityStatus, sourceKind, installed, availability, legacyId, tags, preview, visualAcceptance, editionOrdinal, addedSequence, renderCost } = item;
   return { id, slug, group, provider, title, category, format, height, demoURL, sourceURL, upstreamHash, upstreamCommit,
-    fidelityStatus, sourceKind, installed, availability, legacyId, tags, preview, visualAcceptance };
+    fidelityStatus, sourceKind, installed, availability, legacyId, tags, preview, visualAcceptance, editionOrdinal, addedSequence, renderCost };
 }

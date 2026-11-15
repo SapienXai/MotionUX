@@ -3,7 +3,6 @@ import { createHash } from "node:crypto";
 import { createReadStream } from "node:fs";
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, relative, resolve } from "node:path";
-import { editionGroups } from "../../v12/sources.mjs";
 import { loadCatalog, vault } from "../catalog.mjs";
 
 export async function sha256(file) {
@@ -55,7 +54,7 @@ if (process.argv[1] && resolve(process.argv[1]) === new URL(import.meta.url).pat
   const catalog = await loadCatalog();
   let current;
   if (process.argv.includes("--record")) {
-    current = await sourceIdentity(new Map([...catalog].filter(([, item]) => !editionGroups.includes(item.group))));
+    current = await sourceIdentity(new Map([...catalog].filter(([, item]) => item.editionOrdinal === 10)));
     await mkdir(dirname(path), { recursive: true });
     await writeFile(path, JSON.stringify(current, null, 2) + "\n", { flag: "wx", mode: 0o600 });
   } else {

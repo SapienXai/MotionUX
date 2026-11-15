@@ -10,10 +10,11 @@ export type Original = {
   sourceKind: "react" | "html"; installed: boolean; availability: "ready" | "unavailable"; legacyId?: string;
   dependencies: Record<string, string>; assets: { path: string; sourceURL: string; sha256: string }[]; notice?: string; visualAcceptance: "pending";
   tags: string[]; preview: { height: number; rank?: number };
+  editionOrdinal: number; addedSequence: number; renderCost?: "standard" | "heavy";
 };
 
 export type OriginalCard = Pick<Original, "id" | "slug" | "group" | "provider" | "title" | "category" | "format" | "height" | "demoURL" | "sourceURL" | "upstreamCommit" | "upstreamHash" | "fidelityStatus" |
-  "sourceKind" | "installed" | "availability" | "legacyId" | "tags" | "preview" | "visualAcceptance">;
+  "sourceKind" | "installed" | "availability" | "legacyId" | "tags" | "preview" | "visualAcceptance" | "editionOrdinal" | "addedSequence" | "renderCost">;
 const empty = new Map<string, OriginalCard>();
 
 export const localStudio = document.documentElement.dataset.originalSources === "local";
@@ -59,6 +60,7 @@ export function SourceFrame({ entry, lane, scheme, scene, label }: {
 function LiveFrame({ entry, lane, src, label }: { entry: OriginalCard; lane: SourceLane; src: string; label: string }) {
   const frame = useRef<HTMLIFrameElement>(null);
   const gesture = useRef<AbortController | undefined>(undefined);
+  const isolated = entry.editionOrdinal >= 13;
   const [slow, setSlow] = useState(false);
   const [retry, setRetry] = useState(0);
   const [stage, setStage] = useState<"loading" | "ready" | "failed">("loading");
@@ -66,9 +68,25 @@ function LiveFrame({ entry, lane, src, label }: { entry: OriginalCard; lane: Sou
     if (stage !== "loading") return;
     const timer = setTimeout(() => setStage("failed"), 12000);
     const waiting = setTimeout(() => setSlow(true), 900);
-    const check = setInterval(probe, 38);
+    const check = isolated ? undefined : setInterval(probe, 38);
     return () => { clearTimeout(timer); clearTimeout(waiting); clearInterval(check); };
-  }, [retry, stage]);
+  }, [isolated, retry, stage]);
+  useEffect(() => {
+    if (!isolated) return;
+    function receive(event: MessageEvent) {
+      if (event.origin !== "null" || event.source !== frame.current?.contentWindow) return;
+      const state = event.data?.motionuxPreview;
+      if (state === "ready" || state === "failed") setStage(state);
+      if ((state === "engaged" || state === "released") && lane === "studio") {
+        const wrapper = frame.current?.parentElement;
+        if (!wrapper?.closest("[data-original-stage]")) return;
+        wrapper.dataset.previewGesture = String(state === "engaged");
+        window.dispatchEvent(new Event("mx-preview-interaction"));
+      }
+    }
+    window.addEventListener("message", receive);
+    return () => window.removeEventListener("message", receive);
+  }, [isolated, lane]);
   useEffect(() => () => gesture.current?.abort(), []);
   function probe() {
     const document = frame.current?.contentDocument;
@@ -95,8 +113,9 @@ function LiveFrame({ entry, lane, src, label }: { entry: OriginalCard; lane: Sou
   }
   return <div className="mx-original-frame" data-preview-lane={lane} data-preview-state={stage}>
     {stage !== "failed" && <iframe key={retry} ref={frame} title={label} src={src} referrerPolicy="no-referrer"
-      sandbox={entry.sourceKind === "html" && lane === "original" ? "allow-scripts" : undefined}
+      sandbox={isolated || entry.sourceKind === "html" && lane === "original" ? "allow-scripts" : undefined}
       onLoad={() => {
+        if (isolated) return;
         if (entry.sourceKind === "html" && lane === "original") setStage("ready");
         else if (lane === "studio" && frame.current?.contentDocument?.readyState === "complete" &&
           !frame.current?.contentDocument?.documentElement?.dataset.studioPreview) setStage("failed");

@@ -3,7 +3,6 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { chromium, firefox, webkit } from "playwright";
 import { expect } from "@playwright/test";
-import { editionGroups } from "../v12/sources.mjs";
 import { visibleSource } from "./rendering.mjs";
 import { compareSources, comparisonIds } from "./compare.mjs";
 
@@ -28,7 +27,7 @@ assert(originals.every(item => typeof item.sourceKind === "string"), "Restart th
 const ids = originals.map(item => item.id);
 const total = originals.length;
 assert.equal(new Set(ids).size, total);
-assert.equal(originals.filter(item => !editionGroups.includes(item.group)).length, 140);
+assert.equal(originals.filter(item => item.editionOrdinal === 10).length, 140);
 assert.equal(originals.filter(item => item.legacyId).length, 82);
 assert.equal(originals.filter(item => item.installed && item.availability === "ready").length, total);
 assert.equal(originals.filter(item => item.sourceKind === "html").length, 50);
@@ -144,6 +143,8 @@ async function gallery(browser) {
     await expect(page.locator(cards).first().locator(ready)).toBeVisible();
   }
   const afterRepeatedScroll = await heap();
+  await page.getByRole("searchbox").fill("designbookmark morph island");
+  await expect(page.locator(cards)).toHaveCount(1);
   const beforeAction = performance.now();
   const morph = page.locator('[data-card="designbookmark-morph-island"]').frameLocator("iframe").frameLocator("iframe");
   await morph.getByRole("button", { name: "Call", exact: true }).click();
@@ -211,10 +212,12 @@ async function responsive(browser) {
         await page.getByRole("button", { name: "Close menu" }).click();
         await expect(page.getByRole("button", { name: "Open menu" })).toBeFocused();
         if (width === 390 && name !== "firefox") {
+          await page.getByRole("searchbox").fill("designbookmark morph island");
           const call = page.locator('[data-card="designbookmark-morph-island"]').frameLocator("iframe").frameLocator("iframe")
             .getByRole("button", { name: "Call", exact: true });
           await call.tap();
           await expect(call).toHaveAttribute("aria-pressed", "true");
+          await page.getByRole("searchbox").fill("");
           await page.evaluate(() => window.scrollTo(0, 0));
         }
       }
@@ -285,7 +288,7 @@ async function navigation(browser) {
     await expect(page.getByRole("heading", { name: "Original unavailable" })).toBeVisible();
 
     await page.route("**/v10/preview/designbookmark-morph-island?*", route => route.fulfill({ status: 404, body: "unavailable" }), { times: 1 });
-    await page.goto(origin);
+    await page.goto(origin + "/?sort=featured");
     const broken = page.locator(preview({ id: "designbookmark-morph-island" }));
     await expect(broken.getByText("Preview unavailable")).toBeVisible();
     await broken.getByRole("button", { name: "Retry" }).click();

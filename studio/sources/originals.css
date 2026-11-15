@@ -54,3 +54,9 @@
 @media (pointer: coarse), (max-width: 600px) {
   .mx-original-save :is(.mx-library-icon, .mx-library-trigger) { inline-size: 44px; min-block-size: 44px; }
 }
+
+.mx-new-arrivals { margin: 0 0 10px; font-size: 14px; }
+.mx-new-arrivals span { margin-inline-start: 4px; color: var(--muted); font-size: 12px; font-weight: 500; }
+.mx-original-card-title { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 6px; }
+.mx-new-badge { padding: 2px 5px; border-radius: 5px; background: var(--chip); color: var(--muted); font-size: 10px; }
+.mx-stage-deferred { content-visibility: auto; contain-intrinsic-size: auto none auto 380px; }

@@ -6,6 +6,7 @@ import { readLibrary } from "./library.mjs";
 import { loadThumbnails } from "./thumbnail-cache.mjs";
 import { sha256 } from "./identity.mjs";
 import { safeFile } from "./paths.mjs";
+import { indexName } from "../../originals/editions.mjs";
 
 export async function inspectWorkspace({ deep = false } = {}) {
   const diagnostics = [];
@@ -46,7 +47,7 @@ export async function inspectWorkspace({ deep = false } = {}) {
 }
 
 export async function buildIdentity() {
-  const files = ["index.html", "vite.config.mjs", "package-lock.json", "scripts/v9/serve.mjs", "scripts/studio/catalog.mjs", "scripts/v12/sources.mjs",
+  const files = ["index.html", "vite.config.mjs", "package-lock.json", "scripts/v9/serve.mjs", "scripts/studio/catalog.mjs", "scripts/v12/sources.mjs", "scripts/originals/editions.mjs",
     ...["paths", "library", "kits", "thumbnail-cache"].map(name => `scripts/studio/v11/${name}.mjs`)];
   for (const folder of ["studio"]) {
     for (const entry of await readdir(folder, { recursive: true, withFileTypes: true })) {
@@ -55,12 +56,19 @@ export async function buildIdentity() {
   }
   const build = createHash("sha256");
   for (const file of files.sort()) build.update(await readFile(file));
+  build.update(await readFile(resolve(vault, indexName)).catch(error => {
+    if (error.code === "ENOENT") return "no-editions";
+    throw error;
+  }));
   const runtime = resolve(vault, "runtime");
+  for (const file of (await readdir("metadata/editions")).filter(file => /^v\d+\.json$/.test(file)).sort()) {
+    build.update(await readFile(resolve("metadata/editions", file)));
+  }
   const providers = await readdir(runtime).catch(error => {
     if (error.code === "ENOENT") return [];
     throw error;
   });
-  for (const provider of providers.sort()) {
+  for (const provider of providers.filter(name => !name.startsWith(".")).sort()) {
     build.update(provider);
     build.update(await readFile(resolve(runtime, provider, "catalog.json")).catch(error => {
       if (["ENOENT", "ENOTDIR"].includes(error.code)) return "missing";

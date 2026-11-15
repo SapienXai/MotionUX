@@ -30,7 +30,8 @@ export function presentation(item: Reference) {
 export const repoURL = "https://github.com/SapienXai/MotionUX";
 
 export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples" | "sources" | "library"; item: string; category: string; query: string; preset?: boolean; configuration?: string; panel?: "usage" | "install"; source?: string; sourcePanel?: "provenance" | "usage" | "install" | "code" | "evidence";
-  collection?: "legacy"; provider?: string; kind?: "react" | "html"; sort?: "name" | "provider"; compare?: boolean; shelf?: string; kit?: boolean; fromLibrary?: boolean; };
+  collection?: "legacy"; provider?: string; kind?: "react" | "html"; sort?: "name" | "provider" | "oldest" | "featured";
+  subset?: "new" | "favorites"; compare?: boolean; shelf?: string; kit?: boolean; fromLibrary?: boolean; };
 export function readRoute(): Route {
   const params = new URLSearchParams(location.search);
   const page = params.get("view");
@@ -38,6 +39,7 @@ export function readRoute(): Route {
   const panel = params.get("panel");
   const kind = params.get("kind");
   const sort = params.get("sort");
+  const subset = params.get("subset");
   return {
     page: item ? "playground" : page === "components" || page === "guides" || page === "examples" || page === "sources" || page === "library" ? page : "gallery",
     item,
@@ -51,7 +53,8 @@ export function readRoute(): Route {
     collection: params.get("collection") === "legacy" || (item && params.get("legacy") === "1") ? "legacy" : undefined,
     provider: params.get("provider") ?? undefined,
     kind: kind === "react" || kind === "html" ? kind : undefined,
-    sort: sort === "name" || sort === "provider" ? sort : undefined,
+    sort: sort === "name" || sort === "provider" || sort === "oldest" || sort === "featured" ? sort : undefined,
+    subset: subset === "new" || subset === "favorites" ? subset : undefined,
     compare: params.get("compare") === "1",
     shelf: params.get("shelf") ?? undefined,
     kit: params.get("kit") === "1",
@@ -68,6 +71,7 @@ export function hrefFor(route: Route) {
   if (route.provider) params.set("provider", route.provider);
   if (route.kind) params.set("kind", route.kind);
   if (route.sort) params.set("sort", route.sort);
+  if (route.subset) params.set("subset", route.subset);
   if (route.compare) params.set("compare", "1");
   if (route.shelf) params.set("shelf", route.shelf);
   if (route.kit) params.set("kit", "1");

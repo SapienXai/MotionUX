@@ -219,6 +219,30 @@ async function libraryFlows(browser) {
   report.workflows.push("favorite with keyboard", "collection create/rename/delete", "multi-collection membership", "note search",
     "failed save and retry", "history", "mixed Project Kit and conflicts", "portable archive", "library JSON import/export", "missing item recovery",
     "reload and restart persistence", "React and HTML Code/Usage/Install", "clipboard", "saved scene and theme", "viewport");
+  if ([...catalog.values()].some(item => item.editionOrdinal >= 13)) await latestLibrary(browser);
+}
+
+async function latestLibrary(browser) {
+  const item = [...catalog.values()].filter(item => item.editionOrdinal >= 13)
+    .sort((a, b) => b.editionOrdinal - a.editionOrdinal || a.addedSequence - b.addedSequence)[0];
+  const page = await browser.newPage({ viewport: { width: 1536, height: 1024 } });
+  try {
+    await page.goto(origin + "/?item=" + item.id);
+    await page.getByRole("button", { name: "Favorite " + item.title, exact: true }).click();
+    await add(page, item.title, ["Controls"]);
+    await page.getByRole("button", { name: "Edit note for " + item.title, exact: true }).click();
+    const dialog = page.getByRole("dialog", { name: "Personal settings for " + item.title });
+    await dialog.getByLabel("Note", { exact: true }).fill("V13 keyboard motion sample");
+    await dialog.getByRole("button", { name: "Save note" }).click();
+    await page.goto(origin);
+    await page.locator('nav[aria-label="Filter originals"]').getByRole("link", { name: "Favorites", exact: true }).click();
+    await expect(page.locator('[data-original-card="' + item.id + '"]')).toBeVisible();
+    await page.getByRole("searchbox").fill("keyboard motion sample");
+    await expect(page.locator("[data-original-card]")).toHaveCount(1);
+    await page.reload();
+    await expect(page.locator('[data-original-card="' + item.id + '"]')).toBeVisible();
+    report.workflows.push("new edition favorite, note search, membership and reload");
+  } finally { await page.close(); }
 }
 
 async function add(page, name, collections) {
@@ -232,7 +256,7 @@ async function add(page, name, collections) {
 async function previews(browser) {
   const context = await browser.newContext({ viewport: { width: 1536, height: 1024 } });
   const page = await context.newPage();
-  await page.goto(origin);
+  await page.goto(origin + "/?sort=featured");
   const island = page.locator('[data-original-card="designbookmark-morph-island"]');
   await expect(island.locator(".mx-preview-thumbnail")).toBeAttached();
   const call = island.frameLocator("iframe").frameLocator("iframe").getByRole("button", { name: "Call", exact: true });

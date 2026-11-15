@@ -23,7 +23,13 @@
     "sources:prepare": "node scripts/v9/prepare.mjs && node scripts/v9/prepare-designbookmark.mjs",
     "sources:prepare:v12": "node scripts/v9/prepare.mjs --v12",
     "sources:serve": "node scripts/v9/serve.mjs",
-    "studio:verify:v12": "node scripts/v12/verify.mjs"
+    "studio:verify:v12": "node scripts/v12/verify.mjs",
+    "originals:expand:v13": "node scripts/originals/prepare.mjs v13",
+    "originals:verify:v13": "node scripts/originals/verify.mjs v13",
+    "originals:benchmark": "node scripts/originals/benchmark.mjs",
+    "originals:status": "node scripts/studio/v11/doctor.mjs",
+    "originals:verify-consumers": "node scripts/originals/consumer-check.mjs",
+    "originals:index": "node scripts/originals/index-tools.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "5.3.0",

@@ -6,7 +6,8 @@ export const thumbnailWidths = [320, 368];
 export const thumbnailSchemes = ["light", "dark"];
 
 export function thumbnailKey(item, width, scheme) {
-  const stamp = JSON.stringify([item.id, item.upstreamHash, item.upstreamCommit, item.codeFiles, width, item.preview.height, scheme, "default", 1]);
+  const edition = item.editionOrdinal >= 13 ? [item.assets, item.fonts, "isolated-preview-v1"] : [];
+  const stamp = JSON.stringify([item.id, item.upstreamHash, item.upstreamCommit, item.codeFiles, width, item.preview.height, scheme, "default", 1, ...edition]);
   return createHash("sha256").update(stamp).digest("hex").slice(0, 32);
 }
 

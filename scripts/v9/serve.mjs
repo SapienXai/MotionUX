@@ -1,4 +1,5 @@
 import { createServer } from "node:http";
+import { randomBytes } from "node:crypto";
 import { createReadStream } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import { basename, extname, resolve } from "node:path";
@@ -8,6 +9,7 @@ import { createLibraryAPI, createLibraryStore, catalogID } from "../studio/v11/l
 import { describeKit, kitArchive } from "../studio/v11/kits.mjs";
 import { loadThumbnails } from "../studio/v11/thumbnail-cache.mjs";
 import { requestURL, safeFile } from "../studio/v11/paths.mjs";
+import { groupPattern } from "../originals/editions.mjs";
 
 const shell = resolve(process.env.MOTIONUX_STUDIO_SHELL ?? "dist");
 const fixture = process.env.MOTIONUX_LIBRARY_FIXTURE;
@@ -42,12 +44,45 @@ html { overscroll-behavior: contain auto; }
 #specimen { grid-template-columns: minmax(0, 1fr); justify-items: safe center; }
 </style>`;
 
+const previewBridge = `<script>
+if (self !== top) {
+  const tell = (state) => parent.postMessage({ motionuxPreview: state }, "*");
+  const observe = () => {
+    const observer = new MutationObserver(check);
+    function check() {
+      if (document.querySelector("#specimen > *")) { tell("ready"); observer.disconnect(); }
+      else if (document.querySelector("#root > [role=alert]")) { tell("failed"); observer.disconnect(); }
+    }
+    observer.observe(document.body, { childList: true, subtree: true });
+    check();
+  };
+  document.addEventListener("DOMContentLoaded", observe, { once: true });
+  addEventListener("pointerdown", () => tell("engaged"), true);
+  for (const event of ["pointerup", "pointercancel", "lostpointercapture", "blur"]) {
+    addEventListener(event, () => tell("released"), true);
+  }
+}
+</script>`;
+const previewAssetKey = randomBytes(18).toString("hex");
+function protectAssetURLs(content, group, lane) {
+  const base = `/v9/live/${group}/${lane}/`;
+  return content.replaceAll(base, base + previewAssetKey + "/");
+}
+
+function securePreview(response) {
+  response.setHeader("Content-Security-Policy", "sandbox allow-scripts; frame-ancestors 'self'; default-src 'none'; script-src 'self' 'unsafe-inline' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; img-src 'self' https: data: blob:; media-src 'self' https: data: blob:; worker-src 'self' blob:; base-uri 'none'; form-action 'none'");
+  response.setHeader("Referrer-Policy", "no-referrer");
+}
+
 async function studioPreview(response, item, options) {
   if (item?.availability !== "ready" || options.get("item") !== item.slug) return response.writeHead(404).end();
   response.setHeader("Content-Type", types[".html"]);
   if (item.sourceKind === "react") {
     const upstream = await readFile(await safeFile(resolve(vault, "runtime", item.group, "original", "dist"), "index.html", vault), "utf8");
-    response.end(upstream.replace("<html ", '<html data-studio-preview="react" ').replace("</head>", previewStyle + "</head>"));
+    const isolated = groupPattern.test(item.group);
+    if (isolated) securePreview(response);
+    const html = upstream.replace("<html ", '<html data-studio-preview="react" ').replace("</head>", previewStyle + (isolated ? previewBridge : "") + "</head>");
+    response.end(isolated ? protectAssetURLs(html, item.group, "original") : html);
     return;
   }
   const src = "/v9/live/designbookmark/original/" + encodeURIComponent(item.slug) + ".html";
@@ -70,6 +105,7 @@ const types = {
 async function sendFile(response, root, relative, boundary = vault) {
   const file = await safeFile(root, relative, boundary);
   response.setHeader("Content-Type", types[extname(file)] ?? "application/octet-stream");
+  response.setHeader("Content-Length", (await stat(file)).size);
   const stream = createReadStream(file);
   stream.on("error", error => response.destroy(error));
   stream.pipe(response);
@@ -189,10 +225,33 @@ const server = createServer({ requestTimeout: 15000, headersTimeout: 5000, maxHe
     } else if (path.startsWith("/v9/live/")) {
       const [, , , provider, lane, ...asset] = path.split("/");
       if (!liveGroups.has(provider) || !["original", "installed"].includes(lane)) return response.writeHead(404).end();
+      const directory = resolve(vault, "runtime", provider, lane, "dist");
+      if (groupPattern.test(provider)) {
+        if (!asset.join("/") || asset.join("/") === "index.html") {
+          securePreview(response);
+          const html = await readFile(await safeFile(directory, "index.html", vault), "utf8");
+          return response.writeHead(200, { "Content-Type": types[".html"] }).end(protectAssetURLs(html.replace("</head>", previewBridge + "</head>"), provider, lane));
+        }
+        // Sandbox frames have an opaque origin. The unguessable path is issued only by
+        // same-Studio HTML documents, which reject cross-site framing and CORS reads.
+        if (asset[0] !== previewAssetKey || asset[1] !== "assets") return response.writeHead(404).end();
+        if (request.headers.origin === "null") response.setHeader("Access-Control-Allow-Origin", "null");
+        response.setHeader("Vary", "Origin");
+        response.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+        response.setHeader("Cache-Control", "private, max-age=86400, immutable");
+        const relative = asset.slice(1).join("/");
+        const extension = extname(relative);
+        if (extension === ".js" || extension === ".css") {
+          const text = await readFile(await safeFile(directory, relative, vault), "utf8");
+          const content = protectAssetURLs(text, provider, lane);
+          return response.writeHead(200, { "Content-Type": types[extension], "Content-Length": Buffer.byteLength(content) }).end(content);
+        }
+        return await sendFile(response, directory, relative);
+      }
       if (provider === "designbookmark" && asset.at(-1)?.endsWith(".html") && asset.at(-1) !== "index.html") {
         response.setHeader("Content-Security-Policy", "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data: blob: https://designbookmark.com; media-src data: blob:; frame-ancestors 'self'; base-uri 'none'; form-action 'none'");
       }
-      await sendFile(response, resolve(vault, "runtime", provider, lane, "dist"), asset.join("/") || "index.html");
+      await sendFile(response, directory, asset.join("/") || "index.html");
     } else {
       await sendFile(response, shell, path.slice(1), shell);
     }

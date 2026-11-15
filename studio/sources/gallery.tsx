@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, Code2, Download, FolderPlus, Play } from "lucide-react";
 import { hrefFor, type Route } from "../app/catalog-view";
 import { Empty } from "../app/gallery";
@@ -32,25 +32,36 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
   const grid = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState<ReadonlySet<string>>(new Set());
   const [nearby, setNearby] = useState<ReadonlySet<string>>(new Set());
-  const catalog = [...originals.values()];
+  const catalog = useMemo(() => [...originals.values()], [originals]);
+  const edition = catalog.reduce((maximum, entry) => entry.availability === "ready" ? Math.max(maximum, entry.editionOrdinal) : maximum, 0);
+  const newCount = catalog.filter(entry => entry.editionOrdinal === edition && entry.availability === "ready").length;
   const providers = [...new Set(catalog.map(item => item.provider))].sort();
   const categories = ["Buttons", "Inputs", "Navigation", "Cards", "Gestures", "AI", "Text", "Media", "Effects", "Feedback"]
     .filter(category => catalog.some(item => item.category === category));
   const query = route.query.trim().toLowerCase();
-  const items = catalog.filter(item => {
-    const personal = library?.data?.details[item.id];
-    const searchable = [item.title, item.id, item.id.replaceAll("-", " "), item.provider, ...item.tags, personal?.note, ...(personal?.tags ?? [])].join(" ").toLowerCase();
-    return (!route.category || route.category === item.category.toLowerCase()) &&
-      (!route.provider || route.provider === item.provider) &&
-      (!route.kind || route.kind === item.sourceKind) &&
-      query.split(/\s+/).every(term => searchable.includes(term));
-  }).sort((a, b) => {
-    const byTitle = a.title.localeCompare(b.title);
-    if (route.sort === "name") return byTitle;
-    if (route.sort === "provider") return a.provider.localeCompare(b.provider) || byTitle;
-    return (a.preview.rank ?? Infinity) - (b.preview.rank ?? Infinity) || byTitle;
-  });
-  const visibleOrder = items.map(item => item.id).join(" ");
+  const items = useMemo(() => {
+    const favoriteIDs = new Set(library?.data?.favorites ?? []);
+    const terms = query ? query.split(/\s+/) : [];
+    return catalog.filter(item => {
+      const personal = library?.data?.details[item.id];
+      const searchable = [item.title, item.id, item.id.replaceAll("-", " "), item.provider, ...item.tags, personal?.note, ...(personal?.tags ?? [])].join(" ").toLowerCase();
+      return (!route.category || route.category === item.category.toLowerCase()) &&
+        (!route.provider || route.provider === item.provider) &&
+        (!route.kind || route.kind === item.sourceKind) &&
+        (route.subset !== "new" || item.editionOrdinal === edition) &&
+        (route.subset !== "favorites" || favoriteIDs.has(item.id)) &&
+        terms.every(term => searchable.includes(term));
+    }).sort((a, b) => {
+      const byTitle = a.title.localeCompare(b.title);
+      if (route.sort === "name") return byTitle;
+      if (route.sort === "provider") return a.provider.localeCompare(b.provider) || byTitle;
+      const featured = (a.preview.rank ?? Infinity) - (b.preview.rank ?? Infinity) || byTitle;
+      if (route.sort === "featured") return featured;
+      const difference = route.sort === "oldest" ? a.editionOrdinal - b.editionOrdinal : b.editionOrdinal - a.editionOrdinal;
+      return difference || a.addedSequence - b.addedSequence || featured;
+    });
+  }, [catalog, edition, library?.data, query, route.category, route.kind, route.provider, route.sort, route.subset]);
+  const visibleOrder = useMemo(() => items.map(item => item.id).join(" "), [items]);
   useLayoutEffect(() => {
     const container = grid.current;
     if (!container) return;
@@ -76,7 +87,13 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
             return { stage: stage as HTMLElement, coverage: engaged.has(stage) ? Infinity : overlap / rect.height };
           }).filter(item => item.coverage > 0);
           eligible.sort((a, b) => b.coverage - a.coverage);
-          eligible.slice(0, previewLimit).forEach(({ stage }) => next.add(stage.dataset.originalStage!));
+          let remaining = previewLimit;
+          for (const { stage } of eligible) {
+            const cost = Number(stage.dataset.previewCost ?? "1");
+            if (cost > remaining) continue;
+            next.add(stage.dataset.originalStage!);
+            remaining -= cost;
+          }
         }
         setMounted(current => next.size === current.size && [...next].every(id => current.has(id)) ? current : next);
       });
@@ -95,7 +112,7 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
         if (entry.isIntersecting) nearbyStages.add(id);
         else nearbyStages.delete(id);
       }
-      setNearby(new Set(nearbyStages));
+      setNearby(current => current.size === nearbyStages.size && [...nearbyStages].every(id => current.has(id)) ? current : new Set(nearbyStages));
     }, { rootMargin: "240px 0px" });
     stages.forEach(stage => { observer.observe(stage); images.observe(stage); });
     window.addEventListener("scroll", update, { passive: true });
@@ -122,9 +139,14 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
         <div><h1 tabIndex={-1}>Originals Gallery</h1><p>Live source previews from {providers.length} providers.</p></div>
       </div>
       <nav className="mx-originals-categories" aria-label="Filter originals">
-        {["All originals", ...categories].map((label, index) => {
-          const next = { ...route, category: index ? label.toLowerCase() : "" };
-          return <a key={label} href={hrefFor(next)} aria-current={next.category === route.category ? "true" : undefined}
+        {[
+          { label: "All originals", category: "", subset: undefined },
+          ...(edition >= 13 ? [{ label: `New in V${edition}`, category: "", subset: "new" as const }] : []),
+          { label: "Favorites", category: "", subset: "favorites" as const },
+          ...categories.map(label => ({ label, category: label.toLowerCase(), subset: undefined })),
+        ].map(({ label, category, subset }) => {
+          const next = { ...route, category, subset };
+          return <a key={label} href={hrefFor(next)} aria-current={category === route.category && subset === route.subset ? "true" : undefined}
             onClick={event => intercept(event, () => navigate(next))}>{label}</a>;
         })}
       </nav>
@@ -140,15 +162,18 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
             <option value="">All formats</option><option value="react">React</option><option value="html">HTML demo</option>
           </select>
           <select aria-label="Sort originals" value={route.sort ?? ""} onChange={event => navigate({ ...route, sort: (event.target.value || undefined) as Route["sort"] })}>
-            <option value="">Featured</option><option value="name">Name</option><option value="provider">Provider</option>
+            <option value="">Newest first</option><option value="oldest">Oldest</option><option value="featured">Featured</option>
+            <option value="name">Name</option><option value="provider">Provider</option>
           </select>
         </div>
       </div>
     </header>
-    {ready < catalog.length && <p className="mx-catalog-notice" role="status">{catalog.length - ready} local records are unavailable. Run <code>npm run sources:prepare</code> to repair the workspace.</p>}
+    {edition >= 13 && !route.sort && !route.subset && !query && !route.category && !route.provider && !route.kind &&
+      <h2 className="mx-new-arrivals">V{edition} New arrivals <span>{newCount}</span></h2>}
+    {ready < catalog.length && <p className="mx-catalog-notice" role="status">{catalog.length - ready} local records are unavailable. Run <code>npm run studio:doctor</code> for details.</p>}
     {failed ? <p role="alert">The local catalog could not be read. <a href={location.href}>Retry</a> or restart <code>npm run studio</code>.</p> :
       items.length ? <div className="mx-originals-grid" ref={grid} aria-label="Original components">
-        {items.map(entry => <OriginalCardView key={entry.id} entry={entry} previews={nearby.has(entry.id) ? thumbnails[entry.id] : undefined} mounted={mounted.has(entry.id)} route={route}
+        {items.map((entry, index) => <OriginalCardView key={entry.id} entry={entry} fresh={edition >= 13 && entry.editionOrdinal === edition} deferred={index >= 12} previews={nearby.has(entry.id) ? thumbnails[entry.id] : undefined} mounted={mounted.has(entry.id)} route={route}
           scheme={scheme} navigate={navigate} openCollection={openCollection} collectionDisabled={!library?.data} />)}
       </div> : !loading && <Empty clear={clear}>Try another search or clear the filters.</Empty>}
     <dialog className="mx-library-dialog" aria-labelledby={pickerTitle} ref={picker} onClose={() => setCollecting(undefined)}>
@@ -158,19 +183,21 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
   </>;
 }
 
-const OriginalCardView = memo(function OriginalCardView({ entry, previews, mounted, scheme, route, navigate, openCollection, collectionDisabled }: {
-  entry: OriginalCard; previews?: Thumbnail[]; mounted: boolean; scheme: "light" | "dark"; route: Route; navigate: (route: Route) => void;
+const OriginalCardView = memo(function OriginalCardView({ entry, fresh, deferred, previews, mounted, scheme, route, navigate, openCollection, collectionDisabled }: {
+  entry: OriginalCard; fresh: boolean; deferred: boolean; previews?: Thumbnail[]; mounted: boolean; scheme: "light" | "dark"; route: Route; navigate: (route: Route) => void;
   openCollection: (entry: OriginalCard) => void; collectionDisabled: boolean;
 }) {
   const detail = (pane?: Route["sourcePanel"]): Route => ({ ...route, page: "playground", item: entry.id, sourcePanel: pane });
-  return <article className="mx-original-card" data-card={entry.id} data-original-card={entry.id} data-source-kind={entry.sourceKind}>
-    <div className="mx-original-stage" data-original-stage={entry.id} style={{ blockSize: entry.preview.height }}>
+  return <article className="mx-original-card" data-card={entry.id} data-original-card={entry.id} data-source-kind={entry.sourceKind} data-edition={entry.editionOrdinal}>
+    <div className={deferred && !mounted ? "mx-original-stage mx-stage-deferred" : "mx-original-stage"} data-original-stage={entry.id}
+      data-preview-cost={entry.renderCost === "heavy" ? 3 : entry.sourceKind === "html" ? 2 : 1} style={{ blockSize: entry.preview.height }}>
       {entry.availability === "ready" && <PreviewThumbnail key={scheme} previews={previews} scheme={scheme} />}
       {entry.availability !== "ready" ? <div className="mx-frame-error"><p>Original unavailable</p><a href={entry.demoURL}>Original demo</a></div> :
         mounted && <SourceFrame entry={entry} lane="studio" scheme={scheme} label={entry.title + " interactive preview"} />}
     </div>
     <header className="mx-original-caption">
-      <div><h2><a className="mx-open-playground" href={hrefFor(detail())} onClick={event => intercept(event, () => navigate(detail()))}>{entry.title}</a></h2>
+      <div><div className="mx-original-card-title"><h2><a className="mx-open-playground" href={hrefFor(detail())} onClick={event => intercept(event, () => navigate(detail()))}>{entry.title}</a></h2>
+        {fresh && <span className="mx-new-badge">New</span>}</div>
       <p>{entry.provider} <span aria-hidden="true">·</span> {entry.category} <span aria-hidden="true">·</span> {entry.sourceKind === "html" ? "HTML/iframe" : "React"}</p></div>
       <div className="mx-original-save"><Favorite source={entry.id} title={entry.title} />
         <button type="button" className="mx-library-icon" aria-label={`Add ${entry.title} to collections`} disabled={collectionDisabled} onClick={() => openCollection(entry)}>

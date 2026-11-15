@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h1 align="center">Try 152 interactive components</h1>
+<h1 align="center">Try over 300 interactive components</h1>
 
 <p align="center">
   Flick a time picker, choose a cinema seat, or tear a freshly printed receipt.<br>
@@ -37,4 +37,4 @@
 
 **Studio already running?** [Open MotionUX Studio](http://127.0.0.1:5199/) on the same computer.
 
-[Explore the new V12 collection](docs/V12-ORIGINALS.md) · [Installation and developer guide](docs/DEVELOPER-GUIDE.md) · [License](LICENSE)
+[Explore the new V13 collection](docs/V13-ORIGINALS.md) · [Installation and developer guide](docs/DEVELOPER-GUIDE.md) · [License](LICENSE)
