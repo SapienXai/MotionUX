@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/v3/report.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 3
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "status": {
+      "enum": [
+        "fixture-passed",
+        "fixture-failed"
+      ]
+    },
+    "reviewFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "finalHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "attemptId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "physicalMobile": {
+      "const": "unknown"
+    },
+    "screenReader": {
+      "const": "unknown"
+    },
+    "rtl": {
+      "const": "unknown"
+    },
+    "liveBackend": {
+      "const": "unknown"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "runId",
+    "status",
+    "reviewFingerprint",
+    "finalHash",
+    "attemptId",
+    "physicalMobile",
+    "screenReader",
+    "rtl",
+    "liveBackend"
+  ]
+}

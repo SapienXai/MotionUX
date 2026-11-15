@@ -51,6 +51,8 @@ React packages and standalone HTML wrappers share the prepared catalog. HTML ori
 
 The vault supplied **500** current originals, **114** authored source profiles from eight providers and **186** records with pin-scoped sampled-motion evidence. Three had a verified keyboard action and three had verified touch emulation. Physical mobile, screen readers, RTL, reduction behavior and measured per-component performance remain open. Source and install integrity were checked across 9,969 frozen file hashes. Visual acceptance remains pending for the prepared originals.
 
+A deterministic Turkish and English policy parser resolves motion negation before recommendation ranking. It ignores quoted instructions, separates business-state restrictions, and resolves contrasting clauses against the selected screen or interaction. Explicit stillness returns `no-motion`. A conflict or an unclear target returns `need-more-context`. Search remains a discovery tool. Rebuild the local index after updating policy code so an older fingerprint cannot authorize a fixture integration.
+
 The 51 pinned gold scenarios contain 25 Turkish and 26 English requests, with 30 positive, 21 abstention or clarification, and 18 hard-requirement cases. The authored set is a reproducible release gate. Generalization to new workflows and independent human acceptance remain open. [Gold scenarios](../fixtures/brain/scenarios.v1.json)
 
 | Measure | Result |

@@ -1,0 +1,8 @@
+import WheelPicker from "../components/kokonutui/wheel-picker";
+export const hours = ["08", "09", "10", "11", "12", "13", "14"];
+export const label = "Atölye için tercih ettiğiniz başlama saati";
+const columns = [{ id: "hours", label, className: "w-28", options: hours.map(hour => ({ value: hour, label: hour + ":00" })) }];
+export function Picker({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  return <WheelPicker columns={columns} label="Başlangıç saati" value={{ hours: value }}
+    onValueChange={next => onChange(next.hours)} />;
+}

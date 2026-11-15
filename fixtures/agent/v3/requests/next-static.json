@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 3,
+  "fixture": "next",
+  "route": "/checkout",
+  "goal": "Do not add any animation to the inline form error.",
+  "requirements": {}
+}

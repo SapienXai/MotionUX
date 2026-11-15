@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/v3/grant.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 3
+    },
+    "kind": {
+      "const": "fixture-harness"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "fixture": {
+      "enum": [
+        "next",
+        "vite"
+      ]
+    },
+    "rootIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dev": {
+          "type": "string",
+          "pattern": "^\\d+$"
+        },
+        "ino": {
+          "type": "string",
+          "pattern": "^\\d+$"
+        },
+        "mode": {
+          "const": 448
+        }
+      },
+      "required": [
+        "dev",
+        "ino",
+        "mode"
+      ]
+    },
+    "selector": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 245
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "manifestDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "reviewFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "nonce": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "until": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "operation": {
+      "const": "apply-reviewed-fixture"
+    },
+    "permissions": {
+      "const": [
+        "write-reviewed-files",
+        "offline-build",
+        "loopback-browser"
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "runId",
+    "fixture",
+    "rootIdentity",
+    "selector",
+    "source",
+    "commit",
+    "manifestDigest",
+    "reviewFingerprint",
+    "nonce",
+    "until",
+    "operation",
+    "permissions"
+  ]
+}

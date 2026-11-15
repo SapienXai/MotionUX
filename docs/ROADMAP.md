@@ -37,7 +37,7 @@ Each phase has an evidence gate before its interfaces become dependencies for la
 | P2 · MotionUX Agent V1 | Get a reviewable motion plan for one selected route | Local static inspector and versioned plan CLI, backed by Brain | P1 stable results and P0 source evidence | Fictional app proves scoped reads, state tracing, abstention, hard filters, and zero target writes. Runtime acceptance is proposed in the plan. | Available locally · read-only. |
 | P2b · MotionUX Agent V2 | Apply a reviewed integration in one managed fixture | Fixture manifest confirmation, freshness check, mutation manifest, journal, browser evidence and rollback | Agent V1 and the pinned local registry | One disposable Next.js app proves the exact source, local behavior and byte-identical rollback | Available locally · managed booking fixture only. |
 | P3 · MCP V1 | Discover motion evidence from a fresh Codex session | Five read-only tools over local stdio with bounded project scope | Brain V1 and Agent V1 | Fresh Codex session and protocol acceptance, source-pin parity, verified abstention and zero target writes | Available locally. |
-| P3b · Agent V3 | Integrate a reviewed original in an authorized project | Host-issued operation-specific grant, reviewed diff, isolated build, transaction journal and independently verified restoration | Agent V2 rollback and MCP V1 read-only planning | Explicit operator approval for each project, source, dependency delta and mutation set, with independent acceptance and sandboxed rollback fault tests | Next execution milestone |
+| P3b · Agent V3 | Verify original integrations in separate React and Next.js fixtures | Fixture grant, manifest, isolated build, journal and fresh rollback verification | Brain, Agent V1/V2 and MCP V1 | Real browser, source pin, portable safety and rollback tests | Fixture scope. Real project writes disabled. |
 | P4 · Motion DNA | Give projects a consistent motion language | Versioned JSON profiles, optional tokens and compatibility-aware adapters | Brain metadata and Agent project context | Sample app demonstrates profile fit, accessibility overrides and deliberate stillness. Provider physics remain intact. | Planned |
 | P5 · MotionUX Inspector | Find and validate real motion problems | Static/rule audit, browser trace collector and before/after reports | Reliable source evidence, project context and motion profiles | Seeded faults are detected and prioritized. Good and intentionally static controls pass. Repairs are demonstrated with reproducible browser evidence. | Planned |
 | V14+ · Source expansion | Browse more useful official originals | Incremental editions toward 750 and 1,000+ prepared sources after V14's local 500 | P0 source, install, preview and memory checks | Unique pinned sources, notices, compatible installs, real browser evidence and newest-first ordering. Peak documents and long-session memory measured. | V14 available locally. Later editions continue in parallel. |
@@ -87,7 +87,7 @@ A **no-motion** result explains what the user needs, why an immediate or existin
 5. Exercise pending, success, failure and cancellation on the real screen. A simulated timer, animation completion or optimistic state cannot authorize a booking or imply a settled payment.
 6. Report the diff, actual tests, unresolved checks and exact rollback.
 
-Agent V1 covers inspection and recommendation in steps 1 and 2. Agent V2 exercises steps 3–6 only in the explicitly authorized booking fixture clone. MCP V1 exposes `motionux_status`, `search_motion`, `recommend_motion`, `inspect_component` and `plan_motion`. The tools preserve the private vault boundary and write zero target files.
+Agent V1 covers inspection and recommendation in steps 1 and 2. Agent V2 verifies its managed booking fixture. Agent V3 provides the same transaction lifecycle for two independent disposable fixtures. [Agent V3](AGENT-V3.md) MCP V1 exposes `motionux_status`, `search_motion`, `recommend_motion`, `inspect_component` and `plan_motion`. The tools preserve the private vault boundary and write zero target files.
 
 ## Decisions and guardrails
 
@@ -114,7 +114,7 @@ Keep access to provider payloads distinct from distribution rights. Preserve ori
 
 Track reviewed scenario success and abstention quality, time from request to a usable integration, source/visual/interaction fidelity, failed installs, mobile and accessibility regressions, performance regressions, review acceptance and library use. Each metric needs a protocol and a repeatable baseline before setting targets. Start with local test and review artifacts. [Quality gates](QUALITY-GATES.md)
 
-## Next execution milestone · Agent V3 authorized general-project integration
+## Next execution milestone · Independently authorized project integration
 
 1. Design a Codex host or operator grant tied to a user, a canonical project root, one source pin, the exact reviewed manifest and a short expiry. The Agent V2 manifest confirmation remains a fixture acknowledgement. The host grant requires independent authority, explicit rejection paths and protection against replay.
 2. Revalidate the project identity, dependency graph, file hashes and verified source evidence before the first write. Reject unexpected changes or paths. Exercise success in a disposable general React and Next.js fixture first.

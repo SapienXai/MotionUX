@@ -84,7 +84,7 @@ export async function file(path, cap = fileLimit) {
   } finally { await handle.close(); }
 }
 
-export async function snapshot(root) {
+export async function snapshot(root, { html = false } = {}) {
   await directory(root);
   let rows = 0;
   let bytes = 0;
@@ -103,7 +103,7 @@ export async function snapshot(root) {
         dirs.set(rel, info.mode & 0o777);
         await walk(target, rel);
       } else {
-        if (!fixtureExtensions.has(extname(name))) stop("unsafe-tree", "Unsupported fixture file type.");
+        if (!fixtureExtensions.has(extname(name)) && !(html && extname(name) === ".html")) stop("unsafe-tree", "Unsupported fixture file type.");
         const entry = await file(target);
         if (!entry || (bytes += entry.content.length) > 8 * 1024 * 1024) stop("unsafe-tree", "Tree changed or exceeds its byte budget.");
         files.set(rel, entry);
@@ -172,11 +172,11 @@ export async function removeFolder(path, mode) {
   await rmdir(path);
   await syncFolder(dirname(path));
 }
-export async function materialize(root, tree) {
+export async function materialize(root, tree, readTree = snapshot) {
   await createFolder(root, folderMode);
   for (const [path, mode] of [...tree.dirs].sort(([a], [b]) => order(a, b))) await createFolder(fixturePath(root, path), mode);
   for (const [path, value] of tree.files) await replace(fixturePath(root, path), value, null);
-  if (treeHash(await snapshot(root)) !== treeHash(tree)) stop("conflict", "Fixture copy does not match the approved baseline.");
+  if (treeHash(await readTree(root)) !== treeHash(tree)) stop("conflict", "Fixture copy does not match the approved baseline.");
 }
 export async function json(path, value) {
   await directory(dirname(path), true);

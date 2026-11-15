@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@source "../../originals";
+:root { color-scheme: light dark; --surface: #fcfaf6; --ink: #252c2a; --accent: #2c6558; --muted: #e1eee8; }
+@media (prefers-color-scheme: dark) { :root { --surface: #15201e; --ink: #edf6f1; --accent: #9edac8; --muted: #253d36; } }
+@theme inline { --color-ring: var(--accent); --color-muted-foreground: var(--accent); --color-background: var(--surface); --color-foreground: var(--ink); --color-muted: var(--muted); }
+body { margin: 0; background: var(--surface); color: var(--ink); font: 1rem/1.65 system-ui, sans-serif; }
+main { width: min(100% - 2rem, 38rem); margin: 4rem auto 2rem; }
+header { margin-bottom: 1.5rem; border-bottom: 1px solid var(--accent); }
+header p { margin: 0; color: var(--accent); font-weight: 650; }
+h1 { margin: .25em 0 .65em; font-size: clamp(1.5rem, 5vw, 2.5rem); font-weight: 650; line-height: 1.15; }
+a { color: var(--accent); text-decoration: underline; display: inline-block; margin-top: 1rem; }
+button, summary, select { cursor: pointer; min-height: 44px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+summary { padding-block: .6rem; }
+section p, label { display: block; margin-bottom: .75rem; }
+input, select { border: 1px solid var(--accent); border-radius: .35rem; padding: .25rem .6rem; }
+@media (prefers-reduced-motion: reduce) { [data-slot="accordion"] svg { transition: none; } }

@@ -1,0 +1,441 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/v3/review.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 3
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "status": {
+      "const": "reviewed"
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": 3
+        },
+        "fixture": {
+          "enum": [
+            "next",
+            "vite"
+          ]
+        },
+        "route": {
+          "type": "string",
+          "pattern": "^/",
+          "maxLength": 128
+        },
+        "file": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 245
+        },
+        "goal": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "source": {
+          "type": "string",
+          "pattern": "^[a-z\\d][a-z\\d-]{1,95}$"
+        },
+        "requirements": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "support": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "keyboard",
+                  "pointer",
+                  "touch-emulated",
+                  "physical-mobile",
+                  "screen-reader",
+                  "reduced-motion",
+                  "rtl",
+                  "cancel",
+                  "interruptible"
+                ]
+              },
+              "maxItems": 9,
+              "uniqueItems": true
+            }
+          },
+          "required": []
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "fixture",
+        "goal",
+        "requirements"
+      ],
+      "anyOf": [
+        {
+          "required": [
+            "route"
+          ]
+        },
+        {
+          "required": [
+            "file"
+          ]
+        }
+      ]
+    },
+    "rootIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dev": {
+          "type": "string",
+          "pattern": "^\\d+$"
+        },
+        "ino": {
+          "type": "string",
+          "pattern": "^\\d+$"
+        },
+        "mode": {
+          "const": 448
+        }
+      },
+      "required": [
+        "dev",
+        "ino",
+        "mode"
+      ]
+    },
+    "beforeHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "afterHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "planFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "brainFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mutations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 245
+              },
+              "operation": {
+                "enum": [
+                  "create",
+                  "modify",
+                  "delete"
+                ]
+              },
+              "role": {
+                "enum": [
+                  "source",
+                  "license",
+                  "reference-css",
+                  "host-adapter",
+                  "npm-manifest",
+                  "npm-lock"
+                ]
+              },
+              "before": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "mode": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 511
+                      },
+                      "size": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 2097152
+                      }
+                    },
+                    "required": [
+                      "sha256",
+                      "mode",
+                      "size"
+                    ]
+                  }
+                ]
+              },
+              "after": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "mode": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 511
+                      },
+                      "size": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 2097152
+                      }
+                    },
+                    "required": [
+                      "sha256",
+                      "mode",
+                      "size"
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "path",
+              "operation",
+              "role",
+              "before",
+              "after"
+            ]
+          },
+          "maxItems": 100
+        },
+        "directories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 245
+              },
+              "mode": {
+                "const": 448
+              }
+            },
+            "required": [
+              "path",
+              "mode"
+            ]
+          },
+          "maxItems": 100
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              }
+            },
+            "required": [
+              "name",
+              "version"
+            ]
+          },
+          "maxItems": 30
+        }
+      },
+      "required": [
+        "mutations",
+        "directories",
+        "dependencies"
+      ]
+    },
+    "manifestDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "location": {
+          "type": "string",
+          "pattern": "^https://",
+          "maxLength": 500
+        },
+        "upstream": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "registry": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "notice": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 245
+        },
+        "props": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "maxItems": 20
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "maxItems": 80
+        },
+        "code": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 245
+              },
+              "original": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "installed": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "adaptation": {
+                "enum": [
+                  "identical",
+                  "import-path"
+                ]
+              }
+            },
+            "required": [
+              "path",
+              "original",
+              "installed",
+              "adaptation"
+            ]
+          },
+          "maxItems": 30
+        }
+      },
+      "required": [
+        "id",
+        "commit",
+        "location",
+        "upstream",
+        "registry",
+        "license",
+        "notice",
+        "props",
+        "evidence",
+        "code"
+      ]
+    },
+    "adapter": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "hostState": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "createdAt": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "expiresAt": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "runId",
+    "status",
+    "request",
+    "rootIdentity",
+    "beforeHash",
+    "afterHash",
+    "planFingerprint",
+    "brainFingerprint",
+    "manifest",
+    "manifestDigest",
+    "source",
+    "adapter",
+    "hostState",
+    "createdAt",
+    "expiresAt",
+    "fingerprint"
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/v3/manifest.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "mutations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 245
+          },
+          "operation": {
+            "enum": [
+              "create",
+              "modify",
+              "delete"
+            ]
+          },
+          "role": {
+            "enum": [
+              "source",
+              "license",
+              "reference-css",
+              "host-adapter",
+              "npm-manifest",
+              "npm-lock"
+            ]
+          },
+          "before": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "mode": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 511
+                  },
+                  "size": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2097152
+                  }
+                },
+                "required": [
+                  "sha256",
+                  "mode",
+                  "size"
+                ]
+              }
+            ]
+          },
+          "after": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "mode": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 511
+                  },
+                  "size": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2097152
+                  }
+                },
+                "required": [
+                  "sha256",
+                  "mode",
+                  "size"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "path",
+          "operation",
+          "role",
+          "before",
+          "after"
+        ]
+      },
+      "maxItems": 100
+    },
+    "directories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 245
+          },
+          "mode": {
+            "const": 448
+          }
+        },
+        "required": [
+          "path",
+          "mode"
+        ]
+      },
+      "maxItems": 100
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "name",
+          "version"
+        ]
+      },
+      "maxItems": 30
+    }
+  },
+  "required": [
+    "mutations",
+    "directories",
+    "dependencies"
+  ]
+}

@@ -55,8 +55,7 @@ function alive(pid) {
   try { process.kill(pid, 0); return true; }
   catch (error) { if (error.code === "ESRCH") return false; return true; }
 }
-export async function locked(run, recovery, task) {
-  const root = resolve(base, "locks");
+export async function locked(run, recovery, task, root = resolve(base, "locks")) {
   await directory(root, true);
   const path = resolve(root, safeId(run) + ".json");
   if (!(await acquire(path))) {
@@ -70,8 +69,14 @@ export async function locked(run, recovery, task) {
       if (!(await acquire(path))) stop("locked", "Another command acquired this run.");
     } finally { await unlink(claim); }
   }
-  try { return await task(); }
-  finally { await unlink(path); }
+  const owner = await readJSON(path);
+  const checkLock = async () => {
+    if (canonical(await readJSON(path).catch(() => null)) !== canonical(owner)) stop("locked", "The transaction lost its lock.");
+  };
+  try { return await task(checkLock); }
+  finally {
+    if (canonical(await readJSON(path).catch(() => null)) === canonical(owner)) await unlink(path);
+  }
 }
 
 function compatibleTree(current, review) {

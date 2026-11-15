@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 3,
+  "fixture": "vite",
+  "file": "src/Screen.tsx",
+  "goal": "Wheel picker to select time, keyboard verified",
+  "source": "kokonut-wheel-picker",
+  "requirements": {
+    "support": [
+      "keyboard"
+    ]
+  }
+}

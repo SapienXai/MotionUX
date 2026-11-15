@@ -1,0 +1,13 @@
+"use client";
+import { useReducedMotion } from "motion/react";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionPanel } from "../../originals/animateui-components-base-accordion/apps/v1/apps/www/registry/components/base/accordion";
+export type Row = { id: string; title: string; body: string };
+export function DisclosureView({ rows }: { rows: Row[] }) {
+  const reduced = useReducedMotion();
+  return <section aria-label="Konaklama ayrıntıları"><Accordion>
+    {rows.map(row => <AccordionItem key={row.id} value={row.id}>
+      <AccordionTrigger className="min-w-0 focus-visible:outline-2">{row.title}</AccordionTrigger>
+      <AccordionPanel transition={reduced ? { duration: 0 } : undefined}><p>{row.body}</p></AccordionPanel>
+    </AccordionItem>)}
+  </Accordion></section>;
+}

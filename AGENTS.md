@@ -9,3 +9,5 @@
 - Keep Agent V2 reviews, dependency caches, images, traces and journals in the ignored vault. Use fixed, offline fixture build commands with lifecycle scripts disabled; keep real projects and deployments outside the workflow.
 
 - For MotionUX motion discovery or evidence-backed planning in Codex, use the five read-only MCP tools. Only inspect an authorized project and selected screen. Keep raw sources, user data and verification artifacts local.
+
+- Agent V3 accepts only the checked-in fixture IDs and generated private copies. Keep the test grant separate from operator authority and preserve the V1 MCP tool list.

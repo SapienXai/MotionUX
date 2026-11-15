@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/v3/host-grant.json",
+  "title": "Future independently issued operator approval claim. V3 does not accept this contract at runtime.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "approvalEvent", "issuer", "operator", "canonicalRoot", "device", "inode", "selector", "source", "revision", "manifest", "writeSet", "nonce", "expiresAt", "operation", "permissions"],
+  "properties": {
+    "schemaVersion": { "const": 3 },
+    "approvalEvent": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "issuer": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "operator": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "canonicalRoot": { "type": "string", "minLength": 1, "maxLength": 1024 },
+    "device": { "type": "string", "pattern": "^[0-9]+$" },
+    "inode": { "type": "string", "pattern": "^[0-9]+$" },
+    "selector": { "type": "string", "minLength": 1, "maxLength": 320 },
+    "source": { "type": "string", "pattern": "^[a-z0-9-]{1,96}$" },
+    "revision": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "manifest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "writeSet": { "type": "array", "maxItems": 100, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 245 } },
+    "nonce": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "expiresAt": { "type": "integer", "minimum": 0 },
+    "operation": { "const": "apply-reviewed-integration" },
+    "permissions": { "type": "array", "uniqueItems": true, "items": { "enum": ["write-reviewed-files", "offline-build", "loopback-browser"] } }
+  }
+}

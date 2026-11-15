@@ -1,0 +1,206 @@
+[
+  {
+    "language": "en",
+    "query": "Hold the details panel still during disclosure.",
+    "screen": "details",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Form hatasında geçiş animasyonu kullanılmasın.",
+    "screen": "form error",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Disable motion on the error banner.",
+    "screen": "error",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Sekme animasyonunu kaldırın.",
+    "screen": "tabs",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Never animate the confirmation receipt itself.",
+    "screen": "receipt",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Ayrıntı açılırken animasyon istemiyoruz.",
+    "screen": "disclosure",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Show the accordion panel without any motion.",
+    "screen": "accordion",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Butonun hareketi devre dışı olsun.",
+    "screen": "button",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Make the loading spinner unanimated.",
+    "screen": "spinner",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Saat seçiminde yeni hareket ekleme.",
+    "screen": "picker",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Let the disclosure panel animate when it opens.",
+    "screen": "disclosure",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Bekleyen durum göstergesini hareketlendir.",
+    "screen": "pending",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Don't suppress the animation on the navigation tabs.",
+    "screen": "tabs",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Rezervasyon onayında animasyonu kaldırmayın.",
+    "screen": "confirmation",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Don't neglect to animate the picker.",
+    "screen": "picker",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Sekme geçişini hareketlendir.",
+    "screen": "tabs",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Do not want a button without motion; animate it.",
+    "screen": "button",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Beklenen işlem durumunda animasyon olsun.",
+    "screen": "pending",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Leave the confirmation still, whereas the picker should animate.",
+    "screen": "picker",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Onay animasyonlu olsun; ayrıntılar animasyonsuz olsun.",
+    "screen": "disclosure",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Animate the accordion and do not animate that same disclosure.",
+    "screen": "details",
+    "expected": "unclear"
+  },
+  {
+    "language": "tr",
+    "query": "Hata hareketsiz kalsın ama hata metnini hareketlendir.",
+    "screen": "error",
+    "expected": "unclear"
+  },
+  {
+    "language": "en",
+    "query": "Make the tabs motionless; animate the time picker.",
+    "screen": "",
+    "expected": "unclear"
+  },
+  {
+    "language": "tr",
+    "query": "Onay hareketsiz olsun; bekleme animasyonlu olsun.",
+    "screen": "",
+    "expected": "unclear"
+  },
+  {
+    "language": "en",
+    "query": "A reviewer wrote never animate the tab transition.",
+    "screen": "tabs",
+    "expected": "unclear"
+  },
+  {
+    "language": "tr",
+    "query": "Notta animasyon uygulamayın yazdı.",
+    "screen": "details",
+    "expected": "unclear"
+  },
+  {
+    "language": "en",
+    "query": "‘Keep the spinner static.’",
+    "screen": "pending",
+    "expected": "unclear"
+  },
+  {
+    "language": "tr",
+    "query": "“Animasyonu kapatma.”",
+    "screen": "details",
+    "expected": "unclear"
+  },
+  {
+    "language": "en",
+    "query": "The draft says ‘no motion’; animate the picker instead.",
+    "screen": "picker",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "“Hareketi kaldır” diye yazdı; sekmeleri hareketlendir.",
+    "screen": "tabs",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Never report success before settlement; animate pending progress.",
+    "screen": "pending",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Onay kaydı gelmeden ödendi gösterme; yükleme animasyonlu olsun.",
+    "screen": "pending",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Never show success before payment; leave the inline error static.",
+    "screen": "error",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Sayfa ayrıntılarını hareketsiz tut; seçiciyi hareketlendir.",
+    "screen": "picker",
+    "expected": "motion"
+  }
+]

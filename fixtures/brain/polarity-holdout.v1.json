@@ -1,0 +1,242 @@
+[
+  {
+    "language": "en",
+    "query": "Please leave the transition on the account tabs motionless.",
+    "screen": "tabs",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Teslimat tablosundaki fiyat düğmesine hareket uygulanmasın.",
+    "screen": "button",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Never trigger decorative motion for the disclosure.",
+    "screen": "disclosure",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Sekme değişiminde ilave animasyon eklenmesin.",
+    "screen": "tabs",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Drop the animation surrounding the confirmation receipt.",
+    "screen": "booking confirmation",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Ayrıntı bölümünün hareketsiz görünmesini istiyorum.",
+    "screen": "details",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Render the retry error static.",
+    "screen": "error",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Geçersiz alanın hata metni sabit kalsın.",
+    "screen": "failure",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Do not include extra animation on the time picker.",
+    "screen": "picker",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Saat seçicide animasyonu silin.",
+    "screen": "picker",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Use motion for the disclosure panel so the reader follows the change.",
+    "screen": "details",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Saat seçicinin seçimini hareketlendir.",
+    "screen": "picker",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Do not disable the existing motion on the tabs.",
+    "screen": "tabs",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Sekmelerdeki animasyonu kesmeyin.",
+    "screen": "tabs",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Never forget to animate the accordion when more details open.",
+    "screen": "accordion",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Ayrıntıları açarken hareketi kapatmayın.",
+    "screen": "details",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "I don't want a picker screen without motion.",
+    "screen": "picker",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Sekme seçimini animasyonlu yap.",
+    "screen": "tabs",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Use motion for the picker; leave the error static.",
+    "screen": "picker",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Onay durumuna animasyon ekle fakat hata metni sabit kalsın.",
+    "screen": "checkout error",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Keep the receipt confirmation static; animate the loading spinner.",
+    "screen": "loading",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Ayrıntılar animasyonsuz olsun ancak onay makbuzunu hareketlendir.",
+    "screen": "rezervasyon onayı",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Animate the loading indicator, the failure response must not.",
+    "screen": "payment failure",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Yükleniyor göstergesi animasyonlu olsun fakat hata animasyonu istemiyoruz.",
+    "screen": "failure",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Make the picker motionless, but animate its picker transition too.",
+    "screen": "picker",
+    "expected": "unclear"
+  },
+  {
+    "language": "tr",
+    "query": "Sekme animasyonlu olsun ancak sekme hareketsiz kalsın.",
+    "screen": "tabs",
+    "expected": "unclear"
+  },
+  {
+    "language": "en",
+    "query": "Leave form errors still, but animate the receipt confirmation.",
+    "screen": "",
+    "expected": "unclear"
+  },
+  {
+    "language": "tr",
+    "query": "Yükleme animasyonlu olsun, hata metni sabit kalsın.",
+    "screen": "",
+    "expected": "unclear"
+  },
+  {
+    "language": "en",
+    "query": "The notes said do not animate the accordion.",
+    "screen": "details",
+    "expected": "unclear"
+  },
+  {
+    "language": "tr",
+    "query": "Ekip hareketi ekleme dedi.",
+    "screen": "picker",
+    "expected": "unclear"
+  },
+  {
+    "language": "en",
+    "query": "“Never use animation in the tabs.”",
+    "screen": "tabs",
+    "expected": "unclear"
+  },
+  {
+    "language": "tr",
+    "query": "“Bu hareketi kaldır.”",
+    "screen": "details",
+    "expected": "unclear"
+  },
+  {
+    "language": "en",
+    "query": "The mockup says \"without animation\"; animate the disclosure.",
+    "screen": "details",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Tasarım örneğinde “animasyon ekleme” yazıyor. Seçiciyi hareketlendir.",
+    "screen": "picker",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Do not announce paid before the ledger updates; animate pending loading.",
+    "screen": "payment pending",
+    "expected": "motion"
+  },
+  {
+    "language": "tr",
+    "query": "Ödeme onayı gelmeden başarılı olarak işaretleme. Yüklenirken göstergesi animasyonlu olsun.",
+    "screen": "pending",
+    "expected": "motion"
+  },
+  {
+    "language": "en",
+    "query": "Do not simulate payment success; keep the form error static.",
+    "screen": "failure",
+    "expected": "still"
+  },
+  {
+    "language": "tr",
+    "query": "Hata metnini animasyonsuz göster, onay gelmeden başarılı sayma.",
+    "screen": "error",
+    "expected": "still"
+  },
+  {
+    "language": "en",
+    "query": "Animate the spinner, but leave the picker static.",
+    "screen": "details",
+    "expected": "unclear"
+  },
+  {
+    "language": "tr",
+    "query": "Bekleme göstergesini hareketlendir ama seçici sabit kalsın.",
+    "screen": "details",
+    "expected": "unclear"
+  }
+]

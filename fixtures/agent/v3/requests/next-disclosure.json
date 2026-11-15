@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 3,
+  "fixture": "next",
+  "route": "/details",
+  "goal": "Animate an accordion disclosure for room details.",
+  "source": "animateui-components-base-accordion",
+  "requirements": {}
+}

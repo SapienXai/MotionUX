@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/v3/request.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 3
+    },
+    "fixture": {
+      "enum": [
+        "next",
+        "vite"
+      ]
+    },
+    "route": {
+      "type": "string",
+      "pattern": "^/",
+      "maxLength": 128
+    },
+    "file": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 245
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "source": {
+      "type": "string",
+      "pattern": "^[a-z\\d][a-z\\d-]{1,95}$"
+    },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "support": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "keyboard",
+              "pointer",
+              "touch-emulated",
+              "physical-mobile",
+              "screen-reader",
+              "reduced-motion",
+              "rtl",
+              "cancel",
+              "interruptible"
+            ]
+          },
+          "maxItems": 9,
+          "uniqueItems": true
+        }
+      },
+      "required": []
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "fixture",
+    "goal",
+    "requirements"
+  ],
+  "anyOf": [
+    {
+      "required": [
+        "route"
+      ]
+    },
+    {
+      "required": [
+        "file"
+      ]
+    }
+  ]
+}

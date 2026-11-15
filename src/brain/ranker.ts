@@ -4,6 +4,8 @@ import { asRequest } from "./validation.ts";
 import { semanticKeys, supportKeys, type BrainIndex, type BrainRequest, type BrainResult, type Candidate, type Claim,
   type Decision, type Match, type Profile, type Requirements, type Score, type Signals, type Support } from "./contracts.ts";
 
+import { interpretMotion } from "./polarity.ts";
+
 const scoreKey = { intents: "intent", patterns: "pattern", motions: "motion", triggers: "trigger", useCases: "useCase" } as const;
 const weights = { intents: 32, patterns: 24, motions: 14, triggers: 7, useCases: 20 } as const;
 const costOrder = { low: 1, moderate: 2, high: 3 } as const;
@@ -95,8 +97,10 @@ export function createBrain(index: BrainIndex, { staleIds = [], invalidIndex = f
     },
     query(mode: BrainResult["mode"], input: unknown): BrainResult {
       const request = asRequest(input);
-      const policy = policySignals(request.query);
-      const signals = translate(request.query);
+      const intentPolicy = interpretMotion(request.query, [request.context?.screen, request.context?.state].filter(Boolean).join(" "), normalize);
+      const policy = policySignals(intentPolicy.query);
+      if (!policySignals(intentPolicy.policyText).has("fraud")) policy.delete("fraud");
+      const signals = translate(intentPolicy.query);
       const { required, conflict } = resolveRequirements(request, policy);
       const filtered: Record<string, number> = {};
       function outcome(decision: Decision, explanation: string[], candidates: Candidate[] = []): BrainResult {
@@ -108,14 +112,17 @@ export function createBrain(index: BrainIndex, { staleIds = [], invalidIndex = f
         };
       }
       if (invalidIndex) return outcome("stale-index", ["The catalog evidence or rules changed. Run npm run brain:index to recheck."]);
-      if (conflict) {
-        filtered["conflicting-requirements"] = 1;
-        return outcome("no-suitable-component", ["The required formats or native React props are incompatible. Choose a coherent integration format."]);
-      }
-      if (mode === "recommend" && (policy.has("still") || request.context?.motionPolicy === "still" || policy.has("fraud"))) {
+      if (mode === "recommend" && (intentPolicy.polarity === "still" || request.context?.motionPolicy === "still" || policy.has("fraud"))) {
         return outcome("no-motion", policy.has("fraud")
           ? ["Reflect the application's authoritative pending, error or settled state immediately. A timer or animation cannot establish success.", "Verify that premature success never appears."]
           : ["Use an immediate state update with a readable label and stable focus.", "Verify keyboard and reduced-motion behavior on the target screen."]);
+      }
+      if (mode === "recommend" && intentPolicy.polarity === "unclear") {
+        return outcome("need-more-context", ["Identify the selected interaction and whether it should animate. Conflicting, reported or unrelated requests do not authorize an installation."]);
+      }
+      if (conflict) {
+        filtered["conflicting-requirements"] = 1;
+        return outcome("no-suitable-component", ["The required formats or native React props are incompatible. Choose a coherent integration format."]);
       }
       if (index.environment === "not-prepared") return outcome("not-prepared", ["Prepare Studio using docs/DEVELOPER-GUIDE.md and run npm run brain:index."]);
       const hasIntent = semanticKeys.some(key => signals[key].length) || Boolean(required.intent?.length || required.pattern?.length ||
@@ -123,7 +130,7 @@ export function createBrain(index: BrainIndex, { staleIds = [], invalidIndex = f
       if (mode === "recommend" && !hasIntent) {
         return outcome("need-more-context", ["Describe the interaction or visible state the product needs, such as disclosure, input or progress."]);
       }
-      const queryWords = tokens(request.query);
+      const queryWords = tokens(intentPolicy.query);
       const intent = [...new Set([...signals.intents, ...required.intent ?? [], ...request.prefer?.intent ?? []])];
       const pattern = [...new Set([...signals.patterns, ...required.pattern ?? [], ...request.prefer?.pattern ?? []])];
       const desired = { ...signals, intents: intent, patterns: pattern };

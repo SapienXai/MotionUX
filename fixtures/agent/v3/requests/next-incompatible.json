@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 3,
+  "fixture": "next",
+  "route": "/details",
+  "goal": "An expandable disclosure for room details",
+  "source": "motionprimitives-disclosure",
+  "requirements": {}
+}
