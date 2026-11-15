@@ -58,31 +58,56 @@ export function SourceFrame({ entry, lane, scheme, scene, label }: {
 
 function LiveFrame({ entry, lane, src, label }: { entry: OriginalCard; lane: SourceLane; src: string; label: string }) {
   const frame = useRef<HTMLIFrameElement>(null);
+  const gesture = useRef<AbortController | undefined>(undefined);
+  const [slow, setSlow] = useState(false);
   const [retry, setRetry] = useState(0);
   const [stage, setStage] = useState<"loading" | "ready" | "failed">("loading");
   useEffect(() => {
     if (stage !== "loading") return;
     const timer = setTimeout(() => setStage("failed"), 12000);
-    const check = setInterval(() => {
-      const document = frame.current?.contentDocument;
-      if (document?.documentElement.dataset.previewLoaded === "true" ||
-        document?.querySelector("#specimen > *, .command > *, #root > iframe")) setStage("ready");
-      else if (document?.querySelector("#root > [role=alert]")) setStage("failed");
-    }, 80);
-    return () => { clearTimeout(timer); clearInterval(check); };
+    const waiting = setTimeout(() => setSlow(true), 900);
+    const check = setInterval(probe, 38);
+    return () => { clearTimeout(timer); clearTimeout(waiting); clearInterval(check); };
   }, [retry, stage]);
+  useEffect(() => () => gesture.current?.abort(), []);
+  function probe() {
+    const document = frame.current?.contentDocument;
+    if (document?.documentElement?.dataset.previewLoaded === "true" ||
+      document?.querySelector("#specimen > *, .command > *, #root > iframe")) setStage("ready");
+    else if (document?.querySelector("#root > [role=alert]")) setStage("failed");
+  }
+  function watchGestures() {
+    gesture.current?.abort();
+    const document = frame.current?.contentDocument;
+    const stage = frame.current?.parentElement;
+    if (!document || !stage || lane !== "studio" || !stage.closest("[data-original-stage]")) return;
+    const controller = new AbortController();
+    gesture.current = controller;
+    const mark = (active: boolean) => {
+      stage.dataset.previewGesture = active ? "true" : "false";
+      window.dispatchEvent(new Event("mx-preview-interaction"));
+    };
+    document.addEventListener("pointerdown", () => mark(true), { capture: true, signal: controller.signal });
+    for (const name of ["pointerup", "pointercancel", "lostpointercapture"]) {
+      document.addEventListener(name, () => mark(false), { capture: true, signal: controller.signal });
+    }
+    document.defaultView?.addEventListener("blur", () => mark(false), { signal: controller.signal });
+  }
   return <div className="mx-original-frame" data-preview-lane={lane} data-preview-state={stage}>
     {stage !== "failed" && <iframe key={retry} ref={frame} title={label} src={src} referrerPolicy="no-referrer"
       sandbox={entry.sourceKind === "html" && lane === "original" ? "allow-scripts" : undefined}
       onLoad={() => {
         if (entry.sourceKind === "html" && lane === "original") setStage("ready");
         else if (lane === "studio" && frame.current?.contentDocument?.readyState === "complete" &&
-          !frame.current?.contentDocument?.documentElement.dataset.studioPreview) setStage("failed");
+          !frame.current?.contentDocument?.documentElement?.dataset.studioPreview) setStage("failed");
+        else { probe(); watchGestures(); }
       }} />}
-    {stage === "loading" && <span className="mx-frame-status" aria-hidden="true">Loading preview…</span>}
+    {stage === "loading" && <div className="mx-frame-status mx-frame-loading" aria-hidden="true">
+      {slow && <span>Preview is taking longer to load…</span>}
+    </div>}
     {stage === "failed" && <div className="mx-frame-status mx-frame-error">
       <p role="status">Preview unavailable</p>
-      <button className="mx-button" type="button" onClick={() => { setRetry(retry + 1); setStage("loading"); }}>Retry</button>
+      <button className="mx-button" type="button" onClick={() => { setRetry(retry + 1); setStage("loading"); setSlow(false); }}>Retry</button>
       <a href={entry.demoURL} target="_blank" rel="noreferrer">Original demo</a>
     </div>}
   </div>;

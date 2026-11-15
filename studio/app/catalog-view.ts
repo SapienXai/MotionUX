@@ -29,8 +29,8 @@ export function presentation(item: Reference) {
 }
 export const repoURL = "https://github.com/SapienXai/MotionUX";
 
-export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples" | "sources"; item: string; category: string; query: string; preset?: boolean; configuration?: string; panel?: "usage" | "install"; source?: string; sourcePanel?: "provenance" | "usage" | "install" | "code" | "evidence";
-  collection?: "legacy"; provider?: string; kind?: "react" | "html"; sort?: "name" | "provider"; compare?: boolean; };
+export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples" | "sources" | "library"; item: string; category: string; query: string; preset?: boolean; configuration?: string; panel?: "usage" | "install"; source?: string; sourcePanel?: "provenance" | "usage" | "install" | "code" | "evidence";
+  collection?: "legacy"; provider?: string; kind?: "react" | "html"; sort?: "name" | "provider"; compare?: boolean; shelf?: string; kit?: boolean; fromLibrary?: boolean; };
 export function readRoute(): Route {
   const params = new URLSearchParams(location.search);
   const page = params.get("view");
@@ -39,7 +39,7 @@ export function readRoute(): Route {
   const kind = params.get("kind");
   const sort = params.get("sort");
   return {
-    page: item ? "playground" : page === "components" || page === "guides" || page === "examples" || page === "sources" ? page : "gallery",
+    page: item ? "playground" : page === "components" || page === "guides" || page === "examples" || page === "sources" || page === "library" ? page : "gallery",
     item,
     category: params.get("category") ?? "",
     query: params.get("q") ?? "",
@@ -53,6 +53,9 @@ export function readRoute(): Route {
     kind: kind === "react" || kind === "html" ? kind : undefined,
     sort: sort === "name" || sort === "provider" ? sort : undefined,
     compare: params.get("compare") === "1",
+    shelf: params.get("shelf") ?? undefined,
+    kit: params.get("kit") === "1",
+    fromLibrary: params.get("from") === "library",
   };
 }
 export function hrefFor(route: Route) {
@@ -66,6 +69,9 @@ export function hrefFor(route: Route) {
   if (route.kind) params.set("kind", route.kind);
   if (route.sort) params.set("sort", route.sort);
   if (route.compare) params.set("compare", "1");
+  if (route.shelf) params.set("shelf", route.shelf);
+  if (route.kit) params.set("kit", "1");
+  if (route.fromLibrary && route.page === "playground") params.set("from", "library");
   if (route.page === "playground" && route.preset) params.set("preset", "gallery");
   if (route.page === "playground" && (route.sourcePanel || route.panel)) {
     params.set("panel", (route.sourcePanel ?? route.panel)!);

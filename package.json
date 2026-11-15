@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "studio": "node scripts/studio/start.mjs",
-    "studio:verify": "node scripts/studio/verify.mjs",
+    "studio:doctor": "node scripts/studio/v11/doctor.mjs",
+    "studio:thumbnails": "node scripts/studio/v11/thumbnails.mjs",
+    "studio:backup": "python3 scripts/studio/v11/backup.py backup",
+    "studio:restore": "python3 scripts/studio/v11/backup.py restore",
+    "studio:verify": "node scripts/studio/verify.mjs && node scripts/studio/v11/verify.mjs",
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "registry:build": "shadcn build",

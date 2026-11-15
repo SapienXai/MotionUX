@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowDownToLine, RotateCcw } from "lucide-react";
 import { hrefFor, type Route } from "../app/catalog-view";
 import { intercept } from "../app/shell";
+import { Collect, Favorite, PersonalEdit } from "../library/actions";
+import { useLibrary } from "../library/store";
 import { SourceFrame, type Original, type OriginalCard, type SourceLane } from "./local";
 import reference from "../../metadata/v9-reference.json";
 import "./sources.css";
@@ -86,7 +88,11 @@ function Comparison({ entry, route, scheme, navigate, back }: {
   const installedLabel = html ? "Installed HTML iframe host" : "Installed React consumer";
   const lanes: [SourceLane, string][] = route.compare ?
     [["original", originalLabel], ["studio", "MotionUX Studio"], ["installed", installedLabel]] : [["studio", "MotionUX Studio"]];
-  const [scene, setScene] = useState(entry.scenes[0] ?? "");
+  const saved = useLibrary()?.data?.details[entry.id];
+  const [sceneOverride, setScene] = useState<string>();
+  const scene = sceneOverride ?? (saved?.scene && entry.scenes.includes(saved.scene) ? saved.scene : entry.scenes[0]) ?? "";
+  const previewScheme = !html && saved?.theme ? saved.theme : scheme;
+  const [viewport, setViewport] = useState("auto");
   const [reset, setReset] = useState(0);
   const [file, setFile] = useState(entry.entry);
   const [codeLane, setCodeLane] = useState("original");
@@ -110,17 +116,22 @@ function Comparison({ entry, route, scheme, navigate, back }: {
   }
   const install = `npx shadcn@4.23.0 add ${location.origin}${entry.installURL}`;
   const usage = entry.usage.replace('const scene = "";', `const scene = ${JSON.stringify(scene)};`);
-  const galleryRoute = { ...route, page: "gallery" as const, item: "", source: undefined, sourcePanel: undefined, compare: false };
+  const galleryRoute: Route = { ...route, page: route.fromLibrary ? "library" : "gallery", item: "", source: undefined, sourcePanel: undefined, compare: false };
   return <section className="mx-source-lab mx-inner-page" id="specimen" aria-label={entry.title + " source Playground"}>
     <div className="mx-detail-header">
-      <a href={hrefFor(galleryRoute)} className="mx-detail-back" onClick={event => intercept(event, back)}><ArrowLeft size={15} aria-hidden="true" /> Gallery</a>
+      <a href={hrefFor(galleryRoute)} className="mx-detail-back" onClick={event => intercept(event, back)}><ArrowLeft size={15} aria-hidden="true" /> {route.fromLibrary ? "My Library" : "Gallery"}</a>
       <div className="mx-source-heading">
-        <div><h1 tabIndex={-1}>{entry.title}</h1><p>{entry.provider} · {html ? "Original HTML, CSS and JavaScript" : "Original React source"}</p></div>
+        <div><h1 tabIndex={-1}>{entry.title}</h1><p>{entry.provider} · {html ? "Standalone HTML" : "React source"}</p></div>
+        <div className="mx-library-actions"><Favorite source={entry.id} title={entry.title} /><Collect source={entry.id} title={entry.title} />
+          <PersonalEdit source={entry.id} title={entry.title} scenes={entry.scenes} supportsTheme={!html} /></div>
         <div className="mx-source-actions">
           {entry.scenes.length > 0 && <label>Original scene <select value={scene} onChange={event => setScene(event.target.value)}>
             {entry.scenes.map(item => <option key={item}>{item}</option>)}
           </select></label>}
-          <button type="button" className="mx-button" onClick={() => setReset(reset + 1)}>{route.compare ? "Reset all" : "Reset preview"}</button>
+          {!route.compare && <label>Viewport <select aria-label="Preview viewport" value={viewport} onChange={event => setViewport(event.target.value)}>
+            <option value="auto">Fit available space</option><option value="320">320 px</option><option value="390">390 px</option><option value="768">768 px</option>
+          </select></label>}
+          <button type="button" className="mx-button" onClick={() => setReset(reset + 1)}><RotateCcw size={15} aria-hidden="true" /> {route.compare ? "Reset all" : "Replay preview"}</button>
           <button type="button" className="mx-button" aria-pressed={route.compare === true} onClick={() => navigate({ ...route, compare: !route.compare }, true)}>Compare</button>
         </div>
       </div>
@@ -131,14 +142,16 @@ function Comparison({ entry, route, scheme, navigate, back }: {
       {lanes.map(([lane, label]) => <figure key={lane}>
         {route.compare && <figcaption>{label}</figcaption>}
         <div className="mx-detail-frame" style={{ blockSize: Math.max(entry.preview.height, 400) }}>
-          <SourceFrame key={reset} scheme={scheme} entry={entry} lane={lane} scene={scene} label={label + " for " + entry.title} />
+          <div className="mx-detail-viewport" style={{ inlineSize: route.compare || viewport === "auto" ? "100%" : `min(100%, ${viewport}px)` }}>
+          <SourceFrame key={reset} scheme={previewScheme} entry={entry} lane={lane} scene={scene} label={label + " for " + entry.title} />
+          </div>
         </div>
       </figure>)}
     </div>
     <section className="mx-inspector mx-source-inspector" aria-label="Source details">
       <div className="mx-source-actions">{(["provenance", "code", "usage", "install", "evidence"] as const).map(key =>
         <button type="button" className="mx-button" key={key} aria-pressed={pane === key} onClick={() => { navigate({ ...route, sourcePanel: key }, true); setStatus(""); }}>
-          {key[0].toUpperCase() + key.slice(1)}
+          {key === "provenance" ? "Source" : key[0].toUpperCase() + key.slice(1)}
         </button>)}
       </div>
       {pane === "provenance" && <>
@@ -175,10 +188,14 @@ function Comparison({ entry, route, scheme, navigate, back }: {
       </>}
       {pane === "evidence" && <Evidence entry={entry} />}
       {pane === "install" && <>
-        <p>Run this command from a shadcn-configured React project while the private Studio is running. {html ?
-          "The package installs the original HTML document and its React iframe host." : "The package installs the React source and its dependencies."}</p>
+        <h2>Use in your project</h2>
+        <p><strong>Source type</strong> {html ? "Standalone HTML (React iframe host)" : "React"}</p>
+        <p>Run the install command from a shadcn-configured React project on this Mac while Studio is running.</p>
+        {html ? <details><summary>HTML host integration</summary><p>The wrapper embeds the original document in a sandboxed iframe. The parent app can set its width and height. Styling, callbacks and accessibility semantics are scoped to the embedded document. The consumer’s CSP must permit same-origin frames and the original document’s approved assets.</p></details> :
+          <details><summary>React consumer setup</summary><p>Install the package with the listed dependencies and use its included CSS, assets and aliases. Follow the Usage example. Sources with browser interaction need a client boundary in Next.js.</p></details>}
         <Code value={install} title="Private install command" copy={copy} />
-        <a href={entry.installURL} download>Download registry item</a>
+        <div className="mx-source-actions"><a className="mx-button" href={entry.installURL} download>Download registry item</a>
+          <a className="mx-button" href={`/v11/export/${entry.id}.zip`} download><ArrowDownToLine size={15} aria-hidden="true" /> Export local package</a></div>
       </>}
       {status && <p role="status">{status}</p>}
     </section>

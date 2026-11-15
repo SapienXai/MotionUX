@@ -12,14 +12,15 @@ Drag a card deck, flick a wheel picker, and feel how a tab releases into its nex
 npm run studio
 ```
 
-Open [MotionUX Studio](http://127.0.0.1:5199/) on the same computer. The prepared source vault contains **140 live originals from six providers**. The main Gallery includes all 82 original reference counterparts and 58 additional specimens. Search for a name, filter by provider or format, and interact with the card directly.
+Open [MotionUX Studio](http://127.0.0.1:5199/) on the same computer. The prepared source vault contains **140 live originals from six providers**. The main Gallery includes all 82 original reference counterparts and 58 additional specimens. Search by source or personal note, filter by provider or format, and interact with the card directly. Captured thumbnails give each original a preview as its live frame loads.
 
 - **Try it live.** Flick Kokonut UI’s Wheel Picker, switch Morph island to Call, or drag SmoothUI’s Scrubber.
+- **Build your library.** Save favorites, add originals to multiple collections, and keep notes and tags beside them. Use Project Kit to export a collection with its packages and setup instructions.
 - **Open Playground.** Switch the scenes available in that source, replay the demo, and use **Compare** to inspect the captured upstream fixture, the Studio host, and the separately installed consumer.
 - **Take the code.** Open **Code** for the actual files, **Usage** for the corresponding example, and **Install** for the local registry package. The 50 standalone HTML sources install with a React iframe host. The other 90 are React sources.
 - **Browse more.** Discovery links to provider candidates outside the installed collection. **Legacy V8** opens the 82 earlier MotionUX previews.
 
-On a fresh checkout, run `npm ci`. Prepare the local source workspace with `npm run sources:inspect` and `npm run sources:prepare`. Routine launches reuse that workspace. The public checkout also runs on `npm run dev` with the labeled legacy gallery. [Setup and verification](docs/V10-STUDIO.md)
+On a fresh checkout, run `npm ci`. Prepare the local source workspace with `npm run sources:inspect` and `npm run sources:prepare`. Routine launches reuse that workspace. The public checkout also runs on `npm run dev` with the labeled legacy gallery. [Studio setup, library and recovery](docs/V11-IMPLEMENTATION.md)
 
 ## Install your first component
 

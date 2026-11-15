@@ -7,8 +7,12 @@ import { Components, Examples, Guides } from "./pages";
 import { PreviewLoading } from "./preview";
 import { Shell } from "./shell";
 import { localStudio, useLocalSources } from "../sources/local";
+import { LibraryStore } from "../library/store";
+import { LibraryFeedback } from "../library/actions";
+import "../library/library.css";
 import { OriginalsGallery } from "../sources/gallery";
 
+const LibraryView = lazy(() => import("../library/view"));
 const Playground = lazy(() => import("./playground"));
 const SourceDetail = lazy(() => import("../sources/lab"));
 const Discovery = lazy(() => import("../sources/lab").then(module => ({ default: module.Discovery })));
@@ -37,6 +41,10 @@ function systemUsesDarkScheme() {
 }
 
 export default function Studio() {
+  return <LibraryStore><StudioRoutes /></LibraryStore>;
+}
+
+function StudioRoutes() {
   const [route, setRoute] = useState(initialRoute);
   const [schemeOverride, setSchemeOverride] = useState(savedScheme);
   const systemDark = useSyncExternalStore(subscribeToScheme, systemUsesDarkScheme);
@@ -58,7 +66,7 @@ export default function Studio() {
     document.title = title ? `${title} | MotionUX Studio` : route.page === "sources" ? "Discovery | MotionUX Studio" : "MotionUX Studio";
   }, [route.page, title]);
   function navigate(next: Route, replace = false) {
-    if (route.page === "gallery" && next.page === "playground") {
+    if ((route.page === "gallery" || route.page === "library") && next.page === "playground") {
       scroll.current = window.scrollY;
       selectedCard.current = next.item;
       history.replaceState({ galleryScroll: scroll.current, galleryCard: selectedCard.current }, "", location.href);
@@ -67,17 +75,19 @@ export default function Studio() {
     if (hrefFor(route) !== href) history[replace ? "replaceState" : "pushState"](null, "", href);
     if (next.item) setLastItem(next.item);
     if (!replace) setEntered(route.page !== next.page);
-    if (!replace && next.page !== route.page) focus.current = next.page === "gallery" && route.page === "playground" ? "gallery" : "heading";
+    if (!replace && (next.page !== route.page || next.shelf !== route.shelf || next.collection !== route.collection)) {
+      focus.current = (next.page === "gallery" || next.page === "library") && route.page === "playground" ? "gallery" : "heading";
+    }
     setRoute(next);
   }
   useEffect(() => {
     function pop(event: PopStateEvent) {
       const next = initialRoute();
-      if (next.page === "gallery") {
+      if (next.page === "gallery" || next.page === "library") {
         scroll.current = event.state?.galleryScroll ?? 0;
         selectedCard.current = event.state?.galleryCard ?? "";
       }
-      focus.current = next.page === "gallery" ? "gallery" : "heading";
+      focus.current = next.page === "gallery" || next.page === "library" ? "gallery" : "heading";
       setEntered(false);
       setRoute(next);
       if (next.item) setLastItem(next.item);
@@ -101,7 +111,7 @@ export default function Studio() {
     }
   }, [route]);
   function setQuery(query: string) {
-    const page = route.page === "components" || route.page === "sources" ? route.page : "gallery";
+    const page = route.page === "components" || route.page === "sources" || route.page === "library" ? route.page : "gallery";
     navigate({ ...route, query, page, item: "", source: undefined, sourcePanel: undefined, compare: false }, page === route.page);
     if (page === "gallery") window.scrollTo(0, 0);
   }
@@ -113,15 +123,19 @@ export default function Studio() {
   }
   const open = (id: string, configuration?: string, panel?: Route["panel"]) => navigate({ ...route, page: "playground", item: id, configuration, panel, preset: true });
   const clear = () => navigate({ ...route, query: "", category: "", item: "" });
-  const back = () => navigate({ ...route, page: "gallery", item: "", source: undefined, sourcePanel: undefined, panel: undefined, compare: false });
+  const back = () => navigate({ ...route, page: route.fromLibrary ? "library" : "gallery", item: "", source: undefined, sourcePanel: undefined, panel: undefined, compare: false, fromLibrary: false });
   return <div className="mx-studio" data-scheme={scheme}>
     <Shell route={route} navigate={navigate} updateQuery={setQuery} scheme={scheme} toggleScheme={toggleScheme} reduced={platformReduced}
       lastItem={lastItem} originalCount={originalCount}>
       {!localStudio && <p className="mx-public-shell">Legacy/public shell — launch <code>npm run studio</code> to see original sources.</p>}
+      {localStudio && route.page !== "library" && <div className="mx-library-toast"><LibraryFeedback /></div>}
       <div className={`mx-view mx-view-${route.page}`} key={route.page} data-entering={entered || undefined}>
         {route.page === "gallery" ? localStudio && !route.collection
           ? <OriginalsGallery {...local} route={route} scheme={scheme} navigate={navigate} />
           : <Gallery items={items} route={route} open={open} reduced={platformReduced} clear={clear} scheme={scheme} selectCategory={category => navigate({ ...route, category })} /> :
+          route.page === "library" && localStudio ? <Suspense fallback={<section className="mx-inner-page"><h1 tabIndex={-1}>My Library</h1><p role="status">Loading saved originals…</p></section>}>
+            <LibraryView originals={originals} route={route} navigate={navigate} />
+          </Suspense> :
           route.page === "components" ? <Components items={items} route={route} open={open} clear={clear} /> :
           route.page === "guides" ? <Guides /> : route.page === "examples" ? <Examples route={route} open={open} /> :
           route.page === "sources" ? <Suspense fallback={<PreviewLoading />}>

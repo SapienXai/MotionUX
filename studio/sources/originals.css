@@ -40,3 +40,17 @@
   .mx-originals-categories a { padding-block: 13px; }
   .mx-originals-header { gap: 9px; }
 }
+.mx-original-stage > .mx-original-frame { z-index: 1; }
+.mx-preview-thumbnail { position: absolute; inset: 0; pointer-events: none; overflow: clip; }
+.mx-preview-thumbnail img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.mx-original-stage:has(> .mx-original-frame[data-preview-state="ready"]) > .mx-preview-thumbnail { visibility: hidden; }
+.mx-original-stage:has(> .mx-preview-thumbnail) .mx-frame-loading { align-content: end; justify-content: start; padding: 10px; }
+.mx-original-stage:has(> .mx-preview-thumbnail) .mx-frame-loading span { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px 7px; }
+.mx-original-caption { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.mx-original-caption > div:first-child { min-inline-size: 0; overflow-wrap: anywhere; }
+.mx-original-save { display: flex; align-items: center; gap: 4px; flex: none; }
+.mx-original-save :is(.mx-library-icon, .mx-library-trigger) { inline-size: 36px; min-block-size: 36px; padding: 0; border-radius: 9px; }
+.mx-frame-error.mx-frame-status { background: var(--chip); }
+@media (pointer: coarse), (max-width: 600px) {
+  .mx-original-save :is(.mx-library-icon, .mx-library-trigger) { inline-size: 44px; min-block-size: 44px; }
+}

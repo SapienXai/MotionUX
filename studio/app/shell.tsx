@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Bookmark, ChevronDown, CodeXml, Compass, CreditCard, Grid2X2, Hand, Layers3, Menu, Moon, MousePointer2, Search, Sparkle, SquareStack, Sun, Type, X, Zap, Headphones } from "lucide-react";
+import { Archive, ArrowRight, BookOpen, Bookmark, ChevronDown, CodeXml, Compass, CreditCard, Grid2X2, Hand, Layers3, Menu, Moon, MousePointer2, Search, Sparkle, SquareStack, Sun, Type, X, Zap, Headphones } from "lucide-react";
 import { LayoutGroup, motion } from "motion/react";
 import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { catalogCounts, categories, FEATURED, hrefFor, repoURL, type Category, type Route } from "./catalog-view";
@@ -8,6 +8,9 @@ type Navigate = (route: Route) => void;
 const nav = [
   ["gallery", "Gallery", Grid2X2], ["playground", "Playground", CodeXml], ["components", "Components", Layers3],
   ["guides", "Guides", BookOpen], ["examples", "Examples", Bookmark], ["sources", "Original sources", Compass],
+] as const;
+const privateNav = [
+  ["gallery", "Gallery", Grid2X2], ["library", "My Library", Bookmark], ["sources", "Discovery", Compass], ["legacy", "Legacy V8", Archive],
 ] as const;
 const categoryIcons = { Navigation: Compass, Buttons: MousePointer2, Cards: SquareStack, Inputs: CreditCard, Gestures: Hand, Feedback: Zap, Typography: Type, AI: Sparkle, Media: Headphones };
 
@@ -48,19 +51,21 @@ function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, cl
       <span className="mx-count">{category ? catalogCounts[category] : references.length}</span>
     </a>;
   };
-  const guide: Route = { ...route, page: "guides", item: "" };
+  const guide: Route = { page: "guides", item: "", category: "", query: "" };
   return <LayoutGroup id={mobile ? "drawer" : "sidebar"}>
     <div className="mx-side-brand"><Brand navigate={navigate} />{mobile && <button type="button" aria-label="Close menu" className="mx-icon" onClick={close} autoFocus><X size={21} /></button>}</div>
     <div className="mx-side-scroll">
       <nav className="mx-side-nav" aria-label="Studio">
-        {nav.filter(([page]) => originalCount === undefined || page !== "components" && page !== "examples").map(([page, text, Icon]) => {
-          const current = route.page === page;
-          const next: Route = originalCount === undefined
+        {(originalCount === undefined ? nav : privateNav).map(([page, text, Icon]) => {
+          const legacy = page === "legacy";
+          const current = legacy ? route.collection === "legacy" && route.page === "gallery" :
+            route.page === page && (page !== "gallery" || !route.collection);
+          const next: Route = originalCount === undefined && !legacy
             ? { ...route, page, item: page === "playground" ? lastItem || FEATURED[0][0] : "", source: undefined }
-            : { page, item: page === "playground" ? lastItem || FEATURED[0][0] : "", category: "", query: "" };
+            : { page: legacy ? "gallery" : page, item: "", category: "", query: "", collection: legacy ? "legacy" : undefined };
           return <a key={page} href={hrefFor(next)} className="mx-side-row" aria-current={current ? "page" : undefined}
             onClick={event => intercept(event, () => navigate(next))}>{current && active("section")}<Icon size={20} aria-hidden="true" /><span>{page === "sources" ? "Discovery" : text}</span>
-            {page === "gallery" && originalCount !== undefined && <span className="mx-count">{originalCount}</span>}</a>;
+            {page === "gallery" && originalCount !== undefined && <span className="mx-count" aria-hidden="true">{originalCount}</span>}</a>;
         })}
       </nav>
       {originalCount === undefined && <nav className="mx-side-categories" aria-label="Categories">
