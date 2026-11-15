@@ -8,11 +8,11 @@ import { expect } from "@playwright/test";
 import { collectGalleryOrder } from "../studio/gallery-checks.mjs";
 
 const phase = process.argv[2];
-if (!["baseline", "current", "v13-1-before", "v13-1-after", "scale"].includes(phase)) {
-  throw new Error("Use baseline, current, v13-1-before, v13-1-after, or scale.");
+if (!["baseline", "current", "v13-1-before", "v13-1-after", "scale", "endurance"].includes(phase)) {
+  throw new Error("Use baseline, current, v13-1-before, v13-1-after, scale, or endurance.");
 }
 const modern = phase.startsWith("v13-1") || phase === "scale";
-const output = resolve(".motionux-v9/evidence", modern ? "v13-1" : "v13");
+const output = resolve(".motionux-v9/evidence", phase === "endurance" ? "v14" : modern ? "v13-1" : "v13");
 const origin = process.env.MOTIONUX_BENCH_ORIGIN ?? "http://127.0.0.1:5199";
 const response = await fetch(origin);
 assert(response.ok && response.headers.get("x-motionux-studio"), "Run the private Studio before benchmarking.");
@@ -42,6 +42,69 @@ async function processMemory() {
     group.rssMiB += rss / 1024;
   }
   return groups;
+}
+
+async function endurance() {
+  const page = await browser.newPage({ viewport, colorScheme: "light" });
+  const session = await page.context().newCDPSession(page);
+  await session.send("Emulation.setCPUThrottlingRate", { rate: environment.throttle });
+  const errors = [];
+  const remoteOrigins = new Set();
+  const frames = new Set();
+  const result = { samples: [], stops: 0, peakDocuments: 0, detached: 0, errors, remoteOrigins: [] };
+  page.on("frameattached", frame => {
+    frames.add(frame);
+    result.peakDocuments = Math.max(result.peakDocuments, frames.size);
+  });
+  page.on("framedetached", frame => { if (frames.delete(frame)) result.detached++; });
+  page.on("pageerror", error => errors.push(error.message));
+  page.on("response", response => {
+    if (response.url().startsWith(origin + "/") && response.status() >= 400) {
+      errors.push(response.status() + " " + new URL(response.url()).pathname);
+    }
+  });
+  page.on("request", request => {
+    const server = new URL(request.url()).origin;
+    if (server !== origin && server !== "null") remoteOrigins.add(server);
+  });
+  const visibleLive = () => page.waitForFunction(() => [...document.querySelectorAll('[data-original-stage] [data-preview-state="ready"]')]
+    .some(element => {
+      const rect = element.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < innerHeight;
+    }), undefined, { timeout: 15000 });
+  async function sample(pass) {
+    await session.send("HeapProfiler.collectGarbage");
+    const { usedSize } = await session.send("Runtime.getHeapUsage");
+    const cost = await page.locator(live).evaluateAll(visible => visible.reduce((sum, frame) =>
+      sum + Number(frame.closest("[data-preview-cost]")?.dataset.previewCost), 0));
+    const row = { pass, stops: result.stops, rootHeapMiB: usedSize / 1024 ** 2, processes: await processMemory(),
+      attached: frames.size, cost };
+    result.samples.push(row);
+    console.log("endurance", JSON.stringify(row));
+    assert(cost <= 8 && result.peakDocuments <= 8, "Preview budget exceeded");
+  }
+  try {
+    await page.goto(origin);
+    await expect(page.locator(grid)).toHaveAttribute("data-results", String(ready.length));
+    await visibleLive();
+    for (let pass = 1; pass <= 4; pass++) {
+      for (let step = 0; step < 30; step++) {
+        await page.evaluate(fraction => window.scrollTo(0, (document.documentElement.scrollHeight - innerHeight) * fraction), (step * 19 % 31) / 31);
+        await visibleLive();
+        await page.waitForTimeout(460);
+        result.stops++;
+      }
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await visibleLive();
+      await page.waitForTimeout(450);
+      await sample(pass);
+    }
+    assert.deepEqual(errors, []);
+  } finally {
+    result.remoteOrigins = [...remoteOrigins].sort();
+    report.endurance = result;
+    await page.close();
+  }
 }
 
 function syntheticCatalog(count) {
@@ -226,18 +289,22 @@ async function benchmark(test) {
 }
 
 try {
-  const cases = phase === "scale"
-    ? [500, 1000].map(count => ({ name: "synthetic-" + count, synthetic: true, items: syntheticCatalog(count), samples: 5, stress: true }))
-    : [
-      { name: "cached-thumbnails", items: catalog, thumbnails: true, stress: true, warm: modern, trace: modern },
-      ...(modern ? [
-        { name: "no-thumbnails", items: catalog, thumbnails: false, samples: 5 },
-        { name: "reduced-motion", items: catalog, thumbnails: true, motion: "reduce", samples: 5 },
-      ] : []),
-    ];
-  for (const test of cases) report.runs.push(await benchmark(test));
+  if (phase === "endurance") await endurance();
+  else {
+    const cases = phase === "scale"
+      ? [500, 1000].map(count => ({ name: "synthetic-" + count, synthetic: true, items: syntheticCatalog(count), samples: 5, stress: true }))
+      : [
+        { name: "cached-thumbnails", items: catalog, thumbnails: true, stress: true, warm: modern, trace: modern },
+        ...(modern ? [
+          { name: "no-thumbnails", items: catalog, thumbnails: false, samples: 5 },
+          { name: "reduced-motion", items: catalog, thumbnails: true, motion: "reduce", samples: 5 },
+        ] : []),
+      ];
+    for (const test of cases) report.runs.push(await benchmark(test));
+  }
 } finally {
   await browser.close();
   await mkdir(output, { recursive: true });
-  await writeFile(resolve(output, "performance-" + phase + ".json"), JSON.stringify(report, null, 2) + "\n");
+  const suffix = phase === "endurance" ? phase + "-" + ready.length : phase;
+  await writeFile(resolve(output, "performance-" + suffix + ".json"), JSON.stringify(report, null, 2) + "\n");
 }

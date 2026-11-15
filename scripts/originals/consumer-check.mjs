@@ -8,12 +8,15 @@ import { resolve } from "node:path";
 import { promisify } from "node:util";
 import { loadCatalog, vault } from "../studio/catalog.mjs";
 import { emptyLibrary } from "../studio/v11/library.mjs";
+import { readEditions } from "./editions.mjs";
 
 const run = promisify(execFile);
-const root = resolve(vault, "evidence", "v13");
+const edition = (await readEditions()).find(entry => "v" + entry.ordinal === (process.argv[2] ?? "v13"));
+assert(edition, "Specify a known edition");
+const root = resolve(vault, "evidence", "v" + edition.ordinal);
 await mkdir(root, { recursive: true, mode: 0o700 });
 const catalog = await loadCatalog();
-const items = [...catalog.values()].filter(item => item.editionOrdinal === 13 && item.availability === "ready");
+const items = [...catalog.values()].filter(item => item.editionOrdinal === edition.ordinal && item.availability === "ready");
 const groups = Map.groupBy(items, item => item.group);
 const report = { compiledUsage: [], failures: [], kit: {}, next: {} };
 
@@ -43,7 +46,7 @@ assert.equal(kitItems.length, 15);
 const fixture = await mkdtemp(resolve(root, "kit-fixture-"));
 const basket = randomUUID();
 await writeFile(resolve(fixture, "library.v1.json"), JSON.stringify({
-  ...emptyLibrary(), collections: [{ id: basket, name: "V13 mixed consumer verification", items: kitItems.map(item => item.id) }],
+  ...emptyLibrary(), collections: [{ id: basket, name: `V${edition.ordinal} mixed consumer verification`, items: kitItems.map(item => item.id) }],
 }));
 const listener = createServer().listen(0, "127.0.0.1");
 await once(listener, "listening");

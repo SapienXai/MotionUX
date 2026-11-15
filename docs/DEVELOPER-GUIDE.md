@@ -1,6 +1,6 @@
 # MotionUX Studio setup and developer guide
 
-[Back to MotionUX](../README.md) · [V12 sources and verification](V12-ORIGINALS.md) · [Library and recovery](V11-IMPLEMENTATION.md)
+[Back to MotionUX](../README.md) · [V14 originals](V14-ORIGINALS.md) · [Library and recovery](V11-IMPLEMENTATION.md)
 
 ## Set up Studio
 
@@ -12,14 +12,15 @@ npm run sources:inspect
 npm run sources:prepare
 npm run sources:prepare:v12
 npm run originals:expand:v13
+npm run originals:expand:v14
 npm run studio
 ```
 
-Open [MotionUX Studio](http://127.0.0.1:5199/) on the same computer. After preparation the Originals Gallery includes 324 components from eight providers. Once the vault is prepared, `npm run studio` starts it again. Run `npm run studio:thumbnails` in a separate terminal with Studio open to generate missing thumbnails. The public checkout also includes the **Legacy V8** gallery.
+Open [MotionUX Studio](http://127.0.0.1:5199/) on the same computer. After preparation the Originals Gallery includes 500 components from eight providers. Once the vault is prepared, `npm run studio` starts it again. Run `npm run studio:thumbnails` in a separate terminal with Studio open to generate missing thumbnails. The public checkout also includes the **Legacy V8** gallery.
 
 Open a component’s **Playground** for its live preview, or use **Compare** to see the upstream example, Studio preview and separately installed consumer. Add favorites, collections and notes in **My Library**. Export a collection with setup instructions through **Project Kit**.
 
-The first-run preparation collects sources locally in the ignored `.motionux-v9/` vault. See [the edition source list](V13-ORIGINALS.md) for provider revisions and [the Studio manual](V11-IMPLEMENTATION.md) for backup and recovery.
+The first-run preparation collects sources locally in the ignored `.motionux-v9/` vault. See [the current edition source list](V14-ORIGINALS.md) for provider revisions and [the Studio manual](V11-IMPLEMENTATION.md) for backup and recovery.
 
 ## Install your first component
 

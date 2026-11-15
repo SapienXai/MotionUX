@@ -58,6 +58,6 @@ npm run studio
 
 [First-run setup and installation](docs/DEVELOPER-GUIDE.md#set-up-studio) · [Open Studio on this computer](http://127.0.0.1:5199/)
 
-The prepared Studio includes pinned React originals and standalone HTML examples in sandboxed React hosts. GitHub contains the Studio, source references and the public registry. Original payloads and previews are prepared locally in the ignored `.motionux-v9/` vault. Each original retains its upstream attribution and applicable notices. The public `v1.0.0` registry has its own four stable MotionUX entries under the MIT license. [Local originals](docs/V13-ORIGINALS.md) · [Public registry](docs/COMPONENTS.md) · [MotionUX license](LICENSE)
+The prepared Studio includes pinned React originals and standalone HTML examples in sandboxed React hosts. GitHub contains the Studio, source references and the public registry. Original payloads and previews are prepared locally in the ignored `.motionux-v9/` vault. Each original retains its upstream attribution and applicable notices. The public `v1.0.0` registry has its own four stable MotionUX entries under the MIT license. [Local originals](docs/V14-ORIGINALS.md) · [Public registry](docs/COMPONENTS.md) · [MotionUX license](LICENSE)
 
 [Design principles](docs/DESIGN-PRINCIPLES.md) · [Quality gates](docs/QUALITY-GATES.md) · [Studio scaling evidence](docs/V13-1-PERFORMANCE.md)

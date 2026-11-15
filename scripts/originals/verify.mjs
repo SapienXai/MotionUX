@@ -25,6 +25,8 @@ const only = new Set(args.find(value => value.startsWith("--only="))?.slice(7).s
 if (!wanted.length) assert.equal(http.length, all.size, "Restart Studio after a source import");
 const locals = http.map(({ id }) => all.get(id)).filter(item => item?.availability === "ready");
 const candidates = locals.filter(item => item.editionOrdinal === edition.ordinal).sort((a, b) => a.addedSequence - b.addedSequence);
+const newest = Math.max(...locals.map(item => item.editionOrdinal));
+const newestIDs = locals.filter(item => item.editionOrdinal === newest).sort((a, b) => a.addedSequence - b.addedSequence).map(item => item.id);
 const previous = resume ? JSON.parse(await readFile(resolve(output, "verification-1-2-3-4-5-6.json"), "utf8")) : undefined;
 const tested = new Set(previous?.rows.map(row => row.id));
 const queue = candidates.filter(item => (!only.size || only.has(item.id)) &&
@@ -107,6 +109,12 @@ async function motion(page, frame, item, explicit) {
     for (let step = 0; step < 3; step++) await slider.press("ArrowRight");
     await expect(slider).toHaveAttribute("aria-valuenow", String(before + 3));
     mode = "keyboard dial and animated settlement";
+  } else if (item.id === "kokonut-pull-cord") {
+    const control = root.getByRole("switch");
+    const checked = await control.getAttribute("aria-checked");
+    await control.press("Space");
+    await expect(control).toHaveAttribute("aria-checked", checked === "true" ? "false" : "true");
+    mode = "keyboard lamp switch";
   } else if (!explicit) {
     let actions = await root.locator(controls).count();
     actions = Math.min(actions, 4);
@@ -222,34 +230,49 @@ async function verify(page, mobile, item) {
 
 try {
   const baseline = JSON.parse(await readFile(resolve(output, "baseline.json"), "utf8"));
-  const preserved = new Map(baseline.originals.map(({ id }) => [id, all.get(id)]));
+  const preserved = new Map(baseline.originals.map(({ id }) => {
+    const record = all.get(id);
+    assert(record?.availability === "ready", "Missing preserved original: " + id);
+    return [id, record];
+  }));
   assert.deepEqual(await sourceIdentity(preserved), { originals: baseline.originals, hashes: baseline.hashes });
   await verifySourceBaseline(all, JSON.parse(await readFile(resolve(vault, "evidence/v11/baseline/source-identity.json"), "utf8")));
   report.sourceIdentity = Object.keys(baseline.hashes).length;
   const page = await browser.newPage(opts);
   await page.goto(origin);
   const first = await collectGalleryOrder(page, http.length);
-  assert.deepEqual(first.slice(0, candidates.length), candidates.map(item => item.id));
-  await expect(page.getByRole("heading", { name: new RegExp("V" + edition.ordinal + " New arrivals") })).toBeVisible();
+  assert.deepEqual(first.filter(id => all.get(id).editionOrdinal === edition.ordinal), candidates.map(item => item.id));
+  assert.deepEqual(first.slice(0, newestIDs.length), newestIDs);
+  await expect(page.getByRole("heading", { name: new RegExp("V" + newest + " New arrivals") })).toBeVisible();
   report.gallery.newest = first.slice(0, 12);
-  await expect(page.locator(cardSelector).first().locator('[data-preview-state="ready"]')).toBeVisible();
+  const firstPreview = page.locator(cardSelector).first().locator(selector("studio"));
+  await expect(firstPreview).toHaveAttribute("data-preview-state", "ready");
+  const firstFrame = firstPreview.locator("iframe");
+  await expect(firstFrame).toHaveAttribute("sandbox", "allow-scripts");
+  await firstFrame.evaluate(frame => {
+    const data = { motionuxPreview: "failed" };
+    window.dispatchEvent(new MessageEvent("message", { data, origin: "null", source: window }));
+    window.dispatchEvent(new MessageEvent("message", { data, origin: location.origin, source: frame.contentWindow }));
+  });
+  await expect(firstPreview).toHaveAttribute("data-preview-state", "ready");
+  report.gallery.untrustedPreviewMessagesRejected = true;
   await page.screenshot({ path: resolve(output, "newest-desktop.png") });
   for (const [width, colorScheme] of [[320,"light"], [390,"dark"], [768,"light"], [1024,"dark"], [1536,"dark"]]) {
     const layout = await browser.newPage({ viewport: { width, height: 900 }, colorScheme, hasTouch: width < 1024 });
     await layout.goto(origin);
-    await expect(layout.locator(cardSelector).first()).toHaveAttribute("data-edition", String(edition.ordinal));
+    await expect(layout.locator(cardSelector).first()).toHaveAttribute("data-edition", String(newest));
     await expect(layout.locator(cardSelector).first().locator('[data-preview-state="ready"]')).toBeVisible();
     assert(await layout.evaluate(() => document.documentElement.scrollWidth <= innerWidth), width + "px overflows");
     await layout.screenshot({ path: resolve(output, "newest-" + width + "-" + colorScheme + ".png") });
     await layout.close();
   }
-  await page.getByRole("link", { name: "New in V" + edition.ordinal, exact: true }).click();
-  await expectGalleryCount(page, candidates.length);
+  await page.getByRole("link", { name: "New in V" + newest, exact: true }).click();
+  await expectGalleryCount(page, newestIDs.length);
   await page.getByRole("link", { name: "All originals", exact: true }).click();
   await page.getByLabel("Sort originals").selectOption("oldest");
   await expect(page.locator(cardSelector).first()).toHaveAttribute("data-edition", "10");
   await page.goBack();
-  await expect(page.locator(cardSelector).first()).toHaveAttribute("data-edition", String(edition.ordinal));
+  await expect(page.locator(cardSelector).first()).toHaveAttribute("data-edition", String(newest));
   await page.close();
 
   await Promise.all(Array.from({ length: 3 }, async () => {

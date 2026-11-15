@@ -1,10 +1,11 @@
 import { spawn } from "node:child_process";
-import { closeSync, openSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
+import { closeSync, existsSync, openSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import { mkdir, mkdtemp, readFile, rename, rm, stat, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { atomicWrite } from "../studio/v11/library.mjs";
 import { safeFile } from "../studio/v11/paths.mjs";
 import { loadCatalog, vault } from "../studio/catalog.mjs";
+import { sourceIdentity } from "../studio/v11/identity.mjs";
 import { digest, inspectCandidate, openProvider, providerAdapters } from "./adapters.mjs";
 import { indexName, readEditionGroups, readEditions } from "./editions.mjs";
 
@@ -49,6 +50,14 @@ const output = { edition: name, ready: [], failures: [] };
 const indexed = new Set(await readEditionGroups(vault));
 const previousIndex = [...indexed];
 const existing = [...(await loadCatalog()).values()];
+await mkdir(evidence, { recursive: true, mode: 0o700 });
+const baseline = resolve(evidence, "baseline.json");
+if (ordinal > 13 && !existsSync(baseline)) {
+  if (existing.some(item => item.editionOrdinal >= ordinal)) throw new Error("Freeze the previous catalog before importing " + name);
+  const prior = new Map(existing.filter(item => item.availability === "ready").map(item => [item.id, item]));
+  if (!prior.size) throw new Error("Prepare earlier originals before importing " + name);
+  await atomicWrite(baseline, JSON.stringify(await sourceIdentity(prior), null, 2) + "\n");
+}
 const occupied = new Map(existing.flatMap(item => [[item.id, item], [item.sourceURL, item], [item.upstreamHash, item]]));
 const fingerprintFiles = await Promise.all([new URL("./adapters.mjs", import.meta.url), new URL(import.meta.url),
   resolve("package-lock.json")].map(file => readFile(file)));
@@ -108,7 +117,6 @@ for (const selection of allItems) {
     output.failures.push({ id: provider + "-" + slug, stage: "inspect", reason: error.message });
   }
 }
-await mkdir(evidence, { recursive: true, mode: 0o700 });
 await mkdir(runtime, { recursive: true });
 await mkdir(recipes, { recursive: true });
 const jobs = [...queue.values()].flatMap(({ adapter, items }) => Array.from({ length: Math.ceil(items.length / 12) },

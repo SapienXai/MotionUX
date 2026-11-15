@@ -1,0 +1,1520 @@
+{
+  "ordinal": 14,
+  "pins": {
+    "kokonut": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+    "smoothui": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+    "reactbits": "cf2801031f07f53d4684e65b961bde7c2e2a6921",
+    "motionprimitives": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+    "magicui": "6f7b531e77659855d4bc1bec8e20fdb0c8199b20",
+    "animateui": "22a9236ae107328f8564edb7e3299375da3247af",
+    "cultui": "d71b1428b811c2779d46ea41b7ef8c9f9c9991c2"
+  },
+  "items": [
+    {
+      "provider": "cultui",
+      "slug": "morph-surface",
+      "batch": 7
+    },
+    {
+      "provider": "kokonut",
+      "slug": "pull-cord",
+      "batch": 1
+    },
+    {
+      "provider": "reactbits",
+      "slug": "swipe-toast",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-community-radial-intro",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "smoothui",
+      "slug": "organic-merge-transition",
+      "batch": 2
+    },
+    {
+      "provider": "cultui",
+      "slug": "toolbar-expandable",
+      "batch": 7
+    },
+    {
+      "provider": "magicui",
+      "slug": "lens",
+      "batch": 5
+    },
+    {
+      "provider": "reactbits",
+      "slug": "split-flap-text",
+      "batch": 3
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-community-pin-list",
+      "batch": 6
+    },
+    {
+      "provider": "cultui",
+      "slug": "prompt-composer",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "kokonut",
+      "slug": "lightbox-grid",
+      "batch": 1,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "rubber-segment",
+      "batch": 3
+    },
+    {
+      "provider": "smoothui",
+      "slug": "video-modal",
+      "batch": 2
+    },
+    {
+      "provider": "motionprimitives",
+      "slug": "disclosure",
+      "batch": 4
+    },
+    {
+      "provider": "cultui",
+      "slug": "feature-carousel",
+      "batch": 7,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "kokonut",
+      "slug": "ai-context-meter",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "attract-button",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "background-paths",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "caustics-background",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "cradle-text",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "dot-field",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "drape-background",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "glitch-text",
+      "batch": 1,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "kokonut",
+      "slug": "gradient-button",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "halftone-background",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "ink-background",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "loader",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "plucked-text",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "promise-toast",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "rain-glass-background",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "shadow-text",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "swoosh-text",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "topo-background",
+      "batch": 1
+    },
+    {
+      "provider": "kokonut",
+      "slug": "v0-button",
+      "batch": 1
+    },
+    {
+      "provider": "smoothui",
+      "slug": "ai-message",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "ai-response",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "aurora-curtain",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "blur-out-up",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "bottom-up-letters",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "button-copy",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "chroma-blur-transition",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "clip-corners-button",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "digit-roll",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "fade-through",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "form",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "github-stars-animation",
+      "batch": 2,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "smoothui",
+      "slug": "glass-card",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "gravity-stars",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "infinite-slider",
+      "batch": 2,
+      "exclude": "Verified reserve outside the 176-item V14 selection."
+    },
+    {
+      "provider": "smoothui",
+      "slug": "kinetic-center-build",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "kinetic-type-scroll",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "line-by-line-slide",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "mask-reveal-up",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "micro-scale-fade",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "number-flow",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "per-word-crossfade",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "pixel-flow-field",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "prism-sweep-transition",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "reveal-text",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "rolling-text",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "scale-down-fade",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "scramble-hover",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "sdf-blob-transition",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "sdf-circle-transition",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "shader-reveal-transition",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "shared-axis-x",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "shared-axis-y",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "shared-axis-z",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "shimmer-sweep",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "shine-text",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "short-slide-down",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "short-slide-right",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "soft-blur-in",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "spring-scale-in",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "stagger-from-edges",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "text-morph",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "top-down-letters",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "typewriter-text",
+      "batch": 2
+    },
+    {
+      "provider": "smoothui",
+      "slug": "warped-circle-transition",
+      "batch": 2
+    },
+    {
+      "provider": "reactbits",
+      "slug": "animated-content",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "animated-list",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "bounce-cards",
+      "batch": 3,
+      "exclude": "Verified reserve outside the 176-item V14 selection."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "call-chip",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "circular-text",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "color-bends",
+      "batch": 3,
+      "renderCost": "heavy"
+    },
+    {
+      "provider": "reactbits",
+      "slug": "count-up",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "counter",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "curved-loop",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "depth-text",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "echo-text",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "evil-eye",
+      "batch": 3,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "fade-content",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "fuzzy-text",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "glitch-text",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "gradient-text",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "hold-button",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "holo-card",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "masonry",
+      "batch": 3,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "model-viewer",
+      "batch": 3,
+      "renderCost": "heavy",
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "pixel-card",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "prompt-bar",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "pulse-heart",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "refine-frame",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "scrambled-text",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "scroll-float",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "scroll-reveal",
+      "batch": 3,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "scroll-velocity",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "shredder",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "shuffle",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "sling-button",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "specular-button",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "splash-cursor",
+      "batch": 3,
+      "renderCost": "heavy",
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "split-text",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "spotlight-card",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "status-mark",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "stroke-text",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "text-loop",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "text-type",
+      "batch": 3
+    },
+    {
+      "provider": "reactbits",
+      "slug": "thought-line",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "voice-pill",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "warm-tooltip",
+      "batch": 3,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "reactbits",
+      "slug": "warp-text",
+      "batch": 3
+    },
+    {
+      "provider": "motionprimitives",
+      "slug": "cursor",
+      "batch": 4
+    },
+    {
+      "provider": "motionprimitives",
+      "slug": "in-view",
+      "batch": 4,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "motionprimitives",
+      "slug": "progressive-blur",
+      "batch": 4,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "motionprimitives",
+      "slug": "scroll-progress",
+      "batch": 4,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "motionprimitives",
+      "slug": "sliding-number",
+      "batch": 4
+    },
+    {
+      "provider": "motionprimitives",
+      "slug": "spinning-text",
+      "batch": 4
+    },
+    {
+      "provider": "motionprimitives",
+      "slug": "text-loop",
+      "batch": 4,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "motionprimitives",
+      "slug": "text-shimmer",
+      "batch": 4
+    },
+    {
+      "provider": "motionprimitives",
+      "slug": "text-shimmer-wave",
+      "batch": 4
+    },
+    {
+      "provider": "magicui",
+      "slug": "cool-mode",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "dia-text-reveal",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "dither-field",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "dotted-map",
+      "batch": 5,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "magicui",
+      "slug": "file-tree",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "globe",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "grid-pattern",
+      "batch": 5,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "magicui",
+      "slug": "hero-video-dialog",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "icon-cloud",
+      "batch": 5,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "magicui",
+      "slug": "light-rays",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "marquee",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "meteors",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "noise-texture",
+      "batch": 5,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "magicui",
+      "slug": "progressive-blur",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "pulsating-button",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "scroll-progress",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "shiny-button",
+      "batch": 5
+    },
+    {
+      "provider": "magicui",
+      "slug": "smooth-cursor",
+      "batch": 5
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-animate-code",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-animate-code-tabs",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-animate-cursor",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-animate-github-stars-wheel",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-backgrounds-bubble",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-backgrounds-fireworks",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-backgrounds-gradient",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-backgrounds-hexagon",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-backgrounds-hole",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-backgrounds-stars",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-accordion",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-alert-dialog",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-checkbox",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-dialog",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-files",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-menu",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-popover",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-preview-card",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-progress",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-radio",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-switch",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-tabs",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-toggle",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-toggle-group",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-base-tooltip",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-buttons-github-stars",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-buttons-ripple",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-buttons-theme-toggler",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-community-flip-card",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-community-share-button",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-community-user-presence-avatar",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-radix-hover-card",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-radix-radio-group",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-radix-sheet",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "components-radix-sidebar",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-animate-motion-grid",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-animate-pinned-list",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-animate-scroll-progress",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-animate-spring",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-effects-auto-height",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-effects-blur",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-effects-click",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-effects-fade",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-effects-highlight",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-effects-magnetic",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-effects-shine",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-effects-slide",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-effects-tilt",
+      "batch": 6,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-effects-zoom",
+      "batch": 6
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-texts-gradient",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-texts-highlight",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-texts-rotating",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-texts-shimmering",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-texts-splitting",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "animateui",
+      "slug": "primitives-texts-typing",
+      "batch": 6,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "ai-blob-warp",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "bg-animate-button",
+      "batch": 7,
+      "renderCost": "heavy"
+    },
+    {
+      "provider": "cultui",
+      "slug": "bg-animated-fractal-dot-grid",
+      "batch": 7,
+      "renderCost": "heavy",
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "bg-animated-gradient",
+      "batch": 7,
+      "renderCost": "heavy",
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "bg-image-texture",
+      "batch": 7,
+      "renderCost": "heavy"
+    },
+    {
+      "provider": "cultui",
+      "slug": "border-beam-button",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "border-beam-card",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "border-beam-input",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "canvas-fractal-grid",
+      "batch": 7,
+      "renderCost": "heavy",
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "circuit-board",
+      "batch": 7,
+      "renderCost": "heavy"
+    },
+    {
+      "provider": "cultui",
+      "slug": "code-block",
+      "batch": 7,
+      "exclude": "Verified reserve outside the 176-item V14 selection."
+    },
+    {
+      "provider": "cultui",
+      "slug": "copy-button",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "distorted-glass",
+      "batch": 7,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "dock",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "dynamic-island",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "edge-blur",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "expandable",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "family-button",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "feature-poll",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "file-icons",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "fluid-ai-workloads",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "gradient-button-group",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "gradient-heading",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "grid-beam",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-badge",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-button",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-card",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-dropzone",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-input",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-notification",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-progress",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-search",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-segmented",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-select",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-tabs",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-toast",
+      "batch": 7,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "halo-toggle-group",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "hero-dithering",
+      "batch": 7,
+      "renderCost": "heavy",
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "hero-heatmap",
+      "batch": 7,
+      "renderCost": "heavy",
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "hero-liquid-metal",
+      "batch": 7,
+      "renderCost": "heavy",
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "lightboard",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "loading-carousel",
+      "batch": 7,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "metal-button",
+      "batch": 7,
+      "exclude": "Verified reserve outside the 176-item V14 selection."
+    },
+    {
+      "provider": "cultui",
+      "slug": "minimal-card",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "neumorph-button",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "neumorph-eyebrow",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "organic-card",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "organic-card-small",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "pixel-heading-character",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "pixel-heading-word",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "pixel-paragraph-words",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "pixel-paragraph-words-inverse",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "poll-widget",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "popover",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "rolling-number",
+      "batch": 7,
+      "exclude": "Verified reserve outside the 176-item V14 selection."
+    },
+    {
+      "provider": "cultui",
+      "slug": "security-checkpoint",
+      "batch": 7,
+      "exclude": "Verified reserve outside the 176-item V14 selection."
+    },
+    {
+      "provider": "cultui",
+      "slug": "shader-lens-blur",
+      "batch": 7,
+      "renderCost": "heavy"
+    },
+    {
+      "provider": "cultui",
+      "slug": "speech-bubble",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "squiggle-arrow",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "stripe-bg-guides",
+      "batch": 7,
+      "renderCost": "heavy",
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "svg-bands",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "svg-shapes",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "svg-shapes-animated",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "tabs-illustration-vercel",
+      "batch": 7,
+      "exclude": "Verified reserve outside the 176-item V14 selection."
+    },
+    {
+      "provider": "cultui",
+      "slug": "terminal-animation",
+      "batch": 7,
+      "exclude": "Independent install or build did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "text-animate",
+      "batch": 7,
+      "exclude": "Verified reserve outside the 176-item V14 selection."
+    },
+    {
+      "provider": "cultui",
+      "slug": "text-gif",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "texture-button",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "texture-overlay",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "three-d-carousel",
+      "batch": 7,
+      "exclude": "Verified reserve outside the 176-item V14 selection."
+    },
+    {
+      "provider": "cultui",
+      "slug": "timer",
+      "batch": 7
+    },
+    {
+      "provider": "cultui",
+      "slug": "tweet-grid",
+      "batch": 7,
+      "exclude": "Browser verification did not pass."
+    },
+    {
+      "provider": "cultui",
+      "slug": "typewriter",
+      "batch": 7,
+      "exclude": "Verified reserve outside the 176-item V14 selection."
+    },
+    {
+      "provider": "cultui",
+      "slug": "vote-tally",
+      "batch": 7
+    }
+  ]
+}
