@@ -1,0 +1,450 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/plan.v1.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "partial-inspection",
+        "need-more-context"
+      ]
+    },
+    "decision": {
+      "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/decision"
+    },
+    "mode": {
+      "const": "read-only"
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1800
+    },
+    "target": {
+      "$ref": "https://motionux.local/schemas/agent/context.v1.json#/$defs/target"
+    },
+    "projectFingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "context": {
+      "$ref": "https://motionux.local/schemas/agent/context.v1.json"
+    },
+    "brain": {
+      "type": "object",
+      "properties": {
+        "algorithmVersion": {
+          "const": 1
+        },
+        "indexFingerprint": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceFingerprint": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "taxonomyVersion": {
+          "const": 1
+        },
+        "decision": {
+          "anyOf": [
+            {
+              "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/decision"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requirements": {
+          "$ref": "https://motionux.local/schemas/brain/request.v1.json#/properties/require"
+        },
+        "filteredReasons": {
+          "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/filteredReasons"
+        }
+      },
+      "required": [
+        "algorithmVersion",
+        "indexFingerprint",
+        "sourceFingerprint",
+        "taxonomyVersion",
+        "decision",
+        "requirements",
+        "filteredReasons"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "https://motionux.local/schemas/agent/context.v1.json#/$defs/citation"
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/recommendation"
+      },
+      "minItems": 0,
+      "maxItems": 5
+    },
+    "unresolved": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 450
+      },
+      "minItems": 0,
+      "maxItems": 80
+    },
+    "rationale": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 450
+      },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "integrationPlan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "maxLength": 320,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\x00-\\x1f\\\\]+$"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^ref-[0-9a-f]{16}$"
+            },
+            "minItems": 0,
+            "maxItems": 12,
+            "uniqueItems": true
+          },
+          "proposal": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "path",
+          "evidence",
+          "proposal"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 12
+    },
+    "testPlan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "const": "proposed"
+          },
+          "check": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 70
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 450
+            },
+            "minItems": 0,
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "status",
+          "check",
+          "steps"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 20
+    },
+    "rollbackPlan": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 450
+      },
+      "minItems": 0,
+      "maxItems": 6
+    },
+    "safety": {
+      "type": "object",
+      "properties": {
+        "targetReadOnly": {
+          "const": true
+        },
+        "targetFilesWritten": {
+          "const": 0
+        },
+        "noExecution": {
+          "const": true
+        },
+        "noNetwork": {
+          "const": true
+        },
+        "noAppAccess": {
+          "const": true
+        }
+      },
+      "required": [
+        "targetReadOnly",
+        "targetFilesWritten",
+        "noExecution",
+        "noNetwork",
+        "noAppAccess"
+      ],
+      "additionalProperties": false
+    },
+    "planFingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "status",
+    "decision",
+    "mode",
+    "goal",
+    "target",
+    "projectFingerprint",
+    "context",
+    "brain",
+    "evidence",
+    "recommendations",
+    "unresolved",
+    "rationale",
+    "integrationPlan",
+    "testPlan",
+    "rollbackPlan",
+    "safety",
+    "planFingerprint"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "recommendation": {
+      "type": "object",
+      "properties": {
+        "sourceId": {
+          "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/id"
+        },
+        "title": {
+          "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/title"
+        },
+        "provider": {
+          "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/provider"
+        },
+        "sourcePin": {
+          "type": "object",
+          "properties": {
+            "commit": {
+              "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/upstreamCommit"
+            },
+            "sha256": {
+              "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/upstreamHash"
+            }
+          },
+          "required": [
+            "commit",
+            "sha256"
+          ],
+          "additionalProperties": false
+        },
+        "sourceURL": {
+          "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/sourceURL"
+        },
+        "studioURL": {
+          "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/studioURL"
+        },
+        "installKind": {
+          "enum": [
+            "react",
+            "html-iframe"
+          ]
+        },
+        "score": {
+          "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/score"
+        },
+        "scoreBreakdown": {
+          "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/scoreBreakdown"
+        },
+        "why": {
+          "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/matches"
+        },
+        "observedTargetNeed": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ref-[0-9a-f]{16}$"
+          },
+          "minItems": 0,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "requiredIntegrationWork": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 450
+          },
+          "minItems": 0,
+          "maxItems": 8
+        },
+        "dependencyWarnings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150
+              },
+              "required": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "declared": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "status": {
+                "enum": [
+                  "missing",
+                  "incompatible",
+                  "conditional"
+                ]
+              }
+            },
+            "required": [
+              "name",
+              "required",
+              "declared",
+              "status"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 150
+        },
+        "dependencyEvidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ref-[0-9a-f]{16}$"
+          },
+          "minItems": 0,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "a11yRisk": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 450
+          },
+          "minItems": 0,
+          "maxItems": 8
+        },
+        "performanceRisk": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 450
+          },
+          "minItems": 0,
+          "maxItems": 8
+        },
+        "unknownEvidence": {
+          "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/unknowns"
+        },
+        "avoidWhen": {
+          "$ref": "https://motionux.local/schemas/brain/result.v1.json#/properties/candidates/items/properties/avoidWhen"
+        },
+        "reviewStatus": {
+          "enum": [
+            "proposed",
+            "conditional",
+            "incompatible"
+          ]
+        }
+      },
+      "required": [
+        "sourceId",
+        "title",
+        "provider",
+        "sourcePin",
+        "sourceURL",
+        "studioURL",
+        "installKind",
+        "score",
+        "scoreBreakdown",
+        "why",
+        "observedTargetNeed",
+        "requiredIntegrationWork",
+        "dependencyWarnings",
+        "dependencyEvidence",
+        "a11yRisk",
+        "performanceRisk",
+        "unknownEvidence",
+        "avoidWhen",
+        "reviewStatus"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

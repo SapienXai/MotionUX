@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import "./palette.css";
+
+@theme {
+  --color-house: var(--house-brand);
+  --color-paper: var(--house-paper);
+  --font-heading: Georgia, serif;
+  --radius-receipt: 1.5rem;
+}
+
+body { margin: 0; background: var(--house-paper); color: var(--house-ink); }
+.receipt { transition: border-color 150ms ease-out; }
+.receipt:hover { border-color: var(--house-brand); }
+
+@media (prefers-reduced-motion: reduce) {
+  .receipt { transition: none; }
+}

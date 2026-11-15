@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "project": "./fixtures/agent/booking-demo",
+  "route": "/bookings/confirmation",
+  "goal": "Show calm feedback for a confirmed booking.",
+  "requirements": { "platform": "mobile", "state": "success", "support": ["physical-mobile"] }
+}

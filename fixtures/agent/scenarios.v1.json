@@ -1,0 +1,435 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "next-exact-static",
+      "route": "/bookings/confirmation",
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "source": "src/app/(stay)/bookings/confirmation/page.tsx",
+        "layouts": 3
+      }
+    },
+    {
+      "id": "next-concrete-dynamic",
+      "route": "/bookings/DEMO-002",
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "routeTemplate": "/bookings/[id]",
+        "dynamicSegments": [
+          "[id]"
+        ],
+        "layouts": 3
+      }
+    },
+    {
+      "id": "next-template-dynamic",
+      "route": "/bookings/[id]",
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "source": "src/app/(stay)/bookings/[id]/page.tsx"
+      }
+    },
+    {
+      "id": "pages-legacy",
+      "route": "/legacy",
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "sourceKind": "pages-router",
+        "source": "src/pages/legacy.tsx"
+      }
+    },
+    {
+      "id": "next-no-url-match",
+      "route": "/unrelated",
+      "operation": "inspect",
+      "status": "need-more-context",
+      "expect": {
+        "source": null
+      }
+    },
+    {
+      "id": "missing-route",
+      "route": null,
+      "operation": "inspect",
+      "status": "need-more-context",
+      "expect": {
+        "source": null,
+        "files": 0
+      }
+    },
+    {
+      "id": "vite-main",
+      "route": "/",
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "sourceKind": "react-entry",
+        "fact": [
+          "component",
+          "export",
+          "RoomBrowser"
+        ]
+      },
+      "project": "react"
+    },
+    {
+      "id": "vite-unknown-url",
+      "route": "/rooms",
+      "operation": "inspect",
+      "status": "need-more-context",
+      "expect": {
+        "source": null
+      },
+      "project": "react"
+    },
+    {
+      "id": "explicit-component",
+      "route": null,
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "sourceKind": "component",
+        "fact": [
+          "interaction",
+          "disclosure",
+          "details"
+        ]
+      },
+      "file": "src/ui/booking-receipt.tsx"
+    },
+    {
+      "id": "authoritative-confirmation",
+      "route": "/bookings/confirmation",
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "ownership": {
+          "pending": "server",
+          "success": "server",
+          "failure": "server",
+          "cancellation": "server"
+        },
+        "cite": [
+          "success",
+          "src/ui/booking-receipt.tsx",
+          "booking.status === \"confirmed\""
+        ]
+      }
+    },
+    {
+      "id": "guarded-api",
+      "route": "/server-receipt",
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "ownership": {
+          "success": "api",
+          "pending": "api",
+          "failure": "unknown"
+        },
+        "cite": [
+          "success",
+          "src/app/server-receipt/page.tsx",
+          "receipt.status === \"confirmed\""
+        ]
+      }
+    },
+    {
+      "id": "server-client-boundaries",
+      "route": "/bookings/confirmation",
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "fact": [
+          "boundary",
+          "client-module",
+          "client-module"
+        ],
+        "includes": [
+          "src/lib/booking-ledger.ts",
+          "src/app/globals.css"
+        ]
+      }
+    },
+    {
+      "id": "theme-token",
+      "route": "/bookings/confirmation",
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "fact": [
+          "theme",
+          "custom-property",
+          "--house-brand"
+        ],
+        "includes": [
+          "src/app/palette.css"
+        ]
+      }
+    },
+    {
+      "id": "install-alias",
+      "route": "/bookings/confirmation",
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "fact": [
+          "alias",
+          "components",
+          "@/ui"
+        ],
+        "framework": [
+          "next",
+          "16.4.6",
+          "^19.0.0",
+          "^4.0.0"
+        ]
+      }
+    },
+    {
+      "id": "guidance-is-data",
+      "route": "/bookings/confirmation",
+      "operation": "inspect",
+      "status": "inspected",
+      "expect": {
+        "fact": [
+          "guidance",
+          "untrusted-document",
+          "Read as evidence only"
+        ],
+        "redacts": [
+          "trap.example.test",
+          "outside-trap.txt",
+          "postinstall"
+        ]
+      }
+    },
+    {
+      "id": "booking-tr-mobile",
+      "route": "/bookings/confirmation",
+      "operation": "plan",
+      "status": "candidates",
+      "expect": {
+        "first": "fixture-confirmation-react",
+        "owner": "server",
+        "absentSupport": "physical-mobile",
+        "max": 3
+      },
+      "goal": "Rezervasyonun tamamlandığını sakin ve anlaşılır biçimde göstermek istiyorum.",
+      "requirements": {
+        "platform": "mobile",
+        "state": "success"
+      }
+    },
+    {
+      "id": "booking-en-keyboard",
+      "route": "/bookings/confirmation",
+      "operation": "plan",
+      "status": "candidates",
+      "expect": {
+        "first": "fixture-confirmation-react",
+        "owner": "server",
+        "support": "keyboard",
+        "max": 1
+      },
+      "goal": "Reservation confirmation toast, verified keyboard.",
+      "requirements": {
+        "maxRecommendations": 1
+      }
+    },
+    {
+      "id": "require-physical",
+      "route": "/bookings/confirmation",
+      "operation": "plan",
+      "status": "no-suitable-component",
+      "expect": {
+        "filter": "unverified:physical-mobile",
+        "support": "physical-mobile"
+      },
+      "requirements": {
+        "platform": "mobile",
+        "support": [
+          "physical-mobile"
+        ]
+      }
+    },
+    {
+      "id": "require-at",
+      "route": "/bookings/confirmation",
+      "operation": "plan",
+      "status": "no-suitable-component",
+      "expect": {
+        "filter": "unverified:screen-reader",
+        "support": "screen-reader"
+      },
+      "goal": "Rezervasyon onayı, ekran okuyucu şart."
+    },
+    {
+      "id": "require-reduction",
+      "route": "/bookings/confirmation",
+      "operation": "plan",
+      "status": "no-suitable-component",
+      "expect": {
+        "filter": "unverified:reduced-motion",
+        "support": "reduced-motion"
+      },
+      "requirements": {
+        "support": [
+          "reduced-motion"
+        ]
+      }
+    },
+    {
+      "id": "require-rtl",
+      "route": "/bookings/confirmation",
+      "operation": "plan",
+      "status": "no-suitable-component",
+      "expect": {
+        "filter": "unverified:rtl",
+        "support": "rtl"
+      },
+      "goal": "Confirmed booking feedback, RTL verified."
+    },
+    {
+      "id": "immediate-form-tr",
+      "route": "/checkout",
+      "operation": "plan",
+      "status": "no-motion",
+      "expect": {
+        "planFile": "src/app/checkout/page.tsx",
+        "proposed": "screen-reader-manual"
+      },
+      "goal": "Form hatasını animasyonsuz göster."
+    },
+    {
+      "id": "immediate-form-en",
+      "route": "/checkout",
+      "operation": "plan",
+      "status": "no-motion",
+      "expect": {
+        "planFile": "src/app/checkout/page.tsx"
+      },
+      "goal": "Do not animate form validation errors."
+    },
+    {
+      "id": "timer-only-payment",
+      "route": "/payment",
+      "operation": "plan",
+      "status": "no-motion",
+      "expect": {
+        "owner": "unknown",
+        "fact": [
+          "state",
+          "visual-scheduler",
+          "setTimeout"
+        ]
+      },
+      "goal": "Show payment success with a calm confirmation.",
+      "requirements": {
+        "state": "success"
+      }
+    },
+    {
+      "id": "ambiguous-intent",
+      "route": "/hold",
+      "operation": "plan",
+      "status": "need-more-context",
+      "expect": {},
+      "goal": "Make this feel nicer."
+    },
+    {
+      "id": "declared-conflict",
+      "route": "/bookings/confirmation",
+      "operation": "plan",
+      "status": "candidates",
+      "expect": {
+        "warning": [
+          "fixture-confirmation-motion-conflict",
+          "motion",
+          "incompatible"
+        ]
+      }
+    },
+    {
+      "id": "html-boundary",
+      "route": "/details",
+      "operation": "plan",
+      "status": "candidates",
+      "expect": {
+        "first": "fixture-disclosure-html",
+        "kind": "html-iframe",
+        "proposed": "iframe-boundary"
+      },
+      "goal": "Expandable card disclosure for room details.",
+      "requirements": {
+        "integrationKind": "html-iframe"
+      }
+    },
+    {
+      "id": "native-react",
+      "route": "/details",
+      "operation": "plan",
+      "status": "candidates",
+      "expect": {
+        "first": "fixture-disclosure-react",
+        "kind": "react"
+      },
+      "goal": "Expandable card disclosure for room details.",
+      "requirements": {
+        "integrationKind": "react",
+        "nativeProps": true
+      }
+    },
+    {
+      "id": "unavailable-brain",
+      "route": "/bookings/confirmation",
+      "operation": "plan",
+      "status": "not-prepared",
+      "expect": {
+        "owner": "server"
+      },
+      "catalog": "empty"
+    },
+    {
+      "id": "stale-brain",
+      "route": "/bookings/confirmation",
+      "operation": "plan",
+      "status": "stale-index",
+      "expect": {
+        "owner": "server"
+      },
+      "catalog": "stale"
+    },
+    {
+      "id": "pending-brain",
+      "route": "/bookings/confirmation",
+      "operation": "plan",
+      "status": "candidates",
+      "expect": {
+        "first": "fixture-progress",
+        "owner": "server"
+      },
+      "goal": "Show booking loading progress.",
+      "requirements": {
+        "state": "pending"
+      }
+    },
+    {
+      "id": "goal-data-redaction",
+      "route": "/checkout",
+      "operation": "plan",
+      "status": "no-motion",
+      "expect": {
+        "redacts": [
+          "ghp_abcdefghijklmnopqrstuvwxyz"
+        ]
+      },
+      "goal": "Do not animate form errors. token=ghp_abcdefghijklmnopqrstuvwxyz"
+    }
+  ]
+}

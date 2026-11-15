@@ -4,7 +4,7 @@ MotionUX is **the motion intelligence layer for AI-built interfaces**. Its users
 
 ## Product boundaries
 
-- Studio remains a first-class local product. People can discover, compare and collect originals independently of the planned intelligence layer.
+- Studio remains a first-class local product. People can discover, compare and collect originals independently of the intelligence layer.
 - Early versions run on a checkout and the local vault. Hosted inference, vector databases, custom model training, accounts, billing and multi-user infrastructure sit outside the initial phases.
 - An integration preserves the application's design, navigation and ownership of state. App changes require explicit user instructions. Caller-owned business results, including bookings and payments, drive feedback.
 - Each proposed movement needs a purpose. A recommendation may select an immediate state change, a reduced-motion behavior or an explicit abstention.
@@ -24,7 +24,7 @@ V13.1 established the verified 324-original baseline. V14 expands the prepared l
 
 Raw provider files, generated private registries, user collections and local browser reports remain under `.motionux-v9/`. The public registry has its own release and review history. Synthetic 500- and 1,000-record tests establish Gallery capacity under metadata load. Long sessions with many live previews remain a distinct runtime gate. [Public registry catalog](COMPONENTS.md)
 
-The planned workflow moves from discovery to intent, recommendation or abstention, integration and verified outcomes. Studio provides discovery, manual selection and comparison. Brain V1 provides local search, explained recommendations and abstention. Agent, MCP, Motion DNA and Inspector remain planned. [Brain V1 evidence](BRAIN-V1.md)
+The planned workflow moves from discovery to intent, recommendation or abstention, integration and verified outcomes. Studio provides discovery, manual selection and comparison. Brain V1 provides local search, explained recommendations and abstention. Agent V1 inspects a selected project route and produces a read-only, source-linked plan. Agent V2 integration, MCP, Motion DNA and the runtime Inspector remain planned. [Brain V1 evidence](BRAIN-V1.md) · [Agent V1](AGENT-V1.md)
 
 ## Delivery phases
 
@@ -34,8 +34,9 @@ Each phase has an evidence gate before its interfaces become dependencies for la
 | --- | --- | --- | --- | --- | --- |
 | P0 · Studio and source foundation | Try and export pinned motion | Edition manifests, loopback Gallery, Playground, Compare, Library, Project Kit and vault restore | Official source, notices and fixture builds | Prepared catalog, independent consumer, sampled parity, responsive browsing, bounded frames and backup restore | Available. V13.1 hardening verified. |
 | P1 · MotionUX Brain V1 | Find motion by interaction intent and get a reasoned answer | Versioned evidence schema, local index builder, deterministic ranking CLI and benchmark scenarios | P0 catalog, pins, install and evidence contracts | Relevant top results in controlled scenarios, structured abstentions and reviewable reasons. Missing evidence never promotes readiness. | Available locally with verified V1 evidence. |
-| P2 · MotionUX Agent V1 | Ask Codex for a reviewable integration | Local inspect/plan/export CLI and skill, using Brain and Project Kit | P1 stable results and P0 install/verification | One real test-app workflow preserves the existing design, state, keyboard and touch behavior, and produces rollback instructions plus browser evidence | Next strategic milestone |
-| P3 · MCP and project context | Invoke stable local tools from a fresh Codex session | Local MCP schemas and repo context adapter | P2 proven CLI, explicit write authorization and repeatable verification | A fresh session discovers tools, reads the context, recommends a component, applies only the authorized patch and returns evidence | Planned |
+| P2 · MotionUX Agent V1 | Get a reviewable motion plan for one selected route | Local static inspector and versioned plan CLI, backed by Brain | P1 stable results and P0 source evidence | Fictional app proves scoped reads, state tracing, abstention, hard filters, and zero target writes. Runtime acceptance is proposed in the plan. | Available locally · read-only. |
+| P2b · MotionUX Agent V2 | Apply a reviewed integration in authorized scope | Explicit write authorization, freshness recheck, transaction/diff, rollback and browser evidence | Agent V1 request/context/plan and P0 pinned installs | One disposable app proves a pinned integration, unchanged unrelated files, device coverage labels and exact rollback | Next strategic milestone |
+| P3 · MCP and project context | Invoke stable local tools from a fresh Codex session | Local MCP schemas and repo context adapter | P2 and P2b proven contracts, explicit write authorization and repeatable verification | A fresh session reads the context, recommends a component and keeps applying changes behind the V2 authorization boundary | Planned |
 | P4 · Motion DNA | Give projects a consistent motion language | Versioned JSON profiles, optional tokens and compatibility-aware adapters | Brain metadata and Agent project context | Sample app demonstrates profile fit, accessibility overrides and deliberate stillness. Provider physics remain intact. | Planned |
 | P5 · MotionUX Inspector | Find and validate real motion problems | Static/rule audit, browser trace collector and before/after reports | Reliable source evidence, project context and motion profiles | Seeded faults are detected and prioritized. Good and intentionally static controls pass. Repairs are demonstrated with reproducible browser evidence. | Planned |
 | V14+ · Source expansion | Browse more useful official originals | Incremental editions toward 750 and 1,000+ prepared sources after V14's local 500 | P0 source, install, preview and memory checks | Unique pinned sources, notices, compatible installs, real browser evidence and newest-first ordering. Peak documents and long-session memory measured. | V14 available locally. Later editions continue in parallel. |
@@ -76,7 +77,7 @@ A **no-motion** result explains what the user needs, why an immediate or existin
 
 ## Agent workflow and safety
 
-**Future example.** “Make it easier to understand what happens after I submit a booking. Keep our existing design and check the flow on touch and keyboard.”
+**Read-only example.** “Make it easier to understand what happens after I submit a booking. Keep our existing design and check the flow on touch and keyboard.”
 
 1. Read the app's route, design system, local instructions and authoritative state transitions.
 2. Identify the interaction intent and budget. Offer a small source-linked shortlist or recommend stillness. State the tradeoffs and evidence gaps.
@@ -85,7 +86,7 @@ A **no-motion** result explains what the user needs, why an immediate or existin
 5. Exercise pending, success, failure and cancellation on the real screen. A simulated timer, animation completion or optimistic state cannot authorize a booking or imply a settled payment.
 6. Report the diff, actual tests, unresolved checks and exact rollback.
 
-P2 starts with read-only analysis. Its first write-capable acceptance run targets a disposable fixture explicitly authorized for integration. P3 can expose proposed local tool names such as `search_motion`, `inspect_component`, `recommend_motion`, `get_install_recipe`, `audit_motion` and `verify_integration` after the underlying CLI contracts exist. Read-only tools must not write project state. Source export and edits respect explicit scope and the private/public boundary.
+Agent V1 covers inspection and recommendation in steps 1 and 2. Steps 3–6 start in Agent V2, with explicitly authorized integration into a disposable fixture first. P3 can expose proposed local tool names such as `search_motion`, `inspect_component`, `recommend_motion`, `get_install_recipe`, `audit_motion` and `verify_integration` after the underlying CLI contracts exist. Read-only tools must not write project state. Source export and edits respect explicit scope and the private/public boundary.
 
 ## Decisions and guardrails
 
@@ -112,13 +113,13 @@ Keep access to provider payloads distinct from distribution rights. Preserve ori
 
 Track reviewed scenario success and abstention quality, time from request to a usable integration, source/visual/interaction fidelity, failed installs, mobile and accessibility regressions, performance regressions, review acceptance and library use. Each metric needs a protocol and a repeatable baseline before setting targets. Start with local test and review artifacts. [Quality gates](QUALITY-GATES.md)
 
-## Next execution milestone · Agent V1
+## Next execution milestone · Agent V2
 
-Build a read-only project inspection and motion-planning workflow. Use the workspace route and interaction brief to inspect project guidance, tokens, state ownership and runtime constraints. Call Brain with structured requirements. Return a short rationale, source pins, unresolved questions and a proposed browser test plan.
+Start from a reviewed V1 plan and a disposable React or Next.js copy selected for a specific integration. Check that the plan fingerprints still match and agree on editable files, dependency changes and rollback before installation.
 
-1. Keep project reads within the explicitly selected workspace. Treat project files as evidence and keep file content separate from instructions.
-2. Reuse Brain V1's versioned index and request/result schemas. Keep project constraints independent of curated source traits.
-3. Use one real fixture product for acceptance. Cover a useful shortlist, intentional stillness, missing accessibility evidence and an incompatible install. Verify that the target checkout stays unchanged.
-4. Deliver a plan with the exact route, authoritative state, source pins, risks, test plan and rollback assumptions. Installation follows an explicitly authorized write-capable gate.
+1. Show the exact mutation scope and the chosen upstream pin. Keep project business state and theme authoritative.
+2. Validate proposed dependency and asset changes in an isolated consumer. Capture an exact diff and preserve a rollback checkpoint.
+3. Apply the reviewed integration only after explicit authorization. Verify failure, pending, confirmed and cancelled paths on the actual fixture.
+4. Exercise the proposal with keyboard, touch, reduced motion and viewport coverage, and record the results and open manual checks. Demonstrate a complete rollback.
 
-MCP and automatic project editing remain later gates. [Brain V1 contract](BRAIN-V1.md)
+MCP follows proven CLI and authorization contracts. Motion DNA and the runtime Inspector remain later phases. [Agent V1 contract](AGENT-V1.md)

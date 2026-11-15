@@ -37,17 +37,17 @@ An animation can clarify where you are, confirm an action, or help you follow a 
 | --- | --- | --- |
 | **Studio** | Available locally | Discover, try, compare and collect pinned implementations. |
 | **Brain** | Available locally | Search in Turkish and English, review evidence, and choose stillness when it fits. |
-| **Agent** | Planned | Help Codex scope, integrate and verify an interaction. Local MCP tooling follows the CLI. |
+| **Agent** | Available locally · read-only | Inspect a selected route and get a source-linked motion plan, risks and proposed tests. |
 | **Motion DNA** | Planned | Record how motion should feel and behave in a specific product. |
 | **Inspector** | Planned | Find motion and accessibility issues on real routes and compare evidence before and after. |
 
 Run `npm run brain:index` in a prepared workspace to search or ask for a recommendation. [Brain V1 CLI and evidence](docs/BRAIN-V1.md)
 
-**Future Agent workflow concept**
+**Ask Agent for a motion plan**
 
-> Review our booking flow. Find calm motion that makes the next step clearer and fits our design language. Use an original component if it helps. Check touch, keyboard, reduced motion and performance on the real screen.
+> Review our booking confirmation screen. Suggest calm feedback that fits the design and reflects the actual reservation status. Include what we should verify before integrating it.
 
-[Read the product roadmap](docs/ROADMAP.md)
+[Agent V1 quick start](docs/AGENT-V1.md) · [Read the product roadmap](docs/ROADMAP.md)
 
 ## Get started
 

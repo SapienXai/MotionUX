@@ -80,6 +80,8 @@ export function ProjectTabs() {
 
 ## Use with Codex
 
+Use the [Agent V1 CLI](AGENT-V1.md) for evidence-backed planning on a selected route. It inspects source, produces an integration proposal and keeps the target read-only.
+
 Copy the [`sapienx-motion-system` skill folder](../skills/sapienx-motion-system) into `~/.agents/skills/` and start a new Codex session. Give it a real interaction to work on.
 
 > Use $sapienx-motion-system to add a keyboard-accessible room details disclosure. Keep the hotel’s existing theme. Inspect the pinned MotionUX component before installing it.

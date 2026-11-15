@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/request.v1.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "project": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "route": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 320
+    },
+    "file": {
+      "type": "string",
+      "maxLength": 320,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\x00-\\x1f\\\\]+$"
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1800
+    },
+    "requirements": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "const": "read-only"
+        },
+        "platform": {
+          "enum": [
+            "mobile",
+            "desktop",
+            "web",
+            "any"
+          ]
+        },
+        "maxRecommendations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "support": {
+          "$ref": "https://motionux.local/schemas/brain/request.v1.json#/properties/require/properties/support"
+        },
+        "integrationKind": {
+          "enum": [
+            "react",
+            "html-iframe"
+          ]
+        },
+        "nativeProps": {
+          "type": "boolean"
+        },
+        "maxPerformanceCost": {
+          "enum": [
+            "low",
+            "moderate",
+            "high"
+          ]
+        },
+        "motion": {
+          "enum": [
+            "still",
+            "allow"
+          ]
+        },
+        "state": {
+          "enum": [
+            "pending",
+            "success",
+            "error",
+            "unchanged"
+          ]
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "project",
+    "goal"
+  ],
+  "additionalProperties": false,
+  "not": {
+    "required": [
+      "route",
+      "file"
+    ]
+  }
+}

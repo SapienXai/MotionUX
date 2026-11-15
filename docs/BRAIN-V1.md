@@ -70,4 +70,4 @@ Detailed reports live under `.motionux-v9/evidence/brain-v1/`. `npm run test:bra
 
 ## Next handoff
 
-**Agent V1** starts with read-only project inspection and a reviewable motion plan. It can import Brain to retrieve intent-ranked options and proof for a real route. MCP, application edits and automated installation remain later gates. [Roadmap](ROADMAP.md)
+**Agent V1** uses Brain to retrieve intent-ranked options and source evidence for a selected route. The local tool emits a reviewable, read-only motion plan. Application edits and installation are Agent V2 milestones. [Agent V1](AGENT-V1.md) · [Roadmap](ROADMAP.md)

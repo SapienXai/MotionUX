@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "project": "./fixtures/agent/booking-demo",
+  "route": "/bookings/confirmation",
+  "goal": "Rezervasyonun tamamlandığını sakin ve anlaşılır biçimde göstermek istiyorum.",
+  "requirements": { "mode": "read-only", "platform": "mobile", "integrationKind": "react", "state": "success", "maxRecommendations": 3 }
+}

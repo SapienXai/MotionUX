@@ -1,0 +1,506 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/context.v1.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "status": {
+      "enum": [
+        "inspected",
+        "partial-inspection",
+        "need-more-context"
+      ]
+    },
+    "mode": {
+      "const": "read-only"
+    },
+    "target": {
+      "$ref": "#/$defs/target"
+    },
+    "choices": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 320,
+        "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\x00-\\x1f\\\\]+$"
+      },
+      "minItems": 0,
+      "maxItems": 12,
+      "uniqueItems": true
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/file"
+      },
+      "minItems": 0,
+      "maxItems": 48
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/citation"
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/fact"
+      },
+      "minItems": 0,
+      "maxItems": 240
+    },
+    "stateOwnership": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ownership"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "minItems": 0,
+      "maxItems": 24,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "status",
+    "mode",
+    "target",
+    "choices",
+    "files",
+    "evidence",
+    "observations",
+    "stateOwnership",
+    "unknowns"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "pointer": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^ref-[0-9a-f]{16}$"
+      },
+      "minItems": 0,
+      "maxItems": 12,
+      "uniqueItems": true
+    },
+    "path": {
+      "type": "string",
+      "maxLength": 320,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\x00-\\x1f\\\\]+$"
+    },
+    "ownership": {
+      "type": "object",
+      "properties": {
+        "phase": {
+          "enum": [
+            "pending",
+            "success",
+            "failure",
+            "cancellation"
+          ]
+        },
+        "owner": {
+          "enum": [
+            "server",
+            "api",
+            "local-ui",
+            "unknown"
+          ]
+        },
+        "status": {
+          "enum": [
+            "observed",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ref-[0-9a-f]{16}$"
+          },
+          "minItems": 0,
+          "maxItems": 12,
+          "uniqueItems": true
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 350
+        }
+      },
+      "required": [
+        "phase",
+        "owner",
+        "status",
+        "evidence",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "citation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ref-[0-9a-f]{16}$"
+        },
+        "path": {
+          "type": "string",
+          "maxLength": 320,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\x00-\\x1f\\\\]+$"
+        },
+        "startLine": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "endLine": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "id",
+        "path",
+        "startLine",
+        "endLine",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "maxLength": 320,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\x00-\\x1f\\\\]+$"
+        },
+        "hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 98304
+        }
+      },
+      "required": [
+        "path",
+        "hash",
+        "bytes"
+      ],
+      "additionalProperties": false
+    },
+    "fact": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "framework",
+            "dependency",
+            "alias",
+            "guidance",
+            "boundary",
+            "component",
+            "interaction",
+            "handler",
+            "state",
+            "motion",
+            "theme",
+            "asset"
+          ]
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "status": {
+          "enum": [
+            "observed",
+            "inferred",
+            "unknown",
+            "blocked"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ref-[0-9a-f]{16}$"
+          },
+          "minItems": 0,
+          "maxItems": 12,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "code",
+        "status",
+        "value",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "probes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "directoryEntries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "filesConsidered": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "bytesRead": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "importsSeen": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "importsTraversed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "maxDepth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "filesRead": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "path": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 320,
+                    "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\x00-\\x1f\\\\]+$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "reason",
+              "path"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "probes",
+        "directoryEntries",
+        "filesConsidered",
+        "bytesRead",
+        "importsSeen",
+        "importsTraversed",
+        "maxDepth",
+        "filesRead",
+        "issues"
+      ],
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "route": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 320
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 320,
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\x00-\\x1f\\\\]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceKind": {
+          "anyOf": [
+            {
+              "enum": [
+                "app-router",
+                "pages-router",
+                "react-entry",
+                "component"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "layouts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 320,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\x00-\\x1f\\\\]+$"
+          },
+          "minItems": 0,
+          "maxItems": 48,
+          "uniqueItems": true
+        },
+        "dynamicSegments": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 85
+          },
+          "minItems": 0,
+          "maxItems": 12
+        },
+        "framework": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "enum": [
+                "next",
+                "react",
+                "unknown"
+              ]
+            },
+            "next": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "react": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tailwind": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "name",
+            "next",
+            "react",
+            "tailwind"
+          ],
+          "additionalProperties": false
+        },
+        "projectFingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "coverage": {
+          "$ref": "#/$defs/coverage"
+        }
+      },
+      "required": [
+        "route",
+        "source",
+        "sourceKind",
+        "layouts",
+        "dynamicSegments",
+        "framework",
+        "projectFingerprint",
+        "coverage"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
