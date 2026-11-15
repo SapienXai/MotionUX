@@ -3,6 +3,7 @@
 ## Unreleased · Studio V9
 
 - Added the private source workspace, official source capture, provider provenance and a three-lane comparison with independent shadcn installation. [V9 guide](docs/V9-ORIGINAL-SOURCE-ENGINE.md)
+- Verified original and installed mounts for all 82 references and 58 additional sources. Added lazy live browsing, pilot pixel overlays and native input evidence. [Import ledger](metadata/v9-import-ledger.json)
 
 ## Unreleased · Studio V8
 

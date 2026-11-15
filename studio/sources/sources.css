@@ -16,4 +16,12 @@
 .mx-source-inspector :where(pre, p) { overflow-wrap: anywhere; }
 .mx-source-inspector pre { overflow: auto; max-block-size: 26rem; white-space: pre; padding: 12px; border: 1px solid var(--line); }
 .mx-source-lab details { margin-block: 12px; }
+.mx-source-live-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 10px; }
+.mx-source-live-card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.mx-source-live-stage { block-size: 360px; background: var(--canvas); }
+.mx-source-live-card a { display: grid; gap: 4px; padding: 10px 12px; color: var(--ink); text-decoration: none; }
+.mx-source-live-card a:hover { background: var(--active); }
+.mx-source-live-card a span { color: var(--muted); font-size: .87rem; }
+.mx-source-evidence { display: inline-grid; gap: 6px; vertical-align: top; margin: 10px 10px 10px 0; max-inline-size: min(100%,440px); }
+.mx-source-evidence img { display: block; inline-size: 100%; block-size: auto; }
 @media (max-width: 1023px) { .mx-source-comparison { grid-template-columns: minmax(0, 1fr); } }

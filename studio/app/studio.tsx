@@ -39,7 +39,7 @@ export default function Studio() {
   const platformReduced = useReducedMotion() === true;
   const item = references.find(entry => entry.id === route.item);
   const items = visibleItems(route);
-  const originals = useLocalSources();
+  const { originals, loading: awaitingOriginals } = useLocalSources();
   function navigate(next: Route, replace = false) {
     if (route.page === "gallery" && next.page === "playground") { scroll.current = window.scrollY; selectedCard.current = next.item; }
     const href = hrefFor(next);
@@ -91,7 +91,7 @@ export default function Studio() {
   return <div className="mx-studio" data-scheme={scheme}>
     <Shell route={route} navigate={navigate} updateQuery={setQuery} scheme={scheme} toggleScheme={toggleScheme} reduced={platformReduced} lastItem={lastItem}>
       <div className={`mx-view mx-view-${route.page}`} key={route.page} data-entering={entered || undefined}>
-        {route.page === "gallery" ? <Gallery items={items} originals={originals} openSource={openSource} route={route} open={open} reduced={platformReduced} clear={clear} scheme={scheme} selectCategory={category => navigate({ ...route, category })} /> :
+        {route.page === "gallery" ? <Gallery items={items} originals={originals} awaitingOriginals={awaitingOriginals} openSource={openSource} route={route} open={open} reduced={platformReduced} clear={clear} scheme={scheme} selectCategory={category => navigate({ ...route, category })} /> :
           route.page === "components" ? <Components items={items} route={route} open={open} clear={clear} /> :
           route.page === "guides" ? <Guides /> : route.page === "examples" ? <Examples route={route} open={open} /> :
           route.page === "sources" ? <Suspense fallback={<PreviewLoading />}><SourceLab originals={originals} route={route} scheme={scheme} navigate={navigate} /></Suspense> :

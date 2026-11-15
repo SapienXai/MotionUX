@@ -33,11 +33,15 @@ async function smoke() {
           const nested = item.format === "html" && lane === "installed";
           const selected = nested ? page.frameLocator("iframe") : page;
           const scope = selected.locator(item.format === "html" ? "body" : item.group === "designbookmark" ? "#root" : "#specimen");
-          await expect(scope).toBeVisible({ timeout: 4000 });
+          await expect(scope).toBeAttached({ timeout: 4000 });
           await expect.poll(() => scope.evaluate(node => ({
             children: node.querySelectorAll("*").length, interactive: node.querySelectorAll("button, input, [tabindex], [role]").length,
-            visibleOutput: [...node.querySelectorAll("*")].some(element =>
-              element.getClientRects().length > 0 && !["SCRIPT", "STYLE", "LINK"].includes(element.tagName)),
+            visibleOutput: [...node.querySelectorAll("*")].some(element => {
+              if (["SCRIPT", "STYLE", "LINK"].includes(element.tagName)) return false;
+              const box = element.getBoundingClientRect();
+              return box.width > 1 && box.height > 1 && box.bottom > 0 && box.right > 0 &&
+                box.top < innerHeight && box.left < innerWidth && getComputedStyle(element).visibility === "visible";
+            }),
           })), { timeout: 3000 }).toMatchObject({ visibleOutput: true });
           return { lane, mounted: errors.length === 0, errors };
         } catch (error) {

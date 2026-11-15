@@ -38,3 +38,14 @@ test("the private vault is excluded from Vite file access and Git", async () => 
   const registry = await readFile(new URL("../registry.json", import.meta.url), "utf8");
   assert.doesNotMatch(registry, /\.motionux-v9|\/v9\/registry\//);
 });
+
+test("the import ledger checks distinct sources without marking partial coverage accepted", async () => {
+  const [ledger, inventory] = await Promise.all([json("metadata/v9-import-ledger.json"), json("metadata/v9-reference.json")]);
+  const references = ledger.items.filter(item => item.referenceId).map(item => item.referenceId).sort();
+  assert.deepEqual(references, inventory.items.map(item => item.id).sort());
+  const installed = ledger.items.filter(item => item.publication === "private-workspace");
+  assert.equal(new Set(installed.map(item => item.upstreamHash)).size, installed.length);
+  assert.ok(installed.every(item => /^[a-f0-9]{64}$/.test(item.upstreamHash)));
+  assert.equal(ledger.counts.mountedInBoth, installed.filter(item => item.verified.originalAndInstalledMount).length);
+  assert.equal(ledger.counts.accepted, ledger.items.filter(item => item.state === "accepted").length);
+});

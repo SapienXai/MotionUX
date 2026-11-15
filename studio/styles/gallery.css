@@ -43,5 +43,7 @@
   .mx-gallery-header { margin-block-end: 16px; }
 }
 @media (max-width: 767px) {
+  .mx-gallery-filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; font-size-adjust: from-font; }
+  .mx-gallery-filters a { flex: none; }
   .mx-gallery-filters a { padding-inline: 9px; }
 }

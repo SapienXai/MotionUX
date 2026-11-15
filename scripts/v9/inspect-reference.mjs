@@ -40,16 +40,30 @@ try {
         text !== previous && /^(?:npx|bunx|pnpm|yarn|npm)\s/.test(text.trim())), before, { timeout: 1700 })
         .then(() => page.evaluate(() => navigator.clipboard.readText()), () => null)
       : null;
-    if (captured !== null) await writeFile(`${directory}/${entry.id}.txt`, captured, { mode: 0o600 });
     const linked = card.links.find(link => /kokonutui\.com|smoothui\.dev/.test(link));
     const hasImplementation = Boolean(captured && (/^\s*(?:import\s|export\s|["']use client["']|<!doctype|<html|<div|<style)/im.test(captured)
       || /\bfunction\b[^{]*\([^\n]*\)\s*\{/.test(captured)));
     const observed = captured === null ? "clipboard-unavailable" : hasImplementation ? "code-payload" :
       /^(?:npx|bunx|pnpm|yarn|npm)\s/m.test(captured.trim()) ? "install-command" : "text-or-instructions";
-    results.push({ id: entry.id, observed, reference: page.url() + "#" + card.domId, upstream: linked, sourceURL: copy?.url(), bytes: captured === null ? undefined : Buffer.byteLength(captured),
-      sha256: captured === null ? undefined : createHash("sha256").update(captured).digest("hex") });
+    const sha256 = captured === null ? undefined : createHash("sha256").update(captured).digest("hex");
+    const snapshot = sha256 ? `snapshots/${sha256}/${entry.id}.txt` : undefined;
+    if (snapshot) {
+      await mkdir(`${directory}/snapshots/${sha256}`, { recursive: true, mode: 0o700 });
+      try { await writeFile(directory + "/" + snapshot, captured, { mode: 0o600, flag: "wx" }); }
+      catch (error) { if (error.code !== "EEXIST") throw error; }
+    }
+    results.push({ id: entry.id, observed, reference: page.url() + "#" + card.domId, upstream: linked, sourceURL: copy?.url(),
+      bytes: captured === null ? undefined : Buffer.byteLength(captured), sha256, snapshot });
   }
-  await writeFile(`${directory}/inspection.json`, JSON.stringify({ url: page.url(), results }, null, 2) + "\n");
+  const prior = await readFile(`${directory}/inspection.json`, "utf8").then(JSON.parse, error => {
+    if (error.code !== "ENOENT") throw error;
+    return null;
+  });
+  const priorSources = new Map(prior?.results.filter(row => row.sourceURL).map(row => [row.id, row.sha256]));
+  const changed = results.filter(row => priorSources.has(row.id) && priorSources.get(row.id) !== row.sha256).map(row => row.id);
+  const file = changed.length && !process.argv.includes("--adopt-refresh") ? "inspection.pending.json" : "inspection.json";
+  await writeFile(`${directory}/${file}`, JSON.stringify({ url: page.url(), results, changed }, null, 2) + "\n");
+  if (file === "inspection.pending.json") console.log("Updated source snapshots need review:", changed.join(", "));
   console.log(results.reduce((counts, result) => ({ ...counts, [result.observed]: (counts[result.observed] ?? 0) + 1 }), {}));
 } finally {
   await browser.close();

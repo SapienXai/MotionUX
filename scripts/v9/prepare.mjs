@@ -13,7 +13,6 @@ const json = data => JSON.stringify(data, null, 2) + "\n";
 const baseDependencies = { vite: "8.3.8", tailwindcss: "4.3.0", "@tailwindcss/postcss": "4.3.0", postcss: "8.5.16" };
 const args = process.argv.slice(2);
 const selected = args.filter(arg => arg !== "--pilot");
-if (selected.some(id => !(id in sources))) throw new Error("Unknown provider. Use kokonut or smoothui.");
 
 function run(command, args, cwd, capture = false) {
   return execFileSync(command, args, { cwd, encoding: "utf8", maxBuffer: 16 * 1024 * 1024,
@@ -39,14 +38,15 @@ async function pinnedCheckout(id, spec) {
 }
 
 if (!args.includes("--pilot")) extendSources(JSON.parse(await readFile("metadata/v9-provider-candidates.json", "utf8")));
+if (selected.some(id => !Object.hasOwn(sources, id))) throw new Error("Unknown provider: " + selected.join(", "));
 const projects = Object.entries(sources).filter(([id]) => !selected.length || selected.includes(id));
 await mkdir(resolve(vault, "upstream"), { recursive: true });
 await Promise.all(projects.map(([id, provider]) => prepareProvider(id, provider)));
 
 async function prepareProvider(id, provider) {
   const source = await pinnedCheckout(id, provider);
-  const css = source(provider.css);
-  const license = source("LICENSE");
+  const css = provider.css ? source(provider.css) : "";
+  const license = provider.license === null ? null : source(provider.license ?? "LICENSE");
   const base = resolve(vault, "runtime", id);
   const original = resolve(base, "original");
   const consumer = resolve(base, "installed");
@@ -55,19 +55,44 @@ async function prepareProvider(id, provider) {
   }));
   const output = [];
   for (const item of provider.items) {
-    const origin = originalEntry(id, item.slug);
-    const target = destination(id, item.slug);
+    const origin = item.original ?? originalEntry(id, item.slug);
+    const target = item.target ?? destination(id, item.slug);
     const code = source(origin);
     const styleTarget = "upstream.css";
-    const demoPath = id === "smoothui" ? "apps/docs/examples/" + item.slug + ".tsx" : origin;
-    const demo = id === "smoothui" ? source(demoPath) : `export { default } from "@/${target.replace(/\.tsx$/, "")}";\n`;
+    const demoPath = item.example ?? (id === "smoothui" ? "apps/docs/examples/" + item.slug + ".tsx" : null);
+    const example = demoPath ? source(demoPath) : null;
+    const exampleFiles = [];
+    let demo = example ?? `export { default } from "@/${target.replace(/\.tsx$/, "")}";\n`;
+    if (example && !/\bexport default\b/.test(example)) {
+      const named = example.match(/\bexport (?:function|const) (\w+)/)?.[1];
+      if (!named) throw new Error("Official example has no known export: " + demoPath);
+      const upstreamDemo = `demos/${item.slug}.upstream.tsx`;
+      exampleFiles.push({ path: upstreamDemo, target: upstreamDemo, content: example, type: "registry:file" });
+      demo = `export { ${named} as default } from "./${item.slug}.upstream";\n`;
+    }
+    if (item.usageSource) {
+      const usage = source(item.usageSource).match(/usage:\s*`([\s\S]*?)`,/)?.[1];
+      const jsx = usage?.match(/^<[A-Z]/m)?.index;
+      if (jsx === undefined) throw new Error("Official example JSX absent: " + item.usageSource);
+      const name = target.split("/").at(-1).replace(/\.tsx$/, "");
+      const declarations = usage.slice(0, jsx).replace(/^import[^\n]+\n/m, "").trim();
+      demo = `import ${name} from "@/${target.replace(/\.tsx$/, "")}";\n${declarations}\nexport default function Demo() { return (\n${usage.slice(jsx).trim().replace(/;\s*$/, "")}\n); }\n`;
+    }
     const demoTarget = `demos/${item.slug}.tsx`;
     const licenseTarget = `notices/${id}.txt`;
     const component = { path: target, target, content: code, type: "registry:file" };
-    const relevantSupport = shared.filter(file => !file.path.includes("/ai-core/") || item.slug === "siri-orb");
-    const originalFiles = [component, ...relevantSupport, { path: styleTarget, target: styleTarget, content: css, type: "registry:file" },
-      { path: demoTarget, target: demoTarget, content: demo, type: "registry:file" },
-      { path: licenseTarget, target: licenseTarget, content: license, type: "registry:file" }];
+    const relevantSupport = shared.filter(file =>
+      (!file.path.includes("/ai-core/") || item.slug === "siri-orb") &&
+      (!file.path.includes("/smooth-button/") || item.slug === "unlock-face-id") &&
+      (!file.path.startsWith("components/ui/") || item.slug === "liquid-glass-card"));
+    const localStyles = [...code.matchAll(/import ["']\.\/([^"']+\.css)["']/g)].map(([, name]) => {
+      const path = dirname(target) + "/" + name;
+      return { path, target: path, content: source(dirname(origin) + "/" + name), type: "registry:file" };
+    });
+    const originalFiles = [component, ...relevantSupport, ...exampleFiles, ...localStyles,
+      { path: demoTarget, target: demoTarget, content: demo, type: "registry:file" }];
+    if (css) originalFiles.push({ path: styleTarget, target: styleTarget, content: css, type: "registry:file" });
+    if (license) originalFiles.push({ path: licenseTarget, target: licenseTarget, content: license, type: "registry:file" });
     const installFiles = originalFiles.map(file => {
       if (id !== "smoothui" || !file.target.endsWith(".tsx")) return file;
       const content = file.content.replaceAll('"@repo/smoothui-utils"', '"@/lib/utils"')
@@ -84,9 +109,9 @@ async function prepareProvider(id, provider) {
     const payloadPath = resolve(vault, "registry", payload.name + ".json");
     await put(payloadPath, json(payload));
     for (const file of originalFiles) await put(resolve(original, file.target), file.content);
-    const demoURL = id === "kokonut" ? `https://kokonutui.com/docs/${item.docs}` : `https://smoothui.dev/docs/components/${item.slug}`;
+    const demoURL = item.demoURL ?? (id === "kokonut" ? `https://kokonutui.com/docs/${item.docs}` : `https://smoothui.dev/docs/components/${item.slug}`);
     const modulePath = "./" + demoTarget.replace(/\.tsx$/, "");
-    const usageImports = (provider.font ? 'import "@fontsource-variable/geist";\n' : "") + `import "./${styleTarget}";\n`;
+    const usageImports = (provider.font ? `import "@fontsource-variable/${provider.font.toLowerCase()}";\n` : "") + (css ? `import "./${styleTarget}";\n` : "");
     const usage = item.scenes ? `import Demo, { demoScenes } from "${modulePath}";\n${usageImports}
 const scene = "";
 export default function Example() {
@@ -97,8 +122,8 @@ export default function Example() {
     output.push({ id: item.galleryId, slug: item.slug, group: id, provider: provider.provider, title: item.title,
       category: item.category, sourceMethod: "pinned-git-source", sourceAvailability: "available-local",
       fidelityStatus: id === "smoothui" ? "source-adapted" : "original-source-running", repo: provider.repo, upstreamCommit: provider.commit, demoURL,
-      sourceURL: `${provider.repo}/blob/${provider.commit}/${origin}`, licenseNoticePath: licenseTarget,
-      upstreamHash: digest(code), entry: target, css: [styleTarget], fonts: provider.font ? [provider.font] : [], assets: [],
+      sourceURL: `${provider.repo}/blob/${provider.commit}/${origin}`, licenseNoticePath: license ? licenseTarget : undefined,
+      upstreamHash: digest(code), entry: target, css: [...(css ? [styleTarget] : []), ...localStyles.map(file => file.path)], fonts: provider.font ? [provider.font] : [], assets: [],
       dependencies: provider.dependencies, scenes: item.scenes ?? [], installRecipe: payloadPath,
       usage,
       codeFiles: originalFiles.map((file, i) => ({ path: file.target, sha256: digest(file.content), installedSHA256: digest(installFiles[i].content) })),
@@ -135,7 +160,7 @@ async function initProject(root, id, provider) {
     name: "motionux-private-" + id, private: true, type: "module",
     scripts: { build: "vite build", typecheck: "tsc --noEmit" },
     dependencies: { ...baseDependencies, ...provider.dependencies },
-    devDependencies: { typescript: "5.9.3", "@types/react": "19.2.14", "@types/react-dom": "19.2.3" },
+    devDependencies: { typescript: "5.9.3", "@types/react": "19.2.14", "@types/react-dom": "19.2.3", ...provider.types },
   });
   const previous = existsSync(packagePath) ? await readFile(packagePath, "utf8") : null;
   await put(packagePath, manifest);
@@ -151,11 +176,11 @@ async function initProject(root, id, provider) {
   await put(resolve(root, "tsconfig.json"), json({ compilerOptions: {
     target: "ES2022", lib: ["ES2022", "DOM", "DOM.Iterable"], module: "ESNext", moduleResolution: "Bundler",
     jsx: "react-jsx", types: ["vite/client"], strict: true, skipLibCheck: true, paths,
-  }, include: ["mount.tsx", "components", "demos", "lib"] }));
+  }, include: ["mount.tsx", "components", "demos", "lib", "registry", "hooks"] }));
   await put(resolve(root, "postcss.config.mjs"), 'export default { plugins: { "@tailwindcss/postcss": {} } };\n');
   await put(resolve(root, "vite.config.mjs"), 'import { defineConfig } from "vite";\nexport default defineConfig({ resolve: { tsconfigPaths: true }, oxc: { jsx: { runtime: "automatic" } }, publicDir: false });\n');
   await put(resolve(root, "index.html"), '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MotionUX original preview</title></head><body><main id="root"></main><script type="module" src="/mount.tsx"></script></body></html>\n');
-  await put(resolve(root, "styles.css"), `@import "./upstream.css";
+  await put(resolve(root, "styles.css"), `${provider.css ? '@import "./upstream.css";' : ""}
 html { min-height: 100%; color-scheme: light; }
 html.dark { color-scheme: dark; }
 body { margin: 0; background: var(--background, var(--color-background, Canvas)); color: var(--foreground, var(--color-foreground, CanvasText)); ${provider.font ? `font-family: "${provider.font} Variable", system-ui, sans-serif;` : ""} }
@@ -165,7 +190,7 @@ body { margin: 0; background: var(--background, var(--color-background, Canvas))
   const loaders = provider.items.map(item => `  "${item.slug}": () => import("./demos/${item.slug}"),`).join("\n");
   await put(resolve(root, "mount.tsx"), `import { createRoot } from "react-dom/client";
 import type { ComponentType } from "react";
-${provider.font ? 'import "@fontsource-variable/geist";' : ""}
+${provider.font ? `import "@fontsource-variable/${provider.font.toLowerCase()}";` : ""}
 import "./styles.css";
 
 const options = new URLSearchParams(location.search);

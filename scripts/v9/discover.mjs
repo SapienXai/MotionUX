@@ -124,7 +124,8 @@ const reactBitsCatalog = report(reactBits, "Pinned registry. One variant per imp
     .filter(item => item.name.endsWith(`-${variant}`) && item.files?.length)
     .map(item => {
       const entryName = item.name.slice(0, -variant.length - 1);
-      const path = [...reactBits.paths].find(path => path.startsWith(`src/${reactBitsSources[variant]}/`) && path.endsWith(`/${item.files[0].path}`));
+      const entry = item.files.find(file => /\.[jt]sx?$/.test(file.path)) ?? item.files[0];
+      const path = [...reactBits.paths].find(path => path.startsWith(`src/${reactBitsSources[variant]}/`) && path.endsWith(`/${entry.path}`));
       const relative = path?.split("/").slice(2, 4).join("/");
       return {
         ...registryCandidate(reactBits, item, {

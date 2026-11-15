@@ -1,0 +1,3042 @@
+{
+  "schemaVersion": 1,
+  "scope": "Public evidence summary. Component files, original demo assets and screenshots stay in the private local workspace. Mounting and sampled behavior are narrower than full V9 acceptance.",
+  "counts": {
+    "localInstallations": 140,
+    "mountedInBoth": 140,
+    "originalReferenceMounts": 82,
+    "additionalMounts": 58,
+    "exactSourceBytes": 102,
+    "minimallyAdapted": 38,
+    "mountFailures": 0,
+    "accepted": 0
+  },
+  "items": [
+    {
+      "id": "designbookmark-bottom-bar",
+      "title": "Bottom bar",
+      "provider": "DesignBookmark",
+      "category": "navigation",
+      "referenceId": "designbookmark-bottom-bar",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-bottom-bar",
+      "upstreamHash": "a600440dc4579856fd0f68cf508a5793816136392917e3ecd0615f025774617c",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/bottom-bar.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-checkbox-list",
+      "title": "Checkbox list",
+      "provider": "DesignBookmark",
+      "category": "inputs",
+      "referenceId": "designbookmark-checkbox-list",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-checkbox-list",
+      "upstreamHash": "09a7e572821091328e28b3add4b451727ba0e27d66e4d2b6f6fa5a415c393b9d",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/checkbox-list.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-command-button",
+      "title": "Command button",
+      "provider": "DesignBookmark",
+      "category": "feedback",
+      "referenceId": "designbookmark-command-button",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-command-button",
+      "upstreamHash": "fbe7d13b2d23af8ed375588c26ea790cd5f7a62c145f190305f329d8c0653dcc",
+      "sourceMethod": "official-copy-code",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "components/designbookmark/command-button.tsx",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-command-palette",
+      "title": "Command palette",
+      "provider": "DesignBookmark",
+      "category": "navigation",
+      "referenceId": "designbookmark-command-palette",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-command-palette",
+      "upstreamHash": "3d000e58adc9f8e68a1337b1b4ef6663ddf9b627c9d0e118eef89d5cd084fbaa",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/command-palette.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-copy-button",
+      "title": "Copy button",
+      "provider": "DesignBookmark",
+      "category": "feedback",
+      "referenceId": "designbookmark-copy-button",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-copy-button",
+      "upstreamHash": "ce19ef9477e7b24c4625de407613ebfb4b41c697bfd5b44731ad302b7b597649",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/copy-button.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-dynamic-menu",
+      "title": "Dynamic menu",
+      "provider": "DesignBookmark",
+      "category": "navigation",
+      "referenceId": "designbookmark-dynamic-menu",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-dynamic-menu",
+      "upstreamHash": "dd0367ceba26da15f89eed69796536aaf40376a61394b6a2c1594a82dad6e6eb",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/dynamic-menu.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-expand-card",
+      "title": "Expand card",
+      "provider": "DesignBookmark",
+      "category": "gestures",
+      "referenceId": "designbookmark-expand-card",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-expand-card",
+      "upstreamHash": "abd0db4de844fd79eb3cb3477653c99e2464359e44b376960deae4aaae7234a3",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/expand-card.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-fan-cards",
+      "title": "Fan cards",
+      "provider": "DesignBookmark",
+      "category": "gestures",
+      "referenceId": "designbookmark-fan-cards",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-fan-cards",
+      "upstreamHash": "bf3e9316b90a85787f1b65874e5127e90c0d9f4fad1879957f646bfe8065008d",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/fan-cards.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-file-drop",
+      "title": "File drop",
+      "provider": "DesignBookmark",
+      "category": "inputs",
+      "referenceId": "designbookmark-file-drop",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-file-drop",
+      "upstreamHash": "36e0326a88eb328e56e8b38629a76075c66f416310b20f40d5651775cb311977",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/file-drop.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-ghost-suggestion",
+      "title": "Ghost suggestion",
+      "provider": "DesignBookmark",
+      "category": "ai",
+      "referenceId": "designbookmark-ghost-suggestion",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-ghost-suggestion",
+      "upstreamHash": "8862e6ad3a7c2389ecf419a863470e1641dda66e4d8a148c2c6f2a1fb45fa8c3",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/ghost-suggestion.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-glass-lens",
+      "title": "Glass lens",
+      "provider": "DesignBookmark",
+      "category": "gestures",
+      "referenceId": "designbookmark-glass-lens",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-glass-lens",
+      "upstreamHash": "0754192133c435723a6883687840816f3cdd49627b42b56cbc4b0b217cdbab41",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/glass-lens.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": [
+          {
+            "scheme": "original",
+            "width": 440,
+            "differentPixels": 23692,
+            "totalPixels": 193600,
+            "interactionCompared": true,
+            "behaviorEqual": true,
+            "error": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "designbookmark-goo-menu",
+      "title": "Goo menu",
+      "provider": "DesignBookmark",
+      "category": "gestures",
+      "referenceId": "designbookmark-goo-menu",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-goo-menu",
+      "upstreamHash": "7847bdba89aa5510f08ccd503eb3976e63296eef4f44fec59cc92b0c1a54c16c",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/goo-menu.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": [
+          {
+            "scheme": "original",
+            "width": 440,
+            "differentPixels": 2,
+            "totalPixels": 193600,
+            "interactionCompared": true,
+            "behaviorEqual": true,
+            "error": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "designbookmark-goo-morph",
+      "title": "Goo morph",
+      "provider": "DesignBookmark",
+      "category": "gestures",
+      "referenceId": "designbookmark-goo-morph",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-goo-morph",
+      "upstreamHash": "e9acc8ca5245cdb2baf4bd33ac9be491c3bb0bcc3398b4e22231668722168023",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/goo-morph.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-goo-thinking",
+      "title": "Goo thinking",
+      "provider": "DesignBookmark",
+      "category": "feedback",
+      "referenceId": "designbookmark-goo-thinking",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-goo-thinking",
+      "upstreamHash": "212427b2c16caa9245e2274fef52a79f3b0ce3db8588aeb795bbdebd241aad2e",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/goo-thinking.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-hold-to-publish",
+      "title": "Hold to publish",
+      "provider": "DesignBookmark",
+      "category": "feedback",
+      "referenceId": "designbookmark-hold-to-publish",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-hold-button",
+      "upstreamHash": "752e8d013425ff0bd09ca81fea06b937052502ca59a6ae5e7f8975fc4f4317ad",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/hold-to-publish.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-jelly-slider",
+      "title": "Jelly slider",
+      "provider": "DesignBookmark",
+      "category": "inputs",
+      "referenceId": "designbookmark-jelly-slider",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-jelly-slider",
+      "upstreamHash": "75d630aa6f6cedad725e79ff30243832aa369692f92e7a3366e5b5d06c3a3f48",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/jelly-slider.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-letter-limit",
+      "title": "Letter limit",
+      "provider": "DesignBookmark",
+      "category": "inputs",
+      "referenceId": "designbookmark-letter-limit",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-letter-limit",
+      "upstreamHash": "806c5b79b942cc42f3e3f1d019e9f84bbeb5557f2af4062cc45be40c17f7fdc3",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/letter-limit.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-like-burst",
+      "title": "Like burst",
+      "provider": "DesignBookmark",
+      "category": "feedback",
+      "referenceId": "designbookmark-like-burst",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-like-burst",
+      "upstreamHash": "c3a8712428bdd8d0caf37c074f2f659161f744a25f818f30063ee8104dec21c5",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/like-burst.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-loading-to-success",
+      "title": "Loading to success",
+      "provider": "DesignBookmark",
+      "category": "feedback",
+      "referenceId": "designbookmark-loading-to-success",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-loading-success",
+      "upstreamHash": "a7984b6e0c87dcd46b3169989de7063ca65d795c818017f4ea7837b4bcb4e4ff",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/loading-to-success.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-magnetic-button",
+      "title": "Magnetic button",
+      "provider": "DesignBookmark",
+      "category": "feedback",
+      "referenceId": "designbookmark-magnetic-button",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-magnetic-button",
+      "upstreamHash": "a14a3554aff55629ae0adb5bf2bff5971b81ddd1c710219daba58ce5ce8ce07d",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/magnetic-button.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-morph-island",
+      "title": "Morph island",
+      "provider": "DesignBookmark",
+      "category": "gestures",
+      "referenceId": "designbookmark-morph-island",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-morph-island",
+      "upstreamHash": "c4a93fd6ba6066bcdb543d97ac21069df9742d54346f6bd8bff6172c3da840bc",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/morph-island.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": [
+          {
+            "scheme": "original",
+            "width": 440,
+            "differentPixels": 0,
+            "totalPixels": 193600,
+            "interactionCompared": true,
+            "behaviorEqual": true,
+            "error": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "designbookmark-morph-tooltip",
+      "title": "Morph tooltip",
+      "provider": "DesignBookmark",
+      "category": "navigation",
+      "referenceId": "designbookmark-morph-tooltip",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-morph-tooltip",
+      "upstreamHash": "04830340b112e1dbb4bd1817abb42a6dea16e32781919e220927386242831805",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/morph-tooltip.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-number-stepper",
+      "title": "Number stepper",
+      "provider": "DesignBookmark",
+      "category": "inputs",
+      "referenceId": "designbookmark-number-stepper",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-number-stepper",
+      "upstreamHash": "37412f991895ec40b7ac3ead31b001797e0e1176e48454754b31775e30c48501",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/number-stepper.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-otp-code",
+      "title": "OTP code",
+      "provider": "DesignBookmark",
+      "category": "inputs",
+      "referenceId": "designbookmark-otp-code",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-otp-code",
+      "upstreamHash": "8e2e92ba764cffc96fca91b1387f4e8466b373ffb772ddda254f8e6fe0331af3",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/otp-code.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-pagination-dots",
+      "title": "Pagination dots",
+      "provider": "DesignBookmark",
+      "category": "navigation",
+      "referenceId": "designbookmark-pagination-dots",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-pagination-dots",
+      "upstreamHash": "5e4f1aa7c6c1a0213fe9791cce9b3894e3fe5dfcdeffcb0ebee68f18b5d4be5c",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/pagination-dots.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-parallax-ticket",
+      "title": "Parallax ticket",
+      "provider": "DesignBookmark",
+      "category": "gestures",
+      "referenceId": "designbookmark-parallax-ticket",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-parallax-ticket",
+      "upstreamHash": "ba99c35271a94306f3c735d08fac3eab7f3035fdd859c578810c00fda7095d60",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/parallax-ticket.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-password-strength",
+      "title": "Password strength",
+      "provider": "DesignBookmark",
+      "category": "inputs",
+      "referenceId": "designbookmark-password-strength",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-password-strength",
+      "upstreamHash": "cb100fb20e6a54c427cc039b8f82a244b366166b9391153fa364ef529fc1bd5b",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/password-strength.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-plan-switch",
+      "title": "Plan switch",
+      "provider": "DesignBookmark",
+      "category": "feedback",
+      "referenceId": "designbookmark-plan-switch",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-plan-switch",
+      "upstreamHash": "e349989db70d39ad10adf574a5fa662bc131e6c47ff5371bb42b68296f3c29f1",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/plan-switch.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-profile-card",
+      "title": "Profile card",
+      "provider": "DesignBookmark",
+      "category": "gestures",
+      "referenceId": "designbookmark-profile-card",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-profile-card",
+      "upstreamHash": "9e5b446e991a887a24f2e62ad0f8dea2377b18bb95cceccf78b83dc4f561b390",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/profile-card.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-prompt-box",
+      "title": "Prompt box",
+      "provider": "DesignBookmark",
+      "category": "ai",
+      "referenceId": "designbookmark-prompt-box",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-prompt-box",
+      "upstreamHash": "f5a1fa637d4ef79aa2d09c85a3f16aad1f25c1a121afbf3201973e46a09e2806",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/prompt-box.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-pull-cord",
+      "title": "Pull cord",
+      "provider": "DesignBookmark",
+      "category": "navigation",
+      "referenceId": "designbookmark-pull-cord",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-pull-cord",
+      "upstreamHash": "0a2c0dd7712d127eb17ac234f229c219c1ed7f343511d9bb762cbe219b7c3210",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/pull-cord.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-pull-to-refresh",
+      "title": "Pull to refresh",
+      "provider": "DesignBookmark",
+      "category": "gestures",
+      "referenceId": "designbookmark-pull-to-refresh",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-pull-refresh",
+      "upstreamHash": "ca7d6be578f374a3ab653e6d31b9e6067e2b589564321211ec4956cb4d6512bc",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/pull-to-refresh.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-range-slider",
+      "title": "Range slider",
+      "provider": "DesignBookmark",
+      "category": "inputs",
+      "referenceId": "designbookmark-range-slider",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-range-slider",
+      "upstreamHash": "9433196615d789d749cf5c9dadd797b7b91be669736f62e78804f15bd3486f56",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/range-slider.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-read-along",
+      "title": "Read along",
+      "provider": "DesignBookmark",
+      "category": "text",
+      "referenceId": "designbookmark-read-along",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-read-along",
+      "upstreamHash": "703fa505de27429d80f07aafb86c8f51ccae29b0128708e5dfadb1829f5a4eff",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/read-along.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-roll-links",
+      "title": "Roll links",
+      "provider": "DesignBookmark",
+      "category": "text",
+      "referenceId": "designbookmark-roll-links",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-roll-links",
+      "upstreamHash": "a64267db55ae7b142e91163e812ba19b360ee1b8e494716101d53cd33d76ae6d",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/roll-links.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-rubber-dock",
+      "title": "Rubber dock",
+      "provider": "DesignBookmark",
+      "category": "navigation",
+      "referenceId": "designbookmark-rubber-dock",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-rubber-dock",
+      "upstreamHash": "1ec93f0538e82fdd922fd2eee95067d47caad7e17cb91e1addb284b3b80024d1",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/rubber-dock.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-scramble-text",
+      "title": "Scramble text",
+      "provider": "DesignBookmark",
+      "category": "text",
+      "referenceId": "designbookmark-scramble-text",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-scramble-text",
+      "upstreamHash": "0798f195478a7ec08afd7244d4b6909e37d119672c3c9f904b6927275980b51a",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/scramble-text.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-segmented-control",
+      "title": "Segmented control",
+      "provider": "DesignBookmark",
+      "category": "navigation",
+      "referenceId": "designbookmark-segmented-control",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-segmented-control",
+      "upstreamHash": "64f3aebcfc788f18c195cd41bdf0c45e432679fc7f38b56f00d58ee909be904a",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/segmented-control.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-sidebar-collapse",
+      "title": "Sidebar collapse",
+      "provider": "DesignBookmark",
+      "category": "navigation",
+      "referenceId": "designbookmark-sidebar-collapse",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-sidebar-collapse",
+      "upstreamHash": "37f2f30111aca91840c6a72c70ef4259b15e88ee446ab51ebcaf0eec293731fe",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/sidebar-collapse.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-spring-dropdown",
+      "title": "Spring dropdown",
+      "provider": "DesignBookmark",
+      "category": "navigation",
+      "referenceId": "designbookmark-spring-dropdown",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-spring-dropdown",
+      "upstreamHash": "aa5290dd09f7b09d1a0dd596e53083786ed5383b2ac85f7ea0145f522a0fd66a",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/spring-dropdown.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-springy-input",
+      "title": "Springy input",
+      "provider": "DesignBookmark",
+      "category": "inputs",
+      "referenceId": "designbookmark-springy-input",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-springy-input",
+      "upstreamHash": "f5c6de2c92e6508e0f91b8d48ecbe9d5202cdf42a603a83eaeefe25935dfaca8",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/springy-input.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-star-rating",
+      "title": "Star rating",
+      "provider": "DesignBookmark",
+      "category": "inputs",
+      "referenceId": "designbookmark-star-rating",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-star-rating",
+      "upstreamHash": "2830c3b63835a9985ecbb9d5f26809e8692d7129334aa0f6e24a69a9417a2c6e",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/star-rating.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-stat-card",
+      "title": "Stat card",
+      "provider": "DesignBookmark",
+      "category": "gestures",
+      "referenceId": "designbookmark-stat-card",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-stat-card",
+      "upstreamHash": "2ff35630af1b5108b882218decd3fd67f17152d7b438020586ef56acdc7f9363",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/stat-card.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-step-progress",
+      "title": "Step progress",
+      "provider": "DesignBookmark",
+      "category": "feedback",
+      "referenceId": "designbookmark-step-progress",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-step-progress",
+      "upstreamHash": "1db6d134068c4a08ec8c460aaecd48fffebba435040b768b110568b516f59cc3",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/step-progress.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-streaming-reply",
+      "title": "Streaming reply",
+      "provider": "DesignBookmark",
+      "category": "ai",
+      "referenceId": "designbookmark-streaming-reply",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-streaming-reply",
+      "upstreamHash": "2644e2755b85ddf6bc5c81da7e54188c8160c3dc1defec8603466b0578a2b2d4",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/streaming-reply.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-swipe-deck",
+      "title": "Swipe deck",
+      "provider": "DesignBookmark",
+      "category": "gestures",
+      "referenceId": "designbookmark-swipe-deck",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-swipe-deck",
+      "upstreamHash": "1679678128c249439cb031ac4bfaabe5932d78f5e17cbbd4c13098b09ed2f23b",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/swipe-deck.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": [
+          {
+            "scheme": "original",
+            "width": 440,
+            "differentPixels": 39678,
+            "totalPixels": 193600,
+            "interactionCompared": true,
+            "behaviorEqual": true,
+            "error": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "designbookmark-tab-pill",
+      "title": "Tab pill",
+      "provider": "DesignBookmark",
+      "category": "navigation",
+      "referenceId": "designbookmark-tab-pill",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-tab-pill",
+      "upstreamHash": "01be2bde29713f626de972c321ed4091beabe515a0434ce94f22ecadb5a6f4fb",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/tab-pill.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-tag-input",
+      "title": "Tag input",
+      "provider": "DesignBookmark",
+      "category": "inputs",
+      "referenceId": "designbookmark-tag-input",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-tag-input",
+      "upstreamHash": "ffe474e6485a6a59e9746837081e5855bcd3de518aeb434c417950d8b6fc5888",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/tag-input.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-toggle-switch",
+      "title": "Toggle switch",
+      "provider": "DesignBookmark",
+      "category": "feedback",
+      "referenceId": "designbookmark-toggle-switch",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-toggle-switch",
+      "upstreamHash": "bf8201a009dd9df76d63361376a8de6b650b099288acfcd85fea7e27bc53c238",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/toggle-switch.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-weight-wave",
+      "title": "Weight wave",
+      "provider": "DesignBookmark",
+      "category": "text",
+      "referenceId": "designbookmark-weight-wave",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-weight-wave",
+      "upstreamHash": "b4aebc8ac1896e1d6b07d7c0dedb317f26c37a4af0dd743b1c5e49eb0b5485f9",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/weight-wave.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "designbookmark-word-roll",
+      "title": "Word roll",
+      "provider": "DesignBookmark",
+      "category": "text",
+      "referenceId": "designbookmark-word-roll",
+      "upstreamDemoURL": "https://designbookmark.com/motion#db-word-roll",
+      "upstreamHash": "d4518df7e9e7a9eda00f8d52ca2d724d3fd4304d4e27c8fa6b1451eee21b3cef",
+      "sourceMethod": "official-copy-code",
+      "format": "html",
+      "publication": "private-workspace",
+      "licenseNoticePath": "public/originals/word-roll.html",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-agent-steps",
+      "title": "AI State Loading",
+      "provider": "Kokonut UI",
+      "category": "ai",
+      "referenceId": "kokonut-agent-steps",
+      "upstreamDemoURL": "https://kokonutui.com/docs/ai/ai-loading",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/ai-loading.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "671e6a82878cb96f5dd30dd0c09d573dbcc7a5cc1c29f5a6a728598135642023",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-bell-button",
+      "title": "Bell Button",
+      "provider": "Kokonut UI",
+      "category": "buttons",
+      "referenceId": "kokonut-bell-button",
+      "upstreamDemoURL": "https://kokonutui.com/docs/buttons/bell-button",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/bell-button.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "4fc7ac9d8c60ada59d376ec70a1dd5709d097dc980800bfa8f3d9fcd29666b45",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-boarding-pass",
+      "title": "Boarding Pass",
+      "provider": "Kokonut UI",
+      "category": "cards",
+      "referenceId": "kokonut-boarding-pass",
+      "upstreamDemoURL": "https://kokonutui.com/docs/cards/boarding-pass",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/boarding-pass.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "c7953c82693c26ba6d6e1e11541e2b26493ce94909cfc71335706b38b592f77f",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-card-field",
+      "title": "Card Field",
+      "provider": "Kokonut UI",
+      "category": "inputs",
+      "referenceId": "kokonut-card-field",
+      "upstreamDemoURL": "https://kokonutui.com/docs/inputs/card-field",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/card-field.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "ba48d2354d8493ff1a831bbb0e54f7a8117edc1e137c1c01b18f1daab708f236",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-cart-button",
+      "title": "Cart Button",
+      "provider": "Kokonut UI",
+      "category": "buttons",
+      "referenceId": "kokonut-cart-button",
+      "upstreamDemoURL": "https://kokonutui.com/docs/buttons/cart-button",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/cart-button.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "9646e93ea6f9d956dd31f53538e5814e29c161a4f8be43b334c6de1b836f8974",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-command-button",
+      "title": "Command Button",
+      "provider": "Kokonut UI",
+      "category": "buttons",
+      "referenceId": "kokonut-command-button",
+      "upstreamDemoURL": "https://kokonutui.com/docs/buttons/command-button",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/command-button.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "dd72e9e64ee1359b6e2a03202de80fd26ef6a59b2b93772725d8a4ed6924e0f4",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-detent-dial",
+      "title": "Detent Dial",
+      "provider": "Kokonut UI",
+      "category": "inputs",
+      "referenceId": "kokonut-detent-dial",
+      "upstreamDemoURL": "https://kokonutui.com/docs/inputs/detent-dial",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/detent-dial.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "7cb2fb8f318049478803a310897fcb7fa9812874f4fa17b0eff744a9eafbeec0",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-dynamic-text",
+      "title": "Dynamic Text",
+      "provider": "Kokonut UI",
+      "category": "texts",
+      "referenceId": "kokonut-dynamic-text",
+      "upstreamDemoURL": "https://kokonutui.com/docs/texts/dynamic-text",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/dynamic-text.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "3d52989115bd7578acb29b8a54c3956f18585dd5d8718f883a6b4529628fe3eb",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-glass-player",
+      "title": "Now Playing",
+      "provider": "Kokonut UI",
+      "category": "cards",
+      "referenceId": "kokonut-glass-player",
+      "upstreamDemoURL": "https://kokonutui.com/docs/cards/liquid-glass-card",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/liquid-glass-card.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "343fc98e2ded03f66e30518830bf5e65c3f228cf6bf550985cd0605dc66690ec",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-hold-button",
+      "title": "Hold Button",
+      "provider": "Kokonut UI",
+      "category": "buttons",
+      "referenceId": "kokonut-hold-button",
+      "upstreamDemoURL": "https://kokonutui.com/docs/buttons/hold-button",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/hold-button.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "1ea07be4804361b4b84be43a66ff336ccfb10249352722f17d6aab943a3be571",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-marker-text",
+      "title": "Marker Text",
+      "provider": "Kokonut UI",
+      "category": "texts",
+      "referenceId": "kokonut-marker-text",
+      "upstreamDemoURL": "https://kokonutui.com/docs/texts/marker-text",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/marker-text.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "c340d25f469f143991fc60e78b8abbb9c4ffaec5892e5bb46d60fda48024081b",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-morph-popover",
+      "title": "Morph Popover",
+      "provider": "Kokonut UI",
+      "category": "buttons",
+      "referenceId": "kokonut-morph-popover",
+      "upstreamDemoURL": "https://kokonutui.com/docs/buttons/morph-popover",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/morph-popover.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "9d3b201e93b145ffb13308c8ad1a0d1dc7d9dfc308fc66d0f869cdd390741a17",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-notification-stack",
+      "title": "Notification Stack",
+      "provider": "Kokonut UI",
+      "category": "cards",
+      "referenceId": "kokonut-notification-stack",
+      "upstreamDemoURL": "https://kokonutui.com/docs/cards/notification-stack",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/notification-stack.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "e548662a15b4d9d77621957231bc6ee90f1fd5ccb4c141b5d45c96c5f1c968f8",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-page-flip",
+      "title": "Page Flip",
+      "provider": "Kokonut UI",
+      "category": "cards",
+      "referenceId": "kokonut-page-flip",
+      "upstreamDemoURL": "https://kokonutui.com/docs/cards/page-flip",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/page-flip.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "a5161dfffcf76591475ff960e42a87433095dbfbc946a9720cdf07376336c750",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-signature-pad",
+      "title": "Signature Pad",
+      "provider": "Kokonut UI",
+      "category": "inputs",
+      "referenceId": "kokonut-signature-pad",
+      "upstreamDemoURL": "https://kokonutui.com/docs/inputs/signature-pad",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/signature-pad.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "361c6f35d6fb2b6155d1f3b0d80ccd5c6fabc8fc78b85dd0508c48849886ce45",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-slide-to-confirm",
+      "title": "Slide to Confirm",
+      "provider": "Kokonut UI",
+      "category": "buttons",
+      "referenceId": "kokonut-slide-to-confirm",
+      "upstreamDemoURL": "https://kokonutui.com/docs/buttons/slide-to-confirm",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/slide-to-confirm.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "22d7c6de7738d4213c380fc414e46240332168e5c836dcb5926d06e386716837",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-smooth-tab",
+      "title": "Swipe Tabs",
+      "provider": "Kokonut UI",
+      "category": "Navigation",
+      "referenceId": "kokonut-smooth-tab",
+      "upstreamDemoURL": "https://kokonutui.com/docs/navigation/smooth-tab",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/smooth-tab.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "208d60717174642723193a624864b4323e44d5e29b2ea820be68a4de6991213c",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 9,
+        "initialAriaProfiles": 9,
+        "pixelComparisons": [
+          {
+            "scheme": "light",
+            "width": 440,
+            "differentPixels": 0,
+            "totalPixels": 193600,
+            "interactionCompared": true,
+            "behaviorEqual": true,
+            "error": false
+          },
+          {
+            "scheme": "dark",
+            "width": 440,
+            "differentPixels": 0,
+            "totalPixels": 193600,
+            "interactionCompared": true,
+            "behaviorEqual": true,
+            "error": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "kokonut-stack-panel",
+      "title": "Stack Panel",
+      "provider": "Kokonut UI",
+      "category": "navigation",
+      "referenceId": "kokonut-stack-panel",
+      "upstreamDemoURL": "https://kokonutui.com/docs/navigation/stack-panel",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/stack-panel.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "77a45a4b7edba88d08d74c8ce3565afcef13de0aa0548d363db7fd9849eb2e2c",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-thinking-text",
+      "title": "AI Text Loading",
+      "provider": "Kokonut UI",
+      "category": "ai",
+      "referenceId": "kokonut-thinking-text",
+      "upstreamDemoURL": "https://kokonutui.com/docs/ai/ai-text-loading",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/ai-text-loading.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "cb7d45e671cb4fd8e5051ec394af45ba0186fa0fa0506b2f1611f8be682d9f21",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-tool-approval",
+      "title": "AI Tool Approval",
+      "provider": "Kokonut UI",
+      "category": "ai",
+      "referenceId": "kokonut-tool-approval",
+      "upstreamDemoURL": "https://kokonutui.com/docs/ai/ai-tool-approval",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/ai-tool-approval.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "668742d331cd8ea3b9c4ede9a872ae0cb5bb53843abe84b7a37f6152df7ed3fc",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-toolbar",
+      "title": "Tool Dock",
+      "provider": "Kokonut UI",
+      "category": "navigation",
+      "referenceId": "kokonut-toolbar",
+      "upstreamDemoURL": "https://kokonutui.com/docs/navigation/toolbar",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/toolbar.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "0129b03de6cd889e714f5a7b34b10da216f7874b236c10d8e610d59f6d707551",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-typewriter",
+      "title": "Typing Text",
+      "provider": "Kokonut UI",
+      "category": "texts",
+      "referenceId": "kokonut-typewriter",
+      "upstreamDemoURL": "https://kokonutui.com/docs/texts/type-writer",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/type-writer.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "419c7926a3eb163dee0fd99e5418bb84c0dcbf7afd03cd47b376e9915de8dbb4",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-undo-button",
+      "title": "Undo Button",
+      "provider": "Kokonut UI",
+      "category": "buttons",
+      "referenceId": "kokonut-undo-button",
+      "upstreamDemoURL": "https://kokonutui.com/docs/buttons/undo-button",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/undo-button.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "95d18e0f7dad1f2bc3baf01d6e68c3438f10ab15d0f57324d5a629195c325cb3",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-voice-input",
+      "title": "AI Voice",
+      "provider": "Kokonut UI",
+      "category": "ai",
+      "referenceId": "kokonut-voice-input",
+      "upstreamDemoURL": "https://kokonutui.com/docs/ai/ai-voice",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/ai-voice.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "c255cf783641db0aff351db8793a46308697b52bca1fa8b4a311b729b7cf44d9",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "kokonut-wheel-picker",
+      "title": "Wheel Picker",
+      "provider": "Kokonut UI",
+      "category": "Inputs",
+      "referenceId": "kokonut-wheel-picker",
+      "upstreamDemoURL": "https://kokonutui.com/docs/inputs/wheel-picker",
+      "upstreamSourceURL": "https://github.com/kokonut-labs/kokonutui/blob/d8162dfe2c052a796a74d217b1f06511f213e4e0/components/kokonutui/wheel-picker.tsx",
+      "upstreamCommit": "d8162dfe2c052a796a74d217b1f06511f213e4e0",
+      "upstreamHash": "cde3515ea492971a497ab32a4ef50ea9ddff9f73b248b806b1ddce7237c6c81d",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/kokonut.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 9,
+        "initialAriaProfiles": 9,
+        "pixelComparisons": [
+          {
+            "scheme": "light",
+            "width": 440,
+            "differentPixels": 0,
+            "totalPixels": 193600,
+            "interactionCompared": true,
+            "behaviorEqual": true,
+            "error": false
+          },
+          {
+            "scheme": "dark",
+            "width": 440,
+            "differentPixels": 0,
+            "totalPixels": 193600,
+            "interactionCompared": true,
+            "behaviorEqual": true,
+            "error": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "magicui-animated-beam",
+      "title": "Animated Beam",
+      "provider": "Magic UI",
+      "category": "components",
+      "upstreamDemoURL": "https://magicui.design/docs/components/animated-beam",
+      "upstreamSourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/animated-beam.tsx",
+      "upstreamCommit": "6f7b531e77659855d4bc1bec8e20fdb0c8199b20",
+      "upstreamHash": "6afa2ee1d01694a428eb8517d48deebe5c6b532dc0ee871800bb9d92aae43e79",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/magicui.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "magicui-animated-list",
+      "title": "Animated List",
+      "provider": "Magic UI",
+      "category": "components",
+      "upstreamDemoURL": "https://magicui.design/docs/components/animated-list",
+      "upstreamSourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/animated-list.tsx",
+      "upstreamCommit": "6f7b531e77659855d4bc1bec8e20fdb0c8199b20",
+      "upstreamHash": "9363c5afa61d7aab1919b4500f7325cc8871b35103d5dd60a2a1625fe5e7dc58",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/magicui.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "magicui-animated-shiny-text",
+      "title": "Animated Shiny Text",
+      "provider": "Magic UI",
+      "category": "components",
+      "upstreamDemoURL": "https://magicui.design/docs/components/animated-shiny-text",
+      "upstreamSourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/animated-shiny-text.tsx",
+      "upstreamCommit": "6f7b531e77659855d4bc1bec8e20fdb0c8199b20",
+      "upstreamHash": "3743a0a0b4894840a96bacd839e493872bac484a940684f91fd23a1784c00fbb",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/magicui.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "magicui-interactive-hover-button",
+      "title": "Interactive Hover Button",
+      "provider": "Magic UI",
+      "category": "components",
+      "upstreamDemoURL": "https://magicui.design/docs/components/interactive-hover-button",
+      "upstreamSourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/interactive-hover-button.tsx",
+      "upstreamCommit": "6f7b531e77659855d4bc1bec8e20fdb0c8199b20",
+      "upstreamHash": "ab16b3a2efea7fcc84a0eddeb7dad5304b403f89d22e056427fd3f905baaa0de",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/magicui.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "magicui-number-ticker",
+      "title": "Number Ticker",
+      "provider": "Magic UI",
+      "category": "components",
+      "upstreamDemoURL": "https://magicui.design/docs/components/number-ticker",
+      "upstreamSourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/number-ticker.tsx",
+      "upstreamCommit": "6f7b531e77659855d4bc1bec8e20fdb0c8199b20",
+      "upstreamHash": "0f7dcbc6a1962615a877590304e846f33d390002a51f2226f544938577c220f4",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/magicui.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "magicui-orbiting-circles",
+      "title": "Orbiting Circles",
+      "provider": "Magic UI",
+      "category": "components",
+      "upstreamDemoURL": "https://magicui.design/docs/components/orbiting-circles",
+      "upstreamSourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/orbiting-circles.tsx",
+      "upstreamCommit": "6f7b531e77659855d4bc1bec8e20fdb0c8199b20",
+      "upstreamHash": "859b88b6c22144e5cd4bf04ab49d339090eea13b422d3085a80584e6b9d4da68",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/magicui.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "magicui-ripple-button",
+      "title": "Ripple Button",
+      "provider": "Magic UI",
+      "category": "components",
+      "upstreamDemoURL": "https://magicui.design/docs/components/ripple-button",
+      "upstreamSourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/ripple-button.tsx",
+      "upstreamCommit": "6f7b531e77659855d4bc1bec8e20fdb0c8199b20",
+      "upstreamHash": "446f62f2971876799014f6fab30ee76d03b022de2411c960d491c67b31b353fa",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/magicui.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "magicui-spinning-text",
+      "title": "Spinning Text",
+      "provider": "Magic UI",
+      "category": "components",
+      "upstreamDemoURL": "https://magicui.design/docs/components/spinning-text",
+      "upstreamSourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/spinning-text.tsx",
+      "upstreamCommit": "6f7b531e77659855d4bc1bec8e20fdb0c8199b20",
+      "upstreamHash": "55726f972d09705b0cd10e8739e74afe8d11b7164537554f99905267e456dafa",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/magicui.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "magicui-text-reveal",
+      "title": "Text Reveal",
+      "provider": "Magic UI",
+      "category": "components",
+      "upstreamDemoURL": "https://magicui.design/docs/components/text-reveal",
+      "upstreamSourceURL": "https://github.com/magicuidesign/magicui/blob/6f7b531e77659855d4bc1bec8e20fdb0c8199b20/apps/www/registry/magicui/text-reveal.tsx",
+      "upstreamCommit": "6f7b531e77659855d4bc1bec8e20fdb0c8199b20",
+      "upstreamHash": "af69b435aa66a762af04d7d85b8578627ad9fb6541d01170135756e647d36240",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/magicui.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "motionprimitives-animated-background",
+      "title": "Animated Background",
+      "provider": "Motion Primitives",
+      "category": "primitives",
+      "upstreamDemoURL": "https://motion-primitives.com/docs/animated-background",
+      "upstreamSourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/animated-background.tsx",
+      "upstreamCommit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+      "upstreamHash": "fa592713c408eaf58b21976c20737d84239c42a0b7e47cf9e7843121b1c0852c",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "motionprimitives-animated-number",
+      "title": "Animated Number",
+      "provider": "Motion Primitives",
+      "category": "primitives",
+      "upstreamDemoURL": "https://motion-primitives.com/docs/animated-number",
+      "upstreamSourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/animated-number.tsx",
+      "upstreamCommit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+      "upstreamHash": "3b4a9f3262cb79527fba01a76576e920e340137f0643bf34a7732f7f8b1ff792",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "motionprimitives-border-trail",
+      "title": "Border Trail",
+      "provider": "Motion Primitives",
+      "category": "primitives",
+      "upstreamDemoURL": "https://motion-primitives.com/docs/border-trail",
+      "upstreamSourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/border-trail.tsx",
+      "upstreamCommit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+      "upstreamHash": "6b6334b83c97304c68143a45971fe492aaf24676047d05e4fec13cd42cefe916",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "motionprimitives-infinite-slider",
+      "title": "Infinite Slider",
+      "provider": "Motion Primitives",
+      "category": "primitives",
+      "upstreamDemoURL": "https://motion-primitives.com/docs/infinite-slider",
+      "upstreamSourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/infinite-slider.tsx",
+      "upstreamCommit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+      "upstreamHash": "66bca95cd394826200cca57d9efd1824de9d08df40ecfb7dd5c61946ec6773c0",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "motionprimitives-magnetic",
+      "title": "Magnetic",
+      "provider": "Motion Primitives",
+      "category": "primitives",
+      "upstreamDemoURL": "https://motion-primitives.com/docs/magnetic",
+      "upstreamSourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/magnetic.tsx",
+      "upstreamCommit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+      "upstreamHash": "3fd95392d2c7929336a25e513130c26ae4b57af695fceb01378800cd10522762",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "motionprimitives-morphing-dialog",
+      "title": "Morphing Dialog",
+      "provider": "Motion Primitives",
+      "category": "primitives",
+      "upstreamDemoURL": "https://motion-primitives.com/docs/morphing-dialog",
+      "upstreamSourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/morphing-dialog.tsx",
+      "upstreamCommit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+      "upstreamHash": "3783289015c56be36cd74701468a4d2aa345b48676b7fa12964ace9558e4e33e",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "motionprimitives-spotlight",
+      "title": "Spotlight",
+      "provider": "Motion Primitives",
+      "category": "primitives",
+      "upstreamDemoURL": "https://motion-primitives.com/docs/spotlight",
+      "upstreamSourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/spotlight.tsx",
+      "upstreamCommit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+      "upstreamHash": "04419912db5ebe72a03199a39265a3db33398b3c48c0e854e9fb5be604700041",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "motionprimitives-text-morph",
+      "title": "Text Morph",
+      "provider": "Motion Primitives",
+      "category": "primitives",
+      "upstreamDemoURL": "https://motion-primitives.com/docs/text-morph",
+      "upstreamSourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/text-morph.tsx",
+      "upstreamCommit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+      "upstreamHash": "e3839272d22e1b041378263019d0716a29a8b99656b64eb385b66402698c9294",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "motionprimitives-text-roll",
+      "title": "Text Roll",
+      "provider": "Motion Primitives",
+      "category": "primitives",
+      "upstreamDemoURL": "https://motion-primitives.com/docs/text-roll",
+      "upstreamSourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/text-roll.tsx",
+      "upstreamCommit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+      "upstreamHash": "3b5ff3fea2734bedfe03cfe03561c3e04e5e4f97152ed3e748fb45093b716ca6",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "motionprimitives-transition-panel",
+      "title": "Transition Panel",
+      "provider": "Motion Primitives",
+      "category": "primitives",
+      "upstreamDemoURL": "https://motion-primitives.com/docs/transition-panel",
+      "upstreamSourceURL": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/transition-panel.tsx",
+      "upstreamCommit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+      "upstreamHash": "1b3c67058a09a560a034b7fe52ad1c205b589a63ed80055900e8a66830db0be2",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "reactbits-blur-text",
+      "title": "BlurText",
+      "provider": "React Bits",
+      "category": "TextAnimations",
+      "upstreamDemoURL": "https://reactbits.dev/text-animations/blur-text",
+      "upstreamSourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/BlurText/BlurText.tsx",
+      "upstreamCommit": "cf2801031f07f53d4684e65b961bde7c2e2a6921",
+      "upstreamHash": "ff976389990b9f25376ad491dabd66262913cc574151d54f205fcd4ca05d7ed6",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/reactbits.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "reactbits-decrypted-text",
+      "title": "DecryptedText",
+      "provider": "React Bits",
+      "category": "TextAnimations",
+      "upstreamDemoURL": "https://reactbits.dev/text-animations/decrypted-text",
+      "upstreamSourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/DecryptedText/DecryptedText.tsx",
+      "upstreamCommit": "cf2801031f07f53d4684e65b961bde7c2e2a6921",
+      "upstreamHash": "346c2e4a27404ec6efc5c52fc2fbcaeb38e7e32d1d7c46247b53907632c86804",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/reactbits.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "reactbits-electric-border",
+      "title": "ElectricBorder",
+      "provider": "React Bits",
+      "category": "Animations",
+      "upstreamDemoURL": "https://reactbits.dev/animations/electric-border",
+      "upstreamSourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ElectricBorder/ElectricBorder.tsx",
+      "upstreamCommit": "cf2801031f07f53d4684e65b961bde7c2e2a6921",
+      "upstreamHash": "b5857320056dc0a54590f6e19c23135d37cb3c3b97b3c80960ec60c966620c94",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/reactbits.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "reactbits-glare-hover",
+      "title": "GlareHover",
+      "provider": "React Bits",
+      "category": "Animations",
+      "upstreamDemoURL": "https://reactbits.dev/animations/glare-hover",
+      "upstreamSourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/GlareHover/GlareHover.tsx",
+      "upstreamCommit": "cf2801031f07f53d4684e65b961bde7c2e2a6921",
+      "upstreamHash": "0d9acea382c7a56cebcea377749e2a2fd902088b1a1147e79d87859f225acd51",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/reactbits.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "reactbits-magnet",
+      "title": "Magnet",
+      "provider": "React Bits",
+      "category": "Animations",
+      "upstreamDemoURL": "https://reactbits.dev/animations/magnet",
+      "upstreamSourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/Magnet/Magnet.tsx",
+      "upstreamCommit": "cf2801031f07f53d4684e65b961bde7c2e2a6921",
+      "upstreamHash": "f2f4dcbb666b0323f8ad0c42e8d10cdb954fb69a1c39f9de2a9278b3651f1ab7",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/reactbits.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "reactbits-shiny-text",
+      "title": "ShinyText",
+      "provider": "React Bits",
+      "category": "TextAnimations",
+      "upstreamDemoURL": "https://reactbits.dev/text-animations/shiny-text",
+      "upstreamSourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ShinyText/ShinyText.tsx",
+      "upstreamCommit": "cf2801031f07f53d4684e65b961bde7c2e2a6921",
+      "upstreamHash": "4748b686d55e8fc2b09cb69843c1417e2bf78d0eaac0db368442ea1c258b00b3",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/reactbits.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "reactbits-star-border",
+      "title": "StarBorder",
+      "provider": "React Bits",
+      "category": "Animations",
+      "upstreamDemoURL": "https://reactbits.dev/animations/star-border",
+      "upstreamSourceURL": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/StarBorder/StarBorder.tsx",
+      "upstreamCommit": "cf2801031f07f53d4684e65b961bde7c2e2a6921",
+      "upstreamHash": "f0237c4c1c9bd25669570b53ea05f6aecbe1e128810fd19c275a5d4b913adda1",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/reactbits.txt",
+      "state": "original-source-running",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-exposure-slider",
+      "title": "Exposure Slider",
+      "provider": "SmoothUI",
+      "category": "components",
+      "referenceId": "smoothui-exposure-slider",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/exposure-slider",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/exposure-slider/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "c0242edca130e100ccfd5944f093269a30298a3ccf510e4bf238ff9ac22efc12",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-music-toggle",
+      "title": "Music Toggle",
+      "provider": "SmoothUI",
+      "category": "components",
+      "referenceId": "smoothui-music-toggle",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/music-toggle",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/music-toggle/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "fff2131d21e08162fc815c29dc4d5f814793d7a3ecdbbabb819d8b7b1431c982",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-agent-avatar",
+      "title": "Agent Avatar",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/agent-avatar",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/agent-avatar/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "041e3f5de52ec2d034264ec599a024ca8a1b4aedb606973bceadc6ae041d6d52",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-ai-approval",
+      "title": "AI Approval",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/ai-approval",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/ai-approval/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "6efdeed8db6af9d3dcc6a89c7f35fe4c9438ddfc63e8b001c39e97c505f78ffe",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-ai-context-meter",
+      "title": "AI Context Meter",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/ai-context-meter",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/ai-context-meter/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "385df2a6db6d37fb1c21a8a00e5ef2f880a5255bd7a64b89488078866dc32f77",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-animated-tags",
+      "title": "Animated Tags",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/animated-tags",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/animated-tags/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "ef22108554013dad005d342017c31c0b5f91985b6beb6ffcfe6029e8d9487d1e",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-book",
+      "title": "Book",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/book",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/book/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "6ce7aca6b92f4dd6e628cf1ecbac70a59a99705f4022e487becb415c510f998f",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-contribution-graph",
+      "title": "Contribution Graph",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/contribution-graph",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/contribution-graph/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "365cc09d20a3a4624b53ba632c4e99fcde5e0dd6394765160314b80382fc8514",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-cursor-image-trail",
+      "title": "Cursor Image Trail",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/cursor-image-trail",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/cursor-image-trail/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "cdfd95d3ee0988dfd8d844140ae6fdfddf6f6bcb634976ec812d5cc09f6d7006",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-dither-chart",
+      "title": "Dither Chart",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/dither-chart",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/dither-chart/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "17b8ac47e8a4067b13a1c375af6d4556ee4d825c2588d56e5f2fe06a06c508fd",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-drawing-cursor",
+      "title": "Drawing Cursor",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/drawing-cursor",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/drawing-cursor/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "b44b20fd8df1b6e0b58cdca1d8c09c2508bad2ed3af05f8fad7ad87a37b2c256",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-duration-picker",
+      "title": "Duration Picker",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/duration-picker",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/duration-picker/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "f1c36ea545f803ca147f118b82eb48373678900c5b02b8e32e4fcd60cd562dd0",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-emboss-surface",
+      "title": "Emboss Surface",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/emboss-surface",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/emboss-surface/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "05aac6f89282fba1ab3983514a945ccd55b1872801fb309295e256501e2cb147",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-file-tree",
+      "title": "File Tree",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/file-tree",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/file-tree/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "654a94ffe5a9f65396dc8e400297f9e6a72b38f454d8975e582a85856853e9c5",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-float-input",
+      "title": "Float Input",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/float-input",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/float-input/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "fc198c5c29aa5228caa11212a7f9009354afc0a563ffdc6141c319becb2ab504",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-folder-reveal",
+      "title": "Folder Reveal",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/folder-reveal",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/folder-reveal/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "03ce08a14d3aae7eb57c1ea9d9d2e63bc824aa33a9218c7bbf9eea2ca74d881a",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-glow-hover-card",
+      "title": "Glow Hover Cards",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/glow-hover-card",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/glow-hover-card/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "c994e95965921ce1fcd28b5cdf0a0b59984ec6a76705fee1931df4e1432acd29",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-gravity-letters",
+      "title": "Gravity Letters",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/gravity-letters",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/gravity-letters/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "8aabf6390f9997c2b7eec5854ac76c1cd3718dfb8dd491847553b8726bd64457",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-liquid-metal",
+      "title": "Liquid Metal",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/liquid-metal",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/liquid-metal/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "83f3977f08d2e653fc723a37e4b695cdcacfac415fb13280796ba3b7621eb185",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-mac-terminal",
+      "title": "Mac Terminal",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/mac-terminal",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/mac-terminal/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "1d58944350e8e2ae841c7567908ea324d99f7cc84048424571693d8dc9c3bbe1",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-magnetic-field",
+      "title": "Magnetic Field",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/magnetic-field",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/magnetic-field/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "b08411469617fa17294f673fbaf97762b5dfd2556f525b17a54f69a23cd54054",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-morph-icon",
+      "title": "Morph Icon",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/morph-icon",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/morph-icon/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "9da5f63c61e10ed11d78d69514e3c19926ca56af9292d344f55eb497dfc25939",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-morph-toggle",
+      "title": "Morph Toggle",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/morph-toggle",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/morph-toggle/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "13dafaded528ab7a8f4b005dc3f833ee65cb0cd7b64d16ac4e8c6ccb7c95dff6",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-parallax-layers",
+      "title": "Parallax Layers",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/parallax-layers",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/parallax-layers/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "f926df39cdf6c1e55052052021ca2c1d059f45d686510ff482ca4532400747b3",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-perspective-text-3d",
+      "title": "Perspective Text 3D",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/perspective-text-3d",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/perspective-text-3d/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "8287a98a44a142c95d3931c17d972808999ad7eefd0d0e675e3160d82101b043",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-pixel-brush-canvas",
+      "title": "Pixel Brush Canvas",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/pixel-brush-canvas",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/pixel-brush-canvas/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "83f01fce49d6f39383feb4ba6d2d9d5face406b6346965b61e99913104dae482",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-power-off-slide",
+      "title": "Power Off Slide",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/power-off-slide",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/power-off-slide/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "7e2f2faf4533350314bf9fc80571b3e4dc55dabe691480ffc2f52008ca353380",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-progressive-blur",
+      "title": "Progressive Blur",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/progressive-blur",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/progressive-blur/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "6f0ee3536918039124f1c3fbb90456f787b64c31b8e25ed1258cc91286af6e8a",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-scroll-reveal-paragraph",
+      "title": "Scroll Reveal Paragraph",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/scroll-reveal-paragraph",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/scroll-reveal-paragraph/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "c3b6efcb80323f928a92174ca838a65cec734ce2367673d456404caf540ac75e",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-social-selector",
+      "title": "Social Selector",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/social-selector",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/social-selector/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "a3469f197fd525f44be0f2f9d00a18ea0f2265da6da66a2851f23a68a343eb62",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-squircle",
+      "title": "Squircle",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/squircle",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/squircle/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "781f562bea9044ef3f97355fd8e36b8664e0d78b8634cd8f6abcc29f93f8ad27",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-svg-clip-mask",
+      "title": "SVG Clip Mask",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/svg-clip-mask",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/svg-clip-mask/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "3e273e87afefe6a3bc8cb3aa1fc2007da52a3e118ea365af8e48929ebe8d45a9",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-switchboard-card",
+      "title": "Switchboard Card",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/switchboard-card",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/switchboard-card/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "09a89e40cf2cd89a2beb540d788077f4f6656a3b5a42b507bcc09e01e4bd687d",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-new-wave-text",
+      "title": "Wave Text",
+      "provider": "SmoothUI",
+      "category": "components",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/wave-text",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/wave-text/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "b019b27cd687e0c819c6abb79f651ec94b2f51b28f7f9fe19b424d1bc8290c60",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-scrubber",
+      "title": "Scrubber",
+      "provider": "SmoothUI",
+      "category": "Inputs",
+      "referenceId": "smoothui-scrubber",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/scrubber",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/scrubber/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "dd862752c59d1dc04ca44823da8dae454f5f08d6995c27f16dbe2b3db99eeff2",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 9,
+        "initialAriaProfiles": 9,
+        "pixelComparisons": [
+          {
+            "scheme": "light",
+            "width": 440,
+            "differentPixels": 54,
+            "totalPixels": 193600,
+            "interactionCompared": true,
+            "behaviorEqual": true,
+            "error": false
+          },
+          {
+            "scheme": "dark",
+            "width": 440,
+            "differentPixels": 0,
+            "totalPixels": 193600,
+            "interactionCompared": true,
+            "behaviorEqual": true,
+            "error": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "smoothui-siri-orb",
+      "title": "Siri Orb",
+      "provider": "SmoothUI",
+      "category": "AI",
+      "referenceId": "smoothui-siri-orb",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/siri-orb",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/siri-orb/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "e6296c33e3efb56bafc9f4376f73184b04463ad88418e0bd5aa9a6cc8ea6f80a",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 9,
+        "initialAriaProfiles": 9,
+        "pixelComparisons": [
+          {
+            "scheme": "light",
+            "width": 440,
+            "differentPixels": 0,
+            "totalPixels": 193600,
+            "interactionCompared": false,
+            "behaviorEqual": true,
+            "error": false
+          },
+          {
+            "scheme": "dark",
+            "width": 440,
+            "differentPixels": 0,
+            "totalPixels": 193600,
+            "interactionCompared": false,
+            "behaviorEqual": true,
+            "error": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "smoothui-task-list",
+      "title": "AI Task List",
+      "provider": "SmoothUI",
+      "category": "components",
+      "referenceId": "smoothui-task-list",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/ai-task-list",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/ai-task-list/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "ef9a68c7283d28836303b0d3257dde156d25a18ea9571c74ff04ca01ddd56a81",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    },
+    {
+      "id": "smoothui-unlock-face-id",
+      "title": "Unlock Face ID",
+      "provider": "SmoothUI",
+      "category": "components",
+      "referenceId": "smoothui-unlock-face-id",
+      "upstreamDemoURL": "https://smoothui.dev/docs/components/unlock-face-id",
+      "upstreamSourceURL": "https://github.com/educlopez/smoothui/blob/e4b0b44a5c640ec217800eb664db18879822cd6c/packages/smoothui/components/unlock-face-id/index.tsx",
+      "upstreamCommit": "e4b0b44a5c640ec217800eb664db18879822cd6c",
+      "upstreamHash": "e2a71b04762eb7b53154ac2b2e56c8ffff0884c2a955ea4e0c3cafa2f81bdd21",
+      "sourceMethod": "pinned-git-source",
+      "format": "React",
+      "publication": "private-workspace",
+      "licenseNoticePath": "notices/smoothui.txt",
+      "state": "original-adapted",
+      "verified": {
+        "originalAndInstalledMount": true,
+        "behaviorProfiles": 0,
+        "initialAriaProfiles": 0,
+        "pixelComparisons": []
+      }
+    }
+  ]
+}

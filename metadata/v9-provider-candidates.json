@@ -4182,7 +4182,7 @@
           "title": "AccordionGallery",
           "category": "Components",
           "demo": "https://reactbits.dev/components/accordion-gallery",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/AccordionGallery/AccordionGallery.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/AccordionGallery/AccordionGallery.tsx",
           "install": "https://reactbits.dev/r/AccordionGallery-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4195,7 +4195,7 @@
           "title": "AcidSquares",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/acid-squares",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/AcidSquares/AcidSquares.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/AcidSquares/AcidSquares.tsx",
           "install": "https://reactbits.dev/r/AcidSquares-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4205,7 +4205,7 @@
           "title": "AeroShards",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/aero-shards",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/AeroShards/AeroShards.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/AeroShards/AeroShards.tsx",
           "install": "https://reactbits.dev/r/AeroShards-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4231,7 +4231,7 @@
           "title": "AnimatedList",
           "category": "Components",
           "demo": "https://reactbits.dev/components/animated-list",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/AnimatedList/AnimatedList.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/AnimatedList/AnimatedList.tsx",
           "install": "https://reactbits.dev/r/AnimatedList-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4245,7 +4245,7 @@
           "title": "Antigravity",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/antigravity",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Antigravity/Antigravity.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Antigravity/Antigravity.tsx",
           "install": "https://reactbits.dev/r/Antigravity-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4265,7 +4265,7 @@
           "title": "Aurora",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/aurora",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Aurora/Aurora.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Aurora/Aurora.tsx",
           "install": "https://reactbits.dev/r/Aurora-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4275,7 +4275,7 @@
           "title": "Balatro",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/balatro",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Balatro/Balatro.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Balatro/Balatro.tsx",
           "install": "https://reactbits.dev/r/Balatro-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4295,7 +4295,7 @@
           "title": "Beams",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/beams",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Beams/Beams.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Beams/Beams.tsx",
           "install": "https://reactbits.dev/r/Beams-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4305,7 +4305,7 @@
           "title": "BellToggle",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/bell-toggle",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/BellToggle/BellToggle.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/BellToggle/BellToggle.tsx",
           "install": "https://reactbits.dev/r/BellToggle-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4320,7 +4320,7 @@
           "title": "BlobCursor",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/blob-cursor",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/BlobCursor/BlobCursor.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/BlobCursor/BlobCursor.tsx",
           "install": "https://reactbits.dev/r/BlobCursor-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4346,7 +4346,7 @@
           "title": "BorderGlow",
           "category": "Components",
           "demo": "https://reactbits.dev/components/border-glow",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/BorderGlow/BorderGlow.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/BorderGlow/BorderGlow.tsx",
           "install": "https://reactbits.dev/r/BorderGlow-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4356,7 +4356,7 @@
           "title": "BounceCards",
           "category": "Components",
           "demo": "https://reactbits.dev/components/bounce-cards",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/BounceCards/BounceCards.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/BounceCards/BounceCards.tsx",
           "install": "https://reactbits.dev/r/BounceCards-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4366,7 +4366,7 @@
           "title": "BranchedMenu",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/branched-menu",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/BranchedMenu/BranchedMenu.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/BranchedMenu/BranchedMenu.tsx",
           "install": "https://reactbits.dev/r/BranchedMenu-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4380,7 +4380,7 @@
           "title": "BubbleMenu",
           "category": "Components",
           "demo": "https://reactbits.dev/components/bubble-menu",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/BubbleMenu/BubbleMenu.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/BubbleMenu/BubbleMenu.tsx",
           "install": "https://reactbits.dev/r/BubbleMenu-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4393,7 +4393,7 @@
           "title": "CallChip",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/call-chip",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/CallChip/CallChip.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/CallChip/CallChip.tsx",
           "install": "https://reactbits.dev/r/CallChip-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4407,7 +4407,7 @@
           "title": "CardNav",
           "category": "Components",
           "demo": "https://reactbits.dev/components/card-nav",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/CardNav/CardNav.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/CardNav/CardNav.tsx",
           "install": "https://reactbits.dev/r/CardNav-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4421,7 +4421,7 @@
           "title": "CardSwap",
           "category": "Components",
           "demo": "https://reactbits.dev/components/card-swap",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/CardSwap/CardSwap.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/CardSwap/CardSwap.tsx",
           "install": "https://reactbits.dev/r/CardSwap-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4435,7 +4435,7 @@
           "title": "Carousel",
           "category": "Components",
           "demo": "https://reactbits.dev/components/carousel",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Carousel/Carousel.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Carousel/Carousel.tsx",
           "install": "https://reactbits.dev/r/Carousel-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4449,7 +4449,7 @@
           "title": "ChromaGrid",
           "category": "Components",
           "demo": "https://reactbits.dev/components/chroma-grid",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/ChromaGrid/ChromaGrid.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/ChromaGrid/ChromaGrid.tsx",
           "install": "https://reactbits.dev/r/ChromaGrid-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4459,7 +4459,7 @@
           "title": "CircularCarousel",
           "category": "Components",
           "demo": "https://reactbits.dev/components/circular-carousel",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/CircularCarousel/CircularCarousel.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/CircularCarousel/CircularCarousel.tsx",
           "install": "https://reactbits.dev/r/CircularCarousel-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4469,7 +4469,7 @@
           "title": "CircularGallery",
           "category": "Components",
           "demo": "https://reactbits.dev/components/circular-gallery",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/CircularGallery/CircularGallery.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/CircularGallery/CircularGallery.tsx",
           "install": "https://reactbits.dev/r/CircularGallery-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4479,7 +4479,7 @@
           "title": "CircularText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/circular-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/CircularText/CircularText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/CircularText/CircularText.tsx",
           "install": "https://reactbits.dev/r/CircularText-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4502,7 +4502,7 @@
           "title": "CodeSlots",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/code-slots",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/CodeSlots/CodeSlots.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/CodeSlots/CodeSlots.tsx",
           "install": "https://reactbits.dev/r/CodeSlots-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4517,7 +4517,7 @@
           "title": "ColorBends",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/color-bends",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/ColorBends/ColorBends.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/ColorBends/ColorBends.tsx",
           "install": "https://reactbits.dev/r/ColorBends-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4530,7 +4530,7 @@
           "title": "CometDial",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/comet-dial",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/CometDial/CometDial.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/CometDial/CometDial.tsx",
           "install": "https://reactbits.dev/r/CometDial-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4556,7 +4556,7 @@
           "title": "Counter",
           "category": "Components",
           "demo": "https://reactbits.dev/components/counter",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Counter/Counter.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Counter/Counter.tsx",
           "install": "https://reactbits.dev/r/Counter-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4576,7 +4576,7 @@
           "title": "CRTWarp",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/crt-warp",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/CRTWarp/CRTWarp.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/CRTWarp/CRTWarp.tsx",
           "install": "https://reactbits.dev/r/CRTWarp-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4586,7 +4586,7 @@
           "title": "CrystalizedBall",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/crystalized-ball",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/CrystalizedBall/CrystalizedBall.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/CrystalizedBall/CrystalizedBall.tsx",
           "install": "https://reactbits.dev/r/CrystalizedBall-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4599,7 +4599,7 @@
           "title": "Cubes",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/cubes",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/Cubes/Cubes.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/Cubes/Cubes.tsx",
           "install": "https://reactbits.dev/r/Cubes-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4609,7 +4609,7 @@
           "title": "CursorGrid",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/cursor-grid",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/CursorGrid/CursorGrid.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/CursorGrid/CursorGrid.tsx",
           "install": "https://reactbits.dev/r/CursorGrid-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4619,7 +4619,7 @@
           "title": "CurvedInput",
           "category": "Components",
           "demo": "https://reactbits.dev/components/curved-input",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/CurvedInput/CurvedInput.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/CurvedInput/CurvedInput.tsx",
           "install": "https://reactbits.dev/r/CurvedInput-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4629,7 +4629,7 @@
           "title": "CurvedLoop",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/curved-loop",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/CurvedLoop/CurvedLoop.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/CurvedLoop/CurvedLoop.tsx",
           "install": "https://reactbits.dev/r/CurvedLoop-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4639,7 +4639,7 @@
           "title": "DarkVeil",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/dark-veil",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/DarkVeil/DarkVeil.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/DarkVeil/DarkVeil.tsx",
           "install": "https://reactbits.dev/r/DarkVeil-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4649,7 +4649,7 @@
           "title": "DecayCard",
           "category": "Components",
           "demo": "https://reactbits.dev/components/decay-card",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/DecayCard/DecayCard.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/DecayCard/DecayCard.tsx",
           "install": "https://reactbits.dev/r/DecayCard-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4672,7 +4672,7 @@
           "title": "DepthCarousel",
           "category": "Components",
           "demo": "https://reactbits.dev/components/depth-carousel",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/DepthCarousel/DepthCarousel.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/DepthCarousel/DepthCarousel.tsx",
           "install": "https://reactbits.dev/r/DepthCarousel-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4685,7 +4685,7 @@
           "title": "DepthText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/depth-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/DepthText/DepthText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/DepthText/DepthText.tsx",
           "install": "https://reactbits.dev/r/DepthText-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4695,7 +4695,7 @@
           "title": "Dither",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/dither",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Dither/Dither.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Dither/Dither.tsx",
           "install": "https://reactbits.dev/r/Dither-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4705,7 +4705,7 @@
           "title": "DitherVeil",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/dither-veil",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/DitherVeil/DitherVeil.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/DitherVeil/DitherVeil.tsx",
           "install": "https://reactbits.dev/r/DitherVeil-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4718,7 +4718,7 @@
           "title": "Dock",
           "category": "Components",
           "demo": "https://reactbits.dev/components/dock",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Dock/Dock.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Dock/Dock.tsx",
           "install": "https://reactbits.dev/r/Dock-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4731,7 +4731,7 @@
           "title": "DodgeField",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/dodge-field",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/DodgeField/DodgeField.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/DodgeField/DodgeField.tsx",
           "install": "https://reactbits.dev/r/DodgeField-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4744,7 +4744,7 @@
           "title": "DomeGallery",
           "category": "Components",
           "demo": "https://reactbits.dev/components/dome-gallery",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/DomeGallery/DomeGallery.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/DomeGallery/DomeGallery.tsx",
           "install": "https://reactbits.dev/r/DomeGallery-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4757,7 +4757,7 @@
           "title": "DotField",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/dot-field",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/DotField/DotField.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/DotField/DotField.tsx",
           "install": "https://reactbits.dev/r/DotField-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4767,7 +4767,7 @@
           "title": "DotGrid",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/dot-grid",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/DotGrid/DotGrid.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/DotGrid/DotGrid.tsx",
           "install": "https://reactbits.dev/r/DotGrid-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4777,7 +4777,7 @@
           "title": "DriftWall",
           "category": "Components",
           "demo": "https://reactbits.dev/components/drift-wall",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/DriftWall/DriftWall.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/DriftWall/DriftWall.tsx",
           "install": "https://reactbits.dev/r/DriftWall-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4787,7 +4787,7 @@
           "title": "EchoText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/echo-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/EchoText/EchoText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/EchoText/EchoText.tsx",
           "install": "https://reactbits.dev/r/EchoText-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4797,7 +4797,7 @@
           "title": "ElasticMesh",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/elastic-mesh",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ElasticMesh/ElasticMesh.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ElasticMesh/ElasticMesh.tsx",
           "install": "https://reactbits.dev/r/ElasticMesh-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4807,7 +4807,7 @@
           "title": "ElasticSlider",
           "category": "Components",
           "demo": "https://reactbits.dev/components/elastic-slider",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/ElasticSlider/ElasticSlider.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/ElasticSlider/ElasticSlider.tsx",
           "install": "https://reactbits.dev/r/ElasticSlider-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4821,7 +4821,7 @@
           "title": "ElectricBorder",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/electric-border",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ElectricBorder/ElectricBorder.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ElectricBorder/ElectricBorder.tsx",
           "install": "https://reactbits.dev/r/ElectricBorder-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4831,7 +4831,7 @@
           "title": "ElectricLogo",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/electric-logo",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ElectricLogo/ElectricLogo.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ElectricLogo/ElectricLogo.tsx",
           "install": "https://reactbits.dev/r/ElectricLogo-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4844,7 +4844,7 @@
           "title": "EvilEye",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/evil-eye",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/EvilEye/EvilEye.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/EvilEye/EvilEye.tsx",
           "install": "https://reactbits.dev/r/EvilEye-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4870,7 +4870,7 @@
           "title": "FallingText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/falling-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/FallingText/FallingText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/FallingText/FallingText.tsx",
           "install": "https://reactbits.dev/r/FallingText-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4883,7 +4883,7 @@
           "title": "FaultyTerminal",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/faulty-terminal",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/FaultyTerminal/FaultyTerminal.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/FaultyTerminal/FaultyTerminal.tsx",
           "install": "https://reactbits.dev/r/FaultyTerminal-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4893,7 +4893,7 @@
           "title": "Ferrofluid",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/ferrofluid",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Ferrofluid/Ferrofluid.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Ferrofluid/Ferrofluid.tsx",
           "install": "https://reactbits.dev/r/Ferrofluid-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4903,7 +4903,7 @@
           "title": "FlexCarousel",
           "category": "Components",
           "demo": "https://reactbits.dev/components/flex-carousel",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/FlexCarousel/FlexCarousel.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/FlexCarousel/FlexCarousel.tsx",
           "install": "https://reactbits.dev/r/FlexCarousel-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4916,7 +4916,7 @@
           "title": "FlipCard",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/flip-card",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/FlipCard/FlipCard.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/FlipCard/FlipCard.tsx",
           "install": "https://reactbits.dev/r/FlipCard-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4929,7 +4929,7 @@
           "title": "FloatingLines",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/floating-lines",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/FloatingLines/FloatingLines.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/FloatingLines/FloatingLines.tsx",
           "install": "https://reactbits.dev/r/FloatingLines-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4939,7 +4939,7 @@
           "title": "FlowingMenu",
           "category": "Components",
           "demo": "https://reactbits.dev/components/flowing-menu",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/FlowingMenu/FlowingMenu.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/FlowingMenu/FlowingMenu.tsx",
           "install": "https://reactbits.dev/r/FlowingMenu-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -4953,7 +4953,7 @@
           "title": "FluidGlass",
           "category": "Components",
           "demo": "https://reactbits.dev/components/fluid-glass",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/FluidGlass/FluidGlass.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/FluidGlass/FluidGlass.tsx",
           "install": "https://reactbits.dev/r/FluidGlass-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4963,7 +4963,7 @@
           "title": "FluxLines",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/flux-lines",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/FluxLines/FluxLines.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/FluxLines/FluxLines.tsx",
           "install": "https://reactbits.dev/r/FluxLines-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4973,7 +4973,7 @@
           "title": "FlyingButton",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/flying-button",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/FlyingButton/FlyingButton.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/FlyingButton/FlyingButton.tsx",
           "install": "https://reactbits.dev/r/FlyingButton-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4983,7 +4983,7 @@
           "title": "FlyingPosters",
           "category": "Components",
           "demo": "https://reactbits.dev/components/flying-posters",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/FlyingPosters/FlyingPosters.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/FlyingPosters/FlyingPosters.tsx",
           "install": "https://reactbits.dev/r/FlyingPosters-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -4993,7 +4993,7 @@
           "title": "FoldText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/fold-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/FoldText/FoldText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/FoldText/FoldText.tsx",
           "install": "https://reactbits.dev/r/FoldText-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5006,7 +5006,7 @@
           "title": "Folder",
           "category": "Components",
           "demo": "https://reactbits.dev/components/folder",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Folder/Folder.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Folder/Folder.tsx",
           "install": "https://reactbits.dev/r/Folder-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5016,7 +5016,7 @@
           "title": "FolderFloat",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/folder-float",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/FolderFloat/FolderFloat.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/FolderFloat/FolderFloat.tsx",
           "install": "https://reactbits.dev/r/FolderFloat-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5029,7 +5029,7 @@
           "title": "FuseButton",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/fuse-button",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/FuseButton/FuseButton.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/FuseButton/FuseButton.tsx",
           "install": "https://reactbits.dev/r/FuseButton-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5053,7 +5053,7 @@
           "title": "Galaxy",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/galaxy",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Galaxy/Galaxy.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Galaxy/Galaxy.tsx",
           "install": "https://reactbits.dev/r/Galaxy-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5063,7 +5063,7 @@
           "title": "GhostCursor",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/ghost-cursor",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/GhostCursor/GhostCursor.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/GhostCursor/GhostCursor.tsx",
           "install": "https://reactbits.dev/r/GhostCursor-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5073,7 +5073,7 @@
           "title": "GhostFibers",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/ghost-fibers",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GhostFibers/GhostFibers.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GhostFibers/GhostFibers.tsx",
           "install": "https://reactbits.dev/r/GhostFibers-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5083,7 +5083,7 @@
           "title": "GlareHover",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/glare-hover",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/GlareHover/GlareHover.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/GlareHover/GlareHover.tsx",
           "install": "https://reactbits.dev/r/GlareHover-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5093,7 +5093,7 @@
           "title": "GlassIcons",
           "category": "Components",
           "demo": "https://reactbits.dev/components/glass-icons",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/GlassIcons/GlassIcons.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/GlassIcons/GlassIcons.tsx",
           "install": "https://reactbits.dev/r/GlassIcons-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5103,7 +5103,7 @@
           "title": "GlassSurface",
           "category": "Components",
           "demo": "https://reactbits.dev/components/glass-surface",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/GlassSurface/GlassSurface.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/GlassSurface/GlassSurface.tsx",
           "install": "https://reactbits.dev/r/GlassSurface-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5113,7 +5113,7 @@
           "title": "GlideSelect",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/glide-select",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/GlideSelect/GlideSelect.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/GlideSelect/GlideSelect.tsx",
           "install": "https://reactbits.dev/r/GlideSelect-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5127,7 +5127,7 @@
           "title": "GlitchText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/glitch-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/GlitchText/GlitchText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/GlitchText/GlitchText.tsx",
           "install": "https://reactbits.dev/r/GlitchText-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5137,7 +5137,7 @@
           "title": "GlowCursor",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/glow-cursor",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/GlowCursor/GlowCursor.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/GlowCursor/GlowCursor.tsx",
           "install": "https://reactbits.dev/r/GlowCursor-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5147,7 +5147,7 @@
           "title": "GooeyNav",
           "category": "Components",
           "demo": "https://reactbits.dev/components/gooey-nav",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/GooeyNav/GooeyNav.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/GooeyNav/GooeyNav.tsx",
           "install": "https://reactbits.dev/r/GooeyNav-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5157,7 +5157,7 @@
           "title": "GradientASCII",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/gradient-ascii",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GradientASCII/GradientASCII.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GradientASCII/GradientASCII.tsx",
           "install": "https://reactbits.dev/r/GradientASCII-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5167,7 +5167,7 @@
           "title": "GradientBlinds",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/gradient-blinds",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GradientBlinds/GradientBlinds.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GradientBlinds/GradientBlinds.tsx",
           "install": "https://reactbits.dev/r/GradientBlinds-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5177,7 +5177,7 @@
           "title": "GradientText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/gradient-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/GradientText/GradientText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/GradientText/GradientText.tsx",
           "install": "https://reactbits.dev/r/GradientText-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5187,7 +5187,7 @@
           "title": "GradientWaves",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/gradient-waves",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GradientWaves/GradientWaves.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GradientWaves/GradientWaves.tsx",
           "install": "https://reactbits.dev/r/GradientWaves-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5197,7 +5197,7 @@
           "title": "GradualBlur",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/gradual-blur",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/GradualBlur/GradualBlur.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/GradualBlur/GradualBlur.tsx",
           "install": "https://reactbits.dev/r/GradualBlur-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5207,7 +5207,7 @@
           "title": "Grainient",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/grainient",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Grainient/Grainient.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Grainient/Grainient.tsx",
           "install": "https://reactbits.dev/r/Grainient-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5217,7 +5217,7 @@
           "title": "GridDistortion",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/grid-distortion",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GridDistortion/GridDistortion.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GridDistortion/GridDistortion.tsx",
           "install": "https://reactbits.dev/r/GridDistortion-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5227,7 +5227,7 @@
           "title": "GridMotion",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/grid-motion",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GridMotion/GridMotion.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GridMotion/GridMotion.tsx",
           "install": "https://reactbits.dev/r/GridMotion-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5237,7 +5237,7 @@
           "title": "GridScan",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/grid-scan",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GridScan/GridScan.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/GridScan/GridScan.tsx",
           "install": "https://reactbits.dev/r/GridScan-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5247,7 +5247,7 @@
           "title": "HalftoneReveal",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/halftone-reveal",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/HalftoneReveal/HalftoneReveal.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/HalftoneReveal/HalftoneReveal.tsx",
           "install": "https://reactbits.dev/r/HalftoneReveal-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5257,7 +5257,7 @@
           "title": "HoldButton",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/hold-button",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/HoldButton/HoldButton.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/HoldButton/HoldButton.tsx",
           "install": "https://reactbits.dev/r/HoldButton-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5267,7 +5267,7 @@
           "title": "HoloCard",
           "category": "Components",
           "demo": "https://reactbits.dev/components/holo-card",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/HoloCard/HoloCard.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/HoloCard/HoloCard.tsx",
           "install": "https://reactbits.dev/r/HoloCard-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5277,7 +5277,7 @@
           "title": "Hyperspeed",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/hyperspeed",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Hyperspeed/Hyperspeed.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Hyperspeed/Hyperspeed.tsx",
           "install": "https://reactbits.dev/r/Hyperspeed-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5290,7 +5290,7 @@
           "title": "ImageTrail",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/image-trail",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ImageTrail/ImageTrail.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ImageTrail/ImageTrail.tsx",
           "install": "https://reactbits.dev/r/ImageTrail-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5303,7 +5303,7 @@
           "title": "InfiniteMenu",
           "category": "Components",
           "demo": "https://reactbits.dev/components/infinite-menu",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/InfiniteMenu/InfiniteMenu.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/InfiniteMenu/InfiniteMenu.tsx",
           "install": "https://reactbits.dev/r/InfiniteMenu-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5313,7 +5313,7 @@
           "title": "InfiniteSpiral",
           "category": "Components",
           "demo": "https://reactbits.dev/components/infinite-spiral",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/InfiniteSpiral/InfiniteSpiral.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/InfiniteSpiral/InfiniteSpiral.tsx",
           "install": "https://reactbits.dev/r/InfiniteSpiral-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5323,7 +5323,7 @@
           "title": "Iridescence",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/iridescence",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Iridescence/Iridescence.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Iridescence/Iridescence.tsx",
           "install": "https://reactbits.dev/r/Iridescence-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5333,7 +5333,7 @@
           "title": "JellyRadio",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/jelly-radio",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/JellyRadio/JellyRadio.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/JellyRadio/JellyRadio.tsx",
           "install": "https://reactbits.dev/r/JellyRadio-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5346,7 +5346,7 @@
           "title": "Lanyard",
           "category": "Components",
           "demo": "https://reactbits.dev/components/lanyard",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Lanyard/Lanyard.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Lanyard/Lanyard.tsx",
           "install": "https://reactbits.dev/r/Lanyard-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5359,7 +5359,7 @@
           "title": "LaserFlow",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/laser-flow",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/LaserFlow/LaserFlow.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/LaserFlow/LaserFlow.tsx",
           "install": "https://reactbits.dev/r/LaserFlow-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5369,7 +5369,7 @@
           "title": "LatticeLoader",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/lattice-loader",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/LatticeLoader/LatticeLoader.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/LatticeLoader/LatticeLoader.tsx",
           "install": "https://reactbits.dev/r/LatticeLoader-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5379,7 +5379,7 @@
           "title": "LetterGlitch",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/letter-glitch",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LetterGlitch/LetterGlitch.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LetterGlitch/LetterGlitch.tsx",
           "install": "https://reactbits.dev/r/LetterGlitch-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5389,7 +5389,7 @@
           "title": "LightPillar",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/light-pillar",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LightPillar/LightPillar.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LightPillar/LightPillar.tsx",
           "install": "https://reactbits.dev/r/LightPillar-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5399,7 +5399,7 @@
           "title": "LightRays",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/light-rays",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LightRays/LightRays.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LightRays/LightRays.tsx",
           "install": "https://reactbits.dev/r/LightRays-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5409,7 +5409,7 @@
           "title": "LightTunnel",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/light-tunnel",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LightTunnel/LightTunnel.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LightTunnel/LightTunnel.tsx",
           "install": "https://reactbits.dev/r/LightTunnel-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5419,7 +5419,7 @@
           "title": "Lightfall",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/lightfall",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Lightfall/Lightfall.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Lightfall/Lightfall.tsx",
           "install": "https://reactbits.dev/r/Lightfall-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5429,7 +5429,7 @@
           "title": "Lightning",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/lightning",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Lightning/Lightning.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Lightning/Lightning.tsx",
           "install": "https://reactbits.dev/r/Lightning-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5439,7 +5439,7 @@
           "title": "LineSidebar",
           "category": "Components",
           "demo": "https://reactbits.dev/components/line-sidebar",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/LineSidebar/LineSidebar.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/LineSidebar/LineSidebar.tsx",
           "install": "https://reactbits.dev/r/LineSidebar-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5449,7 +5449,7 @@
           "title": "LineWaves",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/line-waves",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LineWaves/LineWaves.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LineWaves/LineWaves.tsx",
           "install": "https://reactbits.dev/r/LineWaves-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5459,7 +5459,7 @@
           "title": "LiquidChrome",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/liquid-chrome",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LiquidChrome/LiquidChrome.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LiquidChrome/LiquidChrome.tsx",
           "install": "https://reactbits.dev/r/LiquidChrome-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5469,7 +5469,7 @@
           "title": "LiquidEther",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/liquid-ether",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LiquidEther/LiquidEther.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/LiquidEther/LiquidEther.tsx",
           "install": "https://reactbits.dev/r/LiquidEther-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5479,7 +5479,7 @@
           "title": "LogoLoop",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/logo-loop",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/LogoLoop/LogoLoop.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/LogoLoop/LogoLoop.tsx",
           "install": "https://reactbits.dev/r/LogoLoop-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5489,7 +5489,7 @@
           "title": "MagicBento",
           "category": "Components",
           "demo": "https://reactbits.dev/components/magic-bento",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/MagicBento/MagicBento.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/MagicBento/MagicBento.tsx",
           "install": "https://reactbits.dev/r/MagicBento-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5503,7 +5503,7 @@
           "title": "MagicRings",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/magic-rings",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/MagicRings/MagicRings.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/MagicRings/MagicRings.tsx",
           "install": "https://reactbits.dev/r/MagicRings-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5523,7 +5523,7 @@
           "title": "MagnetLines",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/magnet-lines",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/MagnetLines/MagnetLines.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/MagnetLines/MagnetLines.tsx",
           "install": "https://reactbits.dev/r/MagnetLines-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5533,7 +5533,7 @@
           "title": "MaskedHeading",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/masked-heading",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/MaskedHeading/MaskedHeading.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/MaskedHeading/MaskedHeading.tsx",
           "install": "https://reactbits.dev/r/MaskedHeading-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5546,7 +5546,7 @@
           "title": "Masonry",
           "category": "Components",
           "demo": "https://reactbits.dev/components/masonry",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Masonry/Masonry.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Masonry/Masonry.tsx",
           "install": "https://reactbits.dev/r/Masonry-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5561,7 +5561,7 @@
           "title": "MetaBalls",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/meta-balls",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/MetaBalls/MetaBalls.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/MetaBalls/MetaBalls.tsx",
           "install": "https://reactbits.dev/r/MetaBalls-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5571,7 +5571,7 @@
           "title": "MetallicPaint",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/metallic-paint",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/MetallicPaint/MetallicPaint.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/MetallicPaint/MetallicPaint.tsx",
           "install": "https://reactbits.dev/r/MetallicPaint-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5581,7 +5581,7 @@
           "title": "MicroSlats",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/micro-slats",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/MicroSlats/MicroSlats.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/MicroSlats/MicroSlats.tsx",
           "install": "https://reactbits.dev/r/MicroSlats-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5609,7 +5609,7 @@
           "title": "MoltenMetal",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/molten-metal",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/MoltenMetal/MoltenMetal.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/MoltenMetal/MoltenMetal.tsx",
           "install": "https://reactbits.dev/r/MoltenMetal-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5619,7 +5619,7 @@
           "title": "MorphSlider",
           "category": "Components",
           "demo": "https://reactbits.dev/components/morph-slider",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/MorphSlider/MorphSlider.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/MorphSlider/MorphSlider.tsx",
           "install": "https://reactbits.dev/r/MorphSlider-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5633,7 +5633,7 @@
           "title": "Noise",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/noise",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/Noise/Noise.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/Noise/Noise.tsx",
           "install": "https://reactbits.dev/r/Noise-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5643,7 +5643,7 @@
           "title": "OptionWheel",
           "category": "Components",
           "demo": "https://reactbits.dev/components/option-wheel",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/OptionWheel/OptionWheel.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/OptionWheel/OptionWheel.tsx",
           "install": "https://reactbits.dev/r/OptionWheel-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5653,7 +5653,7 @@
           "title": "Orb",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/orb",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Orb/Orb.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Orb/Orb.tsx",
           "install": "https://reactbits.dev/r/Orb-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5663,7 +5663,7 @@
           "title": "OrbitImages",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/orbit-images",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/OrbitImages/OrbitImages.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/OrbitImages/OrbitImages.tsx",
           "install": "https://reactbits.dev/r/OrbitImages-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5673,7 +5673,7 @@
           "title": "PaperCrumple",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/paper-crumple",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/PaperCrumple/PaperCrumple.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/PaperCrumple/PaperCrumple.tsx",
           "install": "https://reactbits.dev/r/PaperCrumple-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5686,7 +5686,7 @@
           "title": "ParticleText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/particle-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ParticleText/ParticleText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ParticleText/ParticleText.tsx",
           "install": "https://reactbits.dev/r/ParticleText-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5696,7 +5696,7 @@
           "title": "Particles",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/particles",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Particles/Particles.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Particles/Particles.tsx",
           "install": "https://reactbits.dev/r/Particles-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5706,7 +5706,7 @@
           "title": "PatternWaves",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/pattern-waves",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/PatternWaves/PatternWaves.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/PatternWaves/PatternWaves.tsx",
           "install": "https://reactbits.dev/r/PatternWaves-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5719,7 +5719,7 @@
           "title": "PeekRating",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/peek-rating",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/PeekRating/PeekRating.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/PeekRating/PeekRating.tsx",
           "install": "https://reactbits.dev/r/PeekRating-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5733,7 +5733,7 @@
           "title": "PillNav",
           "category": "Components",
           "demo": "https://reactbits.dev/components/pill-nav",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/PillNav/PillNav.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/PillNav/PillNav.tsx",
           "install": "https://reactbits.dev/r/PillNav-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5743,7 +5743,7 @@
           "title": "PixelBlast",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/pixel-blast",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/PixelBlast/PixelBlast.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/PixelBlast/PixelBlast.tsx",
           "install": "https://reactbits.dev/r/PixelBlast-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5753,7 +5753,7 @@
           "title": "PixelCard",
           "category": "Components",
           "demo": "https://reactbits.dev/components/pixel-card",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/PixelCard/PixelCard.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/PixelCard/PixelCard.tsx",
           "install": "https://reactbits.dev/r/PixelCard-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5763,7 +5763,7 @@
           "title": "PixelSnow",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/pixel-snow",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/PixelSnow/PixelSnow.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/PixelSnow/PixelSnow.tsx",
           "install": "https://reactbits.dev/r/PixelSnow-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5773,7 +5773,7 @@
           "title": "PixelSwap",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/pixel-swap",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/PixelSwap/PixelSwap.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/PixelSwap/PixelSwap.tsx",
           "install": "https://reactbits.dev/r/PixelSwap-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5783,7 +5783,7 @@
           "title": "PixelTrail",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/pixel-trail",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/PixelTrail/PixelTrail.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/PixelTrail/PixelTrail.tsx",
           "install": "https://reactbits.dev/r/PixelTrail-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5793,7 +5793,7 @@
           "title": "PixelTransition",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/pixel-transition",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/PixelTransition/PixelTransition.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/PixelTransition/PixelTransition.tsx",
           "install": "https://reactbits.dev/r/PixelTransition-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5803,7 +5803,7 @@
           "title": "Plasma",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/plasma",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Plasma/Plasma.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Plasma/Plasma.tsx",
           "install": "https://reactbits.dev/r/Plasma-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5813,7 +5813,7 @@
           "title": "PlasmaWave",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/plasma-wave",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/PlasmaWave/PlasmaWave.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/PlasmaWave/PlasmaWave.tsx",
           "install": "https://reactbits.dev/r/PlasmaWave-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5823,7 +5823,7 @@
           "title": "Prism",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/prism",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Prism/Prism.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Prism/Prism.tsx",
           "install": "https://reactbits.dev/r/Prism-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5833,7 +5833,7 @@
           "title": "PrismaticBurst",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/prismatic-burst",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/PrismaticBurst/PrismaticBurst.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/PrismaticBurst/PrismaticBurst.tsx",
           "install": "https://reactbits.dev/r/PrismaticBurst-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5843,7 +5843,7 @@
           "title": "ProfileCard",
           "category": "Components",
           "demo": "https://reactbits.dev/components/profile-card",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/ProfileCard/ProfileCard.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/ProfileCard/ProfileCard.tsx",
           "install": "https://reactbits.dev/r/ProfileCard-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5857,7 +5857,7 @@
           "title": "PromptBar",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/prompt-bar",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/PromptBar/PromptBar.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/PromptBar/PromptBar.tsx",
           "install": "https://reactbits.dev/r/PromptBar-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5872,7 +5872,7 @@
           "title": "PulseHeart",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/pulse-heart",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/PulseHeart/PulseHeart.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/PulseHeart/PulseHeart.tsx",
           "install": "https://reactbits.dev/r/PulseHeart-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5885,7 +5885,7 @@
           "title": "Radar",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/radar",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Radar/Radar.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Radar/Radar.tsx",
           "install": "https://reactbits.dev/r/Radar-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5895,7 +5895,7 @@
           "title": "RefineFrame",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/refine-frame",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/RefineFrame/RefineFrame.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/RefineFrame/RefineFrame.tsx",
           "install": "https://reactbits.dev/r/RefineFrame-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5909,7 +5909,7 @@
           "title": "ReflectiveCard",
           "category": "Components",
           "demo": "https://reactbits.dev/components/reflective-card",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/ReflectiveCard/ReflectiveCard.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/ReflectiveCard/ReflectiveCard.tsx",
           "install": "https://reactbits.dev/r/ReflectiveCard-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5923,7 +5923,7 @@
           "title": "Ribbons",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/ribbons",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/Ribbons/Ribbons.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/Ribbons/Ribbons.tsx",
           "install": "https://reactbits.dev/r/Ribbons-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5933,7 +5933,7 @@
           "title": "RippleDistortion",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/ripple-distortion",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/RippleDistortion/RippleDistortion.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/RippleDistortion/RippleDistortion.tsx",
           "install": "https://reactbits.dev/r/RippleDistortion-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5946,7 +5946,7 @@
           "title": "RippleGrid",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/ripple-grid",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/RippleGrid/RippleGrid.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/RippleGrid/RippleGrid.tsx",
           "install": "https://reactbits.dev/r/RippleGrid-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5956,7 +5956,7 @@
           "title": "RotatingText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/rotating-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/RotatingText/RotatingText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/RotatingText/RotatingText.tsx",
           "install": "https://reactbits.dev/r/RotatingText-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5969,7 +5969,7 @@
           "title": "RubberSegment",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/rubber-segment",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/RubberSegment/RubberSegment.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/RubberSegment/RubberSegment.tsx",
           "install": "https://reactbits.dev/r/RubberSegment-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -5982,7 +5982,7 @@
           "title": "Scanner",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/scanner",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Scanner/Scanner.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Scanner/Scanner.tsx",
           "install": "https://reactbits.dev/r/Scanner-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -5992,7 +5992,7 @@
           "title": "ScrambledText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/scrambled-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ScrambledText/ScrambledText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ScrambledText/ScrambledText.tsx",
           "install": "https://reactbits.dev/r/ScrambledText-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6005,7 +6005,7 @@
           "title": "ScrollExpand",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/scroll-expand",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ScrollExpand/ScrollExpand.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ScrollExpand/ScrollExpand.tsx",
           "install": "https://reactbits.dev/r/ScrollExpand-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6015,7 +6015,7 @@
           "title": "ScrollFloat",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/scroll-float",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ScrollFloat/ScrollFloat.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ScrollFloat/ScrollFloat.tsx",
           "install": "https://reactbits.dev/r/ScrollFloat-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6028,7 +6028,7 @@
           "title": "ScrollReveal",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/scroll-reveal",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ScrollReveal/ScrollReveal.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ScrollReveal/ScrollReveal.tsx",
           "install": "https://reactbits.dev/r/ScrollReveal-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6041,7 +6041,7 @@
           "title": "ScrollStack",
           "category": "Components",
           "demo": "https://reactbits.dev/components/scroll-stack",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/ScrollStack/ScrollStack.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/ScrollStack/ScrollStack.tsx",
           "install": "https://reactbits.dev/r/ScrollStack-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6051,7 +6051,7 @@
           "title": "ScrollVelocity",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/scroll-velocity",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ScrollVelocity/ScrollVelocity.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ScrollVelocity/ScrollVelocity.tsx",
           "install": "https://reactbits.dev/r/ScrollVelocity-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6064,7 +6064,7 @@
           "title": "ScrubField",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/scrub-field",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/ScrubField/ScrubField.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/ScrubField/ScrubField.tsx",
           "install": "https://reactbits.dev/r/ScrubField-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6077,7 +6077,7 @@
           "title": "ShapeBlur",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/shape-blur",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ShapeBlur/ShapeBlur.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/ShapeBlur/ShapeBlur.tsx",
           "install": "https://reactbits.dev/r/ShapeBlur-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6087,7 +6087,7 @@
           "title": "ShapeGrid",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/shape-grid",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/ShapeGrid/ShapeGrid.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/ShapeGrid/ShapeGrid.tsx",
           "install": "https://reactbits.dev/r/ShapeGrid-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6097,7 +6097,7 @@
           "title": "ShapeWaves",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/shape-waves",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/ShapeWaves/ShapeWaves.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/ShapeWaves/ShapeWaves.tsx",
           "install": "https://reactbits.dev/r/ShapeWaves-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6110,7 +6110,7 @@
           "title": "ShinyText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/shiny-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ShinyText/ShinyText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/ShinyText/ShinyText.tsx",
           "install": "https://reactbits.dev/r/ShinyText-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6120,7 +6120,7 @@
           "title": "Shredder",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/shredder",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/Shredder/Shredder.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/Shredder/Shredder.tsx",
           "install": "https://reactbits.dev/r/Shredder-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6133,7 +6133,7 @@
           "title": "Shuffle",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/shuffle",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/Shuffle/Shuffle.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/Shuffle/Shuffle.tsx",
           "install": "https://reactbits.dev/r/Shuffle-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6147,7 +6147,7 @@
           "title": "SideRays",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/side-rays",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/SideRays/SideRays.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/SideRays/SideRays.tsx",
           "install": "https://reactbits.dev/r/SideRays-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6157,7 +6157,7 @@
           "title": "Silk",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/silk",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Silk/Silk.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Silk/Silk.tsx",
           "install": "https://reactbits.dev/r/Silk-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6167,7 +6167,7 @@
           "title": "SlicedWaves",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/sliced-waves",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/SlicedWaves/SlicedWaves.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/SlicedWaves/SlicedWaves.tsx",
           "install": "https://reactbits.dev/r/SlicedWaves-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6177,7 +6177,7 @@
           "title": "SlideCommit",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/slide-commit",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SlideCommit/SlideCommit.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SlideCommit/SlideCommit.tsx",
           "install": "https://reactbits.dev/r/SlideCommit-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6192,7 +6192,7 @@
           "title": "SlingButton",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/sling-button",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SlingButton/SlingButton.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SlingButton/SlingButton.tsx",
           "install": "https://reactbits.dev/r/SlingButton-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6207,7 +6207,7 @@
           "title": "SloshGauge",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/slosh-gauge",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SloshGauge/SloshGauge.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SloshGauge/SloshGauge.tsx",
           "install": "https://reactbits.dev/r/SloshGauge-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6217,7 +6217,7 @@
           "title": "SoftAurora",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/soft-aurora",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/SoftAurora/SoftAurora.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/SoftAurora/SoftAurora.tsx",
           "install": "https://reactbits.dev/r/SoftAurora-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6227,7 +6227,7 @@
           "title": "SpecularButton",
           "category": "Components",
           "demo": "https://reactbits.dev/components/specular-button",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/SpecularButton/SpecularButton.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/SpecularButton/SpecularButton.tsx",
           "install": "https://reactbits.dev/r/SpecularButton-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6237,7 +6237,7 @@
           "title": "SplashCursor",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/splash-cursor",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/SplashCursor/SplashCursor.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/SplashCursor/SplashCursor.tsx",
           "install": "https://reactbits.dev/r/SplashCursor-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6247,7 +6247,7 @@
           "title": "SplitFlapText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/split-flap-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/SplitFlapText/SplitFlapText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/SplitFlapText/SplitFlapText.tsx",
           "install": "https://reactbits.dev/r/SplitFlapText-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6271,7 +6271,7 @@
           "title": "SpotlightCard",
           "category": "Components",
           "demo": "https://reactbits.dev/components/spotlight-card",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/SpotlightCard/SpotlightCard.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/SpotlightCard/SpotlightCard.tsx",
           "install": "https://reactbits.dev/r/SpotlightCard-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6281,7 +6281,7 @@
           "title": "SpringCheck",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/spring-check",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SpringCheck/SpringCheck.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SpringCheck/SpringCheck.tsx",
           "install": "https://reactbits.dev/r/SpringCheck-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6295,7 +6295,7 @@
           "title": "SquishSwitch",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/squish-switch",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SquishSwitch/SquishSwitch.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SquishSwitch/SquishSwitch.tsx",
           "install": "https://reactbits.dev/r/SquishSwitch-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6308,7 +6308,7 @@
           "title": "Stack",
           "category": "Components",
           "demo": "https://reactbits.dev/components/stack",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Stack/Stack.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Stack/Stack.tsx",
           "install": "https://reactbits.dev/r/Stack-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6321,7 +6321,7 @@
           "title": "StaggeredMenu",
           "category": "Components",
           "demo": "https://reactbits.dev/components/staggered-menu",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/StaggeredMenu/StaggeredMenu.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/StaggeredMenu/StaggeredMenu.tsx",
           "install": "https://reactbits.dev/r/StaggeredMenu-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6334,7 +6334,7 @@
           "title": "StarBorder",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/star-border",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/StarBorder/StarBorder.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/StarBorder/StarBorder.tsx",
           "install": "https://reactbits.dev/r/StarBorder-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6344,7 +6344,7 @@
           "title": "StatusMark",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/status-mark",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/StatusMark/StatusMark.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/StatusMark/StatusMark.tsx",
           "install": "https://reactbits.dev/r/StatusMark-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6357,7 +6357,7 @@
           "title": "Stepper",
           "category": "Components",
           "demo": "https://reactbits.dev/components/stepper",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Stepper/Stepper.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/Stepper/Stepper.tsx",
           "install": "https://reactbits.dev/r/Stepper-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6371,7 +6371,7 @@
           "title": "StickerPeel",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/sticker-peel",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/StickerPeel/StickerPeel.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/StickerPeel/StickerPeel.tsx",
           "install": "https://reactbits.dev/r/StickerPeel-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6381,7 +6381,7 @@
           "title": "Strands",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/strands",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/Strands/Strands.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/Strands/Strands.tsx",
           "install": "https://reactbits.dev/r/Strands-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6391,7 +6391,7 @@
           "title": "StrokeText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/stroke-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/StrokeText/StrokeText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/StrokeText/StrokeText.tsx",
           "install": "https://reactbits.dev/r/StrokeText-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6404,7 +6404,7 @@
           "title": "SwarmCursor",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/swarm-cursor",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/SwarmCursor/SwarmCursor.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/SwarmCursor/SwarmCursor.tsx",
           "install": "https://reactbits.dev/r/SwarmCursor-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6414,7 +6414,7 @@
           "title": "SwipeRow",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/swipe-row",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SwipeRow/SwipeRow.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SwipeRow/SwipeRow.tsx",
           "install": "https://reactbits.dev/r/SwipeRow-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6429,7 +6429,7 @@
           "title": "SwipeToast",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/swipe-toast",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SwipeToast/SwipeToast.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/SwipeToast/SwipeToast.tsx",
           "install": "https://reactbits.dev/r/SwipeToast-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6444,7 +6444,7 @@
           "title": "TargetCursor",
           "category": "Animations",
           "demo": "https://reactbits.dev/animations/target-cursor",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/TargetCursor/TargetCursor.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Animations/TargetCursor/TargetCursor.tsx",
           "install": "https://reactbits.dev/r/TargetCursor-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6457,7 +6457,7 @@
           "title": "TearTicket",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/tear-ticket",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/TearTicket/TearTicket.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/TearTicket/TearTicket.tsx",
           "install": "https://reactbits.dev/r/TearTicket-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6470,7 +6470,7 @@
           "title": "TechText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/tech-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/TechText/TechText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/TechText/TechText.tsx",
           "install": "https://reactbits.dev/r/TechText-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6480,7 +6480,7 @@
           "title": "TextCursor",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/text-cursor",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/TextCursor/TextCursor.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/TextCursor/TextCursor.tsx",
           "install": "https://reactbits.dev/r/TextCursor-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6490,7 +6490,7 @@
           "title": "TextLoop",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/text-loop",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/TextLoop/TextLoop.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/TextLoop/TextLoop.tsx",
           "install": "https://reactbits.dev/r/TextLoop-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6513,7 +6513,7 @@
           "title": "TextType",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/text-type",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/TextType/TextType.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/TextType/TextType.tsx",
           "install": "https://reactbits.dev/r/TextType-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6526,7 +6526,7 @@
           "title": "ThoughtLine",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/thought-line",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/ThoughtLine/ThoughtLine.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/ThoughtLine/ThoughtLine.tsx",
           "install": "https://reactbits.dev/r/ThoughtLine-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6541,7 +6541,7 @@
           "title": "Threads",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/threads",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Threads/Threads.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Threads/Threads.tsx",
           "install": "https://reactbits.dev/r/Threads-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6551,7 +6551,7 @@
           "title": "TiltedCard",
           "category": "Components",
           "demo": "https://reactbits.dev/components/tilted-card",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/TiltedCard/TiltedCard.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Components/TiltedCard/TiltedCard.tsx",
           "install": "https://reactbits.dev/r/TiltedCard-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6561,7 +6561,7 @@
           "title": "Topography",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/topography",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Topography/Topography.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Topography/Topography.tsx",
           "install": "https://reactbits.dev/r/Topography-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6571,7 +6571,7 @@
           "title": "TrueFocus",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/true-focus",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/TrueFocus/TrueFocus.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/TrueFocus/TrueFocus.tsx",
           "install": "https://reactbits.dev/r/TrueFocus-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6584,7 +6584,7 @@
           "title": "VariableProximity",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/variable-proximity",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/VariableProximity/VariableProximity.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/VariableProximity/VariableProximity.tsx",
           "install": "https://reactbits.dev/r/VariableProximity-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6594,7 +6594,7 @@
           "title": "VoicePill",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/voice-pill",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/VoicePill/VoicePill.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/VoicePill/VoicePill.tsx",
           "install": "https://reactbits.dev/r/VoicePill-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6608,7 +6608,7 @@
           "title": "WakeSlider",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/wake-slider",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/WakeSlider/WakeSlider.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/WakeSlider/WakeSlider.tsx",
           "install": "https://reactbits.dev/r/WakeSlider-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6621,7 +6621,7 @@
           "title": "WarmTooltip",
           "category": "Micro",
           "demo": "https://reactbits.dev/micro/warm-tooltip",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/WarmTooltip/WarmTooltip.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Micro/WarmTooltip/WarmTooltip.tsx",
           "install": "https://reactbits.dev/r/WarmTooltip-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6635,7 +6635,7 @@
           "title": "WarpText",
           "category": "TextAnimations",
           "demo": "https://reactbits.dev/text-animations/warp-text",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/WarpText/WarpText.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/TextAnimations/WarpText/WarpText.tsx",
           "install": "https://reactbits.dev/r/WarpText-TS-CSS.json",
           "access": "repository-source",
           "dependencies": [
@@ -6648,7 +6648,7 @@
           "title": "Waves",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/waves",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Waves/Waves.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/Waves/Waves.tsx",
           "install": "https://reactbits.dev/r/Waves-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"
@@ -6658,7 +6658,7 @@
           "title": "WebThreads",
           "category": "Backgrounds",
           "demo": "https://reactbits.dev/backgrounds/web-threads",
-          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/WebThreads/WebThreads.css",
+          "source": "https://github.com/DavidHDev/react-bits/blob/cf2801031f07f53d4684e65b961bde7c2e2a6921/src/ts-default/Backgrounds/WebThreads/WebThreads.tsx",
           "install": "https://reactbits.dev/r/WebThreads-TS-CSS.json",
           "access": "repository-source",
           "variant": "TS-CSS"

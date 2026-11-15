@@ -2,12 +2,13 @@ import { createServer } from "node:http";
 import { createReadStream } from "node:fs";
 import { readFile, realpath, stat } from "node:fs/promises";
 import { extname, resolve, sep } from "node:path";
-import { sources } from "./pilots.mjs";
+import { extendSources, sources } from "./pilots.mjs";
 
 const vault = resolve(".motionux-v9");
 const shell = resolve("dist");
 const port = 5199;
 const host = `127.0.0.1:${port}`;
+extendSources(JSON.parse(await readFile("metadata/v9-provider-candidates.json", "utf8")));
 const catalog = [];
 for (const provider of Object.keys(sources)) {
   try {
@@ -24,11 +25,13 @@ try {
 if (!catalog.length) throw new Error("Run npm run sources:prepare before starting the private Studio.");
 const studio = (await readFile(resolve(shell, "index.html"), "utf8")).replace("<html ", '<html data-original-sources="local" ');
 const byId = new Map(catalog.map(item => [item.id, item]));
-const visibleCatalog = catalog.map(item => {
+const detailCatalog = new Map(catalog.map(item => {
   const record = { ...item, installURL: "/v9/registry/" + item.id + ".json" };
   delete record.installRecipe;
-  return record;
-});
+  return [item.id, record];
+}));
+const visibleCatalog = catalog.map(({ id, slug, group, provider, title, category, format, height, demoURL, fidelityStatus }) =>
+  ({ id, slug, group, provider, title, category, format, height, demoURL, fidelityStatus }));
 
 const types = {
   ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8",
@@ -63,8 +66,11 @@ createServer(async (request, response) => {
       response.setHeader("Content-Type", types[".html"]);
       response.end(studio);
     } else if (path === "/v9/catalog.json") {
+      const id = url.searchParams.get("id");
+      const payload = id ? detailCatalog.get(id) : visibleCatalog;
+      if (!payload) return response.writeHead(404).end();
       response.setHeader("Content-Type", types[".json"]);
-      response.end(JSON.stringify(visibleCatalog));
+      response.end(JSON.stringify(payload));
     } else if (path === "/v9/source") {
       const item = byId.get(url.searchParams.get("id"));
       const file = url.searchParams.get("file");
@@ -80,9 +86,28 @@ createServer(async (request, response) => {
       response.setHeader("Content-Type", types[".json"]);
       response.setHeader("Content-Disposition", `attachment; filename="${item.id}.json"`);
       response.end(await readFile(item.installRecipe));
+    } else if (path.startsWith("/v9/evidence/")) {
+      const stem = path.slice("/v9/evidence/".length);
+      const evidence = resolve(vault, "evidence");
+      if (stem.endsWith(".json")) {
+        const id = stem.slice(0, -5);
+        if (!byId.has(id)) return response.writeHead(404).end();
+        const [visual, verified] = await Promise.all(["normalized.json", "verification.json"].map(async file => {
+          try { return JSON.parse(await readFile(resolve(evidence, file), "utf8")); }
+          catch (error) { if (error.code !== "ENOENT") throw error; return null; }
+        }));
+        const comparisons = visual?.find(item => item.id === id)?.comparisons ?? [];
+        const trajectories = verified?.pilots.filter(item => item.id === id) ?? [];
+        response.setHeader("Content-Type", types[".json"]);
+        response.end(JSON.stringify({ comparisons, trajectories }));
+      } else {
+        const icon = stem.match(/^([a-z0-9-]+)-(light|dark|original)-diff\.png$/);
+        if (!icon || !byId.has(icon[1])) return response.writeHead(404).end();
+        await sendFile(response, evidence, stem);
+      }
     } else if (path.startsWith("/v9/live/")) {
       const [, , , provider, lane, ...asset] = path.split("/");
-      if (!(provider in sources) && provider !== "designbookmark" || !["original", "installed"].includes(lane)) return response.writeHead(404).end();
+      if (!Object.hasOwn(sources, provider) && provider !== "designbookmark" || !["original", "installed"].includes(lane)) return response.writeHead(404).end();
       if (provider === "designbookmark" && asset.at(-1)?.endsWith(".html") && asset.at(-1) !== "index.html") {
         response.setHeader("Content-Security-Policy", "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data: blob: https://designbookmark.com; media-src data: blob:; frame-ancestors 'self'; base-uri 'none'; form-action 'none'");
       }

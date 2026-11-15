@@ -28,7 +28,8 @@ const catalog = [];
 for (const row of rows.filter(item => item.observed === "code-payload" && item.sourceURL)) {
   const { name, provider, category } = inventory.find(item => item.id === row.id);
   const slug = row.id.replace(/^designbookmark-/, "");
-  const raw = await readFile(resolve(snapshot, row.id + ".txt"), "utf8");
+  const path = row.snapshot ? `snapshots/${row.sha256}/${row.id}.txt` : row.id + ".txt";
+  const raw = await readFile(resolve(snapshot, path), "utf8");
   if (digest(raw) !== row.sha256) throw new Error("Captured source failed verification: " + row.id);
   const document = /<!doctype html>/i.test(raw);
   if (!document && row.id !== "designbookmark-command-button") continue;

@@ -1,10 +1,11 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { hrefFor, type Route } from "../app/catalog-view";
-import { SourceFrame, type Original, type SourceLane } from "./local";
+import { observePreview } from "../app/gallery";
+import { SourceFrame, type Original, type OriginalCard, type SourceLane } from "./local";
 import reference from "../../metadata/v9-reference.json";
 import "./sources.css";
 
-type Pane = "provenance" | "code" | "usage" | "install";
+type Pane = "provenance" | "code" | "usage" | "install" | "evidence";
 const lanes: ReadonlyArray<[SourceLane, string]> = [
   ["original", "Original upstream"], ["adapter", "MotionUX Studio"], ["installed", "Installed React"],
 ];
@@ -12,10 +13,11 @@ const rows = reference.items;
 type Candidates = typeof import("../../metadata/v9-provider-candidates.json");
 
 export default function SourceLab({ originals, route, scheme, navigate }: {
-  originals: Map<string, Original>; route: Route; scheme: "light" | "dark"; navigate: (route: Route) => void;
+  originals: Map<string, OriginalCard>; route: Route; scheme: "light" | "dark"; navigate: (route: Route) => void;
 }) {
   const [provider, setProvider] = useState("");
   const [page, setPage] = useState(1);
+  const [showLive, setShowLive] = useState(false);
   const [candidates, setCandidates] = useState<Candidates>();
   const [loadingCatalog, setLoadingCatalog] = useState(false);
   const [catalogError, setCatalogError] = useState(false);
@@ -36,7 +38,7 @@ export default function SourceLab({ originals, route, scheme, navigate }: {
     id: item.id, name: item.title, provider: item.provider, reference: item.demoURL, sourceStatus: item.fidelityStatus, original: item,
   }));
   const all = [...primary, ...extra];
-  const matched = all.filter(row => (!provider || provider === row.provider) &&
+  const matched = all.filter(row => (!showLive || row.original) && (!provider || provider === row.provider) &&
     [row.name, row.provider, row.sourceStatus].join(" ").toLocaleLowerCase().includes(query));
   async function loadCandidates() {
     setLoadingCatalog(true);
@@ -55,7 +57,7 @@ export default function SourceLab({ originals, route, scheme, navigate }: {
       <h1 tabIndex={-1}>Original sources</h1>
       <p>{originals.size ? `${originals.size} mounted in the private workspace` : "Open the private Studio to run the original-source previews."}</p>
     </header>
-    {requested ? <Comparison key={`${requested.id}-${route.sourcePanel ?? ""}`} entry={requested} scheme={scheme}
+    {requested ? <SourceDetail key={`${requested.id}-${route.sourcePanel ?? ""}`} id={requested.id} scheme={scheme}
       initialPane={route.sourcePanel} isLegacy={Boolean(known)} /> :
       known && <section className="mx-inspector"><h2>{known.name}</h2><p>{known.reason}</p>
         <div className="mx-source-actions"><a href={known.reference}>Original preview</a>
@@ -67,14 +69,17 @@ export default function SourceLab({ originals, route, scheme, navigate }: {
         <option value="">All providers</option>
         {[...new Set(all.map(row => row.provider))].sort().map(name => <option key={name}>{name}</option>)}
       </select></label>
+      {originals.size > 0 && <label><input type="checkbox" checked={showLive} onChange={event => { setShowLive(event.target.checked); setPage(1); }} /> Live previews</label>}
       <p role="status">{matched.length} matches</p>
     </div>
-    <div className="mx-source-directory">
-      {matched.slice(0, page * 30).map(row => <a key={row.id} href={href(row.id)} onClick={event => select(event, row.id)}
-        aria-current={route.source === row.id ? "true" : undefined}>
-        <strong>{row.name}</strong><span>{row.provider}</span>
-        <small>{row.original ? "Local original" : row.sourceStatus === "source-acquired" ? "Source captured" : row.sourceStatus === "upstream-linked" ? "Official source link" : "Original unavailable"}</small>
-      </a>)}
+    <div className={showLive ? "mx-source-live-grid" : "mx-source-directory"}>
+      {matched.slice(0, page * 30).map(row => showLive && row.original
+        ? <SourceCard key={row.id} entry={row.original} href={href(row.id)} scheme={scheme} onClick={event => select(event, row.id)} />
+        : <a key={row.id} href={href(row.id)} onClick={event => select(event, row.id)}
+          aria-current={route.source === row.id ? "true" : undefined}>
+          <strong>{row.name}</strong><span>{row.provider}</span>
+          <small>{row.original ? "Local original" : row.sourceStatus === "source-acquired" ? "Source captured" : row.sourceStatus === "upstream-linked" ? "Official source link" : "Original unavailable"}</small>
+        </a>)}
     </div>
     {matched.length > page * 30 && <button type="button" className="mx-button" onClick={() => setPage(page + 1)}>Show 30 more</button>}
     <section className="mx-inspector">
@@ -88,12 +93,47 @@ export default function SourceLab({ originals, route, scheme, navigate }: {
   </section>;
 }
 
+function SourceCard({ entry, href, scheme, onClick }: {
+  entry: OriginalCard; href: string; scheme: "light" | "dark"; onClick: (event: MouseEvent<HTMLAnchorElement>) => void;
+}) {
+  const stage = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [focused, setFocused] = useState(false);
+  useEffect(() => {
+    if (!stage.current || typeof IntersectionObserver === "undefined") return;
+    return observePreview(stage.current, setVisible);
+  }, []);
+  const showing = visible || focused || typeof IntersectionObserver === "undefined";
+  return <article className="mx-source-live-card" data-original-card={entry.id}>
+    <div ref={stage} className="mx-source-live-stage" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
+      {showing && <SourceFrame entry={entry} lane="adapter" scheme={scheme} label={entry.title + " original preview"} fill />}
+    </div>
+    <a href={href} onClick={onClick}><strong>{entry.title}</strong><span>{entry.provider}</span></a>
+  </article>;
+}
+
+function SourceDetail({ id, ...props }: { id: string; scheme: "light" | "dark"; initialPane?: Pane; isLegacy: boolean }) {
+  const [entry, setEntry] = useState<Original>();
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/v9/catalog.json?" + new URLSearchParams({ id }), { signal: controller.signal }).then(response => {
+      if (!response.ok) throw new Error("Source metadata unavailable");
+      return response.json();
+    }).then(setEntry, () => { if (!controller.signal.aborted) setFailed(true); });
+    return () => controller.abort();
+  }, [id]);
+  if (failed) return <p role="alert">This local source record could not be loaded.</p>;
+  return entry ? <Comparison {...props} entry={entry} /> : <p role="status">Loading original source…</p>;
+}
+
 function ProviderList({ data }: { data: Candidates }) {
   const [selected, setSelected] = useState(data.providers[0].id);
   const [count, setCount] = useState(30);
   const [query, setQuery] = useState("");
   const provider = data.providers.find(row => row.id === selected)!;
-  const candidates = provider.candidates.filter(item => `${item.title} ${item.category}`.toLowerCase().includes(query.trim().toLowerCase()));
+  const candidates = provider.candidates.filter(item =>
+    `${item.title} ${item.id.replaceAll("-", " ")} ${item.category}`.toLowerCase().includes(query.trim().toLowerCase()));
   return <>
     <div className="mx-source-toolbar">
       <label>Catalog <select value={selected} onChange={event => { setSelected(event.target.value); setCount(30); }}>
@@ -153,7 +193,7 @@ function Comparison({ entry, scheme, initialPane, isLegacy }: {
       </figure>)}
     </div>
     <section className="mx-inspector mx-source-inspector" aria-label="Source details">
-      <div className="mx-source-actions">{(["provenance", "code", "usage", "install"] as const).map(key =>
+      <div className="mx-source-actions">{(["provenance", "code", "usage", "install", "evidence"] as const).map(key =>
         <button type="button" className="mx-button" key={key} aria-pressed={pane === key} onClick={() => { setPane(key); setStatus(""); }}>
           {key[0].toUpperCase() + key.slice(1)}
         </button>)}
@@ -183,6 +223,7 @@ function Comparison({ entry, scheme, initialPane, isLegacy }: {
           <Code value={result.source} title="Original code" copy={copy} /> : <p role="status">Loading source…</p>}
       </>}
       {pane === "usage" && <Code value={usage} title="React usage" copy={copy} />}
+      {pane === "evidence" && <Evidence entry={entry} />}
       {pane === "install" && <>
         <p>Run this command from a shadcn-configured React project while the private Studio is running. The payload keeps the original source and notices.</p>
         <Code value={install} title="Private install command" copy={copy} />
@@ -191,6 +232,35 @@ function Comparison({ entry, scheme, initialPane, isLegacy }: {
       {status && <p role="status">{status}</p>}
     </section>
   </section>;
+}
+
+function Evidence({ entry }: { entry: Original }) {
+  const [result, setResult] = useState<{
+    comparisons: { scheme: string; differentPixels?: number; totalPixels?: number; evidence?: string; error?: string }[];
+    trajectories: { behaviorEqual?: boolean }[];
+  }>();
+  const [failed, setFailed] = useState(false);
+  const url = "/v9/evidence/" + entry.id + ".json";
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(url, { signal: controller.signal }).then(response => {
+      if (!response.ok) throw new Error("Evidence unavailable");
+      return response.json();
+    }).then(setResult, () => { if (!controller.signal.aborted) setFailed(true); });
+    return () => controller.abort();
+  }, [url]);
+  if (failed) return <p role="alert">Verification evidence could not be loaded.</p>;
+  if (!result) return <p role="status">Loading verification…</p>;
+  return <>
+    {!result.comparisons.length && !result.trajectories.length && <p>Matched visual and motion tests are pending for this source.</p>}
+    {result.comparisons.map(comparison => <figure className="mx-source-evidence" key={comparison.scheme}>
+      <figcaption>{comparison.scheme} · {comparison.error ? "Comparison did not complete" :
+        `${comparison.differentPixels} of ${comparison.totalPixels} pixels differed`}</figcaption>
+      {comparison.evidence && <img alt={`Original versus installed pixel overlay for ${entry.title}`} src={"/v9/evidence/" + comparison.evidence} width={440} height={440} loading="lazy" />}
+    </figure>)}
+    {result.trajectories.length > 0 && <p>{result.trajectories.filter(row => row.behaviorEqual).length} of {result.trajectories.length} sampled behavior comparisons matched.</p>}
+    {(result.comparisons.length > 0 || result.trajectories.length > 0) && <a href={url} download>Download comparison measurements</a>}
+  </>;
 }
 
 function Code({ value, title, copy }: { value: string; title: string; copy: (source: string) => Promise<void> }) {
