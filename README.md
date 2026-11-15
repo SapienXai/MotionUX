@@ -1,99 +1,40 @@
-# MotionUX
+<p align="center">
+  <a href="#get-started">
+    <img src="docs/readme/studio-cover.webp" width="100%" alt="MotionUX Studio showcasing the Originals Gallery, Wheel Picker, and interactive Seat Map">
+  </a>
+</p>
 
-**Try the motion before it goes into your product.**
+<h1 align="center">Try 152 interactive components</h1>
 
-Drag a card deck, flick a wheel picker, and feel how a tab releases into its next position. MotionUX brings the original implementations into one interactive Studio. Browse by provider, open the source that drives the preview, and install it in a React project.
+<p align="center">
+  Flick a time picker, choose a cinema seat, or tear a freshly printed receipt.<br>
+  MotionUX lets you explore how an interface feels before you use it.
+</p>
 
-[Run Studio](#run-motionux-studio) · [Install a component](#install-your-first-component) · [Use with Codex](#use-with-codex)
+<p align="center">
+  <strong><a href="#get-started">Get started</a></strong>
+  &nbsp;·&nbsp;
+  <a href="#see-it-in-motion">See it in motion</a>
+</p>
 
-## Run MotionUX Studio
+## See it in motion
 
-```sh
-npm run studio
-```
+[![Two live Studio demos showing a row of selected cinema seats beside a printed coffee receipt](docs/readme/motion-preview.webp)](docs/readme/receipt-in-motion.gif)
 
-Open [MotionUX Studio](http://127.0.0.1:5199/) on the same computer. The prepared source vault contains **152 live originals from six providers** after V12 preparation. The Gallery includes all 82 reference counterparts, 58 earlier additions, and 12 new originals from Kokonut UI, SmoothUI, and Magic UI. Search by source or personal note, filter by provider or format, and interact with the card directly. Captured thumbnails give each original a preview as its live frame loads.
+[Watch the receipt print](docs/readme/receipt-in-motion.gif). Both demos are available to try in Studio.
 
-- **Try it live.** Flick Kokonut UI’s Wheel Picker, switch Morph island to Call, or drag SmoothUI’s Scrubber.
-- **Build your library.** Save favorites, add originals to multiple collections, and keep notes and tags beside them. Use Project Kit to export a collection with its packages and setup instructions.
-- **Open Playground.** Switch the scenes available in that source, replay the demo, and use **Compare** to inspect the captured upstream fixture, the Studio host, and the separately installed consumer.
-- **Take the code.** Open **Code** for the actual files, **Usage** for the corresponding example, and **Install** for the local registry package. The 50 standalone HTML sources install with a React iframe host. The other 102 are React sources.
-- **Browse more.** Discovery links to provider candidates outside the installed collection. **Legacy V8** opens the 82 earlier MotionUX previews.
+## Find something worth keeping
 
-On a fresh checkout, run `npm ci`, `npm run sources:inspect`, and `npm run sources:prepare` to prepare the original local collection. Then run `npm run sources:prepare:v12` to add the new sources and start Studio. With Studio running, `npm run studio:thumbnails` generates only missing thumbnails. Routine launches reuse that workspace. The public checkout also runs on `npm run dev` with the labeled legacy gallery. [V12 sources and verification](docs/V12-ORIGINALS.md) · [Studio library and recovery](docs/V11-IMPLEMENTATION.md)
+**Explore at your own pace.** Browse the Originals Gallery and try components right on their cards. Open Playground for more room to replay a gesture and see how it feels at phone size.
 
-Try booking seats in **Seat Map**, tearing the printed paper in **Receipt Printer**, or stepping through onboarding with **Animated Stepper**. Search by name in Gallery, open **Playground**, and switch on **Compare** to use each preview side by side.
+**Keep the good finds close.** Favorite a component or make a collection for a project. Add a note about what worked, then find it again in My Library.
 
-## Install your first component
+**Bring your shortlist into a project.** Use Project Kit to share your picks and their setup instructions with your team. [How Studio and Project Kit work](docs/V11-IMPLEMENTATION.md)
 
-The public shadcn registry includes four stable entries at [`v1.0.0`](https://github.com/SapienXai/MotionUX/tree/v1.0.0) and additional pinned Legacy V8 previews. Each private original has its own local install command in Studio. [Public registry catalog](docs/COMPONENTS.md)
+## Get started
 
-### Start with the stable disclosure
+**New to MotionUX?** Follow the [Studio setup guide](docs/DEVELOPER-GUIDE.md#set-up-studio) to prepare the gallery on your computer.
 
-In a React 19 project with a shadcn `components.json`, run:
+**Studio already running?** [Open MotionUX Studio](http://127.0.0.1:5199/) on the same computer.
 
-```sh
-npx shadcn@4.23.0 add 'SapienXai/MotionUX/motion-disclosure#v1.0.0'
-```
-
-```tsx
-import { MotionDisclosure } from "@/components/sapienx-motion/motion-disclosure";
-
-export function RoomDetails() {
-  return (
-    <MotionDisclosure label="What’s included">
-      <p>Breakfast, late checkout, and access to the rooftop terrace.</p>
-    </MotionDisclosure>
-  );
-}
-```
-
-The disclosure uses native `details` and `summary`. Click it or focus the label and press Enter. The example assumes the component alias is `@/components`. Match the import to your project’s alias. [shadcn configuration](https://ui.shadcn.com/docs/components-json)
-
-### Try the animated Tab Pill preview
-
-```sh
-npx shadcn@4.23.0 add 'SapienXai/MotionUX/tab-pill#03173314f6e8ce3c69ff448930d3278a9af90822'
-```
-
-```tsx
-"use client";
-
-import { TabPill } from "@/components/sapienx-motion/motion-selector";
-
-export function ProjectTabs() {
-  return (
-    <TabPill
-      label="Project sections"
-      options={[
-        { value: "overview", label: "Overview", panel: <p>Project summary</p> },
-        { value: "notes", label: "Notes", panel: <p>Working notes</p> },
-      ]}
-    />
-  );
-}
-```
-
-## Make it fit your app
-
-- **Keep your visual identity.** Use your product’s colors and typography. Studio preview components expose CSS custom properties for surfaces, text, borders, accents, and selected states. [Theme and motion tokens](docs/MOTION-TOKENS.md)
-- **Keep application state in your app.** Give controls their labels, links, and callbacks. Pass the actual result into feedback components so the user sees whether an operation is pending, succeeded, or failed.
-- **Review code like any other change.** shadcn installs source and companion CSS under your configured component alias. Use `view` to inspect the item and `add --dry-run` to see what would change. Update by comparing a newer pin with your local files. [GitHub registry guide](https://ui.shadcn.com/docs/registry/github) · [Update and release workflow](docs/RELEASE.md)
-
-## Use with Codex
-
-Copy the [`sapienx-motion-system` skill folder](skills/sapienx-motion-system) into `~/.agents/skills/` and start a new Codex session. Give it a real interaction to work on.
-
-> Use $sapienx-motion-system to add a keyboard-accessible room details disclosure. Keep the hotel’s existing theme. Inspect the pinned MotionUX component before installing it.
-
-For automatic use on SapienX React and Next.js work, merge the [AGENTS.md section](skills/global-agents-section.md) into your existing rules.
-
-## Install a Gallery preset
-
-Open **Install** in an original’s Playground to copy the local shadcn command. **Usage** shows that package’s demo and **Code** exposes the upstream and installed files. Keep Studio running during the install. Legacy V8 packages use pinned GitHub commands and expose the MotionUX semantic theme tokens. [Theme tokens](docs/MOTION-TOKENS.md) · [Checkpoint guide](docs/PARITY-MANIFEST.md)
-
-## Verification and license
-
-The **97-item public registry** includes six dedicated Gallery presets and five recipe families that supply the other 76 Studio examples. Consumer checks install the pinned packages and build generated examples in a separate React project. The acceptance report records the reference sweep, screenshot comparisons, sampled motion and outstanding device and component checks. [V8 acceptance report](docs/V8-ACCEPTANCE.md) · [GitHub Actions](https://github.com/SapienXai/MotionUX/actions/workflows/ci.yml?query=branch%3Amain) · [Registry verification](docs/VERIFICATION.md)
-
-MotionUX is MIT licensed. Adapted components retain their upstream notices. [License](LICENSE) · [Source review](docs/SOURCE-REVIEW.md) · [Changelog](CHANGELOG.md)
+[Explore the new V12 collection](docs/V12-ORIGINALS.md) · [Installation and developer guide](docs/DEVELOPER-GUIDE.md) · [License](LICENSE)
