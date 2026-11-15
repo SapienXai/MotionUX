@@ -44,6 +44,8 @@ Local verification JSON, screenshots and process memory samples are written unde
 
 The edition check compiled 176 Usage examples and exported a 15-package mixed Project Kit with eight dependency conflicts reported. Five compatible packages from that kit installed and built in a clean Next.js 16 and Tailwind 4 project. The prepared Gallery has four thumbnails per item, with 2,000 files checked.
 
+At 390 px, four upstream demos reported horizontal overflow inside their preview frames. The Studio document fit the viewport. Those frames retain the upstream demo styling.
+
 ## Long sessions
 
 The local endurance check used the same Mac, Chromium 159.0.8154.6, a 1536 × 1024 viewport and 2× CPU throttling. Both catalogs took 120 stops across the full scroll range in four passes and waited for a live preview at each stop. These are different catalog sizes and specimen mixes. Renderer and GPU RSS are sampled process totals. Studio JS heap is sampled after collection.

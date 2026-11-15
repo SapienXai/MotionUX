@@ -115,6 +115,25 @@ async function motion(page, frame, item, explicit) {
     await control.press("Space");
     await expect(control).toHaveAttribute("aria-checked", checked === "true" ? "false" : "true");
     mode = "keyboard lamp switch";
+  } else if (item.id === "kokonut-cradle-text") {
+    const letter = root.locator("[data-letter]").first();
+    const stage = root.locator(".cursor-grab").first();
+    await stage.scrollIntoViewIfNeeded();
+    const bounds = await letter.boundingBox();
+    assert(bounds, "The cradle letter is missing from the preview");
+    const x = bounds.x + bounds.width / 2;
+    const y = bounds.y + bounds.height / 2;
+    await page.mouse.move(x, y);
+    await page.mouse.down();
+    try {
+      await expect(stage).toHaveAttribute("data-grabbing", "");
+      await page.mouse.move(x - 38, y, { steps: 7 });
+      await expect.poll(() => letter.evaluate(node => getComputedStyle(node).transform)).not.toBe("none");
+    } finally {
+      await page.mouse.up();
+    }
+    await expect(stage).not.toHaveAttribute("data-grabbing", "");
+    mode = "pointer drag and letter rotation";
   } else if (!explicit) {
     let actions = await root.locator(controls).count();
     actions = Math.min(actions, 4);
@@ -249,10 +268,11 @@ try {
   await expect(firstPreview).toHaveAttribute("data-preview-state", "ready");
   const firstFrame = firstPreview.locator("iframe");
   await expect(firstFrame).toHaveAttribute("sandbox", "allow-scripts");
-  await firstFrame.evaluate(frame => {
+  await firstFrame.evaluate(async frame => {
     const data = { motionuxPreview: "failed" };
     window.dispatchEvent(new MessageEvent("message", { data, origin: "null", source: window }));
     window.dispatchEvent(new MessageEvent("message", { data, origin: location.origin, source: frame.contentWindow }));
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
   });
   await expect(firstPreview).toHaveAttribute("data-preview-state", "ready");
   report.gallery.untrustedPreviewMessagesRejected = true;
