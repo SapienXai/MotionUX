@@ -54,12 +54,13 @@ try {
     await expect(page.locator('[data-preview-state="ready"]').first()).toBeVisible();
     const firstPreviewMs = Math.round(performance.now() - start);
     await page.waitForTimeout(850);
+    // Programmatic search changes the visible layout. Capture navigation metrics first.
+    const initial = { requests, scriptBytes, ...await page.evaluate(() => window.mxScale) };
     const search = page.getByRole("searchbox");
     const before = performance.now();
     await search.fill("kokonut wheel picker");
     await expect(page.locator(cards)).toHaveCount(1);
-    report.samples.push({ firstPreviewMs, searchMs: Math.round(performance.now()-before), requests, scriptBytes,
-      ...await page.evaluate(() => window.mxScale) });
+    report.samples.push({ firstPreviewMs, searchMs: Math.round(performance.now()-before), ...initial });
     if (sample === 0) {
       await search.fill("");
       await expect(page.locator(cards)).toHaveCount(catalog.length);

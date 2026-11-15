@@ -48,3 +48,20 @@ npm run originals:benchmark -- current
 ```
 
 The edition browser check exercises Gallery, Playground, Code, Usage and Install and records samples from all three preview lanes. Its dark 390 px checks record overflow inside the demo iframe as well as the Studio shell. The consumer check typechecks the displayed Usage examples and verifies a 15-item mixed Project Kit. Runtime and performance evidence is written to `.motionux-v9/evidence/v13/`. Public CI tests the public Studio and registry. Private originals are verified on the local vault.
+
+## Local performance snapshot
+
+Both editions were measured in Chromium 159 on the same Mac at 1536 × 1024 with 2× CPU throttling. Navigation figures are medians of three cold loads. Memory figures are the measurements after three scroll passes.
+
+| Measure | 152 originals | 324 originals |
+| --- | ---: | ---: |
+| First live preview | 821 ms | 1,044 ms |
+| LCP | 360 ms | 620 ms |
+| Initial CLS | 0.00021 | 0.00073 |
+| Search | 39 ms | 68 ms |
+| JavaScript requests during initial load | 42 | 42 |
+| Peak preview documents, including nested frames | 14 | 8 |
+| Renderer RSS after scrolling | 813 MiB | 1,007 MiB |
+| Root JavaScript heap after scrolling | 18.11 MiB | 23.30 MiB |
+
+First live preview, search, and memory use increased with this larger local catalog. Initial CLS met the 0.02 target. The first preview now loads before Gallery fills the remaining display budget. The raw measurements are in `performance-baseline.json` and `performance-current.json` in the local V13 evidence directory.

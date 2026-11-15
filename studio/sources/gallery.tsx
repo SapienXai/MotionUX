@@ -68,6 +68,7 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
     const stages = [...container.querySelectorAll<HTMLElement>("[data-original-stage]")];
     const visible = new Set<Element>();
     let scheduled = 0;
+    let primed = Boolean(container.querySelector('[data-preview-state="ready"]'));
     const update = () => {
       if (scheduled) return;
       scheduled = requestAnimationFrame(() => {
@@ -93,6 +94,7 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
             if (cost > remaining) continue;
             next.add(stage.dataset.originalStage!);
             remaining -= cost;
+            if (!primed && engaged.size === 0) break;
           }
         }
         setMounted(current => next.size === current.size && [...next].every(id => current.has(id)) ? current : next);
@@ -106,6 +108,13 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
       update();
     });
     const nearbyStages = new Set<string>();
+    const warmup = new MutationObserver(() => {
+      if (!container.querySelector('[data-preview-state="ready"], [data-preview-state="failed"]')) return;
+      primed = true;
+      warmup.disconnect();
+      update();
+    });
+    if (!primed) warmup.observe(container, { attributes: true, subtree: true, attributeFilter: ["data-preview-state"] });
     const images = new IntersectionObserver(entries => {
       for (const entry of entries) {
         const id = (entry.target as HTMLElement).dataset.originalStage!;
@@ -123,6 +132,7 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
     return () => {
       observer.disconnect();
       images.disconnect();
+      warmup.disconnect();
       cancelAnimationFrame(scheduled);
       window.removeEventListener("scroll", update);
       window.removeEventListener("blur", update);
