@@ -12,12 +12,16 @@ export const comparisonIds = [
   "magicui-animated-beam", "magicui-ripple-button", "smoothui-new-book", "reactbits-glare-hover", "motionprimitives-infinite-slider",
 ];
 const labels = ["original", "studio", "installed"];
+export const timelineIds = [
+  "kokonut-smooth-tab", "animateui-components-backgrounds-gravity-stars", "smoothui-new-liquid-metal",
+  "designbookmark-morph-island", "motionprimitives-infinite-slider", "designbookmark-swipe-deck", "motionprimitives-morphing-dialog",
+];
 
-export async function compareSources(browser, originals, { origin, evidence }) {
+export async function compareSources(browser, originals, { origin, evidence, ids = comparisonIds }) {
   const page = await browser.newPage({ viewport: { width: 1536, height: 1024 }, colorScheme: "light" });
   const comparisons = [];
   try {
-    for (const id of comparisonIds) {
+    for (const id of ids) {
       const item = originals.find(entry => entry.id === id);
       const captured = [];
       const errors = [];
@@ -164,6 +168,26 @@ async function exercise(page, scope, body, id) {
       return true;
     });
   }
+  if (id === "motionprimitives-infinite-slider") {
+    const result = await measure(body, ".w-max", async () => {
+      await expect(body.locator(".w-max").first()).toBeVisible();
+      return true;
+    });
+    assert(new Set(result.frames.flatMap(frame => frame.values.map(value => value[2]))).size > 1, "Autoplay did not move");
+    return result;
+  }
+  if (id === "animateui-components-backgrounds-gravity-stars" || id === "smoothui-new-liquid-metal") {
+    const mode = id === "smoothui-new-liquid-metal" ? "webgl2" : "2d";
+    return measure(body, "canvas", async () => {
+      const canvas = body.locator("canvas").first();
+      await expect(canvas).toBeVisible();
+      assert(await canvas.evaluate((node, context) => {
+        // The other context would prevent the original from initializing; query its existing context after paint.
+        return node.width > 1 && node.height > 1 && Boolean(node.getContext(context));
+      }, mode));
+      return mode;
+    });
+  }
   if (id === "reactbits-glare-hover") {
     const glare = scope.locator(".glare-hover__glare");
     return measure(body, ".glare-hover__glare, .glare-hover__band", async () => {
@@ -188,17 +212,19 @@ async function measure(body, selector, action) {
   await body.evaluate((node, target) => {
     const frames = [];
     const start = performance.now();
-    node.motionUXFrames = frames;
-    function sample(now) {
-      frames.push({ time: Math.round(now - start), values: Array.from(node.querySelectorAll(target)).slice(0, 6)
-        .map(child => {
-          const style = getComputedStyle(child);
-          const box = child.getBoundingClientRect();
-          return [box.width, box.height, style.transform, style.opacity, style.clipPath];
-        }) });
-      if (now - start < 700) requestAnimationFrame(sample);
-    }
-    requestAnimationFrame(sample);
+    node.motionUXFrames = new Promise(resolve => {
+      function sample(now) {
+        frames.push({ time: Math.round(now - start), values: Array.from(node.querySelectorAll(target)).slice(0, 6)
+          .map(child => {
+            const style = getComputedStyle(child);
+            const box = child.getBoundingClientRect();
+            return [box.width, box.height, style.transform, style.opacity, style.clipPath];
+          }) });
+        if (now - start < 700) requestAnimationFrame(sample);
+        else resolve(frames);
+      }
+      requestAnimationFrame(sample);
+    });
   }, selector);
   const state = await action();
   const frames = await body.evaluate(node => node.motionUXFrames);

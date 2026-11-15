@@ -14,6 +14,8 @@ MotionUX Studio expands from 152 to **324 prepared originals** with 172 new Reac
 
 The [edition manifest](../metadata/editions/v13.json) records the provider pins, stable sequence, selection batches and excluded candidates. The [V13 baseline](V13-BASELINE.md) records the preserved collection, backup and measurement configuration.
 
+The [V13.1 performance report](V13-1-PERFORMANCE.md) covers the same 324 originals before and after Gallery windowing, with repeatable 500- and 1,000-record scale checks.
+
 ## Prepare and run Studio
 
 From a prepared V12 checkout, run these commands.

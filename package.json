@@ -10,6 +10,7 @@
     "studio:backup": "python3 scripts/studio/v11/backup.py backup",
     "studio:restore": "python3 scripts/studio/v11/backup.py restore",
     "studio:verify": "node scripts/studio/verify.mjs && node scripts/studio/v11/verify.mjs",
+    "studio:scale": "node scripts/originals/benchmark.mjs scale",
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "registry:build": "shadcn build",

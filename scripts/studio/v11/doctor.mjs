@@ -10,7 +10,7 @@ console.log(JSON.stringify({
   ...workspace,
   originals: catalog.size,
   formats: Object.fromEntries(["react", "html"].map(kind => [kind, available.filter(entry => entry.sourceKind === kind).length])),
-  vaultSize: execFileSync("du", ["-sh", vault], { encoding: "utf8" }).split(/\s+/)[0],
+  vaultSize: execFileSync("du", ["-sh", vault], { encoding: "utf8" }).trim().split(/\s+/)[0],
   loopback: active ? active.version === "v11" && active.build === current ? "ready" : "outdated Studio or occupied port" : "stopped",
 }, null, 2));
 if (workspace.issues.length || !workspace.ready) process.exitCode = 1;

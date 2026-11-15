@@ -3,9 +3,29 @@ import { chromium } from "playwright";
 import { expect } from "@playwright/test";
 import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { once } from "node:events";
+import { compareSources, timelineIds } from "../compare.mjs";
 
 const phase = process.argv[2];
-if (!["baseline", "matched-baseline", "current", "no-cache"].includes(phase)) throw new Error("Choose baseline, current or no-cache.");
+if (["capture-before", "capture-after"].includes(phase)) {
+  await capture(phase);
+  process.exit(0);
+}
+if (["timelines-before", "timelines-after"].includes(phase)) {
+  const origin = process.env.MOTIONUX_BENCH_ORIGIN ?? "http://127.0.0.1:5199";
+  const evidence = resolve(".motionux-v9/evidence/v13-1", phase);
+  await mkdir(evidence, { recursive: true, mode: 0o700 });
+  const catalog = await fetch(origin + "/v9/catalog.json").then(response => response.json());
+  const chromiumBrowser = await chromium.launch();
+  try {
+    const samples = await compareSources(chromiumBrowser, catalog, { origin, evidence, ids: timelineIds });
+    await writeFile(resolve(evidence, "interaction-timelines.json"), JSON.stringify(samples, null, 2) + "\n");
+    for (const row of samples) console.log(row.id, row.error ?? row.lanes.map(lane => lane.action?.frames?.length).join("/"));
+    if (samples.some(row => row.error || !row.statesMatch)) process.exitCode = 1;
+  } finally { await chromiumBrowser.close(); }
+  process.exit(process.exitCode ?? 0);
+}
+if (!["baseline", "matched-baseline", "current", "no-cache"].includes(phase)) throw new Error("Choose baseline, current, no-cache, capture-before or capture-after.");
 const out = resolve(".motionux-v9/evidence/v11", phase);
 await mkdir(out, { recursive: true });
 const url = process.env.MOTIONUX_BENCH_ORIGIN ?? "http://127.0.0.1:5199/";
@@ -14,6 +34,7 @@ const report = { phase, version: "", samples: [], stress: {} };
 const browser = await chromium.launch();
 try {
   report.version = browser.version();
+  const catalog = await fetch(new URL("/v9/catalog.json", url)).then(response => response.json());
   const browserCDP = await browser.newBrowserCDPSession();
   async function rss() {
     try {
@@ -67,10 +88,12 @@ try {
       const before = await memory();
       const rssBefore = await rss();
       for (let pass = 0; pass < 2; pass++) {
-        for (let i = 0; i < 140; i += 3) {
-          await page.locator("[data-original-stage]").nth(i).evaluate(node => node.scrollIntoView({ block: "center" }));
-          await page.waitForTimeout(45);
-        }
+        await page.evaluate(async count => {
+          for (let i = 0; i < count; i += 3) {
+            window.scrollTo(0, (document.documentElement.scrollHeight - innerHeight) * i / count);
+            await new Promise(resolve => requestAnimationFrame(resolve));
+          }
+        }, catalog.length);
         await page.evaluate(() => window.scrollTo(0, 0));
       }
       await expect(page.locator('[data-original-card]').first().locator('[data-preview-state="ready"]')).toBeVisible();
@@ -93,3 +116,70 @@ try {
 } finally { await browser.close(); }
 await writeFile(resolve(out, "benchmark.json"), JSON.stringify(report, null, 2) + "\n");
 console.log(JSON.stringify(report));
+
+async function capture(label) {
+  const origin = process.env.MOTIONUX_BENCH_ORIGIN ?? "http://127.0.0.1:5199";
+  const directory = resolve(".motionux-v9/evidence/v13-1", label);
+  const shelf = process.env.MOTIONUX_BENCH_SHELF;
+  await mkdir(directory, { recursive: true, mode: 0o700 });
+  const browser = await chromium.launch();
+  try {
+    for (const [mode, width, height, colorScheme] of [
+      ["desktop", 1536, 1024, "light"], ["desktop-dark", 1536, 1024, "dark"], ["mobile", 390, 844, "light"],
+    ]) {
+      const page = await browser.newPage({ viewport: { width, height }, colorScheme, hasTouch: width < 700 });
+      for (const [name, path] of [
+        ["gallery", "/"], ["playground", "/?item=kokonut-smooth-drawer"],
+        ["library", "/?view=library"], ["install", "/?item=kokonut-smooth-drawer&panel=install"],
+        ...(shelf ? [["collection", "/?view=library&shelf=" + encodeURIComponent(shelf)]] : []),
+      ]) {
+        await page.goto(origin + path);
+        await expect(page.locator("h1")).toBeVisible();
+        if (name === "gallery" || name === "playground") await expect(page.locator('[data-preview-state="ready"]').first()).toBeVisible();
+        else if (name === "install") await expect(page.getByRole("heading", { name: "Use in your project" })).toBeVisible();
+        if (name === "install" && width < 700) await page.getByRole("heading", { name: "Use in your project" }).scrollIntoViewIfNeeded();
+        await page.screenshot({ path: resolve(directory, mode + "-" + name + ".png") });
+        if (name === "gallery" && mode !== "desktop-dark") {
+          for (let index = 1; index <= 12; index++) {
+            const card = page.locator(".mx-original-card").filter({ has: page.locator("h2") });
+            let target = page.locator(`[aria-posinset="${index}"][data-original-card]`);
+            if (!(await page.locator(".mx-originals-grid").getAttribute("data-results"))) target = card.nth(index - 1);
+            for (let step = 0; step < 10 && !(await target.count()); step++) {
+              await page.evaluate(() => window.scrollBy(0, innerHeight * .65));
+              await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+            }
+            await target.scrollIntoViewIfNeeded();
+            await expect(target).toHaveAttribute("data-edition", "13");
+            await expect.poll(() => target.evaluate(node => Boolean(
+              node.querySelector('[data-preview-state="ready"]') || node.querySelector(".mx-preview-thumbnail img")?.naturalWidth,
+            ))).toBe(true);
+            await target.screenshot({ path: resolve(directory, mode + "-new-" + index + ".png") });
+          }
+        }
+      }
+      if (mode === "desktop") {
+        await page.goto(origin);
+        const session = await page.context().newCDPSession(page);
+        await session.send("Tracing.start", { categories: "devtools.timeline,blink.user_timing,loading", transferMode: "ReturnAsStream" });
+        await page.evaluate(async () => {
+          for (let index = 1; index <= 36; index++) {
+            window.scrollTo(0, (document.documentElement.scrollHeight - innerHeight) * index / 36);
+            await new Promise(resolve => requestAnimationFrame(resolve));
+          }
+        });
+        const done = once(session, "Tracing.tracingComplete");
+        await session.send("Tracing.end");
+        const [{ stream }] = await done;
+        const buffers = [];
+        while (true) {
+          const chunk = await session.send("IO.read", { handle: stream });
+          if (chunk.data) buffers.push(Buffer.from(chunk.data, chunk.base64Encoded ? "base64" : "utf8"));
+          if (chunk.eof) break;
+        }
+        await session.send("IO.close", { handle: stream });
+        await writeFile(resolve(directory, "chromium-scroll-trace.json"), Buffer.concat(buffers));
+      }
+      await page.close();
+    }
+  } finally { await browser.close(); }
+}
