@@ -46,7 +46,7 @@ export async function inspectWorkspace({ deep = false } = {}) {
 }
 
 export async function buildIdentity() {
-  const files = ["index.html", "vite.config.mjs", "package-lock.json", "scripts/v9/serve.mjs", "scripts/studio/catalog.mjs",
+  const files = ["index.html", "vite.config.mjs", "package-lock.json", "scripts/v9/serve.mjs", "scripts/studio/catalog.mjs", "scripts/v12/sources.mjs",
     ...["paths", "library", "kits", "thumbnail-cache"].map(name => `scripts/studio/v11/${name}.mjs`)];
   for (const folder of ["studio"]) {
     for (const entry of await readdir(folder, { recursive: true, withFileTypes: true })) {

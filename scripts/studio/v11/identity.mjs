@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { createReadStream } from "node:fs";
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, relative, resolve } from "node:path";
+import { editionGroups } from "../../v12/sources.mjs";
 import { loadCatalog, vault } from "../catalog.mjs";
 
 export async function sha256(file) {
@@ -37,15 +38,29 @@ export async function sourceIdentity(catalog, root = vault) {
   };
 }
 
+export async function verifySourceBaseline(catalog, baseline) {
+  const frozen = new Map(baseline.originals.map(({ id }) => {
+    const item = catalog.get(id);
+    assert(item, "Missing V11 original: " + id);
+    return [id, item];
+  }));
+  assert.equal(frozen.size, 140);
+  const current = await sourceIdentity(frozen);
+  assert.deepEqual(current, baseline, "Original source, consumer package or generated preview changed");
+  return current;
+}
+
 if (process.argv[1] && resolve(process.argv[1]) === new URL(import.meta.url).pathname) {
   const path = resolve(vault, "evidence/v11/baseline/source-identity.json");
-  const current = await sourceIdentity(await loadCatalog());
+  const catalog = await loadCatalog();
+  let current;
   if (process.argv.includes("--record")) {
+    current = await sourceIdentity(new Map([...catalog].filter(([, item]) => !editionGroups.includes(item.group))));
     await mkdir(dirname(path), { recursive: true });
     await writeFile(path, JSON.stringify(current, null, 2) + "\n", { flag: "wx", mode: 0o600 });
   } else {
     const baseline = JSON.parse(await readFile(path, "utf8"));
-    assert.deepEqual(current, baseline, "Original source, consumer package or generated preview changed");
+    current = await verifySourceBaseline(catalog, baseline);
   }
   console.log(`${current.originals.length} originals; ${Object.keys(current.hashes).length} captured source, installed, and preview file hashes.`);
 }

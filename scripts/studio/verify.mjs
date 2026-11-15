@@ -3,6 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { chromium, firefox, webkit } from "playwright";
 import { expect } from "@playwright/test";
+import { editionGroups } from "../v12/sources.mjs";
 import { visibleSource } from "./rendering.mjs";
 import { compareSources, comparisonIds } from "./compare.mjs";
 
@@ -25,9 +26,11 @@ const localSources = async () => {
 const originals = await localSources();
 assert(originals.every(item => typeof item.sourceKind === "string"), "Restart the private server using npm run studio.");
 const ids = originals.map(item => item.id);
-assert.equal(new Set(ids).size, 140);
+const total = originals.length;
+assert.equal(new Set(ids).size, total);
+assert.equal(originals.filter(item => !editionGroups.includes(item.group)).length, 140);
 assert.equal(originals.filter(item => item.legacyId).length, 82);
-assert.equal(originals.filter(item => item.installed && item.availability === "ready").length, 140);
+assert.equal(originals.filter(item => item.installed && item.availability === "ready").length, total);
 assert.equal(originals.filter(item => item.sourceKind === "html").length, 50);
 await mkdir(evidence, { recursive: true });
 
@@ -59,7 +62,7 @@ try {
   await browser.close();
   await writeFile(resolve(evidence, "report.json"), JSON.stringify(report, null, 2) + "\n");
   console.log("Public CI: independent of this run. Check GitHub Actions for the pushed commit.");
-  console.log(`Private V10 Gallery: ${report.gallery.filter(row => !row.error).length}/140 mounted, ${report.deepLinks.filter(row => !row.error).length}/140 deep links loaded.`);
+  console.log(`Private Studio Gallery: ${report.gallery.filter(row => !row.error).length}/${total} mounted, ${report.deepLinks.filter(row => !row.error).length}/${total} deep links loaded.`);
   console.log(`Original source acceptance: ${report.comparisons.filter(row => !row.error).length} sampled visual comparisons, ${report.comparisons.filter(row => row.statesMatch).length} matched interaction endpoints; full source acceptance pending.`);
   console.log("Evidence directory:", evidence);
 }
@@ -101,7 +104,7 @@ async function gallery(browser) {
   };
   const start = performance.now();
   await page.goto(origin);
-  await expect(page.locator(cards)).toHaveCount(140);
+  await expect(page.locator(cards)).toHaveCount(total);
   await expect(page.locator(ready).first()).toBeVisible();
   const firstPreviewMs = Math.round(performance.now() - start);
   const cold = await page.evaluate(() => {
@@ -150,7 +153,7 @@ async function gallery(browser) {
   await expect(page.locator(cards)).toHaveCount(1);
   await expect(page.locator(ready)).toBeVisible();
   await page.getByRole("searchbox").fill("");
-  await expect(page.locator(cards)).toHaveCount(140);
+  await expect(page.locator(cards)).toHaveCount(total);
   const metrics = await page.evaluate(() => window.studioMetrics);
   report.performance = { ...cold, firstPreviewMs, coldRequests, ...metrics, nestedActionMs,
     peakPreviewDocuments, jsRequests: [...requests.values()].reduce((a, b) => a + b, 0), distinctJS: requests.size,
@@ -195,7 +198,7 @@ async function responsive(browser) {
     const page = await browser.newPage({ viewport: { width, height }, colorScheme, hasTouch: width <= 768 });
     try {
       await page.goto(origin);
-      await expect(page.locator(cards)).toHaveCount(140);
+      await expect(page.locator(cards)).toHaveCount(total);
       await expect(page.locator(cards).first().locator(ready)).toBeVisible();
       const fit = await page.locator(".mx-originals-grid").evaluate(node => ({
         columns: getComputedStyle(node).gridTemplateColumns.split(" ").length,
@@ -229,7 +232,7 @@ async function navigation(browser) {
   const search = page.getByRole("searchbox");
   try {
     await page.goto(origin);
-    await expect(page.locator(cards)).toHaveCount(140);
+    await expect(page.locator(cards)).toHaveCount(total);
     for (const provider of [...new Set(originals.map(item => item.provider))]) {
       await page.getByLabel("Provider", { exact: true }).selectOption(provider);
       const expected = originals.filter(item => item.provider === provider);
@@ -239,7 +242,7 @@ async function navigation(browser) {
     await page.getByLabel("Source kind").selectOption("html");
     await expect(page.locator(cards)).toHaveCount(50);
     await page.getByLabel("Source kind").selectOption("react");
-    await expect(page.locator(cards)).toHaveCount(90);
+    await expect(page.locator(cards)).toHaveCount(total - 50);
     await page.getByRole("link", { name: "Inputs", exact: true }).click();
     await expect(page.locator(cards)).toHaveCount(originals.filter(item => item.sourceKind === "react" && item.category === "Inputs").length);
     await page.getByRole("link", { name: "All originals", exact: true }).click();
@@ -249,7 +252,7 @@ async function navigation(browser) {
     await search.fill("no match for this phrase");
     await expect(page.getByRole("heading", { name: "No components found" })).toBeVisible();
     await page.getByRole("button", { name: "Clear filters" }).click();
-    await expect(page.locator(cards)).toHaveCount(140);
+    await expect(page.locator(cards)).toHaveCount(total);
     await search.fill("electric border");
     await expect(page.locator(cards)).toHaveCount(1);
     const newSource = page.locator('[data-original-card="reactbits-electric-border"]');

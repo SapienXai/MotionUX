@@ -2,7 +2,6 @@ import { createServer } from "node:http";
 import { createReadStream } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import { basename, extname, resolve } from "node:path";
-import { sources } from "./pilots.mjs";
 import { catalogSummary, loadCatalog, preparation, vault } from "../studio/catalog.mjs";
 
 import { createLibraryAPI, createLibraryStore, catalogID } from "../studio/v11/library.mjs";
@@ -30,6 +29,7 @@ async function refreshThumbnails() {
 }
 const catalog = [...byId.values()];
 const ready = catalog.filter(item => item.availability === "ready");
+const liveGroups = new Set(ready.map(item => item.group));
 if (!ready.length) throw new Error(preparation);
 const studio = (await readFile(await safeFile(shell, "index.html", shell), "utf8")).replace("<html ", '<html data-original-sources="local" ');
 const detailCatalog = new Map(catalog.map(item => {
@@ -188,7 +188,7 @@ const server = createServer({ requestTimeout: 15000, headersTimeout: 5000, maxHe
       }
     } else if (path.startsWith("/v9/live/")) {
       const [, , , provider, lane, ...asset] = path.split("/");
-      if (!Object.hasOwn(sources, provider) && provider !== "designbookmark" || !["original", "installed"].includes(lane)) return response.writeHead(404).end();
+      if (!liveGroups.has(provider) || !["original", "installed"].includes(lane)) return response.writeHead(404).end();
       if (provider === "designbookmark" && asset.at(-1)?.endsWith(".html") && asset.at(-1) !== "index.html") {
         response.setHeader("Content-Security-Policy", "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data: blob: https://designbookmark.com; media-src data: blob:; frame-ancestors 'self'; base-uri 'none'; form-action 'none'");
       }

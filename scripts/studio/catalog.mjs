@@ -2,12 +2,13 @@ import { createHash } from "node:crypto";
 import { readFile, lstat } from "node:fs/promises";
 import { basename, resolve } from "node:path";
 import { safeFile, safeRelative } from "./v11/paths.mjs";
+import { editionGroups } from "../v12/sources.mjs";
 import { extendSources, sources } from "../v9/pilots.mjs";
 
 export const vault = resolve(".motionux-v9");
 export const lastCatalog = resolve(vault, "catalog.last-good.json");
 extendSources(JSON.parse(await readFile("metadata/v9-provider-candidates.json", "utf8")));
-const groups = [...Object.keys(sources), "designbookmark"];
+const groups = [...Object.keys(sources), "designbookmark", ...editionGroups];
 const references = new Set(JSON.parse(await readFile("metadata/v9-reference.json", "utf8")).items.map(item => item.id));
 
 export const preparation = "Run npm run sources:inspect, then npm run sources:prepare and retry npm run studio.";
@@ -61,8 +62,9 @@ export async function loadCatalog({ diagnostics = [] } = {}) {
     try {
       items = JSON.parse(await readFile(resolve(vault, "runtime", group, "catalog.json"), "utf8"));
       if (!Array.isArray(items)) throw new Error("Invalid catalog");
-    } catch {
-      diagnostics.push(group + ": prepared catalog missing or unreadable");
+    } catch (error) {
+      const optional = editionGroups.includes(group) && error.code === "ENOENT" && !previous.some(item => item?.group === group);
+      if (!optional) diagnostics.push(group + ": prepared catalog missing or unreadable");
       items = [];
     }
     const present = new Set(items.flatMap(item => typeof item?.id === "string" ? [item.id] : []));

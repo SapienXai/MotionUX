@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
 import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
+import { editionSources } from "../v12/sources.mjs";
 import { destination, extendSources, originalEntry, sources } from "./pilots.mjs";
 
 const vault = resolve(".motionux-v9");
@@ -12,7 +13,7 @@ const digest = content => createHash("sha256").update(content).digest("hex");
 const json = data => JSON.stringify(data, null, 2) + "\n";
 const baseDependencies = { vite: "8.3.8", tailwindcss: "4.3.0", "@tailwindcss/postcss": "4.3.0", postcss: "8.5.16" };
 const args = process.argv.slice(2);
-const selected = args.filter(arg => arg !== "--pilot");
+const selected = args.filter(arg => !["--pilot", "--v12"].includes(arg));
 
 function run(command, args, cwd, capture = false) {
   return execFileSync(command, args, { cwd, encoding: "utf8", maxBuffer: 16 * 1024 * 1024,
@@ -37,9 +38,11 @@ async function pinnedCheckout(id, spec) {
   return (...args) => run("git", ["show", spec.commit + ":" + args[0]], upstream, true);
 }
 
-if (!args.includes("--pilot")) extendSources(JSON.parse(await readFile("metadata/v9-provider-candidates.json", "utf8")));
-if (selected.some(id => !Object.hasOwn(sources, id))) throw new Error("Unknown provider: " + selected.join(", "));
-const projects = Object.entries(sources).filter(([id]) => !selected.length || selected.includes(id));
+const discovery = JSON.parse(await readFile("metadata/v9-provider-candidates.json", "utf8"));
+if (!args.includes("--pilot")) extendSources(discovery);
+const requested = args.includes("--v12") ? editionSources(discovery, sources) : sources;
+if (selected.some(id => !Object.hasOwn(requested, id))) throw new Error("Unknown provider: " + selected.join(", "));
+const projects = Object.entries(requested).filter(([id]) => !selected.length || selected.includes(id));
 await mkdir(resolve(vault, "upstream"), { recursive: true });
 await Promise.all(projects.map(([id, provider]) => prepareProvider(id, provider)));
 
@@ -80,7 +83,8 @@ async function stageDemoAssets(id, item, provider, exampleFiles, example) {
 }
 
 async function prepareProvider(id, provider) {
-  const source = await pinnedCheckout(id, provider);
+  const family = provider.upstreamId ?? id;
+  const source = await pinnedCheckout(family, provider);
   const css = provider.css ? source(provider.css) : "";
   const license = provider.license === null ? null : source(provider.license ?? "LICENSE");
   const base = resolve(vault, "runtime", id);
@@ -98,7 +102,7 @@ async function prepareProvider(id, provider) {
     const demoPath = item.example ?? (id === "smoothui" ? "apps/docs/examples/" + item.slug + ".tsx" : null);
     const exampleFiles = [];
     const capturedExample = demoPath ? source(demoPath) : null;
-    const fixture = capturedExample ? await stageDemoAssets(id, item, provider, exampleFiles, capturedExample) : null;
+    const fixture = capturedExample ? await stageDemoAssets(family, item, provider, exampleFiles, capturedExample) : null;
     const example = fixture && fixture.imports + fixture.code;
     let assets = fixture?.assets ?? [];
     let demo = example ?? `export { default } from "@/${target.replace(/\.tsx$/, "")}";\n`;
@@ -115,14 +119,14 @@ async function prepareProvider(id, provider) {
       if (jsx === undefined) throw new Error("Official example JSX absent: " + item.usageSource);
       const name = target.split("/").at(-1).replace(/\.tsx$/, "");
       const declarations = usage.slice(0, jsx).replace(/^import[^\n]+\n/m, "").trim();
-      const fixture = await stageDemoAssets(id, item, provider, exampleFiles, usage.slice(jsx).trim().replace(/;\s*$/, ""));
+      const fixture = await stageDemoAssets(family, item, provider, exampleFiles, usage.slice(jsx).trim().replace(/;\s*$/, ""));
       assets = fixture.assets;
       demo = `import ${name} from "@/${target.replace(/\.tsx$/, "")}";\n${fixture.imports}${declarations}\nexport default function Demo() { return (\n${fixture.code}\n); }\n`;
     }
     const demoTarget = `demos/${item.slug}.tsx`;
     const licenseTarget = `notices/${id}.txt`;
     const component = { path: target, target, content: code, type: "registry:file" };
-    const relevantSupport = shared.filter(file =>
+    const relevantSupport = item.support ? shared.filter(file => item.support.includes(file.path)) : shared.filter(file =>
       (!file.path.includes("/ai-core/") || item.slug === "siri-orb") &&
       (!file.path.includes("/smooth-button/") || item.slug === "unlock-face-id") &&
       (!file.path.startsWith("components/ui/") || item.slug === "liquid-glass-card"));
@@ -135,16 +139,16 @@ async function prepareProvider(id, provider) {
     if (css) originalFiles.push({ path: styleTarget, target: styleTarget, content: css, type: "registry:file" });
     if (license) originalFiles.push({ path: licenseTarget, target: licenseTarget, content: license, type: "registry:file" });
     const installFiles = originalFiles.map(file => {
-      if (id !== "smoothui" || !file.target.endsWith(".tsx")) return file;
+      if (family !== "smoothui" || !file.target.endsWith(".tsx")) return file;
       const content = file.content.replaceAll('"@repo/smoothui-utils"', '"@/lib/utils"')
         .replaceAll('"@repo/ai-core"', '"@/components/smoothui/ai-core"')
         .replaceAll('"@repo/smoothui/components/', '"@/components/smoothui/');
       return { ...file, content };
     });
     const payload = {
-      $schema: "https://ui.shadcn.com/schema/registry-item.json", name: `${id}-${item.slug}`,
+      $schema: "https://ui.shadcn.com/schema/registry-item.json", name: provider.upstreamId ? item.galleryId : `${id}-${item.slug}`,
       type: "registry:item", title: item.title,
-      dependencies: Object.entries(provider.dependencies).map(([name, version]) => `${name}@${version}`),
+      dependencies: Object.entries(item.dependencies ?? provider.dependencies).map(([name, version]) => `${name}@${version}`),
       files: installFiles,
     };
     const payloadPath = resolve(vault, "registry", payload.name + ".json");
@@ -162,15 +166,19 @@ export default function Example() {
 ` : `import Demo from "${modulePath}";\n${usageImports}\nexport default function Example() {\n  return <Demo />;\n}\n`;
     output.push({ id: item.galleryId, slug: item.slug, group: id, provider: provider.provider, title: item.title,
       category: item.category, sourceMethod: "pinned-git-source", sourceAvailability: "available-local",
-      fidelityStatus: id === "smoothui" ? "source-adapted" : "original-source-running", repo: provider.repo, upstreamCommit: provider.commit, demoURL,
+      fidelityStatus: family === "smoothui" ? "source-adapted" : "original-source-running", repo: provider.repo, upstreamCommit: provider.commit, demoURL,
       sourceURL: `${provider.repo}/blob/${provider.commit}/${origin}`, licenseNoticePath: license ? licenseTarget : undefined,
       upstreamHash: digest(code), entry: target, css: [...(css ? [styleTarget] : []), ...localStyles.map(file => file.path)], fonts: provider.font ? [provider.font] : [], assets,
-      dependencies: provider.dependencies, scenes: item.scenes ?? [], installRecipe: payloadPath,
+      dependencies: item.dependencies ?? provider.dependencies, scenes: item.scenes ?? [], installRecipe: payloadPath,
+      ...(item.height && { height: item.height }),
       usage,
       codeFiles: originalFiles.map((file, i) => ({ path: file.target, sha256: digest(file.content), installedSHA256: digest(installFiles[i].content) })),
     });
   }
-  await Promise.all([original, consumer].map(lane => initProject(lane, id, provider)));
+  await Promise.all([
+    initProject(original, id, provider),
+    initProject(consumer, id, provider, Boolean(provider.upstreamId)),
+  ]);
   await put(resolve(consumer, "components.json"), json({
     $schema: "https://ui.shadcn.com/schema.json", style: "new-york", tsx: true, rsc: false,
     tailwind: { config: "", css: "styles.css", baseColor: "neutral", cssVariables: true, prefix: "" },
@@ -194,13 +202,16 @@ export default function Example() {
   console.log(`${provider.provider}: ${output.length} original and installed demos built`);
 }
 
-async function initProject(root, id, provider) {
+async function initProject(root, id, provider, independent = false) {
   await mkdir(root, { recursive: true });
   const packagePath = resolve(root, "package.json");
+  const dependencies = independent
+    ? { react: provider.dependencies.react, "react-dom": provider.dependencies["react-dom"] }
+    : provider.dependencies;
   const manifest = json({
     name: "motionux-private-" + id, private: true, type: "module",
     scripts: { build: "vite build", typecheck: "tsc --noEmit" },
-    dependencies: { ...baseDependencies, ...provider.dependencies },
+    dependencies: { ...baseDependencies, ...dependencies },
     devDependencies: { typescript: "5.9.3", "@types/react": "19.2.14", "@types/react-dom": "19.2.3", ...provider.types },
   });
   const previous = existsSync(packagePath) ? await readFile(packagePath, "utf8") : null;
@@ -209,7 +220,7 @@ async function initProject(root, id, provider) {
   else if (!existsSync(resolve(root, "node_modules/.bin/vite"))) npm(root, ["ci", "--ignore-scripts", "--no-audit", "--no-fund"]);
 
   const paths = { "@/*": ["./*"] };
-  if (id === "smoothui") Object.assign(paths, {
+  if ((provider.upstreamId ?? id) === "smoothui" && !independent) Object.assign(paths, {
     "@repo/smoothui-utils": ["./lib/utils.ts"],
     "@repo/ai-core": ["./components/smoothui/ai-core/index.tsx"],
     "@repo/smoothui/components/*": ["./components/smoothui/*/index.tsx"],

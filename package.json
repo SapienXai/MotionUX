@@ -21,7 +21,9 @@
     "verify": "npm run lint && npm run typecheck && npm run registry:build && npm run test:unit && npm run test:usage && npm run build && npm test",
     "sources:inspect": "node scripts/v9/inspect-reference.mjs",
     "sources:prepare": "node scripts/v9/prepare.mjs && node scripts/v9/prepare-designbookmark.mjs",
-    "sources:serve": "node scripts/v9/serve.mjs"
+    "sources:prepare:v12": "node scripts/v9/prepare.mjs --v12",
+    "sources:serve": "node scripts/v9/serve.mjs",
+    "studio:verify:v12": "node scripts/v12/verify.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "5.3.0",

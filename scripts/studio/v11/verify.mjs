@@ -8,7 +8,7 @@ import { chromium, firefox, webkit } from "playwright";
 import { expect } from "@playwright/test";
 import { AxeBuilder } from "@axe-core/playwright";
 import { emptyLibrary } from "./library.mjs";
-import { sourceIdentity } from "./identity.mjs";
+import { verifySourceBaseline } from "./identity.mjs";
 import { loadCatalog, vault } from "../catalog.mjs";
 
 const output = resolve(vault, "evidence/v11/current");
@@ -21,6 +21,7 @@ const port = allocator.address().port;
 await new Promise(resolve => allocator.close(resolve));
 const origin = "http://127.0.0.1:" + port;
 const report = { identity: 0, thumbnailCount: 0, workflows: [], responsive: [], axe: [] };
+const catalog = await loadCatalog();
 let child;
 
 async function start() {
@@ -43,13 +44,12 @@ async function stop() {
 
 try {
   const baseline = JSON.parse(await readFile(resolve(vault, "evidence/v11/baseline/source-identity.json"), "utf8"));
-  const current = await sourceIdentity(await loadCatalog());
-  assert.deepEqual(current, baseline);
+  const current = await verifySourceBaseline(catalog, baseline);
   report.identity = Object.keys(current.hashes).length;
   await start();
   const thumbnails = await fetch(origin + "/v11/thumbnails.json").then(response => response.json());
   report.thumbnailCount = Object.values(thumbnails).flat().length;
-  assert.equal(report.thumbnailCount, 560);
+  assert.equal(report.thumbnailCount, 4 * catalog.size);
   assert(Object.values(thumbnails).every(options => options.length === 4));
 
   for (const [path, status] of [
@@ -83,7 +83,7 @@ async function libraryFlows(browser) {
   await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin });
   const page = await context.newPage();
   await page.goto(origin);
-  await expect(page.locator("[data-original-card]")).toHaveCount(140);
+  await expect(page.locator("[data-original-card]")).toHaveCount(catalog.size);
   const favorite = page.getByRole("button", { name: "Favorite Wheel Picker", exact: true });
   await expect(favorite).toBeEnabled();
   await page.route("**/v11/library", route => route.fulfill({ status: 503, json: { message: "Simulated save failure." } }), { times: 1 });
@@ -111,7 +111,7 @@ async function libraryFlows(browser) {
     await expect(page.getByRole("link", { name: new RegExp(name) })).toBeVisible();
   }
   await page.getByRole("link", { name: "Gallery", exact: true }).click();
-  await expect(page.locator("[data-original-card]")).toHaveCount(140);
+  await expect(page.locator("[data-original-card]")).toHaveCount(catalog.size);
   await add(page, "Wheel Picker", ["Interface study", "Controls"]);
   await expect(page.getByRole("button", { name: "Add Wheel Picker to collections", exact: true })).toBeFocused();
   await page.getByRole("link", { name: "My Library", exact: true }).click();
