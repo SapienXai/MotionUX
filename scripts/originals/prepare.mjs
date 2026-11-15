@@ -218,6 +218,8 @@ async function buildGroup(adapter, items) {
         installRecipe: resolve(recipes, group + "-" + item.id + ".json"), acceptance: { prepared: true, consumerBuilt: true } });
     }
     await put(resolve(staging, "catalog.json"), json(records));
+    // The preview server uses dist and the registry uses pinned source files.
+    await Promise.all([original, consumer].map(root => rm(resolve(root, "node_modules"), { recursive: true })));
     // The finished shard becomes visible only once its compiled lanes and recipes are ready.
     if (await stat(final).catch(() => null)) {
       const index = await readEditionGroups(vault);

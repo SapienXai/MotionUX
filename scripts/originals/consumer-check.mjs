@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { execFile, spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { once } from "node:events";
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { resolve } from "node:path";
 import { promisify } from "node:util";
@@ -21,9 +21,15 @@ const groups = Map.groupBy(items, item => item.group);
 const report = { compiledUsage: [], failures: [], kit: {}, next: {} };
 
 async function compileUsages(group, entries) {
-  const project = resolve(vault, "runtime", group, "installed");
-  const verifyDir = await mkdtemp(resolve(project, "usage-check-"));
+  const installed = resolve(vault, "runtime", group, "installed");
+  const staging = await mkdtemp(resolve(root, "usage-check-"));
   try {
+    const project = resolve(staging, "consumer");
+    const omitted = new Set(["dist", "node_modules"].map(name => resolve(installed, name)));
+    await cp(installed, project, { recursive: true, filter: path => !omitted.has(path) });
+    await run("npm", ["ci", "--ignore-scripts", "--no-audit", "--no-fund", "--prefer-offline"], { cwd: project });
+    const verifyDir = resolve(project, "usage");
+    await mkdir(verifyDir);
     const paths = entries.map(item => resolve(verifyDir, item.id + ".tsx"));
     await Promise.all(entries.map((item, i) => writeFile(paths[i], item.usage.replaceAll('"./originals/', '"../originals/'))));
     const config = resolve(verifyDir, "tsconfig.json");
@@ -32,7 +38,7 @@ async function compileUsages(group, entries) {
     report.compiledUsage.push(...entries.map(item => item.id));
   } catch (error) {
     report.failures.push({ group, message: (error.stdout ?? error.message).slice(-3000) });
-  } finally { await rm(verifyDir, { recursive: true, force: true }); }
+  } finally { await rm(staging, { recursive: true, force: true }); }
 }
 
 const queue = [...groups];
@@ -110,7 +116,11 @@ try {
   const ended = once(server, "exit");
   server.kill();
   await ended;
-  await writeFile(resolve(root, "consumer-kit.json"), JSON.stringify(report, null, 2) + "\n");
+  try {
+    await writeFile(resolve(root, "consumer-kit.json"), JSON.stringify(report, null, 2) + "\n");
+  } finally {
+    await rm(fixture, { recursive: true, force: true });
+  }
 }
 console.log(`Usage compiled for ${report.compiledUsage.length}; kit contains ${report.kit.items?.length ?? 0}; Next compiled ${report.next.installed?.length ?? 0}.`);
 if (report.failures.length) process.exitCode = 1;
