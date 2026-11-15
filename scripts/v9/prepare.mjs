@@ -43,6 +43,42 @@ const projects = Object.entries(sources).filter(([id]) => !selected.length || se
 await mkdir(resolve(vault, "upstream"), { recursive: true });
 await Promise.all(projects.map(([id, provider]) => prepareProvider(id, provider)));
 
+// The registry stores text files. A generated TS module keeps the pinned image bytes
+// installable without requiring the consumer to serve the provider's public directory.
+async function stageDemoAssets(id, item, provider, exampleFiles, example) {
+  const motionAssets = id === "motionprimitives"
+    ? [...new Set([...example.matchAll(/src=['"]\/([a-z0-9_.-]+\.(?:jpg|svg))['"]/gi)].map(match => match[1]))]
+    : [];
+  const glare = id === "reactbits" && item.slug === "glare-hover";
+  const paths = glare ? ["assets/demo/day-sky.webp", "assets/demo/night-sky.webp"] : motionAssets;
+  if (!paths.length) return { code: example, imports: "", assets: [] };
+
+  const types = { jpg: "image/jpeg", svg: "image/svg+xml", webp: "image/webp" };
+  const assets = [];
+  const urls = {};
+  for (const path of paths) {
+    const bytes = await readFile(resolve(vault, "upstream", id, "public", path));
+    urls[path] = `data:${types[path.split(".").at(-1)]};base64,${bytes.toString("base64")}`;
+    assets.push({ path: "public/" + path, sourceURL: provider.repo + "/blob/" + provider.commit + "/public/" + path, sha256: digest(bytes) });
+  }
+  const target = `demos/${item.slug}.assets.ts`;
+  exampleFiles.push({ path: target, target, content: `export const assets = ${json(urls)}`, type: "registry:file" });
+  const imports = `import { assets } from "./${item.slug}.assets";\n`;
+  if (glare) {
+    // The copy-paste snippet uses an illustrative /photo.jpg. The pinned interactive
+    // demo supplies the provider's day/night images and responsive presentation.
+    const code = example.replace('width="360px"', 'width="min(360px, 82vw)"')
+      .replace(/<img src="\/photo\.jpg".*?\/>/s,
+        `<picture><source media="(prefers-color-scheme: dark)" srcSet={assets["assets/demo/night-sky.webp"]} />
+  <img src={assets["assets/demo/day-sky.webp"]} alt="" draggable={false}
+    style={{ width: "100%", aspectRatio: "3 / 2", objectFit: "cover", display: "block" }} /></picture>`);
+    return { code, imports, assets };
+  }
+  const code = example.replace(/src=['"]\/([a-z0-9_.-]+\.(?:jpg|svg))['"]/gi,
+    (_, path) => `src={assets[${JSON.stringify(path)}]}`);
+  return { code, imports, assets };
+}
+
 async function prepareProvider(id, provider) {
   const source = await pinnedCheckout(id, provider);
   const css = provider.css ? source(provider.css) : "";
@@ -60,8 +96,11 @@ async function prepareProvider(id, provider) {
     const code = source(origin);
     const styleTarget = "upstream.css";
     const demoPath = item.example ?? (id === "smoothui" ? "apps/docs/examples/" + item.slug + ".tsx" : null);
-    const example = demoPath ? source(demoPath) : null;
     const exampleFiles = [];
+    const capturedExample = demoPath ? source(demoPath) : null;
+    const fixture = capturedExample ? await stageDemoAssets(id, item, provider, exampleFiles, capturedExample) : null;
+    const example = fixture && fixture.imports + fixture.code;
+    let assets = fixture?.assets ?? [];
     let demo = example ?? `export { default } from "@/${target.replace(/\.tsx$/, "")}";\n`;
     if (example && !/\bexport default\b/.test(example)) {
       const named = example.match(/\bexport (?:function|const) (\w+)/)?.[1];
@@ -76,7 +115,9 @@ async function prepareProvider(id, provider) {
       if (jsx === undefined) throw new Error("Official example JSX absent: " + item.usageSource);
       const name = target.split("/").at(-1).replace(/\.tsx$/, "");
       const declarations = usage.slice(0, jsx).replace(/^import[^\n]+\n/m, "").trim();
-      demo = `import ${name} from "@/${target.replace(/\.tsx$/, "")}";\n${declarations}\nexport default function Demo() { return (\n${usage.slice(jsx).trim().replace(/;\s*$/, "")}\n); }\n`;
+      const fixture = await stageDemoAssets(id, item, provider, exampleFiles, usage.slice(jsx).trim().replace(/;\s*$/, ""));
+      assets = fixture.assets;
+      demo = `import ${name} from "@/${target.replace(/\.tsx$/, "")}";\n${fixture.imports}${declarations}\nexport default function Demo() { return (\n${fixture.code}\n); }\n`;
     }
     const demoTarget = `demos/${item.slug}.tsx`;
     const licenseTarget = `notices/${id}.txt`;
@@ -123,7 +164,7 @@ export default function Example() {
       category: item.category, sourceMethod: "pinned-git-source", sourceAvailability: "available-local",
       fidelityStatus: id === "smoothui" ? "source-adapted" : "original-source-running", repo: provider.repo, upstreamCommit: provider.commit, demoURL,
       sourceURL: `${provider.repo}/blob/${provider.commit}/${origin}`, licenseNoticePath: license ? licenseTarget : undefined,
-      upstreamHash: digest(code), entry: target, css: [...(css ? [styleTarget] : []), ...localStyles.map(file => file.path)], fonts: provider.font ? [provider.font] : [], assets: [],
+      upstreamHash: digest(code), entry: target, css: [...(css ? [styleTarget] : []), ...localStyles.map(file => file.path)], fonts: provider.font ? [provider.font] : [], assets,
       dependencies: provider.dependencies, scenes: item.scenes ?? [], installRecipe: payloadPath,
       usage,
       codeFiles: originalFiles.map((file, i) => ({ path: file.target, sha256: digest(file.content), installedSHA256: digest(installFiles[i].content) })),

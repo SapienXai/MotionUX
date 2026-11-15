@@ -16,8 +16,8 @@ export function intercept(event: MouseEvent<HTMLAnchorElement>, action: () => vo
   event.preventDefault();
   action();
 }
-function Brand({ route, navigate }: { route: Route; navigate: Navigate }) {
-  const home: Route = { ...route, page: "gallery", item: "", category: "", query: "" };
+function Brand({ navigate }: { navigate: Navigate }) {
+  const home: Route = { page: "gallery", item: "", category: "", query: "" };
   return <a className="mx-brand" href={hrefFor(home)} onClick={event => intercept(event, () => navigate(home))}>
     <svg viewBox="0 0 57 42" width="33" height="29" aria-hidden="true">
       <path fill="currentColor" d="M7 35c-4-3-4-8-1-12L23 5c4-4 10-4 13 0 3 3 3 8 0 11L19 35c-3 4-9 4-12 0Z"/>
@@ -27,7 +27,7 @@ function Brand({ route, navigate }: { route: Route; navigate: Navigate }) {
   </a>;
 }
 
-function Sidebar({ route, navigate, lastItem, reduced, mobile, close }: { route: Route; navigate: Navigate; lastItem: string; reduced: boolean; mobile?: boolean; close?: () => void }) {
+function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, close }: { route: Route; navigate: Navigate; lastItem: string; reduced: boolean; originalCount?: number; mobile?: boolean; close?: () => void }) {
   const [more, setMore] = useState(() => categories.slice(6).some(name => route.category === name.toLowerCase()));
   const primaryCategory = categories.slice(0, 6);
   const [expandedCategory, setExpandedCategory] = useState(route.category);
@@ -50,24 +50,27 @@ function Sidebar({ route, navigate, lastItem, reduced, mobile, close }: { route:
   };
   const guide: Route = { ...route, page: "guides", item: "" };
   return <LayoutGroup id={mobile ? "drawer" : "sidebar"}>
-    <div className="mx-side-brand"><Brand route={route} navigate={navigate} />{mobile && <button type="button" aria-label="Close menu" className="mx-icon" onClick={close} autoFocus><X size={21} /></button>}</div>
+    <div className="mx-side-brand"><Brand navigate={navigate} />{mobile && <button type="button" aria-label="Close menu" className="mx-icon" onClick={close} autoFocus><X size={21} /></button>}</div>
     <div className="mx-side-scroll">
       <nav className="mx-side-nav" aria-label="Studio">
-        {nav.map(([page, text, Icon]) => {
+        {nav.filter(([page]) => originalCount === undefined || page !== "components" && page !== "examples").map(([page, text, Icon]) => {
           const current = route.page === page;
-          const next: Route = { ...route, page, item: page === "playground" ? lastItem || FEATURED[0][0] : "" };
+          const next: Route = originalCount === undefined
+            ? { ...route, page, item: page === "playground" ? lastItem || FEATURED[0][0] : "", source: undefined }
+            : { page, item: page === "playground" ? lastItem || FEATURED[0][0] : "", category: "", query: "" };
           return <a key={page} href={hrefFor(next)} className="mx-side-row" aria-current={current ? "page" : undefined}
-            onClick={event => intercept(event, () => navigate(next))}>{current && active("section")}<Icon size={20} aria-hidden="true" /><span>{text}</span></a>;
+            onClick={event => intercept(event, () => navigate(next))}>{current && active("section")}<Icon size={20} aria-hidden="true" /><span>{page === "sources" ? "Discovery" : text}</span>
+            {page === "gallery" && originalCount !== undefined && <span className="mx-count">{originalCount}</span>}</a>;
         })}
       </nav>
-      <nav className="mx-side-categories" aria-label="Categories">
+      {originalCount === undefined && <nav className="mx-side-categories" aria-label="Categories">
         <h2>Categories</h2>
         {["" as const, ...primaryCategory].map(mark)}
         <button className="mx-more" type="button" aria-expanded={more} onClick={() => setMore(!more)}>
           More categories <ChevronDown size={14} aria-hidden="true" />
         </button>
         {(more) && categories.slice(6).map(mark)}
-      </nav>
+      </nav>}
     </div>
     <a className="mx-side-row mx-guide-link" href={hrefFor(guide)} onClick={event => intercept(event, () => navigate(guide))}>
       <ArrowRight size={18} aria-hidden="true" /><span>Get started</span>
@@ -75,9 +78,9 @@ function Sidebar({ route, navigate, lastItem, reduced, mobile, close }: { route:
   </LayoutGroup>;
 }
 
-export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, reduced, lastItem, children }: {
+export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, reduced, lastItem, originalCount, children }: {
   route: Route; navigate: Navigate; updateQuery: (query: string) => void; scheme: "light" | "dark"; toggleScheme: () => void;
-  reduced: boolean; lastItem: string; children: ReactNode;
+  reduced: boolean; lastItem: string; originalCount?: number; children: ReactNode;
 }) {
   const drawer = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -111,7 +114,7 @@ export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, redu
     return () => { current?.removeEventListener("touchmove", stopBackground); current?.removeEventListener("wheel", stopBackground); };
   }, [open]);
   function close() { drawer.current?.close(); }
-  const sidebar = { route, lastItem, reduced };
+  const sidebar = { route, lastItem, reduced, originalCount };
   return <>
     <a href="#studio-main" className="mx-skip">Skip to content</a>
     <aside className="mx-sidebar"><Sidebar {...sidebar} navigate={navigate} /></aside>
@@ -129,7 +132,7 @@ export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, redu
     </dialog>
     <div className="mx-main-frame">
       <header className="mx-top">
-        <div className="mx-mobile-brand"><Brand route={route} navigate={navigate} /></div>
+        <div className="mx-mobile-brand"><Brand navigate={navigate} /></div>
         <label className="mx-search"><Search size={21} aria-hidden="true" />
           <input ref={input} type="search" placeholder="Search components..." aria-label="Search components" value={route.query}
             onChange={event => updateQuery(event.target.value)}

@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "studio": "node scripts/studio/start.mjs",
+    "studio:verify": "node scripts/studio/verify.mjs",
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "registry:build": "shadcn build",

@@ -37,6 +37,14 @@ for (const row of rows.filter(item => item.observed === "code-payload" && item.s
   const notice = raw.split("\n")[0];
   const files = [{ path: entry, target: entry, content: raw, type: "registry:file" }];
   if (document) {
+    const target = `demos/${slug}.tsx`;
+    const host = `export default function HTMLPreview({ basePath = "", height = 400 }: { basePath?: string; height?: number | string }) {
+  const path = basePath.endsWith("/") ? basePath.slice(0, -1) : basePath;
+  return <iframe title=${JSON.stringify(name)} src={path + "/originals/${slug}.html"}
+    sandbox="allow-scripts" referrerPolicy="no-referrer" style={{ display: "block", width: "100%", height, border: 0 }} />;
+}
+`;
+    files.push({ path: target, target, content: host, type: "registry:file" });
     await writeFile(resolve(original, "dist", slug + ".html"), raw);
   } else {
     // The published file demonstrates this JSX contract in its header.
@@ -63,9 +71,10 @@ export default function Demo() {
     licenseNoticePath: entry, notice, scenes: [], css: document ? [entry] : ["demos/command-button.css"], fonts: document ? ["Upstream web fonts"] : [],
     dependencies: document ? {} : { motion: "12.38.0", tailwindcss: "4.3.0" },
     assets: document ? [entry] : [],
-    usage: document ? `export default function Example() {
-  return <iframe title=${JSON.stringify(name)} src="/originals/${slug}.html"
-    sandbox="allow-scripts" style={{ width: "100%", height: 400, border: 0 }} />;
+    usage: document ? `import HTMLPreview from "./demos/${slug}";
+
+export default function Example() {
+  return <HTMLPreview />;
 }
 ` : `import CommandButton from "./components/designbookmark/command-button";
 import "./demos/command-button.css";
@@ -104,13 +113,15 @@ import "./host.css";
 
 const query = new URLSearchParams(location.search);
 const slug = query.get("item") ?? "";
-const entries = ${JSON.stringify(Object.fromEntries(catalog.map(item => [item.slug, item.title])))};
-const title = entries[slug as keyof typeof entries];
+const demos = import.meta.glob<{ default: React.ComponentType<{ basePath?: string; height?: string }> }>("./demos/*.tsx");
+const load = demos["./demos/" + slug + ".tsx"];
 const Command = lazy(() => import("./demos/command-button"));
 if (query.get("scheme") === "dark") document.documentElement.classList.add("dark");
-createRoot(document.getElementById("root")!).render(!title ? <p role="alert">Unknown installed source.</p> : slug === "command-button"
-  ? <Suspense fallback={null}><div className="command"><Command /></div></Suspense>
-  : <iframe title={title} sandbox="allow-scripts" src={import.meta.env.BASE_URL + "originals/" + slug + ".html"} />);
+const root = createRoot(document.getElementById("root")!);
+if (slug === "command-button") root.render(<Suspense fallback={null}><div className="command"><Command /></div></Suspense>);
+else if (load) void load().then(({ default: Host }) => root.render(<Host basePath={import.meta.env.BASE_URL} height="100dvh" />),
+  () => root.render(<p role="alert">Installed HTML host could not load.</p>));
+else root.render(<p role="alert">Unknown installed source.</p>);
 `);
 run(cli, ["add", "--yes", ...catalog.map(item => item.installRecipe)]);
 for (const item of catalog) for (const file of item.codeFiles) {

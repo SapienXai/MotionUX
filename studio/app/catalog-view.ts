@@ -29,12 +29,15 @@ export function presentation(item: Reference) {
 }
 export const repoURL = "https://github.com/SapienXai/MotionUX";
 
-export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples" | "sources"; item: string; category: string; query: string; preset?: boolean; configuration?: string; panel?: "usage" | "install"; source?: string; sourcePanel?: "usage" | "install" };
+export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples" | "sources"; item: string; category: string; query: string; preset?: boolean; configuration?: string; panel?: "usage" | "install"; source?: string; sourcePanel?: "provenance" | "usage" | "install" | "code" | "evidence";
+  collection?: "legacy"; provider?: string; kind?: "react" | "html"; sort?: "name" | "provider"; compare?: boolean; };
 export function readRoute(): Route {
   const params = new URLSearchParams(location.search);
   const page = params.get("view");
   const item = params.get("item") ?? "";
   const panel = params.get("panel");
+  const kind = params.get("kind");
+  const sort = params.get("sort");
   return {
     page: item ? "playground" : page === "components" || page === "guides" || page === "examples" || page === "sources" ? page : "gallery",
     item,
@@ -44,7 +47,12 @@ export function readRoute(): Route {
     preset: params.get("preset") === "gallery",
     configuration: params.get("config") ?? undefined,
     source: params.get("source") ?? undefined,
-    sourcePanel: panel === "install" || panel === "usage" ? panel : undefined,
+    sourcePanel: panel === "install" || panel === "usage" || panel === "code" || panel === "evidence" ? panel : undefined,
+    collection: params.get("collection") === "legacy" || (item && params.get("legacy") === "1") ? "legacy" : undefined,
+    provider: params.get("provider") ?? undefined,
+    kind: kind === "react" || kind === "html" ? kind : undefined,
+    sort: sort === "name" || sort === "provider" ? sort : undefined,
+    compare: params.get("compare") === "1",
   };
 }
 export function hrefFor(route: Route) {
@@ -53,8 +61,15 @@ export function hrefFor(route: Route) {
   else if (route.page !== "gallery") params.set("view", route.page);
   if (route.category) params.set("category", route.category);
   if (route.query) params.set("q", route.query);
+  if (route.collection) params.set("collection", route.collection);
+  if (route.provider) params.set("provider", route.provider);
+  if (route.kind) params.set("kind", route.kind);
+  if (route.sort) params.set("sort", route.sort);
+  if (route.compare) params.set("compare", "1");
   if (route.page === "playground" && route.preset) params.set("preset", "gallery");
-  if (route.page === "playground" && route.panel) params.set("panel", route.panel);
+  if (route.page === "playground" && (route.sourcePanel || route.panel)) {
+    params.set("panel", (route.sourcePanel ?? route.panel)!);
+  }
   if (route.page === "playground" && route.configuration) params.set("config", route.configuration);
   if (route.page === "sources" && route.source) {
     params.set("source", route.source);

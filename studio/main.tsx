@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 
-if (new URLSearchParams(location.search).has("legacy")) {
+const params = new URLSearchParams(location.search);
+if (params.has("legacy") && !params.has("item")) {
   document.documentElement.lang = "tr";
   void import("../examples/main");
 } else {

@@ -2,10 +2,9 @@ import { Code2, Download, Play, RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { Reference } from "../catalog";
 import { categories, FEATURED, hrefFor, presentation, type Route } from "./catalog-view";
-import { GalleryPreview, PreviewLoading } from "./preview";
+import { GalleryPreview } from "./preview";
 import { intercept } from "./shell";
 import type { Config, Value } from "../playground/controls";
-import { SourceFrame, type OriginalCard } from "../sources/local";
 
 let observer: IntersectionObserver | undefined;
 const listeners = new Map<Element, (visible: boolean) => void>();
@@ -18,9 +17,9 @@ export function observePreview(element: Element, change: (visible: boolean) => v
   return () => { observer?.unobserve(element); listeners.delete(element); };
 }
 
-function GalleryCard({ item, original, awaitingOriginals, route, open, openSource, reduced, scheme }: {
-  item: Reference; original?: OriginalCard; route: Route; open: (id: string, configuration?: string, panel?: Route["panel"]) => void;
-  openSource: (id: string, panel?: Route["sourcePanel"]) => void; awaitingOriginals: boolean; reduced: boolean; scheme: "light" | "dark";
+function GalleryCard({ item, route, open, reduced, scheme }: {
+  item: Reference; route: Route; open: (id: string, configuration?: string, panel?: Route["panel"]) => void;
+  reduced: boolean; scheme: "light" | "dark";
 }) {
   const { title } = presentation(item);
   const stage = useRef<HTMLDivElement>(null);
@@ -33,10 +32,8 @@ function GalleryCard({ item, original, awaitingOriginals, route, open, openSourc
     selected.current = { ...selected.current, [key]: value };
   }, []);
   const state = () => Object.keys(selected.current).length ? JSON.stringify(selected.current) : undefined;
-  const link = (panel?: Route["panel"]) => original
-    ? hrefFor({ page: "sources", item: "", category: "", query: "", source: original.id, sourcePanel: panel })
-    : hrefFor({ ...route, page: "playground", item: item.id, preset: true, panel });
-  const launch = (panel?: Route["panel"]) => original ? openSource(original.id, panel) : open(item.id, state(), panel);
+  const link = (panel?: Route["panel"]) => hrefFor({ ...route, page: "playground", item: item.id, preset: true, panel });
+  const launch = (panel?: Route["panel"]) => open(item.id, state(), panel);
   useEffect(() => {
     const el = stage.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
@@ -48,12 +45,11 @@ function GalleryCard({ item, original, awaitingOriginals, route, open, openSourc
       onFocus={() => setFocused(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
       {mounted && <>
         <button type="button" className="mx-card-reset" aria-label={`Reset ${title} preview`} onClick={() => { selected.current = {}; setRevision(value => value + 1); }}><RotateCcw size={15} aria-hidden="true" /></button>
-        {awaitingOriginals ? <PreviewLoading /> : original ? <SourceFrame key={revision} entry={original} lane="adapter" scheme={scheme} label={title + " original preview"} fill /> :
-          <GalleryPreview key={revision} item={item} lead={lead} reduced={reduced} config={lead ? selected.current : undefined} onStateChange={lead ? update : undefined} />}
+        {<GalleryPreview key={revision} item={item} lead={lead} reduced={reduced} config={lead ? selected.current : undefined} onStateChange={lead ? update : undefined} />}
       </>}
     </div>
     <div className="mx-card-copy">
-      <div className="mx-card-caption"><h2>{title}</h2><p>{item.provider} · {awaitingOriginals ? "Loading source" : original ? "Original source" : "Legacy preview"}</p></div>
+      <div className="mx-card-caption"><h2>{title}</h2><p>{item.provider} · Legacy preview</p></div>
       <div className="mx-card-links">
         <a href={link()} className="mx-open-playground" aria-label={`Open playground for ${title}`}
           onClick={event => intercept(event, () => launch())}><Play size={14} aria-hidden="true" /> Playground</a>
@@ -66,9 +62,8 @@ function GalleryCard({ item, original, awaitingOriginals, route, open, openSourc
   </article>;
 }
 
-export function Gallery({ items, originals, awaitingOriginals, openSource, route, open, reduced, clear, selectCategory, scheme }: {
-  items: Reference[]; originals: Map<string, OriginalCard>; openSource: (id: string, panel?: Route["sourcePanel"]) => void;
-  awaitingOriginals: boolean;
+export function Gallery({ items, route, open, reduced, clear, selectCategory, scheme }: {
+  items: Reference[];
   route: Route; open: (id: string, configuration?: string, panel?: Route["panel"]) => void; reduced: boolean;
   clear: () => void; selectCategory: (category: string) => void; scheme: "light" | "dark";
 }) {
@@ -94,7 +89,8 @@ export function Gallery({ items, originals, awaitingOriginals, openSource, route
   }, [route.category, route.query, reduced]);
   return <>
     <section className="mx-gallery-header">
-      <h1 tabIndex={-1}>Motion</h1>
+      <h1 tabIndex={-1}>{route.collection ? "Legacy V8" : "Motion"}</h1>
+      {route.collection && <a href="./">Originals Gallery</a>}
       <p>Try interactive components and install the ones you want to use in React.</p>
       <nav className="mx-gallery-filters" aria-label="Filter gallery">
         {["All", ...categories].map(label => {
@@ -106,7 +102,7 @@ export function Gallery({ items, originals, awaitingOriginals, openSource, route
     </section>
     <p className={filtered ? "mx-result-count" : "mx-sr"} role="status">{items.length} {items.length === 1 ? "component" : "components"}</p>
     {items.length ? <div ref={grid} className="mx-gallery" aria-label="Component gallery">{items.map(item =>
-      <GalleryCard key={item.id} item={item} original={originals.get(item.id)} awaitingOriginals={awaitingOriginals} route={route} open={open} openSource={openSource} reduced={reduced} scheme={scheme} />)}</div>
+      <GalleryCard key={item.id} item={item} route={route} open={open} reduced={reduced} scheme={scheme} />)}</div>
       : <Empty clear={clear}>Try a different name or clear the filters.</Empty>}
   </>;
 }

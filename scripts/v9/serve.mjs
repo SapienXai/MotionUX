@@ -2,36 +2,47 @@ import { createServer } from "node:http";
 import { createReadStream } from "node:fs";
 import { readFile, realpath, stat } from "node:fs/promises";
 import { extname, resolve, sep } from "node:path";
-import { extendSources, sources } from "./pilots.mjs";
+import { sources } from "./pilots.mjs";
+import { catalogSummary, loadCatalog, preparation, vault } from "../studio/catalog.mjs";
 
-const vault = resolve(".motionux-v9");
 const shell = resolve("dist");
 const port = 5199;
 const host = `127.0.0.1:${port}`;
-extendSources(JSON.parse(await readFile("metadata/v9-provider-candidates.json", "utf8")));
-const catalog = [];
-for (const provider of Object.keys(sources)) {
-  try {
-    catalog.push(...JSON.parse(await readFile(resolve(vault, "runtime", provider, "catalog.json"), "utf8")));
-  } catch (error) {
-    if (error.code !== "ENOENT") throw error;
-  }
-}
-try {
-  catalog.push(...JSON.parse(await readFile(resolve(vault, "runtime", "designbookmark", "catalog.json"), "utf8")));
-} catch (error) {
-  if (error.code !== "ENOENT") throw error;
-}
-if (!catalog.length) throw new Error("Run npm run sources:prepare before starting the private Studio.");
+const byId = await loadCatalog();
+const catalog = [...byId.values()];
+const ready = catalog.filter(item => item.availability === "ready");
+if (!ready.length) throw new Error(preparation);
 const studio = (await readFile(resolve(shell, "index.html"), "utf8")).replace("<html ", '<html data-original-sources="local" ');
-const byId = new Map(catalog.map(item => [item.id, item]));
 const detailCatalog = new Map(catalog.map(item => {
-  const record = { ...item, installURL: "/v9/registry/" + item.id + ".json" };
-  delete record.installRecipe;
-  return [item.id, record];
+  const { installRecipe, ...record } = item;
+  return [item.id, { ...record, installURL: installRecipe && "/v9/registry/" + item.id + ".json" }];
 }));
-const visibleCatalog = catalog.map(({ id, slug, group, provider, title, category, format, height, demoURL, fidelityStatus }) =>
-  ({ id, slug, group, provider, title, category, format, height, demoURL, fidelityStatus }));
+const visibleCatalog = catalog.map(catalogSummary);
+const previewStyle = `<style>
+html { overscroll-behavior: contain auto; }
+#specimen { grid-template-columns: minmax(0, 1fr); justify-items: safe center; }
+</style>`;
+
+async function studioPreview(response, item, options) {
+  if (item?.availability !== "ready" || options.get("item") !== item.slug) return response.writeHead(404).end();
+  response.setHeader("Content-Type", types[".html"]);
+  if (item.sourceKind === "react") {
+    const upstream = await readFile(resolve(vault, "runtime", item.group, "original", "dist", "index.html"), "utf8");
+    response.end(upstream.replace("<html ", '<html data-studio-preview="react" ').replace("</head>", previewStyle + "</head>"));
+    return;
+  }
+  const src = "/v9/live/designbookmark/original/" + encodeURIComponent(item.slug) + ".html";
+  // Validate existence at request time, since the local vault can be removed while the Studio is running.
+  if (!(await stat(resolve(vault, "runtime", item.group, "original", "dist", item.slug + ".html"))).isFile()) {
+    return response.writeHead(404).end();
+  }
+  response.setHeader("Content-Security-Policy", "default-src 'none'; frame-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; frame-ancestors 'self'");
+  response.end(`<!doctype html><html lang="en" data-studio-preview="html"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Studio HTML preview</title>
+<style>body { margin: 0; } iframe { display:block; inline-size: 100%; block-size: 100dvh; border: 0; }</style>
+</head><body><iframe title="Interactive original HTML" sandbox="allow-scripts" referrerpolicy="no-referrer" src="${src}"
+onload="document.documentElement.dataset.previewLoaded='true'"></iframe></body></html>`);
+}
 
 const types = {
   ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8",
@@ -63,8 +74,11 @@ createServer(async (request, response) => {
     const url = new URL(request.url, "http://" + host);
     const path = decodeURIComponent(url.pathname);
     if (path === "/") {
+      response.setHeader("X-MotionUX-Studio", "v10");
       response.setHeader("Content-Type", types[".html"]);
       response.end(studio);
+    } else if (path.startsWith("/v10/preview/")) {
+      await studioPreview(response, byId.get(path.slice("/v10/preview/".length)), url.searchParams);
     } else if (path === "/v9/catalog.json") {
       const id = url.searchParams.get("id");
       const payload = id ? detailCatalog.get(id) : visibleCatalog;
@@ -92,16 +106,23 @@ createServer(async (request, response) => {
       if (stem.endsWith(".json")) {
         const id = stem.slice(0, -5);
         if (!byId.has(id)) return response.writeHead(404).end();
-        const [visual, verified] = await Promise.all(["normalized.json", "verification.json"].map(async file => {
+        const [visual, verified, v10] = await Promise.all(["normalized.json", "verification.json", "v10/report.json"].map(async file => {
           try { return JSON.parse(await readFile(resolve(evidence, file), "utf8")); }
           catch (error) { if (error.code !== "ENOENT") throw error; return null; }
         }));
         const comparisons = visual?.find(item => item.id === id)?.comparisons ?? [];
         const trajectories = verified?.pilots.filter(item => item.id === id) ?? [];
         response.setHeader("Content-Type", types[".json"]);
-        response.end(JSON.stringify({ comparisons, trajectories }));
+        const source = byId.get(id);
+        const galleryMount = Boolean(v10?.gallery.some(row => row.id === id && row.sourceHash === source.upstreamHash && !row.error));
+        const deepLink = Boolean(v10?.deepLinks.some(row => row.id === id && row.sourceHash === source.upstreamHash && !row.error));
+        const latest = v10?.comparisons.find(row => row.id === id && row.sourceHash === source.upstreamHash && !row.error);
+        const studio = latest ? { image: `v10/${id}-comparison.png`, pixelDiffs: latest.pixelDiffs,
+          interactionSampled: latest.interactionSampled, statesMatch: latest.statesMatch } : undefined;
+        response.end(JSON.stringify({ comparisons, trajectories, galleryMount, deepLink, studio }));
       } else {
-        const icon = stem.match(/^([a-z0-9-]+)-(light|dark|original)-diff\.png$/);
+        const icon = stem.match(/^([a-z0-9-]+)-(light|dark|original)-diff\.png$/) ??
+          stem.match(/^v10\/([a-z0-9-]+)-comparison\.png$/);
         if (!icon || !byId.has(icon[1])) return response.writeHead(404).end();
         await sendFile(response, evidence, stem);
       }
@@ -120,4 +141,4 @@ createServer(async (request, response) => {
     if (error.code !== "ENOENT") console.error(error.message);
     response.writeHead(error.code === "ENOENT" ? 404 : 500).end();
   }
-}).listen(port, "127.0.0.1", () => console.log(`MotionUX Studio with ${catalog.length} local original sources at http://${host}/?view=sources`));
+}).listen(port, "127.0.0.1", () => console.log(`MotionUX Studio with ${ready.length}/${catalog.length} prepared original sources at http://${host}/`));

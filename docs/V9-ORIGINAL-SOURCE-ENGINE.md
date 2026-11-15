@@ -1,5 +1,7 @@
 # MotionUX V9 Original Source Engine
 
+This report records the V9 workflow and measurements. The current original-first launch command is `npm run studio`. [V10 Studio](V10-STUDIO.md)
+
 The public Studio contains the source catalog and comparison interface. The private Studio can mount the actual upstream implementations and serve the packages built from those snapshots. V8 registry entries remain available for existing consumers and as labeled legacy previews.
 
 ## Run the private Studio
