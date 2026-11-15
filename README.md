@@ -47,7 +47,7 @@ Run `npm run brain:index` in a prepared workspace to search or ask for a recomme
 
 > Review our booking confirmation screen. Suggest calm feedback that fits the design and reflects the actual reservation status. Include what we should verify before integrating it.
 
-[Agent V1 quick start](docs/AGENT-V1.md) · [Read the product roadmap](docs/ROADMAP.md)
+[Agent V1 quick start](docs/AGENT-V1.md) · [Agent V2 fixture integration and rollback](docs/AGENT-V2.md) · [Read the product roadmap](docs/ROADMAP.md)
 
 ## Get started
 

@@ -1,0 +1,89 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import type { Booking } from "@/lib/booking-ledger";
+import { Toaster, usePromiseToast } from "../../originals/kokonut-promise-toast/components/kokonutui/promise-toast";
+
+const statusText: Record<Booking["status"], string> = {
+  confirmed: "Your room is confirmed.",
+  pending: "We are waiting for the reservation to be confirmed.",
+  failed: "We could not find your reservation.",
+  cancelled: "This reservation was cancelled.",
+};
+
+function isBooking(value: unknown): value is Booking {
+  return typeof value === "object" && value !== null && "status" in value && typeof value.status === "string" &&
+    Object.hasOwn(statusText, value.status) && "room" in value && typeof value.room === "string";
+}
+
+export function BookingMotion({ reference, onBooking }: { reference: string; onBooking: (booking: Booking) => void }) {
+  const toaster = usePromiseToast();
+  const active = useRef<AbortController>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const toastId = useRef<number>(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const [networkError, setNetworkError] = useState(false);
+
+  useEffect(() => () => active.current?.abort(), []);
+
+  function dismiss() {
+    if (toastId.current !== null) toaster.dismiss(toastId.current);
+    toastId.current = null;
+  }
+
+  async function refresh() {
+    active.current?.abort();
+    const request = new AbortController();
+    active.current = request;
+    setNetworkError(false);
+    setRefreshing(true);
+    dismiss();
+    try {
+      const response = await fetch("/api/booking-status?reference=" + encodeURIComponent(reference), {
+        signal: request.signal, cache: "no-store",
+      });
+      if (!response.ok) throw new Error("Booking response was unavailable");
+      const booking: unknown = await response.json();
+      if (!isBooking(booking)) throw new Error("Booking response was invalid");
+      if (request.signal.aborted || active.current !== request) return;
+      onBooking(booking);
+      if (booking.status === "confirmed" && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+        toastId.current = toaster.show(async () => booking, {
+          loading: "Preparing receipt notice",
+          success: ["Receipt ready", "You can review your room details above."],
+          error: "Receipt notice unavailable",
+        });
+      }
+    } catch {
+      if (!request.signal.aborted && active.current === request) setNetworkError(true);
+    } finally {
+      if (active.current === request) {
+        active.current = null;
+        setRefreshing(false);
+      }
+    }
+  }
+
+  return <section aria-label="Reservation updates" data-motionux-source="kokonut-promise-toast"
+    onKeyDown={event => {
+      if (event.key === "Escape" && toaster.toasts.length) { dismiss(); trigger.current?.focus(); }
+    }}
+    onClick={event => {
+      if (event.target instanceof Element && event.target.closest('button[aria-label="Dismiss"]')) {
+        trigger.current?.focus();
+      }
+    }}>
+    <div className="flex flex-wrap gap-2">
+      <button type="button" ref={trigger} onClick={refresh} className="min-h-11 rounded-md border px-3">Refresh reservation</button>
+      {refreshing && <button type="button" className="min-h-11 rounded-md border px-3" onClick={() => {
+        active.current?.abort();
+        active.current = null;
+        setRefreshing(false);
+        trigger.current?.focus();
+      }}>Cancel refresh</button>}
+    </div>
+    {refreshing && <p role="status">Checking the latest reservation status.</p>}
+    {networkError && <p role="alert">Status is unavailable. Try refreshing again.</p>}
+    <Toaster toaster={toaster} className="h-16" />
+  </section>;
+}

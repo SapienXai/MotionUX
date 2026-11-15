@@ -1,0 +1,8 @@
+import { readBooking } from "@/lib/booking-ledger";
+
+export async function GET(request: Request) {
+  const reference = new URL(request.url).searchParams.get("reference");
+  if (!reference || !/^[a-z0-9-]{1,40}$/.test(reference)) return Response.json({ error: "Unknown reference" }, { status: 400 });
+  const booking = await readBooking(reference);
+  return Response.json(booking, { headers: { "Cache-Control": "no-store" } });
+}

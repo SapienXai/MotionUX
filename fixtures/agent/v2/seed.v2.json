@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 2,
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "aa9540d8f78d802495f86b9a274d2e3fc1a8358c9a865d8f983b69b8d6ff9841"
+    },
+    {
+      "path": "README.md",
+      "sha256": "3827e0eadf0390958695baf0cdc916f661295ae9bc5b6a10730ddf2a4db8a419"
+    },
+    {
+      "path": "components.json",
+      "sha256": "6937e6858694b8569d9a6fcab1172603bf2ef53d3412ea6c9d10b736fc70ecea"
+    },
+    {
+      "path": "package.json",
+      "sha256": "ee5ec8ed99953d42e697178b45b1705bc4adc3ac69d8a4ccc1901d2464614735"
+    },
+    {
+      "path": "postcss.config.mjs",
+      "sha256": "a1a188221f064d964dd9958c3d48b0c23252fabbeb6099d95ee8e15c764718b0"
+    },
+    {
+      "path": "src/app/(stay)/bookings/[id]/page.tsx",
+      "sha256": "11d17d343ae80125ac716a11da8e998b1d770bfe7b52376b9f2ddce0b1fb5720"
+    },
+    {
+      "path": "src/app/(stay)/bookings/confirmation/page.tsx",
+      "sha256": "92bdc8e9247edcbcf2c0369ad635b4c09027effa8070e978d2e0123d5006851b"
+    },
+    {
+      "path": "src/app/(stay)/bookings/layout.tsx",
+      "sha256": "177eacd54d5b7a798124addf409cd7df595100d3455d2606f6a05a5c8031e402"
+    },
+    {
+      "path": "src/app/(stay)/layout.tsx",
+      "sha256": "62481bc91d99f8e383d109b2c9f52a8772c4eff296eddc48e25954ed1e1d5705"
+    },
+    {
+      "path": "src/app/checkout/page.tsx",
+      "sha256": "8bc3a7d9a4c4279c70f848b1b7334e6f30118dda661db7aa3d35b9860ced3cd6"
+    },
+    {
+      "path": "src/app/details/page.tsx",
+      "sha256": "7e4c304e217e938b65e4c2404c6b60422a8da15afcb4755f4a45eccea4cb7b3b"
+    },
+    {
+      "path": "src/app/globals.css",
+      "sha256": "bc756063595ad39df7205feacd9c33b40bfa70739148e6c3031192037e883f0c"
+    },
+    {
+      "path": "src/app/hold/page.tsx",
+      "sha256": "4d7c4aeee7f32c9089d269207a6b5ed55df422246e4ca0a579d4c074ce925786"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "sha256": "316fec4a746ed5ac04d87c8ff41c7914704de8e61982bc93ceaee10f9d60d465"
+    },
+    {
+      "path": "src/app/palette.css",
+      "sha256": "6765a037c0eab44d8aedd1d974abb87775c909e23b5401f09d018c4318b27a92"
+    },
+    {
+      "path": "src/app/payment/page.tsx",
+      "sha256": "276af480d7f3095198b9be648bba66c44ee06ddc3742d2ee7bbee4a1706a869d"
+    },
+    {
+      "path": "src/app/server-receipt/page.tsx",
+      "sha256": "f67dad2cf0f3ca7f796d41bed694e586743db67b99c89a74474a41bce0587f10"
+    },
+    {
+      "path": "src/lib/booking-ledger.ts",
+      "sha256": "16df7844041603e70011e8d043909451fa888408b79ca49a8b1c21dbc4e23ddf"
+    },
+    {
+      "path": "src/pages/legacy.tsx",
+      "sha256": "e2cd327aa263cba252bf50f671f9fe0f9643eae2a47e7ea2e7531e69092fbd6f"
+    },
+    {
+      "path": "src/ui/booking-receipt.tsx",
+      "sha256": "6915e99f9542e6f314ab8a4f7bebba90ad758eed4e6f2e944103a3517df1f234"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "bd7c05d9e3a28013ee2973f4ffd4e331b1c07c3672c528c02c83325fde4013cd"
+    }
+  ]
+}

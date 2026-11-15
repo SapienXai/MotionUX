@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/integration-transaction.v2.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "reviewFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "status": {
+      "enum": [
+        "authorized",
+        "applying",
+        "applied",
+        "verifying",
+        "verified",
+        "failed",
+        "rolled-back",
+        "needs-manual-review"
+      ]
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sequence": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 150
+          },
+          "state": {
+            "enum": [
+              "authorized",
+              "applying",
+              "applied",
+              "verifying",
+              "verified",
+              "failed",
+              "rolled-back",
+              "needs-manual-review"
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 320
+          }
+        },
+        "required": [
+          "sequence",
+          "state",
+          "detail"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 140
+    },
+    "proof": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "beforeHash": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "finalHash": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "restored": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_@()\\[\\]./-]{1,245}$"
+              },
+              "maxItems": 24
+            },
+            "removed": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_@()\\[\\]./-]{1,245}$"
+              },
+              "maxItems": 24
+            },
+            "directoryCount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 140
+            }
+          },
+          "required": [
+            "beforeHash",
+            "finalHash",
+            "restored",
+            "removed",
+            "directoryCount"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "runId",
+    "reviewFingerprint",
+    "status",
+    "events",
+    "proof",
+    "fingerprint"
+  ],
+  "additionalProperties": false
+}

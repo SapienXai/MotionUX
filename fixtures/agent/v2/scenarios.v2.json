@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 2,
+  "readOnlyV1Decisions": ["no-motion", "no-suitable-component", "need-more-context", "stale-index", "not-prepared"],
+  "blockedFilesystemTraps": ["symlink", "hardlink", "submodule", "secret-name"],
+  "applyFaults": ["failed", "cancelled", "stale"],
+  "verificationFaults": ["failed", "verification-failed", "timeout"]
+}

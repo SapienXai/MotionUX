@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/integration-report.v2.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "status": {
+      "enum": [
+        "authorized",
+        "applying",
+        "applied",
+        "verifying",
+        "verified",
+        "failed",
+        "rolled-back",
+        "needs-manual-review"
+      ]
+    },
+    "sourceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 90
+    },
+    "reviewFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "beforeHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "appliedHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "rollbackHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "outcomes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "failed",
+              "unknown",
+              "blocked"
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 320
+          }
+        },
+        "required": [
+          "name",
+          "status",
+          "detail"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 80
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_@()\\[\\]./-]{1,245}$"
+      },
+      "maxItems": 120
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "runId",
+    "status",
+    "sourceId",
+    "reviewFingerprint",
+    "beforeHash",
+    "appliedHash",
+    "rollbackHash",
+    "outcomes",
+    "artifacts"
+  ],
+  "additionalProperties": false
+}

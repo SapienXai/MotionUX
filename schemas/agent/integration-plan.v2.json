@@ -1,0 +1,502 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/integration-plan.v2.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "mode": {
+      "const": "fixture-only"
+    },
+    "status": {
+      "const": "preflight-passed"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "fixtureRoot": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_@()\\[\\]./-]{1,245}$"
+    },
+    "route": {
+      "const": "/bookings/confirmation"
+    },
+    "sourceKind": {
+      "const": "app-router"
+    },
+    "request": {
+      "$ref": "https://motionux.local/schemas/agent/integration-request.v2.json"
+    },
+    "planFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "projectFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "brainIndexFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "brainSourceFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "seedHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "createdAt": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000000000000
+    },
+    "expiresAt": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000000000000
+    },
+    "before": {
+      "$ref": "#/$defs/tree"
+    },
+    "after": {
+      "$ref": "#/$defs/tree"
+    },
+    "beforeHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "afterHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "mutationManifest": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_@()\\[\\]./-]{1,245}$"
+          },
+          "operation": {
+            "enum": [
+              "create",
+              "modify",
+              "delete"
+            ]
+          },
+          "before": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/image"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "after": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/image"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "fileType": {
+            "enum": [
+              "ts",
+              "tsx",
+              "js",
+              "mjs",
+              "css",
+              "json",
+              "md",
+              "txt"
+            ]
+          }
+        },
+        "required": [
+          "path",
+          "operation",
+          "before",
+          "after",
+          "fileType"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 24
+    },
+    "createdDirectories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_@()\\[\\]./-]{1,245}$"
+          },
+          "mode": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 511
+          }
+        },
+        "required": [
+          "path",
+          "mode"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 24
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 90
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "format": {
+          "const": "react"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://[^ ]+$"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "upstream": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "registry": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "notice": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_@()\\[\\]./-]{1,245}$"
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 70
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 600
+          },
+          "maxItems": 30
+        },
+        "selectionRank": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "v1ReviewStatus": {
+          "enum": [
+            "proposed",
+            "conditional"
+          ]
+        },
+        "code": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_@()\\[\\]./-]{1,245}$"
+              },
+              "upstream": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "installed": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "adaptation": {
+                "enum": [
+                  "identical",
+                  "relative-utils-import"
+                ]
+              }
+            },
+            "required": [
+              "path",
+              "upstream",
+              "installed",
+              "adaptation"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 24
+        }
+      },
+      "required": [
+        "id",
+        "provider",
+        "format",
+        "url",
+        "commit",
+        "upstream",
+        "registry",
+        "notice",
+        "license",
+        "evidence",
+        "selectionRank",
+        "v1ReviewStatus",
+        "code"
+      ],
+      "additionalProperties": false
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "before": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "after": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "group": {
+            "enum": [
+              "dependencies",
+              "devDependencies"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "before",
+          "after",
+          "group"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 24
+    },
+    "preflight": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "resolved"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 180
+          },
+          "maxItems": 16
+        },
+        "packagePrepMs": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "status",
+        "checks",
+        "packagePrepMs"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "processes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 180
+          },
+          "maxItems": 12
+        },
+        "writable": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_@()\\[\\]./-]{1,245}$"
+          },
+          "maxItems": 12
+        },
+        "authority": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "risk": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "maxItems": 12
+        }
+      },
+      "required": [
+        "processes",
+        "writable",
+        "authority",
+        "risk"
+      ],
+      "additionalProperties": false
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "mode",
+    "status",
+    "runId",
+    "fixtureRoot",
+    "route",
+    "sourceKind",
+    "request",
+    "planFingerprint",
+    "projectFingerprint",
+    "brainIndexFingerprint",
+    "brainSourceFingerprint",
+    "seedHash",
+    "createdAt",
+    "expiresAt",
+    "before",
+    "after",
+    "beforeHash",
+    "afterHash",
+    "mutationManifest",
+    "createdDirectories",
+    "source",
+    "dependencies",
+    "preflight",
+    "scope",
+    "fingerprint"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "image": {
+      "type": "object",
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "mode": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 511
+        }
+      },
+      "required": [
+        "sha256",
+        "mode"
+      ],
+      "additionalProperties": false
+    },
+    "tree": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_@()\\[\\]./-]{1,245}$"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "mode": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 511
+              }
+            },
+            "required": [
+              "path",
+              "sha256",
+              "mode"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 140
+        },
+        "directories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_@()\\[\\]./-]{1,245}$"
+              },
+              "mode": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 511
+              }
+            },
+            "required": [
+              "path",
+              "mode"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 140
+        }
+      },
+      "required": [
+        "files",
+        "directories"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

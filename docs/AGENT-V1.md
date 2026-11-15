@@ -54,4 +54,4 @@ The static fixture is a fictional Next.js 16 / React 19 / Tailwind 4 app. Evalua
 
 The CLI is the local contract. Other consumers can use the static inspection entry point and `createMotionPlanner(index)`. [Inspector entry point](../scripts/agent/inspect.mjs) · [Planner](../src/agent/planner.ts) · [Context and plan schemas](../schemas/agent/)
 
-Agent V2 starts with a separately authorized disposable integration. It will review the proposed changes, install the chosen pin in scope and verify the real target before accepting any edit. MCP remains a later interface over proven tooling. [Roadmap](ROADMAP.md)
+The separate Agent V2 capability reviews, applies and verifies one pinned integration in an explicitly authorized booking fixture clone. Agent V1 retains its read-only contract. [Agent V2](AGENT-V2.md) · [Roadmap](ROADMAP.md)
