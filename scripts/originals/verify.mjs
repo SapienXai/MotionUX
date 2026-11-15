@@ -92,7 +92,12 @@ async function motion(page, frame, item, explicit) {
   const initialImage = await frame.locator("body").screenshot({ timeout: 6500, scale: "css" });
   let mode = null;
   let trajectory = [];
-  if (!explicit) {
+  if (item.id === "magicui-kinetic-text") {
+    const letter = root.locator('h1 span[aria-hidden="true"]').nth(2);
+    await letter.hover();
+    await expect.poll(() => letter.evaluate(node => getComputedStyle(node).fontWeight)).toBe("900");
+    mode = "hover font weight";
+  } else if (!explicit) {
     let actions = await root.locator(controls).count();
     actions = Math.min(actions, 4);
     for (let index = 0; index < actions; index++) {

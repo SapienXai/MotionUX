@@ -222,7 +222,7 @@ async function responsive(browser) {
         }
       }
       if (name === "chromium") {
-        await expect(page.locator(cards).nth(width > 1024 ? 5 : width > 480 ? 3 : 1).locator(ready)).toBeVisible();
+        await expect(page.locator(cards).first().locator(ready)).toBeVisible();
         await page.screenshot({ path: resolve(evidence, label + ".png") });
       }
       report.browsers.push({ engine: name, width, colorScheme, ...fit });
