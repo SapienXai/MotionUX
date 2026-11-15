@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased · Studio V9
+
+- Added the private source workspace, official source capture, provider provenance and a three-lane comparison with independent shadcn installation. [V9 guide](docs/V9-ORIGINAL-SOURCE-ENGINE.md)
+
 ## Unreleased · Studio V8
 
 - Rebuilt the Gallery around live previews in a monochrome layout with system light and dark modes, direct Playground links and responsive filtering.

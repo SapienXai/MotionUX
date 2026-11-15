@@ -5,6 +5,7 @@ import { categories, FEATURED, hrefFor, presentation, type Route } from "./catal
 import { GalleryPreview } from "./preview";
 import { intercept } from "./shell";
 import type { Config, Value } from "../playground/controls";
+import { SourceFrame, type Original } from "../sources/local";
 
 let observer: IntersectionObserver | undefined;
 const listeners = new Map<Element, (visible: boolean) => void>();
@@ -17,7 +18,10 @@ function observe(element: Element, change: (visible: boolean) => void) {
   return () => { observer?.unobserve(element); listeners.delete(element); };
 }
 
-function GalleryCard({ item, route, open, reduced, scheme }: { item: Reference; route: Route; open: (id: string, configuration?: string, panel?: Route["panel"]) => void; reduced: boolean; scheme: "light" | "dark" }) {
+function GalleryCard({ item, original, route, open, openSource, reduced, scheme }: {
+  item: Reference; original?: Original; route: Route; open: (id: string, configuration?: string, panel?: Route["panel"]) => void;
+  openSource: (id: string, panel?: Route["sourcePanel"]) => void; reduced: boolean; scheme: "light" | "dark";
+}) {
   const { title } = presentation(item);
   const stage = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -29,6 +33,10 @@ function GalleryCard({ item, route, open, reduced, scheme }: { item: Reference; 
     selected.current = { ...selected.current, [key]: value };
   }, []);
   const state = () => Object.keys(selected.current).length ? JSON.stringify(selected.current) : undefined;
+  const link = (panel?: Route["panel"]) => original
+    ? hrefFor({ page: "sources", item: "", category: "", query: "", source: original.id, sourcePanel: panel })
+    : hrefFor({ ...route, page: "playground", item: item.id, preset: true, panel });
+  const launch = (panel?: Route["panel"]) => original ? openSource(original.id, panel) : open(item.id, state(), panel);
   useEffect(() => {
     const el = stage.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
@@ -40,24 +48,29 @@ function GalleryCard({ item, route, open, reduced, scheme }: { item: Reference; 
       onFocus={() => setFocused(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
       {mounted && <>
         <button type="button" className="mx-card-reset" aria-label={`Reset ${title} preview`} onClick={() => { selected.current = {}; setRevision(value => value + 1); }}><RotateCcw size={15} aria-hidden="true" /></button>
-        <GalleryPreview key={revision} item={item} lead={lead} reduced={reduced} config={lead ? selected.current : undefined} onStateChange={lead ? update : undefined} />
+        {original ? <SourceFrame key={revision} entry={original} lane="adapter" scheme={scheme} label={title + " original preview"} fill /> :
+          <GalleryPreview key={revision} item={item} lead={lead} reduced={reduced} config={lead ? selected.current : undefined} onStateChange={lead ? update : undefined} />}
       </>}
     </div>
     <div className="mx-card-copy">
-      <div className="mx-card-caption"><h2>{title}</h2><p>{item.provider}</p></div>
+      <div className="mx-card-caption"><h2>{title}</h2><p>{item.provider} · {original ? "Original source" : "Legacy preview"}</p></div>
       <div className="mx-card-links">
-        <a href={hrefFor({ ...route, page: "playground", item: item.id, preset: true })} className="mx-open-playground" aria-label={`Open playground for ${title}`}
-          onClick={event => intercept(event, () => open(item.id, state()))}><Play size={14} aria-hidden="true" /> Playground</a>
-        <a href={hrefFor({ ...route, page: "playground", item: item.id, preset: true, panel: "usage" })} aria-label={`React code for ${title}`}
-          onClick={event => intercept(event, () => open(item.id, state(), "usage"))}><Code2 size={14} aria-hidden="true" /> Code</a>
-        <a href={hrefFor({ ...route, page: "playground", item: item.id, preset: true, panel: "install" })} aria-label={`Install ${title}`}
-          onClick={event => intercept(event, () => open(item.id, state(), "install"))}><Download size={13} aria-hidden="true" /> Install</a>
+        <a href={link()} className="mx-open-playground" aria-label={`Open playground for ${title}`}
+          onClick={event => intercept(event, () => launch())}><Play size={14} aria-hidden="true" /> Playground</a>
+        <a href={link("usage")} aria-label={`React code for ${title}`}
+          onClick={event => intercept(event, () => launch("usage"))}><Code2 size={14} aria-hidden="true" /> Code</a>
+        <a href={link("install")} aria-label={`Install ${title}`}
+          onClick={event => intercept(event, () => launch("install"))}><Download size={13} aria-hidden="true" /> Install</a>
       </div>
     </div>
   </article>;
 }
 
-export function Gallery({ items, route, open, reduced, clear, selectCategory, scheme }: { items: Reference[]; route: Route; open: (id: string, configuration?: string, panel?: Route["panel"]) => void; reduced: boolean; clear: () => void; selectCategory: (category: string) => void; scheme: "light" | "dark" }) {
+export function Gallery({ items, originals, openSource, route, open, reduced, clear, selectCategory, scheme }: {
+  items: Reference[]; originals: Map<string, Original>; openSource: (id: string, panel?: Route["sourcePanel"]) => void;
+  route: Route; open: (id: string, configuration?: string, panel?: Route["panel"]) => void; reduced: boolean;
+  clear: () => void; selectCategory: (category: string) => void; scheme: "light" | "dark";
+}) {
   const filtered = Boolean(route.query.trim() || route.category);
   const grid = useRef<HTMLDivElement>(null);
   const positions = useRef(new Map<string, DOMRect>());
@@ -91,7 +104,8 @@ export function Gallery({ items, route, open, reduced, clear, selectCategory, sc
       </nav>
     </section>
     <p className={filtered ? "mx-result-count" : "mx-sr"} role="status">{items.length} {items.length === 1 ? "component" : "components"}</p>
-    {items.length ? <div ref={grid} className="mx-gallery" aria-label="Component gallery">{items.map(item => <GalleryCard key={item.id} item={item} route={route} open={open} reduced={reduced} scheme={scheme} />)}</div>
+    {items.length ? <div ref={grid} className="mx-gallery" aria-label="Component gallery">{items.map(item =>
+      <GalleryCard key={item.id} item={item} original={originals.get(item.id)} route={route} open={open} openSource={openSource} reduced={reduced} scheme={scheme} />)}</div>
       : <Empty clear={clear}>Try a different name or clear the filters.</Empty>}
   </>;
 }

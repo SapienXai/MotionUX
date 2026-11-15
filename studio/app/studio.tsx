@@ -6,8 +6,10 @@ import { Gallery } from "./gallery";
 import { Components, Examples, Guides } from "./pages";
 import { PreviewLoading } from "./preview";
 import { Shell } from "./shell";
+import { useLocalSources } from "../sources/local";
 
 const Playground = lazy(() => import("./playground"));
+const SourceLab = lazy(() => import("../sources/lab"));
 const schemePreference = "(prefers-color-scheme: dark)";
 function savedScheme(): "light" | "dark" | undefined {
   const saved = document.documentElement.dataset.mxScheme;
@@ -37,6 +39,7 @@ export default function Studio() {
   const platformReduced = useReducedMotion() === true;
   const item = references.find(entry => entry.id === route.item);
   const items = visibleItems(route);
+  const originals = useLocalSources();
   function navigate(next: Route, replace = false) {
     if (route.page === "gallery" && next.page === "playground") { scroll.current = window.scrollY; selectedCard.current = next.item; }
     const href = hrefFor(next);
@@ -73,7 +76,8 @@ export default function Studio() {
     }
   }, [route]);
   function setQuery(query: string) {
-    navigate({ ...route, query, page: route.page === "components" ? "components" : "gallery", item: "" }, true);
+    const page = route.page === "components" || route.page === "sources" ? route.page : "gallery";
+    navigate({ ...route, query, page, item: "", source: undefined }, true);
   }
   function toggleScheme() {
     const next = scheme === "light" ? "dark" : "light";
@@ -82,13 +86,15 @@ export default function Studio() {
     setSchemeOverride(next);
   }
   const open = (id: string, configuration?: string, panel?: Route["panel"]) => navigate({ ...route, page: "playground", item: id, configuration, panel, preset: true });
+  const openSource = (id: string, sourcePanel?: Route["sourcePanel"]) => navigate({ page: "sources", item: "", category: "", query: "", source: id, sourcePanel });
   const clear = () => navigate({ ...route, query: "", category: "", item: "" });
   return <div className="mx-studio" data-scheme={scheme}>
     <Shell route={route} navigate={navigate} updateQuery={setQuery} scheme={scheme} toggleScheme={toggleScheme} reduced={platformReduced} lastItem={lastItem}>
       <div className={`mx-view mx-view-${route.page}`} key={route.page} data-entering={entered || undefined}>
-        {route.page === "gallery" ? <Gallery items={items} route={route} open={open} reduced={platformReduced} clear={clear} scheme={scheme} selectCategory={category => navigate({ ...route, category })} /> :
+        {route.page === "gallery" ? <Gallery items={items} originals={originals} openSource={openSource} route={route} open={open} reduced={platformReduced} clear={clear} scheme={scheme} selectCategory={category => navigate({ ...route, category })} /> :
           route.page === "components" ? <Components items={items} route={route} open={open} clear={clear} /> :
           route.page === "guides" ? <Guides /> : route.page === "examples" ? <Examples route={route} open={open} /> :
+          route.page === "sources" ? <Suspense fallback={<PreviewLoading />}><SourceLab originals={originals} route={route} scheme={scheme} navigate={navigate} /></Suspense> :
           item ? <Suspense fallback={<PreviewLoading />}><Playground key={item.id} item={item} route={route}
             back={() => navigate({ ...route, page: "gallery", item: "" })} reduced={platformReduced} systemReduced={platformReduced} scheme={scheme} /></Suspense> :
           <section className="mx-inner-page"><h1 tabIndex={-1}>Specimen unavailable</h1><button className="mx-button" type="button" onClick={() => open(FEATURED[0][0])}>Open Sliding Tab Pill</button></section>}

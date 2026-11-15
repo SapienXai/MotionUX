@@ -7,7 +7,7 @@ import { references } from "../catalog";
 type Navigate = (route: Route) => void;
 const nav = [
   ["gallery", "Gallery", Grid2X2], ["playground", "Playground", CodeXml], ["components", "Components", Layers3],
-  ["guides", "Guides", BookOpen], ["examples", "Examples", Bookmark],
+  ["guides", "Guides", BookOpen], ["examples", "Examples", Bookmark], ["sources", "Original sources", Compass],
 ] as const;
 const categoryIcons = { Navigation: Compass, Buttons: MousePointer2, Cards: SquareStack, Inputs: CreditCard, Gestures: Hand, Feedback: Zap, Typography: Type, AI: Sparkle, Media: Headphones };
 

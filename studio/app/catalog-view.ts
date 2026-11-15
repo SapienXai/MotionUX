@@ -29,20 +29,22 @@ export function presentation(item: Reference) {
 }
 export const repoURL = "https://github.com/SapienXai/MotionUX";
 
-export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples"; item: string; category: string; query: string; preset?: boolean; configuration?: string; panel?: "usage" | "install" };
+export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples" | "sources"; item: string; category: string; query: string; preset?: boolean; configuration?: string; panel?: "usage" | "install"; source?: string; sourcePanel?: "usage" | "install" };
 export function readRoute(): Route {
   const params = new URLSearchParams(location.search);
   const page = params.get("view");
   const item = params.get("item") ?? "";
   const panel = params.get("panel");
   return {
-    page: item ? "playground" : page === "components" || page === "guides" || page === "examples" ? page : "gallery",
+    page: item ? "playground" : page === "components" || page === "guides" || page === "examples" || page === "sources" ? page : "gallery",
     item,
     category: params.get("category") ?? "",
     query: params.get("q") ?? "",
     panel: panel === "usage" || panel === "install" ? panel : undefined,
     preset: params.get("preset") === "gallery",
     configuration: params.get("config") ?? undefined,
+    source: params.get("source") ?? undefined,
+    sourcePanel: panel === "install" || panel === "usage" ? panel : undefined,
   };
 }
 export function hrefFor(route: Route) {
@@ -54,6 +56,10 @@ export function hrefFor(route: Route) {
   if (route.page === "playground" && route.preset) params.set("preset", "gallery");
   if (route.page === "playground" && route.panel) params.set("panel", route.panel);
   if (route.page === "playground" && route.configuration) params.set("config", route.configuration);
+  if (route.page === "sources" && route.source) {
+    params.set("source", route.source);
+    if (route.sourcePanel) params.set("panel", route.sourcePanel);
+  }
   return params.size ? `?${params}${route.page === "playground" ? "#specimen" : ""}` : "./";
 }
 export function visibleItems(route: Route) {

@@ -4,3 +4,5 @@ public/r/
 test-results/
 playwright-report/
 .DS_Store
+
+.motionux-v9/

@@ -19,6 +19,7 @@ jobs:
       - run: npm run verify
         env:
           MOTIONUX_TEST_PREVIEW: "1"
+      - run: node scripts/v9/check-public.mjs
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

@@ -8,6 +8,10 @@ A tab indicator that follows the selection. A card deck that moves with your dra
 
 [![MotionUX Studio showing live Plan Switch, Letter Limit, and Pull Cord previews in dark mode](docs/evidence/studio-v8/desktop-dark.jpg)](#run-motionux-studio)
 
+## Original Source Engine · V9 preview
+
+Try the actual upstream implementation in the private Studio. The source lab brings the original demo, the Studio frame, and an independently installed React consumer together. Code and Install use the captured source and its notices. The catalog also links to official upstream records and keeps discovery separate from verified installs. [Run the private Studio](docs/V9-ORIGINAL-SOURCE-ENGINE.md)
+
 ## Run MotionUX Studio
 
 Explore **82 interactive previews** across navigation, feedback, forms, gestures, typography, AI interfaces, and media.

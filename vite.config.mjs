@@ -47,5 +47,8 @@ function registryVersions() {
 
 export default defineConfig({
   plugins: [registryVersions()],
+  server: {
+    fs: { deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "**/.motionux-v9/**", "**/.codex-attachments/**"] },
+  },
   optimizeDeps: { noDiscovery: true, include: ["react", "react/jsx-runtime", "react-dom/client", "motion/react", "lucide-react"] },
 });

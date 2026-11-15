@@ -9,6 +9,7 @@
 .mx-gallery-card { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; min-inline-size: 0; padding: 8px; border-radius: 20px; background: var(--stage); }
 .mx-gallery-stage { position: relative; display: grid; place-items: center; min-inline-size: 0; block-size: 400px; border-radius: 12px; padding: 16px; container-type: inline-size; }
 .mx-gallery-stage > :is(.mx-demo,.mx-feature) { min-inline-size: 0; }
+.mx-gallery-stage:has(.mx-source-frame) { overflow: clip; padding: 0; }
 .mx-card-reset { position: absolute; z-index: 2; inset: 10px 10px auto auto; inline-size: 36px; block-size: 36px; display: grid; place-items: center; border: 1px solid var(--mx-line); border-radius: 50%; background: var(--mx-surface); color: var(--mx-muted); opacity: 0; transition: opacity .15s; }
 .mx-card-reset:focus-visible, .mx-gallery-stage:focus-within > .mx-card-reset { opacity: 1; }
 @media (hover: hover) and (pointer: fine) { .mx-gallery-stage:hover > .mx-card-reset { opacity: 1; } }
