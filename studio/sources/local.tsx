@@ -50,16 +50,21 @@ export function sourceFrameURL(entry: OriginalCard, lane: SourceLane, scheme: "l
   return `/v9/live/${entry.group}/${build}/?${query}`;
 }
 
-export function SourceFrame({ entry, lane, scheme, scene, label }: {
+export function SourceFrame({ entry, lane, scheme, scene, label, onPreviewError }: {
   entry: OriginalCard; lane: SourceLane; scheme: "light" | "dark"; scene?: string; label: string;
+  onPreviewError?: () => void;
 }) {
   const src = sourceFrameURL(entry, lane, scheme, scene);
-  return <LiveFrame key={src} entry={entry} lane={lane} src={src} label={label} />;
+  return <LiveFrame key={src} entry={entry} lane={lane} src={src} label={label} onPreviewError={onPreviewError} />;
 }
 
-function LiveFrame({ entry, lane, src, label }: { entry: OriginalCard; lane: SourceLane; src: string; label: string }) {
+function LiveFrame({ entry, lane, src, label, onPreviewError }: {
+  entry: OriginalCard; lane: SourceLane; src: string; label: string;
+  onPreviewError?: () => void;
+}) {
   const frame = useRef<HTMLIFrameElement>(null);
   const gesture = useRef<AbortController | undefined>(undefined);
+  const observer = useRef<MutationObserver | undefined>(undefined);
   const isolated = entry.editionOrdinal >= 13;
   const [slow, setSlow] = useState(false);
   const [retry, setRetry] = useState(0);
@@ -68,9 +73,15 @@ function LiveFrame({ entry, lane, src, label }: { entry: OriginalCard; lane: Sou
     if (stage !== "loading") return;
     const timer = setTimeout(() => setStage("failed"), 12000);
     const waiting = setTimeout(() => setSlow(true), 900);
-    const check = isolated ? undefined : setInterval(probe, 38);
-    return () => { clearTimeout(timer); clearTimeout(waiting); clearInterval(check); };
-  }, [isolated, retry, stage]);
+    return () => { clearTimeout(timer); clearTimeout(waiting); };
+  }, [retry, stage]);
+  useEffect(() => {
+    if (stage !== "loading") observer.current?.disconnect();
+    if (stage === "failed") {
+      gesture.current?.abort();
+      onPreviewError?.();
+    }
+  }, [onPreviewError, stage]);
   useEffect(() => {
     if (!isolated) return;
     function receive(event: MessageEvent) {
@@ -87,12 +98,20 @@ function LiveFrame({ entry, lane, src, label }: { entry: OriginalCard; lane: Sou
     window.addEventListener("message", receive);
     return () => window.removeEventListener("message", receive);
   }, [isolated, lane]);
-  useEffect(() => () => gesture.current?.abort(), []);
+  useEffect(() => () => { gesture.current?.abort(); observer.current?.disconnect(); }, []);
   function probe() {
     const document = frame.current?.contentDocument;
     if (document?.documentElement?.dataset.previewLoaded === "true" ||
       document?.querySelector("#specimen > *, .command > *, #root > iframe")) setStage("ready");
     else if (document?.querySelector("#root > [role=alert]")) setStage("failed");
+  }
+  function observeLoad() {
+    observer.current?.disconnect();
+    const root = frame.current?.contentDocument?.documentElement;
+    if (!root) return;
+    observer.current = new MutationObserver(probe);
+    observer.current.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-preview-loaded"] });
+    probe();
   }
   function watchGestures() {
     gesture.current?.abort();
@@ -119,15 +138,19 @@ function LiveFrame({ entry, lane, src, label }: { entry: OriginalCard; lane: Sou
         if (entry.sourceKind === "html" && lane === "original") setStage("ready");
         else if (lane === "studio" && frame.current?.contentDocument?.readyState === "complete" &&
           !frame.current?.contentDocument?.documentElement?.dataset.studioPreview) setStage("failed");
-        else { probe(); watchGestures(); }
+        else { observeLoad(); watchGestures(); }
       }} />}
     {stage === "loading" && <div className="mx-frame-status mx-frame-loading" aria-hidden="true">
       {slow && <span>Preview is taking longer to load…</span>}
     </div>}
-    {stage === "failed" && <div className="mx-frame-status mx-frame-error">
-      <p role="status">Preview unavailable</p>
-      <button className="mx-button" type="button" onClick={() => { setRetry(retry + 1); setStage("loading"); setSlow(false); }}>Retry</button>
-      <a href={entry.demoURL} target="_blank" rel="noreferrer">Original demo</a>
-    </div>}
+    {stage === "failed" && <PreviewError entry={entry} retry={() => { setRetry(retry + 1); setStage("loading"); setSlow(false); }} />}
+  </div>;
+}
+
+export function PreviewError({ entry, retry }: { entry: OriginalCard; retry: React.MouseEventHandler<HTMLButtonElement> }) {
+  return <div className="mx-frame-status mx-frame-error">
+    <p role="status">Preview unavailable</p>
+    <button className="mx-button" type="button" onClick={retry}>Retry</button>
+    <a href={entry.demoURL} target="_blank" rel="noreferrer">Original demo</a>
   </div>;
 }

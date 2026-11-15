@@ -1,5 +1,5 @@
 import { useReducedMotion } from "motion/react";
-import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
+import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { references } from "../catalog";
 import { FEATURED, hrefFor, readRoute, visibleItems, type Route } from "./catalog-view";
 import { Gallery } from "./gallery";
@@ -11,6 +11,7 @@ import { LibraryStore } from "../library/store";
 import { LibraryFeedback } from "../library/actions";
 import "../library/library.css";
 import { OriginalsGallery } from "../sources/gallery";
+import type { GalleryReturn } from "../sources/gallery-window";
 
 const LibraryView = lazy(() => import("../library/view"));
 const Playground = lazy(() => import("./playground"));
@@ -54,13 +55,16 @@ function StudioRoutes() {
   const focus = useRef<"none" | "heading" | "gallery">("none");
   const scroll = useRef(0);
   const selectedCard = useRef("");
+  const offset = useRef<number | undefined>(undefined);
+  const [galleryReturn, setGalleryReturn] = useState<GalleryReturn>();
   const platformReduced = useReducedMotion() === true;
   const item = references.find(entry => entry.id === route.item);
-  const items = visibleItems(route);
+  const originalsGallery = localStudio && route.page === "gallery" && !route.collection;
+  const items = useMemo(() => originalsGallery ? [] : visibleItems(route), [originalsGallery, route]);
   const local = useLocalSources();
   const { originals } = local;
   const originalId = localStudio && !route.collection && route.page === "playground" ? route.item : "";
-  const originalCount = localStudio ? [...originals.values()].filter(item => item.availability === "ready").length : undefined;
+  const originalCount = useMemo(() => localStudio ? [...originals.values()].filter(item => item.availability === "ready").length : undefined, [originals]);
   const title = originals.get(originalId)?.title;
   useEffect(() => {
     document.title = title ? `${title} | MotionUX Studio` : route.page === "sources" ? "Discovery | MotionUX Studio" : "MotionUX Studio";
@@ -69,7 +73,16 @@ function StudioRoutes() {
     if ((route.page === "gallery" || route.page === "library") && next.page === "playground") {
       scroll.current = window.scrollY;
       selectedCard.current = next.item;
-      history.replaceState({ galleryScroll: scroll.current, galleryCard: selectedCard.current }, "", location.href);
+      offset.current = document.querySelector(`[data-original-card="${CSS.escape(next.item)}"]`)?.getBoundingClientRect().top;
+      history.replaceState({ galleryScroll: scroll.current, galleryCard: selectedCard.current, galleryOffset: offset.current }, "", location.href);
+    }
+    if (next.page === "gallery" && localStudio && !next.collection) {
+      if (route.page === "playground") setGalleryReturn({ id: selectedCard.current, top: scroll.current, offset: offset.current });
+      else if (next.query !== route.query || next.category !== route.category || next.provider !== route.provider ||
+        next.kind !== route.kind || next.subset !== route.subset || next.sort !== route.sort) {
+        setGalleryReturn(undefined);
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
     }
     const href = hrefFor(next);
     if (hrefFor(route) !== href) history[replace ? "replaceState" : "pushState"](null, "", href);
@@ -86,6 +99,10 @@ function StudioRoutes() {
       if (next.page === "gallery" || next.page === "library") {
         scroll.current = event.state?.galleryScroll ?? 0;
         selectedCard.current = event.state?.galleryCard ?? "";
+        offset.current = event.state?.galleryOffset;
+        if (next.page === "gallery" && localStudio && !next.collection) {
+          setGalleryReturn({ id: selectedCard.current, top: scroll.current, offset: offset.current });
+        }
       }
       focus.current = next.page === "gallery" || next.page === "library" ? "gallery" : "heading";
       setEntered(false);
@@ -104,12 +121,12 @@ function StudioRoutes() {
       window.scrollTo(0, 0);
       const heading = document.querySelector<HTMLElement>("#studio-main h1");
       (heading ?? document.getElementById("studio-main"))?.focus({ preventScroll: true });
-    } else if (target === "gallery") {
+    } else if (target === "gallery" && !originalsGallery) {
       window.scrollTo(0, scroll.current);
       const link = document.querySelector<HTMLElement>(`[data-card="${CSS.escape(selectedCard.current)}"] .mx-open-playground`);
       (link ?? document.querySelector<HTMLElement>("#studio-main h1"))?.focus({ preventScroll: true });
     }
-  }, [route]);
+  }, [originalsGallery, route]);
   function setQuery(query: string) {
     const page = route.page === "components" || route.page === "sources" || route.page === "library" ? route.page : "gallery";
     navigate({ ...route, query, page, item: "", source: undefined, sourcePanel: undefined, compare: false }, page === route.page);
@@ -131,7 +148,7 @@ function StudioRoutes() {
       {localStudio && route.page !== "library" && <div className="mx-library-toast"><LibraryFeedback /></div>}
       <div className={`mx-view mx-view-${route.page}`} key={route.page} data-entering={entered || undefined}>
         {route.page === "gallery" ? localStudio && !route.collection
-          ? <OriginalsGallery {...local} route={route} scheme={scheme} navigate={navigate} />
+          ? <OriginalsGallery {...local} route={route} scheme={scheme} navigate={navigate} restore={galleryReturn} />
           : <Gallery items={items} route={route} open={open} reduced={platformReduced} clear={clear} scheme={scheme} selectCategory={category => navigate({ ...route, category })} /> :
           route.page === "library" && localStudio ? <Suspense fallback={<section className="mx-inner-page"><h1 tabIndex={-1}>My Library</h1><p role="status">Loading saved originals…</p></section>}>
             <LibraryView originals={originals} route={route} navigate={navigate} />

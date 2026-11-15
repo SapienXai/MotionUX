@@ -10,6 +10,7 @@ import { AxeBuilder } from "@axe-core/playwright";
 import { emptyLibrary } from "./library.mjs";
 import { verifySourceBaseline } from "./identity.mjs";
 import { loadCatalog, vault } from "../catalog.mjs";
+import { expectGalleryCount } from "../gallery-checks.mjs";
 
 const output = resolve(vault, "evidence/v11/current");
 await mkdir(output, { recursive: true, mode: 0o700 });
@@ -83,7 +84,9 @@ async function libraryFlows(browser) {
   await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin });
   const page = await context.newPage();
   await page.goto(origin);
-  await expect(page.locator("[data-original-card]")).toHaveCount(catalog.size);
+  await expectGalleryCount(page, catalog.size);
+  const search = page.getByRole("searchbox");
+  await search.fill("kokonut wheel picker");
   const favorite = page.getByRole("button", { name: "Favorite Wheel Picker", exact: true });
   await expect(favorite).toBeEnabled();
   await page.route("**/v11/library", route => route.fulfill({ status: 503, json: { message: "Simulated save failure." } }), { times: 1 });
@@ -93,6 +96,7 @@ async function libraryFlows(browser) {
   await expect(favorite).toHaveAttribute("aria-pressed", "false");
   await page.getByRole("button", { name: "Retry save" }).click();
   await expect(favorite).toHaveAttribute("aria-pressed", "true");
+  await search.fill("");
   await page.getByRole("link", { name: "My Library", exact: true }).click();
   await expect(page.getByRole("heading", { name: "My Library", exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "Wheel Picker" })).toBeVisible();
@@ -111,9 +115,11 @@ async function libraryFlows(browser) {
     await expect(page.getByRole("link", { name: new RegExp(name) })).toBeVisible();
   }
   await page.getByRole("link", { name: "Gallery", exact: true }).click();
-  await expect(page.locator("[data-original-card]")).toHaveCount(catalog.size);
+  await expectGalleryCount(page, catalog.size);
+  await search.fill("kokonut wheel picker");
   await add(page, "Wheel Picker", ["Interface study", "Controls"]);
   await expect(page.getByRole("button", { name: "Add Wheel Picker to collections", exact: true })).toBeFocused();
+  await search.fill("");
   await page.getByRole("link", { name: "My Library", exact: true }).click();
   await page.getByRole("link", { name: /Interface study/ }).click();
   await page.getByRole("button", { name: "Rename", exact: true }).click();
@@ -296,7 +302,7 @@ async function previews(browser) {
 }
 
 async function viewports(browser, name) {
-  for (const width of [320, 360, 390, 430, 768, 1280, 1440, 1536]) {
+  for (const width of [320, 360, 390, 430, 768, 1024, 1280, 1440, 1536]) {
     const context = await browser.newContext({ viewport: { width, height: width < 700 ? 844 : 1024 }, hasTouch: width < 800 });
     const page = await context.newPage();
     for (const path of ["/", "/?view=library", "/?item=designbookmark-plan-switch&panel=install"]) {

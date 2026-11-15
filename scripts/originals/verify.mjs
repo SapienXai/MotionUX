@@ -6,6 +6,7 @@ import { expect } from "@playwright/test";
 import { loadCatalog, vault } from "../studio/catalog.mjs";
 import { verifySourceBaseline, sourceIdentity } from "../studio/v11/identity.mjs";
 import { visibleSource } from "../studio/rendering.mjs";
+import { collectGalleryOrder, expectGalleryCount } from "../studio/gallery-checks.mjs";
 import { digest } from "./adapters.mjs";
 import { readEditions } from "./editions.mjs";
 
@@ -227,8 +228,7 @@ try {
   report.sourceIdentity = Object.keys(baseline.hashes).length;
   const page = await browser.newPage(opts);
   await page.goto(origin);
-  await expect(page.locator(cardSelector)).toHaveCount(http.length);
-  const first = await page.locator(cardSelector).evaluateAll(cards => cards.map(card => card.dataset.originalCard));
+  const first = await collectGalleryOrder(page, http.length);
   assert.deepEqual(first.slice(0, candidates.length), candidates.map(item => item.id));
   await expect(page.getByRole("heading", { name: new RegExp("V" + edition.ordinal + " New arrivals") })).toBeVisible();
   report.gallery.newest = first.slice(0, 12);
@@ -244,7 +244,7 @@ try {
     await layout.close();
   }
   await page.getByRole("link", { name: "New in V" + edition.ordinal, exact: true }).click();
-  await expect(page.locator(cardSelector)).toHaveCount(candidates.length);
+  await expectGalleryCount(page, candidates.length);
   await page.getByRole("link", { name: "All originals", exact: true }).click();
   await page.getByLabel("Sort originals").selectOption("oldest");
   await expect(page.locator(cardSelector).first()).toHaveAttribute("data-edition", "10");

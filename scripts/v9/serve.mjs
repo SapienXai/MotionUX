@@ -22,23 +22,39 @@ const store = createLibraryStore(fixture || resolve(vault, "user"), byId);
 const libraryAPI = createLibraryAPI(store, origin);
 let thumbnails = await loadThumbnails(vault, byId);
 let thumbnailFiles = new Map([...thumbnails.values()].flat().map(({ key, file }) => [key, file]));
-let thumbTime = Date.now();
+const thumbDirectory = resolve(vault, "thumbnails");
+const thumbVersion = async () => (await stat(thumbDirectory).catch(error => {
+  if (error.code !== "ENOENT") throw error;
+}))?.mtimeMs;
+let thumbStamp = await thumbVersion();
+const thumbnailJSON = () => JSON.stringify(Object.fromEntries([...thumbnails].map(([source, options]) =>
+  [source, options.map(({ url, width, height, scheme }) => ({ url, width, height, scheme }))])));
+let thumbIndex = thumbnailJSON();
+let pendingThumbs;
 async function refreshThumbnails() {
-  if (Date.now() - thumbTime < 5000) return;
-  thumbTime = Date.now();
-  thumbnails = await loadThumbnails(vault, byId);
-  thumbnailFiles = new Map([...thumbnails.values()].flat().map(({ key, file }) => [key, file]));
+  if (!pendingThumbs) pendingThumbs = (async () => {
+    const version = await thumbVersion();
+    if (version === thumbStamp) return;
+    thumbnails = await loadThumbnails(vault, byId);
+    thumbnailFiles = new Map([...thumbnails.values()].flat().map(({ key, file }) => [key, file]));
+    thumbIndex = thumbnailJSON();
+    thumbStamp = version;
+  })().finally(() => { pendingThumbs = undefined; });
+  return pendingThumbs;
 }
 const catalog = [...byId.values()];
 const ready = catalog.filter(item => item.availability === "ready");
 const liveGroups = new Set(ready.map(item => item.group));
 if (!ready.length) throw new Error(preparation);
-const studio = (await readFile(await safeFile(shell, "index.html", shell), "utf8")).replace("<html ", '<html data-original-sources="local" ');
+const studio = (await readFile(await safeFile(shell, "index.html", shell), "utf8"))
+  .replace("<html ", '<html data-original-sources="local" ')
+  .replace("</head>", '<link rel="preload" href="/v9/catalog.json" as="fetch" crossorigin="anonymous"></head>');
+const galleryStudio = studio.replace("</head>", '<link rel="preload" href="/v11/thumbnails.json" as="fetch" crossorigin="anonymous"></head>');
 const detailCatalog = new Map(catalog.map(item => {
   const { installRecipe, ...record } = item;
   return [item.id, { ...record, installURL: installRecipe && "/v9/registry/" + item.id + ".json" }];
 }));
-const visibleCatalog = catalog.map(catalogSummary);
+const visibleCatalog = JSON.stringify(catalog.map(catalogSummary));
 const previewStyle = `<style>
 html { overscroll-behavior: contain auto; }
 #specimen { grid-template-columns: minmax(0, 1fr); justify-items: safe center; }
@@ -160,13 +176,14 @@ const server = createServer({ requestTimeout: 15000, headersTimeout: 5000, maxHe
       response.setHeader("X-MotionUX-Studio", "v11");
       response.setHeader("X-MotionUX-Build", process.env.MOTIONUX_STUDIO_BUILD ?? "manual");
       response.setHeader("Content-Type", types[".html"]);
-      response.end(studio);
+      const gallery = !url.searchParams.has("item") && !url.searchParams.has("view") &&
+        !url.searchParams.has("legacy") && url.searchParams.get("collection") !== "legacy";
+      response.end(gallery ? galleryStudio : studio);
     } else if (path.startsWith("/v11/kits/") || path.startsWith("/v11/export/")) {
       await sendKit(request, response, path);
     } else if (path === "/v11/thumbnails.json") {
       await refreshThumbnails();
-      const index = Object.fromEntries([...thumbnails].map(([source, options]) => [source, options.map(({ url, width, height, scheme }) => ({ url, width, height, scheme }))]));
-      response.writeHead(200, { "Content-Type": types[".json"] }).end(JSON.stringify(index));
+      response.writeHead(200, { "Content-Type": types[".json"], "Content-Length": Buffer.byteLength(thumbIndex) }).end(thumbIndex);
     } else if (path.startsWith("/v11/thumbnails/")) {
       const match = path.match(/^\/v11\/thumbnails\/([a-f0-9]{32})\.jpeg$/);
       const file = match && thumbnailFiles.get(match[1]);
@@ -176,10 +193,11 @@ const server = createServer({ requestTimeout: 15000, headersTimeout: 5000, maxHe
     } else if (path.startsWith("/v10/preview/")) {
       await studioPreview(response, byId.get(path.slice("/v10/preview/".length)), url.searchParams);
     } else if (path === "/v9/catalog.json") {
-      const payload = id ? detailCatalog.get(id) : visibleCatalog;
+      const record = id ? detailCatalog.get(id) : undefined;
+      const payload = id ? record && JSON.stringify(record) : visibleCatalog;
       if (!payload) return response.writeHead(404).end();
       response.setHeader("Content-Type", types[".json"]);
-      response.end(JSON.stringify(payload));
+      response.end(payload);
     } else if (path === "/v9/source") {
       const item = byId.get(url.searchParams.get("id"));
       const file = url.searchParams.get("file");

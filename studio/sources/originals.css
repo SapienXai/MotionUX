@@ -12,7 +12,8 @@
 .mx-catalog-notice { margin-block: 8px; }
 .mx-originals-toolbar > div { display: flex; gap: 6px; flex-wrap: wrap; }
 .mx-originals-toolbar select { max-inline-size: 100%; min-block-size: 36px; padding-inline: 7px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font-size: 12px; }
-.mx-originals-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.mx-originals-grid { --mx-original-columns: 1; position: relative; overflow-anchor: none; }
+.mx-originals-row { position: absolute; inset-inline: 0; display: grid; grid-template-columns: repeat(var(--mx-original-columns), minmax(0, 1fr)); gap: 14px; contain: layout; }
 .mx-original-card { display: grid; grid-template-rows: 1fr auto auto; min-inline-size: 0; overflow: clip; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
 .mx-original-stage { position: relative; display: grid; place-items: center; min-inline-size: 0; background: var(--chip); }
 .mx-original-frame { position: relative; min-inline-size: 0; inline-size: 100%; block-size: 100%; }
@@ -29,8 +30,8 @@
 .mx-original-actions a { display: inline-flex; align-items: center; gap: 4px; padding-inline: 6px; min-block-size: 36px; border-radius: 7px; color: var(--muted); font-size: 11px; text-decoration: none; }
 .mx-original-actions a:first-child { color: var(--ink); font-weight: 600; }
 .mx-original-card :focus-visible { outline-offset: -2px; }
-@container (min-width: 630px) { .mx-originals-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@container (min-width: 1020px) { .mx-originals-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@container (min-width: 630px) { .mx-originals-grid { --mx-original-columns: 2; } }
+@container (min-width: 1020px) { .mx-originals-grid { --mx-original-columns: 3; } }
 @media (hover: hover) {
   .mx-originals-categories a:hover, .mx-original-actions a:hover { background: var(--chip); color: var(--ink); }
   .mx-original-caption h2 a:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -59,4 +60,3 @@
 .mx-new-arrivals span { margin-inline-start: 4px; color: var(--muted); font-size: 12px; font-weight: 500; }
 .mx-original-card-title { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 6px; }
 .mx-new-badge { padding: 2px 5px; border-radius: 5px; background: var(--chip); color: var(--muted); font-size: 10px; }
-.mx-stage-deferred { content-visibility: auto; contain-intrinsic-size: auto none auto 380px; }

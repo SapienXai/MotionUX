@@ -6,6 +6,8 @@ import { expect } from "@playwright/test";
 import { visibleSource } from "./rendering.mjs";
 import { compareSources, comparisonIds } from "./compare.mjs";
 
+import { collectGalleryOrder, expectGalleryCount } from "./gallery-checks.mjs";
+
 const origin = "http://127.0.0.1:5199";
 const evidence = resolve(".motionux-v9/evidence/v10");
 const galleryOnly = process.argv.includes("--gallery-only");
@@ -48,6 +50,7 @@ try {
   if (!galleryOnly) {
     await stage("Chromium layouts", () => responsive(browser));
     await stage("Navigation and install", () => navigation(browser));
+    await stage("Window continuity", () => windowContinuity(browser));
     await stage("Comparisons", async () => { report.comparisons = await compareSources(browser, originals, { origin, evidence }); });
     for (const engine of [firefox, webkit]) {
       await stage(engine.name() + " layouts", async () => {
@@ -103,7 +106,7 @@ async function gallery(browser) {
   };
   const start = performance.now();
   await page.goto(origin);
-  await expect(page.locator(cards)).toHaveCount(total);
+  await expectGalleryCount(page, total);
   await expect(page.locator(ready).first()).toBeVisible();
   const firstPreviewMs = Math.round(performance.now() - start);
   const cold = await page.evaluate(() => {
@@ -112,10 +115,11 @@ async function gallery(browser) {
   });
   const coldRequests = [...requests.values()].reduce((total, count) => total + count, 0);
   const beforeSweep = await heap();
-  assert.deepEqual((await page.locator(cards).evaluateAll(nodes => nodes.map(node => node.dataset.card))).sort(), [...ids].sort());
+  assert((await page.locator(cards).count()) < Math.min(48, total), "Gallery retains the entire catalog");
   assert.equal(await page.locator("[data-preview-mounted], input[type=checkbox]").count(), 0);
 
-  const initialOrder = await page.locator(cards).evaluateAll(nodes => nodes.map(node => node.dataset.card));
+  const initialOrder = await collectGalleryOrder(page, total);
+  assert.deepEqual([...initialOrder].sort(), [...ids].sort());
   const byId = new Map(originals.map(item => [item.id, item]));
   await page.evaluate(() => document.documentElement.style.scrollBehavior = "auto");
   for (const id of initialOrder) {
@@ -133,12 +137,12 @@ async function gallery(browser) {
   const atBottom = await heap();
   await page.evaluate(() => window.scrollTo(0, 0));
   await expect(page.locator(cards).first().locator(ready)).toBeVisible();
-  await expect(page.locator(cards).last().locator("iframe")).toHaveCount(0);
+  await expect(page.locator(preview({ id: initialOrder.at(-1) }))).toHaveCount(0);
   const backAtTop = await heap();
   // Repeat long jumps to expose retained browsing contexts and unbounded setup work.
   for (let pass = 0; pass < 4; pass++) {
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-    await expect(page.locator(cards).last().locator(ready)).toBeVisible();
+    await expect(page.locator(preview({ id: initialOrder.at(-1) })).locator(ready)).toBeVisible();
     await page.evaluate(() => window.scrollTo(0, 0));
     await expect(page.locator(cards).first().locator(ready)).toBeVisible();
   }
@@ -154,7 +158,7 @@ async function gallery(browser) {
   await expect(page.locator(cards)).toHaveCount(1);
   await expect(page.locator(ready)).toBeVisible();
   await page.getByRole("searchbox").fill("");
-  await expect(page.locator(cards)).toHaveCount(total);
+  await expectGalleryCount(page, total);
   const metrics = await page.evaluate(() => window.studioMetrics);
   report.performance = { ...cold, firstPreviewMs, coldRequests, ...metrics, nestedActionMs,
     peakPreviewDocuments, jsRequests: [...requests.values()].reduce((a, b) => a + b, 0), distinctJS: requests.size,
@@ -199,10 +203,10 @@ async function responsive(browser) {
     const page = await browser.newPage({ viewport: { width, height }, colorScheme, hasTouch: width <= 768 });
     try {
       await page.goto(origin);
-      await expect(page.locator(cards)).toHaveCount(total);
+      await expectGalleryCount(page, total);
       await expect(page.locator(cards).first().locator(ready)).toBeVisible();
       const fit = await page.locator(".mx-originals-grid").evaluate(node => ({
-        columns: getComputedStyle(node).gridTemplateColumns.split(" ").length,
+        columns: Number(getComputedStyle(node).getPropertyValue("--mx-original-columns")),
         horizontalOverflow: document.documentElement.scrollWidth - innerWidth,
       }));
       assert.deepEqual(fit, { columns, horizontalOverflow: 0 });
@@ -230,24 +234,60 @@ async function responsive(browser) {
   }
 }
 
+async function windowContinuity(browser) {
+  const page = await browser.newPage(base);
+  try {
+    await page.goto(origin);
+    await expectGalleryCount(page, total);
+    const boundary = page.locator(cards).last();
+    const ordinal = Number(await boundary.getAttribute("aria-posinset"));
+    const lastLink = boundary.getByRole("link", { name: /^Install/ });
+    await lastLink.evaluate(node => node.focus({ preventScroll: true }));
+    await page.keyboard.press("Tab");
+    const focusedPosition = () => page.evaluate(() => Number(document.activeElement?.closest("[data-original-card]")?.getAttribute("aria-posinset")));
+    await expect.poll(focusedPosition).toBe(ordinal + 1);
+    await page.keyboard.press("Shift+Tab");
+    await expect.poll(focusedPosition).toBe(ordinal);
+
+    await page.getByRole("searchbox").evaluate(node => node.focus({ preventScroll: true }));
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight * .5));
+    const visible = () => page.evaluate(() => {
+      const row = [...document.querySelectorAll("[data-gallery-row]")].find(node => node.getBoundingClientRect().bottom > 20);
+      const child = row?.querySelector("[data-original-card]");
+      return child && { id: child.dataset.originalCard, offset: row.getBoundingClientRect().top };
+    });
+    await expect.poll(() => page.locator(cards).first().getAttribute("aria-posinset").then(Number)).toBeGreaterThan(20);
+    const anchor = await visible();
+    assert(anchor?.id);
+    await page.setViewportSize({ width: 768, height: 1024 });
+    const card = page.locator(preview(anchor));
+    await expect.poll(async () => {
+      const visibleCard = await card.count();
+      if (!visibleCard) return Infinity;
+      return card.evaluate((node, offset) => Math.abs(node.closest("[data-gallery-row]").getBoundingClientRect().top - offset), anchor.offset);
+    }).toBeLessThan(55);
+    report.windowContinuity = { keyboardForwardAndBack: true, resizePreservedAnchor: true };
+  } finally { await page.close(); }
+}
+
 async function navigation(browser) {
   const page = await browser.newPage(base);
   const search = page.getByRole("searchbox");
   try {
     await page.goto(origin);
-    await expect(page.locator(cards)).toHaveCount(total);
+    await expectGalleryCount(page, total);
     for (const provider of [...new Set(originals.map(item => item.provider))]) {
       await page.getByLabel("Provider", { exact: true }).selectOption(provider);
       const expected = originals.filter(item => item.provider === provider);
-      await expect(page.locator(cards)).toHaveCount(expected.length);
+      await expectGalleryCount(page, expected.length);
     }
     await page.getByLabel("Provider", { exact: true }).selectOption("");
     await page.getByLabel("Source kind").selectOption("html");
-    await expect(page.locator(cards)).toHaveCount(50);
+    await expectGalleryCount(page, 50);
     await page.getByLabel("Source kind").selectOption("react");
-    await expect(page.locator(cards)).toHaveCount(total - 50);
+    await expectGalleryCount(page, total - 50);
     await page.getByRole("link", { name: "Inputs", exact: true }).click();
-    await expect(page.locator(cards)).toHaveCount(originals.filter(item => item.sourceKind === "react" && item.category === "Inputs").length);
+    await expectGalleryCount(page, originals.filter(item => item.sourceKind === "react" && item.category === "Inputs").length);
     await page.getByRole("link", { name: "All originals", exact: true }).click();
     await page.getByLabel("Source kind").selectOption("");
     await page.getByLabel("Sort originals").selectOption("name");
@@ -255,7 +295,7 @@ async function navigation(browser) {
     await search.fill("no match for this phrase");
     await expect(page.getByRole("heading", { name: "No components found" })).toBeVisible();
     await page.getByRole("button", { name: "Clear filters" }).click();
-    await expect(page.locator(cards)).toHaveCount(total);
+    await expectGalleryCount(page, total);
     await search.fill("electric border");
     await expect(page.locator(cards)).toHaveCount(1);
     const newSource = page.locator('[data-original-card="reactbits-electric-border"]');
@@ -270,13 +310,16 @@ async function navigation(browser) {
     await expect(page.getByRole("heading", { name: "ElectricBorder", exact: true })).toBeVisible();
     await page.getByRole("link", { name: "Gallery", exact: true }).last().click();
     await search.fill("");
-    const target = page.locator(cards).nth(55);
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight * .5));
+    await expect.poll(() => page.locator(cards).first().getAttribute("aria-posinset").then(Number)).toBeGreaterThan(20);
+    const targetId = await page.locator(cards).nth(4).getAttribute("data-original-card");
+    const target = page.locator(preview({ id: targetId }));
     await target.scrollIntoViewIfNeeded();
-    const scrollAt = await page.evaluate(() => window.scrollY);
+    const offset = await target.evaluate(node => node.getBoundingClientRect().top);
     await target.locator("h2 a").click();
     await page.goBack();
     await expect(target.locator("h2 a")).toBeFocused();
-    assert(Math.abs(scrollAt - await page.evaluate(() => window.scrollY)) < 220, "The gallery scroll position was lost.");
+    assert(Math.abs(offset - await target.evaluate(node => node.getBoundingClientRect().top)) < 48, "The gallery card lost its viewport position.");
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.getByRole("link", { name: "Legacy V8", exact: true }).click();
     await expect(page.getByRole("heading", { name: "Legacy V8", exact: true })).toBeVisible();
