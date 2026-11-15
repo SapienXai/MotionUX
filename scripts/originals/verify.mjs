@@ -20,12 +20,15 @@ const http = await fetch(origin + "/v9/catalog.json").then(response => response.
 const args = process.argv.slice(3);
 const wanted = args.filter(value => /^\d+$/.test(value));
 const resume = args.includes("--resume");
+const only = new Set(args.find(value => value.startsWith("--only="))?.slice(7).split(","));
 if (!wanted.length) assert.equal(http.length, all.size, "Restart Studio after a source import");
 const locals = http.map(({ id }) => all.get(id)).filter(item => item?.availability === "ready");
 const candidates = locals.filter(item => item.editionOrdinal === edition.ordinal).sort((a, b) => a.addedSequence - b.addedSequence);
 const previous = resume ? JSON.parse(await readFile(resolve(output, "verification-1-2-3-4-5-6.json"), "utf8")) : undefined;
 const tested = new Set(previous?.rows.map(row => row.id));
-const queue = candidates.filter(item => (!wanted.length || wanted.includes(String(edition.items[item.addedSequence - 1].batch))) && !tested.has(item.id));
+const queue = candidates.filter(item => (!only.size || only.has(item.id)) &&
+  (!wanted.length || wanted.includes(String(edition.items[item.addedSequence - 1].batch))) && !tested.has(item.id));
+assert(queue.length || resume, "No prepared originals match this check");
 const browser = await chromium.launch();
 const opts = { viewport: { width: 1536, height: 1024 }, colorScheme: "light" };
 const report = { catalog: http.length, edition: edition.ordinal, sourceIdentity: 0, rows: [], gallery: {} };
@@ -97,6 +100,12 @@ async function motion(page, frame, item, explicit) {
     await letter.hover();
     await expect.poll(() => letter.evaluate(node => getComputedStyle(node).fontWeight)).toBe("900");
     mode = "hover font weight";
+  } else if (item.id === "reactbits-comet-dial") {
+    const slider = root.getByRole("slider", { name: "Level" });
+    const before = Number(await slider.getAttribute("aria-valuenow"));
+    for (let step = 0; step < 3; step++) await slider.press("ArrowRight");
+    await expect(slider).toHaveAttribute("aria-valuenow", String(before + 3));
+    mode = "keyboard dial and animated settlement";
   } else if (!explicit) {
     let actions = await root.locator(controls).count();
     actions = Math.min(actions, 4);
@@ -261,7 +270,8 @@ try {
   }));
 } finally {
   await browser.close();
-  const reportName = resume ? "verification-late.json" : wanted.length ? "verification-" + wanted.join("-") + ".json" : "verification.json";
+  const reportName = resume ? "verification-late.json" : only.size ? "verification-selected.json" :
+    wanted.length ? "verification-" + wanted.join("-") + ".json" : "verification.json";
   report.rows.sort((a, b) => a.id.localeCompare(b.id));
   await writeFile(resolve(output, reportName), JSON.stringify(report, null, 2) + "\n");
 }
