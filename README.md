@@ -29,7 +29,7 @@
 - **Keep what fits.** Save favorites, build a collection for a project and leave yourself a note in My Library.
 - **Take it into your app.** Open Code, Usage and Install for the selected original. Export a shortlist with its setup instructions through Project Kit.
 
-## Brain and what comes next
+## Motion intelligence in Studio and Codex
 
 An animation can clarify where you are, confirm an action, or help you follow a change. Sometimes the clearest interaction is immediate. Brain explains why an original fits, highlights missing evidence and can recommend an immediate state update.
 
@@ -38,16 +38,17 @@ An animation can clarify where you are, confirm an action, or help you follow a 
 | **Studio** | Available locally | Discover, try, compare and collect pinned implementations. |
 | **Brain** | Available locally | Search in Turkish and English, review evidence, and choose stillness when it fits. |
 | **Agent** | Available locally · read-only | Inspect a selected route and get a source-linked motion plan, risks and proposed tests. |
+| **Codex MCP** | Available locally · read-only | Search originals, inspect source evidence and plan motion on an authorized screen from a normal Codex session. |
 | **Motion DNA** | Planned | Record how motion should feel and behave in a specific product. |
 | **Inspector** | Planned | Find motion and accessibility issues on real routes and compare evidence before and after. |
 
 Run `npm run brain:index` in a prepared workspace to search or ask for a recommendation. [Brain V1 CLI and evidence](docs/BRAIN-V1.md)
 
-**Ask Agent for a motion plan**
+**Ask Codex for a motion plan**
 
-> Review our booking confirmation screen. Suggest calm feedback that fits the design and reflects the actual reservation status. Include what we should verify before integrating it.
+> Use MotionUX to review the booking fixture’s confirmation screen. Suggest calm feedback that reflects the real reservation status and explain which checks we should run before integrating it.
 
-[Agent V1 quick start](docs/AGENT-V1.md) · [Agent V2 fixture integration and rollback](docs/AGENT-V2.md) · [Read the product roadmap](docs/ROADMAP.md)
+[Connect MotionUX to Codex](docs/MCP-V1.md) · [Agent V1 quick start](docs/AGENT-V1.md) · [Agent V2 fixture integration and rollback](docs/AGENT-V2.md) · [Read the product roadmap](docs/ROADMAP.md)
 
 ## Get started
 

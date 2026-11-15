@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/mcp/result.v1.json",
+  "title": "MotionUX read-only MCP response",
+  "type": "object",
+  "required": ["schemaVersion", "status"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "status": {
+      "enum": ["ready", "not-prepared", "stale-index", "not-found", "indexed", "candidates",
+        "no-motion", "no-suitable-component", "need-more-context", "project-not-authorized",
+        "partial-inspection", "invalid-input", "busy", "cancelled", "deadline-exceeded", "response-too-large", "internal-error"]
+    },
+    "message": { "type": "string", "maxLength": 240 },
+    "instructions": { "type": "array", "maxItems": 4, "items": { "type": "string", "maxLength": 320 } },
+    "brainIndexFingerprint": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "planFingerprint": { "$ref": "#/$defs/sha256" },
+    "projectFingerprint": { "$ref": "#/$defs/sha256" },
+    "catalogReady": { "type": "integer", "minimum": 0 },
+    "catalogTotal": { "type": "integer", "minimum": 0 },
+    "authorizedProjectCount": { "type": "integer", "minimum": 2, "maximum": 14 },
+    "upstreamHash": { "$ref": "#/$defs/sha256" },
+    "candidates": { "type": "array", "maxItems": 10, "items": { "$ref": "#/$defs/source" } },
+    "recommendations": { "type": "array", "maxItems": 5, "items": { "$ref": "#/$defs/source" } },
+    "evidence": { "type": "array", "items": {
+      "type": "object",
+      "required": ["kind", "locator", "sourcePinOrHash"],
+      "properties": {
+        "kind": { "enum": ["catalog", "source-ast", "source-review", "browser-test", "install-artifact"] },
+        "locator": { "type": "string", "maxLength": 240 },
+        "sourcePinOrHash": { "type": "string", "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$" },
+        "testedProfile": { "type": "string", "maxLength": 140 },
+        "recordedAt": { "type": "string", "maxLength": 40 },
+        "notes": { "type": "string", "maxLength": 320 }
+      },
+      "additionalProperties": false
+    } }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "ready" } } },
+      "then": { "required": ["catalogReady", "catalogTotal", "indexStatus", "coverage", "brainIndexFingerprint", "authorizedProjectCount"] }
+    },
+    {
+      "if": { "properties": { "status": { "const": "indexed" } } },
+      "then": { "required": ["id", "upstreamHash", "sourceURL", "license", "evidence", "support", "unknowns"] }
+    },
+    {
+      "if": { "required": ["planFingerprint"] },
+      "then": { "required": ["projectFingerprint", "target", "planStatus", "safety", "localEvidence", "recommendations", "evidence"] }
+    },
+    {
+      "if": { "properties": { "status": { "enum": ["project-not-authorized", "invalid-input", "busy", "cancelled",
+        "deadline-exceeded", "response-too-large", "internal-error"] } } },
+      "then": { "required": ["message"] }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "source": {
+      "type": "object",
+      "required": ["id", "upstreamHash", "upstreamCommit", "sourceURL", "licenseNoticePresent", "installKind", "matches", "scoreBreakdown", "unknowns"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,95}$" },
+        "upstreamHash": { "$ref": "#/$defs/sha256" },
+        "upstreamCommit": { "type": ["string", "null"] },
+        "sourceURL": { "type": ["string", "null"] },
+        "licenseNoticePresent": { "type": "boolean" },
+        "installKind": { "enum": ["react", "html-iframe"] },
+        "unknowns": { "type": "array" }
+      }
+    }
+  },
+  "additionalProperties": true
+}

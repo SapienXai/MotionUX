@@ -4,7 +4,7 @@ import { canonical } from "../../../src/brain/indexer.ts";
 import { validateTransaction } from "../../../src/agent/integration/validation.ts";
 import { base, createFolder, digest, directory, exists, fixturePath, id, inventory, json, matches,
   materialize, readJSON, removeFolder, replace, safeId, snapshot, stop, treeHash } from "./files.mjs";
-import { managed, readBlobs, revalidate, runEvidence, ticket } from "./review.mjs";
+import { managed, readBlobs, revalidate, runEvidence, manifestConfirmation } from "./review.mjs";
 
 const transitions = {
   authorized: ["applying", "failed", "rolled-back", "needs-manual-review"],
@@ -128,8 +128,8 @@ async function fail(review, state, before, error) {
 }
 
 export async function apply(review, authorization, { signal, check = revalidate, afterWrite } = {}) {
-  if (authorization !== ticket(review)) stop("authorization-required", "Supply the exact approval shown by dry-run for this fixture and manifest.");
-  if (Date.now() >= review.expiresAt) stop("stale", "This scoped approval expired.");
+  if (authorization !== manifestConfirmation(review)) stop("authorization-required", "Supply the exact manifest confirmation shown by dry-run for this fixture.");
+  if (Date.now() >= review.expiresAt) stop("stale", "This manifest confirmation expired.");
   return locked(review.runId, false, async () => {
     const root = managed(review.runId);
     if (await exists(journalPath(review.runId)) || await exists(root)) stop("existing-run", "A run already exists. Inspect or roll it back.");
@@ -138,7 +138,7 @@ export async function apply(review, authorization, { signal, check = revalidate,
     await directory(dirname(root), true);
     const staged = resolve(base, "scratch", "seed-" + review.runId);
     await directory(dirname(staged), true);
-    let state = await journal(review, null, "authorized", "Exact reviewed manifest and managed fixture approval accepted.");
+    let state = await journal(review, null, "authorized", "Reviewed manifest confirmation checked for the managed fixture.");
     let writes = 0;
     try {
       await materialize(staged, trees.before);

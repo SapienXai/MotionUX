@@ -7,10 +7,12 @@ import { test } from "node:test";
 import scenarios from "../../../fixtures/agent/v2/scenarios.v2.json" with { type: "json" };
 import approvedSeed from "../../../fixtures/agent/v2/seed.v2.json" with { type: "json" };
 import { diffTree, validatePlan, validateRequest, validateTransaction } from "../../../src/agent/integration/validation.ts";
-import { base, digest, directory, entry, exists, file, id, inventory, safePath, seed, snapshot, stop, treeHash } from "./files.mjs";
-import { managed, runEvidence, ticket } from "./review.mjs";
+import { base, digest, directory, entry, exists, file, id, inventory, readJSON, safePath, seed, snapshot, stop, treeHash } from "./files.mjs";
+import { managed, runEvidence, manifestConfirmation } from "./review.mjs";
 import { client, gatePlan, manifests, route, screen, sourceId } from "./source.mjs";
 import { apply, getJournal, journalPath, rollback, verify } from "./transaction.mjs";
+import { recheckRestored } from "./recheck.mjs";
+import { writeReport } from "./report.mjs";
 
 async function sandbox(t) {
   const parent = resolve(base, "scratch");
@@ -59,6 +61,44 @@ function v1(bits = {}) {
     recommendations: [{ ...chosen, sourceId: "another-provider-first" }, { ...chosen, ...bits }] };
 }
 
+test("recheck executes twice with distinct evidence and fails closed after a restored-route fault", async t => {
+  const { review, root, check, load } = reviewFixture(t);
+  await apply(review, manifestConfirmation(review), { check });
+  const journal = await rollback(review, load);
+  const folders = new Set();
+  let fault = false;
+  const verifier = async (run, tree, phase, _signal, { logs }) => {
+    assert.equal(run, review.runId);
+    assert.equal(phase, "restored");
+    assert.equal(treeHash(tree), review.beforeHash);
+    assert(!folders.has(logs));
+    folders.add(logs);
+    if (fault) stop("verification-failed", "Synthetic restored screen returned 500.");
+    return { browser: { checks: [{ name: "restored-screen", status: "passed", detail: "Synthetic runner." }] } };
+  };
+  const first = await recheckRestored(review, journal, undefined, { verify: verifier });
+  const second = await recheckRestored(review, journal, undefined, { verify: verifier });
+  assert.equal(first.status, "passed");
+  assert.equal(second.status, "passed");
+  assert.notEqual(first.attemptId, second.attemptId);
+  assert.notEqual(first.fingerprint, second.fingerprint);
+  fault = true;
+  const failed = await recheckRestored(review, journal, undefined, { verify: verifier });
+  assert.equal(failed.status, "failed");
+  assert.equal(failed.verification, undefined);
+  assert.equal(folders.size, 3);
+  const report = await writeReport(review, { journal, restoredAttempt: failed });
+  assert(report.outcomes.some(row => row.name === "restored-route" && row.status === "failed"));
+  assert(!report.outcomes.some(row => row.name.startsWith("restored/")));
+  for (const attempt of [first, second, failed]) {
+    const recorded = await readJSON(resolve(runEvidence(review.runId), "restored-rechecks", attempt.attemptId, "attempt.json"));
+    assert.deepEqual(recorded, attempt);
+    assert.equal(attempt.targetHash, review.beforeHash);
+    assert.equal(attempt.finalHash, review.beforeHash);
+  }
+  assert.equal(treeHash(await snapshot(root)), review.beforeHash);
+});
+
 for (const decision of scenarios.readOnlyV1Decisions) {
   test("V1 " + decision + " does not admit source selection", async () => {
     const original = treeHash(await snapshot(seed));
@@ -95,10 +135,10 @@ test("ranges and lifecycle scripts must pass fixture manifest policy", () => {
 
 test("apply requires separately scoped approval and rejects guessed or expired grants", async t => {
   const { review, root, check } = reviewFixture(t);
-  for (const value of [undefined, "yes", "approve:" + review.runId, ticket({ ...review, fingerprint: digest("other") })]) {
+  for (const value of [undefined, "yes", "approve:" + review.runId, manifestConfirmation({ ...review, fingerprint: digest("other") })]) {
     await assert.rejects(apply(review, value, { check }), { code: "authorization-required" });
   }
-  await assert.rejects(apply({ ...review, expiresAt: 0 }, ticket(review), { check }), { code: "stale" });
+  await assert.rejects(apply({ ...review, expiresAt: 0 }, manifestConfirmation(review), { check }), { code: "stale" });
   assert.equal(await exists(root), null);
 });
 
@@ -148,12 +188,12 @@ for (const kind of scenarios.blockedFilesystemTraps) {
 
 test("transaction covers create, modify, delete, lockfile and exact duplicate rollback", async t => {
   const { review, root, check, load } = reviewFixture(t);
-  const applied = await apply(review, ticket(review), { check });
+  const applied = await apply(review, manifestConfirmation(review), { check });
   assert.equal(applied.journal.status, "applied");
   assert.equal(treeHash(await snapshot(root)), review.afterHash);
   assert.equal(await exists(resolve(root, "src/remove.ts")), null);
   assert.equal(await readFile(resolve(root, "package-lock.json"), "utf8"), '{"integrated":true}\n');
-  await assert.rejects(apply(review, ticket(review), { check }), { code: "existing-run" });
+  await assert.rejects(apply(review, manifestConfirmation(review), { check }), { code: "existing-run" });
   const state = await rollback(review, load);
   assert.equal(state.status, "rolled-back");
   assert.equal(treeHash(await snapshot(root)), review.beforeHash);
@@ -171,9 +211,9 @@ test("concurrent apply cannot acquire the same workspace", async t => {
   let entered;
   const wait = new Promise(resolve => { release = resolve; });
   const signal = new Promise(resolve => { entered = resolve; });
-  const first = apply(review, ticket(review), { check, afterWrite: async count => { if (count === 1) { entered(); await wait; } } });
+  const first = apply(review, manifestConfirmation(review), { check, afterWrite: async count => { if (count === 1) { entered(); await wait; } } });
   await signal;
-  try { await assert.rejects(apply(review, ticket(review), { check }), { code: "locked" }); }
+  try { await assert.rejects(apply(review, manifestConfirmation(review), { check }), { code: "locked" }); }
   finally { release(); }
   assert.equal((await first).journal.status, "applied");
   await rollback(review, load);
@@ -184,7 +224,7 @@ for (const reason of scenarios.applyFaults) {
     const { review, root, check } = reviewFixture(t);
     const controller = new AbortController();
     let validations = 0;
-    const outcome = await apply(review, ticket(review), { signal: controller.signal,
+    const outcome = await apply(review, manifestConfirmation(review), { signal: controller.signal,
       check: async () => {
         if (++validations === 2 && reason === "stale") stop("stale", "Injected stale plan or changed source/registry.");
         return check();
@@ -204,7 +244,7 @@ for (const reason of scenarios.applyFaults) {
 for (const reason of scenarios.verificationFaults) {
   test("verification failure " + reason + " automatically restores the actual working copy", async t => {
     const { review, root, check, load } = reviewFixture(t);
-    await apply(review, ticket(review), { check });
+    await apply(review, manifestConfirmation(review), { check });
     const result = await verify(review, async () => stop(reason, "Controlled verifier fault."), { read: load });
     assert.equal(result.failure, reason);
     assert.equal(result.journal.status, "rolled-back");
@@ -219,12 +259,12 @@ test("recovery after a separate process is SIGKILLed between replace and journal
     import { entry } from "./scripts/agent/v2/files.mjs";
     const input=JSON.parse(process.argv[1]);
     function revive(tree) { return { files: new Map(tree.files.map(([p,b,m])=>[p,entry(Buffer.from(b,"base64"),m)])), dirs: new Map(tree.dirs) }; }
-    await apply(input.review,input.ticket,{check:async()=>({before:revive(input.before),after:revive(input.after)}),
+    await apply(input.review,input.manifestConfirmation,{check:async()=>({before:revive(input.before),after:revive(input.after)}),
       afterWrite: () => process.kill(process.pid, "SIGKILL")});
   `;
   const serial = tree => ({ files: [...tree.files].map(([p, item]) => [p, item.content.toString("base64"), item.mode]), dirs: [...tree.dirs] });
   const child = spawn(process.execPath, ["--input-type=module", "-e", childCode, JSON.stringify({
-    review, ticket: ticket(review), before: serial(trees.before), after: serial(trees.after),
+    review, manifestConfirmation: manifestConfirmation(review), before: serial(trees.before), after: serial(trees.after),
   })], { stdio: "ignore" });
   const [code, signal] = await once(child, "exit");
   assert.equal(code, null);
@@ -239,7 +279,7 @@ test("symlink swap and post-apply external edits preserve conflicting bytes", as
   const { review, root, check } = reviewFixture(t);
   const other = await sandbox(t);
   await writeFile(resolve(other, "important.ts"), "external");
-  const result = await apply(review, ticket(review), { check, afterWrite: async count => {
+  const result = await apply(review, manifestConfirmation(review), { check, afterWrite: async count => {
     if (count === 1) {
       await rename(resolve(root, "src"), resolve(root, "moved-src"));
       await symlink(other, resolve(root, "src"));
@@ -248,7 +288,7 @@ test("symlink swap and post-apply external edits preserve conflicting bytes", as
   assert.equal(result.journal.status, "needs-manual-review");
   assert.equal(await readFile(resolve(other, "important.ts"), "utf8"), "external");
   const second = reviewFixture(t);
-  await apply(second.review, ticket(second.review), { check: second.check });
+  await apply(second.review, manifestConfirmation(second.review), { check: second.check });
   await writeFile(resolve(second.root, "src/a.ts"), "user changed this");
   const status = await rollback(second.review, second.load);
   assert.equal(status.status, "needs-manual-review");
@@ -258,7 +298,7 @@ test("symlink swap and post-apply external edits preserve conflicting bytes", as
 
 test("malformed journal fails closed and leaves the integrated tree intact", async t => {
   const { review, root, check, load } = reviewFixture(t);
-  await apply(review, ticket(review), { check });
+  await apply(review, manifestConfirmation(review), { check });
   const proof = await getJournal(review);
   assert.throws(() => validateTransaction({ ...proof, fingerprint: digest("forged") }));
   await writeFile(journalPath(review.runId), '{"status":"applied"}');
@@ -297,7 +337,7 @@ test("saved npm lockfile bytes cannot be substituted after review", async t => {
 
 test("verified target preserves unrelated files when browser verification detects concurrent edit", async t => {
   const { review, root, check, load } = reviewFixture(t);
-  await apply(review, ticket(review), { check });
+  await apply(review, manifestConfirmation(review), { check });
   const marker = resolve(root, "new-note.md");
   const result = await verify(review, async () => {
     await writeFile(marker, "Keep my edit");

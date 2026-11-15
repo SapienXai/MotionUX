@@ -18,12 +18,11 @@ async function nextPort() {
   return port;
 }
 
-export async function verifyBuild(run, tree, phase, signal) {
+export async function verifyBuild(run, tree, phase, signal, { logs = runEvidence(run) } = {}) {
   const scratch = resolve(base, "scratch");
   await directory(scratch, true);
   const container = await mkdtemp(resolve(scratch, "build-"));
   const cwd = resolve(container, "consumer");
-  const logs = runEvidence(run);
   const steps = [];
   let server;
   try {

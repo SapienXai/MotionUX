@@ -1,14 +1,14 @@
-import { resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { canonical } from "../../../src/brain/indexer.ts";
 import { localBrain } from "../local-brain.mjs";
 import { defaultRequest } from "./source.mjs";
-import { directory, exists, readJSON, repo, snapshot, stop, treeHash, V2Error } from "./files.mjs";
+import { directory, exists, repo, stop, V2Error } from "./files.mjs";
 import { npmCache } from "./process.mjs";
-import { loadReview, managed, revalidate, review, runEvidence, ticket } from "./review.mjs";
+import { loadReview, managed, revalidate, review, manifestConfirmation } from "./review.mjs";
 import { apply, getJournal, journalPath, rollback, verify } from "./transaction.mjs";
-import { verifier, verifyBuild } from "./verify.mjs";
+import { verifier } from "./verify.mjs";
 import { writeReport } from "./report.mjs";
+import { recheckRestored } from "./recheck.mjs";
 
 process.chdir(repo);
 const [name, ...args] = process.argv.slice(2);
@@ -26,12 +26,12 @@ const help = `MotionUX Agent V2 · managed booking fixture only
 npm run agent:v2:doctor
 npm run agent:v2:review -- --plan .motionux-v9/agent/reports/booking.json --source kokonut-promise-toast
 npm run agent:v2:dry-run -- --review RUN_ID
-npm run agent:v2:apply -- --review RUN_ID --authorized-fixture EXACT_APPROVAL
+npm run agent:v2:apply -- --review RUN_ID --authorized-fixture MANIFEST_CONFIRMATION
 npm run agent:v2:verify -- --run RUN_ID
 npm run agent:v2:rollback -- --run RUN_ID --recheck
-npm run agent:v2:evaluate -- --review RUN_ID --authorized-fixture EXACT_APPROVAL
+npm run agent:v2:evaluate -- --review RUN_ID --authorized-fixture MANIFEST_CONFIRMATION
 Use --json with npm run --silent for one JSON object.
-The token binds one manifest and generated workspace for 15 minutes. There is no arbitrary target path or global approval.
+The confirmation acknowledges a specific fixture manifest and expires after 15 minutes. It is deterministic and provides no authentication.
 All builds use private replicas, approved offline npm cache and loopback Playwright. No deploy.
 `;
 const print = value => process.stdout.write(canonical(value) + "\n");
@@ -48,7 +48,8 @@ function output(value) {
         (item.before?.sha256 ?? "absent") + " → " + (item.after?.sha256 ?? "absent") + "\n");
       for (const row of value.dependencies) process.stdout.write(row.name + " · " + (row.before ?? "absent") + " → " + row.after + "\n");
     }
-    if (value.authorization) process.stdout.write("Exact approval " + value.authorization + "\n");
+    if (value.authorization) process.stdout.write("Manifest confirmation " + value.authorization + "\n");
+    if (value.restoredRoute) process.stdout.write("Restored route " + value.restoredRoute.status + " · " + value.restoredRoute.attemptId + "\n");
     if (value.failure) process.stdout.write("Failure " + value.failure + "\n");
     if (value.proof) process.stdout.write("Restored tree " + value.proof.finalHash + "\n");
     if (value.reportPath) process.stdout.write(value.reportPath + "\n");
@@ -58,9 +59,10 @@ function packaged(review, result, report) {
   return { runId: review.runId, status: result.journal.status, failure: result.failure, proof: result.journal.proof, report,
     reportPath: ".motionux-v9/evidence/agent-v2/runs/" + review.runId + "/report.json" };
 }
-async function recheckRestored(plan, tree, signal) {
-  const evidence = resolve(runEvidence(plan.runId), "restored-browser.json");
-  return await exists(evidence) ? { browser: await readJSON(evidence), reused: true } : verifyBuild(plan.runId, tree, "restored", signal);
+async function recheck(plan, journal, signal) {
+  const attempt = await recheckRestored(plan, journal, signal);
+  if (attempt.status !== "passed") process.exitCode = attempt.status === "cancelled" ? 130 : 1;
+  return attempt;
 }
 async function main() {
   if (!name || ["--help", "help"].includes(name)) { process.stdout.write(help); return; }
@@ -90,20 +92,16 @@ async function main() {
   if (name === "dry-run") {
     if (await exists(journalPath(plan.runId)) || await exists(managed(plan.runId))) stop("existing-run", "This reviewed workspace already exists.");
     await revalidate(plan, signal);
-    output({ ...plan, authorization: ticket(plan), targetFilesWritten: 0 });
+    output({ ...plan, authorization: manifestConfirmation(plan), targetFilesWritten: 0 });
     return;
   }
   if (name === "status") { output(await getJournal(plan)); return; }
   if (name === "rollback") {
     const state = await rollback(plan);
-    const report = await writeReport(plan, { journal: state });
+    const attempt = flags.recheck && state.status === "rolled-back" ? await recheck(plan, state, signal) : null;
+    const report = await writeReport(plan, { journal: state, restoredAttempt: attempt });
     const result = packaged(plan, { journal: state, failure: null }, report);
-    if (flags.recheck && state.status === "rolled-back") {
-      const tree = await snapshot(managed(plan.runId));
-      if (treeHash(tree) !== state.proof.finalHash) stop("conflict", "Restored fixture changed before recheck.");
-      result.restoredRoute = await recheckRestored(plan, tree, signal);
-      result.report = await writeReport(plan, { journal: state });
-    }
+    if (attempt) Object.assign(result, { status: attempt.status === "passed" ? state.status : "recheck-" + attempt.status, restoredRoute: attempt });
     output(result);
     if (state.status !== "rolled-back") process.exitCode = 1;
     return;
@@ -124,13 +122,11 @@ async function main() {
     const restored = await rollback(plan);
     summary.rollback = restored.proof;
     summary.restoredStatus = restored.status;
-    summary.report = await writeReport(plan, { journal: restored });
     if (restored.status === "rolled-back") {
-      const tree = await snapshot(managed(plan.runId));
-      if (treeHash(tree) !== restored.proof.finalHash) stop("conflict", "Restored fixture changed before recheck.");
-      summary.restoredRoute = await recheckRestored(plan, tree, signal);
-      summary.report = await writeReport(plan, { journal: restored });
+      summary.restoredRoute = await recheck(plan, restored, signal);
+      if (summary.restoredRoute.status !== "passed") summary.status = "recheck-" + summary.restoredRoute.status;
     } else process.exitCode = 1;
+    summary.report = await writeReport(plan, { journal: restored, restoredAttempt: summary.restoredRoute });
   }
   output(summary);
   if (result.failure) process.exitCode = 1;

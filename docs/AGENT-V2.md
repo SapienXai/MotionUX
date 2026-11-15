@@ -13,14 +13,14 @@ npm run agent:plan -- --request ./fixtures/agent/requests/booking-confirmation.j
 npm run agent:v2:review -- --plan .motionux-v9/agent/reports/booking.json \
   --source kokonut-promise-toast
 npm run agent:v2:dry-run -- --review RUN_ID
-npm run agent:v2:apply -- --review RUN_ID --authorized-fixture EXACT_APPROVAL
+npm run agent:v2:apply -- --review RUN_ID --authorized-fixture MANIFEST_CONFIRMATION
 npm run agent:v2:verify -- --run RUN_ID
 npm run agent:v2:rollback -- --run RUN_ID --recheck
 npm run agent:v2:status -- --run RUN_ID
 npm run test:agent:v2
 ```
 
-Replace `RUN_ID` with the review's generated ID. Inspect the dry-run, then pass its exact approval only if the source and affected files are authorized. The approval binds one reviewed manifest and generated workspace and expires after 15 minutes. `evaluate` takes the same flags as `apply` and runs the full apply, verify, rollback and restored-route sequence. Use `npm run --silent … -- --json` for a single machine-readable object. [Schemas](../schemas/agent/)
+Replace `RUN_ID` with the review's generated ID. Inspect the dry-run, then pass its manifest confirmation only if the source and affected files are authorized. The confirmation is a deterministic acknowledgement of one reviewed manifest and generated workspace, expires after 15 minutes and provides no authentication. Anyone who can read that dry-run can reproduce it. The legacy JSON field is named `authorization`. `evaluate` takes the same flags as `apply` and runs the full apply, verify, rollback and restored-route sequence. Use `npm run --silent … -- --json` for a single machine-readable object. [Schemas](../schemas/agent/)
 
 The review reads the explicit V1 report and reruns the same V1 request against the current fixture and catalog. Pass the matching private V1 request with `--request` when it differs from the booking example. V1 abstention, missing capability evidence, stale evidence, unsupported formats, incompatible dependencies and a source missing from the shortlist block the run. The current recipe allows only `kokonut-promise-toast` on `/bookings/confirmation`. Additional sources need their own reviewed adapters.
 
@@ -60,7 +60,7 @@ The writer checks canonical paths, regular single-link files, file counts and ex
 - Real acceptance covers Chromium keyboard and touch emulation at 320/390px, Firefox and WebKit smoke, Axe in the stable visible state, reduced motion, SSR, fixture server/API status, races, cancellation, navigation and retry. Physical mobile, manual screen readers, RTL, renderer RSS and live backend behavior remain open.
 - Contract tests use synthetic bytes for transaction failure injection, SIGKILL recovery, lock contention, conflict preservation and malformed metadata. These are separate from the browser result on the real original.
 
-The accepted local run used a Next.js 16.4.6 production build. It restored six modified files, including both npm manifests, and removed seven created files. Both the restored route and a repeated rollback passed. The upstream animation produced 60 sampled frames with 21 distinct transform or opacity states. The matched Chromium sample recorded a document-ready p95 of 21.4 → 28.0 ms, JS heap p95 of 3.03 → 3.51 MiB, and 134,119 → 194,858 encoded JS bytes. CLS was 0 → 0.01. These measurements describe this fixture and machine.
+The accepted local run used a Next.js 16.4.6 production build. It restored six modified files, including both npm manifests, and removed seven created files. Both the restored route and a repeated rollback passed. Each `rollback --recheck` now runs an independent build, type check and Playwright verification under its own `restored-rechecks/<attempt-id>/` directory. A failed or cancelled attempt returns a nonzero exit code and records its own outcome even when an earlier attempt passed. The upstream animation produced 60 sampled frames with 21 distinct transform or opacity states. The matched Chromium sample recorded a document-ready p95 of 21.4 → 28.0 ms, JS heap p95 of 3.03 → 3.51 MiB, and 134,119 → 194,858 encoded JS bytes. CLS was 0 → 0.01. These measurements describe this fixture and machine.
 
 A successful machine-readable run includes a status and evidence references similar to the following excerpt.
 

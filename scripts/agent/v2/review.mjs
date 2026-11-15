@@ -20,7 +20,7 @@ const reviewRoot = run => resolve(base, "reviews", safeId(run));
 const pretty = value => JSON.stringify(value, null, 2) + "\n";
 export const runEvidence = run => resolve(evidenceRoot, safeId(run));
 export const managed = run => resolve(base, "workspaces", safeId(run));
-export const ticket = review => "approve:" + review.runId + ":" + review.fingerprint;
+export const manifestConfirmation = review => "approve:" + review.runId + ":" + review.fingerprint;
 
 function validateLock(lock, manifest) {
   const root = lock.packages?.[""];

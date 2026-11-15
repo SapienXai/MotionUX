@@ -12,5 +12,5 @@
     "skipLibCheck": true,
     "types": ["vite/client", "node"]
   },
-  "include": ["components", "lib", "examples", "studio", "src/brain", "src/agent", "tests", "playwright.config.ts"]
+  "include": ["components", "lib", "examples", "studio", "src/brain", "src/agent", "src/mcp", "tests", "playwright.config.ts"]
 }
