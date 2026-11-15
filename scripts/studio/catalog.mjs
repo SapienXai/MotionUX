@@ -1,8 +1,11 @@
-import { readFile, stat } from "node:fs/promises";
-import { resolve } from "node:path";
+import { createHash } from "node:crypto";
+import { readFile, lstat } from "node:fs/promises";
+import { basename, resolve } from "node:path";
+import { safeFile, safeRelative } from "./v11/paths.mjs";
 import { extendSources, sources } from "../v9/pilots.mjs";
 
 export const vault = resolve(".motionux-v9");
+export const lastCatalog = resolve(vault, "catalog.last-good.json");
 extendSources(JSON.parse(await readFile("metadata/v9-provider-candidates.json", "utf8")));
 const groups = [...Object.keys(sources), "designbookmark"];
 const references = new Set(JSON.parse(await readFile("metadata/v9-reference.json", "utf8")).items.map(item => item.id));
@@ -46,28 +49,44 @@ const tallPreviews = {
   "smoothui-new-animated-tags": 432, "smoothui-new-magnetic-field": 406,
 };
 
-export async function loadCatalog() {
+export async function loadCatalog({ diagnostics = [] } = {}) {
   const catalog = new Map();
+  let previous = [];
+  try {
+    const value = JSON.parse(await readFile(lastCatalog, "utf8"));
+    if (Array.isArray(value)) previous = value;
+  } catch (error) { if (error.code !== "ENOENT") diagnostics.push("Saved catalog recovery index could not be read."); }
   for (const group of groups) {
     let items;
     try {
       items = JSON.parse(await readFile(resolve(vault, "runtime", group, "catalog.json"), "utf8"));
-    } catch (error) {
-      if (error.code !== "ENOENT") throw error;
-      continue;
+      if (!Array.isArray(items)) throw new Error("Invalid catalog");
+    } catch {
+      diagnostics.push(group + ": prepared catalog missing or unreadable");
+      items = [];
     }
-    for (const item of items) {
-      if (item.group !== group || catalog.has(item.id)) throw new Error("Conflicting local source record: " + item.id);
+    const present = new Set(items.flatMap(item => typeof item?.id === "string" ? [item.id] : []));
+    for (const item of [...items, ...previous.filter(item => item?.group === group && !present.has(item.id))]) {
+      if (item?.group !== group || typeof item.id !== "string" || !/^[a-z0-9][a-z0-9-]{0,95}$/.test(item.id) ||
+        catalog.has(item.id) || typeof item.slug !== "string" || !/^[a-z0-9-]+$/.test(item.slug) ||
+        !safeRelative(item.entry) || typeof item.installRecipe !== "string" || !Array.isArray(item.codeFiles) ||
+        !item.codeFiles.every(file => file && safeRelative(file.path) && /^[0-9a-f]{64}$/.test(file.sha256)) ||
+        !Array.isArray(item.scenes) || !item.dependencies || Array.isArray(item.dependencies) ||
+        typeof item.category !== "string" || typeof item.title !== "string" || !/^[0-9a-f]{64}$/.test(item.upstreamHash)) {
+        diagnostics.push(group + ": ignored malformed or duplicate catalog entry");
+        continue;
+      }
       const sourceKind = item.format === "html" ? "html" : "react";
       const root = resolve(vault, "runtime", group);
-      const installed = await isFile(item.installRecipe) && await isFile(resolve(root, "installed", "dist", "index.html"));
+      const installRecipe = resolve(vault, "registry", basename(item.installRecipe));
+      const installed = await isFile(installRecipe) && await isFile(resolve(root, "installed", "dist", "index.html"));
       const rawDocument = sourceKind === "html" ? item.slug + ".html" : "index.html";
-      const available = installed && await isFile(resolve(root, "original", "dist", rawDocument)) &&
-        await isFile(resolve(root, "original", item.entry));
+      const available = present.has(item.id) && installed && await isFile(resolve(root, "original", "dist", rawDocument)) &&
+        await hashMatches(resolve(root, "original"), item.entry, item.upstreamHash);
       const style = classifications.get(item.id) ?? classifications.get(item.slug);
       const category = style?.category ?? labelGroups[item.category.toLowerCase()] ?? "Effects";
       catalog.set(item.id, {
-        ...item, category, sourceKind, installed, availability: available ? "ready" : "unavailable",
+        ...item, installRecipe, category, sourceKind, installed, availability: available ? "ready" : "unavailable",
         legacyId: references.has(item.id) ? item.id : undefined,
         tags: [...new Set([category, item.category, sourceKind === "html" ? "HTML demo" : "React"])],
         preview: { height: style?.height ?? tallPreviews[item.id] ?? item.height ?? 360, rank: style?.rank },
@@ -78,9 +97,19 @@ export async function loadCatalog() {
   return catalog;
 }
 
+async function hashMatches(root, file, expected) {
+  try {
+    const bytes = await readFile(await safeFile(root, file, vault));
+    return createHash("sha256").update(bytes).digest("hex") === expected;
+  } catch (error) {
+    if (["ENOENT", "ENOTDIR"].includes(error.code)) return false;
+    throw error;
+  }
+}
+
 async function isFile(path) {
-  try { return (await stat(path)).isFile(); }
-  catch (error) { if (error.code === "ENOENT") return false; throw error; }
+  try { return (await lstat(path)).isFile(); }
+  catch (error) { if (["ENOENT", "ENOTDIR"].includes(error.code)) return false; throw error; }
 }
 
 export function catalogSummary(item) {
