@@ -39,6 +39,7 @@ import { RenderBlock } from "@motionux/app-blocks";
 import { AppFrame } from "@motionux/app-blocks/frame";
 import { MotionDnaFields } from "./motion-dna-fields";
 import { RuntimeInspector } from "./runtime-inspector";
+import { IntegrationLab } from "./integration-lab";
 import {
   allBlocks,
   blockSchema,
@@ -818,6 +819,16 @@ export function Editor({
                   {mode === "edit" ? "Instant canvas" : "Isolated Next.js"} ·{" "}
                   {device}
                 </span>
+                {mode === "edit" && (
+                  <IntegrationLab
+                    key={saved.revision + ":" + page.route}
+                    project={saved.id}
+                    revision={saved.revision}
+                    route={page.route}
+                    request={request}
+                    disabled={dirty}
+                  />
+                )}
                 {mode === "run" &&
                   previewOwned &&
                   preview.status === "ready" && (

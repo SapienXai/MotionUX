@@ -9,7 +9,11 @@ import {
 import { createComposer, type Composer } from "@motionux/build-core/composer";
 import { manualDocument, templates } from "@motionux/build-core";
 import { exportTree, zipTree } from "@motionux/app-export";
-import { getPreview, inspectPreview, startPreview, stopPreview } from "@motionux/preview-host";
+import {
+  getPreview, inspectPreview, startPreview, stopPreview,
+  inspectIntegration, withIntegrationSlot,
+} from "@motionux/preview-host";
+import { approvalKey, createIntegrationLab } from "@motionux/preview-host/integration";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -55,10 +59,23 @@ async function documentBody(request: Request, limit = maxDocument) {
   }
 }
 
-const state = globalThis as typeof globalThis & { motionuxComposer?: { vault: string; value: Composer } };
+const state = globalThis as typeof globalThis & {
+  motionuxComposer?: { vault: string; value: Composer };
+  motionuxIntegration?: { vault: string; value: ReturnType<typeof createIntegrationLab> };
+};
 function composerFor(vault: string) {
   if (!state.motionuxComposer || state.motionuxComposer.vault !== vault) state.motionuxComposer = { vault, value: createComposer(vault) };
   return state.motionuxComposer.value;
+}
+function integrationFor(repo: string, vault: string) {
+  if (!state.motionuxIntegration || state.motionuxIntegration.vault !== vault) {
+    const key = approvalKey(process.env.MOTIONUX_BUILD_APPROVAL_KEY);
+    state.motionuxIntegration = {
+      vault,
+      value: createIntegrationLab(repo, vault, key, (...args) => inspectIntegration(repo, vault, ...args)),
+    };
+  }
+  return state.motionuxIntegration.value;
 }
 
 async function handle(request: Request, { params }: Context) {
@@ -122,6 +139,40 @@ async function handle(request: Request, { params }: Context) {
       return json(await store.open(id));
     if (path.length === 1 && method === "PUT")
       return json(await store.save(id, await documentBody(request)));
+    if (action === "integration") {
+      const lab = integrationFor(repo, vault);
+      const [,, operation] = path;
+      if (path.length === 2 && method === "GET")
+        return json({
+          available: process.platform === "darwin" && Boolean(lab.signer),
+          macOS: process.platform === "darwin",
+          signer: lab.signer,
+        });
+      if (path.length !== 3) throw new BuildError(404, "Unknown integration action.");
+      if (method === "DELETE" && /^[a-f0-9]{32}$/.test(operation)) {
+        await lab.cancel(id, operation);
+        return json({ cancelled: true });
+      }
+      if (process.platform !== "darwin") throw new BuildError(501, "Isolated integration currently requires macOS.");
+      if (method === "POST" && operation === "review") {
+        const body = await documentBody(request, 256);
+        if (!body || typeof body.route !== "string" || !Number.isSafeInteger(body.revision) || Object.keys(body).length !== 2)
+          throw new BuildError(422, "Choose a saved page and revision.");
+        const project = await store.open(id);
+        if (body.revision !== project.revision) throw new BuildError(409, "The saved revision changed. Reopen the project.");
+        return json(await lab.prepare(project, body.route));
+      }
+      if (method === "POST" && operation === "apply") {
+        const body = await documentBody(request, 384);
+        if (!body || typeof body.id !== "string" || !/^[a-f0-9]{32}$/.test(body.id) ||
+            typeof body.signature !== "string" || Object.keys(body).length !== 2)
+          throw new BuildError(422, "An exact review ID and host signature are required.");
+        return json(await withIntegrationSlot(() =>
+          lab.execute(id, body.id, body.signature, () => store.open(id), request.signal),
+        ));
+      }
+      throw new BuildError(404, "Unknown integration action.");
+    }
     if (path.length === 2 && method === "POST" && action === "recover")
       return json(await store.restore(id));
     if (path.length === 2 && method === "POST" && action === "preview") {

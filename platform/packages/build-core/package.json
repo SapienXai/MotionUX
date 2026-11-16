@@ -7,7 +7,8 @@
     "./store": "./store.ts",
     "./blueprint": "./composer/blueprint.ts",
     "./composer": "./composer/service.ts",
-    "./inspection": "./inspection.ts"
+    "./inspection": "./inspection.ts",
+    "./integration": "./integration.ts"
   },
   "dependencies": {
     "zod": "4.3.6"

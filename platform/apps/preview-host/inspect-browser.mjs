@@ -150,11 +150,40 @@ async function checkCommand(page, touch) {
   return [];
 }
 
+async function checkIntegration(page, touch, { title, present }) {
+  const heading = page.getByRole("heading", { name: title, exact: true });
+  if (!present) {
+    if (await heading.count())
+      throw new Error("The integrated block is still present after rollback.");
+    return;
+  }
+  await heading.waitFor();
+  const trigger = page
+    .locator(".hotel-card")
+    .filter({ has: heading })
+    .getByRole("button", { name: "Open details", exact: true });
+  if (touch) await trigger.tap();
+  else await trigger.press("Enter");
+  const dialog = page.getByRole("dialog", { name: title, exact: true });
+  await dialog.waitFor();
+  const close = dialog.getByRole("button", { name: "Close dialog" });
+  if (!(await close.evaluate((element) => element === document.activeElement)))
+    throw new Error("The integrated dialog lost initial focus.");
+  if (touch) await close.tap();
+  else await page.keyboard.press("Escape");
+  await dialog.waitFor({ state: "hidden" });
+  if (
+    !(await trigger.evaluate((element) => element === document.activeElement))
+  )
+    throw new Error("The integrated dialog failed to restore focus.");
+}
+
 export async function inspectRuntime({
   origin,
   route,
   revision,
   identity,
+  integration,
   signal,
 }) {
   signal?.throwIfAborted();
@@ -232,6 +261,11 @@ export async function inspectRuntime({
           });
         }
         findings.push(...(await checkCommand(page, touch)));
+        // The command probe ends with the dialog open so it can verify touch activation.
+        if (integration) {
+          await page.keyboard.press("Escape");
+          await checkIntegration(page, touch, integration);
+        }
         if (errors)
           findings.push({
             category: "interaction",

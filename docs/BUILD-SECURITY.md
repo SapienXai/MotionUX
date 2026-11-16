@@ -23,3 +23,9 @@ Only the explicit PWA export emits a service worker. Its production snapshot cov
 ## Inspector boundary
 
 The Studio API uses the existing loopback origin and mutation gates. A request identifies one page on the active saved Run revision. The worker checks the preview session and document headers, allows only GET and HEAD at the fixed preview origin, blocks redirects and service workers, and starts fresh browser contexts. The host runs a single inspection per preview with a wall-time and output limit. Stopping Run cancels the audit. The application and exports receive no inspection code or reports.
+
+## Integration Lab boundary
+
+The trusted operator configures a public Ed25519 pin at Studio startup. Incoming requests carry an ID and signature for one server-generated exact manifest, with a five-minute expiry and an in-process one-time claim. The signature covers the managed project ID, revision, route, generated source, lockfile and license hashes, temporary target identity and the full before/after file trees. The signing key stays with its custodian. Browser and model messages cannot issue host approvals.
+
+The writable target is a generated child of the private Build integration folder. Preparation, application and rollback operate only on that copy. The lab checks current source, revision, complete file contents, modes and directory identity. It verifies the candidate and restored copy with separate builds in the existing macOS sandbox and loopback Chromium. Independent edits stop automatic restoration. A forced termination can leave a private disposable workspace. The threat model assumes the Studio checkout and OS are trusted. The Agent V4 real-project gate and read-only MCP remain separate.

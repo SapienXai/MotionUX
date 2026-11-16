@@ -30,6 +30,7 @@ type PreviewState = {
 };
 type Session = {
   running: boolean;
+  internal?: boolean;
   inspecting?: boolean;
   token: string;
   state: PreviewState;
@@ -45,6 +46,7 @@ const maxMemory = 1300 * 1024 ** 2;
 const globalState = globalThis as typeof globalThis & {
   motionuxPreview?: Session;
   motionuxPreviewHooks?: boolean;
+  motionuxIntegrationSlot?: boolean;
 };
 const killGroup = (pid?: number) => {
   if (!pid) return;
@@ -159,6 +161,7 @@ async function run(
   vault: string,
   project: BuildProject,
   session: Session,
+  source?: Awaited<ReturnType<typeof exportTree>>,
 ) {
   const signal = session.abort.signal;
   let cwd: string | undefined;
@@ -176,7 +179,7 @@ async function run(
       );
     await ensurePort();
     cwd = await mkdtemp(resolve(root, "replica-"));
-    const tree = await exportTree(repo, project);
+    const tree = source ?? await exportTree(repo, project);
     if (JSON.parse(String(tree["motionux-manifest.json"])).documentDigest !== session.state.documentDigest)
       throw new BuildError(409, "Preview document changed.");
     await writeTree(cwd, tree);
@@ -329,7 +332,8 @@ async function run(
 }
 
 export function getPreview(): PreviewState {
-  return globalState.motionuxPreview?.state ?? { status: "idle" };
+  const session = globalState.motionuxPreview;
+  return session && !session.internal ? session.state : { status: "idle" };
 }
 export async function inspectPreview(
   repo: string,
@@ -340,7 +344,7 @@ export async function inspectPreview(
   const session = globalState.motionuxPreview;
   const digest = fingerprint(canonical(project.document));
   if (
-    !session ||
+    !session || session.internal ||
     session.state.status !== "ready" ||
     session.state.id !== project.id ||
     session.state.revision !== project.revision ||
@@ -352,6 +356,20 @@ export async function inspectPreview(
   if (session.inspecting)
     throw new BuildError(409, "An inspection is already running.");
   session.inspecting = true;
+  try {
+    return await auditSession(repo, session, route, signal);
+  } finally {
+    session.inspecting = false;
+  }
+}
+
+async function auditSession(
+  repo: string,
+  session: Session,
+  route: string,
+  signal: AbortSignal,
+  integration?: { title: string; present: boolean },
+) {
   const cancellation = AbortSignal.any([signal, session.abort.signal]);
   try {
     const { stdout } = await exec(
@@ -368,8 +386,9 @@ export async function inspectPreview(
           MOTIONUX_INSPECTION: JSON.stringify({
             origin,
             route,
-            revision: project.revision,
-            identity: { token: session.token, digest },
+            revision: session.state.revision,
+            identity: { token: session.token, digest: session.state.documentDigest },
+            integration,
           }),
         },
         signal: cancellation,
@@ -397,14 +416,12 @@ export async function inspectPreview(
       503,
       "Chromium could not complete the inspection. Check the preview and try again.",
     );
-  } finally {
-    session.inspecting = false;
   }
 }
 
-export async function stopPreview() {
+export async function stopPreview(internal = false) {
   const session = globalState.motionuxPreview;
-  if (!session) return;
+  if (!session || (session.internal && !internal)) return;
   session.abort.abort(new Error("Stopped"));
   await session.ended;
   if (globalState.motionuxPreview === session)
@@ -415,6 +432,17 @@ export function startPreview(
   vault: string,
   project: BuildProject,
 ): PreviewState {
+  if (globalState.motionuxIntegrationSlot)
+    throw new BuildError(409, "The Integration Lab is using the isolated Run host.");
+  return beginPreview(repo, vault, project).state;
+}
+
+function beginPreview(
+  repo: string,
+  vault: string,
+  project: BuildProject,
+  source?: Awaited<ReturnType<typeof exportTree>>,
+): Session {
   if (process.platform !== "darwin")
     throw new BuildError(
       501,
@@ -425,15 +453,16 @@ export function startPreview(
   if (!globalState.motionuxPreviewHooks) {
     globalState.motionuxPreviewHooks = true;
     process.once("SIGTERM", () => {
-      void stopPreview();
+      void stopPreview(true);
     });
     process.once("SIGINT", () => {
-      void stopPreview();
+      void stopPreview(true);
     });
     process.once("exit", () => killGroup(globalState.motionuxPreview?.pid));
   }
   const session: Session = {
     running: true,
+    internal: Boolean(source),
     token: randomBytes(12).toString("hex"),
     state: { status: "building", id: project.id, revision: project.revision, documentDigest: fingerprint(canonical(project.document)) },
     abort: new AbortController(),
@@ -445,12 +474,51 @@ export function startPreview(
       session.abort.abort(new Error("Preview expired after eight minutes.")),
     480_000,
   );
-  session.ended = run(repo, vault, project, session)
+  session.ended = run(repo, vault, project, session, source)
     .catch(() => {
       session.state = { status: "failed", message: "Preview cleanup failed." };
     })
     .finally(() => {
       session.running = false;
     });
-  return session.state;
+  return session;
+}
+
+export async function withIntegrationSlot<T>(work: () => Promise<T>): Promise<T> {
+  if (process.platform !== "darwin")
+    throw new BuildError(501, "Isolated integration currently requires macOS.");
+  if (globalState.motionuxIntegrationSlot || globalState.motionuxPreview?.running)
+    throw new BuildError(409, "Stop the active Run preview before starting the isolated integration.");
+  globalState.motionuxIntegrationSlot = true;
+  try {
+    return await work();
+  } finally {
+    globalState.motionuxIntegrationSlot = false;
+  }
+}
+
+export async function inspectIntegration(
+  repo: string, vault: string, project: BuildProject,
+  tree: Awaited<ReturnType<typeof exportTree>>,
+  route: string, title: string, phase: "integrated" | "restored", signal: AbortSignal,
+): Promise<InspectionReport> {
+  if (!globalState.motionuxIntegrationSlot)
+    throw new BuildError(409, "The isolated integration has no preview lease.");
+  signal.throwIfAborted();
+  const session = beginPreview(repo, vault, project, tree);
+  try {
+    while (session.state.status === "building" || session.state.status === "starting") {
+      await delay(150, undefined, { signal });
+    }
+    if (session.state.status !== "ready") throw new BuildError(503, "The isolated Next.js build did not start.");
+    const report = await auditSession(repo, session, route, signal, {
+      title, present: phase === "integrated",
+    });
+    if (report.viewports.length !== 3 || report.viewports.some((view) => view.findings.some(
+      (finding) => finding.category !== "accessibility" || ["serious", "critical"].includes(finding.impact ?? ""),
+    ))) throw new BuildError(422, "The isolated app did not pass the browser checks.");
+    return report;
+  } finally {
+    await stopPreview(true);
+  }
 }

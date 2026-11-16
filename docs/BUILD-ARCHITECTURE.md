@@ -65,3 +65,7 @@ The optional, versioned settings belong to the existing project document. The sh
 ## B6 Inspector
 
 The editor requests a read-only snapshot of one page from an active Run. The preview host matches the project ID, revision and document digest before spawning a bounded local Chromium worker. Fresh contexts measure the actual page, run axe and exercise the shared page search. The worker produces structured viewport findings for Studio. The worker and report UI stay outside the generated application tree. See [Inspector](BUILD-INSPECTOR.md).
+
+## B7 Integration Lab
+
+Prepare builds the exact baseline and Dialog-enhanced source into private sibling directories. Studio sends their signed review to an independently controlled operator for approval. The server verifies a detached Ed25519 signature against its startup pin and rechecks source identity before publishing the candidate at the disposable target. It reuses the single isolated Run slot and B6 browser worker for two independent builds. The reverse swap restores the original directory and the final report joins the signed scope, tree hashes and browser evidence. [Integration Lab](BUILD-INTEGRATION.md)

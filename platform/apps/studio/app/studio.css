@@ -815,6 +815,65 @@ select:focus-visible {
 .build-inspection-results code {
   color: var(--build-muted);
 }
+.build-integration-dialog {
+  max-width: min(580px, calc(100% - 24px));
+  max-height: min(760px, calc(100dvh - 24px));
+  overflow: auto;
+}
+.build-integration-dialog p.build-integration-meta {
+  color: var(--build-muted);
+}
+.build-integration-row,
+.build-integration-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-block: 12px;
+}
+.build-integration-actions {
+  justify-content: flex-end;
+  margin-bottom: 0;
+}
+.build-integration-review {
+  border-top: 1px solid var(--build-border);
+  margin-block: 12px;
+  padding-top: 9px;
+}
+.build-integration-review details {
+  padding: 8px 10px;
+  border: 1px solid var(--build-border);
+  border-radius: 8px;
+  background: var(--build-bg);
+}
+.build-integration-review summary {
+  cursor: pointer;
+}
+.build-integration-review code {
+  display: block;
+  color: var(--build-muted);
+  overflow-wrap: anywhere;
+}
+.build-integration-review form {
+  margin-top: 12px;
+}
+.build-integration-review form > button {
+  justify-self: start;
+}
+.build-integration-review label {
+  display: grid;
+  gap: 5px;
+}
+.build-integration-review textarea {
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid var(--build-border);
+  border-radius: 8px;
+  color: var(--build-text);
+  background: var(--build-input);
+  resize: vertical;
+}
 @media (max-width: 1050px) {
   .build-workspace {
     grid-template-columns: 174px minmax(0, 1fr) 186px;

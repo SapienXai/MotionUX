@@ -32,3 +32,5 @@ Build is a component-powered application studio for people who can describe thei
 Hotel Desk and Meridian CRM demonstrate distinct operations and sales workflows on fictional data. The Composer uses the installed Codex desktop connection for structured planning where the isolated macOS bridge is available. The reviewed output selects owned blocks with known rights, compatibility and behavior. Actual Next.js preview and independent source export carry the same saved document. Accessible focus, usable mobile navigation, reduced motion, quick editing and bounded local resources are product requirements. Online services, account creation, billing, production data and arbitrary project edits are outside this scope.
 
 Build's Inspector audits one saved page in the actual Next.js preview. Findings identify the viewport and checked rule. Automated accessibility results carry manual review items, and the interaction report names the flow it exercised.
+
+Integration Lab lets an independently authorized operator test a reviewed change in a disposable Build export and verify restoration in a fresh browser run. The source application stays read-only throughout the trial.

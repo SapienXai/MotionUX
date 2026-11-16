@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./host.ts"
+    ".": "./host.ts",
+    "./integration": "./integration.ts"
   },
   "dependencies": {
     "@motionux/build-core": "workspace:*",

@@ -1,6 +1,8 @@
 import { spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
+import { readFileSync } from "node:fs";
+import { createPublicKey } from "node:crypto";
 
 const repo = fileURLToPath(new URL("../", import.meta.url)).replace(/\/$/, "");
 const app = resolve(repo, "platform/apps/studio");
@@ -9,11 +11,24 @@ const fixture = process.argv
   ?.slice(10);
 if (fixture && !/^build-browser-[a-z0-9]{8,24}$/.test(fixture))
   throw new Error("Invalid browser fixture ID.");
+const approvalPath = process.argv
+  .find((arg) => arg.startsWith("--approval-key="))
+  ?.slice(15);
+let approvalKey = "";
+if (approvalPath) {
+  approvalKey = readFileSync(approvalPath, "utf8");
+  if (
+    !approvalKey.startsWith("-----BEGIN PUBLIC KEY-----") ||
+    createPublicKey(approvalKey).asymmetricKeyType !== "ed25519"
+  )
+    throw new Error("Expected an Ed25519 public PEM for the Integration Lab.");
+}
 const env = {
   ...process.env,
   NEXT_TELEMETRY_DISABLED: "1",
   MOTIONUX_BUILD_REPO: repo,
   MOTIONUX_BUILD_FIXTURE: fixture ?? "",
+  MOTIONUX_BUILD_APPROVAL_KEY: approvalKey,
 };
 const runner = resolve(app, "node_modules/next/dist/bin/next");
 if (!process.argv.includes("--built")) {

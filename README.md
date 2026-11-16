@@ -44,6 +44,7 @@ An animation can clarify where you are, confirm an action, or help you follow a 
 | **Codex MCP** | Available locally · read-only | Search originals, inspect source evidence and plan motion on an authorized screen from a normal Codex session. |
 | **Motion DNA** | Available in Build | Set timing, easing, page transitions and reduced motion for each managed project. |
 | **Inspector** | Available in Build | Check layout, accessibility and page search in the live preview at mobile, tablet and desktop sizes. |
+| **Integration Lab** | Available in Build | Review a host-signed trial in a disposable app and verify that the earlier version still runs. |
 
 Run `npm run brain:index` in a prepared workspace to search or ask for a recommendation. [Brain V1 CLI and evidence](docs/BRAIN-V1.md)
 
@@ -79,4 +80,4 @@ pnpm --dir platform install --frozen-lockfile --ignore-scripts
 npm run studio:build
 ```
 
-Open [Build](http://127.0.0.1:5200/build). Describe a sales or operations app and review the Codex Blueprint, or open **Sales CRM**, **Hotel Desk** or a blank canvas directly. Save the project and run the Next.js preview on macOS. Use **Inspector** to audit a saved page across three screen sizes. **Export** downloads standalone Next.js source and **Export PWA** includes installation and offline support. The 500 originals and personal collections continue to use the Gallery served by `npm run studio`. [Inspect a page](docs/BUILD-INSPECTOR.md) · [Tune Motion DNA](docs/BUILD-MOTION-DNA.md) · [Install and work offline](docs/BUILD-PWA.md) · [App Composer guide](docs/BUILD-COMPOSER-B3.md) · [Build architecture](docs/BUILD-ARCHITECTURE.md) · [Verification commands](docs/BUILD-QUALITY-GATES.md)
+Open [Build](http://127.0.0.1:5200/build). Describe a sales or operations app and review the Codex Blueprint, or open **Sales CRM**, **Hotel Desk** or a blank canvas directly. Save the project and run the Next.js preview on macOS. Use **Inspector** to audit a saved page across three screen sizes. Use **Integration Lab** to review a host-signed trial in a disposable copy. **Export** downloads standalone Next.js source and **Export PWA** includes installation and offline support. The 500 originals and personal collections continue to use the Gallery served by `npm run studio`. [Test an integration](docs/BUILD-INTEGRATION.md) · [Inspect a page](docs/BUILD-INSPECTOR.md) · [Tune Motion DNA](docs/BUILD-MOTION-DNA.md) · [Install and work offline](docs/BUILD-PWA.md) · [App Composer guide](docs/BUILD-COMPOSER-B3.md) · [Build architecture](docs/BUILD-ARCHITECTURE.md) · [Verification commands](docs/BUILD-QUALITY-GATES.md)
