@@ -304,7 +304,9 @@ try {
       .getByRole("textbox", { name: "Describe your app" })
       .fill(crmBrief);
     await click(page, "Generate blueprint").click();
-    await expect(page.getByRole("alert")).toContainText("Codex unavailable");
+    const unavailable = page.getByRole("main").getByRole("alert");
+    await expect(unavailable).toContainText("Codex unavailable");
+    await expect(unavailable).toBeFocused();
   }
   check("Composer rejection, responsive layout and manual alternative");
   if (live) {
