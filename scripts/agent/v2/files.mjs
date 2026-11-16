@@ -134,7 +134,7 @@ async function syncFolder(path) {
   finally { await handle.close(); }
 }
 
-export async function replace(path, value, expected) {
+export async function replace(path, value, expected, beforeEffect) {
   const parent = dirname(path);
   const dirBefore = await directory(parent);
   if (!matches(await file(path), expected)) stop("conflict", "A file preimage changed.");
@@ -151,6 +151,7 @@ export async function replace(path, value, expected) {
     if (dirBefore.dev !== dirAfter.dev || dirBefore.ino !== dirAfter.ino || !matches(await file(path), expected)) {
       stop("conflict", "A file or its parent changed during staging.");
     }
+    beforeEffect?.();
     if (value) await rename(temp, path);
     else await unlink(path);
     await syncFolder(parent);
@@ -160,8 +161,9 @@ export async function replace(path, value, expected) {
   }
 }
 
-export async function createFolder(path, mode) {
+export async function createFolder(path, mode, beforeEffect) {
   await directory(dirname(path));
+  beforeEffect?.();
   await mkdir(path, { mode });
   await chmod(path, mode);
   await syncFolder(dirname(path));

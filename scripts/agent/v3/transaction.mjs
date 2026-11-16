@@ -83,7 +83,11 @@ async function restore(review, state, before, after, checkLock) {
 
 async function applyAuthorized(run, claim, { signal, check = fresh, fault } = {}) {
   const review = await loadReview(run);
-  const grant = await claim(review);
+  const { checkGrant, assertActive } = await claim(review);
+  const beforeEffect = () => {
+    cancelled(signal);
+    assertActive?.();
+  };
   return locked(run, false, async checkLock => {
     if (await exists(journalPath(run))) stop("existing-run", "This reviewed run has already been used.");
     const root = await assertRoot(review);
@@ -93,12 +97,12 @@ async function applyAuthorized(run, claim, { signal, check = fresh, fault } = {}
       cancelled(signal);
       await checkLock();
       const active = await loadReview(run);
-      await grant(active);
+      await checkGrant(active);
       await check(active, signal);
       if (await assertRoot(review) !== root) stop("identity-mismatch", "Target changed.");
       sameTree(await scan(root), expected);
       await checkLock();
-      await grant(await loadReview(run));
+      await checkGrant(await loadReview(run));
     };
     await guard();
     let state = await record(review, null, "authorized-fixture", "Single-use grant bound to this run, target identity, source and manifest.");
@@ -107,7 +111,7 @@ async function applyAuthorized(run, claim, { signal, check = fresh, fault } = {}
       let writes = 0;
       for (const row of review.manifest.directories) {
         await guard();
-        await createFolder(fixturePath(root, row.path), row.mode);
+        await createFolder(fixturePath(root, row.path), row.mode, beforeEffect);
         expected.dirs.set(row.path, row.mode);
         await fault?.(++writes, row);
         state = await record(review, state, "applying", "mkdir " + row.path);
@@ -115,7 +119,7 @@ async function applyAuthorized(run, claim, { signal, check = fresh, fault } = {}
       for (const row of review.manifest.mutations) {
         await guard();
         const pre = before.files.get(row.path) ?? null, post = after.files.get(row.path) ?? null;
-        await replace(fixturePath(root, row.path), post, image(pre));
+        await replace(fixturePath(root, row.path), post, image(pre), beforeEffect);
         set(expected, row.path, post);
         await fault?.(++writes, row);
         state = await record(review, state, "applying", row.operation + " " + row.path);
@@ -133,7 +137,7 @@ async function applyAuthorized(run, claim, { signal, check = fresh, fault } = {}
 }
 
 export function apply(run, authority, capability, options) {
-  return applyAuthorized(run, review => claimFixtureGrant(authority, capability, review), options);
+  return applyAuthorized(run, review => ({ checkGrant: claimFixtureGrant(authority, capability, review) }), options);
 }
 
 export async function applyHostFixture(run, capability, options) {

@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import { generateKeyPairSync, sign } from "node:crypto";
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { test } from "node:test";
 import { canonical } from "../../../src/brain/indexer.ts";
 import { canonicalDigest, hostCompatibility, issuer, keyId, operator, scopeFor, verifyDecision, verifyRevocation } from "../../../src/agent/integration/v4/contract.mjs";
-import { id, repo } from "../v2/files.mjs";
+import { createFolder, entry, exists, file, id, image as fileImage, replace, repo, stop } from "../v2/files.mjs";
 import { managed } from "../v3/workspace.mjs";
 import { consumeReceipt } from "./bridge.mjs";
 
@@ -156,6 +156,21 @@ test("exclusive consumption persists across competing claims", async t => {
   await assert.rejects(consumeReceipt(target, { event: "later" }), { code: "host-grant-replayed" });
   assert.equal(await readFile(target, "utf8"), first);
   assert.match(first, /^\{"event":"(first|second)"\}\n$/);
+});
+
+test("a revoked lease at the final mutation boundary leaves files and directories untouched", async t => {
+  const root = await mkdtemp(resolve(repo, ".agent-v4-mutation-test-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const path = resolve(root, "baseline.txt");
+  const folder = resolve(root, "reviewed");
+  await writeFile(path, "preimage", { mode: 0o600 });
+  const before = fileImage(await file(path));
+  const revoked = () => stop("host-grant-revoked", "Controlled revocation before the filesystem effect.");
+  await assert.rejects(createFolder(folder, 0o700, revoked), { code: "host-grant-revoked" });
+  await assert.rejects(replace(path, entry("postimage"), before, revoked), { code: "host-grant-revoked" });
+  await assert.rejects(replace(path, null, before, revoked), { code: "host-grant-revoked" });
+  assert.equal(await exists(folder), null);
+  assert.deepEqual(fileImage(await file(path)), before);
 });
 
 test("no direct or general-purpose signer or write command is exposed", () => {

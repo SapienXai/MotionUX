@@ -108,16 +108,19 @@ export async function fixtureOperator(review, scenario = "decline", { signal, de
 export async function claimHostFixture(capability, review) {
   const lease = leases.get(capability);
   if (!lease || lease.claimed) stop("host-approval-unverified", "A single-use fixture operator grant is required.");
-  const guard = async current => {
+  const assertActive = () => {
     lease.signal.throwIfAborted();
     if (Date.now() >= lease.grant.expiresAt) stop("host-grant-expired", "The fixture grant expired.");
+  };
+  const checkGrant = async current => {
+    assertActive();
     if (canonical(scopeFor(current, await assertRoot(current))) !== canonical(lease.scope)) {
       stop("host-scope-mismatch", "The current fixture or manifest changed.");
     }
-    lease.signal.throwIfAborted();
+    assertActive();
   };
-  await guard(review);
+  await checkGrant(review);
   await consumeReceipt(resolve(evidenceFor(review.runId), "consumed.json"), lease.receipt);
   lease.claimed = true;
-  return guard;
+  return { checkGrant, assertActive };
 }
