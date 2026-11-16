@@ -1,0 +1,15 @@
+{
+  "name": "@motionux/app-export",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./export.ts"
+  },
+  "dependencies": {
+    "@motionux/build-core": "workspace:*",
+    "fflate": "0.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2"
+  }
+}

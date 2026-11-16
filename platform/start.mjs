@@ -1,0 +1,50 @@
+import { spawn, spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import { resolve } from "node:path";
+
+const repo = fileURLToPath(new URL("../", import.meta.url)).replace(/\/$/, "");
+const app = resolve(repo, "platform/apps/studio");
+const fixture = process.argv
+  .find((arg) => arg.startsWith("--fixture="))
+  ?.slice(10);
+if (fixture && !/^build-browser-[a-z0-9]{8,24}$/.test(fixture))
+  throw new Error("Invalid browser fixture ID.");
+const env = {
+  ...process.env,
+  NEXT_TELEMETRY_DISABLED: "1",
+  MOTIONUX_BUILD_REPO: repo,
+  MOTIONUX_BUILD_FIXTURE: fixture ?? "",
+};
+const runner = resolve(app, "node_modules/next/dist/bin/next");
+if (!process.argv.includes("--built")) {
+  const built = spawnSync(process.execPath, [runner, "build", "--webpack"], {
+    cwd: app,
+    env,
+    stdio: "inherit",
+  });
+  if (built.status !== 0) process.exit(built.status ?? 1);
+}
+const child = spawn(
+  process.execPath,
+  [runner, "start", "-H", "127.0.0.1", "-p", "5200"],
+  { cwd: app, env, stdio: "inherit" },
+);
+for (const signal of ["SIGTERM", "SIGINT"])
+  process.once(signal, () => {
+    const origin = "http://127.0.0.1:5200";
+    void fetch(origin + "/api/build/preview", {
+      method: "DELETE",
+      signal: AbortSignal.timeout(3000),
+      headers: {
+        Origin: origin,
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-Dest": "empty",
+        "X-MotionUX-Build": "1",
+      },
+    })
+      .catch(() => {})
+      .finally(() => child.kill(signal));
+  });
+child.once("exit", (code, signal) => {
+  process.exitCode = code ?? (signal ? 1 : 0);
+});

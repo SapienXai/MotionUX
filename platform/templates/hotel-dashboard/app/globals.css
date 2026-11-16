@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "../runtime/tokens.css";
+@import "../runtime/hotel.css";
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+body > .hotel {
+  min-height: 100dvh;
+}

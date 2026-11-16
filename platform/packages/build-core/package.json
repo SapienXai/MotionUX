@@ -1,0 +1,15 @@
+{
+  "name": "@motionux/build-core",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./model.ts",
+    "./store": "./store.ts"
+  },
+  "dependencies": {
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2"
+  }
+}

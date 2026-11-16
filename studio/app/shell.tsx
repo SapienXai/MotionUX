@@ -1,4 +1,4 @@
-import { Archive, ArrowRight, BookOpen, Bookmark, ChevronDown, CodeXml, Compass, CreditCard, Grid2X2, Hand, Layers3, Menu, Moon, MousePointer2, Search, Sparkle, SquareStack, Sun, Type, X, Zap, Headphones } from "lucide-react";
+import { Archive, ArrowRight, LayoutTemplate, BookOpen, Bookmark, ChevronDown, CodeXml, Compass, CreditCard, Grid2X2, Hand, Layers3, Menu, Moon, MousePointer2, Search, Sparkle, SquareStack, Sun, Type, X, Zap, Headphones } from "lucide-react";
 import { LayoutGroup, motion } from "motion/react";
 import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { catalogCounts, categories, FEATURED, hrefFor, repoURL, type Category, type Route } from "./catalog-view";
@@ -67,6 +67,7 @@ function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, cl
             onClick={event => intercept(event, () => navigate(next))}>{current && active("section")}<Icon size={20} aria-hidden="true" /><span>{page === "sources" ? "Discovery" : text}</span>
             {page === "gallery" && originalCount !== undefined && <span className="mx-count" aria-hidden="true">{originalCount}</span>}</a>;
         })}
+        {originalCount !== undefined && <a href="http://127.0.0.1:5200/build" className="mx-side-row"><LayoutTemplate size={20} aria-hidden="true" /><span>Build</span></a>}
       </nav>
       {originalCount === undefined && <nav className="mx-side-categories" aria-label="Categories">
         <h2>Categories</h2>

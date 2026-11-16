@@ -6,3 +6,7 @@ playwright-report/
 .DS_Store
 
 .motionux-v9/
+
+**/.next/
+**/next-env.d.ts
+**/*.tsbuildinfo

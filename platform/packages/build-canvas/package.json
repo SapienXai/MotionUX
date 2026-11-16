@@ -1,0 +1,22 @@
+{
+  "name": "@motionux/build-canvas",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./editor.tsx"
+  },
+  "dependencies": {
+    "@motionux/app-blocks": "workspace:*",
+    "@motionux/build-core": "workspace:*",
+    "@puckeditor/core": "0.24.0",
+    "lucide-react": "0.454.0"
+  },
+  "peerDependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
+  }
+}

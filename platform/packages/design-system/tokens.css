@@ -1,0 +1,11 @@
+:root {
+  --mx-sans: "Inter Variable", Inter, system-ui, sans-serif;
+  --mx-ease: cubic-bezier(0.2, 0.75, 0.2, 1);
+  --mx-fast: 150ms;
+  --mx-radius: 12px;
+  --mx-s1: 4px;
+  --mx-s2: 8px;
+  --mx-s3: 12px;
+  --mx-s4: 16px;
+  --mx-s6: 24px;
+}

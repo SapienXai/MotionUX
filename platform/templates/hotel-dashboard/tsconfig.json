@@ -1,0 +1,5 @@
+{
+  "compilerOptions":{"target":"ES2022","lib":["DOM","DOM.Iterable","ES2022"],"module":"ESNext","moduleResolution":"bundler","jsx":"react-jsx","strict":true,"allowImportingTsExtensions":true,"noEmit":true,"skipLibCheck":true,"resolveJsonModule":true,"esModuleInterop":true,"plugins":[{"name":"next"}]},
+  "include":["next-env.d.ts","**/*.ts","**/*.tsx",".next/types/**/*.ts"],
+  "exclude":["node_modules"]
+}

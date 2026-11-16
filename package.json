@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "studio": "node scripts/studio/start.mjs",
+    "studio:build": "pnpm --dir platform studio",
     "studio:doctor": "node scripts/studio/v11/doctor.mjs",
     "studio:thumbnails": "node scripts/studio/v11/thumbnails.mjs",
     "studio:backup": "python3 scripts/studio/v11/backup.py backup",

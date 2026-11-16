@@ -1,0 +1,8 @@
+{
+  "name": "motionux-platform",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.30.3",
+  "scripts": {"studio":"node start.mjs","build":"pnpm --filter @motionux/studio build","typecheck":"pnpm --filter @motionux/studio typecheck","test":"node --test tests/*.test.mjs"},
+  "engines":{"node":">=24"}
+}

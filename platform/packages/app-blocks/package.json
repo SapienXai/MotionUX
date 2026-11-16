@@ -1,0 +1,21 @@
+{
+  "name": "@motionux/app-blocks",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./blocks.tsx",
+    "./frame": "./frame.tsx",
+    "./styles.css": "./hotel.css"
+  },
+  "dependencies": {
+    "@motionux/build-core": "workspace:*",
+    "lucide-react": "0.454.0"
+  },
+  "peerDependencies": {
+    "react": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
+  }
+}
