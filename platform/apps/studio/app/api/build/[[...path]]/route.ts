@@ -3,7 +3,11 @@ import {
   createStore,
   maxDocument,
   BuildError,
+  canonical,
+  fingerprint,
 } from "@motionux/build-core/store";
+import { createComposer, type Composer } from "@motionux/build-core/composer";
+import { manualDocument, templates } from "@motionux/build-core";
 import { exportTree, zipTree } from "@motionux/app-export";
 import { getPreview, startPreview, stopPreview } from "@motionux/preview-host";
 
@@ -14,7 +18,12 @@ const json = (value: unknown, status = 200) =>
   Response.json(value, { status, headers: { "Cache-Control": "no-store" } });
 type Context = { params: Promise<{ path?: string[] }> };
 
-async function documentBody(request: Request) {
+function hasBody(request: Request) {
+  return request.headers.has("content-type") || request.headers.has("transfer-encoding") ||
+    Number(request.headers.get("content-length")) > 0;
+}
+
+async function documentBody(request: Request, limit = maxDocument) {
   if (
     !/^application\/json(?:;\s*charset=utf-8)?$/i.test(
       request.headers.get("content-type") ?? "",
@@ -30,7 +39,7 @@ async function documentBody(request: Request) {
       const part = await reader.read();
       if (part.done) break;
       size += part.value.byteLength;
-      if (size > maxDocument) {
+      if (size > limit) {
         await reader.cancel();
         throw new BuildError(413, "Project document exceeds the limit.");
       }
@@ -44,6 +53,12 @@ async function documentBody(request: Request) {
   } finally {
     reader.releaseLock();
   }
+}
+
+const state = globalThis as typeof globalThis & { motionuxComposer?: { vault: string; value: Composer } };
+function composerFor(vault: string) {
+  if (!state.motionuxComposer || state.motionuxComposer.vault !== vault) state.motionuxComposer = { vault, value: createComposer(vault) };
+  return state.motionuxComposer.value;
 }
 
 async function handle(request: Request, { params }: Context) {
@@ -77,8 +92,13 @@ async function handle(request: Request, { params }: Context) {
   const path = (await params).path ?? [];
   try {
     if (!path.length && method === "GET") return json(await store.list());
-    if (!path.length && method === "POST")
-      return json(await store.create(), 201);
+    if (!path.length && method === "POST") {
+      if (!hasBody(request)) return json(await store.create(), 201);
+      const value = await documentBody(request);
+      const template = templates.find((item) => item === value?.template);
+      if (!template || Object.keys(value).length !== 1) throw new BuildError(422, "Choose a supported template.");
+      return json(await store.create(manualDocument(template)), 201);
+    }
     if (path.length === 1 && path[0] === "preview") {
       if (method === "GET") return json(getPreview());
       if (method === "DELETE") {
@@ -87,20 +107,44 @@ async function handle(request: Request, { params }: Context) {
       }
     }
     const [id, action] = path;
+    if (id === "compose" && path.length === 2) {
+      const composer = composerFor(vault);
+      if (method === "DELETE") return json(composer.cancel(action));
+      if (method === "POST" && action === "generate")
+        return json(await composer.generate(await documentBody(request, 8192), request.signal));
+      if (method === "POST" && action === "review")
+        return json(composer.revise(await documentBody(request, 4096)));
+      if (method === "POST" && action === "create")
+        return json(await composer.create(await documentBody(request, 512)), 201);
+      return json({ message: "Unknown Composer action." }, 404);
+    }
     if (path.length === 1 && method === "GET")
       return json(await store.open(id));
     if (path.length === 1 && method === "PUT")
       return json(await store.save(id, await documentBody(request)));
     if (path.length === 2 && method === "POST" && action === "recover")
       return json(await store.restore(id));
-    if (path.length === 2 && method === "POST" && action === "preview")
-      return json(startPreview(repo, vault, await store.open(id)), 202);
+    if (path.length === 2 && method === "POST" && action === "preview") {
+      const project = await store.open(id);
+      if (hasBody(request)) {
+        const body = await documentBody(request, 160);
+        if (body?.revision !== project.revision || Object.keys(body).length !== 1)
+          throw new BuildError(409, "The saved revision changed. Reopen the project to preview it.");
+      }
+      return json(startPreview(repo, vault, project), 202);
+    }
     if (path.length === 2 && method === "GET" && action === "export") {
-      const files = await exportTree(repo, await store.open(id));
+      const project = await store.open(id);
+      const requested = request.headers.get("x-motionux-revision");
+      if (requested !== null && requested !== String(project.revision))
+        throw new BuildError(409, "The saved revision changed. Reopen the project to export it.");
+      const files = await exportTree(repo, project);
+      const filename = project.document.template === "hotel-dashboard" ? "hotel-desk-source.zip" : project.document.template + "-source.zip";
       return new Response(Buffer.from(zipTree(files)), {
         headers: {
           "Content-Type": "application/zip",
-          "Content-Disposition": 'attachment; filename="hotel-desk-source.zip"',
+          "X-MotionUX-Document": fingerprint(canonical(project.document)),
+          "Content-Disposition": 'attachment; filename="' + filename + '"' ,
           "Cache-Control": "no-store",
           "X-Content-Type-Options": "nosniff",
         },
@@ -109,7 +153,10 @@ async function handle(request: Request, { params }: Context) {
     return json({ message: "Unknown Build action." }, 404);
   } catch (error) {
     if (error instanceof BuildError)
-      return json({ message: error.message }, error.status);
+      return json({
+        message: error.message,
+        ...(path[0] === "compose" && error.status === 503 ? { code: "codex-unavailable" } : {}),
+      }, error.status);
     console.error(
       "Build operation failed:",
       error instanceof Error ? error.name : "unknown",

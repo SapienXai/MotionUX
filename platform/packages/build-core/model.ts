@@ -48,7 +48,7 @@ export const registry = {
   WorkspaceSwitcher: define(
     "Shell",
     "Workspace switcher",
-    "Switch between fictional hotel properties",
+    "Switch between demo workspaces",
   ),
   Topbar: define(
     "Shell",
@@ -83,7 +83,7 @@ export const registry = {
   KpiGrid: define(
     "Dashboard",
     "Metric grid",
-    "Occupancy, arrivals and revenue at a glance",
+    "Key figures for the selected data adapter",
   ),
   ChartCard: define(
     "Dashboard",
@@ -176,9 +176,66 @@ export const registry = {
     "A focused overview with a real route action",
   ),
   FeatureGrid: define("Content", "Room grid", "Open individual room details"),
+  Contacts: define("Dashboard", "Contact directory", "Find and inspect people and companies"),
+  Pipeline: define("Dashboard", "Sales pipeline", "Move opportunities across stages and review value"),
+  SalesActivity: define("Dashboard", "Sales activity", "Inspect meetings, notes and follow-ups"),
+  SalesBreakdown: define("Dashboard", "Pipeline breakdown", "Compare opportunity counts and values by stage"),
 } as const;
 export type BlockId = keyof typeof registry;
 const blockIds = Object.keys(registry) as [BlockId, ...BlockId[]];
+
+export const templates = ["hotel-dashboard", "crm-dashboard", "blank-app"] as const;
+export type Template = (typeof templates)[number];
+export const adapterFor = {
+  "hotel-dashboard": "hotel-demo-v1",
+  "crm-dashboard": "crm-demo-v1",
+  "blank-app": "local-form-v1",
+} as const;
+export type Adapter = (typeof adapterFor)[Template];
+
+const hotelOnly: BlockId[] = ["ChartCard", "DataTable", "FilterBar", "RecentActivity", "SearchField", "DateRangeFilter", "FeatureGrid", "StatusBadge"];
+const crmOnly: BlockId[] = ["Contacts", "Pipeline", "SalesActivity", "SalesBreakdown"];
+const withoutData: BlockId[] = ["WorkspaceSwitcher", "KpiCard", "KpiGrid"];
+export type DemoAction = "navigate" | "select-local" | "inspect" | "filter-sort-page" | "filter-sort" |
+  "change-demo-stage" | "undo-local" | "validate-local" | "announce" | "reset-local";
+const actionsByBlock: Partial<Record<BlockId, readonly DemoAction[]>> = {
+  AppSidebar: ["navigate"], IconRail: ["navigate"], CollapsibleSidebar: ["navigate", "select-local"], SidebarInset: ["navigate"],
+  WorkspaceSwitcher: ["select-local"], Topbar: ["navigate", "inspect"], CommandPalette: ["navigate"], MobileBottomNav: ["navigate"], MobileDrawer: ["navigate"],
+  Hero: ["navigate"], DataTable: ["filter-sort-page", "inspect"], FilterBar: ["filter-sort-page"], SearchField: ["filter-sort-page"], DateRangeFilter: ["filter-sort-page"],
+  ChartCard: ["inspect"], RecentActivity: ["inspect"], FeatureGrid: ["inspect"], Contacts: ["filter-sort", "inspect"], Pipeline: ["change-demo-stage", "undo-local"],
+  SalesActivity: ["inspect"], FormField: ["validate-local"], SelectField: ["select-local"], SettingsPanel: ["select-local"], Dialog: ["inspect"],
+  Sheet: ["inspect"], Toast: ["announce"], Skeleton: ["select-local"], ConfirmationFlow: ["reset-local"], EmptyState: ["reset-local"],
+};
+export const metricOptions = {
+  "hotel-demo-v1": ["automatic", "occupancy", "arrivals", "revenue"],
+  "crm-demo-v1": ["automatic", "pipeline-value", "qualified-deals", "contacts", "open-tasks"],
+  "local-form-v1": ["automatic"],
+} as const;
+export const blockSpecVersion = 2 as const;
+export function compatibleBlock(type: BlockId, data: Adapter) {
+  return hotelOnly.includes(type) ? data === "hotel-demo-v1"
+    : crmOnly.includes(type) ? data === "crm-demo-v1"
+    : !withoutData.includes(type) || data !== "local-form-v1";
+}
+export function blockSpec(type: BlockId) {
+  const entry = registry[type];
+  return {
+    ...entry, id: type, blockSpecVersion,
+    propsContract: type === "KpiCard" ? "presentation+metric-binding" : type === "SidebarInset" ? "presentation+bounded-slot" : "presentation",
+    tags: [entry.family.toLowerCase(), ...entry.title.toLowerCase().split(" ")],
+    allowedLayouts: type === "SidebarInset" ? ["page"] : ["page", "section"],
+    supportedDataAdapters: Object.values(adapterFor).filter((adapter) => compatibleBlock(type, adapter)),
+    actionCapabilities: actionsByBlock[type] ?? [],
+    bindings: type === "KpiCard" ? metricOptions : undefined,
+    capabilities: [entry.family.toLowerCase(), ...(actionsByBlock[type] ?? [])],
+    defaultProps: makeBlock(type, "b-default").props,
+    dependencies: ["react", "lucide-react"],
+    accessibilityRequirements: ["visible keyboard focus", "accessible names", "reduced motion"],
+    motionBehavior: "state feedback only", reducedMotionBehavior: "disable transitions",
+    performanceCost: ["ChartCard", "Contacts", "Pipeline"].includes(type) ? "interactive" : "light",
+    testEvidence: type === "SidebarInset" || !crmOnly.includes(type) ? "platform/tests/browser.mjs" : "platform/tests/b3-browser.mjs",
+  };
+}
 
 const text = (max: number) => z.string().max(max);
 export const blockProps = z.strictObject({
@@ -189,7 +246,7 @@ export const blockProps = z.strictObject({
   visibility: z.enum(["all", "desktop", "mobile"]),
   accessibleLabel: text(72).default(""),
   dataBinding: z
-    .enum(["automatic", "occupancy", "arrivals", "revenue"])
+    .enum(["automatic", "occupancy", "arrivals", "revenue", "pipeline-value", "qualified-deals", "contacts", "open-tasks"])
     .default("automatic"),
 });
 const leafSchema = z.strictObject({
@@ -232,19 +289,28 @@ export const pageSchema = z.strictObject({
 });
 export type BuildPage = z.infer<typeof pageSchema>;
 
-const composition = z
+const compositionFields = z
   .strictObject({
     name: text(80).min(1),
-    template: z.literal("hotel-dashboard"),
+    template: z.enum(templates),
     runtime: z.literal("next-16"),
     theme: z.enum(["light", "dark"]),
     sidebar: z.enum(["expanded", "rail"]),
     motionProfile: z.enum(["system", "none"]),
-    data: z.literal("hotel-demo-v1"),
+    data: z.enum(Object.values(adapterFor)),
     assets: z.tuple([]),
     pages: z.array(pageSchema).min(1).max(12),
-  })
-  .superRefine(({ pages }, context) => {
+  });
+export const documentSchema = compositionFields.extend({
+  locale: z.enum(["en", "tr"]).default("en"),
+}).superRefine(({ pages, data, template }, context) => {
+    if (adapterFor[template] !== data)
+      context.addIssue({ code: "custom", message: "Template and adapter are incompatible.", path: ["data"] });
+    for (const page of pages) for (const block of allBlocks(page.blocks)) {
+      if (!compatibleBlock(block.type, data) || !(metricOptions[data] as readonly string[]).includes(block.props.dataBinding)
+        || (block.type !== "KpiCard" && block.props.dataBinding !== "automatic"))
+        context.addIssue({ code: "custom", message: "Block or binding is incompatible with this data adapter.", path: ["pages", page.id, block.id] });
+    }
     const ids = pages.flatMap((page) => [
       page.id,
       ...allBlocks(page.blocks).map((block) => block.id),
@@ -273,7 +339,7 @@ export const compositionPlan = z.strictObject({
   schemaVersion: z.literal(1),
   userIntent: text(500).min(1),
   selectedTemplate: z.literal("hotel-dashboard"),
-  document: composition,
+  document: documentSchema,
   responsivePolicy: z.literal("mobile-navigation"),
   stateOwnership: z.literal("demo-local"),
   motionPolicy: z.enum(["system", "none"]),
@@ -281,14 +347,30 @@ export const compositionPlan = z.strictObject({
   risks: z.array(text(200)).max(8),
   verificationPlan: z.array(text(200)).min(1).max(8),
 });
-export const projectSchema = z.strictObject({
-  schemaVersion: z.literal(1),
+const projectFields = {
   id: projectId,
   revision: z.number().int().min(0).max(1_000_000),
-  document: composition,
+};
+const v1 = z.strictObject({
+  ...projectFields, schemaVersion: z.literal(1),
+  document: compositionFields.extend({ template: z.literal("hotel-dashboard"), data: z.literal("hotel-demo-v1") }),
 });
-export type BuildProject = z.infer<typeof projectSchema>;
-export type Document = BuildProject["document"];
+export const blueprintProvenance = z.strictObject({
+  source: z.literal("codex"),
+  digest: z.string().regex(/^[a-f0-9]{64}$/),
+  blockSpecVersion: z.literal(blockSpecVersion),
+  summary: text(200),
+  limitations: z.array(text(160)).max(8),
+});
+const v2 = z.strictObject({
+  ...projectFields, schemaVersion: z.literal(2),
+  document: documentSchema, blueprint: blueprintProvenance.optional(),
+});
+export const projectSchema = z.union([v2, v1.transform((old): z.input<typeof v2> => ({
+  ...old, schemaVersion: 2 as const, document: { ...old.document, locale: "en" as const },
+})).pipe(v2)]);
+export type BuildProject = z.infer<typeof v2>;
+export type Document = z.infer<typeof documentSchema>;
 
 export function makeBlock(
   type: BlockId,
@@ -401,11 +483,31 @@ export function templatePlan() {
     },
   });
 }
-export function newProject(id: string): BuildProject {
-  return projectSchema.parse({
-    schemaVersion: 1,
-    id,
-    revision: 0,
-    document: templatePlan().document,
+export function manualDocument(template: Template): Document {
+  if (template === "hotel-dashboard") return templatePlan().document;
+  if (template === "blank-app") return documentSchema.parse({
+    name: "Untitled workspace", locale: "en", template, runtime: "next-16", theme: "light", sidebar: "expanded",
+    motionProfile: "none", data: adapterFor[template], assets: [],
+    pages: [{ id: "p-overview", route: "/", title: "Overview", blocks: [makeBlock("PageHeader", "b-blank-title", { title: "Your workspace" })] }],
   });
+  const page = (slug: string, title: string, description: string, content: [BlockId, string][]) => ({
+    id: "p-" + slug, route: slug === "overview" ? "/" : "/" + slug, title,
+    blocks: [makeBlock("PageHeader", "b-title-" + slug, { title, description }),
+      ...content.map(([id, heading], index) => makeBlock(id, "b-" + slug + "-" + index, { title: heading }))],
+  });
+  return documentSchema.parse({
+    name: "Meridian CRM", locale: "en", template, runtime: "next-16", theme: "light", sidebar: "expanded",
+    motionProfile: "system", data: adapterFor[template], assets: [],
+    pages: [
+      page("overview", "Sales overview", "See what’s moving and where your team should focus next.", [["KpiGrid", "Sales metrics"], ["SalesBreakdown", "Pipeline at a glance"], ["SalesActivity", "Next actions"]]),
+      page("contacts", "Contacts", "Find people, accounts and their current relationship with your team.", [["Contacts", "Contact directory"]]),
+      page("pipeline", "Pipeline", "Review deals and move opportunities through each stage.", [["Pipeline", "Active opportunities"]]),
+      page("activities", "Activities", "Follow meetings, notes and upcoming tasks in one place.", [["SalesActivity", "Activity log"]]),
+      page("settings", "Settings", "Manage display and local preferences for this demo workspace.", [["SettingsPanel", "Workspace preferences"]]),
+    ],
+  });
+}
+
+export function newProject(id: string, document = manualDocument("hotel-dashboard"), blueprint?: BuildProject["blueprint"]): BuildProject {
+  return v2.parse({ schemaVersion: 2, id, revision: 0, document, ...(blueprint ? { blueprint } : {}) });
 }

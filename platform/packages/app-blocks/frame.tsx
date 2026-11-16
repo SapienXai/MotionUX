@@ -1,6 +1,9 @@
 "use client";
 import {
   Bell,
+  Users,
+  Columns3,
+  Activity,
   Building2,
   CalendarDays,
   ChevronDown,
@@ -27,7 +30,13 @@ import {
 } from "react";
 import type { Document } from "@motionux/build-core";
 
+import { workspaceProfiles } from "./profile.ts";
+import { readStageChanges, opportunities, type Stage, type StageChanges } from "./crm-data.ts";
+
 type AppContext = {
+  profile: (typeof workspaceProfiles)[keyof typeof workspaceProfiles];
+  stageChanges: StageChanges;
+  setStage: (id: string, stage: Stage) => void;
   document: Document;
   route: string;
   storageKey: string;
@@ -38,15 +47,18 @@ type AppContext = {
   navigate?: (route: string) => void;
 };
 const appContext = createContext<AppContext | null>(null);
-export function useHotel() {
+export function useApp() {
   const value = useContext(appContext);
-  if (!value) throw new Error("Hotel blocks require HotelFrame.");
+  if (!value) throw new Error("App blocks require AppFrame.");
   return value;
 }
 const icons: Record<string, LucideIcon> = {
   "/": LayoutDashboard,
   "/bookings": CalendarDays,
   "/rooms": Building2,
+  "/contacts": Users,
+  "/pipeline": Columns3,
+  "/activities": Activity,
   "/settings": Settings,
 };
 
@@ -61,7 +73,7 @@ export function RouteLink({
   onFollow?: () => void;
   className?: string;
 }) {
-  const state = useHotel();
+  const state = useApp();
   function follow(event: MouseEvent<HTMLAnchorElement>) {
     if (
       event.button ||
@@ -97,13 +109,13 @@ export function NavLinks({
   mobile?: boolean;
   close?: () => void;
 }) {
-  const { document } = useHotel();
+  const { document, profile } = useApp();
   return (
     <nav
       className={mobile ? "hotel-mobile-links" : "hotel-links"}
-      aria-label={mobile ? "Quick navigation" : "Hotel pages"}
+      aria-label={mobile ? "Quick navigation" : profile.label + " pages"}
     >
-      {document.pages.slice(0, mobile ? 4 : undefined).map((page) => {
+      {document.pages.slice(0, mobile ? (document.template === "crm-dashboard" ? 5 : 4) : undefined).map((page) => {
         const Icon = icons[page.route] ?? ChevronRight;
         return (
           <RouteLink key={page.id} to={page.route} onFollow={close}>
@@ -118,7 +130,9 @@ export function NavLinks({
   );
 }
 export function WorkspaceSwitcher() {
-  const { property, setProperty } = useHotel();
+  const { property, setProperty, profile } = useApp();
+  if (profile.workspaces.length < 2)
+    return profile.workspaces.length ? <div className="hotel-workspace"><span className="hotel-monogram" aria-hidden="true">{profile.mark}</span><span className="hotel-workspace-caption"><span>Workspace</span><strong>{property}</strong></span></div> : null;
   return (
     <label className="hotel-workspace">
       <span className="hotel-monogram" aria-hidden="true">
@@ -127,12 +141,11 @@ export function WorkspaceSwitcher() {
       <span className="hotel-workspace-caption">
         <span>Workspace</span>
         <select
-          aria-label="Hotel workspace"
+          aria-label={profile.label + " workspace"}
           value={property}
           onChange={(event) => setProperty(event.target.value)}
         >
-          <option>The Linden</option>
-          <option>Maison Verne</option>
+          {profile.workspaces.map((name) => <option key={name}>{name}</option>)}
         </select>
       </span>
       <ChevronDown
@@ -221,7 +234,7 @@ export function Panel({
   );
 }
 export function CommandPalette({ shortcut = false }: { shortcut?: boolean }) {
-  const { document } = useHotel();
+  const { document } = useApp();
   const [query, setQuery] = useState("");
   const searchId = useId();
   const pages = document.pages.filter((page) =>
@@ -280,30 +293,33 @@ export function CommandPalette({ shortcut = false }: { shortcut?: boolean }) {
 }
 export function Notifications() {
   const [read, setRead] = useState(false);
+  const { document } = useApp();
+  const notes = document.data === "hotel-demo-v1" ? ["Housekeeping updated room 305.", "Three arrivals appear on today’s schedule."] :
+    document.data === "crm-demo-v1" ? ["A proposal walkthrough is on the schedule.", "A pilot scope is due for follow-up."] : [];
   return (
     <Panel
-      label={read ? "Notifications" : "Notifications · 2"}
+      label={read || !notes.length ? "Notifications" : "Notifications · " + notes.length}
       title="Notifications"
       icon={<Bell size={16} />}
     >
       <ul className="hotel-activity">
-        <li>Housekeeping updated room 305.</li>
-        <li>Three arrivals appear on today’s schedule.</li>
+        {notes.map((note) => <li key={note}>{note}</li>)}
       </ul>
-      {!read && (
+      {!read && !!notes.length && (
         <button className="hotel-button" onClick={() => setRead(true)}>
           Mark all as read
         </button>
       )}
-      {read && <p role="status">You’re all caught up.</p>}
+      {(read || !notes.length) && <p role="status">You’re all caught up.</p>}
     </Panel>
   );
 }
 export function MobileDrawer() {
+  const { profile } = useApp();
   return (
     <Panel
       label="Menu"
-      title="Hotel navigation"
+      title={profile.label + " navigation"}
       kind="drawer"
       icon={<Menu size={17} />}
     >
@@ -317,7 +333,7 @@ export function MobileDrawer() {
   );
 }
 
-export function HotelFrame({
+export function AppFrame({
   document,
   route,
   children,
@@ -326,6 +342,7 @@ export function HotelFrame({
   themeOverride,
   studio = false,
   storageKey = "hotel-desk",
+  revision = 0,
 }: {
   document: Document;
   route: string;
@@ -335,10 +352,28 @@ export function HotelFrame({
   themeOverride?: "light" | "dark";
   studio?: boolean;
   storageKey?: string;
+  revision?: number;
 }) {
   const [localTheme, setTheme] = useState<"light" | "dark" | null>(null);
   const [railOverride, setRail] = useState<boolean | null>(null);
-  const [property, setProperty] = useState("The Linden");
+  const profile = workspaceProfiles[document.data];
+  const [property, setProperty] = useState(profile.workspaces[0] ?? document.name);
+  const [stageChanges, setStageChanges] = useState<StageChanges>({});
+  const stageKey = storageKey + "-crm-v1-r" + revision;
+  useEffect(() => {
+    if (studio || document.data !== "crm-demo-v1") return;
+    try { setStageChanges(readStageChanges(localStorage.getItem(stageKey))); }
+    catch { setStageChanges({}); }
+  }, [stageKey, studio, document.data]);
+  function setStage(id: string, stage: Stage) {
+    const deal = opportunities.find((deal) => deal.id === id);
+    if (!deal || document.data !== "crm-demo-v1") return;
+    const next = { ...stageChanges };
+    if (deal.stage === stage) delete next[id];
+    else next[id] = stage;
+    setStageChanges(next);
+    if (!studio) try { localStorage.setItem(stageKey, JSON.stringify(next)); } catch { /* Current route still works. */ }
+  }
   const rail = railOverride ?? document.sidebar === "rail";
   const theme = themeOverride ?? localTheme ?? document.theme;
   const active = document.pages.find((page) => page.route === route);
@@ -359,12 +394,12 @@ export function HotelFrame({
       const saved = localStorage.getItem(storageKey + "-theme");
       if (saved === "light" || saved === "dark") setTheme(saved);
       const property = sessionStorage.getItem(storageKey + "-property");
-      if (property === "The Linden" || property === "Maison Verne")
+      if (property && (profile.workspaces as readonly string[]).includes(property))
         setProperty(property);
     } catch {
       /* The app still works with storage disabled. */
     }
-  }, [studio, storageKey]);
+  }, [studio, storageKey, profile]);
   function changeProperty(name: string) {
     setProperty(name);
     if (!studio) {
@@ -379,6 +414,9 @@ export function HotelFrame({
     <appContext.Provider
       value={{
         document,
+        profile,
+        stageChanges,
+        setStage,
         route,
         storageKey,
         theme,
@@ -390,15 +428,16 @@ export function HotelFrame({
     >
       <div
         className="hotel"
+        data-template={document.template}
         data-theme={theme}
         data-device={device}
         data-motion={document.motionProfile}
         data-rail={rail || undefined}
       >
         <a className="hotel-skip" href="#hotel-main">
-          Skip to hotel content
+          Skip to {profile.label.toLowerCase()} content
         </a>
-        <aside className="hotel-sidebar" aria-label="Hotel sidebar">
+        <aside className="hotel-sidebar" aria-label={profile.label + " sidebar"}>
           <a
             className="hotel-brand"
             href="/"
@@ -409,10 +448,10 @@ export function HotelFrame({
               }
             }}
           >
-            <span className="hotel-logomark">H</span>
+            <span className="hotel-logomark">{profile.mark}</span>
             <span className={rail ? "hotel-sr" : undefined}>
               {document.name}
-              <small>Property operations</small>
+              <small>{profile.descriptor}</small>
             </span>
           </a>
           {!rail && <WorkspaceSwitcher />}
@@ -421,12 +460,12 @@ export function HotelFrame({
           <div className="hotel-sidebar-foot">
             {!rail && (
               <span className="hotel-avatar" aria-hidden="true">
-                AL
+                {profile.initials}
               </span>
             )}
             {!rail && (
               <span className="hotel-person">
-                Avery Lane<small>Property manager</small>
+                {profile.user}<small>{profile.role}</small>
               </span>
             )}
             <button
@@ -451,7 +490,7 @@ export function HotelFrame({
               </span>
               <span>{property}</span>
               <ChevronRight size={14} aria-hidden="true" />
-              <strong>{active?.title ?? "Hotel Desk"}</strong>
+              <strong>{active?.title ?? document.name}</strong>
             </div>
             <div className="hotel-header-actions">
               <CommandPalette shortcut />
@@ -462,7 +501,7 @@ export function HotelFrame({
             className="hotel-main"
             id="hotel-main"
             role={studio ? "region" : undefined}
-            aria-label={studio ? "Hotel content" : undefined}
+            aria-label={studio ? profile.label + " content" : undefined}
           >
             <div className="hotel-page-meta">
               <span className="hotel-demo">
@@ -484,3 +523,6 @@ export function HotelFrame({
     </appContext.Provider>
   );
 }
+
+export const HotelFrame = AppFrame;
+export const useHotel = useApp;

@@ -15,6 +15,7 @@ import {
   projectId,
   projectSchema,
   type BuildProject,
+  type Document,
 } from "./model.ts";
 
 export const maxDocument = 192 * 1024;
@@ -73,6 +74,7 @@ export function canonical(value: unknown): string {
       "{" +
       Object.keys(record)
         .sort()
+        .filter((key) => record[key] !== undefined)
         .map((key) => JSON.stringify(key) + ":" + canonical(record[key]))
         .join(",") +
       "}"
@@ -251,7 +253,7 @@ export function createStore(vault: string) {
     }
   }
   return {
-    async create() {
+    async create(document?: Document, blueprint?: BuildProject["blueprint"]) {
       await roots();
       return locked(projects, async () => {
         const ids = await readdir(projects);
@@ -261,7 +263,7 @@ export function createStore(vault: string) {
             "The local vault already holds 24 projects.",
           );
         const id = randomId();
-        const project = newProject(id);
+        const project = newProject(id, document, blueprint);
         const root = resolve(projects, id);
         await mkdir(root, { mode: 0o700 });
         await atomic(root, "project.json", canonical(project));
@@ -308,13 +310,16 @@ export function createStore(vault: string) {
             "A newer revision exists. Reopen the project before saving.",
           );
         const next = projectSchema.parse({
-          ...result.data,
+          schemaVersion: 2,
+          id: current.id,
+          document: result.data.document,
+          ...(current.blueprint ? { blueprint: current.blueprint } : {}),
           revision: current.revision + 1,
         });
         const encoded = canonical(next);
         if (Buffer.byteLength(encoded) > maxDocument)
           throw new BuildError(413, "Project is too large.");
-        await atomic(root, "previous.json", canonical(current));
+        await atomic(root, "previous.json", await read(resolve(root, "project.json")));
         await atomic(root, "project.json", encoded);
         return next;
       });

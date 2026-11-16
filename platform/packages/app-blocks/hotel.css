@@ -960,3 +960,83 @@
   gap: 10px;
   min-width: 0;
 }
+
+/* Meridian inherits the shell's accessibility and changes only its own theme. */
+.hotel[data-template="crm-dashboard"] {
+  --hotel-bg: #f6f7fc;
+  --hotel-panel: #fff;
+  --hotel-sub: #f1f2fb;
+  --hotel-border: #e0e3f0;
+  --hotel-text: #181c34;
+  --hotel-muted: #515a77;
+  --hotel-accent: #4b3bc4;
+  --hotel-tint: #eeecff;
+  --hotel-ring: #5845d7;
+  --hotel-line: #e9eaf3;
+  --hotel-shadow: 0 1px 2px #1120440b;
+}
+.hotel[data-template="crm-dashboard"][data-theme="dark"] {
+  --hotel-bg: #151727;
+  --hotel-panel: #1d2034;
+  --hotel-sub: #272b43;
+  --hotel-border: #393f5e;
+  --hotel-text: #f1f2ff;
+  --hotel-muted: #bac0db;
+  --hotel-accent: #c6bdff;
+  --hotel-tint: #322c5a;
+  --hotel-ring: #bcb1ff;
+  --hotel-line: #393f5e;
+  --hotel-shadow: none;
+}
+.hotel[data-template="crm-dashboard"] .hotel-logomark,
+.hotel[data-template="crm-dashboard"] .hotel-button.primary { background: #5240cf; color: #fff; }
+.hotel[data-template="crm-dashboard"] .hotel-page-title h1 { font-weight: 720; }
+.crm-metrics { grid-template-columns: repeat(auto-fit, minmax(min(100%, 145px), 1fr)); }
+.crm-metrics .hotel-metric { min-height: 118px; }
+.crm-breakdown, .crm-timeline { margin: 0; padding: 0; list-style: none; display: grid; gap: 13px; }
+.crm-breakdown li > div:first-child { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.crm-breakdown li > div:first-child span, .crm-caption, .crm-empty { color: var(--hotel-muted); font-size: 13px; }
+.crm-meter { background: var(--hotel-sub); border-radius: 10px; block-size: 8px; overflow: hidden; }
+.crm-meter span { display: block; background: var(--hotel-accent); block-size: 100%; border-radius: inherit; }
+.crm-timeline li { min-width: 0; display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 8px; border-block-start: 1px solid var(--hotel-line); padding-block: 8px; }
+.crm-activity-icon { background: var(--hotel-tint); color: var(--hotel-accent); padding: 7px; border-radius: 9px; }
+.crm-timeline small { display: block; margin-inline-start: 8px; color: var(--hotel-muted); }
+.crm-timeline .hotel-button, .crm-table .hotel-button { border-color: transparent; background: none; text-align: start; }
+.crm-timeline .hotel-button:hover, .crm-table .hotel-button:hover { background: var(--hotel-tint); color: var(--hotel-accent); }
+.crm-chip { display: inline-block; color: var(--hotel-accent); background: var(--hotel-tint); border-radius: 20px; padding: 3px 8px; font-size: 11px; font-weight: 650; white-space: nowrap; }
+.crm-filters { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 205px); gap: 12px; }
+.crm-filters label, .crm-deal label { display: grid; gap: 6px; color: var(--hotel-muted); font-size: 12px; }
+.crm-filters input, .crm-filters select, .crm-deal select {
+  color: var(--hotel-text); background: var(--hotel-panel); border: 1px solid var(--hotel-border);
+  border-radius: 9px; padding: 8px 10px; min-height: 44px; width: 100%; min-width: 0; font: inherit; font-size: max(1rem, 1em);
+}
+.crm-table-scroll { overflow: auto; max-block-size: 480px; border: 1px solid var(--hotel-border); border-radius: 10px; }
+.crm-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; text-align: start; }
+.crm-table th, .crm-table td { white-space: nowrap; text-align: start; padding: 9px 12px; border-block-end: 1px solid var(--hotel-line); }
+.crm-table thead { position: sticky; inset-block-start: 0; z-index: 2; background: var(--hotel-sub); }
+.crm-table tbody th { padding-inline: 4px 12px; position: sticky; inset-inline-start: 0; z-index: 1; background: var(--hotel-panel); }
+.crm-table th button:not(.hotel-button):not(.hotel-icon-btn) { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 0; color: inherit; padding: 5px; cursor: pointer; font-weight: 650; }
+.crm-detail { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 16px; }
+.crm-detail dt { color: var(--hotel-muted); }
+.crm-detail dd { margin: 0; }
+.crm-board-info { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.crm-announcement:empty { margin: 0; }
+.crm-announcement:not(:empty) { color: var(--hotel-accent); font-size: 13px; }
+.crm-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px),1fr)); gap: 10px; }
+.crm-stage { background: var(--hotel-sub); border: 1px solid var(--hotel-line); border-radius: 12px; padding: 11px; min-width: 0; }
+.crm-stage h3 { display: flex; align-items: center; justify-content: space-between; gap: 6px; font-size: 14px; }
+.crm-stage h3 span { color: var(--hotel-accent); font-size: 12px; background: var(--hotel-panel); border-radius: 12px; padding: 0 6px; }
+.crm-stage p { color: var(--hotel-muted); margin-block: 3px 9px; font-variant-numeric: tabular-nums; }
+.crm-deal { display: grid; gap: 5px; padding: 10px; border: 1px solid var(--hotel-border); margin-block-start: 8px; border-radius: 9px; background: var(--hotel-panel); overflow-wrap: anywhere; }
+.crm-deal > span { color: var(--hotel-muted); font-size: 12px; }
+.crm-deal > b { margin-block: 4px; font-variant-numeric: tabular-nums; }
+@container (min-width: 1050px) {
+  .hotel-grid > [data-block="SalesBreakdown"]:has(+ [data-block="SalesActivity"]) { grid-column: span 7; }
+  .hotel-grid > [data-block="SalesBreakdown"] + [data-block="SalesActivity"] { grid-column: span 5; }
+}
+@container (max-width: 450px) {
+  .crm-filters { grid-template-columns: minmax(0,1fr); }
+  .crm-table th, .crm-table td { padding-inline: 7px; }
+  .crm-board { grid-template-columns: minmax(0,1fr); }
+  .crm-timeline .hotel-button { white-space: normal; line-height: 1.25; }
+}

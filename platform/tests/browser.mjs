@@ -20,14 +20,14 @@ import { promisify } from "node:util";
 import { chromium, firefox, webkit } from "playwright";
 import { expect } from "@playwright/test";
 import { AxeBuilder } from "@axe-core/playwright";
-import { makeBlock, registry } from "../packages/build-core/model.ts";
+import { compatibleBlock, makeBlock, registry } from "../packages/build-core/model.ts";
 import { fingerprint } from "../packages/build-core/store.ts";
 import { exportTree, writeTree } from "../packages/app-export/export.ts";
 
 const repo = fileURLToPath(new URL("../../", import.meta.url));
 const studio = "http://127.0.0.1:5200";
 const localSuite = process.argv.includes("--local");
-const evidence = resolve(repo, ".motionux-v9/evidence/build-v1");
+const evidence = resolve(repo, ".motionux-v9/evidence/build-b3/hotel");
 const fixtures = resolve(repo, ".motionux-v9/build-tests");
 const execute = promisify(execFile);
 const feature = {
@@ -780,7 +780,7 @@ try {
   }
 
   const project = (await api(page, "/" + id)).data;
-  const libraryIds = Object.keys(registry);
+  const libraryIds = Object.keys(registry).filter((id) => compatibleBlock(id, "hotel-demo-v1"));
   const qaBlocks = libraryIds.map((type, index) =>
     makeBlock(type, "b-review-" + index),
   );

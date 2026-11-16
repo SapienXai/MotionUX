@@ -8,5 +8,8 @@ export function proxy(request: NextRequest) {
   ) {
     return new NextResponse("Loopback preview only.", { status: 403 });
   }
-  return NextResponse.next();
+  const response = NextResponse.next();
+  if (process.env.MOTIONUX_GENERATED_PREVIEW === "1" && process.env.MOTIONUX_PREVIEW_DOCUMENT)
+    response.headers.set("X-MotionUX-Document", process.env.MOTIONUX_PREVIEW_DOCUMENT);
+  return response;
 }

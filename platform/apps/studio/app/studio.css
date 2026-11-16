@@ -873,3 +873,91 @@ select:focus-visible {
 .build-outline-child {
   margin-left: 12px;
 }
+
+/* App Composer uses the Build shell's tokens; the Gallery is a separate surface. */
+.compose-home {
+  background: radial-gradient(ellipse 600px 350px at 48% 1%, #262037 0%, transparent 90%), var(--build-bg);
+}
+.compose-width { max-width: 1160px; margin-inline: auto; padding: clamp(28px,5vw,80px) clamp(16px,4vw,48px) 64px; }
+.compose-hero { max-width: 698px; margin-inline: auto; }
+.compose-intro { text-align: center; }
+.compose-intro h1, .compose-review-head h1 {
+  margin: 12px 0; font-size: clamp(35px,5vw,64px); letter-spacing: -.063em; font-weight: 720; line-height: 1.04;
+}
+.compose-intro > p { color: var(--build-muted); max-width: 480px; margin: 14px auto 27px; font-size: 15px; }
+.compose-dot { height: 7px; width: 7px; background: #c1aafc; border-radius: 50%; box-shadow: 0 0 12px #c1aafc6e; }
+.compose-form {
+  display: grid; gap: 10px; padding: clamp(12px,3vw,19px); color: var(--build-text); background: var(--build-panel);
+  border: 1px solid #49405d; border-radius: 17px; box-shadow: 0 14px 45px #09061355;
+}
+.compose-form label, .review-field { font-size: 13px; color: var(--build-text); font-weight: 650; }
+.compose-form textarea, .review-field input, .review-field select {
+  box-sizing: border-box; min-width: 0; width: 100%; min-height: 44px; padding: 11px; border: 1px solid #625a72; border-radius: 9px;
+  color: var(--build-text); background: var(--build-input); font: inherit; font-size: max(1rem, 1em); font-weight: 450;
+}
+.compose-form textarea { resize: vertical; min-height: 112px; max-height: max(150px, 45dvh); }
+.compose-form textarea::placeholder { color: var(--build-muted); }
+.compose-form-foot, .compose-pills { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.compose-form-foot { justify-content: space-between; }
+.compose-form-foot > span { display: flex; align-items: center; gap: 6px; color: var(--build-muted); font-size: 12px; }
+.compose-form-foot > span svg { flex: none; }
+.compose-pills { justify-content: center; margin-block: 13px 3px; }
+.compose-pills .build-button { border-radius: 30px; }
+.compose-status { color: var(--build-muted); margin-block: 10px; min-block-size: 19px; font-size: 13px; text-align: center; }
+.compose-shelves {
+  display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: clamp(15px,3vw,32px);
+  margin-block-start: 34px; border-block-start: 1px solid var(--build-border); padding-block-start: 25px;
+}
+.compose-section-title h2, .review-evidence h2 { margin: 0; font-size: 19px; letter-spacing: -.035em; font-weight: 690; }
+.compose-section-title p, .compose-review-head p { color: var(--build-muted); margin-block: 5px 10px; font-size: 14px; }
+.compose-home .project-row { width: 100%; cursor: pointer; }
+.compose-home .project-row:hover:not(:disabled) { border-color: var(--build-accent); }
+.compose-home .project-row div { min-width: 0; overflow-wrap: anywhere; }
+.compose-home .projects-empty { text-align: center; padding: 12px; }
+.compose-home .build-error { padding: 11px 14px; background: #381e2b; border: 1px solid #814b62; border-radius: 9px; margin-bottom: 14px; }
+.compose-review-head { display: flex; justify-content: space-between; align-items: start; gap: 16px; margin-bottom: 18px; }
+.compose-review-head h1 { font-size: clamp(32px,4.5vw,50px); }
+.compose-review-head .build-button { flex: none; }
+.compose-review { display: grid; grid-template-columns: minmax(0,1.7fr) minmax(0,1fr); align-items: start; gap: 18px; }
+.review-pages, .review-evidence {
+  min-width: 0; display: grid; gap: 13px; padding: clamp(12px,2vw,20px); border: 1px solid var(--build-border);
+  border-radius: 14px; background: var(--build-panel);
+}
+.review-field { display: grid; gap: 6px; min-width: 0; }
+.review-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.review-route-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.review-route-list > li { padding: 9px 11px; border: 1px solid var(--build-border); border-radius: 9px; background: var(--build-raised); }
+.review-route-list > li[data-included="false"] { background: var(--build-panel); }
+.review-route-line { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px; }
+.review-route-line label { display: flex; gap: 7px; align-items: center; min-height: 36px; overflow-wrap: anywhere; }
+.review-route-line input { accent-color: var(--build-accent); }
+.review-route-line code, .review-evidence code { color: var(--build-accent); font-size: 12px; }
+.review-route-actions { margin-inline-start: auto; display: flex; gap: 4px; }
+.review-route-actions .build-button { min-height: 32px; }
+.review-route-list p, .review-route-list li > details li, .review-evidence p { color: var(--build-muted); font-size: 13px; }
+.review-route-list details { margin-block-start: 5px; font-size: 13px; }
+.review-route-list summary, .build-blueprint-note summary { cursor: pointer; color: var(--build-accent); }
+.review-route-list details ul { display: grid; gap: 6px; padding: 5px 5px 5px 20px; }
+.review-route-list details li span, .review-route-list details li small { display: block; }
+.review-route-list details li small { margin-block-start: 3px; color: var(--build-accent); }
+.review-evidence dl { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 8px 10px; margin: 0; font-size: 13px; }
+.review-evidence dt { color: var(--build-muted); }
+.review-evidence dd { margin: 0; }
+.compose-badge { justify-self: start; font-size: 11px; border-radius: 30px; padding: 4px 8px; background: #302848; color: var(--build-accent); }
+.review-limits { display: grid; gap: 4px; color: #ffe0af; padding: 9px; border: 1px solid #684e2d; border-radius: 8px; background: #30241d; font-size: 13px; }
+.review-limits ul { list-style: disc; padding-inline-start: 15px; }
+.build-blueprint-note { position: relative; font-size: 12px; }
+.build-blueprint-note summary { white-space: nowrap; }
+.build-blueprint-note > div {
+  position: absolute; z-index: 8; inset-inline-start: 0; min-width: min(290px,82vw); border: 1px solid var(--build-border);
+  border-radius: 10px; padding: 12px; background: var(--build-panel); box-shadow: 0 8px 16px #0004;
+}
+.build-blueprint-note p { margin-block: 6px; }
+@media (max-width: 680px) {
+  .compose-review, .compose-shelves { grid-template-columns: minmax(0,1fr); }
+  .compose-review-head { flex-direction: column; }
+  .compose-form-foot .build-button { width: 100%; justify-content: center; }
+}
+@media (pointer: coarse) {
+  .compose-form :is(button,textarea), .review-pages :is(button,input:not([type="checkbox"]),select), .review-evidence button { min-height: 48px; }
+}

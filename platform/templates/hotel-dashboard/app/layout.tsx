@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang={project.document.locale}>
       <body>{children}</body>
     </html>
   );

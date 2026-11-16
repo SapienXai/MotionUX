@@ -34,6 +34,8 @@ import {
   type Reservation,
 } from "./data.ts";
 
+import { Contacts, Pipeline, SalesActivity, SalesBreakdown, SalesKpis } from "./crm.tsx";
+
 type View = (props: BlockProps) => ReactNode;
 const metric = [
   {
@@ -446,7 +448,7 @@ function Form({
   title: string;
   mode: "text" | "select" | "settings";
 }) {
-  const { theme, setTheme, storageKey } = useHotel();
+  const { theme, setTheme, storageKey, profile } = useHotel();
   const [name, setName] = useState("");
   const [preference, setPreference] = useState("Daily summary");
   const [saved, setSaved] = useState(false);
@@ -457,18 +459,19 @@ function Form({
       const preference = localStorage.getItem(storageKey + "-notification");
       if (
         preference === "Daily summary" ||
-        preference === "Arrivals only" ||
+        preference === profile.alternatePreference ||
         preference === "Off"
       )
         setPreference(preference);
     } catch {
       setStorageAvailable(false);
     }
-  }, [storageKey]);
+  }, [storageKey, profile]);
   return (
     <Card title={title}>
       <form
         className="hotel-form"
+        method="post"
         onSubmit={(event) => {
           event.preventDefault();
           try {
@@ -484,6 +487,7 @@ function Form({
           <label>
             Display name
             <input
+              name="displayName"
               value={name}
               maxLength={60}
               required={mode === "text"}
@@ -498,6 +502,7 @@ function Form({
           <label>
             Notifications
             <select
+              name="notifications"
               value={preference}
               onChange={(event) => {
                 setPreference(event.target.value);
@@ -505,7 +510,7 @@ function Form({
               }}
             >
               <option>Daily summary</option>
-              <option>Arrivals only</option>
+              <option>{profile.alternatePreference}</option>
               <option>Off</option>
             </select>
           </label>
@@ -525,7 +530,7 @@ function Form({
           </label>
         )}
         <button className="hotel-button primary" type="submit">
-          Save preferences
+          {mode === "text" ? "Save locally" : "Save preferences"}
         </button>
         <p role="status">
           {saved
@@ -569,6 +574,8 @@ function Feedback({
   kind,
 }: BlockProps & { kind: "toast" | "skeleton" | "confirmation" | "empty" }) {
   const [state, setState] = useState(false);
+  const { document } = useHotel();
+  const count = document.data === "hotel-demo-v1" ? reservations.length + " demo reservations" : "Demo content";
   return (
     <Card title={title} description={description}>
       {kind === "confirmation" ? (
@@ -597,7 +604,7 @@ function Feedback({
       ) : kind === "empty" ? (
         state ? (
           <p role="status">
-            Filters cleared. {reservations.length} reservations are available.
+            Filters cleared. {count} available.
           </p>
         ) : (
           <Empty reset={() => setState(true)} />
@@ -632,7 +639,7 @@ function Feedback({
                   <p className="hotel-sr">Pending preview state</p>
                 </>
               ) : (
-                <p>{reservations.length} demo reservations ready.</p>
+                <p>{count} ready.</p>
               )}
             </div>
           )}
@@ -672,12 +679,13 @@ function Collapsible({ title }: BlockProps) {
 }
 function Hero({ title, description }: BlockProps) {
   const { document } = useHotel();
-  const bookings = document.pages.find((page) => page.id === "p-bookings");
+  const destination = document.pages[1];
+  const label = document.data === "hotel-demo-v1" && destination?.route === "/bookings" ? "See reservations" : destination ? "Open " + destination.title : "Open overview";
   return (
     <div className="hotel-hero">
       <Heading title={title} description={description} />
-      <RouteLink to={bookings?.route ?? "/"}>
-        {bookings ? "See reservations" : "Open overview"}{" "}
+      <RouteLink to={destination?.route ?? "/"}>
+        {label}{" "}
         <ArrowRight size={17} />
       </RouteLink>
     </div>
@@ -807,6 +815,7 @@ const views: Record<BlockId, View> = {
   ),
   Hero: (props) => <Hero {...props} />,
   FeatureGrid: (props) => <RoomGrid {...props} />,
+  Contacts, Pipeline, SalesActivity, SalesBreakdown,
 };
 export function RenderBlock({
   block,
@@ -820,6 +829,7 @@ export function RenderBlock({
   dragRef?: Ref<HTMLDivElement>;
 }) {
   const { type, props } = block;
+  const { document } = useHotel();
   const view = views[type];
   return (
     <section
@@ -846,7 +856,7 @@ export function RenderBlock({
             ) : null)}
         </Card>
       ) : (
-        view(props)
+        document.data === "crm-demo-v1" && (type === "KpiGrid" || type === "KpiCard") ? <SalesKpis title={props.title} binding={type === "KpiCard" ? props.dataBinding : undefined} /> : view(props)
       )}
     </section>
   );

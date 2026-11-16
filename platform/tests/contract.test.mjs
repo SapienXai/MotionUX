@@ -15,6 +15,7 @@ import { resolve } from "node:path";
 import { test } from "node:test";
 import {
   blockSchema,
+  compatibleBlock,
   compositionPlan,
   makeBlock,
   newProject,
@@ -49,7 +50,8 @@ test("versioned template generates a unique project with valid owned blocks", ()
   const project = newProject(id);
   assert.equal(project.document.pages.length, 4);
   assert.deepEqual(project.document, plan.document);
-  assert.equal(Object.keys(registry).length, 31);
+  assert.equal(Object.keys(registry).filter((type) => compatibleBlock(type, "hotel-demo-v1")).length, 31);
+  assert.equal(Object.keys(registry).length, 35);
   for (const [type, spec] of Object.entries(registry)) {
     assert.equal(spec.license, "MIT");
     assert.equal(spec.exportEligible, true);
@@ -109,7 +111,7 @@ test("rejects path traversal, prototype fields, unknown blocks and excessive val
   assert(blockSchema.safeParse(inset).success);
   assert(!blockSchema.safeParse({ ...block, children: [child] }).success);
   assert(!blockSchema.safeParse({ ...inset, children: [inset] }).success);
-  assert(!projectSchema.safeParse({ ...project, schemaVersion: 2 }).success);
+  assert(!projectSchema.safeParse({ ...project, schemaVersion: 99 }).success);
   assert(
     !projectSchema.safeParse({
       ...project,

@@ -21,5 +21,5 @@ export default async function Page({ params }: Props) {
   const path = "/" + ((await params).route ?? []).join("/");
   const page = project.document.pages.find((page) => page.route === path);
   if (!page) notFound();
-  return <AppScreen id={project.id} document={project.document} page={page} />;
+  return <AppScreen id={project.id} revision={project.revision} document={project.document} page={page} />;
 }

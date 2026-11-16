@@ -14,13 +14,14 @@ import { dirname, resolve } from "node:path";
 import { promisify } from "node:util";
 import { setTimeout as delay } from "node:timers/promises";
 import type { BuildProject } from "@motionux/build-core";
-import { BuildError } from "@motionux/build-core/store";
+import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
 import { exportTree, writeTree } from "@motionux/app-export";
 
 type PreviewState = {
   status: "idle" | "building" | "starting" | "ready" | "failed";
   id?: string;
   revision?: number;
+  documentDigest?: string;
   message?: string;
   url?: string;
   peakBytes?: number;
@@ -127,6 +128,7 @@ function runNext(
         NODE_OPTIONS: "--max-old-space-size=768",
         MOTIONUX_GENERATED_PREVIEW: "1",
         MOTIONUX_PREVIEW_KEY: token,
+        MOTIONUX_PREVIEW_DOCUMENT: session.state.documentDigest ?? "",
       },
     },
   );
@@ -171,7 +173,10 @@ async function run(
       );
     await ensurePort();
     cwd = await mkdtemp(resolve(root, "replica-"));
-    await writeTree(cwd, await exportTree(repo, project));
+    const tree = await exportTree(repo, project);
+    if (JSON.parse(tree["motionux-manifest.json"]).documentDigest !== session.state.documentDigest)
+      throw new BuildError(409, "Preview document changed.");
+    await writeTree(cwd, tree);
     const dependencies = resolve(
       repo,
       "platform/templates/hotel-dashboard/node_modules",
@@ -259,7 +264,8 @@ async function run(
       }).catch(() => null);
       if (
         response?.ok &&
-        response.headers.get("x-motionux-preview") === token
+        response.headers.get("x-motionux-preview") === token &&
+        response.headers.get("x-motionux-document") === session.state.documentDigest
       ) {
         await response.body?.cancel();
         session.state = {
@@ -354,7 +360,7 @@ export function startPreview(
   }
   const session: Session = {
     running: true,
-    state: { status: "building", id: project.id, revision: project.revision },
+    state: { status: "building", id: project.id, revision: project.revision, documentDigest: fingerprint(canonical(project.document)) },
     abort: new AbortController(),
     ended: Promise.resolve(),
   };

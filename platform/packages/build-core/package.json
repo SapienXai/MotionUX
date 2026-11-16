@@ -4,7 +4,9 @@
   "type": "module",
   "exports": {
     ".": "./model.ts",
-    "./store": "./store.ts"
+    "./store": "./store.ts",
+    "./blueprint": "./composer/blueprint.ts",
+    "./composer": "./composer/service.ts"
   },
   "dependencies": {
     "zod": "4.3.6"

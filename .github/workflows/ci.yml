@@ -89,3 +89,5 @@ jobs:
           NEXT_TELEMETRY_DISABLED: "1"
       - run: npx playwright install --with-deps chromium
       - run: node platform/tests/browser.mjs
+      - name: B3 CRM clean source export and Chromium smoke
+        run: node platform/tests/b3-browser.mjs

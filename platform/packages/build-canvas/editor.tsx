@@ -2,7 +2,7 @@
 
 import {
   ArrowDown,
-  ArrowRight,
+  Layers3,
   ArrowUp,
   Blocks,
   Check,
@@ -13,8 +13,6 @@ import {
   Download,
   ExternalLink,
   GripVertical,
-  Layers3,
-  LayoutTemplate,
   LoaderCircle,
   Monitor,
   Moon,
@@ -38,13 +36,15 @@ import {
 } from "@puckeditor/core";
 import "@puckeditor/core/puck.css";
 import { RenderBlock } from "@motionux/app-blocks";
-import { HotelFrame } from "@motionux/app-blocks/frame";
+import { AppFrame } from "@motionux/app-blocks/frame";
 import {
   allBlocks,
   blockSchema,
   families,
   makeBlock,
   registry,
+  compatibleBlock,
+  metricOptions,
   routeSlug,
   type Block,
   type BlockId,
@@ -71,12 +71,6 @@ type Preview = {
   url?: string;
   message?: string;
   peakBytes?: number;
-};
-type ProjectRow = {
-  id: string;
-  name: string;
-  revision: number | null;
-  error: boolean;
 };
 type History = { past: Document[]; present: Document; future: Document[] };
 type Runtime = {
@@ -105,7 +99,7 @@ function RuntimeRoot({ children }: { children: ReactNode }) {
   if (!runtime) return null;
   const { document, page, device, theme, navigate } = runtime;
   return (
-    <HotelFrame
+    <AppFrame
       document={document}
       route={page.route}
       device={device}
@@ -114,7 +108,7 @@ function RuntimeRoot({ children }: { children: ReactNode }) {
       studio
     >
       {children}
-    </HotelFrame>
+    </AppFrame>
   );
 }
 type EditorConfig = Config<
@@ -331,147 +325,7 @@ function Brand() {
   );
 }
 
-export function Editor() {
-  const [rows, setRows] = useState<ProjectRow[]>([]);
-  const [project, setProject] = useState<BuildProject>();
-  const [pending, setPending] = useState(true);
-  const [error, setError] = useState("");
-  async function refresh() {
-    setRows(await request<ProjectRow[]>());
-  }
-  const open = async (projectId: string, recover = false) => {
-    setError("");
-    setPending(true);
-    try {
-      const value = await request<BuildProject>(
-        "/" + projectId + (recover ? "/recover" : ""),
-        recover ? "POST" : "GET",
-      );
-      setProject(value);
-      window.history.replaceState(null, "", "/build?project=" + value.id);
-    } catch (error) {
-      setError(describe(error));
-    } finally {
-      setPending(false);
-    }
-  };
-  useEffect(() => {
-    let stale = false;
-    const selected = new URLSearchParams(location.search).get("project");
-    void (async () => {
-      try {
-        const items = await request<ProjectRow[]>();
-        if (stale) return;
-        setRows(items);
-        if (selected) await open(selected);
-      } catch (error) {
-        if (!stale) setError(describe(error));
-      } finally {
-        if (!stale) setPending(false);
-      }
-    })();
-    return () => {
-      stale = true;
-    };
-  }, []);
-  async function create() {
-    setPending(true);
-    setError("");
-    try {
-      const value = await request<BuildProject>("", "POST");
-      setProject(value);
-      window.history.replaceState(null, "", "/build?project=" + value.id);
-    } catch (error) {
-      setError(describe(error));
-    } finally {
-      setPending(false);
-    }
-  }
-  if (project)
-    return (
-      <Workspace
-        key={project.id}
-        initial={project}
-        onBack={() => {
-          setProject(undefined);
-          setPending(true);
-          window.history.replaceState(null, "", "/build");
-          void refresh()
-            .catch((error) => setError(describe(error)))
-            .finally(() => setPending(false));
-        }}
-      />
-    );
-  return (
-    <main className="project-dashboard">
-      <header className="studio-home-nav">
-        <Brand />
-        <nav aria-label="Workspace">
-          <a href="http://127.0.0.1:5199/">Gallery</a>
-          <a href="http://127.0.0.1:5199/?view=library">My Library</a>
-        </nav>
-      </header>
-      <div className="projects-inner">
-        <div className="projects-heading">
-          <div>
-            <span className="studio-overline">
-              <Layers3 size={14} /> Managed workspace
-            </span>
-            <h1>Projects</h1>
-            <p>Open a saved app or start with the Hotel Desk template.</p>
-          </div>
-          <button
-            type="button"
-            className="build-button accent"
-            onClick={create}
-            disabled={pending}
-          >
-            <Plus size={16} /> New Hotel Desk
-          </button>
-        </div>
-        {error && (
-          <p className="build-error" role="alert">
-            {error}
-          </p>
-        )}
-        <div className="projects-list" aria-busy={pending}>
-          {pending && <p role="status">Loading projects…</p>}
-          {!pending && !rows.length && (
-            <div className="projects-empty">
-              <LayoutTemplate size={23} />
-              <strong>No saved projects</strong>
-              <p>Your apps are stored locally on this computer.</p>
-            </div>
-          )}
-          {rows.map((row) => (
-            <button
-              type="button"
-              disabled={pending}
-              key={row.id}
-              className="project-row"
-              onClick={() => open(row.id, row.error)}
-            >
-              <span>
-                <LayoutTemplate size={18} />
-              </span>
-              <div>
-                <strong>{row.name}</strong>
-                <small>
-                  {row.error
-                    ? "Restore the last verified revision"
-                    : "Next.js · Revision " + row.revision}
-                </small>
-              </div>
-              <ArrowRight size={16} />
-            </button>
-          ))}
-        </div>
-      </div>
-    </main>
-  );
-}
-
-function Workspace({
+export function Editor({
   initial,
   onBack,
 }: {
@@ -620,7 +474,7 @@ function Workspace({
       } else {
         if (active.status !== "idle") await request("/preview", "DELETE");
         setPreview(
-          await request<Preview>("/" + latest.id + "/preview", "POST"),
+          await request<Preview>("/" + latest.id + "/preview", "POST", { revision: latest.revision }),
         );
       }
     } catch (error) {
@@ -642,18 +496,20 @@ function Workspace({
   }
   async function download() {
     setMessage("");
-    if (dirty && !(await save())) return;
+    const latest = dirty ? await save() : saved;
+    if (!latest) return;
     setBusy("Exporting");
     let url: string | undefined;
     try {
       const response = await fetch("/api/build/" + initial.id + "/export", {
         cache: "no-store",
+        headers: { "X-MotionUX-Revision": String(latest.revision) },
       });
       if (!response.ok) throw new Error((await response.json()).message);
       url = URL.createObjectURL(await response.blob());
       const link = window.document.createElement("a");
       link.href = url;
-      link.download = "hotel-desk-source.zip";
+      link.download = document.template === "hotel-dashboard" ? "hotel-desk-source.zip" : document.template + "-source.zip";
       link.click();
     } catch (error) {
       setMessage(describe(error));
@@ -735,6 +591,14 @@ function Workspace({
           <span>{document.name}</span>
           <ChevronDown size={14} />
         </button>
+      {initial.blueprint && <details className="build-blueprint-note">
+        <summary>App blueprint</summary>
+        <div><strong>Codex plan · spec v{initial.blueprint.blockSpecVersion}</strong>
+          <p>{initial.blueprint.summary}</p>
+          {initial.blueprint.limitations.length > 0 && <ul>{initial.blueprint.limitations.map((item) => <li key={item}>{item}</li>)}</ul>}
+          <code>{initial.blueprint.digest.slice(0, 12)}</code>
+        </div>
+      </details>}
         <div className="build-mode" aria-label="Canvas mode">
           <button
             type="button"
@@ -842,6 +706,7 @@ function Workspace({
                 onRename={updatePage}
               />
               <Palette
+                data={document.data}
                 recent={recent}
                 onUsed={(type) =>
                   setRecent((value) =>
@@ -1147,10 +1012,12 @@ function useBlockActions() {
   return { items, select, update, replace };
 }
 function Palette({
+  data,
   recent,
   onUsed,
   count,
 }: {
+  data: Document["data"];
   recent: BlockId[];
   onUsed: (type: BlockId) => void;
   count: number;
@@ -1169,7 +1036,7 @@ function Palette({
       : blockList.filter(
           (id) => family === "All blocks" || registry[id].family === family,
         )
-  ).filter((id) =>
+  ).filter((id) => compatibleBlock(id, data) &&
     (registry[id].title + " " + registry[id].detail)
       .toLowerCase()
       .includes(query.trim().toLowerCase()),
@@ -1433,20 +1300,15 @@ function Properties({
                 <select
                   value={current.props.dataBinding}
                   onChange={(event) => {
-                    const dataBinding = event.target.value;
-                    if (
-                      dataBinding === "automatic" ||
-                      dataBinding === "occupancy" ||
-                      dataBinding === "arrivals" ||
-                      dataBinding === "revenue"
-                    )
-                      props({ dataBinding });
+                    const binding = metricOptions[document.data].find((item) => item === event.target.value);
+                    if (binding) props({ dataBinding: binding });
                   }}
                 >
-                  <option value="automatic">Default occupancy</option>
-                  <option value="occupancy">Occupancy</option>
-                  <option value="arrivals">Arrivals</option>
-                  <option value="revenue">Booked revenue</option>
+                  {metricOptions[document.data].map((item) => <option key={item} value={item}>{({
+                    automatic: document.data === "hotel-demo-v1" ? "Default occupancy" : "Open pipeline",
+                    occupancy: "Occupancy", arrivals: "Arrivals", revenue: "Booked revenue",
+                    "pipeline-value": "Open pipeline value", "qualified-deals": "Qualified deals", contacts: "Contacts", "open-tasks": "Open activities",
+                  })[item]}</option>)}
                 </select>
               </label>
             )}
