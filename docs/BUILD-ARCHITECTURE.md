@@ -57,3 +57,7 @@ The landing does not mount Puck until a project opens. Next uses a shared catch-
 ## B4 PWA export
 
 The PWA variant uses the same validated project and block implementations as the standard ZIP. It adds the install manifest, icons, worker source and a production build script. The script stamps a worker with the saved routes and the actual hashed static assets. Routes use normal document links so the cache can return the same prerendered HTML and assets offline, including first visits to saved routes. The isolated Studio Run uses the same standard export as before. See [PWA export](BUILD-PWA.md).
+
+## B5 Motion DNA
+
+The optional, versioned settings belong to the existing project document. The shared app frame maps validated durations and easing names to CSS tokens for the Studio canvas, the Next preview, and both export formats. The manifest records the configured profile and the shared CSS resolves the viewer's current reduced-motion preference. Loading an older document doesn't write a migration or change its digest. See [Motion DNA](BUILD-MOTION-DNA.md).

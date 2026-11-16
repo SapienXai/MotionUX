@@ -26,9 +26,10 @@ import {
   useRef,
   useState,
   type ReactNode,
+  type CSSProperties,
   type MouseEvent,
 } from "react";
-import type { Document } from "@motionux/build-core";
+import { defaultMotionDna, motionEasings, type Document } from "@motionux/build-core";
 
 import { workspaceProfiles } from "./profile.ts";
 import { readStageChanges, opportunities, type Stage, type StageChanges } from "./crm-data.ts";
@@ -376,6 +377,7 @@ export function AppFrame({
     setStageChanges(next);
     if (!studio) try { localStorage.setItem(stageKey, JSON.stringify(next)); } catch { /* Current route still works. */ }
   }
+  const dna = document.motionDna ?? defaultMotionDna;
   const rail = railOverride ?? document.sidebar === "rail";
   const theme = themeOverride ?? localTheme ?? document.theme;
   const active = document.pages.find((page) => page.route === route);
@@ -434,6 +436,13 @@ export function AppFrame({
         data-theme={theme}
         data-device={device}
         data-motion={document.motionProfile}
+        data-page-transition={dna.pageTransition}
+        data-reduced-motion={dna.reducedMotion}
+        style={{
+          "--mx-dna-feedback": dna.feedbackMs + "ms",
+          "--mx-dna-transition": dna.transitionMs + "ms",
+          "--mx-dna-easing": motionEasings[dna.easing],
+        } as CSSProperties}
         data-rail={rail || undefined}
       >
         <a className="hotel-skip" href="#hotel-main">
@@ -516,7 +525,7 @@ export function AppFrame({
                 16, 2026
               </span>
             </div>
-            <div className="hotel-grid">{children}</div>
+            <div className="hotel-grid" key={route}>{children}</div>
           </Content>
           <footer className="hotel-footer">
             <NavLinks mobile />

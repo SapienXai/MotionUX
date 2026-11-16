@@ -24,7 +24,7 @@ V13.1 established the verified 324-original baseline. V14 expands the prepared l
 
 Raw provider files, generated private registries, user collections and local browser reports remain under `.motionux-v9/`. The public registry has its own release and review history. Synthetic 500- and 1,000-record tests establish Gallery capacity under metadata load. Long sessions with many live previews remain a distinct runtime gate. [Public registry catalog](COMPONENTS.md)
 
-The planned workflow moves from discovery to intent, recommendation or abstention, integration and verified outcomes. Studio provides discovery, manual selection and comparison. Brain V1 provides local search, explained recommendations and abstention. Agent V1 inspects a selected project route and produces a read-only, source-linked plan. Agent V2 supports one reviewed fixture-only integration and verified rollback. MCP V1 brings Brain search, recommendations, source evidence and Agent V1 planning to a fresh Codex session with a local read allowlist. Motion DNA and the runtime Inspector remain planned. [Brain V1 evidence](BRAIN-V1.md) · [Agent V1](AGENT-V1.md) · [Agent V2](AGENT-V2.md) · [MCP V1](MCP-V1.md)
+The planned workflow moves from discovery to intent, recommendation or abstention, integration and verified outcomes. Studio provides discovery, manual selection and comparison. Brain V1 provides local search, explained recommendations and abstention. Agent V1 inspects a selected project route and produces a read-only, source-linked plan. Agent V2 supports one reviewed fixture-only integration and verified rollback. MCP V1 brings Brain search, recommendations, source evidence and Agent V1 planning to a fresh Codex session with a local read allowlist. Build supports project-specific Motion DNA. Registry adapters and the runtime Inspector remain planned. [Brain V1 evidence](BRAIN-V1.md) · [Agent V1](AGENT-V1.md) · [Agent V2](AGENT-V2.md) · [MCP V1](MCP-V1.md)
 
 ## Delivery phases
 
@@ -123,7 +123,7 @@ Track reviewed scenario success and abstention quality, time from request to a u
 3. Verify runtime behavior, accessibility, dependencies and performance in a matched isolated consumer. On failure or cancellation, restore the full reviewed tree and run a fresh restored-route verification with a distinct attempt ID.
 4. Add fault cases for unauthorized writes, stale plans, partial application, drift, cancellation and recovery. Keep the public/private source boundary and the read-only MCP surface unless a later capability is separately designed and approved.
 
-Motion DNA and the runtime Inspector remain later phases. [Agent V2 contract and safety model](AGENT-V2.md) · [MCP V1 project scope](MCP-V1.md)
+Registry-wide Motion DNA adapters and the runtime Inspector remain later phases. [Agent V2 contract and safety model](AGENT-V2.md) · [MCP V1 project scope](MCP-V1.md)
 
 ## Build track
 
@@ -136,8 +136,8 @@ Motion DNA and the runtime Inspector remain later phases. [Agent V2 contract and
 | B3B | Codex App Composer | Isolated desktop Codex, independently validated Blueprint, explicit local creation; native acceptance is separate from CI |
 | B3C | Two independent Next.js apps | Revised Hotel and CRM exports with source hashes, real actions and browser gates |
 | B4 | Installable, responsive PWA export | Browser installability, offline CRM and Hotel workflows, and separately tracked physical-device review |
-| B5 | Motion DNA | Per-product timing, accessibility and token policies |
+| B5 | Motion DNA in Build | Saved timing, easing, page transition and reduced-motion settings match Studio, Run and offline PWA |
 | B6 | Inspector | Reproducible layout, accessibility and interaction regression analysis |
 | B7 | Real-project integration | Independently verified host authorization and isolation |
 
-B0–B2 are available locally in Foundation V1 with 31 owned blocks, a managed canvas, macOS runtime preview and standalone Next.js export. B3 adds a manual CRM template and an isolated macOS Composer. Check the [B3 quality gates](BUILD-QUALITY-GATES.md) for native and portable acceptance. B4 adds the optional PWA source export for CRM, Hotel and blank projects. B5–B7, public hosting, accounts and collaboration are planned. [Build architecture](BUILD-ARCHITECTURE.md)
+B0–B2 are available locally in Foundation V1 with 31 owned blocks, a managed canvas, macOS runtime preview and standalone Next.js export. B3 adds a manual CRM template and an isolated macOS Composer. Check the [B3 quality gates](BUILD-QUALITY-GATES.md) for native and portable acceptance. B4 adds the optional PWA source export for CRM, Hotel and blank projects. B5 adds [Motion DNA](BUILD-MOTION-DNA.md) to Build. B6–B7, public hosting, accounts and collaboration are planned. [Build architecture](BUILD-ARCHITECTURE.md)

@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { strToU8, zipSync } from "fflate";
-import { allBlocks, blockSpec, blockSpecVersion, projectSchema } from "@motionux/build-core";
+import { allBlocks, blockSpec, blockSpecVersion, defaultMotionDna, projectSchema } from "@motionux/build-core";
 import { canonical, fingerprint } from "@motionux/build-core/store";
 
 const templateFiles = [
@@ -26,6 +26,7 @@ const sources = {
   "runtime/frame.tsx": "app-blocks/frame.tsx",
   "runtime/hotel.css": "app-blocks/hotel.css",
   "runtime/model.ts": "build-core/model.ts",
+  "runtime/motion-dna.ts": "build-core/motion-dna.ts",
   "runtime/tokens.css": "design-system/tokens.css",
 } as const;
 const localImports = (contents: string) =>
@@ -126,6 +127,10 @@ export async function exportTree(repo: string, value: unknown, options: { pwa?: 
         blocks: [...new Set(project.document.pages.flatMap((page) => allBlocks(page.blocks).map((block) => block.type)))].sort()
           .map((id) => { const spec = blockSpec(id); return { id, version: spec.version, license: spec.license, provenance: spec.provenance }; }),
         revision: project.revision,
+        motion: {
+          ...(project.document.motionDna ?? defaultMotionDna),
+          mode: project.document.motionProfile,
+        },
         ...(pwa ? { pwa } : {}),
         digest: fingerprint(canonical(entries)),
         provenance: "MotionUX-owned compositions · MIT",

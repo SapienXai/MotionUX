@@ -37,6 +37,7 @@ import {
 import "@puckeditor/core/puck.css";
 import { RenderBlock } from "@motionux/app-blocks";
 import { AppFrame } from "@motionux/app-blocks/frame";
+import { MotionDnaFields } from "./motion-dna-fields";
 import {
   allBlocks,
   blockSchema,
@@ -1445,6 +1446,7 @@ function Properties({
           <p className="build-hint">Add a block to start this page.</p>
         )}
       </section>
+      <MotionDnaFields document={document} onChange={onDocument} />
       <section className="build-panel-section">
         <div className="build-panel-title">
           <h2>Project</h2>
@@ -1486,20 +1488,6 @@ function Properties({
           >
             <option value="expanded">Expanded</option>
             <option value="rail">Icon rail</option>
-          </select>
-        </label>
-        <label>
-          Project motion
-          <select
-            value={document.motionProfile}
-            onChange={(event) => {
-              const motionProfile =
-                event.target.value === "none" ? "none" : "system";
-              onDocument((item) => ({ ...item, motionProfile }));
-            }}
-          >
-            <option value="system">System preference</option>
-            <option value="none">No motion</option>
           </select>
         </label>
       </section>

@@ -13,6 +13,12 @@
   --hotel-line: #e7eae3;
   --hotel-shadow: 0 1px 2px #1c30200b;
   --hotel-side: 224px;
+  --mx-motion-press: 0ms;
+  --mx-motion-scale: 1;
+  --mx-motion-entry: var(--mx-dna-transition);
+  --mx-motion-panel: none;
+  --mx-motion-sidebar: none;
+  --mx-motion-page: none;
   color: var(--hotel-text);
   background: var(--hotel-bg);
   font-family: var(--mx-sans);
@@ -211,14 +217,14 @@
   padding: 8px 10px;
   color: var(--hotel-muted);
   font-weight: 580;
-  transition:
-    background var(--mx-fast) var(--mx-ease),
-    color var(--mx-fast) var(--mx-ease);
 }
-.hotel-links a:hover,
-.hotel-mobile-links a:hover {
-  background: var(--hotel-sub);
-  color: var(--hotel-text);
+/* Keep route selection and theme changes readable from the first frame. */
+@media (hover: hover) and (pointer: fine) {
+  .hotel-links a:hover:not([aria-current]),
+  .hotel-mobile-links a:hover:not([aria-current]) {
+    background: var(--hotel-sub);
+    color: var(--hotel-text);
+  }
 }
 .hotel-links a[aria-current],
 .hotel-mobile-links a[aria-current] {
@@ -300,9 +306,7 @@
   background: var(--hotel-panel);
   color: var(--hotel-text);
   text-decoration: none;
-  transition:
-    background var(--mx-fast) var(--mx-ease),
-    transform var(--mx-fast) var(--mx-ease);
+  transition: scale var(--mx-motion-press) var(--mx-dna-easing);
 }
 .hotel-button:hover,
 .hotel-icon-btn:hover,
@@ -312,7 +316,7 @@
 .hotel-button:active,
 .hotel-icon-btn:active,
 .hotel-search-trigger:active {
-  transform: scale(0.98);
+  scale: var(--mx-motion-scale);
 }
 .hotel-button:disabled {
   opacity: 0.55;
@@ -385,6 +389,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 16px;
+  animation: var(--mx-motion-page) var(--mx-motion-entry) var(--mx-dna-easing);
 }
 .hotel-grid > * {
   min-width: 0;
@@ -757,7 +762,7 @@
   overscroll-behavior: contain;
 }
 .hotel-dialog[open] {
-  animation: hotel-enter 150ms var(--mx-ease);
+  animation: var(--mx-motion-panel) var(--mx-motion-entry) var(--mx-dna-easing);
 }
 @keyframes hotel-enter {
   from {
@@ -819,16 +824,49 @@
   border-radius: 12px;
   padding: 14px;
 }
-.hotel [data-motion="none"] *,
-.hotel[data-motion="none"] * {
-  animation: none !important;
-  transition: none !important;
+@keyframes hotel-page-slide {
+  from {
+    opacity: 0.94;
+    transform: translateY(8px);
+  }
+}
+@keyframes hotel-fade {
+  from { opacity: 0.88; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hotel {
+    --mx-motion-press: var(--mx-dna-feedback);
+    --mx-motion-scale: 0.98;
+    --mx-motion-panel: hotel-enter;
+    --mx-motion-sidebar: hotel-sidebar-label;
+  }
+  .hotel:where([data-page-transition="fade"]) {
+    --mx-motion-page: hotel-fade;
+  }
+  .hotel:where([data-page-transition="slide"]) {
+    --mx-motion-page: hotel-page-slide;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hotel * {
-    animation: none !important;
-    transition: none !important;
+  .hotel:where([data-reduced-motion="fade"]) {
+    --mx-motion-entry: min(80ms, var(--mx-dna-transition));
+    --mx-motion-panel: hotel-fade;
+    --mx-motion-sidebar: hotel-fade;
   }
+  .hotel:where([data-reduced-motion="fade"]:not([data-page-transition="none"])) {
+    --mx-motion-page: hotel-fade;
+  }
+}
+
+/* A project or block can opt out independently of the device preference. */
+.hotel[data-motion="none"],
+.hotel [data-motion="none"] {
+  --mx-motion-press: 0ms;
+  --mx-motion-scale: 1;
+  --mx-motion-panel: none;
+  --mx-motion-sidebar: none;
+  --mx-motion-page: none;
 }
 @container (min-width:950px) {
   .hotel-grid {
@@ -936,7 +974,7 @@
 }
 .hotel .hotel-brand > span:not(.hotel-logomark):not(.hotel-sr),
 .hotel-sidebar > .hotel-workspace {
-  animation: hotel-sidebar-label 160ms var(--mx-ease);
+  animation: var(--mx-motion-sidebar) var(--mx-motion-entry) var(--mx-dna-easing);
 }
 @keyframes hotel-sidebar-label {
   from {

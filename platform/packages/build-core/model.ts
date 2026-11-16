@@ -1,4 +1,13 @@
 import { z } from "zod";
+import { motionDnaSchema } from "./motion-dna.ts";
+export {
+  defaultMotionDna,
+  feedbackTiming,
+  motionDnaSchema,
+  motionEasings,
+  transitionTiming,
+  type MotionDna,
+} from "./motion-dna.ts";
 
 export const families = [
   "Shell",
@@ -303,6 +312,7 @@ const compositionFields = z
   });
 export const documentSchema = compositionFields.extend({
   locale: z.enum(["en", "tr"]).default("en"),
+  motionDna: motionDnaSchema.optional(),
 }).superRefine(({ pages, data, template }, context) => {
     if (adapterFor[template] !== data)
       context.addIssue({ code: "custom", message: "Template and adapter are incompatible.", path: ["data"] });

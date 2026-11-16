@@ -10,12 +10,24 @@ import { promisify } from "node:util";
 import { chromium, firefox, webkit } from "playwright";
 import { expect } from "@playwright/test";
 import { AxeBuilder } from "@axe-core/playwright";
+import {
+  assertMotion,
+  assertPageTransition,
+  configureMotion,
+  recordPageTransition,
+} from "./b5-motion-browser.mjs";
 import { fingerprint } from "../packages/build-core/store.ts";
 
 const repo = resolve(import.meta.dirname, "../..");
 const studio = "http://127.0.0.1:5200";
 const local = process.argv.includes("--local");
-const evidence = resolve(repo, ".motionux-v9/evidence/build-b4");
+const motionDna = process.argv.includes("--motion-dna");
+const evidence = resolve(
+  repo,
+  motionDna
+    ? ".motionux-v9/evidence/build-b5"
+    : ".motionux-v9/evidence/build-b4",
+);
 const fixture = "build-browser-" + randomBytes(10).toString("hex");
 const fixtures = resolve(repo, ".motionux-v9/build-tests");
 const studioVault = resolve(fixtures, fixture);
@@ -151,6 +163,7 @@ async function browserWorkflow(engine, origin, spec, evidenceRow, connection) {
     reducedMotion: "reduce",
   });
   const page = await context.newPage();
+  if (evidenceRow.motion) await page.addInitScript(recordPageTransition);
   const pageErrors = [];
   page.on("pageerror", (error) => pageErrors.push(error.message));
   try {
@@ -202,6 +215,11 @@ async function browserWorkflow(engine, origin, spec, evidenceRow, connection) {
     );
     await expect(heading(page, spec.hero)).toBeVisible();
     await expect(page.getByText("Offline", { exact: true })).toBeVisible();
+    if (evidenceRow.motion) {
+      await assertMotion(page, evidenceRow.motion, { reduced: true });
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await assertMotion(page, evidenceRow.motion);
+    }
     const mobileNav = page.getByRole("navigation", {
       name: "Quick navigation",
     });
@@ -219,6 +237,10 @@ async function browserWorkflow(engine, origin, spec, evidenceRow, connection) {
     );
     await expect(heading(page, spec.second)).toBeVisible();
     await expect(page.getByText("Offline", { exact: true })).toBeVisible();
+    if (evidenceRow.motion) {
+      await assertPageTransition(page, evidenceRow.motion);
+      await page.emulateMedia({ reducedMotion: "reduce" });
+    }
 
     if (spec.template === "crm-dashboard") {
       await page
@@ -271,7 +293,10 @@ async function browserWorkflow(engine, origin, spec, evidenceRow, connection) {
     assert.deepEqual(
       violations.violations
         .filter((v) => ["serious", "critical"].includes(v.impact))
-        .map((v) => v.id),
+        .map((v) => ({
+          id: v.id,
+          nodes: v.nodes.map((node) => [node.target, node.failureSummary]),
+        })),
       [],
     );
     if (local && engine.name() === "chromium") {
@@ -317,6 +342,7 @@ async function browserWorkflow(engine, origin, spec, evidenceRow, connection) {
       cachedEntries: cacheKeys.length,
       installability,
       offline: true,
+      ...(evidenceRow.motion ? { motionDnaOffline: true } : {}),
     });
     console.log(
       spec.template,
@@ -357,6 +383,7 @@ try {
     acceptDownloads: true,
     viewport: { width: 390, height: 844 },
   });
+  if (motionDna) await page.addInitScript(recordPageTransition);
   for (const spec of specs) {
     const temp = await mkdtemp(resolve(fixtures, "b4-export-"));
     let appService;
@@ -370,6 +397,9 @@ try {
           () => document.documentElement.scrollWidth <= innerWidth + 1,
         ),
       );
+      const motion = motionDna
+        ? await configureMotion(page, spec, local)
+        : undefined;
       const download = page.waitForEvent("download");
       await button(page, "Export PWA").click();
       const file = await download;
@@ -388,7 +418,13 @@ try {
           entry.sha256,
         );
       }
-      const row = { name: spec.name, routes: manifest.pwa.routes, engines: [] };
+      if (motion) assert.deepEqual(manifest.motion, motion);
+      const row = {
+        name: spec.name,
+        routes: manifest.pwa.routes,
+        engines: [],
+        ...(motion ? { motion, studio: true, run: local } : {}),
+      };
       report.push(row);
       row.build = await installBuild(consumer);
       assert(row.build);

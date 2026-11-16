@@ -42,3 +42,7 @@ Compare B3 with Foundation's desktop loopback profile on the same browser, viewp
 ## B4 gates
 
 After building Studio, run `node platform/tests/b4-pwa.mjs --local` on a free port 5200. The suite downloads both PWA ZIPs through the editor, verifies their file hashes, and installs and builds them independently. It checks Chromium's installability diagnostics, the worker's scope and offline inventory, reconnect and cache recovery, and actual offline edits and preferences on representative mobile layouts. CI runs both exports in Chromium. The local lane adds Firefox and WebKit and retains screenshots and a JSON report under `.motionux-v9/evidence/build-b4/`. Record physical iOS and Android installation separately.
+
+## B5 gates
+
+After building Studio, run `node platform/tests/b4-pwa.mjs --local --motion-dna` on a free port 5200. CRM and Hotel get distinct saved profiles. The suite checks computed page and feedback timing, observes animation starts on navigation and dialog opening, and checks focus with reduced motion and project-wide stillness. It compares Studio and isolated Next Run locally, validates the exported manifest, then verifies the same profile in the independently built PWA while its server is stopped. CI runs the Studio and offline Chromium lanes. Local evidence goes to `.motionux-v9/evidence/build-b5/`.

@@ -483,6 +483,21 @@ select:focus-visible {
 .build-panel-section textarea {
   resize: vertical;
 }
+.build-motion-range {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 52px;
+  align-items: center;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.build-motion-range input[type="range"] {
+  accent-color: var(--build-accent);
+  padding: 0;
+}
+.build-motion-range > span {
+  text-align: end;
+  color: var(--build-text);
+}
 .build-pages,
 .build-outline {
   display: grid;
