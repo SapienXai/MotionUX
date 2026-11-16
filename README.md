@@ -40,7 +40,7 @@ An animation can clarify where you are, confirm an action, or help you follow a 
 | **Agent** | Available locally · read-only | Inspect a selected route and get a source-linked motion plan, risks and proposed tests. |
 | **Agent V3** | Local fixtures | Verify a pinned original in independent Next.js and React/Vite fixtures, with a reviewed write set and fresh rollback checks. |
 | **Agent V4** | Local fixtures | Review the exact changes, verify a signed fixture decision and rebuild the restored screen. Real project writes remain disabled. |
-| **MotionUX Build** | Local workspace | Compose an app with registered blocks, preview the saved project in Next.js and export its source. |
+| **MotionUX Build** | Local workspace | Turn a brief into a reviewed app, or start with a manual template. Run the real app and take its source with you. |
 | **Codex MCP** | Available locally · read-only | Search originals, inspect source evidence and plan motion on an authorized screen from a normal Codex session. |
 | **Motion DNA** | Planned | Record how motion should feel and behave in a specific product. |
 | **Inspector** | Planned | Find motion and accessibility issues on real routes and compare evidence before and after. |
@@ -78,4 +78,4 @@ pnpm --dir platform install --frozen-lockfile --ignore-scripts
 npm run studio:build
 ```
 
-Open [Build](http://127.0.0.1:5200/build), choose **New Hotel Desk**, and select a block to edit it. Save the project, run the real Next.js preview on macOS, or export the standalone app source. The 500 originals and personal collections continue to use the Gallery served by `npm run studio`. [Build architecture](docs/BUILD-ARCHITECTURE.md) · [Verification commands](docs/BUILD-QUALITY-GATES.md)
+Open [Build](http://127.0.0.1:5200/build). Describe a sales or operations app and review the Codex Blueprint, or open **Sales CRM**, **Hotel Desk** or a blank canvas directly. Save the project, run the real Next.js preview on macOS, or export the standalone app source. The 500 originals and personal collections continue to use the Gallery served by `npm run studio`. [App Composer guide](docs/BUILD-COMPOSER-B3.md) · [Build architecture](docs/BUILD-ARCHITECTURE.md) · [Verification commands](docs/BUILD-QUALITY-GATES.md)

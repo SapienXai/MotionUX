@@ -27,3 +27,29 @@ The editor uses Puck for drag/drop and rendering. Puck data is a projection of t
 Canvas supports ordered page blocks and one nested slot level inside the sidebar inset. No arbitrary HTML, nested user slots or arbitrary TSX imports are supported. The managed documents declare the demo dataset and contain typed presentation props, optional accessibility labels, and a metric choice for individual KPI cards. Filesystem asset ingestion and arbitrary data bindings are later capabilities. V1 ships 31 owned blocks; image gallery is deferred until the managed asset policy is implemented. Private originals are available through the separate catalog with their existing rights and evidence.
 
 References: [Puck Editor](https://puckeditor.com/docs), [Next transpilePackages](https://nextjs.org/docs/app/api-reference/config/next-config-js/transpilePackages), [pnpm workspaces](https://pnpm.io/workspaces/), [legacy Vite options](https://vite.dev/config/server-options), [shadcn/ui block reference](https://ui.shadcn.com/blocks). The app blocks are independently implemented; the shadcn examples are design references.
+
+## B3 composition and export
+
+```mermaid
+flowchart LR
+  Brief[Local brief] --> Scrub[Input boundary]
+  Scrub --> Local[Isolated desktop Codex]
+  Local --> Proposal[Untrusted JSON]
+  Proposal --> Compiler[Validate + resolve owned specs]
+  Compiler --> Review[Review pages, appearance and limits]
+  Review -->|Explicit Create with exact digest| Vault[New managed v2 document]
+  Manual[Manual template] --> Vault
+  Vault --> Canvas[Puck projection]
+  Canvas -->|Save with expected revision| Vault
+  Vault --> Export[Standalone Next tree + manifest]
+  Export --> Run[Bounded preview on 5202]
+  Export --> ZIP[Independent source ZIP]
+```
+
+`build-core/model.ts` defines the ordered page/block graph, adapter/template mapping, block versions, compatible metric bindings and rights. The B3 spec layer names supported actions and runtime contracts; blocks execute their fixed handlers. `app-blocks/profile.ts`, hotel fixtures and `crm-data.ts` provide domain-specific semantics in a shared frame. CRM adds directory, pipeline, breakdown and activity modules. The pipeline derives totals and KPIs from the same typed opportunity rows. Its stage overrides persist in browser storage scoped to project ID and document revision. Hotel semantics remain unchanged. Blank uses no domain fixture.
+
+A v1 Hotel project is normalized into v2 on read without writing anything. An explicit Save checks its revision and backs up the exact previous bytes before replacing the file. Invalid docs fail closed and can recover the prior valid document. Blueprint provenance follows the project through saves, and proposal metadata is excluded from the independent export.
+
+The Composer modules separate the native process, input/output contract and proposal compiler, and review service. The server owns route and adapter choices, safe effects and the plan digest. Review and app descriptions come from verified route and block capabilities; the model can propose names, headings and block choices. Its in-memory receipt authorizes exactly one managed Create. Compiling an identical normalized proposal and review gives the same semantics, independently of model nondeterminism.
+
+The landing does not mount Puck until a project opens. Next uses a shared catch-all scaffold with statically generated, validated routes: one source graph with no AI-generated filenames or duplicated route implementations. The ZIP keeps its independent `npm ci` lock, shared owned React modules and a source inventory; the manifest ties the block spec, chosen data, runtime pins and file hashes to the document digest. Run invokes the same exporter and checks the digest returned from the Next process on loopback.

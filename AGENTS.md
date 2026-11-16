@@ -16,3 +16,10 @@
 
 - Before changing Build, read PRODUCT.md and docs/BUILD-ARCHITECTURE.md, BUILD-DESIGN-SYSTEM.md, BUILD-SECURITY.md and BUILD-QUALITY-GATES.md. Use registered, verified blocks with pinned provenance and export rights. Render real components in the editor and run actual Next.js for preview.
 - Build writes only to explicitly created managed projects. Preserve the 500-source Studio, the V4 real-project write boundary and the five read-only MCP tools. Run browser, accessibility, performance, export and regression checks. Clean temporary builds and keep vault growth within the documented budget.
+
+## Build product constitution
+
+- Ship functional applications from registered and compatible blocks. Preserve the 500 originals, their rights, Gallery and its personal workspace, the five read-only MCP tools and the V4 real-project write ban.
+- Read [PRODUCT.md](PRODUCT.md), [Build architecture](docs/BUILD-ARCHITECTURE.md), [design](docs/BUILD-DESIGN-SYSTEM.md), [security](docs/BUILD-SECURITY.md) and [quality gates](docs/BUILD-QUALITY-GATES.md) before editing Build. The versioned schemas and adapter contracts in `platform/packages/build-core` own the document. Puck projects that document; Run and Export use the saved revision.
+- Treat brief and model output as untrusted data. Use the verified local, read-only Codex bridge and a versioned allowlist. AI cannot write files, run tools, authorize effects, invent services or supply code, paths or dependencies. Show real tool outcomes and documented demo limitations. Create a fresh managed project only from a current, explicitly reviewed Blueprint or a deliberately chosen manual template.
+- Keep verification evidence local. Prove distinct template behavior, migration, rights, browser focus and responsiveness, manifest parity, clean independent exports and bounded execution. Separate portable fixtures from signed-in Codex tests. Preserve the standalone npm locks and use only infrastructure justified by measured needs.
