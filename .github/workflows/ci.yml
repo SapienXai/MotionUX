@@ -91,3 +91,5 @@ jobs:
       - run: node platform/tests/browser.mjs
       - name: B3 CRM clean source export and Chromium smoke
         run: node platform/tests/b3-browser.mjs
+      - name: B4 CRM and Hotel installable exports and offline Chromium workflows
+        run: node platform/tests/b4-pwa.mjs

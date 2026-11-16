@@ -1,4 +1,5 @@
 "use client";
+import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import type { BuildPage, Document } from "./model";
 import { AppFrame } from "./frame";
@@ -9,11 +10,15 @@ export function AppScreen({
   page,
   id,
   revision,
+  documentNavigation = false,
+  status,
 }: {
   document: Document;
   page: BuildPage;
   id: string;
   revision: number;
+  documentNavigation?: boolean;
+  status?: ReactNode;
 }) {
   const router = useRouter();
   return (
@@ -22,7 +27,8 @@ export function AppScreen({
       storageKey={"motionux-" + id}
       route={page.route}
       revision={revision}
-      navigate={(route) => router.push(route)}
+      navigate={documentNavigation ? undefined : (route) => router.push(route)}
+      status={status}
     >
       {page.blocks.length ? (
         page.blocks.map((block) => <RenderBlock key={block.id} block={block} />)

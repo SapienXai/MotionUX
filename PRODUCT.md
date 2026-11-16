@@ -25,7 +25,7 @@ MotionUX distributes individual source files through its shadcn GitHub registry.
 
 MotionUX helps design engineers and Codex users build managed web apps with proven components. The daily workflow is to discover an interaction, assemble typed blocks, inspect the real app at different sizes and export readable source. The Gallery, Playground, My Library and Project Kit remain useful on their own.
 
-Build uses a versioned document, a local project vault and an owned block registry. The editor, renderer and exporter share that document. The hotel template uses local demo data and has no access to reservations, payments or customer systems. Backend integration, offline PWA and collaboration are future tracks. Real project writes remain disabled.
+Build uses a versioned document, a local project vault and an owned block registry. The editor, renderer and exporter share that document. The hotel template uses local demo data and has no access to reservations, payments or customer systems. Build exports installable apps that can open their saved pages offline after initial setup. Backend integration and collaboration are future tracks. Real project writes remain disabled.
 
 Build is a component-powered application studio for people who can describe their workflow and for developers who need maintainable source afterward. Start with a local brief or a manual template, review the proposed pages and data, then create an app in the managed workspace. The App Blueprint is a proposal; the validated saved document is the system of record.
 

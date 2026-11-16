@@ -494,14 +494,14 @@ export function Editor({
       setBusy("");
     }
   }
-  async function download() {
+  async function download(pwa = false) {
     setMessage("");
     const latest = dirty ? await save() : saved;
     if (!latest) return;
     setBusy("Exporting");
     let url: string | undefined;
     try {
-      const response = await fetch("/api/build/" + initial.id + "/export", {
+      const response = await fetch("/api/build/" + initial.id + (pwa ? "/export-pwa" : "/export"), {
         cache: "no-store",
         headers: { "X-MotionUX-Revision": String(latest.revision) },
       });
@@ -509,7 +509,8 @@ export function Editor({
       url = URL.createObjectURL(await response.blob());
       const link = window.document.createElement("a");
       link.href = url;
-      link.download = document.template === "hotel-dashboard" ? "hotel-desk-source.zip" : document.template + "-source.zip";
+      const name = latest.document.template === "hotel-dashboard" ? "hotel-desk" : latest.document.template;
+      link.download = name + (pwa ? "-pwa" : "") + "-source.zip";
       link.click();
     } catch (error) {
       setMessage(describe(error));
@@ -653,9 +654,18 @@ export function Editor({
             type="button"
             className="build-button accent"
             disabled={Boolean(busy)}
-            onClick={download}
+            onClick={() => void download()}
           >
             <Download size={15} /> Export
+          </button>
+          <button
+            type="button"
+            className="build-button"
+            title="Download installable source with offline pages"
+            disabled={Boolean(busy)}
+            onClick={() => void download(true)}
+          >
+            Export PWA
           </button>
         </div>
       </header>

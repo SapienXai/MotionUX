@@ -3,7 +3,17 @@ export default {
   devIndicators: false,
   experimental: { cpus: 2, webpackBuildWorker: true },
   async headers() {
-    if (process.env.MOTIONUX_GENERATED_PREVIEW !== "1") return [];
+    if (process.env.MOTIONUX_GENERATED_PREVIEW !== "1") {
+      return [
+        {
+          source: "/sw.js",
+          headers: [
+            { key: "Cache-Control", value: "no-cache" },
+            { key: "Content-Security-Policy", value: "default-src 'none'; connect-src 'self'; script-src 'self'" },
+          ],
+        },
+      ];
+    }
     return [
       {
         source: "/:path*",

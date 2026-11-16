@@ -135,9 +135,9 @@ Motion DNA and the runtime Inspector remain later phases. [Agent V2 contract and
 | B3A | Universal app blocks and domain adapters | 31 Hotel-compatible blocks, 4 CRM additions, migration with the original bytes retained before Save |
 | B3B | Codex App Composer | Isolated desktop Codex, independently validated Blueprint, explicit local creation; native acceptance is separate from CI |
 | B3C | Two independent Next.js apps | Revised Hotel and CRM exports with source hashes, real actions and browser gates |
-| B4 | Responsive Web/PWA Builder | Installability, truthful offline behavior and physical-device review |
+| B4 | Installable, responsive PWA export | Browser installability, offline CRM and Hotel workflows, and separately tracked physical-device review |
 | B5 | Motion DNA | Per-product timing, accessibility and token policies |
 | B6 | Inspector | Reproducible layout, accessibility and interaction regression analysis |
 | B7 | Real-project integration | Independently verified host authorization and isolation |
 
-B0–B2 are available locally in Foundation V1 with 31 owned blocks, a managed canvas, macOS runtime preview and standalone Next.js export. B3 adds a manual CRM template and an isolated macOS Composer. Check the [B3 quality gates](BUILD-QUALITY-GATES.md) for native and portable acceptance. B4–B7, public hosting, accounts and collaboration are planned. [Build architecture](BUILD-ARCHITECTURE.md)
+B0–B2 are available locally in Foundation V1 with 31 owned blocks, a managed canvas, macOS runtime preview and standalone Next.js export. B3 adds a manual CRM template and an isolated macOS Composer. Check the [B3 quality gates](BUILD-QUALITY-GATES.md) for native and portable acceptance. B4 adds the optional PWA source export for CRM, Hotel and blank projects. B5–B7, public hosting, accounts and collaboration are planned. [Build architecture](BUILD-ARCHITECTURE.md)

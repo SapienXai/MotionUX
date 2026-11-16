@@ -133,13 +133,15 @@ async function handle(request: Request, { params }: Context) {
       }
       return json(startPreview(repo, vault, project), 202);
     }
-    if (path.length === 2 && method === "GET" && action === "export") {
+    if (path.length === 2 && method === "GET" && (action === "export" || action === "export-pwa")) {
       const project = await store.open(id);
       const requested = request.headers.get("x-motionux-revision");
       if (requested !== null && requested !== String(project.revision))
         throw new BuildError(409, "The saved revision changed. Reopen the project to export it.");
-      const files = await exportTree(repo, project);
-      const filename = project.document.template === "hotel-dashboard" ? "hotel-desk-source.zip" : project.document.template + "-source.zip";
+      const pwa = action === "export-pwa";
+      const files = await exportTree(repo, project, { pwa });
+      const name = project.document.template === "hotel-dashboard" ? "hotel-desk" : project.document.template;
+      const filename = name + (pwa ? "-pwa" : "") + "-source.zip";
       return new Response(Buffer.from(zipTree(files)), {
         headers: {
           "Content-Type": "application/zip",

@@ -343,6 +343,7 @@ export function AppFrame({
   studio = false,
   storageKey = "hotel-desk",
   revision = 0,
+  status,
 }: {
   document: Document;
   route: string;
@@ -353,6 +354,7 @@ export function AppFrame({
   studio?: boolean;
   storageKey?: string;
   revision?: number;
+  status?: ReactNode;
 }) {
   const [localTheme, setTheme] = useState<"light" | "dark" | null>(null);
   const [railOverride, setRail] = useState<boolean | null>(null);
@@ -508,6 +510,7 @@ export function AppFrame({
                 <i />
                 Demo data
               </span>
+              {status}
               <span>
                 <CalendarDays size={15} aria-hidden="true" /> Monday, November
                 16, 2026
