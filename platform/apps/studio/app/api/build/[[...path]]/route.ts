@@ -9,7 +9,7 @@ import {
 import { createComposer, type Composer } from "@motionux/build-core/composer";
 import { manualDocument, templates } from "@motionux/build-core";
 import { exportTree, zipTree } from "@motionux/app-export";
-import { getPreview, startPreview, stopPreview } from "@motionux/preview-host";
+import { getPreview, inspectPreview, startPreview, stopPreview } from "@motionux/preview-host";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -132,6 +132,26 @@ async function handle(request: Request, { params }: Context) {
           throw new BuildError(409, "The saved revision changed. Reopen the project to preview it.");
       }
       return json(startPreview(repo, vault, project), 202);
+    }
+    if (path.length === 2 && method === "POST" && action === "inspect") {
+      const body = await documentBody(request, 256);
+      if (
+        !body ||
+        typeof body.route !== "string" ||
+        !Number.isSafeInteger(body.revision) ||
+        Object.keys(body).length !== 2
+      )
+        throw new BuildError(
+          422,
+          "Inspection requires a managed page and saved revision.",
+        );
+      const project = await store.open(id);
+      if (body.revision !== project.revision)
+        throw new BuildError(
+          409,
+          "The saved revision changed. Reopen and run it before inspecting.",
+        );
+      return json(await inspectPreview(repo, project, body.route, request.signal));
     }
     if (path.length === 2 && method === "GET" && (action === "export" || action === "export-pwa")) {
       const project = await store.open(id);

@@ -19,3 +19,7 @@ One job per loopback Studio, 75 s deadline, bounded JSON/stream, 32 MiB scratch 
 ## PWA cache boundary
 
 Only the explicit PWA export emits a service worker. Its production snapshot covers the saved public demo pages and a finite same-origin asset list. It fetches those resources without credentials and does not store API responses, mutations, cross-origin resources, query variants or Studio and preview responses. Worker updates replace the previous snapshot only after the new inventory is complete and the old client's worker has released its scope. A PWA belongs on its own origin so installation, cache, and storage have the intended scope.
+
+## Inspector boundary
+
+The Studio API uses the existing loopback origin and mutation gates. A request identifies one page on the active saved Run revision. The worker checks the preview session and document headers, allows only GET and HEAD at the fixed preview origin, blocks redirects and service workers, and starts fresh browser contexts. The host runs a single inspection per preview with a wall-time and output limit. Stopping Run cancels the audit. The application and exports receive no inspection code or reports.

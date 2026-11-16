@@ -17,16 +17,20 @@ import {
   recordPageTransition,
 } from "./b5-motion-browser.mjs";
 import { fingerprint } from "../packages/build-core/store.ts";
+import { assertInspection, inspectInStudio } from "./b6-inspector-browser.mjs";
 
 const repo = resolve(import.meta.dirname, "../..");
 const studio = "http://127.0.0.1:5200";
 const local = process.argv.includes("--local");
-const motionDna = process.argv.includes("--motion-dna");
+const inspector = process.argv.includes("--inspector");
+const motionDna = inspector || process.argv.includes("--motion-dna");
 const evidence = resolve(
   repo,
-  motionDna
-    ? ".motionux-v9/evidence/build-b5"
-    : ".motionux-v9/evidence/build-b4",
+  inspector
+    ? ".motionux-v9/evidence/build-b6"
+    : motionDna
+      ? ".motionux-v9/evidence/build-b5"
+      : ".motionux-v9/evidence/build-b4",
 );
 const fixture = "build-browser-" + randomBytes(10).toString("hex");
 const fixtures = resolve(repo, ".motionux-v9/build-tests");
@@ -379,10 +383,11 @@ try {
   const app = start(["platform/start.mjs", "--built", "--fixture=" + fixture]);
   await ready(studio, app);
   editor = await chromium.launch();
-  const page = await editor.newPage({
+  const editorContext = await editor.newContext({
     acceptDownloads: true,
     viewport: { width: 390, height: 844 },
   });
+  const page = await editorContext.newPage();
   if (motionDna) await page.addInitScript(recordPageTransition);
   for (const spec of specs) {
     const temp = await mkdtemp(resolve(fixtures, "b4-export-"));
@@ -397,8 +402,18 @@ try {
           () => document.documentElement.scrollWidth <= innerWidth + 1,
         ),
       );
+      let studioInspection;
       const motion = motionDna
-        ? await configureMotion(page, spec, local)
+        ? await configureMotion(
+            page,
+            spec,
+            local,
+            inspector
+              ? async () => {
+                studioInspection = await inspectInStudio(page, spec, evidence);
+                }
+              : undefined,
+          )
         : undefined;
       const download = page.waitForEvent("download");
       await button(page, "Export PWA").click();
@@ -454,6 +469,30 @@ try {
         },
       };
       await connection.reconnect();
+      if (inspector) {
+        const { inspectRuntime } =
+          await import("../apps/preview-host/inspect-browser.mjs");
+        const report = await inspectRuntime({
+          origin,
+          route: spec.secondPath,
+          revision: manifest.revision,
+          signal: AbortSignal.timeout(42_000),
+        });
+        assertInspection(report, spec.secondPath);
+        assert.equal(
+          studioInspection?.revision ?? report.revision,
+          report.revision,
+        );
+        row.inspection = { studio: studioInspection, independent: report };
+        console.log(
+          spec.template,
+          "independent Inspector audit passed",
+          report.route,
+          "in",
+          report.durationMs,
+          "ms",
+        );
+      }
       for (const engine of local ? [chromium, firefox, webkit] : [chromium]) {
         await browserWorkflow(engine, origin, spec, row, connection);
       }

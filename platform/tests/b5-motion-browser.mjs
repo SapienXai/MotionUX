@@ -107,7 +107,7 @@ export async function assertMotion(
   await expect(search).toBeFocused();
 }
 
-export async function configureMotion(page, spec, local) {
+export async function configureMotion(page, spec, local, validateRun) {
   const profile = profileFor(spec.template);
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -181,6 +181,7 @@ export async function configureMotion(page, spec, local) {
       await assertMotion(frame, profile, { reduced: true });
       await page.emulateMedia({ reducedMotion: "no-preference" });
       await visitSecondPage(frame);
+      await validateRun?.();
     } finally {
       await page.getByRole("button", { name: "Stop", exact: true }).click();
       await page.getByRole("button", { name: "Edit", exact: true }).click();

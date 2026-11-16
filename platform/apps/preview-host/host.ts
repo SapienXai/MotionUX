@@ -14,6 +14,7 @@ import { dirname, resolve } from "node:path";
 import { promisify } from "node:util";
 import { setTimeout as delay } from "node:timers/promises";
 import type { BuildProject } from "@motionux/build-core";
+import type { InspectionReport } from "@motionux/build-core/inspection";
 import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
 import { exportTree, writeTree } from "@motionux/app-export";
 
@@ -29,6 +30,8 @@ type PreviewState = {
 };
 type Session = {
   running: boolean;
+  inspecting?: boolean;
+  token: string;
   state: PreviewState;
   abort: AbortController;
   pid?: number;
@@ -185,7 +188,7 @@ async function run(
     if (!next.startsWith(resolve(repo, "platform/node_modules") + "/"))
       throw new BuildError(403, "Preview dependency identity failed.");
     await symlink(dependencies, resolve(cwd, "node_modules"), "dir");
-    const token = randomBytes(12).toString("hex");
+    const token = session.token;
     const checkSize = async () => {
       if (!cwd) return;
       const [{ stdout: disk }, { stdout: usage }] = await Promise.all([
@@ -328,6 +331,77 @@ async function run(
 export function getPreview(): PreviewState {
   return globalState.motionuxPreview?.state ?? { status: "idle" };
 }
+export async function inspectPreview(
+  repo: string,
+  project: BuildProject,
+  route: string,
+  signal: AbortSignal,
+) {
+  const session = globalState.motionuxPreview;
+  const digest = fingerprint(canonical(project.document));
+  if (
+    !session ||
+    session.state.status !== "ready" ||
+    session.state.id !== project.id ||
+    session.state.revision !== project.revision ||
+    session.state.documentDigest !== digest
+  )
+    throw new BuildError(409, "Run this saved revision before inspecting it.");
+  if (!project.document.pages.some((page) => page.route === route))
+    throw new BuildError(422, "Choose a page from this project.");
+  if (session.inspecting)
+    throw new BuildError(409, "An inspection is already running.");
+  session.inspecting = true;
+  const cancellation = AbortSignal.any([signal, session.abort.signal]);
+  try {
+    const { stdout } = await exec(
+      process.execPath,
+      [resolve(repo, "platform/apps/preview-host/inspect-browser.mjs")],
+      {
+        cwd: repo,
+        env: {
+          NODE_ENV: "production",
+          PATH: dirname(process.execPath) + ":/usr/bin:/bin",
+          HOME: process.env.HOME,
+          TMPDIR: process.env.TMPDIR,
+          PLAYWRIGHT_BROWSERS_PATH: process.env.PLAYWRIGHT_BROWSERS_PATH,
+          MOTIONUX_INSPECTION: JSON.stringify({
+            origin,
+            route,
+            revision: project.revision,
+            identity: { token: session.token, digest },
+          }),
+        },
+        signal: cancellation,
+        timeout: 45_000,
+        maxBuffer: 256 * 1024,
+      },
+    );
+    cancellation.throwIfAborted();
+    return JSON.parse(stdout) as InspectionReport;
+  } catch (error) {
+    if (cancellation.aborted)
+      throw new BuildError(409, "The inspection was stopped.");
+    const diagnostic = (error as { stderr?: string })?.stderr;
+    if (diagnostic?.includes("ERR_MODULE_NOT_FOUND"))
+      throw new BuildError(
+        503,
+        "Install the workspace browser tools from the repository root with npm ci.",
+      );
+    if (diagnostic?.includes("Executable doesn't exist"))
+      throw new BuildError(
+        503,
+        "Install the local Chromium browser with npx playwright install chromium.",
+      );
+    throw new BuildError(
+      503,
+      "Chromium could not complete the inspection. Check the preview and try again.",
+    );
+  } finally {
+    session.inspecting = false;
+  }
+}
+
 export async function stopPreview() {
   const session = globalState.motionuxPreview;
   if (!session) return;
@@ -360,6 +434,7 @@ export function startPreview(
   }
   const session: Session = {
     running: true,
+    token: randomBytes(12).toString("hex"),
     state: { status: "building", id: project.id, revision: project.revision, documentDigest: fingerprint(canonical(project.document)) },
     abort: new AbortController(),
     ended: Promise.resolve(),

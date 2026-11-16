@@ -627,6 +627,7 @@ select:focus-visible {
   color: var(--build-muted);
   font-size: 11px;
   justify-content: start;
+  flex-wrap: wrap;
 }
 .build-canvas-foot > a,
 .build-canvas-foot > button {
@@ -748,6 +749,71 @@ select:focus-visible {
 .build-dialog p {
   color: #ffb6ba;
   margin: 0;
+}
+.build-runtime-inspector {
+  max-width: min(570px, calc(100% - 24px));
+  max-height: min(720px, calc(100dvh - 24px));
+  overflow: auto;
+}
+.build-runtime-inspector h2 {
+  margin-bottom: 4px;
+}
+.build-runtime-inspector p.build-inspection-meta {
+  color: var(--build-muted);
+}
+.build-runtime-inspector form {
+  margin: 16px 0 12px;
+}
+.build-runtime-inspector label {
+  display: grid;
+  gap: 5px;
+}
+.build-runtime-inspector select {
+  width: 100%;
+  min-height: 40px;
+  padding: 6px 9px;
+  color: var(--build-text);
+  background: var(--build-bg);
+  border: 1px solid var(--build-border);
+  border-radius: 8px;
+}
+.build-inspection-results {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+.build-inspection-results details {
+  border: 1px solid var(--build-border);
+  border-radius: 8px;
+  background: var(--build-bg);
+}
+.build-inspection-results summary {
+  cursor: pointer;
+  padding: 10px;
+  overflow-wrap: anywhere;
+}
+.build-inspection-results summary span {
+  margin-inline-start: 8px;
+  color: var(--build-muted);
+}
+.build-inspection-results details p,
+.build-inspection-results ul {
+  padding: 0 10px 10px;
+}
+.build-inspection-results ul {
+  margin: 0;
+  list-style: none;
+}
+.build-inspection-results li {
+  display: grid;
+  gap: 3px;
+  padding-block: 8px;
+  border-top: 1px solid var(--build-border);
+  overflow-wrap: anywhere;
+}
+.build-inspection-results li span,
+.build-inspection-results code {
+  color: var(--build-muted);
 }
 @media (max-width: 1050px) {
   .build-workspace {

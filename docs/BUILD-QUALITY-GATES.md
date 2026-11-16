@@ -46,3 +46,7 @@ After building Studio, run `node platform/tests/b4-pwa.mjs --local` on a free po
 ## B5 gates
 
 After building Studio, run `node platform/tests/b4-pwa.mjs --local --motion-dna` on a free port 5200. CRM and Hotel get distinct saved profiles. The suite checks computed page and feedback timing, observes animation starts on navigation and dialog opening, and checks focus with reduced motion and project-wide stillness. It compares Studio and isolated Next Run locally, validates the exported manifest, then verifies the same profile in the independently built PWA while its server is stopped. CI runs the Studio and offline Chromium lanes. Local evidence goes to `.motionux-v9/evidence/build-b5/`.
+
+## B6 gates
+
+Run `node platform/tests/b6-inspector-faults.mjs` to verify measured overflow, clipped controls, unnamed buttons, failed keyboard activation and runtime errors against deliberately broken DOM. It also asserts that cross-origin and mutating requests are blocked and a stale preview identity is rejected. After building Studio, run `node platform/tests/b4-pwa.mjs --local --inspector` on a free port 5200. The suite checks the Inspector in actual macOS Run for CRM Contacts and Hotel Bookings, tests API rejection, and checks the same routes in independent exports. It also runs the B5 three-engine offline regression. Linux CI runs the seeded fault and independent Chromium audit lanes. Browser reports remain under `.motionux-v9/evidence/build-b6/`.

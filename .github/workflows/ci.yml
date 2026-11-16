@@ -91,5 +91,7 @@ jobs:
       - run: node platform/tests/browser.mjs
       - name: B3 CRM clean source export and Chromium smoke
         run: node platform/tests/b3-browser.mjs
-      - name: CRM and Hotel PWA offline workflows and Motion DNA parity
-        run: node platform/tests/b4-pwa.mjs --motion-dna
+      - name: Inspector detects seeded faults and blocks out-of-scope requests
+        run: node platform/tests/b6-inspector-faults.mjs
+      - name: CRM and Hotel browser audits, offline PWA and Motion DNA parity
+        run: node platform/tests/b4-pwa.mjs --inspector

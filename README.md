@@ -42,8 +42,8 @@ An animation can clarify where you are, confirm an action, or help you follow a 
 | **Agent V4** | Local fixtures | Review the exact changes, verify a signed fixture decision and rebuild the restored screen. Real project writes remain disabled. |
 | **MotionUX Build** | Local workspace | Turn a brief into a reviewed app, or start with a manual template. Run the real app and take its source with you. |
 | **Codex MCP** | Available locally · read-only | Search originals, inspect source evidence and plan motion on an authorized screen from a normal Codex session. |
-| **Motion DNA** | Planned | Record how motion should feel and behave in a specific product. |
-| **Inspector** | Planned | Find motion and accessibility issues on real routes and compare evidence before and after. |
+| **Motion DNA** | Available in Build | Set timing, easing, page transitions and reduced motion for each managed project. |
+| **Inspector** | Available in Build | Check layout, accessibility and page search in the live preview at mobile, tablet and desktop sizes. |
 
 Run `npm run brain:index` in a prepared workspace to search or ask for a recommendation. [Brain V1 CLI and evidence](docs/BRAIN-V1.md)
 
@@ -74,8 +74,9 @@ The prepared Studio includes pinned React originals and standalone HTML examples
 With Node 24 and pnpm 10.30.3, install the platform and open the editor:
 
 ```sh
+npm ci
 pnpm --dir platform install --frozen-lockfile --ignore-scripts
 npm run studio:build
 ```
 
-Open [Build](http://127.0.0.1:5200/build). Describe a sales or operations app and review the Codex Blueprint, or open **Sales CRM**, **Hotel Desk** or a blank canvas directly. Save the project and run the Next.js preview on macOS. **Export** downloads standalone Next.js source and **Export PWA** includes installation and offline support. The 500 originals and personal collections continue to use the Gallery served by `npm run studio`. [Tune Motion DNA](docs/BUILD-MOTION-DNA.md) · [Install and work offline](docs/BUILD-PWA.md) · [App Composer guide](docs/BUILD-COMPOSER-B3.md) · [Build architecture](docs/BUILD-ARCHITECTURE.md) · [Verification commands](docs/BUILD-QUALITY-GATES.md)
+Open [Build](http://127.0.0.1:5200/build). Describe a sales or operations app and review the Codex Blueprint, or open **Sales CRM**, **Hotel Desk** or a blank canvas directly. Save the project and run the Next.js preview on macOS. Use **Inspector** to audit a saved page across three screen sizes. **Export** downloads standalone Next.js source and **Export PWA** includes installation and offline support. The 500 originals and personal collections continue to use the Gallery served by `npm run studio`. [Inspect a page](docs/BUILD-INSPECTOR.md) · [Tune Motion DNA](docs/BUILD-MOTION-DNA.md) · [Install and work offline](docs/BUILD-PWA.md) · [App Composer guide](docs/BUILD-COMPOSER-B3.md) · [Build architecture](docs/BUILD-ARCHITECTURE.md) · [Verification commands](docs/BUILD-QUALITY-GATES.md)

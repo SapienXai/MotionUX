@@ -61,3 +61,7 @@ The PWA variant uses the same validated project and block implementations as the
 ## B5 Motion DNA
 
 The optional, versioned settings belong to the existing project document. The shared app frame maps validated durations and easing names to CSS tokens for the Studio canvas, the Next preview, and both export formats. The manifest records the configured profile and the shared CSS resolves the viewer's current reduced-motion preference. Loading an older document doesn't write a migration or change its digest. See [Motion DNA](BUILD-MOTION-DNA.md).
+
+## B6 Inspector
+
+The editor requests a read-only snapshot of one page from an active Run. The preview host matches the project ID, revision and document digest before spawning a bounded local Chromium worker. Fresh contexts measure the actual page, run axe and exercise the shared page search. The worker produces structured viewport findings for Studio. The worker and report UI stay outside the generated application tree. See [Inspector](BUILD-INSPECTOR.md).

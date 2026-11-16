@@ -38,6 +38,7 @@ import "@puckeditor/core/puck.css";
 import { RenderBlock } from "@motionux/app-blocks";
 import { AppFrame } from "@motionux/app-blocks/frame";
 import { MotionDnaFields } from "./motion-dna-fields";
+import { RuntimeInspector } from "./runtime-inspector";
 import {
   allBlocks,
   blockSchema,
@@ -274,10 +275,12 @@ async function request<T>(
   path = "",
   method = "GET",
   body?: unknown,
+  signal?: AbortSignal,
 ): Promise<T> {
   const result = await fetch("/api/build" + path, {
     method,
     cache: "no-store",
+    signal,
     headers: {
       "X-MotionUX-Build": "1",
       ...(body !== undefined ? { "Content-Type": "application/json" } : {}),
@@ -693,7 +696,7 @@ export function Editor({
             {id === "left"
               ? "Library"
               : id === "right"
-                ? "Inspector"
+                ? "Properties"
                 : "Canvas"}
           </button>
         ))}
@@ -826,6 +829,18 @@ export function Editor({
                       Open app <ExternalLink size={13} />
                     </a>
                   )}
+                {mode === "run" && previewOwned && preview.status === "ready" && (
+                  <RuntimeInspector
+                    key={saved.revision}
+                    pages={saved.document.pages}
+                    route={page.route}
+                    revision={saved.revision}
+                    disabled={dirty}
+                    inspect={(route, signal) =>
+                      request("/" + saved.id + "/inspect", "POST", { route, revision: saved.revision }, signal)
+                    }
+                  />
+                )}
                 {mode === "run" &&
                   ["building", "starting", "ready"].includes(
                     preview.status,
@@ -840,7 +855,7 @@ export function Editor({
                   )}
               </footer>
             </section>
-            <aside className="build-right" aria-label="Inspector">
+            <aside className="build-right" aria-label="Properties">
               <Properties
                 document={document}
                 page={page}
@@ -1223,7 +1238,7 @@ function Properties({
     <>
       <section className="build-panel-section">
         <div className="build-panel-title">
-          <h2>Inspector</h2>
+          <h2>Properties</h2>
         </div>
         {current ? (
           <>
