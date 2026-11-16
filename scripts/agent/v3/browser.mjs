@@ -4,13 +4,16 @@ import { chromium, firefox, webkit } from "playwright";
 import { expect } from "@playwright/test";
 import { AxeBuilder } from "@axe-core/playwright";
 import { writeFile } from "node:fs/promises";
-import { directory } from "../v2/files.mjs";
-import { output } from "./workspace.mjs";
+import { directory, vault } from "../v2/files.mjs";
 
 const [origin, route, fixture, phase, logs, mode] = process.argv.slice(2);
+const v4Run = logs?.startsWith(resolve(vault, "evidence", "agent-v4", "runs") + "/");
 assert(/^http:\/\/127\.0\.0\.1:\d{1,5}$/.test(origin));
 assert(["/details", "/"].includes(route) && ["next", "vite"].includes(fixture));
-assert(["before", "after", "restored"].includes(phase) && logs.startsWith(output + "/runs/"));
+assert(["before", "after", "restored"].includes(phase) && ["agent-v3", "agent-v4"].some(version => {
+  const prefix = resolve(vault, "evidence", version, "runs") + "/";
+  return logs.startsWith(prefix) && /^[a-f0-9]{32}(?:\/restored-rechecks\/[a-f0-9]{32})?$/.test(logs.slice(prefix.length));
+}));
 await directory(logs);
 const integrated = phase === "after";
 const checks = [];
@@ -54,6 +57,11 @@ async function pageOf(browser, opts = {}) {
 
 const control = page => isNext ? integrated ? page.getByRole("button", { name: nextLabel }) : page.locator("summary").first() :
   page.getByRole(integrated ? "spinbutton" : "combobox", { name: pickerLabel });
+async function clickWheel(input, offset, touch = false) {
+  const box = await input.boundingBox();
+  assert(box);
+  await input[touch ? "tap" : "click"]({ position: { x: box.width / 2, y: box.height / 2 + offset } });
+}
 async function checkAction(page, touch = false, pointer = false) {
   const input = control(page);
   if (isNext) {
@@ -63,9 +71,7 @@ async function checkAction(page, touch = false, pointer = false) {
     if (integrated) await expect(input).toHaveAttribute("aria-expanded", "true");
   } else {
     if ((touch || pointer) && integrated) {
-      const box = await input.boundingBox();
-      assert(box);
-      await input[touch ? "tap" : "click"]({ position: { x: box.width / 2, y: box.height / 2 + 34 } });
+      await clickWheel(input, 34, touch);
     } else if (integrated) { await input.focus(); await input.press("ArrowUp"); }
     else await input.selectOption("10");
     await expect(page.locator("main strong")).toHaveText(option);
@@ -92,7 +98,8 @@ async function sample(page, action) {
   await action();
   const frames = await page.evaluate(() => window.motionuxFrames);
   const interval = frames.slice(1).map(([time], index) => time - frames[index][0]).sort((a, b) => a - b);
-  return { frames: frames.length, unique: new Set(frames.map(row => row[1])).size, p95FrameMs: interval[Math.ceil(interval.length * .95) - 1] };
+  return { frames: frames.length, unique: new Set(frames.map(row => row[1])).size, p95FrameMs: interval[Math.ceil(interval.length * .95) - 1],
+    ...(v4Run && { samples: [0, 6, 16, 33].map(i => ({ timeMs: frames[i][0] - frames[0][0], computed: frames[i][1] })) }) };
 }
 async function timing(browser, ctx, page) {
   const devtools = await ctx.newCDPSession(page);
@@ -114,15 +121,26 @@ try {
   const { ctx, page } = await pageOf(browser);
   await ctx.tracing.start({ screenshots: false, snapshots: true, sources: false });
   const measured = await timing(browser, ctx, page);
+  await page.keyboard.press("Tab");
+  await expect(control(page)).toBeFocused();
+  if (isNext) {
+    await page.keyboard.press("Tab");
+    await expect(control(page)).not.toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(control(page)).toBeFocused();
+  }
   const frames = await sample(page, () => checkAction(page, false, !isNext && integrated));
+  let secondaryFrames;
   if (integrated) {
     assert(frames.frames >= 12 && frames.unique >= 4, "No sampled visual progression from the upstream component");
     record("rendered-animation");
   }
   assert.deepEqual((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations.map(row => row.id), []);
   if (isNext) {
-    await control(page).press("Space");
-    await expect(page.getByText("Oda anahtarı", { exact: false })).toBeHidden();
+    secondaryFrames = await sample(page, async () => {
+      await control(page).press("Space");
+      await expect(page.getByText("Oda anahtarı", { exact: false })).toBeHidden();
+    });
     await control(page).press("Enter");
     await expect(page.getByText("Oda anahtarı", { exact: false })).toBeVisible();
     await page.screenshot({ path: resolve(logs, phase + "-desktop.png"), fullPage: true });
@@ -134,14 +152,22 @@ try {
   } else {
     await page.screenshot({ path: resolve(logs, phase + "-desktop.png"), fullPage: true });
     if (integrated) {
+      secondaryFrames = await sample(page, async () => {
+        await clickWheel(control(page), -34);
+        await expect(page.locator("main strong")).toHaveText("09:00");
+      });
       await control(page).press("ArrowUp");
-      await expect(page.locator("main strong")).toHaveText("11:00");
+      await expect(page.locator("main strong")).toHaveText("10:00");
       await expect(control(page)).toBeFocused();
       await control(page).press("End");
       await expect(page.locator("main strong")).toHaveText("14:00");
       await control(page).press("Home");
       await expect(page.locator("main strong")).toHaveText("08:00");
     }
+  }
+  if (integrated) {
+    assert(secondaryFrames?.unique >= 4, "The second direction did not produce visible animation: " + secondaryFrames?.unique);
+    record("rendered-animation-second-direction");
   }
   assert.deepEqual((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations.map(row => row.id), []);
   record("keyboard-focus-and-axe");
@@ -159,6 +185,18 @@ try {
     assert(await touch.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     await touch.ctx.close();
     record("touch-" + width);
+  }
+  if (v4Run) {
+    const starts = [measured.startupMs];
+    for (let i = 0; i < 4; i++) {
+      const fresh = await pageOf(browser);
+      try {
+        starts.push(await fresh.page.evaluate(() => performance.getEntriesByType("navigation")[0].domContentLoadedEventEnd));
+      } finally { await fresh.ctx.close(); }
+    }
+    starts.sort((a, b) => a - b);
+    measured.startupSamplesMs = starts;
+    measured.startupP95Ms = starts[Math.ceil(starts.length * .95) - 1];
   }
   if (integrated) {
     const reduced = await pageOf(browser, { reducedMotion: "reduce" });
@@ -183,7 +221,7 @@ try {
   }
   assert.deepEqual(faults, [], "Hydration or required resource failures");
   if (mode === "fault") assert.fail("Controlled browser acceptance failure");
-  await writeFile(resolve(logs, phase + "-browser.json"), JSON.stringify({ checks, measured, frames, unavailable: ["physical-device", "manual-screen-reader", "rtl", "live-backend"] }) + "\n", { flag: "wx", mode: 0o600 });
+  await writeFile(resolve(logs, phase + "-browser.json"), JSON.stringify({ checks, measured, frames, secondaryFrames, unavailable: ["physical-device", "manual-screen-reader", "rtl", "live-backend"] }) + "\n", { flag: "wx", mode: 0o600 });
 } finally {
   await browser?.close();
 }

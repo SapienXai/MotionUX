@@ -81,9 +81,9 @@ async function restore(review, state, before, after, checkLock) {
   }
 }
 
-export async function apply(run, authority, capability, { signal, check = fresh, fault } = {}) {
+async function applyAuthorized(run, claim, { signal, check = fresh, fault } = {}) {
   const review = await loadReview(run);
-  const grant = claimFixtureGrant(authority, capability, review);
+  const grant = await claim(review);
   return locked(run, false, async checkLock => {
     if (await exists(journalPath(run))) stop("existing-run", "This reviewed run has already been used.");
     const root = await assertRoot(review);
@@ -93,12 +93,12 @@ export async function apply(run, authority, capability, { signal, check = fresh,
       cancelled(signal);
       await checkLock();
       const active = await loadReview(run);
-      grant(active);
+      await grant(active);
       await check(active, signal);
       if (await assertRoot(review) !== root) stop("identity-mismatch", "Target changed.");
       sameTree(await scan(root), expected);
       await checkLock();
-      grant(await loadReview(run));
+      await grant(await loadReview(run));
     };
     await guard();
     let state = await record(review, null, "authorized-fixture", "Single-use grant bound to this run, target identity, source and manifest.");
@@ -132,6 +132,15 @@ export async function apply(run, authority, capability, { signal, check = fresh,
   }, locks);
 }
 
+export function apply(run, authority, capability, options) {
+  return applyAuthorized(run, review => claimFixtureGrant(authority, capability, review), options);
+}
+
+export async function applyHostFixture(run, capability, options) {
+  const { claimHostFixture } = await import("../v4/bridge.mjs");
+  return applyAuthorized(run, review => claimHostFixture(capability, review), options);
+}
+
 export async function verify(run, testBuilds, { signal, check = fresh } = {}) {
   const review = await loadReview(run);
   return locked(run, false, async checkLock => {
@@ -148,6 +157,8 @@ export async function verify(run, testBuilds, { signal, check = fresh } = {}) {
         stop("verification-failed", "The two real build and browser reports are required.");
       }
       await checkLock();
+      cancelled(signal);
+      await check(await loadReview(run), signal);
       cancelled(signal);
       sameTree(await scan(await assertRoot(review)), after);
       return { journal: await record(review, state, "verified", "Explicit browser and production build gates passed."), evidence, failure: null };

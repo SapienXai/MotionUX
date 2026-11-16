@@ -70,7 +70,7 @@ export async function verifyBuild(review, tree, phase, signal, options) {
   return slot(() => isolatedBuild(review, tree, phase, signal, options));
 }
 
-export async function preflightPackages(review, tree, signal) {
+export async function preflightPackages(review, tree, signal, logs = runFolder(review.runId)) {
   return slot(async () => {
     const scratch = resolve(base, "scratch");
     await directory(scratch, true);
@@ -79,7 +79,7 @@ export async function preflightPackages(review, tree, signal) {
     const names = ["package.json", "package-lock.json"];
     try {
       await materialize(cwd, { files: new Map(names.map(name => [name, tree.files.get(name)])), dirs: new Map() }, scan);
-      const result = await npm(["ci"], { cwd, logs: runFolder(review.runId), logName: "preflight-npm-ci", signal });
+      const result = await npm(["ci"], { cwd, logs, logName: "preflight-npm-ci", signal });
       for (const name of names) {
         if ((await file(resolve(cwd, name)))?.sha256 !== tree.files.get(name).sha256) {
           stop("incompatible", "npm changed one of the reviewed dependency images.");
@@ -94,9 +94,9 @@ export async function preflightPackages(review, tree, signal) {
   });
 }
 
-export async function recheck(review, journal, signal, fault = false) {
+export async function recheck(review, journal, signal, fault = false, folder = runFolder(review.runId)) {
   const root = await assertRoot(review);
-  return recheckRestored(review, journal, signal, { root, folder: runFolder(review.runId),
+  return recheckRestored(review, journal, signal, { root, folder,
     readTree: async () => scan(await assertRoot(review)),
     verify: (_id, tree, phase, during, { logs }) => verifyBuild(review, tree, phase, during, { logs, fault }) });
 }

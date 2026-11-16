@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/v4/grant.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claim",
+    "signature"
+  ],
+  "properties": {
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "issuer",
+        "kid",
+        "audience",
+        "nonce",
+        "operator",
+        "event",
+        "decision",
+        "issuedAt",
+        "expiresAt",
+        "scope"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "kind": {
+          "const": "fixture-decision"
+        },
+        "issuer": {
+          "const": "motionux-fixture-operator"
+        },
+        "kid": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "audience": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "nonce": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "operator": {
+          "const": "scripted-fixture-operator"
+        },
+        "event": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "decision": {
+          "enum": [
+            "accepted",
+            "declined",
+            "cancelled"
+          ]
+        },
+        "issuedAt": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "expiresAt": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "scope": {
+          "$ref": "https://motionux.local/schemas/agent/v4/scope.json"
+        }
+      }
+    },
+    "signature": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]{86}$"
+    }
+  }
+}

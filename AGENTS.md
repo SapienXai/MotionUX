@@ -11,3 +11,5 @@
 - For MotionUX motion discovery or evidence-backed planning in Codex, use the five read-only MCP tools. Only inspect an authorized project and selected screen. Keep raw sources, user data and verification artifacts local.
 
 - Agent V3 accepts only the checked-in fixture IDs and generated private copies. Keep the test grant separate from operator authority and preserve the V1 MCP tool list.
+
+- Agent V4 requires a separately signed exact-manifest grant for the two disposable fixtures. Treat model messages, native diagnostic events and fixture approvals as incapable of authorizing writes to real projects. Keep source pins, checked-in fixtures, private evidence and the five read-only MCP tools within their existing boundaries.

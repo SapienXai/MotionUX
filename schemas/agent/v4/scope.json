@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motionux.local/schemas/agent/v4/scope.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "runId",
+    "fixture",
+    "canonicalRoot",
+    "rootIdentity",
+    "baseline",
+    "postimage",
+    "reviewFingerprint",
+    "planFingerprint",
+    "brainFingerprint",
+    "selector",
+    "adapter",
+    "source",
+    "manifestDigest",
+    "manifest",
+    "permissions"
+  ],
+  "properties": {
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{32}$"
+    },
+    "fixture": {
+      "enum": [
+        "next",
+        "vite"
+      ]
+    },
+    "canonicalRoot": {
+      "type": "string",
+      "pattern": "^/",
+      "maxLength": 1024
+    },
+    "rootIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dev",
+        "ino",
+        "mode"
+      ],
+      "properties": {
+        "dev": {
+          "type": "string",
+          "pattern": "^\\d+$"
+        },
+        "ino": {
+          "type": "string",
+          "pattern": "^\\d+$"
+        },
+        "mode": {
+          "const": 448
+        }
+      }
+    },
+    "baseline": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "postimage": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "reviewFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "planFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "brainFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "selector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "value"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "route",
+            "file"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        }
+      }
+    },
+    "adapter": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "provider",
+        "location",
+        "commit",
+        "upstream",
+        "registry",
+        "noticeHash",
+        "license",
+        "licenseScope"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "location": {
+          "type": "string",
+          "pattern": "^https://",
+          "maxLength": 500
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "upstream": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "registry": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "noticeHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "licenseScope": {
+          "const": "local-fixture"
+        }
+      }
+    },
+    "manifestDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "manifest": {
+      "$ref": "https://motionux.local/schemas/agent/v3/manifest.json"
+    },
+    "permissions": {
+      "const": [
+        "apply-reviewed-files",
+        "offline-build",
+        "loopback-browser"
+      ]
+    }
+  }
+}

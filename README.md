@@ -39,6 +39,7 @@ An animation can clarify where you are, confirm an action, or help you follow a 
 | **Brain** | Available locally | Search in Turkish and English, review evidence, and choose stillness when it fits. |
 | **Agent** | Available locally · read-only | Inspect a selected route and get a source-linked motion plan, risks and proposed tests. |
 | **Agent V3** | Local fixtures | Verify a pinned original in independent Next.js and React/Vite fixtures, with a reviewed write set and fresh rollback checks. |
+| **Agent V4** | Local fixtures | Review the exact changes, verify a signed fixture decision and rebuild the restored screen. Real project writes remain disabled. |
 | **Codex MCP** | Available locally · read-only | Search originals, inspect source evidence and plan motion on an authorized screen from a normal Codex session. |
 | **Motion DNA** | Planned | Record how motion should feel and behave in a specific product. |
 | **Inspector** | Planned | Find motion and accessibility issues on real routes and compare evidence before and after. |
@@ -49,7 +50,7 @@ Run `npm run brain:index` in a prepared workspace to search or ask for a recomme
 
 > Use MotionUX to review the booking fixture’s confirmation screen. Suggest calm feedback that reflects the real reservation status and explain which checks we should run before integrating it.
 
-[Connect MotionUX to Codex](docs/MCP-V1.md) · [Agent V1 quick start](docs/AGENT-V1.md) · [Agent V2 fixture integration and rollback](docs/AGENT-V2.md) · [Agent V3 fixture integration](docs/AGENT-V3.md) · [Read the product roadmap](docs/ROADMAP.md)
+[Connect MotionUX to Codex](docs/MCP-V1.md) · [Agent V1 quick start](docs/AGENT-V1.md) · [Agent V2 fixture integration and rollback](docs/AGENT-V2.md) · [Agent V3 fixture integration](docs/AGENT-V3.md) · [Agent V4 change review](docs/AGENT-V4.md) · [Read the product roadmap](docs/ROADMAP.md)
 
 ## Get started
 

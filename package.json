@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test:unit": "node --test tests/*.test.mjs",
-    "test": "npm run test:brain && npm run test:agent && npm run test:agent:v2 && npm run test:agent:v3 && npm run mcp:test && playwright test",
+    "test": "npm run test:brain && npm run test:agent && npm run test:agent:v2 && npm run test:agent:v3 && npm run test:agent:v4 && npm run mcp:test && playwright test",
     "test:usage": "node scripts/recipe-registry.mjs --check && node scripts/update-usage-templates.mjs --check && node scripts/verify-usage.mjs",
     "verify": "npm run lint && npm run typecheck && npm run registry:build && npm run test:unit && npm run test:usage && npm run build && npm test",
     "sources:inspect": "node scripts/v9/inspect-reference.mjs",
@@ -71,7 +71,18 @@
     "agent:v3:rollback": "node scripts/agent/v3/cli.mjs rollback",
     "agent:v3:evaluate": "node scripts/agent/v3/cli.mjs evaluate",
     "agent:v3:seed-cache": "node scripts/agent/v3/cache.mjs",
-    "test:agent:v3": "node --test scripts/agent/v3/*.test.mjs"
+    "test:agent:v3": "node --test scripts/agent/v3/*.test.mjs",
+    "agent:v4:doctor": "node scripts/agent/v4/cli.mjs doctor",
+    "agent:v4:review": "node scripts/agent/v4/cli.mjs review",
+    "agent:v4:dry-run": "node scripts/agent/v4/cli.mjs dry-run",
+    "agent:v4:diff": "node scripts/agent/v4/cli.mjs diff",
+    "agent:v4:host-check": "node scripts/agent/v4/cli.mjs host-check",
+    "agent:v4:fixture-evaluate": "node scripts/agent/v4/cli.mjs fixture-evaluate",
+    "agent:v4:status": "node scripts/agent/v4/cli.mjs status",
+    "agent:v4:rollback": "node scripts/agent/v4/cli.mjs rollback",
+    "agent:v4:evaluate": "node scripts/agent/v4/cli.mjs evaluate",
+    "agent:v4:probe-codex": "node scripts/agent/v4/probe-codex.mjs",
+    "test:agent:v4": "node --test scripts/agent/v4/*.test.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "5.3.0",
