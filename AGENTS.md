@@ -13,3 +13,6 @@
 - Agent V3 accepts only the checked-in fixture IDs and generated private copies. Keep the test grant separate from operator authority and preserve the V1 MCP tool list.
 
 - Agent V4 requires a separately signed exact-manifest grant for the two disposable fixtures. Treat model messages, native diagnostic events and fixture approvals as incapable of authorizing writes to real projects. Keep source pins, checked-in fixtures, private evidence and the five read-only MCP tools within their existing boundaries.
+
+- Before changing Build, read PRODUCT.md and docs/BUILD-ARCHITECTURE.md, BUILD-DESIGN-SYSTEM.md, BUILD-SECURITY.md and BUILD-QUALITY-GATES.md. Use registered, verified blocks with pinned provenance and export rights. Render real components in the editor and run actual Next.js for preview.
+- Build writes only to explicitly created managed projects. Preserve the 500-source Studio, the V4 real-project write boundary and the five read-only MCP tools. Run browser, accessibility, performance, export and regression checks. Clean temporary builds and keep vault growth within the documented budget.

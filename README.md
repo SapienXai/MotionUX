@@ -40,6 +40,7 @@ An animation can clarify where you are, confirm an action, or help you follow a 
 | **Agent** | Available locally · read-only | Inspect a selected route and get a source-linked motion plan, risks and proposed tests. |
 | **Agent V3** | Local fixtures | Verify a pinned original in independent Next.js and React/Vite fixtures, with a reviewed write set and fresh rollback checks. |
 | **Agent V4** | Local fixtures | Review the exact changes, verify a signed fixture decision and rebuild the restored screen. Real project writes remain disabled. |
+| **MotionUX Build** | Local workspace | Compose an app with registered blocks, preview the saved project in Next.js and export its source. |
 | **Codex MCP** | Available locally · read-only | Search originals, inspect source evidence and plan motion on an authorized screen from a normal Codex session. |
 | **Motion DNA** | Planned | Record how motion should feel and behave in a specific product. |
 | **Inspector** | Planned | Find motion and accessibility issues on real routes and compare evidence before and after. |
@@ -66,3 +67,15 @@ npm run studio
 The prepared Studio includes pinned React originals and standalone HTML examples in sandboxed React hosts. GitHub contains the Studio, source references and the public registry. Original payloads and previews are prepared locally in the ignored `.motionux-v9/` vault. Each original retains its upstream attribution and applicable notices. The public `v1.0.0` registry has its own four stable MotionUX entries under the MIT license. [Local originals](docs/V14-ORIGINALS.md) · [Public registry](docs/COMPONENTS.md) · [MotionUX license](LICENSE)
 
 [Design principles](docs/DESIGN-PRINCIPLES.md) · [Quality gates](docs/QUALITY-GATES.md) · [Studio scaling evidence](docs/V13-1-PERFORMANCE.md)
+
+
+## Build a local app
+
+With Node 24 and pnpm 10.30.3, install the platform and open the editor:
+
+```sh
+pnpm --dir platform install --frozen-lockfile --ignore-scripts
+npm run studio:build
+```
+
+Open [Build](http://127.0.0.1:5200/build), choose **New Hotel Desk**, and select a block to edit it. Save the project, run the real Next.js preview on macOS, or export the standalone app source. The 500 originals and personal collections continue to use the Gallery served by `npm run studio`. [Build architecture](docs/BUILD-ARCHITECTURE.md) · [Verification commands](docs/BUILD-QUALITY-GATES.md)

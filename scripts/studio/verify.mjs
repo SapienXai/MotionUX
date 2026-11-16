@@ -10,8 +10,9 @@ import { sha256 } from "./v11/identity.mjs";
 
 import { collectGalleryOrder, expectGalleryCount } from "./gallery-checks.mjs";
 
-const origin = "http://127.0.0.1:5199";
-const evidence = resolve(".motionux-v9/evidence/v10");
+const foundation = process.argv.includes("--build-foundation");
+const origin = foundation ? "http://127.0.0.1:5299" : "http://127.0.0.1:5199";
+const evidence = resolve(foundation ? ".motionux-v9/evidence/build-v1/legacy-comparisons" : ".motionux-v9/evidence/v10");
 const galleryOnly = process.argv.includes("--gallery-only");
 const report = { gallery: [], deepLinks: [], browsers: [], comparisons: [], failures: [] };
 const base = { viewport: { width: 1536, height: 1024 } };

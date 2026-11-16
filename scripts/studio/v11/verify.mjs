@@ -12,7 +12,8 @@ import { verifySourceBaseline } from "./identity.mjs";
 import { loadCatalog, vault } from "../catalog.mjs";
 import { expectGalleryCount } from "../gallery-checks.mjs";
 
-const output = resolve(vault, "evidence/v11/current");
+const foundation = process.argv.includes("--build-foundation");
+const output = resolve(vault, foundation ? "evidence/build-v1/legacy-library" : "evidence/v11/current");
 await mkdir(output, { recursive: true, mode: 0o700 });
 const library = await mkdtemp(resolve(output, "library-fixture-"));
 const allocator = createServer();
@@ -27,7 +28,7 @@ let child;
 
 async function start() {
   child = spawn(process.execPath, ["scripts/v9/serve.mjs"], { stdio: ["ignore", "pipe", "pipe"],
-    env: { ...process.env, MOTIONUX_LIBRARY_FIXTURE: library, MOTIONUX_FIXTURE_PORT: String(port), MOTIONUX_STUDIO_SHELL: resolve(vault, "studio-shell") } });
+    env: { ...process.env, MOTIONUX_LIBRARY_FIXTURE: library, MOTIONUX_FIXTURE_PORT: String(port), MOTIONUX_STUDIO_SHELL: resolve(vault, foundation ? "evidence/build-v1/legacy-build" : "studio-shell") } });
   let diagnostic = "";
   child.stderr.on("data", chunk => { diagnostic += chunk.toString(); });
   child.stdout.resume();

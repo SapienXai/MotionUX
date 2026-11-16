@@ -1,0 +1,9 @@
+# Build security
+
+Studio writes a validated versioned document under a server-generated project ID in the ignored vault. Document text is data. It cannot name a filesystem target, import, command, external image or executable component. The app registry distinguishes owned exportable blocks from private originals, which are excluded from exports.
+
+The local HTTP API requires the configured loopback host and an exact browser origin for mutations. Project writes check the saved revision and preserve the prior verified document for recovery. Generated apps receive only the explicitly exported project document and registered source. The existing Agent V4 and MCP boundaries also apply to Build.
+
+Only the Build launcher configures the canonical repository path. The HTTP API accepts project IDs and typed data; its mutation gate checks exact host, fetch site and destination, origin and a custom request header. ZIP paths come from the generator’s fixed catalog. Store directories require mode 0700 and regular single-link documents require mode 0600. Recovery verifies the backup before restoring it.
+
+On macOS, Preview executes fixed Next production commands under the system sandbox with a sanitized process environment. The build has no network. The runtime is limited to one loopback port and accepts GET and HEAD on its exact host. The iframe allows scripts, same-origin APIs and forms inside the distinct origin; it grants no top-level navigation. The preview response restricts framing to Studio and supplies an app CSP. Studio and the frame exchange no messages. One preview can be active, can be stopped explicitly, and expires after eight minutes. A watchdog limits build time, process-group memory and scratch bytes. Only trusted generated source runs in this lane; an arbitrary host or same-account process is outside this trust boundary.

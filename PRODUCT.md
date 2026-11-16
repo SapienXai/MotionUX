@@ -20,3 +20,9 @@ MotionUX distributes individual source files through its shadcn GitHub registry.
 - Use motion to make position, state or action feedback easier to understand.
 - Preserve keyboard, touch and reduced-motion controls.
 - Show verification status and source rights for each reference.
+
+## Visual application studio
+
+MotionUX helps design engineers and Codex users build managed web apps with proven components. The daily workflow is to discover an interaction, assemble typed blocks, inspect the real app at different sizes and export readable source. The Gallery, Playground, My Library and Project Kit remain useful on their own.
+
+Build uses a versioned document, a local project vault and an owned block registry. The editor, renderer and exporter share that document. The hotel template uses local demo data and has no access to reservations, payments or customer systems. Full-app composition from a prompt, backend integration, offline PWA and collaboration are future tracks. Real project writes remain disabled.

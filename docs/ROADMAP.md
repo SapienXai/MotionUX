@@ -124,3 +124,18 @@ Track reviewed scenario success and abstention quality, time from request to a u
 4. Add fault cases for unauthorized writes, stale plans, partial application, drift, cancellation and recovery. Keep the public/private source boundary and the read-only MCP surface unless a later capability is separately designed and approved.
 
 Motion DNA and the runtime Inspector remain later phases. [Agent V2 contract and safety model](AGENT-V2.md) · [MCP V1 project scope](MCP-V1.md)
+
+## Build track
+
+| Stage | Capability | Gate |
+| --- | --- | --- |
+| B0 | Next Studio with a pnpm workspace | Native Build routes and preserved Vite Gallery deep links |
+| B1 | App Blocks | Functional, versioned blocks with source rights and browser evidence |
+| B2 | Build Canvas | Edit, save, preview in Next.js and export the same document |
+| B3 | Codex App Composer | Validated local brief-to-plan for a new managed project |
+| B4 | Responsive Web/PWA Builder | Installability, truthful offline behavior and physical-device review |
+| B5 | Motion DNA | Per-product timing, accessibility and token policies |
+| B6 | Inspector | Reproducible layout, accessibility and interaction regression analysis |
+| B7 | Real-project integration | Independently verified host authorization and isolation |
+
+B0–B2 are available locally in Foundation V1 with 31 owned blocks, a managed canvas, macOS runtime preview and standalone Next.js export. B3–B7, public hosting, accounts and collaboration are planned. [Build architecture](BUILD-ARCHITECTURE.md)

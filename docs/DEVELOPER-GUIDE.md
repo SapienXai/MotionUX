@@ -97,3 +97,9 @@ Open **Install** in an original’s Playground to copy the local shadcn command.
 The **97-item public registry** includes six dedicated Gallery presets and five recipe families that supply the other 76 Studio examples. Consumer checks install the pinned packages and build generated examples in a separate React project. The acceptance report records the reference sweep, screenshot comparisons, sampled motion and outstanding device and component checks. [V8 acceptance report](V8-ACCEPTANCE.md) · [GitHub Actions](https://github.com/SapienXai/MotionUX/actions/workflows/ci.yml?query=branch%3Amain) · [Registry verification](VERIFICATION.md)
 
 MotionUX is MIT licensed. Adapted components retain their upstream notices. [License](../LICENSE) · [Source review](SOURCE-REVIEW.md) · [Changelog](../CHANGELOG.md)
+
+## Next Studio and Build
+
+Use Node 24 and pnpm 10.30.3 for the platform. Install with `pnpm --dir platform install --frozen-lockfile --ignore-scripts` and run `npm run studio:build` from the repository root. Native app routes live on `127.0.0.1:5200`. Start the existing private Gallery with `npm run studio` on `127.0.0.1:5199` to use the catalog and library links. Both applications link directly without embedding the legacy shell.
+
+The managed project selector can open or recover a project, and exports apply to the last saved revision. Run uses a separate loopback origin on macOS. Exported projects carry their own npm lockfile and can be run from an independent directory. See [architecture](BUILD-ARCHITECTURE.md) and [quality gates](BUILD-QUALITY-GATES.md).

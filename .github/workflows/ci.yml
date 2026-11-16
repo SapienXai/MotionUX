@@ -67,3 +67,25 @@ jobs:
           name: motionux-consumer-${{ matrix.scope }}
           path: test-results/consumer-parity/
           if-no-files-found: ignore
+
+  build-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: "10.30.3"
+      - run: npm ci --ignore-scripts
+      - run: pnpm --dir platform install --frozen-lockfile --ignore-scripts
+      - run: pnpm --dir platform test
+      - run: pnpm --dir platform typecheck
+      - run: pnpm --dir platform build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+      - run: npx playwright install --with-deps chromium
+      - run: node platform/tests/browser.mjs
