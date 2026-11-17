@@ -149,11 +149,11 @@ export async function inspect(browser, origin, project, label, format, sourceAss
   async function inspectVideo() {
     const usage = program.usages.find(({ source }) => source === "magicui-hero-video-dialog");
     assert(usage);
-    await page.goto(origin + usage.route);
+    await page.goto(origin + usage.route, { waitUntil: "networkidle" });
     const play = page.getByRole("button", { name: "Play video", exact: true });
-    await play.focus();
-    await page.keyboard.press("Enter");
-    const dialog = page.getByRole("dialog", { name: "Hero video" });
+    await play.press("Enter");
+    const dialog = page.getByRole("dialog").filter({ has: page.getByRole("button", { name: "Close video" }) });
+    await expect(dialog).toHaveAccessibleName(/\S/);
     await expect(dialog.getByRole("button", { name: "Close video" })).toBeFocused();
     const video = dialog.locator("video");
     await video.evaluate((element) => element.play());
