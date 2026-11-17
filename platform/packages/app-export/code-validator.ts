@@ -23,7 +23,7 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
   function fail(path: string, message: string): never { throw new BuildError(422, path + ": " + message); }
   for (const { path, content } of proposal.files) {
     if (path.endsWith(".css")) {
-      if (/@(?:import|font-face|plugin|config)|expression\s*\(|url\s*\(/i.test(content))
+      if (/\\/.test(content) || /@(?:import|font-face|plugin|config)|expression\s*\(|url\s*\(/i.test(content))
         fail(path, "Import fonts and reviewed assets through the host. CSS cannot introduce external resources.");
       if (/(?:^|[\s,{}>+~])(?:html|body|:root)\s*\{/i.test(content))
         fail(path, "Scope application styles to .app. The host owns document margins.");
@@ -39,6 +39,8 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
       }).getTypeChecker();
       return Boolean(checker.getSymbolAtLocation(node));
     }
+    if (file.referencedFiles.length || file.typeReferenceDirectives.length || file.libReferenceDirectives.length)
+      fail(path, "Compiler reference directives cannot expand the pinned import graph.");
     const diagnostics = (file as ts.SourceFile & { parseDiagnostics: ts.Diagnostic[] }).parseDiagnostics;
     if (diagnostics.length) fail(path, ts.flattenDiagnosticMessageText(diagnostics[0].messageText, " "));
     const local: string[] = [];
@@ -72,8 +74,15 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
       const names: string[] = [];
       if (statement.importClause.name) names.push(statement.importClause.name.text);
       const bindings = statement.importClause.namedBindings;
-      if (bindings && ts.isNamedImports(bindings))
-        names.push(...bindings.elements.filter((item) => !item.isTypeOnly).map((item) => item.name.text));
+      if (bindings && ts.isNamedImports(bindings)) {
+        const source = available.get(absolute.slice(8))!;
+        for (const item of bindings.elements.filter((item) => !item.isTypeOnly)) {
+          const original = (item.propertyName ?? item.name).text;
+          if (!source.exports.includes(original) && !new RegExp("(?:interface|type)\\s+" + original + "\\b").test(source.types))
+            fail(path, "The source does not export " + original + ". Available runtime exports: " + source.exports.join(", "));
+          names.push(item.name.text);
+        }
+      }
       if (bindings && ts.isNamespaceImport(bindings)) names.push(bindings.name.text);
       runtimeBindings.set(absolute.slice(8), names);
     }
@@ -102,6 +111,10 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
     imports.set(path, local);
     sourceImports.set(path, ownSources);
     function inspect(node: ts.Node) {
+      if (ts.isStringLiteralLike(node) && /^(?:https?:|file:|data:|javascript:|\/\/)/i.test(node.text))
+        fail(path, "Generated resources and navigation must stay inside the application.");
+      if (ts.isPropertyAccessExpression(node) && node.expression.getText(file) === "window" && node.name.text === "open")
+        fail(path, "Use an in-application route link for navigation.");
       if (ts.isElementAccessExpression(node)) {
         const receiver = node.expression.getText(file);
         const key = node.argumentExpression;
@@ -125,7 +138,10 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
         fail(path, "Cross-window capability access is forbidden.");
       if (ts.isJsxAttribute(node)) {
         const name = node.name.getText(file);
-        if (["action", "formAction", "target", "srcDoc"].includes(name)) fail(path, "Unsupported executable or navigation attribute.");
+        const element = node.parent.parent;
+        const tag = ts.isJsxOpeningElement(element) || ts.isJsxSelfClosingElement(element) ? element.tagName.getText(file) : "";
+        const intrinsic = /^[a-z][a-z0-9-]*$/.test(tag);
+        if (intrinsic && ["action", "formAction", "target", "srcDoc"].includes(name)) fail(path, "Unsupported native attribute " + name + " on " + tag + ".");
         if (["src", "href", "srcSet", "poster"].includes(name) && node.initializer && ts.isStringLiteral(node.initializer)) {
           if (/^(?:[a-z]+:|\/\/)/i.test(node.initializer.text) || node.initializer.text.startsWith("/api")) fail(path, "Links and assets must stay inside the exported application.");
         }

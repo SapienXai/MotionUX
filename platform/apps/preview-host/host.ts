@@ -534,7 +534,7 @@ export async function verifySourcePreview(repo: string, project: BuildProject, s
   }
   try {
     const { stdout } = await exec(process.execPath, [resolve(repo, "platform/apps/preview-host/verify-source-browser.mjs")], {
-      cwd: repo, timeout: 45_000, maxBuffer: 96_000,
+      cwd: repo, timeout: 90_000, maxBuffer: 96_000,
       signal: AbortSignal.any([signal, session.abort.signal]),
       env: {
         NODE_ENV: "production", PATH: dirname(process.execPath) + ":/usr/bin:/bin",

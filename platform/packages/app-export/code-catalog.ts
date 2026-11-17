@@ -7,14 +7,15 @@ import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
 import type { Intent } from "@motionux/build-core/source-graph";
 import type { CodePin } from "@motionux/build-core/code-project";
 
-type Pin = { path: string; sha256: string; installedSHA256?: string };
+type Pin = { path: string; upstreamPath?: string; sha256: string; installedSHA256?: string };
 type Entry = {
   id: string; provider: string; title: string; repo?: string; entry: string; upstreamHash: string; upstreamCommit?: string;
   installRecipe: string; licenseNoticePath?: string; sourceURL: string; format?: string; sourceKind?: string;
   codeFiles: Pin[]; css?: string[]; assets?: { path: string; sha256: string }[];
 };
 export type SourceModule = {
-  pin: CodePin; files: Record<string, string>; hashes: Record<string, string>; patches: { file: string; reason: string }[];
+  pin: CodePin; files: Record<string, string>; hashes: Record<string, string>; upstreamHashes: Record<string, string>;
+  preparationPatches: { file: string; upstream: string; prepared: string; reason: string }[]; patches: { file: string; reason: string }[];
   exports: string[]; types: string; packages: string[]; css: string[]; api: string; example: string;
 };
 export type InventoryRow = {
@@ -57,13 +58,15 @@ export function analyzeModule(path: string, code: string) {
     const flags = ts.canHaveModifiers(statement) ? ts.getModifiers(statement) : undefined;
     if (ts.isExportAssignment(statement)) exports.push("default");
     if (flags?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword)) {
-      if (flags.some((modifier) => modifier.kind === ts.SyntaxKind.DefaultKeyword)) exports.push("default");
-      if ("name" in statement && statement.name && ts.isIdentifier(statement.name as ts.Node)) exports.push((statement.name as ts.Identifier).text);
+      const isDefault = flags.some((modifier) => modifier.kind === ts.SyntaxKind.DefaultKeyword);
+      if (isDefault) exports.push("default");
+      else if (!ts.isInterfaceDeclaration(statement) && !ts.isTypeAliasDeclaration(statement) &&
+        "name" in statement && statement.name && ts.isIdentifier(statement.name as ts.Node)) exports.push((statement.name as ts.Identifier).text);
       if (ts.isVariableStatement(statement)) for (const declaration of statement.declarationList.declarations)
         if (ts.isIdentifier(declaration.name)) exports.push(declaration.name.text);
     }
-    if (ts.isExportDeclaration(statement) && statement.exportClause && ts.isNamedExports(statement.exportClause))
-      exports.push(...statement.exportClause.elements.map((element) => element.name.text));
+    if (ts.isExportDeclaration(statement) && !statement.isTypeOnly && statement.exportClause && ts.isNamedExports(statement.exportClause))
+      exports.push(...statement.exportClause.elements.filter((element) => !element.isTypeOnly).map((element) => element.name.text));
     if (ts.isInterfaceDeclaration(statement) || ts.isTypeAliasDeclaration(statement)) declarations.push(statement.getText(file));
   }
   return { imports: [...new Set(imports)], exports: [...new Set(exports)], types: declarations.join("\n").slice(0, 9500), forbidden: [...new Set(forbidden)] };
@@ -115,6 +118,8 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
   const license = rights(notice);
   const files: Record<string, string> = {};
   const hashes: Record<string, string> = {};
+  const upstreamHashes: Record<string, string> = {};
+  const preparationPatches: SourceModule["preparationPatches"] = [];
   const packages = new Set<string>();
   const patches: SourceModule["patches"] = [];
   const styles: string[] = [];
@@ -124,6 +129,10 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
     let code = pinned(path);
     files[path] = code;
     hashes[path] = fingerprint(code);
+    upstreamHashes[path] = pins.get(path)!.sha256;
+    if (hashes[path] !== upstreamHashes[path]) preparationPatches.push({
+      file: path, upstream: upstreamHashes[path], prepared: hashes[path], reason: "Pinned source preparation adaptation retained from the vault.",
+    });
     if (path.endsWith(".svg")) {
       if (/<(?:script|foreignObject|iframe)|\bon[a-z]+\s*=|(?:href|src)\s*=\s*["'](?:https?:|data:|javascript:|\/\/)/i.test(code))
         throw new Error("unsupported-asset: active SVG");
@@ -181,7 +190,7 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
   const example = examplePath ? pinned(examplePath) : "";
   const closure = fingerprint(canonical({ files, hashes, patches, packages: [...packages].sort(), license }));
   return { pin: { id: item.id, title: item.title, provider: item.provider, revision: item.upstreamCommit!, url: item.sourceURL,
-    entry: item.entry, closure, license, fidelity: patches.length ? "source-adapted" : "upstream-original" }, files, hashes, patches, exports: api.exports, types: api.types, packages: [...packages].sort(),
+    entry: item.entry, closure, license, fidelity: patches.length || preparationPatches.length ? "source-adapted" : "upstream-original" }, files, hashes, upstreamHashes, preparationPatches, patches, exports: api.exports, types: api.types, packages: [...packages].sort(),
     css: styles, api: entry, example: example.length < 20_000 ? example : "" };
 }
 
@@ -197,7 +206,7 @@ export async function inspectCodeCatalog(repo: string) {
       const source = await resolveModule(repo, entry, catalog, dependencies);
       sources.set(entry.id, source);
       rows.push({ id: entry.id, title: entry.title, provider: entry.provider, entry: entry.entry, ready: true, reason: "compiler-ready",
-        details: source.patches.length ? "Source imports need tracked local adaptation." : "Pinned public source and dependency closure.",
+        details: source.pin.fidelity === "source-adapted" ? "Source imports need tracked local adaptation." : "Pinned public source and dependency closure.",
         exports: source.exports, types: source.types, packages: source.packages, closure: source.pin.closure, license: source.pin.license });
     } catch (error) {
       rows.push({ id: entry.id, title: entry.title, provider: entry.provider, entry: entry.entry, ready: false, ...errorReason(error) });
@@ -231,11 +240,16 @@ export async function discoverCodeSources(repo: string, intent: Intent, preferre
   return { inventory, candidates: ordered, preferred: preferred ? inventory.rows.find(({ id }) => id === preferred) ?? { id: preferred, ready: false, reason: "missing-source" } : undefined };
 }
 
+export function sameCodePin(expected: CodePin, current: CodePin) {
+  // Fidelity is a derived disclosure. Technical pins and bytes remain exact across metadata corrections.
+  return canonical({ ...expected, fidelity: current.fidelity }) === canonical(current);
+}
+
 export async function restoreCodeSources(repo: string, pins: CodePin[]) {
   const inventory = await inspectCodeCatalog(repo);
   return pins.map((pin) => {
     const current = inventory.sources.get(pin.id);
-    if (!current || canonical(pin) !== canonical(current.pin)) throw new BuildError(409, "Pinned source changed or is unavailable: " + pin.id);
+    if (!current || !sameCodePin(pin, current.pin)) throw new BuildError(409, "Pinned source changed or is unavailable: " + pin.id);
     return current;
   });
 }

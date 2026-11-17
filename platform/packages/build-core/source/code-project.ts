@@ -21,11 +21,15 @@ const usage = z.strictObject({
   instance: identifier, route: codeRoute, interaction: text,
 });
 const journeyStep = z.strictObject({
-  role: z.enum(["button", "link", "textbox", "combobox", "spinbutton", "checkbox", "tab"]),
+  role: z.enum(["button", "link", "textbox", "combobox", "spinbutton", "checkbox", "tab", "img", "region", "group"]),
   name: z.string().min(1).max(160),
-  action: z.enum(["click", "fill", "select", "press"]),
+  action: z.enum(["click", "fill", "select", "press", "hover", "drag", "wheel"]),
   value: z.string().max(300),
   expected: z.string().min(1).max(300),
+}).superRefine((step, ctx) => {
+  if (["drag", "wheel"].includes(step.action) &&
+    (!/^-?\d{1,3},-?\d{1,3}$/.test(step.value) || step.value.split(",").some((value) => Math.abs(Number(value)) > 800)))
+    ctx.addIssue({ code: "custom", message: "Pointer motion needs bounded dx,dy pixels, each between -800 and 800." });
 });
 const journey = z.strictObject({ title: text, route: codeRoute, steps: z.array(journeyStep).min(1).max(8) });
 const synthesis = z.strictObject({ file: modulePath, purpose: text, generatedFrom: z.array(sourceId).min(1).max(4) });

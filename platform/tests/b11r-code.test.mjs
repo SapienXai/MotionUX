@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 import { parseNativeOutput } from "../packages/build-core/composer/codex.ts";
 import { createCodeFixture } from "./b11r-fixture.mjs";
 import { sealCodeProject, codeDocument, compileCodeProject } from "../packages/app-export/code-program.ts";
-import { restoreCodeSources } from "../packages/app-export/code-catalog.ts";
+import { analyzeModule, inspectCodeCatalog, restoreCodeSources } from "../packages/app-export/code-catalog.ts";
 import { validateProgram } from "../packages/app-export/code-validator.ts";
 import { exportTree, zipTree } from "../packages/app-export/export.ts";
 import { documentSchema, manualDocument } from "../packages/build-core/model.ts";
@@ -15,7 +15,8 @@ test("a novel source API compiles into real modules, keeps editable config and d
   const fixture = await createCodeFixture();
   t.after(fixture.close);
   assert.equal(fixture.sources.length, 1);
-  assert(fixture.sources[0].exports.includes("ExpandingNotice"));
+  assert(fixture.sources[0].exports.includes("default"));
+  assert(!fixture.sources[0].exports.includes("ExpandingNotice"));
   for (const pwa of [false, true]) {
     const tree = await exportTree(fixture.fake, fixture.project, { pwa });
     const manifest = JSON.parse(tree["motionux-manifest.json"]);
@@ -51,15 +52,20 @@ test("untrusted generated imports, HTML, CSS, asset URLs and stale hashes fail c
     'void fetch("https://example.test");', 'void process.env;', 'eval("1");',
     'const x = <iframe src="/api/build" />;', 'const x = <div dangerouslySetInnerHTML={{__html:"unsafe"}} />;',
     'document.cookie;', 'const capability = ({})["constructor"];', 'window["fetch"]("https://example.test");',
+    'window.open("/unexpected");', 'const image = "https://untrusted.test/image.png";',
     'setTimeout("eval()", 1);', 'window.parent.postMessage("escape","*");', 'void opener;', 'void top;',
   ]) {
     const bad = structuredClone(fixture.proposal);
     bad.files[0].content += "\n" + code;
     assert.throws(() => validateProgram(bad, fixture.sources), { status: 422 }, code);
   }
+  const directive = structuredClone(fixture.proposal);
+  directive.files[0].content = '/// <reference path="../../outside.ts" />\n' + directive.files[0].content;
+  assert.throws(() => validateProgram(directive, fixture.sources), { status: 422 });
   const geometry = structuredClone(fixture.proposal);
   geometry.files[0].content += '\nfunction offset(rect: DOMRect) { const opener = rect; return opener.top; }';
   geometry.files[1].content += " .app .panel-body { color: inherit; }";
+  geometry.files[0].content += '\nfunction Target({ target }: { target: string }) { return <p>{target}</p>; } const targetNode = <Target target="Saturn" />;';
   assert.doesNotThrow(() => validateProgram(geometry, fixture.sources));
   const computed = structuredClone(fixture.proposal);
   computed.files[0].content = computed.files[0].content.replace('data-instance="notice"', 'data-instance={route === "/" ? "notice" : "notice-notes"}');
@@ -67,7 +73,7 @@ test("untrusted generated imports, HTML, CSS, asset URLs and stale hashes fail c
   const unused = structuredClone(fixture.proposal);
   unused.files[0].content = unused.files[0].content.replace("<ExpandingNotice title=", "<FakeNotice title=");
   assert.throws(() => validateProgram(unused, fixture.sources), { status: 422 });
-  for (const css of ['@import "https://example.test/font.css";', '.app { background: url(https://example.test); }']) {
+  for (const css of ['@import "https://example.test/font.css";', '.app { background: url(https://example.test); }', '.app { background: \\75rl(https://example.test); }']) {
     const bad = structuredClone(fixture.proposal);
     bad.files[1].content = css;
     assert.throws(() => validateProgram(bad, fixture.sources), { status: 422 });
@@ -75,6 +81,9 @@ test("untrusted generated imports, HTML, CSS, asset URLs and stale hashes fail c
   const stale = structuredClone(fixture.project);
   stale.document.codeProject.files[0].content += "\n// changed";
   await assert.rejects(compileCodeProject(fixture.fake, stale), { status: 409 });
+  const disclosure = structuredClone(fixture.project.document.codeProject.sources);
+  disclosure[0].fidelity = "source-adapted";
+  assert.equal((await restoreCodeSources(fixture.fake, disclosure))[0].pin.fidelity, "upstream-original");
   const recipe = resolve(fixture.vault, "registry/portable-source.json");
   const payload = JSON.parse(await readFile(recipe, "utf8"));
   payload.files[0].content += "\n// source changed";
@@ -87,4 +96,46 @@ test("native code responses retain bounded executable modules beyond the legacy 
   assert.equal(parseNativeOutput(program, true).module.length, 40_000);
   assert.throws(() => parseNativeOutput(program), { status: 422 });
   assert.throws(() => parseNativeOutput(JSON.stringify({ module: "x".repeat(192 * 1024) }), true), { status: 422 });
+});
+
+test("source metadata distinguishes a named default declaration from a named runtime export", () => {
+  const metadata = analyzeModule("source.tsx", "export default function Form() {}\nexport function Field() {}\nexport interface Props { label: string }\nexport type Errors = Record<string,string>;");
+  assert.deepEqual(metadata.exports, ["default", "Field"]);
+  assert(metadata.types.includes("interface Props"));
+  assert(metadata.types.includes("type Errors"));
+});
+
+test("prepared source adaptations retain separate upstream and prepared hashes and disclose fidelity", async (t) => {
+  const fixture = await createCodeFixture();
+  t.after(fixture.close);
+  const catalogFile = resolve(fixture.vault, "catalog.last-good.json");
+  const recipeFile = resolve(fixture.vault, "registry/portable-source.json");
+  const catalog = JSON.parse(await readFile(catalogFile, "utf8"));
+  const recipe = JSON.parse(await readFile(recipeFile, "utf8"));
+  const upstream = fingerprint(recipe.files[0].content);
+  recipe.files[0].content += "\n// Owned preparation fixture\n";
+  const prepared = fingerprint(recipe.files[0].content);
+  catalog[0].codeFiles[0].installedSHA256 = prepared;
+  await writeFile(catalogFile, JSON.stringify(catalog));
+  await writeFile(recipeFile, JSON.stringify(recipe));
+  const source = (await inspectCodeCatalog(fixture.fake)).sources.get("portable-source");
+  assert.equal(source.pin.fidelity, "source-adapted");
+  assert.equal(source.upstreamHashes["component.tsx"], upstream);
+  assert.equal(source.hashes["component.tsx"], prepared);
+  assert.equal(source.preparationPatches.length, 1);
+  await assert.rejects(restoreCodeSources(fixture.fake, fixture.project.document.codeProject.sources), { status: 409 });
+});
+
+test("source verification supports bounded pointer actions without a component API case", async (t) => {
+  const fixture = await createCodeFixture();
+  t.after(fixture.close);
+  for (const action of ["hover", "drag", "wheel"]) {
+    const proposal = structuredClone(fixture.proposal);
+    proposal.journeys[0].steps[0] = { role: "img", name: "Surface", action, value: action === "hover" ? "" : "80,-40", expected: "Context" };
+    assert.doesNotThrow(() => validateProgram(proposal, fixture.sources));
+    if (action !== "hover") {
+      proposal.journeys[0].steps[0].value = "900,0";
+      assert.throws(() => validateProgram(proposal, fixture.sources), { status: 422 });
+    }
+  }
 });

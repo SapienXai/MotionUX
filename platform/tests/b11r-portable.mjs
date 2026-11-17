@@ -1,3 +1,4 @@
+import { sourceTarget, performSourceStep } from "../apps/preview-host/source-target.mjs";
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
 import { once } from "node:events";
@@ -32,6 +33,30 @@ try {
       try {
         const result = await inspect(browser, server.origin, fixture.project, "portable", pwa ? "pwa" : "next");
         assert.equal(result.journeys.length, 1);
+        if (!pwa) {
+          const page = await browser.newPage();
+          await page.setContent('<select aria-label="Owner"><option value="all">All</option><option value="mira">Mira</option></select><dialog open aria-label="New record"><select aria-label="Owner"><option value="none">Unassigned</option><option value="mira">Mira</option></select></dialog>');
+          const owner = await sourceTarget(page, { role: "combobox", name: "Owner" });
+          await owner.selectOption("mira");
+          assert.equal(await page.locator('dialog select').inputValue(), "mira");
+          assert.equal(await page.locator('body > select').inputValue(), "all");
+          await page.locator("dialog").evaluate((node) => node.remove());
+          await (await sourceTarget(page, { role: "combobox", name: "Owner" })).selectOption("mira");
+          assert.equal(await page.locator('body > select').inputValue(), "mira");
+          await page.setContent('<div role="img" aria-label="Fixture surface" style="width:240px;height:160px;background:#ddd" onpointermove="this.dataset.x=event.clientX" onpointerup="this.dataset.released=String(true)"></div><div role="region" aria-label="Fixture scroll" style="height:60px;overflow:auto"><div style="height:600px">Scrollable fixture</div></div>');
+          const surface = await performSourceStep(page, { role: "img", name: "Fixture surface", action: "hover", value: "" });
+          const initialX = Number(await surface.getAttribute("data-x"));
+          await performSourceStep(page, { role: "img", name: "Fixture surface", action: "drag", value: "80,0" });
+          assert(Number(await surface.getAttribute("data-x")) > initialX);
+          assert.equal(await surface.getAttribute("data-released"), "true");
+          const scroll = await performSourceStep(page, { role: "region", name: "Fixture scroll", action: "wheel", value: "0,160" });
+          for (let attempt = 0; attempt < 20 && !await scroll.evaluate((node) => node.scrollTop); attempt++)
+            await new Promise((done) => setTimeout(done, 25));
+          assert(await scroll.evaluate((node) => node.scrollTop) > 0);
+          await assert.rejects(performSourceStep(page, { role: "img", name: "Fixture surface", action: "drag", value: "900,0" }));
+          await page.close();
+          console.log("Modal-scoped verification keeps the background filter unchanged");
+        }
         if (!pwa && process.argv.includes("--controls")) {
           const context = await browser.newContext();
           const parent = await context.newPage();

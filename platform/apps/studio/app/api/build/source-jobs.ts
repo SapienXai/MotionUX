@@ -1,6 +1,6 @@
 import { executeCodeGeneration, type CodeRetry } from "./code-generation";
 import { codeProposalSchema } from "@motionux/build-core/code-project";
-import { inspectCodeCatalog, sourceRead } from "@motionux/app-export/code-catalog";
+import { inspectCodeCatalog, sourceRead, sameCodePin } from "@motionux/app-export/code-catalog";
 import { randomBytes } from "node:crypto";
 import { lstat, mkdir, readFile, realpath, readdir, rename, unlink, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -104,7 +104,7 @@ export async function retrySourceJob(repo: string, vault: string, id: string) {
   if (Array.isArray(pins)) {
     for (const pin of pins) {
       const source = inventory.sources.get(pin.id);
-      if (!source || canonical(source.pin) !== canonical(pin))
+      if (!source || !sameCodePin(pin, source.pin))
         throw new BuildError(409, "A pinned source changed. Start a fresh generation.");
     }
   } else if (inventory.fingerprint !== prior.inventoryFingerprint)

@@ -74,7 +74,7 @@ export async function compileCodeProject(repo: string, project: BuildProject) {
   if (fingerprint(environment.lock) !== graph.lock || environment.compiler !== graph.compiler)
     throw new BuildError(409, "The pinned compiler or dependency lock changed. Rebuild this code project before running or exporting.");
   const sources = await restoreCodeSources(repo, graph.sources);
-  const { version, sources: sourcePins, artifacts } = graph;
+  const { version, artifacts } = graph;
   const proposal = codeProposalSchema.strip().parse(graph);
   validateProgram(proposal, sources);
   if (canonical(programHashes(proposal)) !== canonical(artifacts)) throw new BuildError(409, "Generated module hashes changed.");
@@ -139,9 +139,11 @@ export default async function Page({ params }: Props) {
   }
   files["README.md"] = "# " + graph.name + "\n\nRun npm ci, npm run build and npm start. The application stores fictional data in the browser. Original source notices are in sources/. No production integration is included.\n";
   files["SOURCE-MANIFEST.json"] = JSON.stringify({
-    version, revision: project.revision, digest: fingerprint(canonical(project.document)), sources: sourcePins,
+    version, revision: project.revision, digest: fingerprint(canonical(project.document)), sources: sources.map(({ pin }) => pin),
     usages: graph.usages, generated: graph.generated, artifacts, assets: assetPins, design: graph.design, limitations: graph.limitations,
-    adapters: sources.map(({ pin, patches, hashes }) => ({ id: pin.id, originalHashes: hashes, patches })),
+    adapters: sources.map(({ pin, patches, hashes, upstreamHashes, preparationPatches }) => ({
+      id: pin.id, originalHashes: upstreamHashes, preparedHashes: hashes, preparationPatches, patches,
+    })),
   }, null, 2) + "\n";
   return { files, graph, assets: assetPins, sources: sources.map(({ pin, patches }) => ({ ...pin, patches })) };
 }

@@ -37,7 +37,9 @@ export function useSourceJob(scope: string, onReady: (projectId: string) => Prom
     if (!job) return;
     const controller = new AbortController();
     if (terminal.has(job.status)) {
-      try { sessionStorage.removeItem(key); } catch { /* Optional resume hint. */ }
+      if (job.status === "ready") {
+        try { sessionStorage.removeItem(key); } catch { /* Optional resume hint. */ }
+      }
       if (job.status === "ready" && job.project)
         void complete(job.project).catch((error: Error) => setError(error.message));
       return;
