@@ -89,7 +89,7 @@
 }
 .hotel-skip:focus {
   position: fixed;
-  left: 12px;
+  inset-inline-start: 12px;
   top: 12px;
   z-index: 9;
   background: var(--hotel-panel);
@@ -102,7 +102,7 @@
   flex-direction: column;
   gap: 18px;
   background: var(--hotel-panel);
-  border-right: 1px solid var(--hotel-border);
+  border-inline-end: 1px solid var(--hotel-border);
 }
 .hotel-brand {
   display: flex;
@@ -546,7 +546,7 @@
   white-space: nowrap;
   background: var(--hotel-sub);
   color: var(--hotel-muted);
-  margin-right: 4px;
+  margin-inline-end: 4px;
 }
 .hotel-badge[data-tone="success"] {
   background: var(--hotel-tint);
@@ -732,7 +732,7 @@
 }
 .hotel-breadcrumb li + li::before {
   content: "/";
-  padding-right: 8px;
+  padding-inline-end: 8px;
   color: var(--hotel-muted);
 }
 .hotel-pending {
@@ -792,10 +792,10 @@
   margin-block: 0;
 }
 .hotel-dialog.drawer {
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 .hotel-dialog.sheet {
-  margin-right: 0;
+  margin-inline-end: 0;
 }
 .hotel-command {
   display: grid;
@@ -813,7 +813,7 @@
   background: var(--hotel-tint);
 }
 .hotel-command a span {
-  margin-left: auto;
+  margin-inline-start: auto;
   color: var(--hotel-muted);
   font-size: 11px;
 }
@@ -979,7 +979,7 @@
 @keyframes hotel-sidebar-label {
   from {
     opacity: 0;
-    transform: translateX(-3px);
+    transform: translateX(var(--hotel-sidebar-label-from, -3px));
   }
 }
 @container (max-width:740px) {
@@ -1190,3 +1190,5 @@
 
 .workspace-task-summary { display: block; margin-block-start: 4px; color: var(--hotel-muted); font-weight: 400; white-space: normal; }
 .workspace-articles details > small { display: block; color: var(--hotel-muted); padding-inline: 4px; }
+
+.hotel[dir="rtl"] { --hotel-sidebar-label-from: 3px; }

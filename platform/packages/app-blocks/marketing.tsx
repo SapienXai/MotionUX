@@ -558,6 +558,7 @@ export function MarketingSurface({
       <div className="site-preview">
         <div
           className="site"
+          dir={document.direction ?? "ltr"}
           {...identityAttributes(document.identity)}
           lang={document.locale}
           data-theme={theme ?? document.theme}

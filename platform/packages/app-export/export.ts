@@ -77,7 +77,8 @@ async function addPwa(repo: string, project: ReturnType<typeof projectSchema.par
   const appId = "/?app=" + id;
   files["public/manifest.webmanifest"] = JSON.stringify({
     id: appId, name: document.name, short_name: Array.from(document.name).slice(0, 24).join(""),
-    lang: document.locale, start_url: "/", scope: "/", display: "standalone",
+    lang: document.locale, dir: document.direction ?? "ltr",
+    start_url: "/", scope: "/", display: "standalone",
     background_color: background, theme_color: background, icons,
   }, null, 2) + "\n";
   const routes = document.pages.map((page) => page.route).sort();

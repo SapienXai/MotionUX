@@ -484,6 +484,7 @@ export function AppFrame({
     >
       <div
         className="hotel"
+        dir={document.direction ?? "ltr"}
         {...identityAttributes(document.identity)}
         data-template={document.template}
         data-theme={theme}

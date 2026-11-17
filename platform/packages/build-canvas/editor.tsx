@@ -1280,6 +1280,7 @@ function Properties({
             <label>
               Block title
               <input
+                dir="auto"
                 value={current.props.title}
                 maxLength={72}
                 onChange={(event) => props({ title: event.target.value })}
@@ -1288,6 +1289,7 @@ function Properties({
             <label>
               Description
               <textarea
+                dir="auto"
                 value={current.props.description}
                 maxLength={180}
                 rows={3}
@@ -1350,6 +1352,7 @@ function Properties({
             <label>
               Accessible label
               <input
+                dir="auto"
                 value={current.props.accessibleLabel}
                 maxLength={72}
                 onChange={(event) =>
@@ -1509,6 +1512,7 @@ function Properties({
         <label>
           Name
           <input
+            dir="auto"
             value={document.name}
             maxLength={80}
             onChange={(event) => {
@@ -1544,6 +1548,19 @@ function Properties({
           >
             <option value="expanded">Expanded</option>
             <option value="rail">Icon rail</option>
+          </select>
+        </label>
+        <label>
+          Text direction
+          <select
+            value={document.direction ?? "ltr"}
+            onChange={(event) => {
+              const direction = event.target.value === "rtl" ? "rtl" : "ltr";
+              onDocument((item) => ({ ...item, direction }));
+            }}
+          >
+            <option value="ltr">Left to right</option>
+            <option value="rtl">Right to left</option>
           </select>
         </label>
       </section>

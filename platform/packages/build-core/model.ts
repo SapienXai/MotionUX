@@ -383,6 +383,7 @@ const compositionFields = z
   });
 export const documentSchema = compositionFields.extend({
   locale: z.enum(["en", "tr"]).default("en"),
+  direction: z.enum(["ltr", "rtl"]).optional(),
   motionDna: motionDnaSchema.optional(),
   identity: identitySchema.optional(),
   tasks: taskCollectionSchema.optional(),

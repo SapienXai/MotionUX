@@ -5,7 +5,7 @@ import "./globals.css";
 import "../runtime/pwa.css";
 import { project } from "../runtime/project";
 
-const { name, locale, template, theme } = project.document;
+const { name, locale, direction, template, theme } = project.document;
 const dark = theme === "dark";
 const themeColor =
   template === "hotel-dashboard"
@@ -25,7 +25,7 @@ export const viewport: Viewport = { viewportFit: "cover", themeColor };
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={direction ?? "ltr"}>
       <body className="motionux-pwa">{children}</body>
     </html>
   );
