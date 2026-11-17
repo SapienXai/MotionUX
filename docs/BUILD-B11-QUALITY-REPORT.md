@@ -32,7 +32,7 @@ Mekânın Ritmi (A) produced weekly, daily and editing routes. The native job se
 
 Ceramics Exhibition Preparation (E2) generated three routes for inventory, comparison and gallery grouping. Its independent Next and PWA exports passed the three-engine lane. Chromium retained a new local ceramic record after going offline and reconnecting. E1 and E2 were designed through the normal Build action without starter handlers.
 
-The live revision lane manually changed a generated section title, undid and redid the change, saved and verified the title in isolated Next.js. A single native Codex revision then changed the source section title and left the rest of the graph intact. The revised ZIP downloaded from the application. The native edit and full runtime check took about 13 seconds on that run. A cancelled generation published no managed project.
+The live revision lane manually changed a generated section title, undid and redid the change, saved and verified the title in isolated Next.js. A single native Codex revision then changed the source section title and left the rest of the graph intact. The revised ZIP downloaded from the application. With Studio stopped, a clean production Next.js build of that ZIP preserved both edited titles with its verified revision-2 manifest. The native edit and full runtime check took about 13 seconds on that run. A cancelled generation published no managed project.
 
 ## Gate state
 
@@ -44,9 +44,9 @@ The live revision lane manually changed a generated section title, undid and red
 | G4 | Verified across five native brief domains and non-starter routes. |
 | G5 | Verified for the tested stateful programs. Native generation emitted source-bound modules and the edited section ran in the saved preview. |
 | G6 | Distinct graphs and runnable local workflows verified. Real room comparison and task view-switch state coverage are incomplete. |
-| G7 | Source-backed motion policy implemented. A matched animation trace and multi-engine reduced-motion comparison remain open. |
-| G8 | Manual generated-instance edit and targeted source-title revision verified in Studio and Run. Full original, adapted and generated visual parity remains open. |
-| G9 | A, B and C independently built and rendered across three engines. A and C retained offline local writes in Chromium. Full workflow-specific acceptance remains explicit in G6 and G8. |
+| G7 | Chromium recorded 25 frames per preference for the same Transition Panel instance. The default preserved the upstream example's movement, opacity and blur. Reduced motion removed animation and both contexts retained focus. Cross-source and multi-engine motion coverage remains open. |
+| G8 | Manual generated-instance edit and targeted source-title revision matched Studio, saved Run and the independently built revision-2 artifact. Full original, adapted and generated visual parity remains open. |
+| G9 | A, B and C independently installed, typechecked, built and rendered across three engines while the Studio process was stopped. A and C retained offline local writes in Chromium. Full workflow-specific acceptance remains explicit in G6 and G8. |
 | G10 | Two additional native domains and another prepared source were exercised. E1 Accordion did not require a new template or component-specific renderer. |
 | G11 | Contract checks rejected restricted terms, stale source bytes, traversal, symlinks and unsupported network imports. A cross-origin Studio mutation returned 403 and a forged job ID returned 404. Broader runtime attack testing remains open. |
 | G12 | Existing portable checks and preview cancellation were exercised. Physical device, real screen reader, extended memory and field performance remain unmeasured. |

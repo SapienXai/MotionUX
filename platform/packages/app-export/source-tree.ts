@@ -15,8 +15,14 @@ const snippets = {
   tabs: `<Original0 value={String(active)} onChange={(value) => select(Number(value))} label={instance.title} className="mx-source-body"
     items={items.map((item, index) => ({ id: String(index), title: item.label, content: <div className="mx-source-content">{item.text}</div> }))} />`,
   transition: `<><div className="mx-source-tabs">{items.map((item, index) => <button key={index} type="button" aria-pressed={index === active} onClick={() => select(index)}>{item.label}</button>)}</div>
-    <Original0 activeIndex={active} transition={still ? { duration: 0 } : undefined} className="mx-source-body">
-      {items.map((item, index) => <div key={index} className="mx-source-content">{item.text}</div>)}</Original0></>`,
+    <div className="mx-panel-viewport">
+      <Original0 activeIndex={active} transition={{ duration: reduced ? 0 : 0.2, ease: "easeInOut" }}
+        variants={reduced
+          ? { enter: { opacity: 1 }, center: { opacity: 1 }, exit: { opacity: 1 } }
+          : { enter: { opacity: 0, y: -50, filter: "blur(4px)" }, center: { opacity: 1, y: 0, filter: "blur(0px)" }, exit: { opacity: 0, y: 50, filter: "blur(4px)" } }}
+        className="mx-source-body">
+        {items.map((item, index) => <div key={index} className="mx-source-content">{item.text}</div>)}</Original0>
+    </div></>`,
   highlight: `<div className="mx-source-tabs"><Original0 defaultValue={String(active)} transition={still ? { duration: 0 } : undefined}>
     {items.map((item, index) => <button key={index} type="button" data-id={String(index)} aria-pressed={index === active} onClick={() => select(index)}>{item.label}</button>)}</Original0></div>`,
   wheel: `<Original0 label={instance.title} className="mx-source-body" columns={[{
@@ -73,12 +79,14 @@ function component(source: ResolvedSource) {
       : "import { " + exports + " } from " + JSON.stringify(path) + ";";
   return `"use client";
 import { useEffect, useState } from "react";
-import { MotionConfig } from "motion/react";
+import { MotionConfig, useReducedMotion } from "motion/react";
 import type { SourceProps } from "./screen";
 ${imports}
 export default function SourceAdapter({ instance, rows, entity, still, onSelect, activeFilter, edit }: SourceProps) {
   const [active, setActive] = useState(0);
   const [notice, setNotice] = useState("");
+  const systemReduced = useReducedMotion();
+  const reduced = still || systemReduced;
   const choices = ${JSON.stringify(adapter === "wheel")} ? entity?.fields.find(({ type }) => type === "choice")?.options ?? [] : [];
   const items = instance.items.length ? instance.items : choices.length ? choices.map((label) => ({ label, text: label })) :
     rows.slice(0, 7).map(({ values }) => ({ label: values[0], text: values.slice(1).join(" · ") }));

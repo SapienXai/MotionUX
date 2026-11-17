@@ -47,6 +47,7 @@ body { margin: 0; }
 .mx-footer { margin-block: 20px; color: var(--mx-muted); }
 .mx-source-mount { min-inline-size: 0; max-inline-size: 100%; }
 .mx-source-mount > :where(div, section) { min-inline-size: 0; max-inline-size: 100%; }
+.mx-panel-viewport { overflow: clip; }
 .mx-source-body { min-inline-size: 0; margin-block: 10px; }
 .mx-source-content { padding: 10px; overflow-wrap: anywhere; }
 .mx-source-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-block: 8px; }
