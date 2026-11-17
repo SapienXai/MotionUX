@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { parseNativeOutput } from "../packages/build-core/composer/codex.ts";
 import { createCodeFixture } from "./b11r-fixture.mjs";
 import { compileCodeProject } from "../packages/app-export/code-program.ts";
 import { restoreCodeSources } from "../packages/app-export/code-catalog.ts";
@@ -66,4 +67,11 @@ test("untrusted generated imports, HTML, CSS, asset URLs and stale hashes fail c
   payload.files[0].content += "\n// source changed";
   await writeFile(recipe, JSON.stringify(payload));
   await assert.rejects(restoreCodeSources(fixture.fake, fixture.project.document.codeProject.sources), { status: 409 });
+});
+
+test("native code responses retain bounded executable modules beyond the legacy Blueprint limit", () => {
+  const program = JSON.stringify({ module: "x".repeat(40_000) });
+  assert.equal(parseNativeOutput(program, true).module.length, 40_000);
+  assert.throws(() => parseNativeOutput(program), { status: 422 });
+  assert.throws(() => parseNativeOutput(JSON.stringify({ module: "x".repeat(192 * 1024) }), true), { status: 422 });
 });

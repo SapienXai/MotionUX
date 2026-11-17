@@ -36,6 +36,12 @@ export type PlanningResult = {
   peakScratchBytes?: number;
 };
 
+export function parseNativeOutput(message: string, sourceProgram = false): unknown {
+  if (Buffer.byteLength(message) > (sourceProgram ? 192 * 1024 : 32 * 1024))
+    throw new BuildError(422, "The structured native output exceeded its declared budget.");
+  return JSON.parse(message);
+}
+
 function profile(scratch: string, auth: string) {
   // Allow only the native client to exec. File access is a second boundary even with every host tool disabled.
   const protectedPaths = [
@@ -320,11 +326,10 @@ export async function runCodex(
         if (
           !completed ||
           !message ||
-          buffer.trim() ||
-          Buffer.byteLength(message) > 32 * 1024
+          buffer.trim()
         )
           return fail(
-            new BuildError(422, "Codex did not return a complete blueprint."),
+            new BuildError(422, operation ? "Codex did not return a complete source program within its output budget." : "Codex did not return a complete blueprint."),
           );
         try {
           peakScratchBytes = Math.max(
@@ -338,7 +343,7 @@ export async function runCodex(
                 "The planning workspace exceeded its storage limit.",
               ),
             );
-          done({ proposal: JSON.parse(message), usage, peakScratchBytes });
+          done({ proposal: parseNativeOutput(message, Boolean(operation)), usage, peakScratchBytes });
         } catch {
           fail(new BuildError(422, "Codex did not return structured JSON."));
         }
