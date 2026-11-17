@@ -149,9 +149,13 @@ export const config: EditorConfig = {
       label: "Section",
       fields: { items: { type: "slot", allow: blockList.filter(isSectionChild) } },
       defaultProps: { ...makeBlock("CreatorSection", "b-default").props, items: [] },
-      render: function SectionPreview({ id, items: Items, puck: _puck, ...props }: Parameters<EditorConfig["components"]["CreatorSection"]["render"]>[0]) {
+      render: function SectionPreview({
+        id, items: Items, title, description, variant, motion, visibility, accessibleLabel, sectionRecipe, layout,
+      }: Parameters<EditorConfig["components"]["CreatorSection"]["render"]>[0]) {
         const runtime = useContext(RuntimeContext);
-        const block: Block = { id, type: "CreatorSection", version: 1, props };
+        const block = makeBlock("CreatorSection", id, {
+          title, description, variant, motion, visibility, accessibleLabel, sectionRecipe, layout,
+        });
         const slot = <Items className="creator-section-grid" minEmptyHeight={64} aria-label="Section blocks" />;
         return runtime?.document.template === "hotel-marketing"
           ? <MarketingBlockView block={block} slot={slot} />

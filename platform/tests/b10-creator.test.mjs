@@ -187,3 +187,33 @@ test("managed image references inside a section protect saved, previous and reco
     assert.deepEqual(documents.map((doc) => ids.find((asset) => referencedMedia(doc).has(asset))), [ids[1], ids[0], ids[2]]);
   });
 });
+
+test("concurrent recovery reads tolerate exact atomic draft replacement", async (t) => {
+  const root = resolve(repo, ".motionux-v9");
+  await mkdir(root, { mode: 0o700, recursive: true });
+  const vault = await mkdtemp(resolve(root, "b10-draft-race-"));
+  t.after(() => rm(vault, { force: true, recursive: true }));
+  const store = createStore(vault);
+  const saved = await store.create(manualDocument("knowledge-base"));
+  const draft = {
+    version: 1, baseRevision: saved.revision, updatedAt: 1, pageId: saved.document.pages[0].id,
+    selected: null, document: saved.document, mode: "edit", panel: "canvas", device: "desktop",
+  };
+  const persist = (updatedAt) => store.saveDraft(saved.id, { ...draft, updatedAt }, async () => {});
+  await persist(1);
+  let writing = true;
+  const writer = (async () => {
+    try { for (let index = 2; index <= 50; index++) await persist(index); }
+    finally { writing = false; }
+  })();
+  const reader = async () => {
+    let last = 0;
+    while (writing) {
+      const value = await store.openDraft(saved.id);
+      assert(value.updatedAt >= last);
+      last = value.updatedAt;
+    }
+  };
+  await Promise.all([writer, ...Array.from({ length: 4 }, reader)]);
+  assert.equal((await store.openDraft(saved.id)).updatedAt, 50);
+});

@@ -50,23 +50,29 @@ async function directory(path: string, create = false) {
   return stat.ino;
 }
 async function read(path: string) {
-  const handle = await open(
-    path,
-    constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK,
-  );
-  try {
-    const stat = await handle.stat();
-    if (
-      !stat.isFile() ||
-      stat.nlink !== 1 ||
-      (stat.mode & 0o777) !== 0o600 ||
-      stat.size > maxDocument
-    )
-      throw new BuildError(403, "Unsafe managed document.");
-    return await handle.readFile("utf8");
-  } finally {
-    await handle.close();
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const handle = await open(
+      path,
+      constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK,
+    );
+    try {
+      const stat = await handle.stat();
+      if (
+        !stat.isFile() ||
+        stat.nlink > 1 ||
+        (stat.mode & 0o777) !== 0o600 ||
+        stat.size > maxDocument
+      )
+        throw new BuildError(403, "Unsafe managed document.");
+      // A concurrent atomic rename can unlink an opened regular file.
+      // Close that descriptor and validate the current path again.
+      if (stat.nlink === 0) continue;
+      return await handle.readFile("utf8");
+    } finally {
+      await handle.close();
+    }
   }
+  throw new BuildError(409, "The managed document changed while it was being read.");
 }
 export function canonical(value: unknown): string {
   if (Array.isArray(value)) return "[" + value.map(canonical).join(",") + "]";

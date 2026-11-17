@@ -7,3 +7,5 @@ The first content edit converts a legacy article block into its own versioned co
 The store checks optimistic revision conflicts and writes a validated replacement atomically. Save preserves the exact previous on-disk document. Managed media ownership and backup semantics are unchanged, and reference scanning includes the one-level section slot.
 
 Run `pnpm --dir platform test` for prior fixtures, adapter/field denial, stale Save and explicit read/save/recovery assertions. The B10 independent export test verifies document digests, every manifest file and ZIP checksums for normal Next and PWA.
+
+Concurrent reads of a draft or saved document reopen the current path if an atomic replacement unlinks the regular file already opened by the reader. The new descriptor is validated again. Existing hardlink, symlink, mode and size checks remain in place. The platform suite stresses concurrent recovery reads during repeated writes.
