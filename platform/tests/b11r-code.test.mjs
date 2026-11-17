@@ -10,6 +10,25 @@ import { validateProgram } from "../packages/app-export/code-validator.ts";
 import { exportTree, zipTree } from "../packages/app-export/export.ts";
 import { documentSchema, manualDocument } from "../packages/build-core/model.ts";
 import { fingerprint } from "../packages/build-core/store.ts";
+import { localBuildSource } from "../../scripts/studio/build-local-sources.mjs";
+
+test("local Build frames require a prepared catalog identity and a pinned source", () => {
+  const html = {
+    availability: "ready", id: "designbookmark-test", slug: "test", upstreamHash: "a".repeat(64),
+    group: "designbookmark", sourceKind: "html", sourceURL: "https://designbookmark.com/motion-src/code/db-test.txt",
+  };
+  assert(localBuildSource(html));
+  for (const change of [{ sourceKind: "react" }, { sourceURL: "https://example.com/db-test.txt" },
+    { upstreamHash: "none" }, { slug: undefined }, { id: "../test" }, { availability: "missing" }])
+    assert(!localBuildSource({ ...html, ...change }));
+  const react = {
+    ...html, id: "reactbits-test", group: "reactbits", sourceKind: "react", repo: "https://github.com/DavidHDev/react-bits",
+    upstreamCommit: "cf2801031f07f53d4684e65b961bde7c2e2a6921",
+  };
+  assert(localBuildSource(react));
+  assert(!localBuildSource({ ...react, upstreamCommit: "a".repeat(40) }));
+  assert(!localBuildSource({ ...react, group: "v14-reactbits-unknown" }));
+});
 
 test("a novel source API compiles into real modules, keeps editable config and deterministic Next/PWA closures", async (t) => {
   const fixture = await createCodeFixture();

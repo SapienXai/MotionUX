@@ -3,7 +3,7 @@ import { execFile } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import { basename, dirname, resolve } from "node:path";
 import { promisify } from "node:util";
-import { inspectCodeCatalog, sourceRead } from "../packages/app-export/code-catalog.ts";
+import { codeProfileFor, inspectCodeCatalog, listLocalBuildSources, sourceRead } from "../packages/app-export/code-catalog.ts";
 import { fingerprint } from "../packages/build-core/store.ts";
 
 const run = promisify(execFile);
@@ -16,6 +16,8 @@ const inventory = await inspectCodeCatalog(repo);
 const originalExclusions = new Map(baseline.rows.filter(({ ready }) => !ready).map((row) => [row.id, row]));
 const scopes = inventory.rows.filter(({ id }) => originalExclusions.has(id));
 assert.equal(scopes.length, originalExclusions.size, "The original exclusion cohort must still be present.");
+const local = await listLocalBuildSources(repo);
+assert.deepEqual(local.map(({ id }) => id).sort(), scopes.filter(({ ready }) => !ready).map(({ id }) => id).sort());
 const rows = [];
 for (const row of scopes) {
   const record = catalog.find(({ id }) => id === row.id);
@@ -33,7 +35,9 @@ await mkdir(evidence, { recursive: true, mode: 0o700 });
 const root = await mkdtemp(resolve(vault, "build-tests/expanded-typecheck-"));
 let diagnostics = "";
 try {
-  await symlink(resolve(repo, "platform/templates/build-extended/node_modules"), resolve(root, "node_modules"), "dir");
+  const packages = [...new Set(scopes.filter(({ ready }) => ready).flatMap(({ id }) => inventory.sources.get(id).packages))];
+  const profile = await codeProfileFor(repo, packages);
+  await symlink(resolve(repo, "platform/templates", profile, "node_modules"), resolve(root, "node_modules"), "dir");
   for (const row of rows.filter(({ ready }) => ready)) {
     const source = inventory.sources.get(row.id);
     for (const [file, code] of Object.entries(source.files)) {
@@ -53,7 +57,7 @@ try {
     throw error;
   } finally {
     await writeFile(resolve(evidence, "audit.json"), JSON.stringify({
-      baseline: baseline.counts, current: inventory.counts, rows,
+      baseline: baseline.counts, current: inventory.counts, local, rows,
       typecheck: { sources: rows.filter(({ ready }) => ready).length, passed: diagnostics === "", diagnostics },
     }, null, 2), { mode: 0o600 });
   }

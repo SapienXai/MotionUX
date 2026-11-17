@@ -6,10 +6,13 @@ import { verifyIndex } from "../../../src/brain/indexer.ts";
 import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
 import type { Intent } from "@motionux/build-core/source-graph";
 import type { CodePin } from "@motionux/build-core/code-project";
+import { localBuildSource } from "../../../scripts/studio/build-local-sources.mjs";
+import { adaptCodeComparison, adaptHeroVideo, coastVideo, comparisonSource, heroVideoSource } from "./code-adaptations.ts";
 
 type Pin = { path: string; upstreamPath?: string; sha256: string; installedSHA256?: string };
 type Entry = {
   id: string; slug?: string; provider: string; title: string; repo?: string; entry: string; upstreamHash: string; upstreamCommit?: string;
+  group?: string; availability?: string;
   installRecipe: string; licenseNoticePath?: string; sourceURL: string; format?: string; sourceKind?: string;
   codeFiles: Pin[]; css?: string[]; assets?: { path: string; sha256: string }[];
 };
@@ -142,6 +145,24 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
   const patches: SourceModule["patches"] = [];
   const styles: string[] = [];
   const assets: SourceModule["assets"] = [];
+  const adaptComparison = item.id === comparisonSource && fingerprint(entry) === "46b78d47b40f52b3e491fedebd80a50a1b9f69fc526ea4ea3837b6e9edb4c092";
+  const adaptVideo = item.id === heroVideoSource && fingerprint(entry) === "a2f2982e04039359395922bd16eabfb70057dd42612023cc17da7cd8bd06e50b";
+  if (adaptComparison) {
+    const path = posix.join(posix.dirname(item.entry), "motionux-highlight.tsx");
+    if (content.has(path)) throw new Error("runtime-review: adaptation path collision");
+    const helper = await sourceRead(repo, "platform/templates/source-driven/highlight.tsx", 24_000);
+    files[path] = helper;
+    for (const name of analyzeModule(path, helper).imports) {
+      const dependency = packageName(name);
+      if (!dependencies.has(dependency)) throw new Error("unsupported-dependency: " + dependency);
+      packages.add(dependency);
+    }
+  }
+  if (adaptVideo) {
+    const bytes = await readFile(resolve(repo, "platform/templates/source-driven/coast-preview.mp4"));
+    if (fingerprint(bytes) !== coastVideo.sha256) throw new Error("unsupported-asset: local video hash mismatch");
+    assets.push({ ...coastVideo, bytes, rights: "MotionUX-owned demonstration media", attribution: "" });
+  }
   function visit(path: string) {
     if (Object.hasOwn(files, path)) return;
     if (Object.keys(files).length > 30) throw new Error("source-budget: import count");
@@ -173,6 +194,14 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
       return;
     }
     if (!/\.tsx?$/.test(path)) throw new Error("unsupported-asset: " + path);
+    if (path === item.entry && adaptComparison) {
+      code = adaptCodeComparison(code);
+      patches.push({ file: path, reason: "Render a bounded Shiki syntax tree as React text and elements, with fixed local themes and grammars." });
+    }
+    if (path === item.entry && adaptVideo) {
+      code = adaptHeroVideo(code);
+      patches.push({ file: path, reason: "Run the original entry animation in a native modal with a pinned local video." });
+    }
     if (path === item.entry && item.id === "smoothui-ai-message" &&
       hashes[path] === "88ca4b848c774446f8f6b8275532c71bb8356f602ac811b5f4f298b7f96cd433") {
       code = code.replace("<style dangerouslySetInnerHTML={{ __html: ACTION_STYLES }} />", "<style>{ACTION_STYLES}</style>");
@@ -183,7 +212,7 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
     for (const name of info.imports) {
       if (name.startsWith(".") || name.startsWith("@/")) {
         const base = name.startsWith("@/") ? name.slice(2) : posix.normalize(posix.join(posix.dirname(path), name));
-        const target = [base, base + ".tsx", base + ".ts", base + "/index.tsx", base + "/index.ts"].find((path) => content.has(path));
+        const target = [base, base + ".tsx", base + ".ts", base + "/index.tsx", base + "/index.ts"].find((path) => content.has(path) || Object.hasOwn(files, path));
         if (!target || !safe(target)) throw new Error("missing-import: " + name);
         visit(target);
         if (name.startsWith("@/")) {
@@ -244,22 +273,28 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
     css: styles, api: files[item.entry], example: example.length < 20_000 ? example : "", assets };
 }
 
-export const baseCodeProfile = "hotel-dashboard";
-export const extendedCodeProfile = "build-extended";
+export const codeProfiles = ["hotel-dashboard", "build-extended", "build-highlight"] as const;
+async function profileDependencies(repo: string) {
+  return (await Promise.all(codeProfiles.map(async (name) => {
+    const manifest = await sourceRead(repo, "platform/templates/" + name + "/package.json").catch((error: NodeJS.ErrnoException) => {
+      if (name !== codeProfiles[0] && error.code === "ENOENT") return null;
+      throw error;
+    });
+    return manifest ? { name, dependencies: new Set(Object.keys(JSON.parse(manifest).dependencies)) } : null;
+  }))).filter((profile) => profile !== null);
+}
+
 export async function codeProfileFor(repo: string, packages: Iterable<string>) {
-  const base = JSON.parse(await sourceRead(repo, "platform/templates/" + baseCodeProfile + "/package.json"));
-  return [...packages].every((name) => Object.hasOwn(base.dependencies, name)) ? baseCodeProfile : extendedCodeProfile;
+  const requested = [...packages];
+  const profile = (await profileDependencies(repo)).find(({ dependencies }) => requested.every((name) => dependencies.has(name)));
+  if (!profile) throw new BuildError(409, "No pinned dependency profile supports this project.");
+  return profile.name;
 }
 
 export async function inspectCodeCatalog(repo: string) {
   const vault = resolve(repo, ".motionux-v9");
   const catalog = JSON.parse(await sourceRead(vault, "catalog.last-good.json", 24_000_000)) as Entry[];
-  const pkg = JSON.parse(await sourceRead(repo, "platform/templates/" + baseCodeProfile + "/package.json"));
-  const extended = await sourceRead(repo, "platform/templates/" + extendedCodeProfile + "/package.json").catch((error: NodeJS.ErrnoException) => {
-    if (error.code === "ENOENT") return null;
-    throw error;
-  });
-  const dependencies = new Set<string>(Object.keys(extended ? JSON.parse(extended).dependencies : pkg.dependencies));
+  const dependencies = new Set((await profileDependencies(repo)).flatMap((profile) => [...profile.dependencies]));
   const sources = new Map<string, SourceModule>();
   const rows: InventoryRow[] = [];
   for (const entry of catalog) {
@@ -276,6 +311,13 @@ export async function inspectCodeCatalog(repo: string) {
   const reasons = Object.fromEntries([...new Set(rows.map(({ reason }) => reason))].sort().map((reason) => [reason, rows.filter((row) => row.reason === reason).length]));
   return { sources, rows, counts: { total: rows.length, compilerReady: sources.size, unavailable: rows.length - sources.size, reasons },
     fingerprint: fingerprint(canonical(rows)) };
+}
+
+export async function listLocalBuildSources(repo: string) {
+  const catalog = JSON.parse(await sourceRead(resolve(repo, ".motionux-v9"), "catalog.last-good.json", 24_000_000)) as Entry[];
+  return catalog.filter(localBuildSource).map(({ id, slug, title, provider, upstreamHash }) => ({
+    id, slug, title, provider, pin: upstreamHash,
+  }));
 }
 
 export async function discoverCodeSources(repo: string, intent: Intent, preferred?: string) {

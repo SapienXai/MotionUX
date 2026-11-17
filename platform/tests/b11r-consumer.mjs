@@ -145,6 +145,30 @@ export async function inspect(browser, origin, project, label, format, sourceAss
       await page.screenshot({ path: resolve(evidence, label + "-journey-" + step + ".png"), fullPage: true });
   });
   for (const usage of program.usages) assert(observed.has(usage.route + "#" + usage.instance), "The source never became usable: " + usage.instance);
+  const videoAsset = sourceAssets.find(({ path }) => path === "public/media/seed-coast-preview.mp4");
+  async function inspectVideo() {
+    const usage = program.usages.find(({ source }) => source === "magicui-hero-video-dialog");
+    assert(usage);
+    await page.goto(origin + usage.route);
+    const play = page.getByRole("button", { name: "Play video", exact: true });
+    await play.focus();
+    await page.keyboard.press("Enter");
+    const dialog = page.getByRole("dialog", { name: "Hero video" });
+    await expect(dialog.getByRole("button", { name: "Close video" })).toBeFocused();
+    const video = dialog.locator("video");
+    await video.evaluate((element) => element.play());
+    await expect.poll(() => video.evaluate((element) => element.currentTime)).toBeGreaterThan(0);
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+    await expect(play).toBeFocused();
+    return { played: true, restoredFocus: true };
+  }
+  const comparison = program.usages.find(({ source }) => source === "magicui-code-comparison");
+  if (comparison) {
+    await page.goto(origin + comparison.route);
+    await expect(page.locator('[data-instance="' + comparison.instance + '"] .shiki .line span[style]').first()).toBeVisible();
+  }
+  const video = videoAsset && await inspectVideo();
   await page.goto(origin);
   const violations = (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze()).violations
     .map(({ id, impact, nodes }) => ({ id, impact, targets: nodes.map(({ target }) => target), details: nodes.map(({ html, failureSummary }) => ({ html, failureSummary })) }));
@@ -155,6 +179,17 @@ export async function inspect(browser, origin, project, label, format, sourceAss
     await context.setOffline(true);
     assert((await page.reload())?.fromServiceWorker());
     offline = { reload: true, journeys: await journeys(page, origin, program) };
+    if (videoAsset) {
+      offline.video = await inspectVideo();
+      const range = await page.evaluate(async (path) => {
+        const response = await fetch(path, { headers: { Range: "bytes=0-31" } });
+        return { status: response.status, contentRange: response.headers.get("Content-Range"), size: (await response.arrayBuffer()).byteLength };
+      }, videoAsset.path.slice("public".length));
+      assert.equal(range.status, 206);
+      assert.match(range.contentRange, /^bytes 0-31\/\d+$/);
+      assert.equal(range.size, 32);
+      offline.video.range = range;
+    }
     if (sourceAssets.length) {
       offline.sourceAssets = [];
       for (const asset of sourceAssets) {
@@ -173,7 +208,7 @@ export async function inspect(browser, origin, project, label, format, sourceAss
   assert.deepEqual([...unauthorized], [], "Unexpected external or API request");
   assert.deepEqual(errors, []);
   await context.close();
-  return { engine: browser.browserType().name(), version: browser.version(), dimensions, performanceSamples, structures, journeys: journeyResults, offline, violations };
+  return { engine: browser.browserType().name(), version: browser.version(), dimensions, performanceSamples, structures, journeys: journeyResults, syntaxHighlighting: comparison ? true : undefined, video, offline, violations };
 }
 
 for (const label of labels) {
@@ -192,6 +227,7 @@ for (const label of labels) {
           assert(attribution && notices.includes(attribution), "Missing exported asset attribution for " + path);
         }
       }
+      sourceAssets.push(...manifest.assets.filter(({ path }) => path === "public/media/seed-coast-preview.mp4"));
       const started = performance.now();
       for (const args of [["ci", "--ignore-scripts", "--no-audit", "--no-fund", "--allow-remote=all"], ["run", "typecheck"], ["run", "build"]])
         await run("npm", args, { cwd: work, env, timeout: 150_000, maxBuffer: 1_000_000 });

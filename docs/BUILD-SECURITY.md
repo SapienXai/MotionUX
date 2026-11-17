@@ -22,7 +22,9 @@ The legacy Blueprint bridge has one job per loopback Studio, a 75 s deadline, bo
 
 ## PWA cache boundary
 
-Only the explicit PWA export emits a service worker. Its production snapshot covers the saved public demo pages and a finite same-origin asset list. It fetches those resources without credentials and does not store API responses, mutations, cross-origin resources, query variants or Studio and preview responses. Worker updates replace the previous snapshot only after the new inventory is complete and the old client's worker has released its scope. A PWA belongs on its own origin so installation, cache, and storage have the intended scope.
+Only the explicit PWA export emits a service worker. Its production snapshot covers the saved public demo pages and a finite same-origin asset list. It fetches those resources without credentials and does not store API responses, mutations, cross-origin resources, query variants or Studio and preview responses. A code export with a pinned local video can read byte ranges from the precached asset. Worker updates replace the previous snapshot only after the new inventory is complete and the old client's worker has released its scope. A PWA belongs on its own origin so installation, cache, and storage have the intended scope.
+
+Build’s local source browser uses the prepared Gallery output on loopback. The preview endpoint checks the catalog identity and payload hash and accepts iframe navigations only. Its CSP limits embedding to Build and asset requests to the prepared group and a session-specific path. Scripts run with an opaque origin. The parent accepts readiness messages for the current frame and grants them no other effects. A separate SHA-256 list covers cached demo media, which stays in the ignored vault. The compiler still evaluates source and asset rights independently for every generated application and export.
 
 ## Inspector boundary
 

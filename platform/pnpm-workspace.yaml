@@ -3,3 +3,4 @@ packages:
   - packages/*
   - templates/hotel-dashboard
   - templates/build-extended
+  - templates/build-highlight

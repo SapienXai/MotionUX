@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import { randomBytes } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import { createReadStream } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import { basename, extname, resolve } from "node:path";
@@ -10,6 +10,8 @@ import { describeKit, kitArchive } from "../studio/v11/kits.mjs";
 import { loadThumbnails } from "../studio/v11/thumbnail-cache.mjs";
 import { requestURL, safeFile } from "../studio/v11/paths.mjs";
 import { groupPattern } from "../originals/editions.mjs";
+import { localBuildSource } from "../studio/build-local-sources.mjs";
+import localAssets from "../studio/build-local-assets.json" with { type: "json" };
 
 const shell = resolve(process.env.MOTIONUX_STUDIO_SHELL ?? "dist");
 const fixture = process.env.MOTIONUX_LIBRARY_FIXTURE;
@@ -80,9 +82,25 @@ if (self !== top) {
 }
 </script>`;
 const previewAssetKey = randomBytes(18).toString("hex");
-function protectAssetURLs(content, group, lane) {
+const buildAssetKey = randomBytes(18).toString("hex");
+const localAssetFolder = "motionux-local/";
+const buildMedia = resolve(vault, "build-local-assets");
+function protectAssetURLs(content, group, lane, key = previewAssetKey) {
   const base = `/v9/live/${group}/${lane}/`;
-  return content.replaceAll(base, base + previewAssetKey + "/");
+  const protectedURLs = content.replaceAll(base, base + key + "/");
+  if (key !== buildAssetKey) return protectedURLs;
+  return (localAssets[group] ?? []).reduce((result, { file, source }) =>
+    result.replaceAll(source, base + key + "/assets/" + localAssetFolder + file), protectedURLs);
+}
+
+let inter;
+async function localTypography(html, assets) {
+  inter ??= readFile(resolve("node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2"))
+    .then((bytes) => bytes.toString("base64"));
+  const geist = html.includes("family=Geist+Mono") ?
+    `@font-face{font-family:'Geist Mono';font-weight:400 500;src:url(${assets + localAssetFolder}geist-mono.woff2)}` : "";
+  return html.replace(/<link\s[^>]*href="https:\/\/fonts\.(?:googleapis|gstatic)\.com[^"\n]*"[^>]*>/g, "")
+    .replace("</head>", `<style>@font-face{font-family:Inter;font-weight:100 900;src:url(data:font/woff2;base64,${await inter})}${geist}</style></head>`);
 }
 
 const studioAncestors = "frame-ancestors 'self' http://127.0.0.1:5200";
@@ -112,6 +130,35 @@ async function studioPreview(response, item, options) {
 <style>body { margin: 0; } iframe { display:block; inline-size: 100%; block-size: 100dvh; border: 0; }</style>
 </head><body><iframe title="Interactive original HTML" sandbox="allow-scripts" referrerpolicy="no-referrer" src="${src}"
 onload="document.documentElement.dataset.previewLoaded='true'"></iframe></body></html>`);
+}
+
+async function buildPreview(request, response, item, options) {
+  if (request.headers["sec-fetch-dest"] !== "iframe" || request.headers["sec-fetch-site"] !== "same-site")
+    return response.writeHead(403).end();
+  if (!localBuildSource(item) || options.get("item") !== item.slug || options.get("pin") !== item.upstreamHash)
+    return response.writeHead(404).end();
+  const directory = resolve(vault, "runtime", item.group, "original", "dist");
+  const isHtml = item.sourceKind === "html";
+  const assets = origin + "/v9/live/" + item.group + "/original/" + buildAssetKey + "/assets/";
+  const file = isHtml ? item.slug + ".html" : "index.html";
+  const upstream = await readFile(await safeFile(directory, file, vault), "utf8");
+  const html = isHtml ? await localTypography(upstream, "/v9/live/designbookmark/original/assets/") : upstream;
+  const selector = item.id === "designbookmark-command-button" ? "#root .command button" : "#specimen > *";
+  const wasm = item.id === "animateui-components-animate-code-tabs" ? "'wasm-unsafe-eval' " : "";
+  const ready = '<script>document.addEventListener("DOMContentLoaded", () => {' +
+    'const ready = () => { if (' + (isHtml ? 'document.body.childElementCount' : 'document.querySelector(' + JSON.stringify(selector) + ')') + ')' +
+    ' { observer.disconnect(); parent.postMessage({ motionuxLocalSource: "ready" }, "http://127.0.0.1:5200"); } };' +
+    'const observer = new MutationObserver(ready); observer.observe(document.body, {childList:true,subtree:true}); ready();' +
+    '}, {once:true})</script>';
+  response.setHeader("Content-Type", types[".html"]);
+  response.setHeader("Referrer-Policy", "no-referrer");
+  response.setHeader("Content-Security-Policy", [
+    "sandbox allow-scripts", "frame-ancestors http://127.0.0.1:5200", "default-src 'none'",
+    "script-src 'unsafe-inline' " + wasm + assets, "style-src 'unsafe-inline' " + assets,
+    "font-src data: " + assets, "img-src data: blob: " + assets, "media-src data: blob: " + assets,
+    "connect-src " + assets, "worker-src blob:", "base-uri 'none'", "form-action 'none'",
+  ].join("; "));
+  response.end(protectAssetURLs(html.replace("</head>", previewStyle + ready + "</head>"), item.group, "original", buildAssetKey));
 }
 
 const types = {
@@ -195,6 +242,8 @@ const server = createServer({ requestTimeout: 15000, headersTimeout: 5000, maxHe
       await sendFile(response, resolve(vault, "thumbnails"), basename(file));
     } else if (path.startsWith("/v10/preview/")) {
       await studioPreview(response, byId.get(path.slice("/v10/preview/".length)), url.searchParams);
+    } else if (path.startsWith("/v10/build-preview/")) {
+      await buildPreview(request, response, byId.get(path.slice("/v10/build-preview/".length)), url.searchParams);
     } else if (path === "/v9/catalog.json") {
       const record = id ? detailCatalog.get(id) : undefined;
       const payload = id ? record && JSON.stringify(record) : visibleCatalog;
@@ -247,7 +296,8 @@ const server = createServer({ requestTimeout: 15000, headersTimeout: 5000, maxHe
       const [, , , provider, lane, ...asset] = path.split("/");
       if (!liveGroups.has(provider) || !["original", "installed"].includes(lane)) return response.writeHead(404).end();
       const directory = resolve(vault, "runtime", provider, lane, "dist");
-      if (groupPattern.test(provider)) {
+      const buildAsset = lane === "original" && asset[0] === buildAssetKey;
+      if (groupPattern.test(provider) || buildAsset) {
         if (!asset.join("/") || asset.join("/") === "index.html") {
           securePreview(response);
           const html = await readFile(await safeFile(directory, "index.html", vault), "utf8");
@@ -255,16 +305,23 @@ const server = createServer({ requestTimeout: 15000, headersTimeout: 5000, maxHe
         }
         // Sandbox frames have an opaque origin. The unguessable path is issued only by
         // same-Studio HTML documents, which reject cross-site framing and CORS reads.
-        if (asset[0] !== previewAssetKey || asset[1] !== "assets") return response.writeHead(404).end();
+        if ((!buildAsset && asset[0] !== previewAssetKey) || asset[1] !== "assets") return response.writeHead(404).end();
         if (request.headers.origin === "null") response.setHeader("Access-Control-Allow-Origin", "null");
         response.setHeader("Vary", "Origin");
         response.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
         response.setHeader("Cache-Control", "private, max-age=86400, immutable");
         const relative = asset.slice(1).join("/");
         const extension = extname(relative);
+        if (buildAsset && relative.startsWith("assets/" + localAssetFolder)) {
+          const pin = localAssets[provider]?.find(({ file }) => relative === "assets/" + localAssetFolder + file);
+          if (!pin) return response.writeHead(404).end();
+          const bytes = await readFile(await safeFile(buildMedia, pin.file, vault));
+          if (createHash("sha256").update(bytes).digest("hex") !== pin.sha256) return response.writeHead(409).end();
+          return response.writeHead(200, { "Content-Type": types[extension], "Content-Length": bytes.byteLength }).end(bytes);
+        }
         if (extension === ".js" || extension === ".css") {
           const text = await readFile(await safeFile(directory, relative, vault), "utf8");
-          const content = protectAssetURLs(text, provider, lane);
+          const content = protectAssetURLs(text, provider, lane, buildAsset ? buildAssetKey : previewAssetKey);
           return response.writeHead(200, { "Content-Type": types[extension], "Content-Length": Buffer.byteLength(content) }).end(content);
         }
         return await sendFile(response, directory, relative);

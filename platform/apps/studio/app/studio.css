@@ -1402,4 +1402,14 @@ select:focus-visible {
 .b11-preview-frame { position: relative; overflow: hidden; margin-inline: auto; border-radius: 8px; box-shadow: 0 0 0 1px var(--build-border); }
 .b11-preview-frame iframe { position: absolute; inset: 0 auto auto 0; min-block-size: 0; max-inline-size: none; border: 0; border-radius: 0; transform-origin: top left; }
 .b11-preview-caption { display: flex; justify-content: center; gap: 16px; font-size: 12px; color: var(--build-muted); }
+
+.build-local-sources { display: grid; gap: 1rem; }
+.build-local-filters { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; }
+.build-local-filters label { display: grid; gap: .375rem; min-inline-size: 0; flex: 1 1 15rem; }
+.build-local-filters :is(input, select) {
+  inline-size: 100%; min-inline-size: 0; min-block-size: 2.75rem; padding-inline: .625rem;
+  color: inherit; background: var(--build-surface); border: 1px solid var(--build-border); border-radius: .5rem;
+}
+.build-local-status { display: flex; align-items: center; gap: .75rem; }
+.build-local-preview { display: block; inline-size: 100%; block-size: clamp(24rem, 65vh, 45rem); border: 1px solid var(--build-border); border-radius: .5rem; }
 .b11-code { max-block-size: 360px; overflow: auto; font-size: 11px; line-height: 1.6; text-align: start; white-space: pre; }

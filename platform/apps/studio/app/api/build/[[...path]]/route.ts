@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { inspectCodeCatalog } from "@motionux/app-export/code-catalog";
+import { inspectCodeCatalog, listLocalBuildSources } from "@motionux/app-export/code-catalog";
 import { cancelSourceJob, getSourceJob, startSourceJob, retrySourceJob } from "../source-jobs";
 import {
   createStore,
@@ -134,6 +134,8 @@ async function handle(request: Request, { params }: Context) {
     if (id === "source-jobs" && path.length === 3 && path[2] === "retry" && method === "POST")
       return json(await retrySourceJob(repo, vault, action), 202);
     if (id === "source-jobs" && path.length === 2) {
+      if (method === "GET" && action === "local")
+        return json(await listLocalBuildSources(repo));
       if (method === "GET" && action === "inventory") {
         const inventory = await inspectCodeCatalog(repo);
         return json({ fingerprint: inventory.fingerprint, counts: inventory.counts, rows: inventory.rows.map(({ id, title, provider, ready, reason, details }) => ({ id, title, provider, ready, reason, details })) });

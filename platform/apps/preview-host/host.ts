@@ -18,6 +18,7 @@ import type { BuildProject } from "@motionux/build-core";
 import type { InspectionReport } from "@motionux/build-core/inspection";
 import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
 import { exportTree, writeTree } from "@motionux/app-export";
+import { codeProfiles } from "@motionux/app-export/code-catalog";
 
 type PreviewState = {
   status: "idle" | "building" | "starting" | "ready" | "failed";
@@ -100,8 +101,7 @@ function runNext(
   const unrestricted = [
     cwd,
     resolve(repo, "platform/node_modules"),
-    resolve(repo, "platform/templates/hotel-dashboard/node_modules"),
-    resolve(repo, "platform/templates/build-extended/node_modules"),
+    ...codeProfiles.map((name) => resolve(repo, "platform/templates", name, "node_modules")),
     dirname(dirname(process.execPath)),
   ];
   const subpaths = unrestricted
@@ -185,15 +185,15 @@ async function run(
     if (JSON.parse(String(tree["motionux-manifest.json"])).documentDigest !== session.state.documentDigest)
       throw new BuildError(409, "Preview document changed.");
     await writeTree(cwd, tree);
-    let dependencyProfile = "hotel-dashboard";
+    let dependencyProfile: typeof codeProfiles[number] = codeProfiles[0];
     if (project.document.codeProject) {
       const lock = fingerprint(tree["package-lock.json"]);
-      const base = await readFile(resolve(repo, "platform/templates/hotel-dashboard/package-lock.json"));
-      if (fingerprint(base) !== lock) {
-        const extended = await readFile(resolve(repo, "platform/templates/build-extended/package-lock.json"));
-        if (fingerprint(extended) !== lock) throw new BuildError(409, "Preview dependency lock is unrecognized.");
-        dependencyProfile = "build-extended";
-      }
+      const profiles = await Promise.all(codeProfiles.map(async (name) => ({
+        name, hash: fingerprint(await readFile(resolve(repo, "platform/templates", name, "package-lock.json"))),
+      })));
+      const selected = profiles.find(({ hash }) => hash === lock);
+      if (!selected) throw new BuildError(409, "Preview dependency lock is unrecognized.");
+      dependencyProfile = selected.name;
     }
     const dependencies = resolve(repo, "platform/templates", dependencyProfile, "node_modules");
     const next = await realpath(resolve(dependencies, "next/dist/bin/next"));

@@ -17,8 +17,14 @@ const extended = {
   preferred: "cultui-bg-image-texture",
   brief: "Build a local print-studio proofing workstation with a tactile paper swatch and editable proof timer. Use the selected Cult UI BackgroundImageTexture for the swatch. Apply real local texture variants grid-noise and debut-light, with a labeled selector and live preview. Use the original Kokonut Hold Button to approve the selected proof with a real keyboard or pointer hold and show the approval. If those sources are available, use them in the primary workflow. If available, use SmoothUI Duration Picker for changing the proof timer. Keep this as one focused accessible screen, with fictional data, no external web requests, and meaningful keyboard journeys.",
 };
+const recovered = {
+  label: "RECOVERED",
+  preferred: "magicui-code-comparison",
+  brief: "Build a focused coastal research release desk with two actual upstream sources. Use Magic UI Code Comparison (named CodeComparison) to compare short old/new TypeScript settings for survey intervals, with GitHub light/dark theme props and an accessible button to choose which example appears. Use Magic UI Hero Video Dialog (named HeroVideoDialog) to preview the bundled coast survey video at /media/seed-coast-preview.mp4, using /media/seed-coast-720.webp as poster. Never use a remote link or iframe. Use a light editorial style, fictional data and one responsive screen. Add a real workflow journey for selecting a code example, opening the native video dialog via its Play video button, and closing it via Close video. Verify both sources are directly mounted, preserve native controls and use exact accessible names.",
+};
 const ids = process.argv.slice(2).filter((argument) => !argument.startsWith("--"));
-if (ids.includes(extended.label)) cases.push([extended.label, extended.brief]);
+const targeted = [extended, recovered];
+for (const test of targeted) if (ids.includes(test.label)) cases.push([test.label, test.brief]);
 const retries = Object.fromEntries(process.argv.slice(2).filter((argument) => argument.startsWith("--retry=")).map((argument) => argument.slice(8).split(":")));
 await mkdir(evidence, { recursive: true, mode: 0o700 });
 const browser = await chromium.launch();
@@ -28,7 +34,8 @@ page.setDefaultTimeout(12_000);
 try {
   for (const [label, brief] of cases.filter(([id]) => !ids.length || ids.includes(id))) {
     try {
-      const search = label === extended.label ? "?source=" + extended.preferred : "";
+      const preferred = targeted.find((test) => test.label === label)?.preferred;
+      const search = preferred ? "?source=" + preferred : "";
       await page.goto(origin + "/build" + search, { waitUntil: "networkidle" });
       const retry = retries[label];
       if (retry) {

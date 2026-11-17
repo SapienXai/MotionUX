@@ -368,6 +368,7 @@ export function ComposerHome({
                 <p>
                   Describe how your app should work. Build searches your source catalog and opens the verified application in Studio.
                 </p>
+                <a className="build-text-button" href="/build/local-sources">Browse local sources</a>
               </div>
               <form
                 className="compose-form"

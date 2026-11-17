@@ -120,6 +120,9 @@ export async function exportTree(repo: string, value: unknown, options: { pwa?: 
         id: project.id, document: { name: project.document.name, locale: project.document.locale, theme: project.document.theme, template: project.document.template },
       }) + ";\n";
       pwa = await addPwa(repo, project, output);
+      if (assets.some(({ path }) => /^public\/media\/[a-z0-9-]+\.mp4$/.test(path)))
+        output["runtime/service-worker.js"] = String(output["runtime/service-worker.js"]) + "\n" +
+          await readFile(resolve(repo, "platform/templates/pwa/video-ranges.js"), "utf8");
       output["app/layout.tsx"] = String(files["app/layout.tsx"]).replace('import "../styles/app.css";', 'import "../styles/app.css";\nimport "../runtime/pwa.css";');
       output["runtime/pwa-status.tsx"] = String(output["runtime/pwa-status.tsx"])
         .replace('import { useOptionalApp } from "./frame";', 'import { project } from "./project";')
