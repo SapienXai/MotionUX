@@ -369,7 +369,7 @@ async function desktopVitals(page, url) {
 }
 async function mobileProfile(browser, origin, app) {
   const context = await browser.newContext({
-    viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true,
+    viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 1,
     reducedMotion: "reduce", colorScheme: "dark",
   });
   try {
@@ -380,6 +380,10 @@ async function mobileProfile(browser, origin, app) {
       offline: false, latency: 60, downloadThroughput: 200000, uploadThroughput: 75000,
     });
     const vitals = await desktopVitals(page, origin);
+    if (app.id === "marketing") {
+      const image = page.getByRole("img", { name: "Olive trees beside a stone pool" });
+      await expect.poll(() => image.evaluate((node) => node.currentSrc)).toMatch(/-360\.webp$/);
+    }
     const menu = button(page, "Menu");
     await menu.evaluate((element) => {
       window.motionuxTap = null;

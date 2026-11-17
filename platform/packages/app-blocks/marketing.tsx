@@ -91,7 +91,8 @@ function Photo({
   alt = "",
   focal = "center",
   priority = false,
-}: Visual & { priority?: boolean }) {
+  sizes = "(max-width: 740px) 100vw, (max-width: 1100px) 56vw, 720px",
+}: Visual & { priority?: boolean; sizes?: string }) {
   const { mediaBase, thumbnail } = useSite();
   if (!asset) return null;
   return (
@@ -106,7 +107,7 @@ function Photo({
         asset +
         "-720.webp 720w"
       }
-      sizes="(max-width: 700px) 100vw, (max-width: 1100px) 56vw, 720px"
+      sizes={thumbnail ? undefined : sizes}
       alt={alt}
       width="720"
       height="720"
@@ -214,6 +215,10 @@ function SectionTitle({
   );
 }
 function Hero({ props, editorial, nested }: { props: BlockProps; editorial: boolean; nested?: boolean }) {
+  const { document } = useSite();
+  const sizes = editorial && document.identity
+    ? "(max-width: 740px) calc(100vw - 40px), (max-width: 1240px) 57vw, 720px"
+    : undefined;
   return (
     <section className={editorial ? "site-hero editorial" : "site-hero split"}>
       <div className="site-hero-copy">
@@ -223,7 +228,7 @@ function Hero({ props, editorial, nested }: { props: BlockProps; editorial: bool
       </div>
       {props.image && (
         <div className="site-hero-photo">
-          <Photo {...props.image} priority={!nested} />
+          <Photo {...props.image} priority={!nested} sizes={sizes} />
         </div>
       )}
     </section>

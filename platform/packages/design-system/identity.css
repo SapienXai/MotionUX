@@ -193,3 +193,10 @@
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
+
+@container creator-app (max-width: 740px) {
+  .site[data-project-identity] .site-hero.editorial .site-hero-photo {
+    margin-inline: max(20px, var(--site-gutter));
+    margin-block-end: var(--site-gutter);
+  }
+}
