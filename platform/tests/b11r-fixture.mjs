@@ -26,7 +26,7 @@ export async function fixtureProgram() {
   };
   return proposal;
 }
-export async function createCodeFixture() {
+export async function createCodeFixture({ extended = false } = {}) {
   const root = resolve(repo, ".motionux-v9/build-tests");
   await mkdir(root, { recursive: true, mode: 0o700 });
   const fake = await mkdtemp(resolve(root, "b11r-portable-"));
@@ -35,12 +35,19 @@ export async function createCodeFixture() {
   await cp(resolve(repo, "platform/templates/hotel-dashboard"), resolve(fake, "platform/templates/hotel-dashboard"), {
     recursive: true, filter: (path) => !path.split("/").some((part) => ["node_modules", ".next"].includes(part)),
   });
+  if (extended) {
+    await mkdir(resolve(fake, "platform/templates/build-extended"), { recursive: true });
+    for (const file of ["package.json", "package-lock.json"])
+      await cp(resolve(repo, "platform/templates/build-extended", file), resolve(fake, "platform/templates/build-extended", file));
+  }
   await cp(resolve(repo, "platform/templates/hotel-marketing/media"), resolve(fake, "platform/templates/hotel-marketing/media"), { recursive: true });
   await cp(resolve(repo, "platform/templates/pwa"), resolve(fake, "platform/templates/pwa"), { recursive: true });
   await mkdir(resolve(fake, "platform/templates/source-driven"), { recursive: true });
   await cp(resolve(repo, "platform/templates/source-driven/project-state.ts"), resolve(fake, "platform/templates/source-driven/project-state.ts"));
   await cp(resolve(repo, "LICENSE"), resolve(fake, "LICENSE"));
-  const source = await readFile(resolve(repo, "platform/tests/fixtures/source-code/expanding-notice.tsx"), "utf8");
+  let source = await readFile(resolve(repo, "platform/tests/fixtures/source-code/expanding-notice.tsx"), "utf8");
+  if (extended) source = source.replace('"use client";', '"use client";\nimport { cva } from "class-variance-authority";')
+    .replace('className="fixture-source"', 'className={cva("fixture-source extended-fixture")()}');
   const license = await readFile(resolve(repo, "LICENSE"), "utf8");
   const revision = "a".repeat(40);
   const entry = { id: "portable-source", provider: "MotionUX owned test fixture", title: "Portable source fixture",

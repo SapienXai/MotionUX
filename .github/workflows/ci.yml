@@ -24,7 +24,7 @@ jobs:
           version: "10.30.3"
       - run: pnpm --dir platform install --frozen-lockfile --ignore-scripts
       - name: B11R typed module compiler and independent code/PWA fixture
-        run: node platform/tests/b11r-portable.mjs --controls
+        run: node platform/tests/b11r-portable.mjs --controls --extended
       - run: node scripts/v9/check-public.mjs
       - uses: actions/upload-artifact@v4
         if: failure()

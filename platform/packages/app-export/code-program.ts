@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { codeProposalSchema, codeProjectSchema, type CodeProject } from "@motionux/build-core/code-project";
 import type { BuildProject, Document } from "@motionux/build-core";
 import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
-import { restoreCodeSources, type SourceModule } from "./code-catalog.ts";
+import { codeProfileFor, restoreCodeSources, type SourceModule } from "./code-catalog.ts";
 import { programHashes, validateProgram } from "./code-validator.ts";
 import { mediaBytes } from "./media.ts";
 
@@ -39,11 +39,12 @@ export function AppScreen({ page }: { page: { route: string } }) {
 }
 `;
 
-async function profile(repo: string) {
+async function profile(repo: string, sources: SourceModule[]) {
   const root = resolve(repo, "platform/templates");
   const read = (file: string) => readFile(resolve(root, file), "utf8");
+  const dependencyProfile = await codeProfileFor(repo, sources.flatMap(({ packages }) => packages));
   const [lock, pkg, state, next, postcss, tsconfig, proxy] = await Promise.all([
-    read("hotel-dashboard/package-lock.json"), read("hotel-dashboard/package.json"), read("source-driven/project-state.ts"),
+    read(dependencyProfile + "/package-lock.json"), read(dependencyProfile + "/package.json"), read("source-driven/project-state.ts"),
     read("hotel-dashboard/next.config.mjs"), read("hotel-dashboard/postcss.config.mjs"), read("hotel-dashboard/tsconfig.json"), read("hotel-dashboard/proxy.ts"),
   ]);
   return { lock, pkg, state, next, postcss, tsconfig, proxy, compiler: fingerprint(canonical({ abi: 3, state, screenTemplate, next, postcss, tsconfig, proxy })) };
@@ -52,7 +53,7 @@ async function profile(repo: string) {
 export async function sealCodeProject(repo: string, proposal: unknown, sources: SourceModule[]): Promise<CodeProject> {
   const clean = validateProgram(proposal, sources);
   const selected = [...new Set(clean.usages.map(({ source }) => source))];
-  const environment = await profile(repo);
+  const environment = await profile(repo, sources.filter(({ pin }) => selected.includes(pin.id)));
   const result = codeProjectSchema.safeParse({
     ...clean, version: 2,
     sources: selected.map((id) => sources.find(({ pin }) => pin.id === id)!.pin),
@@ -70,10 +71,10 @@ export function codeDocument(codeProject: CodeProject): Document {
 
 export async function compileCodeProject(repo: string, project: BuildProject) {
   const graph = codeProjectSchema.parse(project.document.codeProject);
-  const environment = await profile(repo);
+  const sources = await restoreCodeSources(repo, graph.sources);
+  const environment = await profile(repo, sources);
   if (fingerprint(environment.lock) !== graph.lock || environment.compiler !== graph.compiler)
     throw new BuildError(409, "The pinned compiler or dependency lock changed. Rebuild this code project before running or exporting.");
-  const sources = await restoreCodeSources(repo, graph.sources);
   const { version, artifacts } = graph;
   const proposal = codeProposalSchema.strip().parse(graph);
   validateProgram(proposal, sources);
@@ -127,7 +128,15 @@ export default async function Page({ params }: Props) {
 }
 `;
   const requested = graph.files.map(({ content }) => content).join("\n");
-  const assetPins: { path: string; sha256: string; rights: string }[] = [];
+  const assetPins: { path: string; sha256: string; rights: string; attribution?: string }[] = [];
+  for (const source of sources) for (const asset of source.assets) {
+    files[asset.path] = asset.bytes;
+    assetPins.push({ path: asset.path, sha256: asset.sha256, rights: asset.rights, attribution: asset.attribution });
+  }
+  const attributed = assetPins.filter(({ attribution }) => attribution);
+  if (attributed.length) files["ASSET-NOTICES.txt"] = attributed.map(({ path, attribution }) =>
+    path + "\n" + attribution + "\nCC BY-SA 3.0 · https://creativecommons.org/licenses/by-sa/3.0/\n",
+  ).join("\n");
   for (const id of ["seed-coast", "seed-room", "seed-pool"]) {
     if (!requested.includes(id) && !requested.includes("/media/seed-${")) continue;
     for (const size of [360, 720] as const) {

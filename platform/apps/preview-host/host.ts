@@ -4,6 +4,7 @@ import {
   lstat,
   mkdir,
   mkdtemp,
+  readFile,
   realpath,
   rm,
   statfs,
@@ -100,6 +101,7 @@ function runNext(
     cwd,
     resolve(repo, "platform/node_modules"),
     resolve(repo, "platform/templates/hotel-dashboard/node_modules"),
+    resolve(repo, "platform/templates/build-extended/node_modules"),
     dirname(dirname(process.execPath)),
   ];
   const subpaths = unrestricted
@@ -183,10 +185,17 @@ async function run(
     if (JSON.parse(String(tree["motionux-manifest.json"])).documentDigest !== session.state.documentDigest)
       throw new BuildError(409, "Preview document changed.");
     await writeTree(cwd, tree);
-    const dependencies = resolve(
-      repo,
-      "platform/templates/hotel-dashboard/node_modules",
-    );
+    let dependencyProfile = "hotel-dashboard";
+    if (project.document.codeProject) {
+      const lock = fingerprint(tree["package-lock.json"]);
+      const base = await readFile(resolve(repo, "platform/templates/hotel-dashboard/package-lock.json"));
+      if (fingerprint(base) !== lock) {
+        const extended = await readFile(resolve(repo, "platform/templates/build-extended/package-lock.json"));
+        if (fingerprint(extended) !== lock) throw new BuildError(409, "Preview dependency lock is unrecognized.");
+        dependencyProfile = "build-extended";
+      }
+    }
+    const dependencies = resolve(repo, "platform/templates", dependencyProfile, "node_modules");
     const next = await realpath(resolve(dependencies, "next/dist/bin/next"));
     if (!next.startsWith(resolve(repo, "platform/node_modules") + "/"))
       throw new BuildError(403, "Preview dependency identity failed.");

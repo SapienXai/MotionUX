@@ -75,7 +75,7 @@ export async function journeys(page, origin, program, observe = async () => {}) 
   return results;
 }
 
-export async function inspect(browser, origin, project, label, format) {
+export async function inspect(browser, origin, project, label, format, sourceAssets = []) {
   const program = project.document.codeProject;
   const context = await browser.newContext({ reducedMotion: "reduce", colorScheme: "light" });
   const page = await context.newPage();
@@ -155,6 +155,18 @@ export async function inspect(browser, origin, project, label, format) {
     await context.setOffline(true);
     assert((await page.reload())?.fromServiceWorker());
     offline = { reload: true, journeys: await journeys(page, origin, program) };
+    if (sourceAssets.length) {
+      offline.sourceAssets = [];
+      for (const asset of sourceAssets) {
+        const cached = await page.evaluate(async (url) => {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error("Offline source asset could not be loaded.");
+          return Array.from(new Uint8Array(await response.arrayBuffer()));
+        }, asset.path.slice("public".length));
+        assert.equal(fingerprint(Uint8Array.from(cached)), asset.sha256);
+        offline.sourceAssets.push(asset.path);
+      }
+    }
     await context.setOffline(false);
     await page.reload();
   }
@@ -173,15 +185,27 @@ for (const label of labels) {
       await run("unzip", ["-q", resolve(evidence, label + "-" + format + ".zip"), "-d", work]);
       const manifest = JSON.parse(await readFile(resolve(work, "motionux-manifest.json"), "utf8"));
       for (const { path, sha256 } of manifest.files) assert.equal(fingerprint(await readFile(resolve(work, path))), sha256);
+      const sourceAssets = manifest.assets.filter(({ path }) => path.startsWith("public/media/sources/"));
+      if (sourceAssets.length) {
+        const notices = await readFile(resolve(work, "ASSET-NOTICES.txt"), "utf8");
+        for (const { attribution, path } of sourceAssets) {
+          assert(attribution && notices.includes(attribution), "Missing exported asset attribution for " + path);
+        }
+      }
       const started = performance.now();
       for (const args of [["ci", "--ignore-scripts", "--no-audit", "--no-fund", "--allow-remote=all"], ["run", "typecheck"], ["run", "build"]])
         await run("npm", args, { cwd: work, env, timeout: 150_000, maxBuffer: 1_000_000 });
       const buildMs = Math.round(performance.now() - started);
       server = await serve(work);
+      for (const asset of sourceAssets) {
+        const response = await fetch(server.origin + asset.path.slice("public".length));
+        assert(response.ok);
+        assert.equal(fingerprint(new Uint8Array(await response.arrayBuffer())), asset.sha256);
+      }
       const checks = [];
       for (const engine of engines) {
         const browser = await engine.launch();
-        try { checks.push(await inspect(browser, server.origin, project, label, format)); } finally { await browser.close(); }
+        try { checks.push(await inspect(browser, server.origin, project, label, format, sourceAssets)); } finally { await browser.close(); }
       }
       let sourceParity;
       if (process.argv.includes("--source-parity") && format === "next") {

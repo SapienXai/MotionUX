@@ -12,7 +12,13 @@ const cases = [
   ["E1", "Create a premium volunteer observatory workspace. The opening view should be tonight's observing run with a chronological instrument schedule. Add observation targets, inspect their preparation notes, filter readiness, edit session times with overlap validation, and retain records locally. On mobile put the next observation and readiness action first. Give it a night-oriented scientific visual identity and no giant KPI dashboard."],
   ["E2", "Create an editorial ceramics exhibition catalog for a small gallery. Visitors should discover objects in an image-led collection, compare two pieces, inspect dimensions and technique, and add a visit-interest note that is stored only on this device. Curator view should edit fictional catalog entries and readiness. Use a warm print-inspired composition with quiet interaction. Mobile discovery and comparisons must stay legible."],
 ];
+const extended = {
+  label: "EXT",
+  preferred: "cultui-bg-image-texture",
+  brief: "Build a local print-studio proofing workstation with a tactile paper swatch and editable proof timer. Use the selected Cult UI BackgroundImageTexture for the swatch. Apply real local texture variants grid-noise and debut-light, with a labeled selector and live preview. Use the original Kokonut Hold Button to approve the selected proof with a real keyboard or pointer hold and show the approval. If those sources are available, use them in the primary workflow. If available, use SmoothUI Duration Picker for changing the proof timer. Keep this as one focused accessible screen, with fictional data, no external web requests, and meaningful keyboard journeys.",
+};
 const ids = process.argv.slice(2).filter((argument) => !argument.startsWith("--"));
+if (ids.includes(extended.label)) cases.push([extended.label, extended.brief]);
 const retries = Object.fromEntries(process.argv.slice(2).filter((argument) => argument.startsWith("--retry=")).map((argument) => argument.slice(8).split(":")));
 await mkdir(evidence, { recursive: true, mode: 0o700 });
 const browser = await chromium.launch();
@@ -22,7 +28,8 @@ page.setDefaultTimeout(12_000);
 try {
   for (const [label, brief] of cases.filter(([id]) => !ids.length || ids.includes(id))) {
     try {
-      await page.goto(origin + "/build", { waitUntil: "networkidle" });
+      const search = label === extended.label ? "?source=" + extended.preferred : "";
+      await page.goto(origin + "/build" + search, { waitUntil: "networkidle" });
       const retry = retries[label];
       if (retry) {
         await page.evaluate((id) => sessionStorage.setItem("motionux:source-job:home", id), retry);

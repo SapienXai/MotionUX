@@ -13,7 +13,8 @@ import { exportTree, zipTree } from "../packages/app-export/export.ts";
 import { inspect, serve } from "./b11r-consumer.mjs";
 
 const run = promisify(execFile);
-const fixture = await createCodeFixture();
+const extended = process.argv.includes("--extended");
+const fixture = await createCodeFixture({ extended });
 const evidence = resolve(repo, ".motionux-v9/evidence/build-b11r");
 await mkdir(evidence, { recursive: true, mode: 0o700 });
 try {
@@ -22,6 +23,7 @@ try {
     let server;
     try {
       const tree = await exportTree(fixture.fake, fixture.project, { pwa });
+      if (extended) assert.equal(JSON.parse(tree["package-lock.json"]).packages["node_modules/class-variance-authority"].version, "0.7.1");
       const archive = resolve(work, "source.zip");
       await writeFile(archive, zipTree(tree), { mode: 0o600 });
       await run("unzip", ["-q", archive, "-d", work]);
@@ -33,6 +35,12 @@ try {
       try {
         const result = await inspect(browser, server.origin, fixture.project, "portable", pwa ? "pwa" : "next");
         assert.equal(result.journeys.length, 1);
+        if (extended) {
+          const page = await browser.newPage();
+          await page.goto(server.origin);
+          await page.locator(".extended-fixture").waitFor({ state: "visible" });
+          await page.close();
+        }
         if (!pwa) {
           const page = await browser.newPage();
           await page.setContent('<select aria-label="Owner"><option value="all">All</option><option value="mira">Mira</option></select><dialog open aria-label="New record"><select aria-label="Owner"><option value="none">Unassigned</option><option value="mira">Mira</option></select></dialog>');

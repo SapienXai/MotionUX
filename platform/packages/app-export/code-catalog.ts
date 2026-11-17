@@ -9,7 +9,7 @@ import type { CodePin } from "@motionux/build-core/code-project";
 
 type Pin = { path: string; upstreamPath?: string; sha256: string; installedSHA256?: string };
 type Entry = {
-  id: string; provider: string; title: string; repo?: string; entry: string; upstreamHash: string; upstreamCommit?: string;
+  id: string; slug?: string; provider: string; title: string; repo?: string; entry: string; upstreamHash: string; upstreamCommit?: string;
   installRecipe: string; licenseNoticePath?: string; sourceURL: string; format?: string; sourceKind?: string;
   codeFiles: Pin[]; css?: string[]; assets?: { path: string; sha256: string }[];
 };
@@ -17,6 +17,7 @@ export type SourceModule = {
   pin: CodePin; files: Record<string, string>; hashes: Record<string, string>; upstreamHashes: Record<string, string>;
   preparationPatches: { file: string; upstream: string; prepared: string; reason: string }[]; patches: { file: string; reason: string }[];
   exports: string[]; types: string; packages: string[]; css: string[]; api: string; example: string;
+  assets: { path: string; bytes: Uint8Array; sha256: string; rights: string; attribution: string }[];
 };
 export type InventoryRow = {
   id: string; title: string; provider: string; entry: string; ready: boolean; reason: string; details: string;
@@ -25,6 +26,13 @@ export type InventoryRow = {
 const safe = (name: string) => /^[\w./-]+$/.test(name) && !name.startsWith("/") &&
   !name.split("/").some((part) => !part || part === "." || part === "..");
 const packageName = (name: string) => name.startsWith("@") ? name.split("/").slice(0, 2).join("/") : name.split("/")[0];
+const textureCredits = new Map([
+  ["fabric-of-squares.png", "Fabric Of Squares by Heliodor Jalba"],
+  ["grid-noise.png", "Grid Noise by Daivid Serif"],
+  ["inflicted.png", "Inflicted by Hugo Loning"],
+  ["debut-light.png", "Debut Light by Luke McDonald"],
+  ["groovepaper.png", "Groovepaper by Isaac"],
+]);
 export async function sourceRead(root: string, path: string, max = 2_000_000) {
   if (!safe(path)) throw new Error("path-escape");
   const target = resolve(root, path);
@@ -84,13 +92,23 @@ function errorReason(error: unknown) {
   return { reason: code, details: text.slice(0, 280) };
 }
 
+// These published registry names predate the Gallery IDs. Entry, revision and every
+// file are still independently pinned below, including for a historical name.
+function validRegistryName(item: Entry, name: string) {
+  if (name === item.id) return true;
+  const prefix = item.repo === "https://github.com/kokonut-labs/kokonutui" ? "kokonut"
+    : item.repo === "https://github.com/educlopez/smoothui" ? "smoothui" : undefined;
+  return Boolean(prefix && item.slug && /^[a-z0-9-]+$/.test(item.slug) &&
+    name === prefix + "-" + item.slug && basename(item.installRecipe) === name + ".json");
+}
+
 async function resolveModule(repo: string, item: Entry, catalog: Entry[], dependencies: Set<string>): Promise<SourceModule> {
   if (!/^[a-z0-9][a-z0-9-]{0,95}$/.test(item.id) || !safe(item.entry) || !/\.tsx?$/.test(item.entry)) throw new Error("unreviewed-html");
   if (!/^[a-f0-9]{40}$/.test(item.upstreamCommit ?? "") || !item.sourceURL.includes(item.upstreamCommit!) ||
     !/^https:\/\/(?:github\.com|raw\.githubusercontent\.com)\//.test(item.sourceURL)) throw new Error("unverified-pin");
   const vault = resolve(repo, ".motionux-v9");
-  const registry = JSON.parse(await sourceRead(vault, "registry/" + basename(item.installRecipe))) as { name: string; files: { path: string; content: string }[] };
-  if (registry.name !== item.id) throw new Error("unverified-pin: registry identity");
+  const registry = JSON.parse(await sourceRead(vault, "registry/" + basename(item.installRecipe), 4_000_000)) as { name: string; files: { path: string; content: string }[] };
+  if (!validRegistryName(item, registry.name)) throw new Error("unverified-pin: registry identity");
   const content = new Map(registry.files.map((file) => [file.path, file.content]));
   const pins = new Map(item.codeFiles.map((pin) => [pin.path, pin]));
   function pinned(path: string) {
@@ -123,6 +141,7 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
   const packages = new Set<string>();
   const patches: SourceModule["patches"] = [];
   const styles: string[] = [];
+  const assets: SourceModule["assets"] = [];
   function visit(path: string) {
     if (Object.hasOwn(files, path)) return;
     if (Object.keys(files).length > 30) throw new Error("source-budget: import count");
@@ -154,6 +173,11 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
       return;
     }
     if (!/\.tsx?$/.test(path)) throw new Error("unsupported-asset: " + path);
+    if (path === item.entry && item.id === "smoothui-ai-message" &&
+      hashes[path] === "88ca4b848c774446f8f6b8275532c71bb8356f602ac811b5f4f298b7f96cd433") {
+      code = code.replace("<style dangerouslySetInnerHTML={{ __html: ACTION_STYLES }} />", "<style>{ACTION_STYLES}</style>");
+      patches.push({ file: path, reason: "Render the unchanged static action stylesheet as React text." });
+    }
     const info = analyzeModule(path, code);
     if (info.forbidden.length) throw new Error("runtime-review: " + info.forbidden.join(", "));
     for (const name of info.imports) {
@@ -180,6 +204,31 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
         .replaceAll("child as React.ReactElement)", "child as React.ReactElement<Record<string, unknown> & { className?: string }>)");
       patches.push({ file: path, reason: "Parameterize ReactElement for React 19 props typing." });
     }
+    // This pinned Cult UI entry already embeds the original textures. Preserve
+    // their bytes and compare them to the catalog's independent upstream pins.
+    if (item.id === "cultui-bg-image-texture" && item.repo === "https://github.com/nolly-studio/cult-ui" &&
+      item.upstreamCommit === "d71b1428b811c2779d46ea41b7ef8c9f9c9991c2" && path === item.entry &&
+      hashes[path] === "6a5dd3a59c73a605ff2147ce0f37dee664ea672f76ceb4e9cc07c90c8d678b22") {
+      code = code.replace(/data:image\/png;base64,([A-Za-z0-9+/=]+)/g, (_, data: string) => {
+        const bytes = Buffer.from(data, "base64");
+        const sha256 = fingerprint(bytes);
+        const asset = item.assets?.find((asset) => typeof asset === "object" && asset.sha256 === sha256);
+        if (!asset || !/^apps\/www\/public\/textures\/[a-z-]+\.png$/.test(asset.path) ||
+          bytes.length > 300_000 || !bytes.subarray(0, 8).equals(Buffer.from("89504e470d0a1a0a", "hex")))
+          throw new Error("unsupported-asset: texture does not match its raster pin");
+        const filename = basename(asset.path);
+        const credit = textureCredits.get(filename);
+        if (!credit) throw new Error("unverified-license: texture attribution");
+        const target = "public/media/sources/" + item.id + "/" + filename;
+        if (!assets.some(({ path }) => path === target)) assets.push({
+          path: target, bytes, sha256, rights: "CC-BY-SA-3.0",
+          attribution: credit + ", Subtle Patterns, transparent adaptation by Mike Hearn. " +
+            "https://www.transparenttextures.com/" + filename.slice(0, -4) + ".html",
+        });
+        return target.slice("public".length);
+      });
+      if (assets.length) patches.push({ file: path, reason: "Serve the verified embedded texture bytes as local, offline-cacheable images." });
+    }
     files[path] = code;
   }
   visit(item.entry);
@@ -188,17 +237,29 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
   // CSS imported by the entry is preserved. Global demo bundles are not imported as application resets.
   const examplePath = registry.files.find(({ path }) => /(?:^|\/)demos?\//.test(path) && /\.tsx$/.test(path) && pins.has(path))?.path;
   const example = examplePath ? pinned(examplePath) : "";
-  const closure = fingerprint(canonical({ files, hashes, patches, packages: [...packages].sort(), license }));
+  const closure = fingerprint(canonical({ files, hashes, patches, packages: [...packages].sort(), license,
+    ...(assets.length && { assets: assets.map(({ path, sha256 }) => ({ path, sha256 })) }) }));
   return { pin: { id: item.id, title: item.title, provider: item.provider, revision: item.upstreamCommit!, url: item.sourceURL,
     entry: item.entry, closure, license, fidelity: patches.length || preparationPatches.length ? "source-adapted" : "upstream-original" }, files, hashes, upstreamHashes, preparationPatches, patches, exports: api.exports, types: api.types, packages: [...packages].sort(),
-    css: styles, api: entry, example: example.length < 20_000 ? example : "" };
+    css: styles, api: files[item.entry], example: example.length < 20_000 ? example : "", assets };
+}
+
+export const baseCodeProfile = "hotel-dashboard";
+export const extendedCodeProfile = "build-extended";
+export async function codeProfileFor(repo: string, packages: Iterable<string>) {
+  const base = JSON.parse(await sourceRead(repo, "platform/templates/" + baseCodeProfile + "/package.json"));
+  return [...packages].every((name) => Object.hasOwn(base.dependencies, name)) ? baseCodeProfile : extendedCodeProfile;
 }
 
 export async function inspectCodeCatalog(repo: string) {
   const vault = resolve(repo, ".motionux-v9");
   const catalog = JSON.parse(await sourceRead(vault, "catalog.last-good.json", 24_000_000)) as Entry[];
-  const pkg = JSON.parse(await sourceRead(repo, "platform/templates/hotel-dashboard/package.json"));
-  const dependencies = new Set<string>(Object.keys(pkg.dependencies));
+  const pkg = JSON.parse(await sourceRead(repo, "platform/templates/" + baseCodeProfile + "/package.json"));
+  const extended = await sourceRead(repo, "platform/templates/" + extendedCodeProfile + "/package.json").catch((error: NodeJS.ErrnoException) => {
+    if (error.code === "ENOENT") return null;
+    throw error;
+  });
+  const dependencies = new Set<string>(Object.keys(extended ? JSON.parse(extended).dependencies : pkg.dependencies));
   const sources = new Map<string, SourceModule>();
   const rows: InventoryRow[] = [];
   for (const entry of catalog) {

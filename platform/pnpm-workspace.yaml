@@ -2,3 +2,4 @@ packages:
   - apps/*
   - packages/*
   - templates/hotel-dashboard
+  - templates/build-extended

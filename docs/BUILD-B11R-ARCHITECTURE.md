@@ -35,3 +35,13 @@ Source manifests separate the upstream hash, prepared registry hash and compiler
 The local reference test reads the actual pin's Git blob from the cached official repository and verifies its upstream hash. It runs that raw TSX through an independent Vite reference with matched app inputs, Next CSS, fonts and assets. Runtime code must match after import and type normalization. Screenshots, accessible output and interaction endpoints compare that reference with the installed Next app. CardStack additionally has a sampled drag trajectory. This is a matched integration reference. Official provider-site page styling has its own context.
 
 Failed generation retains a hash-identified candidate in the private vault. Retry restores its technical source pins and exact saved revision, verifies the candidate first, then spends a bounded repair only when diagnostics require it. A failed candidate never replaces the saved project.
+
+## Extended source dependencies and assets
+
+The catalog now admits 367 of the 500 prepared records. The additional 106 have passed local TypeScript compilation. Technical eligibility and browser acceptance remain separate. Older Gallery IDs resolve their historical Kokonut and SmoothUI registry names when the provider, slug, recipe name and source pins agree.
+
+New code projects use the extended dependency profile when a selected source imports a package absent from the original profile. Preview uses the matching workspace packages and export carries the exact npm lockfile. Projects using the original dependencies continue to use their original lock. The extended profile is installed with the existing platform workspace command. Generated application modules still use the existing narrow direct import list.
+
+The pinned Cult UI BackgroundImageTexture adapter relocates five existing PNG payloads to local public assets. The bytes match their original asset pins. The source manifest and asset notices carry the image attribution separately from the component's MIT notice. Both export formats include the same assets, and the PWA precaches them. Demo-only imagery and assets with unverified provenance stay in the prepared vault. The SmoothUI AI Message adapter renders its unchanged static stylesheet through React without an HTML sink.
+
+The original 239 exclusions and their current reasons can be reproduced with `node platform/tests/b11r-expansion-audit.mjs` on the prepared local vault. Restricted notices exclude 80 entries from Build source distribution. Fifty standalone HTML entries need a separate executable-artifact review, one record lacks an upstream Git pin, and two React entries require review of their rendering or network behavior.
