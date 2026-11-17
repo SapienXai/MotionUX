@@ -1,3 +1,4 @@
+import { performSourceStep } from "../apps/preview-host/source-target.mjs";
 import assert from "node:assert/strict";
 import { execFile, spawn } from "node:child_process";
 import { once } from "node:events";
@@ -9,6 +10,8 @@ import { promisify } from "node:util";
 import { chromium, firefox, webkit } from "playwright";
 import { expect } from "@playwright/test";
 import { AxeBuilder } from "@axe-core/playwright";
+import { compareOriginal } from "./b11r-reference.mjs";
+import { inspectZoom } from "./b11r-zoom.mjs";
 import { fingerprint } from "../packages/build-core/store.ts";
 
 const repo = resolve(import.meta.dirname, "../..");
@@ -21,6 +24,13 @@ const labels = isEntry ? process.argv.slice(2).filter((name) => !name.startsWith
 const engines = process.argv.includes("--all-engines") ? [chromium, firefox, webkit] : [chromium];
 const widths = [1440, 768, 390, 320];
 await mkdir(root, { recursive: true, mode: 0o700 });
+const studioStopped = process.argv.includes("--studio-stopped");
+async function assertStudioStopped() {
+  if (!studioStopped) return;
+  const response = await fetch("http://127.0.0.1:5200/build", { signal: AbortSignal.timeout(700) }).catch(() => null);
+  assert.equal(response, null, "Stop the test Studio before independent acceptance.");
+}
+if (isEntry) await assertStudioStopped();
 
 export async function serve(work) {
   const socket = createServer().listen(0, "127.0.0.1");
@@ -48,15 +58,16 @@ export async function journeys(page, origin, program, observe = async () => {}) 
   const results = [];
   page.setDefaultTimeout(6000);
   for (const journey of program.journeys) {
+    await page.emulateMedia({ reducedMotion: journey.steps.some(({ action }) => ["hover", "drag", "wheel"].includes(action)) ? "no-preference" : "reduce" });
+    // Each declared journey starts from the same disposable browser fixture.
+    // Its changes remain available throughout the journey, including route changes.
+    await page.evaluate(() => localStorage.clear());
     await page.goto(origin + journey.route, { waitUntil: "networkidle" });
     await observe(journey.route, results.length);
     for (const step of journey.steps) {
-      const node = page.getByRole(step.role, { name: step.name, exact: true });
-      if (step.action === "click") await node.click();
-      if (step.action === "fill") await node.fill(step.value);
-      if (step.action === "select") await node.selectOption(step.value);
-      if (step.action === "press") await node.press(step.value);
-      await expect(page.locator("body")).toContainText(step.expected);
+      const node = await performSourceStep(page, step);
+      if (["fill", "select"].includes(step.action)) await expect(node).toHaveValue(step.value);
+      await expect(page.locator("body")).toContainText(step.expected, { useInnerText: true });
       results.push({ journey: journey.title, target: step.name, action: step.action, observed: step.expected });
       await observe(journey.route, results.length);
     }
@@ -136,7 +147,7 @@ export async function inspect(browser, origin, project, label, format) {
   for (const usage of program.usages) assert(observed.has(usage.route + "#" + usage.instance), "The source never became usable: " + usage.instance);
   await page.goto(origin);
   const violations = (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze()).violations
-    .map(({ id, impact, nodes }) => ({ id, impact, targets: nodes.map(({ target }) => target) }));
+    .map(({ id, impact, nodes }) => ({ id, impact, targets: nodes.map(({ target }) => target), details: nodes.map(({ html, failureSummary }) => ({ html, failureSummary })) }));
   let offline;
   if (format === "pwa" && browser.browserType().name() === "chromium") {
     await expect(page.locator('.pwa-status [data-ready="true"]')).toBeAttached({ timeout: 25_000 });
@@ -172,8 +183,17 @@ for (const label of labels) {
         const browser = await engine.launch();
         try { checks.push(await inspect(browser, server.origin, project, label, format)); } finally { await browser.close(); }
       }
-      const report = { label, format, buildMs, digest: manifest.documentDigest, files: manifest.files.length, checks };
+      let sourceParity;
+      if (process.argv.includes("--source-parity") && format === "next") {
+        const browser = await chromium.launch();
+        try { sourceParity = await compareOriginal(browser, server.origin, project, work, repo, label, evidence); }
+        finally { await browser.close(); }
+      }
+      const zoom = process.argv.includes("--zoom") && format === "next" ? await inspectZoom(server.origin, project, label, evidence) : undefined;
+      await assertStudioStopped();
+      const report = { sourceParity, zoom, studioStopped, label, format, buildMs, digest: manifest.documentDigest, files: manifest.files.length, checks };
       await writeFile(resolve(evidence, label + "-" + format + "-consumer.json"), JSON.stringify(report, null, 2), { mode: 0o600 });
+      for (const check of checks) assert.deepEqual(check.violations.filter(({ impact }) => ["serious", "critical"].includes(impact)), [], "Independent export accessibility in " + check.engine);
       console.log(label, format, buildMs + "ms", checks.map(({ engine, journeys, violations }) => [engine, journeys.length + " steps", violations]));
     } catch (error) {
       console.error(label, format, error.stdout ?? "", error.stderr ?? "", error.stack);

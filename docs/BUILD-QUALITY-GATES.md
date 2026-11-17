@@ -68,3 +68,19 @@ Keep untracked screenshots, timings, digests and audit outputs in `.motionux-v9/
 ## B11R source-first code projects
 
 Run the portable code contract locally. The independent Next/PWA fixture runs in the verification CI job alongside the public checks, keeping its new build time outside the existing foundation job. Native generation uses the prepared vault, signed-in Codex and an isolated test Studio. Run node platform/tests/b11r-native.mjs with benchmark IDs, then node platform/tests/b11r-consumer.mjs --all-engines on the completed archives. The compiler fixture proves generic source import and executable module behavior. Native output, visual quality and per-application workflow acceptance have separate evidence. [R1–R12 report](BUILD-B11R-ACCEPTANCE.md)
+
+The native verifier checks planned routes at 320, 390, 768 and 1440 pixels in both normal and reduced-motion modes. It audits serious/critical axe findings at mobile and desktop sizes and at journey endpoints. Each journey receives a fresh context. Filled and selected values must match the actual control. Hover, wheel and drag actions have bounded pointer deltas. Conditional source mounts must render real output during the planned routes or interactions.
+
+After normal Create app acceptance and archive download, stop the fixture Studio and run the independent lane.
+
+```sh
+node platform/tests/b11r-consumer.mjs --source-parity --all-engines --zoom --studio-stopped A B C E1 E2
+node platform/tests/b11r-business.mjs
+node platform/tests/b11r-source-faults.mjs
+```
+
+The first command verifies file hashes, a clean locked install, typecheck, Next/PWA builds, four widths, three engines and Chromium offline journeys. The optional reference lane reads verified upstream Git blobs and compares original/adapted visual and accessible output. It samples CardStack drag motion. The zoom lane uses `chrome.tabs.setZoom(2)` in a disposable Chromium profile and confirms a halved CSS viewport and doubled device pixel ratio. Its temporary Manifest V3 extension and profile are removed after the check. Personal browser profiles stay outside the test.
+
+Business probes assert persisted form data, task totals and statuses, actual observation-time conflict rejection and saved visit notes after reload. They exercise generated application behavior and contain no production renderers. Source-fault probes clone only the selected local catalog and templates, then delete an entry, alter source bytes, remove a notice and introduce restrictive rights with a matching license hash. Compilation must fail explicitly in each case. Restoration must reproduce the original file tree.
+
+The separate `b11r-edit.mjs` lane uses Studio to edit a real source prop, generated layout spacing and content, verifies true Canvas viewport dimensions and retained source state, then tests Undo/Redo, Save, Run and downloaded artifacts. Physical devices, manual screen readers, production field metrics and official-site full-page styling remain separate evidence.

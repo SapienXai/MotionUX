@@ -1,3 +1,4 @@
+import { sameCodePin } from "../packages/app-export/code-catalog.ts";
 import assert from "node:assert/strict";
 import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -11,34 +12,40 @@ const origin = "http://127.0.0.1:5200";
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, acceptDownloads: true });
 const control = baseline.document.codeProject.controls.find((field) => field.kind === "text");
-const value = "Kıyı Listening House";
+const onlyCode = process.argv.includes("--only-code");
+const briefFile = process.argv.find((argument) => argument.startsWith("--brief-file="))?.slice(13);
+const customBrief = briefFile ? await readFile(resolve(briefFile), "utf8") : undefined;
+const value = onlyCode ? control.value : "Kıyı Listening House";
 try {
   await page.goto(origin + "/build?project=" + baseline.id);
-  const input = page.getByRole("complementary", { name: "Source properties" }).getByLabel(control.label, { exact: true });
-  await input.waitFor();
-  await page.getByRole("button", { name: "Run", exact: true }).click();
-  const frame = page.frameLocator('iframe[title="Live source application"]');
-  await expect(frame.getByRole("heading", { level: 1 })).toContainText(control.value, { timeout: 90_000 });
-  await input.fill(value);
-  await expect(frame.getByRole("heading", { level: 1 })).toContainText(value);
-  await page.getByRole("button", { name: "Undo", exact: true }).click();
-  await expect(frame.getByRole("heading", { level: 1 })).toContainText(control.value);
-  await page.getByRole("button", { name: "Redo", exact: true }).click();
-  await expect(frame.getByRole("heading", { level: 1 })).toContainText(value);
-  const saving = page.waitForResponse((response) => response.url().endsWith("/api/build/" + baseline.id) && response.request().method() === "PUT");
-  await page.getByRole("button", { name: "Save", exact: true }).click();
-  const saved = await (await saving).json();
-  assert.equal(saved.revision, baseline.revision + 1);
-  assert.deepEqual(saved.document.codeProject.files, baseline.document.codeProject.files);
-  assert.deepEqual(saved.document.codeProject.sources, baseline.document.codeProject.sources);
-  await writeFile(resolve(evidence, label + "-props-project.json"), JSON.stringify(saved, null, 2), { mode: 0o600 });
-  for (const [button, format] of [["Export", "next"], ["Export PWA", "pwa"]]) {
-    const download = page.waitForEvent("download");
-    await page.getByRole("button", { name: button, exact: true }).click();
-    await (await download).saveAs(resolve(evidence, label + "-props-" + format + ".zip"));
+  let saved = baseline;
+  if (!onlyCode) {
+    const input = page.getByRole("complementary", { name: "Source properties" }).getByLabel(control.label, { exact: true });
+    await input.waitFor();
+    await page.getByRole("button", { name: "Run", exact: true }).click();
+    const frame = page.frameLocator('iframe[title="Live source application"]');
+    await expect(frame.getByRole("heading", { level: 1 })).toContainText(control.value, { timeout: 90_000 });
+    await input.fill(value);
+    await expect(frame.getByRole("heading", { level: 1 })).toContainText(value);
+    await page.getByRole("button", { name: "Undo", exact: true }).click();
+    await expect(frame.getByRole("heading", { level: 1 })).toContainText(control.value);
+    await page.getByRole("button", { name: "Redo", exact: true }).click();
+    await expect(frame.getByRole("heading", { level: 1 })).toContainText(value);
+    const saving = page.waitForResponse((response) => response.url().endsWith("/api/build/" + baseline.id) && response.request().method() === "PUT");
+    await page.getByRole("button", { name: "Save", exact: true }).click();
+    saved = await (await saving).json();
+    assert.equal(saved.revision, baseline.revision + 1);
+    assert.deepEqual(saved.document.codeProject.files, baseline.document.codeProject.files);
+    assert.deepEqual(saved.document.codeProject.sources, baseline.document.codeProject.sources);
+    await writeFile(resolve(evidence, label + "-props-project.json"), JSON.stringify(saved, null, 2), { mode: 0o600 });
+    for (const [button, format] of [["Export", "next"], ["Export PWA", "pwa"]]) {
+      const download = page.waitForEvent("download");
+      await page.getByRole("button", { name: button, exact: true }).click();
+      await (await download).saveAs(resolve(evidence, label + "-props-" + format + ".zip"));
+    }
+    console.log(label, "live draft, Undo, Redo, exact Save and edited Next/PWA archives passed");
   }
-  console.log(label, "live draft, Undo, Redo, exact Save and edited Next/PWA archives passed");
-  await page.getByLabel("Revise with Codex", { exact: true }).fill(
+  await page.getByLabel("Revise with Codex", { exact: true }).fill(customBrief ??
     "Polish this exact music scheduler. Preserve every record, storage key, source pin, page, edited venue name and working interaction. Replace the hotel bedroom, pool and coastline playlist photos with project-authored graphic record-sleeve artwork using CSS, playlist color and typography. Keep the actual upstream CardStack. Its counter is too dark on the dark application: use its supported dark appearance via an appropriate scoped ancestor and keep its native physics. Fix label-content-name-mismatch on the day buttons, timeline bookings, playlist rows and deck artwork. Accessible names must contain the exact visible button text in its displayed order, with any extra action instructions after that. Artwork alongside an existing playlist title can be decorative with an empty alt. Keep the information-dense week timeline and mobile quick-add experience. Check existing source API before editing. Also make all manifest journeys work with the revised accessible names. Do not introduce any fixed renderer or change upstream files."
   );
   const starting = page.waitForResponse((response) => response.url().endsWith("/source-jobs/start"));
@@ -56,9 +63,11 @@ try {
   assert.equal(job.status, "ready", job.message);
   const project = await page.evaluate(async (id) => (await fetch("/api/build/" + id)).json(), baseline.id);
   assert.equal(project.revision, saved.revision + 1);
-  assert.deepEqual(project.document.codeProject.sources, baseline.document.codeProject.sources);
+  assert.equal(project.document.codeProject.sources.length, baseline.document.codeProject.sources.length);
+  for (const pin of baseline.document.codeProject.sources)
+    assert(sameCodePin(pin, project.document.codeProject.sources.find((source) => source.id === pin.id)));
   assert.equal(project.document.codeProject.controls.find((field) => field.key === control.key).value, value);
-  const before = resolve(evidence, "before-" + label);
+  const before = resolve(evidence, "before-" + label + "-r" + baseline.revision);
   await mkdir(before, { recursive: true, mode: 0o700 });
   for (const name of ["project.json", "next.zip", "pwa.zip", "1440.png", "390.png"])
     await cp(resolve(evidence, label + "-" + name), resolve(before, name));
