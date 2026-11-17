@@ -35,6 +35,7 @@ import "@puckeditor/core/puck.css";
 import "@motionux/app-blocks/marketing.css";
 import { RuntimeContext, config, fromPuck, puckItem, sectionItems, toPuck, type PuckItem } from "./puck-projection";
 import { InteractPreview } from "./interact-preview";
+import type { TaskProgress } from "@motionux/app-blocks/frame";
 import { MediaFields, MediaPanel } from "./media-fields";
 import { MotionDnaFields } from "./motion-dna-fields";
 import { RuntimeInspector } from "./runtime-inspector";
@@ -42,6 +43,8 @@ import { IntegrationLab } from "./integration-lab";
 import { readLocalDraft, selectBlock, writeLocalDraft } from "./creator-recovery";
 import {
   allBlocks,
+  appendPageFromPattern,
+  availablePagePatterns,
   families,
   makeBlock,
   registry,
@@ -52,6 +55,7 @@ import {
   type BlockId,
   type BlockProps,
   type BuildPage,
+  type PagePatternId,
   type BuildProject,
   type CreatorDraft,
   type Document,
@@ -166,6 +170,7 @@ export function Editor({
   const [busy, setBusy] = useState("");
   const [message, setMessage] = useState("");
   const [recent, setRecent] = useState<BlockId[]>([]);
+  const [completedTasks, setCompletedTasks] = useState<TaskProgress["completed"]>([]);
   const launch = useRef(false);
   const changed = useRef(false);
   const [recoveryReady, setRecoveryReady] = useState(false);
@@ -435,17 +440,11 @@ export function Editor({
     }));
     setEpoch((value) => value + 1);
   }
-  function addPage(title: string, route: string) {
-    if (document.pages.length >= 12)
-      throw new Error("A project can contain 12 pages.");
-    const next = {
-      id: id("p"),
-      route,
-      title,
-      blocks: [makeBlock("PageHeader", id("b"), { title })],
-    };
-    commit((previous) => ({ ...previous, pages: [...previous.pages, next] }));
-    setPageId(next.id);
+  function addPage(title: string, route: string, pattern: PagePatternId) {
+    const pageId = id("p");
+    const next = appendPageFromPattern(document, { id: pageId, title, route, pattern });
+    commit(() => next);
+    setPageId(pageId);
   }
   function onChange(data: Data) {
     try {
@@ -690,7 +689,7 @@ export function Editor({
                   <div hidden={mode !== "edit"}>
                     <Puck.Preview />
                   </div>
-                  {mode === "interact" && <InteractPreview document={document} page={page} navigate={runtime.navigate} device={device} theme={defaultTheme} mediaBase={mediaBase} />}
+                  {mode === "interact" && <InteractPreview document={document} page={page} navigate={runtime.navigate} device={device} theme={defaultTheme} mediaBase={mediaBase} taskProgress={{ completed: completedTasks, update: setCompletedTasks }} />}
                   {mode === "run" &&
                     (previewOwned && preview.status === "ready" ? (
                       <iframe
@@ -808,16 +807,20 @@ function Pages({
   document: Document;
   page: BuildPage;
   onSelect: (id: string) => void;
-  onAdd: (title: string, route: string) => void;
+  onAdd: (title: string, route: string, pattern: PagePatternId) => void;
   onRename: (page: BuildPage) => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [action, setAction] = useState<"add" | "rename">("add");
+  const [pattern, setPattern] = useState<PagePatternId>("blank");
+  const choices = availablePagePatterns(document);
+  const tr = document.locale === "tr";
   const [title, setTitle] = useState("");
   const [route, setRoute] = useState("");
   const [error, setError] = useState("");
   function show(next: "add" | "rename") {
     setAction(next);
+    setPattern("blank");
     setTitle(next === "add" ? "" : page.title);
     setRoute(next === "add" ? "/" : page.route);
     setError("");
@@ -878,7 +881,7 @@ function Pages({
               return;
             }
             try {
-              if (action === "add") onAdd(title.trim(), path);
+              if (action === "add") onAdd(title.trim(), path, pattern);
               else {
                 const name = title.trim();
                 const blocks = page.blocks.map((block) =>
@@ -913,6 +916,17 @@ function Pages({
               maxLength={41}
             />
           </label>
+          {action === "add" && <>
+            <label htmlFor="build-page-pattern">{tr ? "Sayfa şablonu" : "Page pattern"}</label>
+            <select id="build-page-pattern" aria-describedby="build-page-pattern-help" value={pattern}
+              onChange={(event) => {
+                const chosen = choices.find(({ id }) => id === event.target.value);
+                if (chosen) setPattern(chosen.id);
+              }}>
+              {choices.map(({ id, label }) => <option key={id} value={id}>{label}</option>)}
+            </select>
+            <p id="build-page-pattern-help" className="build-hint">{choices.find(({ id }) => id === pattern)?.summary}</p>
+          </>}
           {error && <p role="alert">{error}</p>}
           <div>
             <button
@@ -1196,7 +1210,7 @@ function Properties({
                 onChange={(event) => props({ description: event.target.value })}
               />
             </label>
-            {isMarketing(current.type) && <MediaFields key={current.id} type={current.type} props={current.props} document={document} change={props} />}
+            {(isMarketing(current.type) || current.type === "ArticleLibrary") && <MediaFields key={current.id} type={current.type} props={current.props} document={document} change={props} />}
             <label>
               Appearance
               <select
@@ -1424,7 +1438,7 @@ function Properties({
           >
             <option value="light">Light</option>
             <option value="dark">Dark</option>
-            {document.template === "hotel-marketing" && <option value="system">System</option>}
+            {(document.template === "hotel-marketing" || document.template === "knowledge-base" || document.template === "operations-workspace") && <option value="system">System</option>}
           </select>
         </label>
         <label>

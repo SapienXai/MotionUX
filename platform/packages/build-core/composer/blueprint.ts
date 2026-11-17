@@ -173,6 +173,7 @@ export const composerPrompt = (brief: string) =>
     "Dashboards include desktop navigation and a mobile bottom bar. Hotel marketing has a responsive editorial header and footer. Do not select shell or marketing navigation blocks. Describe domain workflows, not runtime internals.",
     "CRM default routes: / /contacts /pipeline /activities /settings. Hotel default routes: / /bookings /rooms /settings. For a simple form choose blank-app and FormField. Put / first. Use the typical first block for each selected domain route as its primary block. Use actual catalog capabilities only. Treat unsupported or contradictory demands as limits, never claim a backend. Use none for requested stillness.",
     "CRM contacts have basic search, filtering and sorting; the pipeline can move demo deals locally and undo a move. The block catalog actions are verified. Distinguish these interactions from external services. List identity, payments, email, external-data and native-binary in unsupported when requested. Brand and headings should be descriptive plain text with no PII, URLs, paths or code. No fictitious chart totals or records.",
+    "For a handbook or knowledge base choose knowledge-base with / and /guides for ArticleLibrary and /feedback with WorkspaceResponse. For an operations work queue choose operations-workspace with / for OperationsSummary, /queue for OperationsQueue and /runbooks for ArticleLibrary. All changes are browser-local.",
     "For a boutique hotel website choose hotel-marketing. Include / with HeroEditorial, /rooms with RoomCollection, /about with HeroSplit, and /contact with ContactForm. The compiler supplies finite room details and local imagery. The inquiry form validates locally. It does not make reservations or send mail. Use system theme when appearance is unspecified.",
     JSON.stringify({ catalog: catalogFacts, brief }),
   ].join("\n");
@@ -216,11 +217,17 @@ const primaryBlocks: Record<Template, Record<string, BlockId>> = {
     "/settings": "SettingsPanel",
   },
   "blank-app": {},
+  "knowledge-base": { "/": "ArticleLibrary", "/guides": "ArticleLibrary", "/feedback": "WorkspaceResponse" },
+  "operations-workspace": { "/": "OperationsSummary", "/queue": "OperationsQueue", "/runbooks": "ArticleLibrary" },
   "hotel-marketing": { "/": "HeroEditorial", "/rooms": "RoomCollection", "/about": "HeroSplit", "/contact": "ContactForm", "/terrace-suite": "HeroSplit", "/olive-room": "HeroSplit" },
 };
 const verifiedPurpose: Partial<
   Record<BlockId, Record<Proposal["locale"], string>>
 > = {
+  ArticleLibrary: { en: "Search and read editable local guides.", tr: "Düzenlenebilir yerel kılavuzları arayın ve okuyun." },
+  WorkspaceResponse: { en: "Validate a response in the browser without storing or sending it.", tr: "Yanıtı kaydetmeden veya göndermeden tarayıcıda doğrulayın." },
+  OperationsSummary: { en: "Review the current open and completed demo task totals.", tr: "Açık ve tamamlanan örnek görevlerin toplamlarını inceleyin." },
+  OperationsQueue: { en: "Filter, complete and reopen fictional tasks in this browser.", tr: "Örnek görevleri bu tarayıcıda filtreleyin, tamamlayın ve yeniden açın." },
   KpiGrid: {
     en: "Review the key metrics derived from this workspace’s demo records.",
     tr: "Bu çalışma alanının örnek kayıtlarından hesaplanan temel metrikleri inceleyin.",
@@ -255,6 +262,8 @@ const verifiedPurpose: Partial<
   },
 };
 const recap: Record<Template, Record<Proposal["locale"], string>> = {
+  "knowledge-base": { en: "A searchable team handbook with editable guides and local feedback.", tr: "Düzenlenebilir kılavuzlar ve yerel geri bildirim içeren aranabilir ekip el kitabı." },
+  "operations-workspace": { en: "A task workspace with a fictional queue and browser-local status changes.", tr: "Örnek görev kuyruğu ve tarayıcıda saklanan durum değişiklikleri içeren çalışma alanı." },
   "hotel-marketing": { en: "A boutique hotel website with local imagery, room details and demo inquiry.", tr: "Yerel görseller ve örnek talep içeren butik otel sitesi." },
   "crm-dashboard": {
     en: "A sales workspace with fictional records and browser-local interactions.",
@@ -392,6 +401,7 @@ export function compileDocument(
           : "Use the selected blocks on this page."),
     };
   });
+  const workspace = proposal.template === "knowledge-base" || proposal.template === "operations-workspace";
   const pages = marketing
     ? chosen.map((selectedPage) => {
       const source = seed.pages.find((entry) => entry.route === selectedPage?.route)!;
@@ -429,13 +439,14 @@ export function compileDocument(
           description: verifiedPages.find(({ route }) => route === page!.route)!
             .purpose,
         }),
-        ...page!.blocks.map(({ id }, index) =>
-          makeBlock(id, "b-" + prefix + "-block-" + index, {
-            title:
-              source.blocks.find((block) => block.type === id)?.props.title ??
-              registry[id].title,
-          }),
-        ),
+        ...page!.blocks.map(({ id }, index) => {
+          const owned = source.blocks.find((block) => block.type === id) ??
+            (workspace ? seed.pages.flatMap((entry) => entry.blocks).find((block) => block.type === id) : undefined);
+          return makeBlock(id, "b-" + prefix + "-block-" + index, {
+            ...(workspace ? owned?.props : undefined),
+            title: owned?.props.title ?? registry[id].title,
+          });
+        }),
       ],
     };
   });

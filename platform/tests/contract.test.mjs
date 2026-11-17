@@ -51,7 +51,7 @@ test("versioned template generates a unique project with valid owned blocks", ()
   assert.equal(project.document.pages.length, 4);
   assert.deepEqual(project.document, plan.document);
   assert.equal(Object.keys(registry).filter((type) => compatibleBlock(type, "hotel-demo-v1")).length, 31);
-  assert.equal(Object.values(registry).filter(({ family }) => family !== "Marketing").length, 35);
+  assert.equal(Object.keys(registry).filter((type) => compatibleBlock(type, "hotel-demo-v1") || compatibleBlock(type, "crm-demo-v1")).length, 35);
   for (const [type, spec] of Object.entries(registry)) {
     assert.equal(spec.license, "MIT");
     assert.equal(spec.exportEligible, true);

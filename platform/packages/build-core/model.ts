@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { marketingBlocks, isMarketing } from "./marketing-spec.ts";
+import { pagePatternIds, pagePatterns, pagePatternVersion, workspaceStarters, type PagePatternId } from "./page-patterns.ts";
+export type { PagePatternId } from "./page-patterns.ts";
 import { marketingTemplate } from "./marketing-template.ts";
 export { isMarketing, seedImages, seedImageIds, isSeedImage } from "./marketing-spec.ts";
 import { motionDnaSchema } from "./motion-dna.ts";
@@ -193,6 +195,10 @@ export const registry = {
   Pipeline: define("Dashboard", "Sales pipeline", "Move opportunities across stages and review value"),
   SalesActivity: define("Dashboard", "Sales activity", "Inspect meetings, notes and follow-ups"),
   SalesBreakdown: define("Dashboard", "Pipeline breakdown", "Compare opportunity counts and values by stage"),
+  ArticleLibrary: define("Content", "Article library", "Search and read editable local reference guides"),
+  WorkspaceResponse: define("Forms", "Local response", "Validate a browser-only response without sending or retaining it"),
+  OperationsQueue: define("Dashboard", "Operations queue", "Filter and complete fictional tasks in this workspace"),
+  OperationsSummary: define("Dashboard", "Operations summary", "Count open and completed tasks from the same queue"),
   MarketingHeader: define("Marketing", ...marketingBlocks.MarketingHeader),
   HeroEditorial: define("Marketing", ...marketingBlocks.HeroEditorial),
   HeroSplit: define("Marketing", ...marketingBlocks.HeroSplit),
@@ -213,22 +219,26 @@ export const registry = {
 export type BlockId = keyof typeof registry;
 const blockIds = Object.keys(registry) as [BlockId, ...BlockId[]];
 
-export const templates = ["hotel-dashboard", "crm-dashboard", "blank-app", "hotel-marketing"] as const;
+export const templates = ["hotel-dashboard", "crm-dashboard", "blank-app", "hotel-marketing", "knowledge-base", "operations-workspace"] as const;
 export type Template = (typeof templates)[number];
 export const adapterFor = {
   "hotel-dashboard": "hotel-demo-v1",
   "crm-dashboard": "crm-demo-v1",
   "blank-app": "local-form-v1",
   "hotel-marketing": "marketing-demo-v1",
+  "knowledge-base": "knowledge-demo-v1",
+  "operations-workspace": "operations-demo-v1",
 } as const;
 export type Adapter = (typeof adapterFor)[Template];
 
 const hotelOnly: BlockId[] = ["ChartCard", "DataTable", "FilterBar", "RecentActivity", "SearchField", "DateRangeFilter", "FeatureGrid", "StatusBadge"];
 const crmOnly: BlockId[] = ["Contacts", "Pipeline", "SalesActivity", "SalesBreakdown"];
 const withoutData: BlockId[] = ["WorkspaceSwitcher", "KpiCard", "KpiGrid"];
-export type DemoAction = "navigate" | "select-local" | "inspect" | "filter-sort-page" | "filter-sort" |
-  "change-demo-stage" | "undo-local" | "validate-local" | "announce" | "reset-local";
+export type DemoAction = "navigate" | "select-local" | "inspect" | "filter-sort-page" | "filter-sort" | "filter-local" |
+  "change-demo-stage" | "change-demo-task" | "search-local" | "undo-local" | "validate-local" | "announce" | "reset-local";
 const actionsByBlock: Partial<Record<BlockId, readonly DemoAction[]>> = {
+  ArticleLibrary: ["search-local", "inspect"], WorkspaceResponse: ["validate-local"],
+  OperationsQueue: ["filter-local", "change-demo-task"],
   MarketingHeader: ["navigate"], MarketingFooter: ["navigate"], HeroEditorial: ["navigate"],
   HeroSplit: ["navigate"], RoomCollection: ["navigate"], GalleryGrid: ["inspect"],
   PricingCards: ["navigate"], FAQAccordion: ["inspect"], CTASection: ["navigate"],
@@ -245,9 +255,16 @@ export const metricOptions = {
   "crm-demo-v1": ["automatic", "pipeline-value", "qualified-deals", "contacts", "open-tasks"],
   "local-form-v1": ["automatic"],
   "marketing-demo-v1": ["automatic"],
+  "knowledge-demo-v1": ["automatic"],
+  "operations-demo-v1": ["automatic"],
 } as const;
 export const blockSpecVersion = 2 as const;
 export function compatibleBlock(type: BlockId, data: Adapter) {
+  const operations = data === "operations-demo-v1";
+  const knowledge = data === "knowledge-demo-v1";
+  if (type === "ArticleLibrary" || type === "WorkspaceResponse") return operations || knowledge;
+  if (type === "OperationsQueue" || type === "OperationsSummary") return operations;
+  if ((operations || knowledge) && withoutData.includes(type)) return false;
   if (isMarketing(type) || data === "marketing-demo-v1")
     return data === "marketing-demo-v1" && (isMarketing(type) || type === "PageHeader");
   return hotelOnly.includes(type) ? data === "hotel-demo-v1"
@@ -270,7 +287,7 @@ export function blockSpec(type: BlockId) {
     accessibilityRequirements: ["visible keyboard focus", "accessible names", "reduced motion"],
     motionBehavior: "state feedback only", reducedMotionBehavior: "disable transitions",
     performanceCost: ["ChartCard", "Contacts", "Pipeline"].includes(type) ? "interactive" : "light",
-    testEvidence: type === "SidebarInset" || !crmOnly.includes(type) ? "platform/tests/browser.mjs" : "platform/tests/b3-browser.mjs",
+    testEvidence: ["ArticleLibrary", "WorkspaceResponse", "OperationsQueue", "OperationsSummary"].includes(type) ? "platform/tests/b9-browser.mjs" : type === "SidebarInset" || !crmOnly.includes(type) ? "platform/tests/browser.mjs" : "platform/tests/b3-browser.mjs",
   };
 }
 
@@ -335,6 +352,7 @@ export const pageSchema = z.strictObject({
   route: routeSlug,
   title: text(60).min(1),
   blocks: z.array(blockSchema).max(36),
+  pattern: z.strictObject({ id: z.enum(pagePatternIds), version: z.literal(pagePatternVersion) }).optional(),
 });
 export type BuildPage = z.infer<typeof pageSchema>;
 
@@ -465,6 +483,51 @@ export function makeBlock(
     },
   };
 }
+type PagePatternContext = Pick<Document, "data" | "locale" | "name">;
+type PagePatternInput = { pattern: PagePatternId; id: string; title: string; route: string };
+
+function patternSections(context: PagePatternContext, pattern: PagePatternId, title: string) {
+  if (!Object.hasOwn(pagePatterns, pattern)) throw new Error("Unknown page pattern.");
+  const sections = pagePatterns[pattern].sections(context);
+  if (!sections.every(([type]) => compatibleBlock(type, context.data)))
+    throw new Error("This page pattern is unavailable for the project adapter.");
+  const heading = ["PageHeader", { title }] as const;
+  if (pattern === "blank") return [heading];
+  if (context.data === "marketing-demo-v1")
+    return [
+      ["MarketingHeader", { title: context.name.slice(0, 72) }],
+      ...sections,
+      ["MarketingFooter", { title: context.name.slice(0, 72) }],
+    ] as const;
+  return [heading, ...sections];
+}
+
+export function availablePagePatterns(context: PagePatternContext) {
+  return pagePatternIds.flatMap((id) => {
+    const spec = pagePatterns[id];
+    const sections = spec.sections(context);
+    if (!sections.every(([type]) => compatibleBlock(type, context.data))) return [];
+    return [{ id, label: spec.label[context.locale], summary: spec.summary[context.locale] }];
+  });
+}
+
+function instantiatePagePattern(context: PagePatternContext, input: PagePatternInput): BuildPage {
+  const { id, route, title, pattern } = input;
+  return pageSchema.parse({
+    id, route, title,
+    ...(pattern !== "blank" ? { pattern: { id: pattern, version: pagePatternVersion } } : {}),
+    blocks: patternSections(context, pattern, title).map(([type, props], index) =>
+      makeBlock(type, "b-" + id.slice(2, 46) + "-" + (index + 1), props)),
+  });
+}
+
+export function appendPageFromPattern(document: Document, input: PagePatternInput): Document {
+  if (document.pages.length >= 12) throw new Error("A project can contain 12 pages.");
+  if (document.pages.some(({ route, id }) => route === input.route || id === input.id))
+    throw new Error("Use a unique page route and ID.");
+  return documentSchema.parse({ ...document, pages: [...document.pages, instantiatePagePattern(document, input)] });
+}
+
 export function templatePlan() {
   const block = (type: BlockId, title: string, description = "") =>
     makeBlock(type, "b-" + type.toLowerCase(), { title, description });
@@ -558,6 +621,15 @@ export function templatePlan() {
 export function manualDocument(template: Template, locale: "en" | "tr" = "en"): Document {
   if (template === "hotel-dashboard") return templatePlan().document;
   if (template === "hotel-marketing") return documentSchema.parse(marketingTemplate(makeBlock, locale));
+  if (template === "knowledge-base" || template === "operations-workspace") {
+    const starter = workspaceStarters[template];
+    const context = { locale, name: starter.name, data: adapterFor[template] };
+    return documentSchema.parse({
+      ...context, template, runtime: "next-16", theme: "system", sidebar: "expanded", motionProfile: "system", assets: [],
+      pages: starter.pages.map(([slug, pattern, en, tr], index) =>
+        instantiatePagePattern(context, { id: "p-" + slug, route: index === 0 ? "/" : "/" + slug, title: locale === "tr" ? tr : en, pattern })),
+    });
+  }
   if (template === "blank-app") return documentSchema.parse({
     name: "Untitled workspace", locale: "en", template, runtime: "next-16", theme: "light", sidebar: "expanded",
     motionProfile: "none", data: adapterFor[template], assets: [],

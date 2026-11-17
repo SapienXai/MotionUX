@@ -34,6 +34,7 @@ import {
   type Reservation,
 } from "./data.ts";
 
+import { ArticleLibrary, OperationsQueue, OperationsSummary, WorkspaceResponse } from "./workspace.tsx";
 import { Contacts, Pipeline, SalesActivity, SalesBreakdown, SalesKpis } from "./crm.tsx";
 
 type View = (props: BlockProps) => ReactNode;
@@ -816,6 +817,7 @@ const views: Partial<Record<BlockId, View>> = {
   Hero: (props) => <Hero {...props} />,
   FeatureGrid: (props) => <RoomGrid {...props} />,
   Contacts, Pipeline, SalesActivity, SalesBreakdown,
+  ArticleLibrary, OperationsQueue, OperationsSummary, WorkspaceResponse,
 };
 export function RenderBlock({
   block,

@@ -116,7 +116,7 @@ async function handle(request: Request, { params }: Context) {
       if (!hasBody(request)) return json(await store.create(), 201);
       const value = await documentBody(request);
       const template = templates.find((item) => item === value?.template);
-      if (!template || Object.keys(value).some((key) => key !== "template" && (key !== "locale" || template !== "hotel-marketing")) ||
+      if (!template || Object.keys(value).some((key) => key !== "template" && (key !== "locale" || !["hotel-marketing", "knowledge-base", "operations-workspace"].includes(template))) ||
           (value.locale !== undefined && value.locale !== "en" && value.locale !== "tr"))
         throw new BuildError(422, "Choose a supported template.");
       return json(await store.create(manualDocument(template, value.locale)), 201);

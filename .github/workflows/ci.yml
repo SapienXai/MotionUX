@@ -97,3 +97,5 @@ jobs:
         run: node platform/tests/b4-pwa.mjs --inspector
       - name: B8 creator, media and independent hotel export
         run: node platform/tests/b8-browser.mjs
+      - name: B9 reusable pages, domain adapters and independent exports
+        run: node platform/tests/b9-browser.mjs

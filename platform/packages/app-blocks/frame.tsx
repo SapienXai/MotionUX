@@ -5,6 +5,8 @@ import {
   Columns3,
   Activity,
   Building2,
+  BookOpen,
+  ListChecks,
   CalendarDays,
   ChevronDown,
   ChevronRight,
@@ -31,6 +33,12 @@ import {
 } from "react";
 import { defaultMotionDna, motionEasings, type Document } from "@motionux/build-core";
 
+import { readTaskProgress, type OperationsTaskId } from "./operations-data.ts";
+
+export type TaskProgress = {
+  completed: OperationsTaskId[];
+  update: (tasks: OperationsTaskId[]) => void;
+};
 import { workspaceProfiles } from "./profile.ts";
 import { readStageChanges, opportunities, type Stage, type StageChanges } from "./crm-data.ts";
 
@@ -38,6 +46,8 @@ type AppContext = {
   profile: (typeof workspaceProfiles)[keyof typeof workspaceProfiles];
   stageChanges: StageChanges;
   setStage: (id: string, stage: Stage) => void;
+  completedTasks: OperationsTaskId[];
+  toggleTask: (id: OperationsTaskId) => void;
   document: Document;
   route: string;
   storageKey: string;
@@ -64,6 +74,9 @@ const icons: Record<string, LucideIcon> = {
   "/pipeline": Columns3,
   "/activities": Activity,
   "/settings": Settings,
+  "/guides": BookOpen,
+  "/runbooks": BookOpen,
+  "/queue": ListChecks,
 };
 
 export function RouteLink({
@@ -347,6 +360,7 @@ export function AppFrame({
   studio = false,
   storageKey = "hotel-desk",
   revision = 0,
+  taskProgress,
   status,
 }: {
   document: Document;
@@ -358,6 +372,7 @@ export function AppFrame({
   studio?: boolean;
   storageKey?: string;
   revision?: number;
+  taskProgress?: TaskProgress;
   status?: ReactNode;
 }) {
   const [localTheme, setTheme] = useState<"light" | "dark" | null>(null);
@@ -365,6 +380,22 @@ export function AppFrame({
   const profile = workspaceProfiles[document.data === "marketing-demo-v1" ? "local-form-v1" : document.data];
   const [property, setProperty] = useState(profile.workspaces[0] ?? document.name);
   const [stageChanges, setStageChanges] = useState<StageChanges>({});
+  const taskKey = storageKey + "-ops-v1-r" + revision;
+  const operations = document.data === "operations-demo-v1";
+  const [localTasks, setLocalTasks] = useState<OperationsTaskId[]>([]);
+  const completedTasks = taskProgress?.completed ?? localTasks;
+  useEffect(() => {
+    if (studio || !operations) return;
+    try { setLocalTasks(readTaskProgress(localStorage.getItem(taskKey))); }
+    catch { setLocalTasks([]); }
+  }, [taskKey, studio, operations]);
+  function toggleTask(id: OperationsTaskId) {
+    if (!operations) return;
+    const next = completedTasks.includes(id) ? completedTasks.filter((task) => task !== id) : [...completedTasks, id];
+    if (taskProgress) taskProgress.update(next);
+    else setLocalTasks(next);
+    if (!studio) try { localStorage.setItem(taskKey, JSON.stringify(next)); } catch { /* Current view still works. */ }
+  }
   const stageKey = storageKey + "-crm-v1-r" + revision;
   useEffect(() => {
     if (studio || document.data !== "crm-demo-v1") return;
@@ -382,7 +413,16 @@ export function AppFrame({
   }
   const dna = document.motionDna ?? defaultMotionDna;
   const rail = railOverride ?? document.sidebar === "rail";
-  const theme = themeOverride ?? localTheme ?? (document.theme === "system" ? "light" : document.theme);
+  const [systemDark, setSystemDark] = useState(false);
+  useEffect(() => {
+    if (document.theme !== "system") return;
+    const preference = matchMedia("(prefers-color-scheme: dark)");
+    const read = () => setSystemDark(preference.matches);
+    read();
+    preference.addEventListener("change", read);
+    return () => preference.removeEventListener("change", read);
+  }, [document.theme]);
+  const theme = themeOverride ?? localTheme ?? (document.theme === "system" ? (systemDark ? "dark" : "light") : document.theme);
   const active = document.pages.find((page) => page.route === route);
   const Content = studio ? "div" : "main";
   function changeTheme(next: "light" | "dark") {
@@ -424,6 +464,8 @@ export function AppFrame({
         profile,
         stageChanges,
         setStage,
+        completedTasks,
+        toggleTask,
         route,
         storageKey,
         theme,

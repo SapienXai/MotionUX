@@ -522,7 +522,8 @@ select:focus-visible {
 .build-panel-section input,
 .build-panel-section select,
 .build-panel-section textarea,
-.build-dialog input {
+.build-dialog input,
+.build-dialog select {
   width: 100%;
   min-width: 0;
   min-height: 33px;
@@ -803,6 +804,9 @@ select:focus-visible {
   color: var(--build-danger);
   margin: 0;
 }
+.build-dialog .build-hint {
+  color: var(--build-muted);
+}
 .build-runtime-inspector {
   max-width: min(570px, calc(100% - 24px));
   max-height: min(720px, calc(100dvh - 24px));
@@ -1027,7 +1031,8 @@ select:focus-visible {
   .build-panel-section input,
   .build-panel-section select,
   .build-panel-section textarea,
-  .build-dialog input {
+  .build-dialog input,
+  .build-dialog select {
     font-size: 16px;
   }
 }

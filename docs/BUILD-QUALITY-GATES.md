@@ -1,5 +1,7 @@
 # Build quality gates
 
+For B9 run the platform test, typecheck and build commands, then `node platform/tests/b9-browser.mjs`. On macOS run it with `--local` for isolated Next.js Run and the additional WebKit and Firefox export checks. The portable test covers Studio, clean independent exports and Chromium, including the offline Relay queue. Keep port 5200 free before starting either fixture. Reports and screenshots stay in `.motionux-v9/evidence/build-b9/`. [B9 pattern and adapter contracts](BUILD-B9-PAGE-PATTERNS.md)
+
 For B8 run `pnpm --dir platform test`, `pnpm --dir platform typecheck`, `pnpm --dir platform build` and `node platform/tests/b8-browser.mjs` in sequence. Keep port 5200 free for the disposable fixture. With macOS Run and local originals available, add `--local` to the browser command and use `node platform/tests/b8-codex-live.mjs` for the signed-in native acceptance cases. The browser matrix records per-block coverage, draft and media recovery, preview cycles and screenshot evidence under `.motionux-v9/evidence/build-b8-ready/`. [B8 quality report](BUILD-B8-QUALITY-REPORT.md)
 
 Verify the document contract and filesystem boundaries, then build the platform and test real editing in Chromium, Firefox and WebKit. Install exported source independently and verify production SSR, navigation, app interactions and axe. Compare original Gallery routes and source hashes before and after. Keep private screenshots, traces and metrics in the ignored vault. Record manual assistive technology, physical devices and unavailable metrics separately.

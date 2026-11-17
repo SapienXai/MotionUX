@@ -22,11 +22,14 @@ const sources = {
   "runtime/blocks.tsx": "app-blocks/blocks.tsx",
   "runtime/crm-data.ts": "app-blocks/crm-data.ts",
   "runtime/crm.tsx": "app-blocks/crm.tsx",
+  "runtime/workspace.tsx": "app-blocks/workspace.tsx",
+  "runtime/operations-data.ts": "app-blocks/operations-data.ts",
   "runtime/profile.ts": "app-blocks/profile.ts",
   "runtime/data.ts": "app-blocks/data.ts",
   "runtime/frame.tsx": "app-blocks/frame.tsx",
   "runtime/hotel.css": "app-blocks/hotel.css",
   "runtime/model.ts": "build-core/model.ts",
+  "runtime/page-patterns.ts": "build-core/page-patterns.ts",
   "runtime/marketing-spec.ts": "build-core/marketing-spec.ts",
   "runtime/marketing-template.ts": "build-core/marketing-template.ts",
   "runtime/motion-dna.ts": "build-core/motion-dna.ts",
@@ -109,6 +112,10 @@ export async function exportTree(repo: string, value: unknown, options: { pwa?: 
       files["public/media/" + id + "-" + size + ".webp"] = await mediaBytes(repo, options.vault, project.id, id, size);
   if (project.document.template === "crm-dashboard")
     files["README.md"] = await readFile(resolve(repo, "platform/templates/crm-dashboard/README.md"), "utf8");
+  if (project.document.template === "knowledge-base")
+    files["README.md"] = "# Fieldnotes Handbook\n\nSearchable local guides and demo feedback. Run npm ci, npm run build and npm start.\n";
+  if (project.document.template === "operations-workspace")
+    files["README.md"] = "# Relay Operations\n\nWorkload, fictional tasks and runbooks. Task progress is scoped to this app revision in the browser. Run npm ci, npm run build and npm start.\n";
   if (project.document.template === "blank-app")
     files["README.md"] = String(files["README.md"]).replaceAll("Hotel Desk", "Local workspace");
   files.LICENSE = await readFile(resolve(repo, "LICENSE"), "utf8");
@@ -118,7 +125,11 @@ export async function exportTree(repo: string, value: unknown, options: { pwa?: 
     JSON.stringify(JSON.parse(canonical(exportedProject)), null, 2) +
     ";\n";
   if (project.document.template !== "hotel-dashboard") {
-    const name = project.document.template === "crm-dashboard" ? "meridian-crm" : project.document.template === "hotel-marketing" ? "costa-di-sera" : "local-workspace";
+    const names = {
+      "crm-dashboard": "meridian-crm", "hotel-marketing": "costa-di-sera",
+      "knowledge-base": "fieldnotes-handbook", "operations-workspace": "relay-operations", "blank-app": "local-workspace",
+    };
+    const name = names[project.document.template];
     const pkg = JSON.parse(String(files["package.json"]));
     const lock = JSON.parse(String(files["package-lock.json"]));
     pkg.name = name;

@@ -2,7 +2,7 @@
 
 import type { BuildPage, Document } from "@motionux/build-core";
 import { RenderBlock } from "@motionux/app-blocks";
-import { AppFrame } from "@motionux/app-blocks/frame";
+import { AppFrame, type TaskProgress } from "@motionux/app-blocks/frame";
 import { MarketingPage } from "@motionux/app-blocks/marketing";
 
 export function InteractPreview({
@@ -12,6 +12,7 @@ export function InteractPreview({
   device,
   theme,
   mediaBase,
+  taskProgress,
 }: {
   document: Document;
   page: BuildPage;
@@ -19,6 +20,7 @@ export function InteractPreview({
   device: "desktop" | "tablet" | "mobile";
   theme: Document["theme"];
   mediaBase: string;
+  taskProgress: TaskProgress;
 }) {
   if (document.template === "hotel-marketing")
     return (
@@ -38,6 +40,7 @@ export function InteractPreview({
       navigate={navigate}
       device={device}
       themeOverride={theme === "system" ? undefined : theme}
+      taskProgress={taskProgress}
       studio
     >
       {page.blocks.map((block) => (

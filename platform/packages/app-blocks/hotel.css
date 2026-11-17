@@ -1078,3 +1078,112 @@
   .crm-board { grid-template-columns: minmax(0,1fr); }
   .crm-timeline .hotel-button { white-space: normal; line-height: 1.25; }
 }
+
+.hotel[data-template="knowledge-base"],
+.hotel[data-template="operations-workspace"] {
+  --hotel-bg: #f4f6f8;
+  --hotel-sub: #edf1f5;
+  --hotel-border: #d6dce4;
+  --hotel-text: #1a2839;
+  --hotel-muted: #4c5b6d;
+  --hotel-accent: #215889;
+  --hotel-tint: #e4effa;
+  --hotel-ring: #226da6;
+  --hotel-line: #e0e6ed;
+}
+.hotel[data-template="knowledge-base"] {
+  --hotel-bg: #f8f6f1;
+  --hotel-sub: #f3eee5;
+  --hotel-accent: #725126;
+  --hotel-tint: #f3e9da;
+  --hotel-ring: #8a5f25;
+}
+.hotel[data-template="knowledge-base"][data-theme="dark"],
+.hotel[data-template="operations-workspace"][data-theme="dark"] {
+  --hotel-bg: #151e28;
+  --hotel-panel: #1e2936;
+  --hotel-sub: #253443;
+  --hotel-border: #39495b;
+  --hotel-text: #edf4fb;
+  --hotel-muted: #b6c4d1;
+  --hotel-accent: #a5d3ff;
+  --hotel-tint: #283f55;
+  --hotel-ring: #9ed0fa;
+  --hotel-line: #3a4a5d;
+}
+.hotel[data-template="knowledge-base"][data-theme="dark"] {
+  --hotel-bg: #221e19;
+  --hotel-panel: #2c261e;
+  --hotel-sub: #3a3127;
+  --hotel-border: #514437;
+  --hotel-text: #fbf1e2;
+  --hotel-muted: #d1c1ad;
+  --hotel-accent: #f2c987;
+  --hotel-tint: #4a3925;
+  --hotel-ring: #f0c787;
+  --hotel-line: #514437;
+}
+.hotel[data-template="knowledge-base"] .hotel-logomark,
+.hotel[data-template="knowledge-base"] .hotel-button.primary { background: #725126; color: #fff; }
+.hotel[data-template="operations-workspace"] .hotel-logomark,
+.hotel[data-template="operations-workspace"] .hotel-button.primary { background: #215889; color: #fff; }
+.workspace-filters {
+  display: grid;
+  gap: 6px;
+  max-inline-size: 24rem;
+}
+.workspace-filters label, .workspace-count {
+  color: var(--hotel-muted);
+  font-size: 13px;
+}
+.workspace-filters input, .workspace-filters select {
+  min-block-size: 44px;
+  min-inline-size: 0;
+  padding: 6px 10px;
+  color: var(--hotel-text);
+  border: 1px solid var(--hotel-border);
+  border-radius: 8px;
+  background: var(--hotel-sub);
+  font: inherit;
+}
+.workspace-articles { list-style: none; padding: 0; margin: 0; }
+.workspace-articles li { border-block-start: 1px solid var(--hotel-line); }
+.workspace-articles summary {
+  min-block-size: 44px;
+  padding: 12px 4px;
+  font-weight: 650;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.workspace-articles details p { margin: 0; padding: 0 4px 16px; color: var(--hotel-muted); max-inline-size: 70ch; overflow-wrap: anywhere; }
+.workspace-totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr)); gap: 8px; margin: 0; }
+.workspace-totals > div { padding: 10px 12px; background: var(--hotel-sub); border: 1px solid var(--hotel-border); border-radius: 8px; }
+.workspace-totals dt { color: var(--hotel-muted); }
+.workspace-totals dd { margin: 0; font-size: 1.65rem; font-weight: 680; font-variant-numeric: tabular-nums; }
+.workspace-task-table { min-inline-size: 500px; }
+.workspace-task-table tbody th { font-weight: 640; text-align: start; }
+@container (max-width: 600px) {
+  .workspace-task-table { border-collapse: separate; border-spacing: 0; }
+  .workspace-task-table tbody th { inline-size: 8rem; white-space: normal; }
+  .workspace-task-table :is(th, td):last-child {
+    position: sticky;
+    inset-inline-end: 0;
+    background: var(--hotel-panel);
+    border-inline-start: 1px solid var(--hotel-line);
+  }
+  .workspace-task-table thead th:last-child { background: var(--hotel-sub); }
+  .workspace-task-table .hotel-button { min-block-size: 44px; }
+}
+[data-block="WorkspaceResponse"] .hotel-form label { inline-size: min(100%, 30rem); }
+[data-block="WorkspaceResponse"] textarea {
+  inline-size: 100%;
+  padding: 10px;
+  color: var(--hotel-text);
+  background: var(--hotel-sub);
+  border: 1px solid var(--hotel-border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: max(1rem, 1em);
+  resize: vertical;
+}
+[data-block="WorkspaceResponse"] textarea:focus-visible { outline: 2px solid var(--hotel-ring); outline-offset: 2px; }
