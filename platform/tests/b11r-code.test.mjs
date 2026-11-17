@@ -43,12 +43,16 @@ test("untrusted generated imports, HTML, CSS, asset URLs and stale hashes fail c
     'import fs from "node:fs";', 'import anything from "../../outside";', 'void import("react");',
     'void fetch("https://example.test");', 'void process.env;', 'eval("1");',
     'const x = <iframe src="/api/build" />;', 'const x = <div dangerouslySetInnerHTML={{__html:"unsafe"}} />;',
-    'document.cookie;', 'window.parent.postMessage("escape","*");',
+    'document.cookie;', 'const capability = ({})["constructor"];', 'window["fetch"]("https://example.test");',
+    'setTimeout("eval()", 1);', 'window.parent.postMessage("escape","*");',
   ]) {
     const bad = structuredClone(fixture.proposal);
     bad.files[0].content += "\n" + code;
     assert.throws(() => validateProgram(bad, fixture.sources), { status: 422 }, code);
   }
+  const unused = structuredClone(fixture.proposal);
+  unused.files[0].content = unused.files[0].content.replace("<ExpandingNotice title=", "<FakeNotice title=");
+  assert.throws(() => validateProgram(unused, fixture.sources), { status: 422 });
   for (const css of ['@import "https://example.test/font.css";', '.app { background: url(https://example.test); }']) {
     const bad = structuredClone(fixture.proposal);
     bad.files[1].content = css;

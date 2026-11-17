@@ -299,6 +299,8 @@ try {
     ).status,
     413,
   );
+  if (process.platform !== "darwin" || live)
+    await page.locator("summary").filter({ hasText: "Legacy starter planning" }).click();
   if (process.platform !== "darwin") {
     await page
       .getByRole("textbox", { name: "Describe your app" })

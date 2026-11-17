@@ -138,6 +138,7 @@ export async function executeCodeGeneration(repo: string, vault: string, job: Jo
         if (attempt === 2 || error instanceof BuildError && error.status !== 422) throw error;
         diagnostic = error instanceof Error ? error.message.slice(0, 4400) : "Invalid generated program.";
         repairs++;
+        job.lastDiagnostic = diagnostic;
       } finally {
         if (running) { await stopPreview(); running = false; }
       }

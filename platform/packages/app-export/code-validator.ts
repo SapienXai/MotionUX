@@ -54,6 +54,33 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
         local.push(resolved);
       }
     }
+    const runtimeBindings = new Map<string, string[]>();
+    for (const statement of file.statements) {
+      if (!ts.isImportDeclaration(statement) || !ts.isStringLiteral(statement.moduleSpecifier) || !statement.importClause ||
+        statement.importClause.isTypeOnly) continue;
+      const imported = statement.moduleSpecifier.text;
+      const absolute = imported.startsWith(".") ? posix.normalize(posix.join(posix.dirname(path), imported)).replace(/\.tsx?$/, "") : "";
+      if (!absolute.startsWith("sources/")) continue;
+      const names: string[] = [];
+      if (statement.importClause.name) names.push(statement.importClause.name.text);
+      const bindings = statement.importClause.namedBindings;
+      if (bindings && ts.isNamedImports(bindings))
+        names.push(...bindings.elements.filter((item) => !item.isTypeOnly).map((item) => item.name.text));
+      if (bindings && ts.isNamespaceImport(bindings)) names.push(bindings.name.text);
+      runtimeBindings.set(absolute.slice(8), names);
+    }
+    const invoked = new Set<string>();
+    function runtimeReference(node: ts.Node) {
+      if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node))
+        invoked.add(node.tagName.getText(file).split(".")[0]);
+      if (ts.isCallExpression(node)) invoked.add(node.expression.getText(file).split(".")[0]);
+      ts.forEachChild(node, runtimeReference);
+    }
+    runtimeReference(file);
+    for (const id of ownSources) {
+      if (!runtimeBindings.get(id)?.some((name) => invoked.has(name)))
+        fail(path, "The imported source is never rendered or invoked: " + id);
+    }
     imports.set(path, local);
     sourceImports.set(path, ownSources);
     function inspect(node: ts.Node) {
@@ -72,9 +99,8 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
           (ts.isPropertyAssignment(owner) || ts.isPropertySignature(owner) || ts.isJsxAttribute(owner)) && owner.name === node;
         if (!propertyName) fail(path, "Use the host-provided route and persistent state APIs.");
       }
-      if (ts.isPropertyAccessExpression(node) && ["constructor", "__proto__", "prototype", "cookie", "localStorage", "sessionStorage", "createElement", "write", "sendBeacon", "postMessage", "open", "location", "parent", "top", "frames", "opener", "href"].includes(node.name.text)) {
-        if (!(node.name.text === "href" && node.expression.getText(file) === "event.currentTarget"))
-          fail(path, "Disallowed browser capability: " + node.name.text);
+      if (ts.isPropertyAccessExpression(node) && ["constructor", "__proto__", "prototype", "cookie", "localStorage", "sessionStorage", "createElement", "write", "sendBeacon", "postMessage", "location", "parent", "top", "frames", "opener"].includes(node.name.text)) {
+        fail(path, "Disallowed browser capability: " + node.name.text);
       }
       if (ts.isJsxAttribute(node)) {
         const name = node.name.getText(file);
@@ -114,7 +140,7 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
   const keys = new Set(proposal.controls.map(({ key }) => key));
   if (keys.size !== proposal.controls.length) throw new BuildError(422, "Editable controls must have unique keys.");
   for (const field of proposal.controls) {
-    if (!proposal.files.some(({ content }) => content.includes(JSON.stringify(field.key)) || content.includes("." + field.key.replaceAll("-", "_"))))
+    if (!proposal.files.some(({ content }) => content.includes(JSON.stringify(field.key)) || content.includes("'" + field.key + "'") || content.includes("." + field.key.replaceAll("-", "_"))))
       throw new BuildError(422, "Editable control is not connected to the generated program: " + field.key);
   }
   return proposal;

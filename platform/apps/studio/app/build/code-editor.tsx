@@ -1,12 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { BuildProject } from "@motionux/build-core";
 import type { CodeProject } from "@motionux/build-core/code-project";
 import { sourceRequest, SourceJobStatus, useSourceJob } from "./source-job";
 
-type Preview = { id?: string; revision?: number; status: string; url?: string; message?: string };
+type Preview = { documentDigest?: string; id?: string; revision?: number; status: string; url?: string; message?: string };
 
 export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack: () => void }) {
+  const frame = useRef<HTMLIFrameElement>(null);
   const [saved, setSaved] = useState(initial);
   const [draft, setDraft] = useState(initial);
   const [past, setPast] = useState<BuildProject[]>([]);
@@ -26,6 +27,14 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
     setSaved(next); setDraft(next); setPast([]); setFuture([]);
   });
   const locked = busy || operation.active;
+  function projectControls() {
+    const target = frame.current?.contentWindow;
+    if (!target || !preview?.documentDigest || preview.status !== "ready") return;
+    target.postMessage({ type: "motionux:controls", digest: preview.documentDigest,
+      values: Object.fromEntries(program.controls.map(({ key, value }) => [key, value])),
+    }, "http://127.0.0.1:5202");
+  }
+  useEffect(projectControls, [draft, preview?.documentDigest, preview?.status]);
   useEffect(() => {
     const controller = new AbortController();
     void sourceRequest<{ baseRevision: number; document: BuildProject["document"] } | null>("/" + initial.id + "/draft", "GET", undefined, controller.signal).then((draft) => {
@@ -100,7 +109,7 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
     <header className="build-toolbar">
       <div className="b11-editor-title"><button className="build-button" type="button" onClick={() => void action(async () => { await stop(); onBack(); })}>Projects</button><strong>{saved.document.name}</strong></div>
       <div className="build-toolbar-actions">
-        <span role="status">{dirty ? "Draft changes · preview shows saved version" : "Saved revision " + saved.revision}</span>
+        <span role="status">{dirty ? "Draft preview · save before Run or export" : "Saved revision " + saved.revision}</span>
         <button type="button" className="build-button" disabled={!past.length || locked} onClick={() => history(false)}>Undo</button>
         <button type="button" className="build-button" disabled={!future.length || locked} onClick={() => history(true)}>Redo</button>
         <button type="button" className="build-button" disabled={!dirty || locked} onClick={() => void action(async () => {
@@ -137,7 +146,7 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
         <div className="b11-canvas-bar"><span role="status">{preview?.message ?? "Open the saved application"}</span>
           <label>Preview size<select value={device} onChange={(event) => setDevice(event.target.value)}><option value="desktop">Desktop</option><option value="tablet">Tablet</option><option value="mobile">Mobile</option></select></label></div>
         {preview?.status === "ready" && preview.url ?
-          <iframe title="Live source application" sandbox="allow-scripts allow-same-origin allow-forms" referrerPolicy="no-referrer" data-size={device} src={preview.url + route} /> :
+          <iframe ref={frame} onLoad={projectControls} title="Live source application" sandbox="allow-scripts allow-same-origin allow-forms" referrerPolicy="no-referrer" data-size={device} src={preview.url + route} /> :
           <button className="build-button" disabled={locked || dirty || preview?.status === "building" || preview?.status === "starting"} onClick={() => void action(run)}>Open saved preview</button>}
       </section>
       <aside className="b11-properties" aria-label="Source properties">

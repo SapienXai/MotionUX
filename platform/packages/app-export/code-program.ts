@@ -58,11 +58,35 @@ export async function compileCodeProject(repo: string, project: BuildProject) {
   files["runtime/config.ts"] = "export const settings = " + JSON.stringify({
     id: project.id, revision: project.revision, values: config, name: graph.name,
   }, null, 2) + ";\n";
+  const editable = Object.fromEntries(graph.controls.map(({ key, kind }) => [key, kind]));
   files["runtime/screen.tsx"] = `"use client";
+import { useEffect, useState } from "react";
 import Application from "../components/app";
 import { settings } from "./config";
+const editable: Record<string, string> = ${JSON.stringify(editable)};
+const digest = ${JSON.stringify(fingerprint(canonical(project.document)))};
 export function AppScreen({ page }: { page: { route: string } }) {
-  return <Application route={page.route} config={settings.values} />;
+  const [config, setConfig] = useState<Record<string, string>>(settings.values);
+  useEffect(() => {
+    function receive(event: MessageEvent) {
+      if (event.source !== window.parent || event.origin === "null") return;
+      try { if (new URL(event.origin).origin !== "http://127.0.0.1:5200") return; } catch { return; }
+      const data = event.data;
+      if (!data || data.type !== "motionux:controls" || data.digest !== digest || typeof data.values !== "object" || !data.values) return;
+      const entries = Object.entries(data.values);
+      if (entries.length !== Object.keys(editable).length) return;
+      for (const [key, value] of entries) {
+        if (!Object.hasOwn(editable, key) || typeof value !== "string" || value.length > 500) return;
+        if (editable[key] === "color" && !/^#[a-f0-9]{6}$/i.test(value)) return;
+        if (["spacing", "size"].includes(editable[key]) && !/^\\d{1,2}(?:px|rem)$/.test(value)) return;
+        if (editable[key] === "motion" && !["still", "system"].includes(value)) return;
+      }
+      setConfig(Object.fromEntries(entries) as Record<string, string>);
+    }
+    addEventListener("message", receive);
+    return () => removeEventListener("message", receive);
+  }, []);
+  return <Application route={page.route} config={config} />;
 }
 `;
   files["app/layout.tsx"] = `import type { ReactNode } from "react";
