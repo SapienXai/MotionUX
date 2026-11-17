@@ -67,7 +67,7 @@ function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, cl
             onClick={event => intercept(event, () => navigate(next))}>{current && active("section")}<Icon size={20} aria-hidden="true" /><span>{page === "sources" ? "Discovery" : text}</span>
             {page === "gallery" && originalCount !== undefined && <span className="mx-count" aria-hidden="true">{originalCount}</span>}</a>;
         })}
-        {originalCount !== undefined && <a href="http://127.0.0.1:5200/build" className="mx-side-row"><LayoutTemplate size={20} aria-hidden="true" /><span>Build</span></a>}
+        {originalCount !== undefined && <a href="http://127.0.0.1:5200/build" target="_top" className="mx-side-row"><LayoutTemplate size={20} aria-hidden="true" /><span>Build</span></a>}
       </nav>
       {originalCount === undefined && <nav className="mx-side-categories" aria-label="Categories">
         <h2>Categories</h2>

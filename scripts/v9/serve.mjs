@@ -85,14 +85,16 @@ function protectAssetURLs(content, group, lane) {
   return content.replaceAll(base, base + previewAssetKey + "/");
 }
 
+const studioAncestors = "frame-ancestors 'self' http://127.0.0.1:5200";
 function securePreview(response) {
-  response.setHeader("Content-Security-Policy", "sandbox allow-scripts; frame-ancestors 'self'; default-src 'none'; script-src 'self' 'unsafe-inline' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; img-src 'self' https: data: blob:; media-src 'self' https: data: blob:; worker-src 'self' blob:; base-uri 'none'; form-action 'none'");
+  response.setHeader("Content-Security-Policy", "sandbox allow-scripts; " + studioAncestors + "; default-src 'none'; script-src 'self' 'unsafe-inline' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; img-src 'self' https: data: blob:; media-src 'self' https: data: blob:; worker-src 'self' blob:; base-uri 'none'; form-action 'none'");
   response.setHeader("Referrer-Policy", "no-referrer");
 }
 
 async function studioPreview(response, item, options) {
   if (item?.availability !== "ready" || options.get("item") !== item.slug) return response.writeHead(404).end();
   response.setHeader("Content-Type", types[".html"]);
+  response.setHeader("Content-Security-Policy", studioAncestors);
   if (item.sourceKind === "react") {
     const upstream = await readFile(await safeFile(resolve(vault, "runtime", item.group, "original", "dist"), "index.html", vault), "utf8");
     const isolated = groupPattern.test(item.group);
@@ -104,7 +106,7 @@ async function studioPreview(response, item, options) {
   const src = "/v9/live/designbookmark/original/" + encodeURIComponent(item.slug) + ".html";
   // Validate existence at request time, since the local vault can be removed while the Studio is running.
   await safeFile(resolve(vault, "runtime", item.group, "original", "dist"), item.slug + ".html", vault);
-  response.setHeader("Content-Security-Policy", "default-src 'none'; frame-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; frame-ancestors 'self'");
+  response.setHeader("Content-Security-Policy", "default-src 'none'; frame-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; " + studioAncestors);
   response.end(`<!doctype html><html lang="en" data-studio-preview="html"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>Studio HTML preview</title>
 <style>body { margin: 0; } iframe { display:block; inline-size: 100%; block-size: 100dvh; border: 0; }</style>
@@ -173,6 +175,7 @@ const server = createServer({ requestTimeout: 15000, headersTimeout: 5000, maxHe
     const id = url.searchParams.get("id");
     if (id !== null && !catalogID.test(id)) return response.writeHead(400).end();
     if (path === "/") {
+      response.setHeader("Content-Security-Policy", studioAncestors);
       response.setHeader("X-MotionUX-Studio", "v11");
       response.setHeader("X-MotionUX-Build", process.env.MOTIONUX_STUDIO_BUILD ?? "manual");
       response.setHeader("Content-Type", types[".html"]);
@@ -267,7 +270,9 @@ const server = createServer({ requestTimeout: 15000, headersTimeout: 5000, maxHe
         return await sendFile(response, directory, relative);
       }
       if (provider === "designbookmark" && asset.at(-1)?.endsWith(".html") && asset.at(-1) !== "index.html") {
-        response.setHeader("Content-Security-Policy", "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data: blob: https://designbookmark.com; media-src data: blob:; frame-ancestors 'self'; base-uri 'none'; form-action 'none'");
+        response.setHeader("Content-Security-Policy", "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data: blob: https://designbookmark.com; media-src data: blob:; " + studioAncestors + "; base-uri 'none'; form-action 'none'");
+      } else if (!asset.join("/") || asset.at(-1) === "index.html") {
+        response.setHeader("Content-Security-Policy", studioAncestors);
       }
       await sendFile(response, directory, asset.join("/") || "index.html");
     } else {

@@ -44,6 +44,10 @@ const child = spawn(
   [runner, "start", "-H", "127.0.0.1", "-p", "5200"],
   { cwd: app, env, stdio: "inherit" },
 );
+const gallery = process.argv.includes("--with-gallery") ? spawn(
+  process.execPath, [resolve(repo, "scripts/studio/start.mjs")],
+  { cwd: repo, stdio: "inherit" },
+) : undefined;
 for (const signal of ["SIGTERM", "SIGINT"])
   process.once(signal, () => {
     const origin = "http://127.0.0.1:5200";
@@ -58,8 +62,12 @@ for (const signal of ["SIGTERM", "SIGINT"])
       },
     })
       .catch(() => {})
-      .finally(() => child.kill(signal));
+      .finally(() => {
+        gallery?.kill(signal);
+        child.kill(signal);
+      });
   });
 child.once("exit", (code, signal) => {
+  gallery?.kill();
   process.exitCode = code ?? (signal ? 1 : 0);
 });

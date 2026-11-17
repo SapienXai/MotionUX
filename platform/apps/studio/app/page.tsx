@@ -7,7 +7,7 @@ import {
   PanelTop,
 } from "lucide-react";
 
-const legacy = "http://127.0.0.1:5199/";
+const legacy = "/discover";
 export default function StudioHome() {
   return (
     <main className="studio-home">

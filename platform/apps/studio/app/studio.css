@@ -25,6 +25,12 @@ body {
 body {
   min-height: 100dvh;
 }
+.studio-discover {
+  display: block;
+  inline-size: 100%;
+  block-size: 100dvh;
+  border: 0;
+}
 a {
   color: inherit;
   text-decoration: none;

@@ -22,6 +22,10 @@ export default {
           { key: "Referrer-Policy", value: "no-referrer" },
         ],
       },
+      {
+        source: "/discover",
+        headers: [{ key: "Content-Security-Policy", value: "frame-ancestors 'none'; frame-src http://127.0.0.1:5199; object-src 'none'; base-uri 'self'" }],
+      },
     ];
   },
 };
