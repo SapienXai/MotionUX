@@ -15,8 +15,11 @@ const audioPlayback = {
     await expect.poll(() => audio.evaluate(node => node.paused)).toBe(true);
     const seek = audio.locator("..").getByRole("slider", { name: "Sample position" });
     if (await seek.count()) {
+      await seek.press("End");
+      await expect.poll(() => audio.evaluate(node => node.currentTime)).toBeGreaterThan(0);
       await seek.press("Home");
       await expect(seek).toHaveValue("0");
+      await expect.poll(() => audio.evaluate(node => node.currentTime)).toBe(0);
     }
   } },
 };
@@ -225,5 +228,8 @@ export async function activateRecipes(samples, id) {
       })),
     };
   }));
-  return { ariaMatch: normalizeRecipeAria(steps[0].aria) === normalizeRecipeAria(steps[1].aria), semanticMatch: JSON.stringify(steps[0].semantic) === JSON.stringify(steps[1].semantic) };
+  const ariaMatch = normalizeRecipeAria(steps[0].aria) === normalizeRecipeAria(steps[1].aria);
+  return { ariaMatch, semanticMatch: JSON.stringify(steps[0].semantic) === JSON.stringify(steps[1].semantic),
+    ...(!ariaMatch ? { studioAria: steps[0].aria, consumerAria: steps[1].aria } : {}) };
+
 }
