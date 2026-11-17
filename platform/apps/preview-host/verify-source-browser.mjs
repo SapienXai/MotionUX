@@ -18,7 +18,7 @@ try {
       await region.waitFor({ state: "visible" });
       assert.equal(await region.getAttribute("data-kind"), item.kind);
       if (item.kind === "source" || item.kind === "generated") {
-        assert(await region.locator("button,input,output,select,[role=tab],span,.mx-source-content").count(), "A source instance produced no usable output.");
+        assert(await region.locator("button,input,output,select,[role=tab],span,.mx-source-content").count(), "A source instance produced no usable output at " + definition.route + "#" + item.id + ".");
       }
     }
     const layout = await page.evaluate(() => {

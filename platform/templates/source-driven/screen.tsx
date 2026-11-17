@@ -14,10 +14,10 @@ const graph = project.document.sourceGraph!;
 const initial: Records = Object.fromEntries(graph.entities.map((entity) => [entity.id, entity.examples.map((values, index) => ({ id: "sample-" + index, values }))]));
 const tr = graph.locale === "tr";
 const labels = tr ? {
-  add: "Ekle", edit: "Düzenle", remove: "Sil", save: "Kaydet", cancel: "İptal", find: "Ara", undo: "Geri al", empty: "Kayıt bulunamadı.", saved: "Kaydedildi.",
+  add: "Ekle", edit: "Düzenle", remove: "Sil", save: "Kaydet", cancel: "İptal", find: "Ara", undo: "Geri al", empty: "Kayıt bulunamadı.", sort: "Sırala", saved: "Kaydedildi.",
   overlap: "Bu saat aralığı başka bir kayıtla çakışıyor.", interval: "Bitiş saati başlangıçtan sonra olmalı.", local: "Veriler bu tarayıcıda saklanır.", all: "Tümü", skip: "İçeriğe geç",
 } : {
-  add: "Add", edit: "Edit", remove: "Delete", save: "Save", cancel: "Cancel", find: "Search", undo: "Undo", empty: "No matching records.", saved: "Saved.",
+  add: "Add", edit: "Edit", remove: "Delete", save: "Save", cancel: "Cancel", find: "Search", undo: "Undo", empty: "No matching records.", sort: "Sort", saved: "Saved.",
   overlap: "This time range overlaps another record.", interval: "The end time must follow the start.", local: "Data is stored in this browser.", all: "All", skip: "Skip to content",
 };
 
@@ -42,7 +42,7 @@ function restore(key: string): Records {
 
 export type SourceProps = {
   instance: SourceInstance; rows: Row[]; entity?: Entity; still: boolean;
-  edit: (row?: Row) => void;
+  edit: (row?: Row, prefill?: string[]) => void;
   activeFilter?: string;
   onSelect?: (label: string) => void;
 };
@@ -50,6 +50,7 @@ export type Adapter = (props: SourceProps) => ReactNode;
 
 function DataView({ instance, rows, entity, edit, remove, activeFilter: group = "", onSelect }: SourceProps & { remove: (row: Row) => void }) {
   const [filter, setFilter] = useState("");
+  const [sortBy, setSort] = useState("");
   if (!entity) return null;
   const choice = entity.fields.findIndex((field) => field.type === "choice");
   const search = filter.toLocaleLowerCase(graph.locale);
@@ -59,7 +60,8 @@ function DataView({ instance, rows, entity, edit, remove, activeFilter: group = 
   const columns = fieldList.map((id) => entity.fields.findIndex((field) => field.id === id));
   const groups = instance.kind === "board" && choice >= 0 ? entity.fields[choice].options : [""];
   const date = entity.fields.findIndex((field) => field.type === "date" || field.type === "time");
-  if (instance.kind === "agenda" && date >= 0) visible.sort((a, b) => a.values[date].localeCompare(b.values[date]));
+  const sort = sortBy ? entity.fields.findIndex(({ id }) => id === sortBy) : instance.kind === "agenda" ? date : -1;
+  if (sort >= 0) visible.sort((a, b) => a.values[sort].localeCompare(b.values[sort], graph.locale, { numeric: true }));
   function renderRow(row: Row) {
     return <article key={row.id} className="mx-record">
       <dl>{columns.map((index) => <div key={index}><dt>{entity!.fields[index].label}</dt><dd dir="auto">{row.values[index]}</dd></div>)}</dl>
@@ -75,6 +77,9 @@ function DataView({ instance, rows, entity, edit, remove, activeFilter: group = 
       {choice >= 0 && <label>{entity.fields[choice].label}<select value={group} onChange={(event) => onSelect?.(event.target.value)}>
         <option value="">{labels.all}</option>{entity.fields[choice].options.map((value) => <option key={value}>{value}</option>)}
       </select></label>}
+      <label>{labels.sort}<select value={sortBy} onChange={(event) => setSort(event.target.value)}>
+        <option value="">—</option>{entity.fields.map((field) => <option key={field.id} value={field.id}>{field.label}</option>)}
+      </select></label>
       {instance.action === "edit" && <button type="button" className="mx-primary" onClick={() => edit()}>{labels.add} {entity.label}</button>}
     </div>
     {!visible.length && <p role="status">{labels.empty}</p>}
@@ -95,7 +100,7 @@ export function AppScreen({ id, page, status }: { id: string; page: { route: str
   const [filters, setFilters] = useState<Record<string, string>>({});
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [editing, setEditing] = useState<{ entity: Entity; row?: Row }>();
+  const [editing, setEditing] = useState<{ entity: Entity; row?: Row; prefill?: string[] }>();
   const dialog = useRef<HTMLDialogElement>(null);
   const returnFocus = useRef<HTMLElement>(null);
   useEffect(() => { setData(restore(key)); }, [key]);
@@ -109,10 +114,10 @@ export function AppScreen({ id, page, status }: { id: string; page: { route: str
     store({ ...data, [entity.id]: entry ? [...rows.filter((row) => row.id !== rowId), entry] : rows.filter((row) => row.id !== rowId) });
     setMessage(labels.saved);
   }
-  function start(entity: Entity, row?: Row) {
+  function start(entity: Entity, row?: Row, prefill?: string[]) {
     returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setError("");
-    setEditing({ entity, row });
+    setEditing({ entity, row, prefill });
     dialog.current?.showModal();
   }
   function save(event: FormEvent<HTMLFormElement>) {
@@ -148,7 +153,7 @@ export function AppScreen({ id, page, status }: { id: string; page: { route: str
         <div className="mx-grid" data-layout={active.layout}>{active.instances.map((instance) => {
           const entity = graph.entities.find(({ id }) => id === instance.entity);
           const props = { instance, entity, rows: data[instance.entity] ?? [], still: graph.motion === "still" || instance.motion === "still",
-            edit: (row?: Row) => { if (entity) start(entity, row); }, activeFilter: filters[instance.entity] ?? "",
+            edit: (row?: Row, prefill?: string[]) => { if (entity) start(entity, row, prefill); }, activeFilter: filters[instance.entity] ?? "",
             onSelect: (label: string) => {
               const choices = entity?.fields.find(({ type }) => type === "choice")?.options;
               if (entity && choices?.length) setFilters((previous) => ({ ...previous, [entity.id]: choices.includes(label) ? label : "" }));
@@ -178,10 +183,10 @@ export function AppScreen({ id, page, status }: { id: string; page: { route: str
           <h2 id="record-dialog-title">{editing.row ? labels.edit : labels.add} {editing.entity.label}</h2>
           {editing.entity.fields.map((field, index) => <label key={field.id}>{field.label}
             {field.type === "choice" ?
-              <select name={field.id} defaultValue={editing.row?.values[index] ?? ""} required={field.required}>
+              <select name={field.id} defaultValue={editing.row?.values[index] ?? editing.prefill?.[index] ?? ""} required={field.required}>
                 <option value="">—</option>{field.options.map((value) => <option key={value}>{value}</option>)}
               </select> :
-              <input dir="auto" name={field.id} type={field.type} defaultValue={editing.row?.values[index] ?? ""} maxLength={200} required={field.required} />}
+              <input dir="auto" name={field.id} type={field.type} defaultValue={editing.row?.values[index] ?? editing.prefill?.[index] ?? ""} maxLength={200} required={field.required} />}
           </label>)}
           {error && <p role="alert">{error}</p>}
           <div className="mx-row-actions"><button type="button" onClick={() => dialog.current?.close()}>{labels.cancel}</button><button className="mx-primary">{labels.save}</button></div>

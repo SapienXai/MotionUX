@@ -99,6 +99,3 @@ export type SourcePlan = z.infer<typeof sourcePlanSchema>;
 export type SourcePin = z.infer<typeof sourcePinSchema>;
 export type Intent = z.infer<typeof intentSchema>;
 export type SourceInstance = SourcePlan["pages"][number]["instances"][number];
-
-export const sourceIntentResponse = z.toJSONSchema(intentSchema);
-export const sourcePlanResponse = z.toJSONSchema(sourcePlanSchema);

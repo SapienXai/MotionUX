@@ -1,6 +1,5 @@
 "use client";
 
-import { SourceEditor } from "./source-editor";
 import { SourceJobStatus, useSourceJob } from "./source-job";
 
 import { projectPathKey } from "../../../../../lib/studio-bridge";
@@ -144,8 +143,12 @@ function rememberProject(path: string) {
 
 export function ComposerHome({
   Canvas,
+  SourceCanvas,
+  prepareCanvas,
 }: {
   Canvas: ComponentType<CanvasProps>;
+  SourceCanvas: ComponentType<Pick<CanvasProps, "initial" | "onBack">>;
+  prepareCanvas: () => Promise<unknown>;
 }) {
   const [rows, setRows] = useState<Row[]>([]);
   const [project, setProject] = useState<BuildProject>();
@@ -217,7 +220,10 @@ export function ComposerHome({
     setBusy(true);
     setError("");
     try {
-      openCanvas(await request<BuildProject>(path, method, value));
+      const preloaded = method === "POST" ? prepareCanvas().catch(() => undefined) : undefined;
+      const result = await request<BuildProject>(path, method, value);
+      if (!result.document.sourceGraph) await preloaded;
+      openCanvas(result);
     } catch (error) {
       setError(messageFor(error));
     } finally {
@@ -304,7 +310,7 @@ export function ComposerHome({
     setEdits({ ...edits, routes });
   }
   if (project?.document.sourceGraph)
-    return <SourceEditor key={project.id} initial={project} onBack={() => {
+    return <SourceCanvas key={project.id} initial={project} onBack={() => {
       setProject(undefined);
       rememberProject("/build");
       void request<Row[]>().then(setRows, (error) => setError(messageFor(error)));

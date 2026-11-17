@@ -23,6 +23,12 @@ const snippets = {
     const hours = Math.floor(slot.start / 60);
     const time = String(hours).padStart(2, "0") + ":" + String(slot.start % 60).padStart(2, "0");
     setNotice(slot.date + " · " + time + " · " + slot.minutes + " min");
+    if (entity && instance.action === "edit") {
+      const end = slot.start + slot.minutes;
+      const endTime = String(Math.floor(end / 60)).padStart(2, "0") + ":" + String(end % 60).padStart(2, "0");
+      edit(undefined, entity.fields.map((field) => field.type === "date" ? slot.date :
+        field.id === entity.collision[1] ? time : field.id === entity.collision[2] ? endTime : ""));
+    }
   }} /><output role="status">{notice}</output></>`,
   number: `still ? <span>{rows.length}</span> : <Original0 value={rows.length} />`,
   compare: `<article>{items.map((item) => <p key={item.label}>{item.text}</p>)}</article>`,
@@ -60,11 +66,11 @@ function component(source: ResolvedSource) {
     : adapter === "disclosure" ? "import Upstream from " + JSON.stringify(path) + ";\nconst { Disclosure: Original0, DisclosureTrigger: Original1, DisclosureContent: Original2 } = Upstream;"
       : "import { " + exports + " } from " + JSON.stringify(path) + ";";
   return `"use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MotionConfig } from "motion/react";
 import type { SourceProps } from "./screen";
 ${imports}
-export default function SourceAdapter({ instance, rows, entity, still, onSelect, activeFilter }: SourceProps) {
+export default function SourceAdapter({ instance, rows, entity, still, onSelect, activeFilter, edit }: SourceProps) {
   const [active, setActive] = useState(0);
   const [notice, setNotice] = useState("");
   const items = instance.items.length ? instance.items : rows.slice(0, 7).map(({ values }) => ({ label: values[0], text: values.slice(1).join(" · ") }));
@@ -72,10 +78,23 @@ export default function SourceAdapter({ instance, rows, entity, still, onSelect,
     setActive(index);
     if (instance.action === "filter" && items[index]) onSelect?.(items[index].label === activeFilter ? "" : items[index].label);
   }
-  const dateIndex = entity?.fields.findIndex(({ type }) => type === "date") ?? -1;
-  const days = [...new Set(rows.map(({ values }) => values[dateIndex]).filter((value) => /^\\d{4}-\\d{2}-\\d{2}$/.test(value ?? "")))].slice(0, 7)
-    .map((date) => ({ date, open: [540, 1080] as [number, number], busy: [] }));
-  ${adapter === "slots" ? "if (!days.length) return <p>{instance.description}</p>;" : ""}
+  ${adapter === "slots" ? `const dateIndex = entity?.fields.findIndex(({ type }) => type === "date") ?? -1;
+  const [calendar, setCalendar] = useState<string[]>([]);
+  useEffect(() => {
+    const now = new Date();
+    setCalendar(Array.from({ length: 7 }, (_, index) => new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + index)).toISOString().slice(0, 10)));
+  }, []);
+  const savedDates = [...new Set(rows.map(({ values }) => values[dateIndex])
+    .filter((value) => /^\\d{4}-\\d{2}-\\d{2}$/.test(value ?? "")))].slice(0, 7);
+  const clock = (value: string) => { const [h, m] = value.split(":").map(Number); return h * 60 + m; };
+  const from = entity?.fields.findIndex(({ id }) => id === entity.collision[1]) ?? -1;
+  const to = entity?.fields.findIndex(({ id }) => id === entity.collision[2]) ?? -1;
+  const days = (savedDates.length ? savedDates : calendar).map((date) => ({
+    date, open: [540, 1080] as [number, number],
+    busy: rows.filter(({ values }) => values[dateIndex] === date && values[from] && values[to])
+      .map(({ values }) => [clock(values[from]), clock(values[to])] as [number, number]).filter(([a, b]) => Number.isFinite(a) && b > a),
+  }));
+  if (!days.length) return <p role="status">{instance.description || instance.title}</p>;` : ""}
   return <MotionConfig reducedMotion={still ? "always" : "user"}>${adapter === "number" ? "{" + snippets[adapter] + "}" : snippets[adapter]}</MotionConfig>;
 }
 `;

@@ -84,6 +84,20 @@ async function inspect(page, origin, graph) {
   return observed;
 }
 
+async function createLocalRecord(page, area, entity, locale) {
+  await area.getByRole("button", { name: (locale === "tr" ? "Ekle " : "Add ") + entity.label, exact: true }).click();
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  for (const field of entity.fields) {
+    const control = dialog.locator('[name="' + field.id + '"]');
+    if (field.type === "choice") await control.selectOption(field.options[0]);
+    else await control.fill(field.type === "date" ? "2026-11-18" : field.type === "number" ? "1" :
+      field.type === "time" ? (field.id === entity.collision[2] ? "11:00" : "10:00") : "Browser offline evidence");
+  }
+  await dialog.getByRole("button", { name: locale === "tr" ? "Kaydet" : "Save", exact: true }).click();
+  await expect(dialog).not.toBeVisible();
+}
+
 async function offline(page, context, origin, graph) {
   await page.goto(origin);
   await expect(page.locator('.pwa-status [data-ready="true"]')).toBeAttached({ timeout: 25_000 });
@@ -92,21 +106,21 @@ async function offline(page, context, origin, graph) {
   try {
     assert((await page.reload())?.fromServiceWorker());
     const records = graph.pages.flatMap((page) => page.instances.map((item) => ({ ...item, route: page.route })))
-      .find((item) => ["records", "agenda", "board"].includes(item.kind) && item.action === "edit" &&
-        graph.entities.find(({ id }) => id === item.entity)?.examples.length);
+      .find((item) => ["records", "agenda", "board"].includes(item.kind) && item.action === "edit");
     let mutation = false;
     if (records) {
       assert((await page.goto(origin + records.route))?.fromServiceWorker());
       const area = page.locator('[data-instance="' + records.id + '"]');
       const before = await area.locator(".mx-record").count();
-      if (before) {
-        await area.locator(".mx-record .mx-row-actions button").nth(1).click();
-        await expect(area.locator(".mx-record")).toHaveCount(before - 1);
-        await context.setOffline(false);
-        await page.reload();
-        await expect(area.locator(".mx-record")).toHaveCount(before - 1);
-        mutation = true;
-      }
+      const entity = graph.entities.find(({ id }) => id === records.entity);
+      await createLocalRecord(page, area, entity, graph.locale);
+      await expect(area.locator(".mx-record")).toHaveCount(before + 1);
+      await page.reload();
+      await expect(area.locator(".mx-record")).toHaveCount(before + 1);
+      await context.setOffline(false);
+      await page.reload();
+      await expect(area.locator(".mx-record")).toHaveCount(before + 1);
+      mutation = true;
     }
     return { worker: true, localMutationRetained: mutation };
   } finally { await context.setOffline(false); }
@@ -137,7 +151,12 @@ for (const label of cases) {
           const context = await browser.newContext({ viewport: { width: 390, height: 900 }, reducedMotion: "reduce" });
           const page = await context.newPage();
           const observations = await inspect(page, service.origin, record.document.sourceGraph);
-          const local = format === "pwa" && engine === chromium ? await offline(page, context, service.origin, record.document.sourceGraph) : undefined;
+          let local;
+          if (format === "pwa" && engine === chromium) {
+            const disconnected = await browser.newContext({ viewport: { width: 390, height: 900 }, reducedMotion: "reduce" });
+            try { local = await offline(await disconnected.newPage(), disconnected, service.origin, record.document.sourceGraph); }
+            finally { await disconnected.close(); }
+          }
           findings.push({ engine: engine.name(), version: browser.version(), observations, local });
         } finally { await browser.close(); }
       }

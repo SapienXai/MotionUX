@@ -6,6 +6,7 @@ import { makeIndex, hash } from "../../src/brain/indexer.ts";
 import { specimen } from "../../fixtures/brain/synthetic.mjs";
 import { resolveContext, restoreSources } from "../packages/app-export/source-catalog.ts";
 import { sealSourceGraph, sourceDocument } from "../packages/app-export/source-tree.ts";
+import { reviseSourcePlan } from "../packages/build-core/source/revision.ts";
 import { documentSchema } from "../packages/build-core/model.ts";
 import { canonical, fingerprint } from "../packages/build-core/store.ts";
 
@@ -88,6 +89,12 @@ test("Brain context resolves a hash-checked code closure and seals a distinct ge
   assert.equal(documentSchema.parse(sourceDocument(graph)).pages[1].route, "/samples/compare");
   assert.equal(graph.artifacts[0].file, "runtime/generated-comparison.tsx");
   assert.deepEqual(graph.artifacts[0].generatedFrom, [id]);
+  const revised = reviseSourcePlan(graph, { changes: [{ target: "comparison", field: "title", value: "Compare field samples" }] });
+  assert.deepEqual(revised.entities, graph.entities);
+  assert.deepEqual(revised.pages[0], graph.pages[0]);
+  assert.equal(revised.pages[1].instances[0].source, id);
+  assert.equal(revised.pages[1].instances[0].title, "Compare field samples");
+  assert.throws(() => reviseSourcePlan(graph, { changes: [{ target: "comparison", field: "source", value: "unknown" }] }));
   const other = plan(id);
   other.pages[1].instances[0].program.operation = "group-count";
   const changed = await sealSourceGraph(repo, intent, other, context.sources);
