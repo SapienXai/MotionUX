@@ -104,3 +104,40 @@ test("Action menu escapes a clipped ancestor and stays within the viewport", asy
   await page.getByRole("menuitem", { name: "Newest" }).press("Enter");
   await expect(trigger).toBeFocused();
 });
+
+test("Action menu stays in view when keyboard focus opens an offscreen trigger", async ({ page }) => {
+  await page.goto("/?item=designbookmark-spring-dropdown");
+  const trigger = page.getByRole("button", { name: "Sort by" });
+  const supportsTopLayer = await trigger.evaluate((element) => {
+    if (typeof element.showPopover !== "function") return false;
+    const viewport = window.visualViewport;
+    const bottom = viewport ? viewport.offsetTop + viewport.height : window.innerHeight;
+    const offset = bottom + 40 - element.getBoundingClientRect().top;
+    element.style.transform = `translateY(${offset}px)`;
+    element.focus({ preventScroll: true });
+    return true;
+  });
+  if (!supportsTopLayer) return;
+  await expect(trigger).toBeFocused();
+  await page.keyboard.press("ArrowDown");
+
+  const layer = page.locator(".mx-menu-layer:popover-open");
+  const geometry = await layer.evaluate((element) => {
+    const { top, bottom } = element.getBoundingClientRect();
+    const viewport = window.visualViewport;
+    const viewportTop = viewport?.offsetTop ?? 0;
+    const viewportBottom = viewportTop + (viewport?.height ?? window.innerHeight);
+    return {
+      top,
+      bottom,
+      viewportTop,
+      viewportBottom,
+      triggerTop: element.previousElementSibling!.getBoundingClientRect().top,
+    };
+  });
+  expect(geometry.triggerTop).toBeGreaterThan(geometry.viewportBottom);
+  expect(geometry.top).toBeGreaterThanOrEqual(geometry.viewportTop);
+  expect(geometry.bottom).toBeLessThanOrEqual(geometry.viewportBottom);
+  await page.keyboard.press("Escape");
+  await expect(trigger).toBeFocused();
+});

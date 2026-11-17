@@ -9,6 +9,7 @@ const defaultStiffness = 445;
 const defaultDamping = 34;
 const collapsedClip = "inset(0% 14% 88% 14% round 20px)";
 const expandedClip = "inset(0% 0% 0% 0% round 13px)";
+const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
 export type MenuAction = { id: string; label: string; icon?: ReactNode; disabled?: boolean };
 export function ActionMenu({ label, actions, onAction, variant = "dropdown", reducedMotion, className, defaultOpen = false, inline = false, triggerIcon, open: controlledOpen, onOpenChange, stiffness = defaultStiffness, damping = defaultDamping }: {
@@ -55,13 +56,20 @@ export function ActionMenu({ label, actions, onAction, variant = "dropdown", red
       layer.style.setProperty("--mx-menu-width", inlineLimit + "px");
       const width = layer.offsetWidth;
       const desiredHeight = menu.current?.scrollHeight ?? layer.offsetHeight;
-      const roomBelow = bounds.top + bounds.height - target.bottom - gutter;
-      const roomAbove = target.top - bounds.top - gutter;
-      const upward = roomBelow < desiredHeight + gutter && roomAbove > roomBelow;
-      const height = Math.max(44, Math.min(desiredHeight, (upward ? roomAbove : roomBelow) - gutter));
+      const viewportTop = bounds.top + gutter;
+      const viewportBottom = Math.max(viewportTop, bounds.top + bounds.height - gutter);
+      // Keyboard focus can open the menu before an offscreen trigger scrolls into view.
+      const aboveBottom = clamp(target.top - gutter, viewportTop, viewportBottom);
+      const belowTop = clamp(target.bottom + gutter, viewportTop, viewportBottom);
+      const roomAbove = aboveBottom - viewportTop;
+      const roomBelow = viewportBottom - belowTop;
+      const upward = roomBelow < desiredHeight && roomAbove > roomBelow;
+      const availableHeight = upward ? roomAbove : roomBelow;
+      const height = Math.min(desiredHeight, Math.max(44, availableHeight), viewportBottom - viewportTop);
+      const top = clamp(upward ? aboveBottom - height : belowTop, viewportTop, viewportBottom - height);
       const rtl = getComputedStyle(button).direction === "rtl";
       const left = Math.min(Math.max(rtl ? target.right - width : target.left, bounds.left + gutter), bounds.left + bounds.width - width - gutter);
-      layer.style.setProperty("--mx-menu-top", (upward ? target.top - height - gutter : target.bottom + gutter) + "px");
+      layer.style.setProperty("--mx-menu-top", top + "px");
       layer.style.setProperty("--mx-menu-left", left + "px");
       layer.style.setProperty("--mx-menu-height", height + "px");
       layer.dataset.upward = String(upward);
