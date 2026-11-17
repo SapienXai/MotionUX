@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 import { strToU8, zipSync } from "fflate";
 import { allBlocks, blockSpec, blockSpecVersion, defaultMotionDna, projectSchema, referencedMedia } from "@motionux/build-core";
 import { canonical, fingerprint } from "@motionux/build-core/store";
+import { compileCodeProject } from "./code-program.ts";
 import { compileSourceTree } from "./source-tree.ts";
 import { mediaBytes } from "./media.ts";
 
@@ -32,6 +33,7 @@ const sources = {
   "runtime/hotel.css": "app-blocks/hotel.css",
   "runtime/model.ts": "build-core/model.ts",
   "runtime/source-graph.ts": "build-core/source/graph.ts",
+  "runtime/code-project.ts": "build-core/source/code-project.ts",
   "runtime/page-patterns.ts": "build-core/page-patterns.ts",
   "runtime/marketing-spec.ts": "build-core/marketing-spec.ts",
   "runtime/marketing-template.ts": "build-core/marketing-template.ts",
@@ -45,6 +47,7 @@ const sources = {
 const localImports = (contents: string) =>
   contents
     .replaceAll('from "./source/graph.ts"', 'from "./source-graph"')
+    .replaceAll('from "./source/code-project.ts"', 'from "./code-project"')
     .replaceAll('from "@motionux/build-core"', 'from "./model"')
     .replace(/(from|export \* from) "(\.\/[a-z-]+)\.tsx?"/g, '$1 "$2"');
 
@@ -107,6 +110,32 @@ async function addPwa(repo: string, project: ReturnType<typeof projectSchema.par
 
 export async function exportTree(repo: string, value: unknown, options: { pwa?: boolean; vault?: string } = {}) {
   const project = projectSchema.parse(value);
+  if (project.document.codeProject) {
+    const { files, sources: provenance, assets } = await compileCodeProject(repo, project);
+    const output: SourceFiles = { ...files };
+    let pwa;
+    if (options.pwa) {
+      // Reuse the bounded worker and snapshot builder with this program's route and source tree.
+      output["runtime/project.ts"] = "export const project = " + JSON.stringify({
+        id: project.id, document: { name: project.document.name, locale: project.document.locale, theme: project.document.theme, template: project.document.template },
+      }) + ";\n";
+      pwa = await addPwa(repo, project, output);
+      output["app/layout.tsx"] = String(files["app/layout.tsx"]).replace('import "../styles/app.css";', 'import "../styles/app.css";\nimport "../runtime/pwa.css";');
+      output["runtime/pwa-status.tsx"] = String(output["runtime/pwa-status.tsx"])
+        .replace('import { useOptionalApp } from "./frame";', 'import { project } from "./project";')
+        .replace('useOptionalApp()?.theme', 'project.document.theme');
+      output["runtime/pwa-screen.tsx"] = '"use client";\nimport { AppScreen as Application } from "./screen";\nimport { PwaStatus } from "./pwa-status";\nexport function AppScreen(props: Parameters<typeof Application>[0]) { return <><Application {...props} /><PwaStatus /></>; }\n';
+    }
+    output.LICENSE = await readFile(resolve(repo, "LICENSE"), "utf8");
+    const entries = Object.keys(output).sort().map((path) => ({ path, sha256: fingerprint(output[path]) }));
+    output["motionux-manifest.json"] = JSON.stringify({
+      schemaVersion: project.schemaVersion, sourceVersion: 2, revision: project.revision,
+      documentDigest: fingerprint(canonical(project.document)), digest: fingerprint(canonical(entries)),
+      sources: provenance, artifacts: project.document.codeProject.artifacts, usages: project.document.codeProject.usages, assets,
+      ...(pwa && { pwa }), files: entries,
+    }, null, 2) + "\n";
+    return Object.fromEntries(Object.entries(output).sort(([a], [b]) => a.localeCompare(b)));
+  }
   if (project.document.sourceGraph) {
     const { files, sources: provenance } = await compileSourceTree(repo, project);
     const output: SourceFiles = { ...files };

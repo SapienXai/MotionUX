@@ -1,0 +1,120 @@
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+import { codeProposalSchema, codeProjectSchema, type CodeProject } from "@motionux/build-core/code-project";
+import type { BuildProject, Document } from "@motionux/build-core";
+import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
+import { restoreCodeSources, type SourceModule } from "./code-catalog.ts";
+import { programHashes, validateProgram } from "./code-validator.ts";
+import { mediaBytes } from "./media.ts";
+
+async function profile(repo: string) {
+  const root = resolve(repo, "platform/templates");
+  const read = (file: string) => readFile(resolve(root, file), "utf8");
+  const [lock, pkg, state, next, postcss, tsconfig, proxy] = await Promise.all([
+    read("hotel-dashboard/package-lock.json"), read("hotel-dashboard/package.json"), read("source-driven/project-state.ts"),
+    read("hotel-dashboard/next.config.mjs"), read("hotel-dashboard/postcss.config.mjs"), read("hotel-dashboard/tsconfig.json"), read("hotel-dashboard/proxy.ts"),
+  ]);
+  return { lock, pkg, state, next, postcss, tsconfig, proxy, compiler: fingerprint(canonical({ abi: 2, state, next, postcss, tsconfig, proxy })) };
+}
+
+export async function sealCodeProject(repo: string, proposal: unknown, sources: SourceModule[]): Promise<CodeProject> {
+  const clean = validateProgram(proposal, sources);
+  const selected = [...new Set(clean.usages.map(({ source }) => source))];
+  const environment = await profile(repo);
+  const result = codeProjectSchema.safeParse({
+    ...clean, version: 2,
+    sources: selected.map((id) => sources.find(({ pin }) => pin.id === id)!.pin),
+    artifacts: programHashes(clean), lock: fingerprint(environment.lock), compiler: environment.compiler,
+  });
+  if (!result.success) throw new BuildError(422, "Code project contract: " + result.error.issues.slice(0, 4).map(({ message }) => message).join(" "));
+  return result.data;
+}
+
+export function codeDocument(codeProject: CodeProject): Document {
+  return { name: codeProject.name, locale: codeProject.locale, theme: "system", template: "blank-app", data: "local-form-v1",
+    runtime: "next-16", sidebar: "expanded", motionProfile: "system", assets: [], codeProject,
+    pages: codeProject.pages.map(({ id, title, route }) => ({ id: "p-" + id, title, route, blocks: [] })) };
+}
+
+export async function compileCodeProject(repo: string, project: BuildProject) {
+  const graph = codeProjectSchema.parse(project.document.codeProject);
+  const environment = await profile(repo);
+  if (fingerprint(environment.lock) !== graph.lock || environment.compiler !== graph.compiler)
+    throw new BuildError(409, "The pinned compiler or dependency lock changed. Rebuild this code project before running or exporting.");
+  const sources = await restoreCodeSources(repo, graph.sources);
+  const { version, sources: sourcePins, artifacts } = graph;
+  const proposal = codeProposalSchema.strip().parse(graph);
+  validateProgram(proposal, sources);
+  if (canonical(programHashes(proposal)) !== canonical(artifacts)) throw new BuildError(409, "Generated module hashes changed.");
+  const config = Object.fromEntries(graph.controls.map(({ key, value }) => [key, value]));
+  const files: Record<string, string | Uint8Array> = Object.fromEntries(graph.files.map(({ path, content }) => [path, content]));
+  files["package.json"] = environment.pkg;
+  files["package-lock.json"] = environment.lock;
+  files["next.config.mjs"] = environment.next;
+  files["postcss.config.mjs"] = environment.postcss;
+  files["tsconfig.json"] = environment.tsconfig;
+  files["proxy.ts"] = environment.proxy;
+  files["runtime/state.ts"] = environment.state;
+  files["runtime/config.ts"] = "export const settings = " + JSON.stringify({
+    id: project.id, revision: project.revision, values: config, name: graph.name,
+  }, null, 2) + ";\n";
+  files["runtime/screen.tsx"] = `"use client";
+import Application from "../components/app";
+import { settings } from "./config";
+export function AppScreen({ page }: { page: { route: string } }) {
+  return <Application route={page.route} config={settings.values} />;
+}
+`;
+  files["app/layout.tsx"] = `import type { ReactNode } from "react";
+import "@fontsource-variable/inter";
+import "../styles/host.css";
+import "../styles/app.css";
+export default function Layout({ children }: { children: ReactNode }) {
+  return <html lang=${JSON.stringify(graph.locale)} dir=${JSON.stringify(graph.direction)}><body>{children}</body></html>;
+}
+`;
+  const css = ["@import 'tailwindcss';", "@custom-variant dark (&:where(.dark, .dark *));", "body { margin: 0; }", "* { box-sizing: border-box; }"];
+  for (const source of sources) {
+    const prefix = "sources/" + source.pin.id + "/";
+    for (const [path, code] of Object.entries(source.files)) files[prefix + path] = code;
+    const entry = "./" + source.pin.id + "/" + source.pin.entry.replace(/\.tsx?$/, "");
+    files["sources/" + source.pin.id + ".ts"] = 'export * from ' + JSON.stringify(entry) + ";\n" +
+      (source.exports.includes("default") ? 'export { default } from ' + JSON.stringify(entry) + ";\n" : "");
+    for (const style of source.css) css.unshift('@import "../' + prefix + style + '";');
+  }
+  files["styles/host.css"] = css.join("\n") + "\n";
+  files["app/[[...route]]/page.tsx"] = `import { notFound } from "next/navigation";
+import { AppScreen } from "../../runtime/screen";
+const pages = ${JSON.stringify(graph.pages.map(({ route, title }) => ({ route, title })))};
+export const dynamicParams = false;
+export function generateStaticParams() { return pages.map(({ route }) => ({ route: route.split("/").filter(Boolean) })); }
+type Props = { params: Promise<{ route?: string[] }> };
+export async function generateMetadata({ params }: Props) {
+  const route = "/" + ((await params).route ?? []).join("/");
+  return { title: pages.find((page) => page.route === route)?.title ?? ${JSON.stringify(graph.name)} };
+}
+export default async function Page({ params }: Props) {
+  const route = "/" + ((await params).route ?? []).join("/");
+  if (!pages.some((page) => page.route === route)) notFound();
+  return <AppScreen page={{ route }} />;
+}
+`;
+  const requested = graph.files.map(({ content }) => content).join("\n");
+  const assetPins: { path: string; sha256: string; rights: string }[] = [];
+  for (const id of ["seed-coast", "seed-room", "seed-pool"]) {
+    if (!requested.includes(id)) continue;
+    for (const size of [360, 720] as const) {
+      const path = "public/media/" + id + "-" + size + ".webp";
+      const image = await mediaBytes(repo, undefined, project.id, id, size);
+      files[path] = image;
+      assetPins.push({ path, sha256: fingerprint(image), rights: "MotionUX-generated demonstration image" });
+    }
+  }
+  files["README.md"] = "# " + graph.name + "\n\nRun npm ci, npm run build and npm start. The application stores fictional data in the browser. Original source notices are in sources/. No production integration is included.\n";
+  files["SOURCE-MANIFEST.json"] = JSON.stringify({
+    version, revision: project.revision, digest: fingerprint(canonical(project.document)), sources: sourcePins,
+    usages: graph.usages, generated: graph.generated, artifacts, assets: assetPins, design: graph.design, limitations: graph.limitations,
+    adapters: sources.map(({ pin, patches, hashes }) => ({ id: pin.id, originalHashes: hashes, patches })),
+  }, null, 2) + "\n";
+  return { files, graph, assets: assetPins, sources: sources.map(({ pin, patches }) => ({ ...pin, patches })) };
+}

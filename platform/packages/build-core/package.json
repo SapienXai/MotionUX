@@ -12,7 +12,8 @@
     "./integration": "./integration.ts",
     "./source-graph": "./source/graph.ts",
     "./source-revision": "./source/revision.ts",
-    "./native-codex": "./composer/codex.ts"
+    "./native-codex": "./composer/codex.ts",
+    "./code-project": "./source/code-project.ts"
   },
   "dependencies": {
     "zod": "4.6.6"

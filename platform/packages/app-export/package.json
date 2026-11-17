@@ -6,12 +6,16 @@
     ".": "./export.ts",
     "./media": "./media.ts",
     "./source-catalog": "./source-catalog.ts",
-    "./source-tree": "./source-tree.ts"
+    "./source-tree": "./source-tree.ts",
+    "./code-catalog": "./code-catalog.ts",
+    "./code-program": "./code-program.ts",
+    "./code-validator": "./code-validator.ts"
   },
   "dependencies": {
     "@motionux/build-core": "workspace:*",
     "fflate": "0.8.3",
-    "sharp": "0.35.5"
+    "sharp": "0.35.5",
+    "typescript": "5.9.3"
   },
   "devDependencies": {
     "@types/node": "24.19.2"

@@ -309,7 +309,7 @@ export function ComposerHome({
     [routes[index], routes[next]] = [routes[next], routes[index]];
     setEdits({ ...edits, routes });
   }
-  if (project?.document.sourceGraph)
+  if (project?.document.sourceGraph || project?.document.codeProject)
     return <SourceCanvas key={project.id} initial={project} onBack={() => {
       setProject(undefined);
       rememberProject("/build");
@@ -415,7 +415,7 @@ export function ComposerHome({
                   ) : (
                     <div className="b11-create-actions">
                       <button className="build-button accent" type="submit" disabled={busy || sourceOperation.active}><Sparkles size={16} /> Create app</button>
-                      <button className="build-text-button" type="submit" data-mode="blueprint" disabled={busy || sourceOperation.active}>Generate blueprint</button>
+                      <details><summary>Legacy starter planning</summary><button className="build-text-button" type="submit" data-mode="blueprint" disabled={busy || sourceOperation.active}>Generate blueprint</button></details>
                     </div>
                   )}
                 </div>

@@ -1,4 +1,5 @@
 import { resolve } from "node:path";
+import { inspectCodeCatalog } from "@motionux/app-export/code-catalog";
 import { cancelSourceJob, getSourceJob, startSourceJob } from "../source-jobs";
 import {
   createStore,
@@ -131,6 +132,10 @@ async function handle(request: Request, { params }: Context) {
     }
     const [id, action] = path;
     if (id === "source-jobs" && path.length === 2) {
+      if (method === "GET" && action === "inventory") {
+        const inventory = await inspectCodeCatalog(repo);
+        return json({ fingerprint: inventory.fingerprint, counts: inventory.counts, rows: inventory.rows.map(({ id, title, provider, ready, reason, details }) => ({ id, title, provider, ready, reason, details })) });
+      }
       if (method === "POST" && action === "start") return json(await startSourceJob(repo, vault, await documentBody(request, 15_000)), 202);
       if (method === "GET") return json(await getSourceJob(vault, action));
       if (method === "DELETE") return json(await cancelSourceJob(vault, action));

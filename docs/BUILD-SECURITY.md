@@ -41,3 +41,7 @@ Preset, layout and record types use finite enum and numeric bounds. Recipes can 
 ## B11 managed source generation
 
 The signed-in native bridge receives the brief and bounded excerpts from eligible public implementations. Source text is reference data. The model response cannot introduce file paths, dependencies, commands, remote assets or server actions. The local compiler emits the modules. Next builds with no network in the macOS sandbox. Preview runs on a separate loopback origin. The Studio API requires the exact Studio origin and fetch-site metadata. [B11 architecture](BUILD-B11-SOURCE-DRIVEN-ARCHITECTURE.md)
+
+## B11R executable proposals
+
+New code projects carry bounded module contents. The host accepts only components/*.tsx, lib/*.ts and styles/app.css and writes them only through the canonical export tree. TypeScript syntax and imports are inspected. Server APIs, dynamic imports, executable HTML, network APIs, CSS remote imports and prototype capability paths are rejected. Static checks supplement the macOS process sandbox, sanitized environment and separate-origin CSP. Raw generated code never executes in Studio. The same manifest and source rights checks run on independent export. Candidate build and browser failure allow bounded repair before the saved revision is published.

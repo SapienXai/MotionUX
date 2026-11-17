@@ -254,14 +254,14 @@ export async function runCodex(
       child.stdin.end(operation?.prompt ?? composerPrompt(brief));
       child.stderr.on("data", (chunk: Buffer) => {
         bytes += chunk.byteLength;
-        if (bytes > responseLimit)
+        if (bytes > (operation ? 768 * 1024 : responseLimit))
           stop(new BuildError(422, "Codex output exceeded its limit."));
       });
       child.stdout.setEncoding("utf8");
       child.stdout.on("data", (chunk: string) => {
         bytes += Buffer.byteLength(chunk);
         if (rejection) return;
-        if (bytes > responseLimit)
+        if (bytes > (operation ? 768 * 1024 : responseLimit))
           return stop(new BuildError(422, "Codex output exceeded its limit."));
         buffer += chunk;
         for (

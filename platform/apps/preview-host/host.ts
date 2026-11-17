@@ -526,7 +526,8 @@ export async function inspectIntegration(
 export async function verifySourcePreview(repo: string, project: BuildProject, signal: AbortSignal) {
   const session = globalState.motionuxPreview;
   const graph = project.document.sourceGraph;
-  if (!graph || !session || session.state.status !== "ready" ||
+  const code = project.document.codeProject;
+  if ((!graph && !code) || !session || session.state.status !== "ready" ||
     session.state.id !== project.id || session.state.revision !== project.revision ||
     session.state.documentDigest !== fingerprint(canonical(project.document))) {
     throw new BuildError(409, "The exact source revision is not running.");
@@ -540,7 +541,12 @@ export async function verifySourcePreview(repo: string, project: BuildProject, s
         HOME: process.env.HOME, PLAYWRIGHT_BROWSERS_PATH: process.env.PLAYWRIGHT_BROWSERS_PATH,
         MOTIONUX_SOURCE_VERIFICATION: JSON.stringify({
           origin, digest: session.state.documentDigest,
-          pages: graph.pages.map(({ route, instances }) => ({ route, instances: instances.map(({ id, kind }) => ({ id, kind })) })),
+          code: Boolean(code),
+          pages: code ? code.pages.map(({ route }) => ({ route, instances: code.usages.filter((usage) => usage.route === route)
+            .map((usage) => ({ id: usage.instance, source: usage.source, kind: "source" })) }))
+            : graph!.pages.map(({ route, instances }) => ({ route, instances: instances.map(({ id, kind }) => ({ id, kind })) })),
+          journeys: code?.journeys,
+
         }),
       },
     });
@@ -548,6 +554,6 @@ export async function verifySourcePreview(repo: string, project: BuildProject, s
   } catch (error) {
     signal.throwIfAborted();
     const diagnostic = (error as { stderr?: string }).stderr?.split("\n").find((line) => /AssertionError/.test(line));
-    throw new BuildError(422, diagnostic?.slice(0, 180) ?? "Local Chromium could not verify the generated routes.");
+    throw new BuildError(422, diagnostic?.slice(0, 850) ?? "Local Chromium could not verify the generated routes.");
   }
 }

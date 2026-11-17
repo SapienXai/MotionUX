@@ -1,3 +1,4 @@
+import { codeProjectSchema } from "./source/code-project.ts";
 import { sourceGraphSchema } from "./source/graph.ts";
 import { z } from "zod";
 import { articlesSchema, defaultSectionLayout, identitySchema, recipeIds, sectionLayoutSchema, taskCollectionSchema } from "./creator-design.ts";
@@ -387,8 +388,12 @@ export const documentSchema = compositionFields.extend({
   motionDna: motionDnaSchema.optional(),
   identity: identitySchema.optional(),
   sourceGraph: sourceGraphSchema.optional(),
+  codeProject: codeProjectSchema.optional(),
   tasks: taskCollectionSchema.optional(),
-}).superRefine(({ pages, data, template, assets, tasks, sourceGraph }, context) => {
+}).superRefine(({ pages, data, template, assets, tasks, sourceGraph, codeProject }, context) => {
+    if (codeProject && (sourceGraph || template !== "blank-app" || assets.length || pages.length !== codeProject.pages.length ||
+      pages.some((page, index) => page.id !== "p-" + codeProject.pages[index].id || page.route !== codeProject.pages[index].route || page.blocks.length)))
+      context.addIssue({ code: "custom", message: "Invalid code project page projection.", path: ["codeProject"] });
     if (sourceGraph && (template !== "blank-app" || pages.length !== sourceGraph.pages.length || pages.some((page, index) => page.id !== "p-" + sourceGraph.pages[index].id || page.route !== sourceGraph.pages[index].route || page.blocks.length) || assets.length))
       context.addIssue({ code: "custom", message: "Invalid source project projection.", path: ["sourceGraph"] });
     if (tasks && data !== "operations-demo-v1")

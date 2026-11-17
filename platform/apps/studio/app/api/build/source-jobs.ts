@@ -1,3 +1,4 @@
+import { executeCodeGeneration } from "./code-generation";
 import { randomBytes } from "node:crypto";
 import { lstat, mkdir, readFile, realpath, readdir, rename, unlink, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -143,6 +144,18 @@ export async function startSourceJob(repo: string, vault: string, input: unknown
 }
 
 async function execute(repo: string, vault: string, root: string, job: Job, payload: Request, signal: AbortSignal) {
+  try {
+    const previous = payload.project ? await createStore(vault).open(payload.project) : undefined;
+    if (!previous?.document.sourceGraph)
+      return await executeCodeGeneration(repo, vault, job, payload, signal, (current) => persist(root, current as Job));
+    return await executeLegacy(repo, vault, root, job, payload, signal);
+  } catch (error) {
+    Object.assign(job, { status: signal.aborted ? "cancelled" : "failed",
+      message: error instanceof BuildError ? error.message : "Could not open the requested managed revision.", updated: Date.now() });
+    await persist(root, job);
+  }
+}
+async function executeLegacy(repo: string, vault: string, root: string, job: Job, payload: Request, signal: AbortSignal) {
   const store = createStore(vault);
   const timeout = AbortSignal.timeout(600_000);
   const cancellation = AbortSignal.any([signal, timeout]);
