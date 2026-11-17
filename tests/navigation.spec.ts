@@ -109,7 +109,7 @@ test("Action menu stays in view when keyboard focus opens an offscreen trigger",
   await page.goto("/?item=designbookmark-spring-dropdown");
   const trigger = page.getByRole("button", { name: "Sort by" });
   const supportsTopLayer = await trigger.evaluate((element) => {
-    if (typeof element.showPopover !== "function") return false;
+    if (!(element instanceof HTMLButtonElement) || typeof element.showPopover !== "function") return false;
     const viewport = window.visualViewport;
     const bottom = viewport ? viewport.offsetTop + viewport.height : window.innerHeight;
     const offset = bottom + 40 - element.getBoundingClientRect().top;
