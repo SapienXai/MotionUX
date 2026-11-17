@@ -24,7 +24,7 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
     if (path.endsWith(".css")) {
       if (/@(?:import|font-face|plugin|config)|expression\s*\(|url\s*\(/i.test(content))
         fail(path, "Import fonts and reviewed assets through the host. CSS cannot introduce external resources.");
-      if (/(?:\bhtml\b|\bbody\b|:root)\s*\{/i.test(content))
+      if (/(?:^|[\s,{}>+~])(?:html|body|:root)\s*\{/i.test(content))
         fail(path, "Scope application styles to .app. The host owns document margins.");
       continue;
     }
@@ -99,9 +99,12 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
           (ts.isPropertyAssignment(owner) || ts.isPropertySignature(owner) || ts.isJsxAttribute(owner)) && owner.name === node;
         if (!propertyName) fail(path, "Use the host-provided route and persistent state APIs.");
       }
-      if (ts.isPropertyAccessExpression(node) && ["constructor", "__proto__", "prototype", "cookie", "localStorage", "sessionStorage", "createElement", "write", "sendBeacon", "postMessage", "location", "parent", "top", "frames", "opener"].includes(node.name.text)) {
+      if (ts.isPropertyAccessExpression(node) && ["constructor", "__proto__", "prototype", "cookie", "localStorage", "sessionStorage", "createElement", "write", "sendBeacon", "postMessage", "location"].includes(node.name.text)) {
         fail(path, "Disallowed browser capability: " + node.name.text);
       }
+      if (ts.isPropertyAccessExpression(node) && ["parent", "top", "frames", "opener"].includes(node.name.text) &&
+        /^(?:window|self|globalThis)$|\.defaultView$/.test(node.expression.getText(file)))
+        fail(path, "Cross-window capability access is forbidden.");
       if (ts.isJsxAttribute(node)) {
         const name = node.name.getText(file);
         if (["action", "formAction", "target", "srcDoc"].includes(name)) fail(path, "Unsupported executable or navigation attribute.");

@@ -51,6 +51,10 @@ test("untrusted generated imports, HTML, CSS, asset URLs and stale hashes fail c
     bad.files[0].content += "\n" + code;
     assert.throws(() => validateProgram(bad, fixture.sources), { status: 422 }, code);
   }
+  const geometry = structuredClone(fixture.proposal);
+  geometry.files[0].content += '\nfunction offset(rect: DOMRect) { return rect.top; }';
+  geometry.files[1].content += " .app .panel-body { color: inherit; }";
+  assert.doesNotThrow(() => validateProgram(geometry, fixture.sources));
   const unused = structuredClone(fixture.proposal);
   unused.files[0].content = unused.files[0].content.replace("<ExpandingNotice title=", "<FakeNotice title=");
   assert.throws(() => validateProgram(unused, fixture.sources), { status: 422 });

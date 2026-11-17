@@ -1,4 +1,6 @@
 import { randomBytes } from "node:crypto";
+import { lstat, mkdir, realpath, writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { z } from "zod";
 import { newProject, type BuildProject } from "@motionux/build-core";
@@ -140,6 +142,16 @@ export async function executeCodeGeneration(repo: string, vault: string, job: Jo
             message + "\nPATCH OUTPUT: Return only changed file contents in files. Preserve all unaffected files. Use null for unchanged metadata, [] for remove unless an obsolete module truly needs removal. Do not regenerate the application. Fix the exact diagnostic or requested edit.", 360_000))
           : await native(programResponse, message, 480_000);
         rejected = proposal;
+        const traceRoot = resolve(vault, "build/code-attempts");
+        await mkdir(traceRoot, { mode: 0o700 }).catch((error) => { if (error.code !== "EEXIST") throw error; });
+        const stat = await lstat(traceRoot);
+        if (!stat.isDirectory() || (stat.mode & 0o777) !== 0o700 || await realpath(traceRoot) !== traceRoot)
+          throw new BuildError(403, "Code attempt storage identity failed.");
+        const trace = JSON.stringify(proposal);
+        if (Buffer.byteLength(trace) > 192 * 1024) throw new BuildError(422, "Code attempt exceeded its source budget.");
+        await writeFile(resolve(traceRoot, job.id + "-" + attempt + ".json"), trace, { flag: "wx", mode: 0o600 });
+        job.attempts = [...(job.attempts as unknown[] ?? []), { attempt, sha256: fingerprint(trace), bytes: Buffer.byteLength(trace) }];
+        await persist(job);
         const graph = await sealCodeProject(repo, proposal, sources);
         const document = codeDocument(graph);
         const candidate: BuildProject = prior ? { ...prior, document, revision: prior.revision + 1 } : newProject(projectId, document);

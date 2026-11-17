@@ -553,7 +553,12 @@ export async function verifySourcePreview(repo: string, project: BuildProject, s
     return JSON.parse(stdout) as { routes: number; instances: number; width: number; engine: string };
   } catch (error) {
     signal.throwIfAborted();
-    const diagnostic = (error as { stderr?: string }).stderr?.split("\n").find((line) => /AssertionError/.test(line));
-    throw new BuildError(422, diagnostic?.slice(0, 850) ?? "Local Chromium could not verify the generated routes.");
+    const stderr = (error as { stderr?: string }).stderr ?? "";
+    const encoded = stderr.split("\n").find((line) => line.startsWith("MOTIONUX_VERIFY_DIAGNOSTIC="));
+    let diagnostic = stderr.split("\n").find((line) => /AssertionError/.test(line));
+    if (encoded) {
+      try { diagnostic = JSON.parse(encoded.slice("MOTIONUX_VERIFY_DIAGNOSTIC=".length)); } catch { /* Keep the bounded fallback. */ }
+    }
+    throw new BuildError(422, diagnostic?.slice(0, 2800) ?? "Local Chromium could not verify the generated routes.");
   }
 }
