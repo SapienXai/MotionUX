@@ -26,3 +26,9 @@
 - Keep a single validated document across the creator session. Edit and Interact reflect unsaved revisions, while isolated Run, Inspector and independent Export use an exact saved revision. Use small modules for document projection, site rendering and managed media. Add blocks through the typed registry with known rights and compatibility.
 - Treat keyboard and touch behavior, mobile layout, dark/light/system, reduced motion, save and reopen, and clean Next.js and offline PWA exports as acceptance gates. Require project-owned, hashed assets and a rights record before export. Keep original media, private catalog bytes, user data and temporary browser evidence in the ignored vault.
 - Use the [Build quality gates](docs/BUILD-QUALITY-GATES.md) for commands and keep local evidence in `.motionux-v9/evidence/`. Report B8 as partial when any required gate lacks evidence. A security leak, destructive regression or failed recovery blocks acceptance.
+
+## B10 creator standards
+
+- Treat the Studio shell and the authored app as separate design systems. Preserve a compact, keyboard- and touch-accessible canvas, named controls and explicit editing scope. Validate foregrounds and controls in light, dark and system, including hover, selected, focus and disabled states.
+- Add sections through the owned catalog, preserve DOM and focus order, and store bounded responsive values in the validated document. Confirm the same computed layout and real interactions in Edit, Interact, saved Run and independently installed Next and PWA exports. Keep the v1/v2 recovery path, project-owned collections and media rights intact.
+- Record actual browser, contrast, responsiveness and performance evidence before acceptance. Keep B1–B9 managed project data, protected originals, the five read-only MCP tools and the real-project write restriction within their existing boundaries. [B10 authoring](docs/BUILD-B10-CREATOR-UX.md) · [Quality gates](docs/BUILD-QUALITY-GATES.md)

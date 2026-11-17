@@ -71,3 +71,7 @@ The editor requests a read-only snapshot of one page from an active Run. The pre
 ## B7 Integration Lab
 
 Prepare builds the exact baseline and Dialog-enhanced source into private sibling directories. Studio sends their signed review to an independently controlled operator for approval. The server verifies a detached Ed25519 signature against its startup pin and rechecks source identity before publishing the candidate at the disposable target. It reuses the single isolated Run slot and B6 browser worker for two independent builds. The reverse swap restores the original directory and the final report joins the signed scope, tree hashes and browser evidence. [Integration Lab](BUILD-INTEGRATION.md)
+
+## B10 creator
+
+The same validated document owns optional design identity, one-level section slots, responsive layout and typed content. Puck projects concrete blocks into its installed Slot API. Editor selection and temporary style preview are session state. The document and validated history remain the source of truth for Edit, Interact, saved Run and Export. The standalone runtime receives the same semantic tokens and section CSS. [Layout and section contract](BUILD-B10-RESPONSIVE-AND-SECTIONS.md) · [Migration](BUILD-B10-MIGRATIONS.md)

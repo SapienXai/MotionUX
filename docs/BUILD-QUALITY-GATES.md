@@ -58,3 +58,9 @@ Run `node platform/tests/b6-inspector-faults.mjs` to verify measured overflow, c
 ## B7 gates
 
 Run `pnpm --dir platform test` for missing, forged, tampered, expired and replayed signatures, stale revisions, cancellation between publication steps, symlink and mode drift, independent modifications and verification failures. On macOS with Chromium and Python 3 installed, build Studio and run `node platform/tests/b7-integration-browser.mjs` on a free port 5200. The native lane signs with a disposable key in a separate terminal process, exercises the CRM and Hotel copies on a real Next.js host, and rebuilds and checks the baseline after success and cancellation. It verifies the original managed project remains byte-identical and cleans the fixture vault. Evidence stays under `.motionux-v9/evidence/build-b7/`. The B6 suite remains required.
+
+## B10 gates
+
+Run the platform install, contract, typecheck and production build commands before starting either B10 browser suite. On a free port 5200 run `node platform/tests/b10-browser.mjs` for the portable Chromium lane or add `--local` for Firefox, WebKit and the isolated macOS Run. B10 verifies project identity, section insertion and selection, computed responsive tracks, collection edits, clean installation, manifest hashes and the service worker's offline behavior. Add `--trace` to retain the creator trace. On supported, signed-in macOS installations, run `node platform/tests/b10-codex-live.mjs` to check the native planner and exact reviewed creation. Run `node platform/tests/b10-stress.mjs` separately for the Chromium edit, recovery, contrast and viewport matrix. Keep the existing Foundation, B3–B9, registry and consumer verification lanes.
+
+Keep untracked screenshots, timings, digests and audit outputs in `.motionux-v9/evidence/build-b10/`. Compare profiles on the same machine and engine and name resource measurements precisely. [B10 quality report](BUILD-B10-QUALITY-REPORT.md)
