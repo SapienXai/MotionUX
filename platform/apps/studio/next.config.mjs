@@ -16,15 +16,11 @@ export default {
           {
             key: "Content-Security-Policy",
             value:
-              "frame-ancestors 'none'; frame-src 'self' http://127.0.0.1:5202; object-src 'none'; base-uri 'self'",
+              "frame-ancestors 'none'; frame-src 'self' http://127.0.0.1:5199 http://127.0.0.1:5202; object-src 'none'; base-uri 'self'",
           },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "no-referrer" },
         ],
-      },
-      {
-        source: "/discover",
-        headers: [{ key: "Content-Security-Policy", value: "frame-ancestors 'none'; frame-src http://127.0.0.1:5199; object-src 'none'; base-uri 'self'" }],
       },
     ];
   },

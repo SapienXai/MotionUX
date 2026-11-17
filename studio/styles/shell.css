@@ -114,3 +114,12 @@ body { margin: 0; }
   .mx-mobile-brand .mx-brand svg { inline-size: 28px; block-size: 28px; }
   .mx-mobile-brand .mx-brand strong { font-size: 17px; }
 }
+
+.mx-studio[data-embedded] .mx-top { display: none; }
+.mx-studio[data-embedded] .mx-side-brand { min-block-size: 56px; }
+.mx-studio[data-embedded] .mx-side-brand .mx-brand { visibility: hidden; }
+@media (max-width: 1199px) {
+  .mx-studio[data-embedded] .mx-top { display: flex; justify-content: end; padding-block: 4px; }
+  .mx-studio[data-embedded] .mx-top > :not(.mx-menu-open) { display: none; }
+  .mx-studio[data-embedded] :is(#studio-main, #specimen) { scroll-margin-block-start: 57px; }
+}

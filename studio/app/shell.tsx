@@ -1,3 +1,4 @@
+import { studioOrigin } from "../../lib/studio-bridge";
 import { Archive, ArrowRight, LayoutTemplate, BookOpen, Bookmark, ChevronDown, CodeXml, Compass, CreditCard, Grid2X2, Hand, Layers3, Menu, Moon, MousePointer2, Search, Sparkle, SquareStack, Sun, Type, X, Zap, Headphones } from "lucide-react";
 import { LayoutGroup, motion } from "motion/react";
 import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
@@ -30,7 +31,7 @@ function Brand({ navigate }: { navigate: Navigate }) {
   </a>;
 }
 
-function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, close }: { route: Route; navigate: Navigate; lastItem: string; reduced: boolean; originalCount?: number; mobile?: boolean; close?: () => void }) {
+function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, close, embedded }: { route: Route; navigate: Navigate; lastItem: string; reduced: boolean; originalCount?: number; mobile?: boolean; close?: () => void; embedded?: boolean }) {
   const [more, setMore] = useState(() => categories.slice(6).some(name => route.category === name.toLowerCase()));
   const primaryCategory = categories.slice(0, 6);
   const [expandedCategory, setExpandedCategory] = useState(route.category);
@@ -56,7 +57,7 @@ function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, cl
     <div className="mx-side-brand"><Brand navigate={navigate} />{mobile && <button type="button" aria-label="Close menu" className="mx-icon" onClick={close} autoFocus><X size={21} /></button>}</div>
     <div className="mx-side-scroll">
       <nav className="mx-side-nav" aria-label="Studio">
-        {(originalCount === undefined ? nav : privateNav).map(([page, text, Icon]) => {
+        {(originalCount === undefined ? nav : privateNav).filter(([page]) => !embedded || (page !== "gallery" && page !== "library")).map(([page, text, Icon]) => {
           const legacy = page === "legacy";
           const current = legacy ? route.collection === "legacy" && route.page === "gallery" :
             route.page === page && (page !== "gallery" || !route.collection);
@@ -67,7 +68,7 @@ function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, cl
             onClick={event => intercept(event, () => navigate(next))}>{current && active("section")}<Icon size={20} aria-hidden="true" /><span>{page === "sources" ? "Discovery" : text}</span>
             {page === "gallery" && originalCount !== undefined && <span className="mx-count" aria-hidden="true">{originalCount}</span>}</a>;
         })}
-        {originalCount !== undefined && <a href="http://127.0.0.1:5200/build" target="_top" className="mx-side-row"><LayoutTemplate size={20} aria-hidden="true" /><span>Build</span></a>}
+        {!embedded && originalCount !== undefined && <a href="http://127.0.0.1:5200/build" target="_top" className="mx-side-row"><LayoutTemplate size={20} aria-hidden="true" /><span>Build</span></a>}
       </nav>
       {originalCount === undefined && <nav className="mx-side-categories" aria-label="Categories">
         <h2>Categories</h2>
@@ -84,9 +85,9 @@ function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, cl
   </LayoutGroup>;
 }
 
-export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, reduced, lastItem, originalCount, children }: {
+export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, reduced, lastItem, originalCount, embedded = false, children }: {
   route: Route; navigate: Navigate; updateQuery: (query: string) => void; scheme: "light" | "dark"; toggleScheme: () => void;
-  reduced: boolean; lastItem: string; originalCount?: number; children: ReactNode;
+  reduced: boolean; lastItem: string; originalCount?: number; embedded?: boolean; children: ReactNode;
 }) {
   const drawer = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -99,6 +100,7 @@ export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, redu
     function key(event: KeyboardEvent) {
       if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k" || event.isComposing || drawer.current?.open) return;
       event.preventDefault();
+      if (embedded) { window.parent.postMessage({ type: "motionux:focus-search" }, studioOrigin); return; }
       searchOrigin.current = document.activeElement as HTMLElement | null;
       input.current?.focus();
       input.current?.select();
@@ -108,7 +110,7 @@ export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, redu
     window.addEventListener("keydown", key);
     wide.addEventListener("change", dismissDrawer);
     return () => { window.removeEventListener("keydown", key); wide.removeEventListener("change", dismissDrawer); };
-  }, []);
+  }, [embedded]);
   useEffect(() => {
     if (!open) return;
     closeButton.current = drawer.current?.querySelector<HTMLButtonElement>("button") ?? null;
@@ -120,7 +122,7 @@ export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, redu
     return () => { current?.removeEventListener("touchmove", stopBackground); current?.removeEventListener("wheel", stopBackground); };
   }, [open]);
   function close() { drawer.current?.close(); }
-  const sidebar = { route, lastItem, reduced, originalCount };
+  const sidebar = { route, lastItem, reduced, originalCount, embedded };
   return <>
     <a href="#studio-main" className="mx-skip">Skip to content</a>
     <aside className="mx-sidebar"><Sidebar {...sidebar} navigate={navigate} /></aside>

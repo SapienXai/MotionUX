@@ -1,11 +1,12 @@
 "use client";
+
+import { projectPathKey } from "../../../../../lib/studio-bridge";
 import {
   ArrowDown,
   ArrowRight,
   ArrowUp,
   Building2,
   ChevronRight,
-  Layers3,
   LayoutTemplate,
   LockKeyhole,
   Plus,
@@ -111,6 +112,12 @@ async function request<T>(
   return body;
 }
 
+function rememberProject(path: string) {
+  window.history.replaceState(window.history.state, "", path);
+  try { sessionStorage.setItem(projectPathKey, path); } catch { /* optional navigation memory */ }
+  window.dispatchEvent(new Event("motionux:project"));
+}
+
 export function ComposerHome({
   Canvas,
 }: {
@@ -139,7 +146,7 @@ export function ComposerHome({
     setEdits(undefined);
     setError("");
     setProject(value);
-    window.history.replaceState(null, "", "/build?project=" + value.id);
+    rememberProject("/build?project=" + value.id);
   }
   useEffect(() => {
     const controller = new AbortController();
@@ -272,7 +279,7 @@ export function ComposerHome({
         initial={project}
         onBack={() => {
           setProject(undefined);
-          window.history.replaceState(null, "", "/build");
+          rememberProject("/build");
           setLoading(true);
           void request<Row[]>()
             .then(setRows, (error) => setError(messageFor(error)))
@@ -297,18 +304,6 @@ export function ComposerHome({
       : [];
   return (
     <main className="project-dashboard compose-home">
-      <header className="studio-home-nav">
-        <a href="/" className="build-brand">
-          <span className="build-mark" aria-hidden="true">
-            <Layers3 size={18} />
-          </span>{" "}
-          MotionUX <span>Build</span>
-        </a>
-        <nav aria-label="Workspace">
-          <a href="/discover">Gallery</a>
-          <a href="/discover?view=library">My Library</a>
-        </nav>
-      </header>
       <div className="compose-width">
         {error && (
           <p className="build-error" ref={alertRef} tabIndex={-1} role="alert">

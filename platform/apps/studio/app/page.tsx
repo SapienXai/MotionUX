@@ -11,21 +11,6 @@ const legacy = "/discover";
 export default function StudioHome() {
   return (
     <main className="studio-home">
-      <header className="studio-home-nav">
-        <Link href="/" className="build-brand">
-          <span className="build-mark">
-            <Layers3 size={17} />
-          </span>
-          MotionUX <span>Studio</span>
-        </Link>
-        <nav aria-label="Studio navigation">
-          <a href={legacy}>Gallery</a>
-          <a href={legacy + "?view=library"}>My Library</a>
-          <Link href="/build" prefetch={false}>
-            Build
-          </Link>
-        </nav>
-      </header>
       <section className="studio-welcome">
         <div>
           <span className="studio-overline">

@@ -1,3 +1,4 @@
+import { galleryOrigin, isAppearance, studioOrigin } from "../../lib/studio-bridge";
 import { useReducedMotion } from "motion/react";
 import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { references } from "../catalog";
@@ -48,6 +49,7 @@ export default function Studio() {
 function StudioRoutes() {
   const [route, setRoute] = useState(initialRoute);
   const [schemeOverride, setSchemeOverride] = useState(savedScheme);
+  const [embedded, setEmbedded] = useState(false);
   const systemDark = useSyncExternalStore(subscribeToScheme, systemUsesDarkScheme);
   const scheme = schemeOverride ?? (systemDark ? "dark" : "light");
   const [lastItem, setLastItem] = useState(route.item);
@@ -132,6 +134,30 @@ function StudioRoutes() {
     navigate({ ...route, query, page, item: "", source: undefined, sourcePanel: undefined, compare: false }, page === route.page);
     if (page === "gallery") window.scrollTo(0, 0);
   }
+  useEffect(() => {
+    if (location.origin !== galleryOrigin || window.parent === window) return;
+    function receive(event: MessageEvent) {
+      if (event.origin !== studioOrigin || event.source !== window.parent) return;
+      if (event.data?.type === "motionux:appearance" && isAppearance(event.data.value)) {
+        const value = event.data.value;
+        setSchemeOverride(value === "system" ? undefined : value);
+        if (value === "system") delete document.documentElement.dataset.mxScheme;
+        else document.documentElement.dataset.mxScheme = value;
+        setEmbedded(true);
+      }
+      if (event.data?.type === "motionux:search" && typeof event.data.query === "string" && event.data.query.length <= 160) {
+        navigate({ page: "gallery", item: "", category: "", query: event.data.query }, route.page === "gallery");
+      }
+    }
+    window.addEventListener("message", receive);
+    window.parent.postMessage({ type: "motionux:gallery-ready" }, studioOrigin);
+    return () => window.removeEventListener("message", receive);
+  }, [route]);
+  useEffect(() => {
+    if (!embedded) return;
+    const url = new URL(hrefFor(route), location.origin);
+    window.parent.postMessage({ type: "motionux:gallery-route", path: url.pathname + url.search }, studioOrigin);
+  }, [embedded, route]);
   function toggleScheme() {
     const next = scheme === "light" ? "dark" : "light";
     document.documentElement.dataset.mxScheme = next;
@@ -141,9 +167,9 @@ function StudioRoutes() {
   const open = (id: string, configuration?: string, panel?: Route["panel"]) => navigate({ ...route, page: "playground", item: id, configuration, panel, preset: true });
   const clear = () => navigate({ ...route, query: "", category: "", item: "" });
   const back = () => navigate({ ...route, page: route.fromLibrary ? "library" : "gallery", item: "", source: undefined, sourcePanel: undefined, panel: undefined, compare: false, fromLibrary: false });
-  return <div className="mx-studio" data-scheme={scheme}>
+  return <div className="mx-studio" data-scheme={scheme} data-embedded={embedded || undefined}>
     <Shell route={route} navigate={navigate} updateQuery={setQuery} scheme={scheme} toggleScheme={toggleScheme} reduced={platformReduced}
-      lastItem={lastItem} originalCount={originalCount}>
+      lastItem={lastItem} originalCount={originalCount} embedded={embedded}>
       {!localStudio && <p className="mx-public-shell">Legacy/public shell — launch <code>npm run studio</code> to see original sources.</p>}
       {localStudio && route.page !== "library" && <div className="mx-library-toast"><LibraryFeedback /></div>}
       <div className={`mx-view mx-view-${route.page}`} key={route.page} data-entering={entered || undefined}>
