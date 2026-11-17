@@ -5,6 +5,8 @@
   "exports": {
     ".": "./blocks.tsx",
     "./frame": "./frame.tsx",
+    "./marketing": "./marketing.tsx",
+    "./marketing.css": "./marketing.css",
     "./styles.css": "./hotel.css"
   },
   "dependencies": {

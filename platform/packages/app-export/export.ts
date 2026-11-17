@@ -1,8 +1,9 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { strToU8, zipSync } from "fflate";
-import { allBlocks, blockSpec, blockSpecVersion, defaultMotionDna, projectSchema } from "@motionux/build-core";
+import { allBlocks, blockSpec, blockSpecVersion, defaultMotionDna, projectSchema, referencedMedia } from "@motionux/build-core";
 import { canonical, fingerprint } from "@motionux/build-core/store";
+import { mediaBytes } from "./media.ts";
 
 const templateFiles = [
   "README.md",
@@ -26,6 +27,8 @@ const sources = {
   "runtime/frame.tsx": "app-blocks/frame.tsx",
   "runtime/hotel.css": "app-blocks/hotel.css",
   "runtime/model.ts": "build-core/model.ts",
+  "runtime/marketing-spec.ts": "build-core/marketing-spec.ts",
+  "runtime/marketing-template.ts": "build-core/marketing-template.ts",
   "runtime/motion-dna.ts": "build-core/motion-dna.ts",
   "runtime/tokens.css": "design-system/tokens.css",
 } as const;
@@ -71,7 +74,8 @@ async function addPwa(repo: string, project: ReturnType<typeof projectSchema.par
   }, null, 2) + "\n";
   const routes = document.pages.map((page) => page.route).sort();
   files["runtime/pwa-config.json"] = JSON.stringify({
-    project: id, routes, assets: ["/manifest.webmanifest", "/pwa/offline.html", ...icons.map(({ src }) => src)],
+    project: id, routes, assets: ["/manifest.webmanifest", "/pwa/offline.html", ...icons.map(({ src }) => src),
+      ...Object.keys(files).filter((path) => path.startsWith("public/media/")).map((path) => path.slice("public".length))],
   }, null, 2) + "\n";
   const route = "app/[[...route]]/page.tsx";
   files[route] = String(files[route]).replace("../../runtime/screen", "../../runtime/pwa-screen");
@@ -82,7 +86,7 @@ async function addPwa(repo: string, project: ReturnType<typeof projectSchema.par
   return { appId, routes, offline: "precache-local-snapshot", worker: "/sw.js" };
 }
 
-export async function exportTree(repo: string, value: unknown, options: { pwa?: boolean } = {}) {
+export async function exportTree(repo: string, value: unknown, options: { pwa?: boolean; vault?: string } = {}) {
   const project = projectSchema.parse(value);
   const template = resolve(repo, "platform/templates/hotel-dashboard");
   const files: SourceFiles = {};
@@ -92,6 +96,17 @@ export async function exportTree(repo: string, value: unknown, options: { pwa?: 
     files[path] = localImports(
       await readFile(resolve(repo, "platform/packages", source), "utf8"),
     );
+  if (project.document.template === "hotel-marketing") {
+    const site = resolve(repo, "platform/templates/hotel-marketing");
+    files["runtime/screen.tsx"] = await readFile(resolve(site, "screen.tsx"), "utf8");
+    files["runtime/marketing.tsx"] = localImports(await readFile(resolve(repo, "platform/packages/app-blocks/marketing.tsx"), "utf8"));
+    files["runtime/marketing.css"] = await readFile(resolve(repo, "platform/packages/app-blocks/marketing.css"), "utf8");
+    files["app/globals.css"] = String(files["app/globals.css"]).replace('@import "../runtime/hotel.css";', '@import "../runtime/marketing.css";');
+    files["README.md"] = "Costa di Sera · A fictional boutique hotel demo. Run npm ci, npm run build and npm start. The inquiry form validates locally and sends nothing. Bundled demonstration images were generated for MotionUX. Other included image rights were attested by the project uploader.\n";
+  }
+  for (const id of referencedMedia(project.document))
+    for (const size of [360, 720] as const)
+      files["public/media/" + id + "-" + size + ".webp"] = await mediaBytes(repo, options.vault, project.id, id, size);
   if (project.document.template === "crm-dashboard")
     files["README.md"] = await readFile(resolve(repo, "platform/templates/crm-dashboard/README.md"), "utf8");
   if (project.document.template === "blank-app")
@@ -103,7 +118,7 @@ export async function exportTree(repo: string, value: unknown, options: { pwa?: 
     JSON.stringify(JSON.parse(canonical(exportedProject)), null, 2) +
     ";\n";
   if (project.document.template !== "hotel-dashboard") {
-    const name = project.document.template === "crm-dashboard" ? "meridian-crm" : "local-workspace";
+    const name = project.document.template === "crm-dashboard" ? "meridian-crm" : project.document.template === "hotel-marketing" ? "costa-di-sera" : "local-workspace";
     const pkg = JSON.parse(String(files["package.json"]));
     const lock = JSON.parse(String(files["package-lock.json"]));
     pkg.name = name;

@@ -178,6 +178,28 @@ async function checkIntegration(page, touch, { title, present }) {
     throw new Error("The integrated dialog failed to restore focus.");
 }
 
+async function checkMarketing(page) {
+  const issues = [];
+  const menu = page.locator(".site-menu").first();
+  if (await menu.isVisible()) {
+    await menu.press("Enter");
+    const expanded = await menu.getAttribute("aria-expanded");
+    await menu.press("Escape");
+    if (expanded !== "true" || await menu.getAttribute("aria-expanded") !== "false")
+      issues.push({ category: "interaction", rule: "site-navigation", summary: "The narrow navigation did not open and close from the keyboard.", evidence: ".site-menu" });
+  }
+  const question = page.locator(".site-faq summary").first();
+  if (await question.isVisible()) {
+    await question.press("Enter");
+    if (!await question.evaluate((element) => element.parentElement?.hasAttribute("open")))
+      issues.push({ category: "interaction", rule: "site-faq", summary: "The FAQ did not open.", evidence: ".site-faq summary" });
+  }
+  const missingAlt = await page.locator('.site-photo[alt=""]').count();
+  if (missingAlt)
+    issues.push({ category: "accessibility", rule: "site-image-alt", summary: "Check image descriptions.", evidence: missingAlt + " site images have empty alt text.", impact: "moderate" });
+  return issues;
+}
+
 export async function inspectRuntime({
   origin,
   route,
@@ -260,7 +282,8 @@ export async function inspectRuntime({
             impact: violation.impact,
           });
         }
-        findings.push(...(await checkCommand(page, touch)));
+        const marketing = await page.locator(".site").count();
+        findings.push(...(marketing ? await checkMarketing(page) : await checkCommand(page, touch)));
         // The command probe ends with the dialog open so it can verify touch activation.
         if (integration) {
           await page.keyboard.press("Escape");

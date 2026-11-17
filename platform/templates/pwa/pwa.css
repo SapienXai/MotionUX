@@ -15,6 +15,14 @@
   min-inline-size: 0;
 }
 
+.site .pwa-status {
+  display: flex;
+  padding: 7px var(--site-gutter);
+}
+
+.site .pwa-connection { color: var(--site-action); }
+.site .pwa-status button { min-block-size: 44px; }
+
 .pwa-connection {
   color: var(--hotel-muted);
   overflow-wrap: anywhere;

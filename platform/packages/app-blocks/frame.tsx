@@ -48,8 +48,11 @@ type AppContext = {
   navigate?: (route: string) => void;
 };
 const appContext = createContext<AppContext | null>(null);
+export function useOptionalApp() {
+  return useContext(appContext);
+}
 export function useApp() {
-  const value = useContext(appContext);
+  const value = useOptionalApp();
   if (!value) throw new Error("App blocks require AppFrame.");
   return value;
 }
@@ -359,7 +362,7 @@ export function AppFrame({
 }) {
   const [localTheme, setTheme] = useState<"light" | "dark" | null>(null);
   const [railOverride, setRail] = useState<boolean | null>(null);
-  const profile = workspaceProfiles[document.data];
+  const profile = workspaceProfiles[document.data === "marketing-demo-v1" ? "local-form-v1" : document.data];
   const [property, setProperty] = useState(profile.workspaces[0] ?? document.name);
   const [stageChanges, setStageChanges] = useState<StageChanges>({});
   const stageKey = storageKey + "-crm-v1-r" + revision;
@@ -379,7 +382,7 @@ export function AppFrame({
   }
   const dna = document.motionDna ?? defaultMotionDna;
   const rail = railOverride ?? document.sidebar === "rail";
-  const theme = themeOverride ?? localTheme ?? document.theme;
+  const theme = themeOverride ?? localTheme ?? (document.theme === "system" ? "light" : document.theme);
   const active = document.pages.find((page) => page.route === route);
   const Content = studio ? "div" : "main";
   function changeTheme(next: "light" | "dark") {

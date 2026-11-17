@@ -1,0 +1,61 @@
+.build-media form,
+.build-media-items fieldset {
+  display: grid;
+  gap: 8px;
+}
+.build-media form {
+  padding: 10px;
+  border: 1px dashed var(--build-border);
+  border-radius: 8px;
+}
+.build-media :is(input, fieldset) {
+  max-inline-size: 100%;
+  min-inline-size: 0;
+}
+.build-media .build-media-rights {
+  display: flex;
+  gap: 8px;
+  align-items: start;
+}
+.build-media-rights input {
+  inline-size: auto;
+}
+.build-media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(84px, 100%), 1fr));
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+.build-media-grid button {
+  display: grid;
+  gap: 4px;
+  inline-size: 100%;
+  padding: 5px;
+  overflow-wrap: anywhere;
+  color: var(--build-text);
+  background: var(--build-raised);
+  border: 1px solid var(--build-border);
+  border-radius: 8px;
+}
+.build-media-grid button span {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.build-image-dialog img,
+.build-media-grid img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.build-image-dialog img {
+  max-inline-size: min(480px, 70vh);
+}
+.build-media-items fieldset {
+  margin-block: 10px;
+}

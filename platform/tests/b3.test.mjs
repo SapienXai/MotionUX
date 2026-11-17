@@ -105,7 +105,7 @@ test("owned manifests audit all original Hotel blocks plus only four CRM-specifi
     31,
   );
   assert.deepEqual(
-    types.filter((id) => !compatibleBlock(id, "hotel-demo-v1")),
+    types.filter((id) => compatibleBlock(id, "crm-demo-v1") && !compatibleBlock(id, "hotel-demo-v1")),
     ["Contacts", "Pipeline", "SalesActivity", "SalesBreakdown"],
   );
   for (const type of types) {

@@ -3,11 +3,13 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./export.ts"
+    ".": "./export.ts",
+    "./media": "./media.ts"
   },
   "dependencies": {
     "@motionux/build-core": "workspace:*",
-    "fflate": "0.8.2"
+    "fflate": "0.8.2",
+    "sharp": "0.35.5"
   },
   "devDependencies": {
     "@types/node": "24.19.2"

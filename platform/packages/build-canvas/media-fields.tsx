@@ -1,0 +1,510 @@
+"use client";
+
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import {
+  referencedMedia,
+  seedImages,
+  type BlockId,
+  type BlockProps,
+  type Document,
+} from "@motionux/build-core";
+import "./media.css";
+
+type Record = {
+  id: string;
+  name: string;
+  width: number;
+  height: number;
+  rights: "uploader-attested" | "generated-demo";
+};
+export function MediaPanel({
+  project,
+  document,
+  onDocument,
+}: {
+  project: string;
+  document: Document;
+  onDocument: (edit: (previous: Document) => Document) => void;
+}) {
+  const endpoint = "/api/build/" + project + "/media";
+  const [items, setItems] = useState<Record[]>([]);
+  const [file, setFile] = useState<File>();
+  const [rights, setRights] = useState(false);
+  const [query, setQuery] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [preview, setPreview] = useState<Record>();
+  const modal = useRef<HTMLDialogElement>(null);
+  const job = useRef<AbortController>(null);
+  const tr = document.locale === "tr";
+  const t = (en: string, turkish: string) => (tr ? turkish : en);
+  useEffect(() => {
+    const read = new AbortController();
+    void fetch(endpoint, { signal: read.signal })
+      .then(async (response) => {
+        if (response.ok) setItems(await response.json());
+        else if (!read.signal.aborted)
+          setError(
+            tr ? "Görseller yüklenemedi." : "Media library could not load.",
+          );
+      })
+      .catch(() => {});
+    return () => {
+      read.abort();
+      job.current?.abort();
+    };
+  }, [endpoint, tr]);
+  const references = referencedMedia(document);
+  function add(id: string) {
+    onDocument((previous) =>
+      previous.assets.includes(id)
+        ? previous
+        : { ...previous, assets: [...previous.assets, id] },
+    );
+  }
+  async function upload(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!file || !rights || job.current) return;
+    const controller = new AbortController();
+    job.current = controller;
+    setBusy(true);
+    setError("");
+    setMessage("");
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: file,
+        signal: controller.signal,
+        headers: {
+          "X-MotionUX-Build": "1",
+          "Content-Type": file.type,
+          "X-MotionUX-Image-Name": encodeURIComponent(file.name),
+          "X-MotionUX-Image-Rights": "confirmed",
+        },
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.message);
+      const asset: Record = result;
+      setItems((current) =>
+        current.some(({ id }) => id === asset.id)
+          ? current
+          : [...current, asset],
+      );
+      add(asset.id);
+      setMessage(
+        t(
+          "Image is ready to select in Properties.",
+          "Görseli Özellikler bölümünden seçebilirsiniz.",
+        ),
+      );
+      setFile(undefined);
+      setRights(false);
+    } catch (cause) {
+      if (!controller.signal.aborted)
+        setError(
+          cause instanceof Error
+            ? cause.message
+            : t("Import failed.", "İçe aktarılamadı."),
+        );
+    } finally {
+      job.current = null;
+      setBusy(false);
+    }
+  }
+  return (
+    <section className="build-panel-section build-media">
+      <div className="build-panel-title">
+        <h2>{t("Media", "Görseller")}</h2>
+      </div>
+      <form
+        onSubmit={upload}
+        onDragOver={(event) => event.preventDefault()}
+        onDrop={(event) => {
+          event.preventDefault();
+          if (!busy) setFile(event.dataTransfer.files[0]);
+        }}
+      >
+        <label>
+          {t("Image file", "Görsel dosyası")}
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            disabled={busy}
+            onChange={(event) => setFile(event.target.files?.[0])}
+          />
+        </label>
+        {file && <span>{file.name}</span>}
+        <label className="build-media-rights">
+          <input
+            type="checkbox"
+            checked={rights}
+            disabled={busy}
+            onChange={(event) => setRights(event.target.checked)}
+          />
+          {t(
+            "I can include this image in an export.",
+            "Bu görseli dışa aktarımda kullanma hakkım var.",
+          )}
+        </label>
+        <button className="build-button" disabled={busy || !rights || !file}>
+          {t("Import image", "Görseli içe aktar")}
+        </button>
+        {busy && (
+          <button
+            className="build-button"
+            type="button"
+            onClick={() => {
+              job.current?.abort();
+              setMessage(t("Import cancelled.", "İçe aktarma iptal edildi."));
+            }}
+          >
+            {t("Cancel", "İptal")}
+          </button>
+        )}
+      </form>
+      {error && <p role="alert">{error}</p>}
+      <p role="status">{message}</p>
+      <label>
+        {t("Find images", "Görselleri ara")}
+        <input
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+      </label>
+      <ul className="build-media-grid">
+        {items
+          .filter(({ name }) =>
+            name.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+          )
+          .map((item) => (
+            <li key={item.id}>
+              <button
+                type="button"
+                aria-label={t("Preview ", "Önizle ") + item.name}
+                onClick={() => {
+                  setPreview(item);
+                  modal.current?.showModal();
+                }}
+              >
+                <img
+                  src={endpoint + "/" + item.id + "-360.webp"}
+                  alt=""
+                  width="90"
+                  height="90"
+                  loading="lazy"
+                />
+                <span>{item.name}</span>
+              </button>
+            </li>
+          ))}
+      </ul>
+      <dialog
+        className="build-dialog build-image-dialog"
+        aria-label={t("Image preview", "Görsel önizlemesi")}
+        ref={modal}
+      >
+        {preview && (
+          <>
+            <h2>{preview.name}</h2>
+            <img
+              src={endpoint + "/" + preview.id + "-720.webp"}
+              alt=""
+              width="720"
+              height="720"
+            />
+            <p>
+              {preview.width} × {preview.height} ·{" "}
+              {references.has(preview.id)
+                ? t("Used on the site", "Sitede kullanılıyor")
+                : t("Unused", "Kullanılmıyor")}
+            </p>
+            {document.assets.includes(preview.id) ? (
+              <button
+                type="button"
+                className="build-button"
+                disabled={references.has(preview.id)}
+                onClick={() => {
+                  onDocument((previous) => ({
+                    ...previous,
+                    assets: previous.assets.filter((id) => id !== preview.id),
+                  }));
+                  modal.current?.close();
+                }}
+              >
+                {t("Remove from project", "Projeden çıkar")}
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="build-button"
+                onClick={() => {
+                  add(preview.id);
+                  modal.current?.close();
+                }}
+              >
+                {t("Add to project", "Projeye ekle")}
+              </button>
+            )}
+          </>
+        )}
+        <button
+          type="button"
+          className="build-button"
+          onClick={() => modal.current?.close()}
+        >
+          {t("Close", "Kapat")}
+        </button>
+      </dialog>
+    </section>
+  );
+}
+
+export function MediaFields({
+  type,
+  props,
+  document,
+  change,
+}: {
+  type: BlockId;
+  props: BlockProps;
+  document: Document;
+  change: (next: Partial<BlockProps>) => void;
+}) {
+  const tr = document.locale === "tr";
+  const options = document.assets.map((id) => (
+    <option key={id} value={id}>
+      {seedImages[id as keyof typeof seedImages] ?? id.slice(0, 12)}
+    </option>
+  ));
+  const routes = document.pages.map((page) => (
+    <option key={page.id} value={page.route}>
+      {page.title}
+    </option>
+  ));
+  const item = props.items ?? [];
+  const changeItem = (index: number, value: Partial<(typeof item)[number]>) =>
+    change({
+      items: item.map((entry, at) =>
+        at === index ? { ...entry, ...value } : entry,
+      ),
+    });
+  const hasImage = ["HeroEditorial", "HeroSplit", "StorySection"].includes(
+    type,
+  );
+  const hasItems = [
+    "LogoCloud",
+    "FeatureBento",
+    "StatsStrip",
+    "GalleryGrid",
+    "RoomCollection",
+    "AmenityGrid",
+    "Testimonials",
+    "PricingCards",
+    "FAQAccordion",
+  ].includes(type);
+  return (
+    <>
+      {hasImage && (
+        <>
+          <label>
+            {tr ? "Blok görseli" : "Block image"}
+            <select
+              value={props.image?.asset ?? ""}
+              onChange={(event) =>
+                change({
+                  image: event.target.value
+                    ? {
+                        asset: event.target.value,
+                        alt: props.image?.alt ?? "",
+                        focal: props.image?.focal ?? "center",
+                      }
+                    : undefined,
+                })
+              }
+            >
+              <option value="">{tr ? "Görsel yok" : "No image"}</option>
+              {options}
+            </select>
+          </label>
+          {props.image && (
+            <>
+              <label>
+                {tr ? "Alternatif metin" : "Image alt text"}
+                <input
+                  maxLength={180}
+                  value={props.image.alt}
+                  onChange={(event) => {
+                    if (props.image)
+                      change({
+                        image: { ...props.image, alt: event.target.value },
+                      });
+                  }}
+                />
+              </label>
+              <label>
+                {tr ? "Odak" : "Image focal position"}
+                <select
+                  value={props.image.focal}
+                  onChange={(event) => {
+                    const focal = event.target.value;
+                    if (
+                      props.image &&
+                      (focal === "top" ||
+                        focal === "bottom" ||
+                        focal === "center")
+                    )
+                      change({ image: { ...props.image, focal } });
+                  }}
+                >
+                  <option value="top">{tr ? "Üst" : "Top"}</option>
+                  <option value="center">{tr ? "Orta" : "Center"}</option>
+                  <option value="bottom">{tr ? "Alt" : "Bottom"}</option>
+                </select>
+              </label>
+            </>
+          )}
+        </>
+      )}
+      {["HeroEditorial", "HeroSplit", "CTASection", "PricingCards"].includes(
+        type,
+      ) && (
+        <>
+          <label>
+            {tr ? "Eylem metni" : "Action label"}
+            <input
+              value={props.cta ?? ""}
+              maxLength={64}
+              onChange={(event) => change({ cta: event.target.value })}
+            />
+          </label>
+          <label>
+            {tr ? "Hedef sayfa" : "Destination page"}
+            <select
+              value={props.destination ?? ""}
+              onChange={(event) =>
+                change({ destination: event.target.value || undefined })
+              }
+            >
+              <option value="">{tr ? "Yok" : "None"}</option>
+              {routes}
+            </select>
+          </label>
+        </>
+      )}
+      {hasItems && (
+        <details className="build-media-items">
+          <summary>{tr ? "İçerik öğeleri" : "Content items"}</summary>
+          {item.map((entry, index) => (
+            <fieldset key={index}>
+              <legend>{entry.title || (tr ? "Öğe" : "Item")}</legend>
+              <label>
+                {tr ? "Başlık" : "Item title"}
+                <input
+                  maxLength={72}
+                  value={entry.title}
+                  onChange={(event) =>
+                    changeItem(index, { title: event.target.value })
+                  }
+                />
+              </label>
+              <label>
+                {tr ? "Metin" : "Item text"}
+                <textarea
+                  maxLength={300}
+                  rows={2}
+                  value={entry.text}
+                  onChange={(event) =>
+                    changeItem(index, { text: event.target.value })
+                  }
+                />
+              </label>
+              {["GalleryGrid", "RoomCollection", "FeatureBento"].includes(
+                type,
+              ) && (
+                <>
+                  <label>
+                    {tr ? "Görsel" : "Item image"}
+                    <select
+                      value={entry.asset ?? ""}
+                      onChange={(event) =>
+                        changeItem(index, {
+                          asset: event.target.value || undefined,
+                        })
+                      }
+                    >
+                      <option value="">{tr ? "Yok" : "None"}</option>
+                      {options}
+                    </select>
+                  </label>
+                  {entry.asset && (
+                    <label>
+                      {tr ? "Alternatif metin" : "Item alt text"}
+                      <input
+                        maxLength={180}
+                        value={entry.alt ?? ""}
+                        onChange={(event) =>
+                          changeItem(index, { alt: event.target.value })
+                        }
+                      />
+                    </label>
+                  )}
+                </>
+              )}
+              {type === "RoomCollection" && (
+                <label>
+                  {tr ? "Hedef" : "Room page"}
+                  <select
+                    value={entry.destination ?? ""}
+                    onChange={(event) =>
+                      changeItem(index, {
+                        destination: event.target.value || undefined,
+                      })
+                    }
+                  >
+                    <option value="">{tr ? "Yok" : "None"}</option>
+                    {routes}
+                  </select>
+                </label>
+              )}
+              <button
+                className="build-button"
+                type="button"
+                disabled={index === 0}
+                onClick={() => {
+                  const reordered = [...item];
+                  [reordered[index - 1], reordered[index]] = [
+                    reordered[index],
+                    reordered[index - 1],
+                  ];
+                  change({ items: reordered });
+                }}
+              >
+                {tr ? "Yukarı taşı" : "Move item up"}
+              </button>
+              <button
+                className="build-button"
+                type="button"
+                onClick={() =>
+                  change({ items: item.filter((_, at) => at !== index) })
+                }
+              >
+                {tr ? "Kaldır" : "Remove item"}
+              </button>
+            </fieldset>
+          ))}
+          <button
+            className="build-button"
+            type="button"
+            disabled={item.length === 12}
+            onClick={() =>
+              change({ items: [...item, { title: "", text: "" }] })
+            }
+          >
+            {tr ? "Öğe ekle" : "Add item"}
+          </button>
+        </details>
+      )}
+    </>
+  );
+}

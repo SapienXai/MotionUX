@@ -7,8 +7,9 @@ import {
   fingerprint,
 } from "@motionux/build-core/store";
 import { createComposer, type Composer } from "@motionux/build-core/composer";
-import { manualDocument, templates } from "@motionux/build-core";
+import { manualDocument, projectSchema, templates } from "@motionux/build-core";
 import { exportTree, zipTree } from "@motionux/app-export";
+import { ingestMedia, listMedia, mediaBytes, verifyMediaOwnership } from "@motionux/app-export/media";
 import {
   getPreview, inspectPreview, startPreview, stopPreview,
   inspectIntegration, withIntegrationSlot,
@@ -80,10 +81,13 @@ function integrationFor(repo: string, vault: string) {
 
 async function handle(request: Request, { params }: Context) {
   const method = request.method;
+  const path = (await params).path ?? [];
+  const mediaImage = method === "GET" && path[1] === "media" && path.length === 3 &&
+    request.headers.get("sec-fetch-dest") === "image";
   if (
     request.headers.get("host") !== "127.0.0.1:5200" ||
     request.headers.get("sec-fetch-site") !== "same-origin" ||
-    request.headers.get("sec-fetch-dest") !== "empty" ||
+    (!mediaImage && request.headers.get("sec-fetch-dest") !== "empty") ||
     (method !== "GET" &&
       (request.headers.get("origin") !== studioOrigin ||
         request.headers.get("x-motionux-build") !== "1"))
@@ -106,15 +110,16 @@ async function handle(request: Request, { params }: Context) {
       ? resolve(repo, ".motionux-v9", "build-tests", fixture)
       : resolve(repo, ".motionux-v9");
   const store = createStore(vault);
-  const path = (await params).path ?? [];
   try {
     if (!path.length && method === "GET") return json(await store.list());
     if (!path.length && method === "POST") {
       if (!hasBody(request)) return json(await store.create(), 201);
       const value = await documentBody(request);
       const template = templates.find((item) => item === value?.template);
-      if (!template || Object.keys(value).length !== 1) throw new BuildError(422, "Choose a supported template.");
-      return json(await store.create(manualDocument(template)), 201);
+      if (!template || Object.keys(value).some((key) => key !== "template" && (key !== "locale" || template !== "hotel-marketing")) ||
+          (value.locale !== undefined && value.locale !== "en" && value.locale !== "tr"))
+        throw new BuildError(422, "Choose a supported template.");
+      return json(await store.create(manualDocument(template, value.locale)), 201);
     }
     if (path.length === 1 && path[0] === "preview") {
       if (method === "GET") return json(getPreview());
@@ -137,8 +142,28 @@ async function handle(request: Request, { params }: Context) {
     }
     if (path.length === 1 && method === "GET")
       return json(await store.open(id));
-    if (path.length === 1 && method === "PUT")
-      return json(await store.save(id, await documentBody(request)));
+    if (path.length === 1 && method === "PUT") {
+      const body = await documentBody(request);
+      const checked = projectSchema.safeParse(body);
+      if (checked.success && checked.data.document.assets.length)
+        await verifyMediaOwnership(repo, vault, id, checked.data.document);
+      return json(await store.save(id, body));
+    }
+    if (action === "media") {
+      const project = await store.open(id);
+      const seeds = project.document.template === "hotel-marketing";
+      if (path.length === 2 && method === "GET") return json(await listMedia(vault, id, seeds));
+      if (path.length === 2 && method === "POST") return json(await ingestMedia(vault, id, request), 201);
+      if (path.length === 3 && method === "GET") {
+        const image = /^(seed-(?:coast|room|pool)|[a-f0-9]{64})-(360|720)\.webp$/.exec(path[2]);
+        if (!image || (!seeds && image[1].startsWith("seed-"))) throw new BuildError(404, "Unknown image.");
+        const bytes = await mediaBytes(repo, vault, id, image[1], image[2] === "360" ? 360 : 720);
+        return new Response(new Uint8Array(bytes), { headers: {
+          "Content-Type": "image/webp", "Cache-Control": "private, max-age=86400, immutable", "X-Content-Type-Options": "nosniff",
+        } });
+      }
+      throw new BuildError(404, "Unknown media action.");
+    }
     if (action === "integration") {
       const lab = integrationFor(repo, vault);
       const [,, operation] = path;
@@ -210,7 +235,7 @@ async function handle(request: Request, { params }: Context) {
       if (requested !== null && requested !== String(project.revision))
         throw new BuildError(409, "The saved revision changed. Reopen the project to export it.");
       const pwa = action === "export-pwa";
-      const files = await exportTree(repo, project, { pwa });
+      const files = await exportTree(repo, project, { pwa, vault });
       const name = project.document.template === "hotel-dashboard" ? "hotel-desk" : project.document.template;
       const filename = name + (pwa ? "-pwa" : "") + "-source.zip";
       return new Response(Buffer.from(zipTree(files)), {

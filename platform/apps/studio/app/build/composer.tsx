@@ -68,6 +68,13 @@ const choices = [
       "Create a calm hotel operations dashboard for occupancy, bookings, room readiness and preferences. Use fictional local data.",
   },
   {
+    id: "hotel-marketing",
+    label: "Hotel Marketing",
+    description: "Editorial rooms, gallery and inquiry",
+    Icon: Building2,
+    brief: "Create a boutique hotel marketing website with editorial photography, room details, a gallery, FAQ and demo inquiry.",
+  },
+  {
     id: "blank-app",
     label: "Blank workspace",
     description: "One page to build on",
@@ -298,8 +305,8 @@ export function ComposerHome({
           MotionUX <span>Build</span>
         </a>
         <nav aria-label="Workspace">
-          <a href="http://127.0.0.1:5199/">Gallery</a>
-          <a href="http://127.0.0.1:5199/?view=library">My Library</a>
+          <a href="/discover">Gallery</a>
+          <a href="/discover?view=library">My Library</a>
         </nav>
       </header>
       <div className="compose-width">
@@ -503,7 +510,9 @@ export function ComposerHome({
                 >
                   <div className="compose-section-title">
                     <h2>Pages & navigation</h2>
-                    <p>Choose pages and their order. Home is always first.</p>
+                    <p>{review.plan.template === "hotel-marketing"
+                      ? "Review the six linked pages and choose their order."
+                      : "Choose pages and their order. Home is always first."}</p>
                   </div>
                   <label className="review-field">
                     App name{" "}
@@ -526,16 +535,17 @@ export function ComposerHome({
                         onChange={(event) =>
                           setEdits({
                             ...edits,
-                            theme:
+                            theme: event.target.value === "system" ? "system" :
                               event.target.value === "dark" ? "dark" : "light",
                           })
                         }
                       >
                         <option value="light">Light</option>
                         <option value="dark">Dark</option>
+                        <option value="system">System</option>
                       </select>
                     </label>
-                    <label className="review-field">
+                    {review.plan.template !== "hotel-marketing" && <label className="review-field">
                       Desktop navigation{" "}
                       <select
                         name="sidebar"
@@ -553,7 +563,7 @@ export function ComposerHome({
                         <option value="expanded">Full sidebar</option>
                         <option value="rail">Icon rail</option>
                       </select>
-                    </label>
+                    </label>}
                   </div>
                   <ol className="review-route-list">
                     {visiblePages.map((page) => {
@@ -567,7 +577,7 @@ export function ComposerHome({
                                 name="includedPage"
                                 value={page.route}
                                 checked={index >= 0}
-                                disabled={busy || page.route === "/"}
+                                disabled={busy || page.route === "/" || review.plan.template === "hotel-marketing"}
                                 onChange={(event) =>
                                   setEdits({
                                     ...edits,
@@ -658,7 +668,7 @@ export function ComposerHome({
                         : "Fictional demo records"}
                     </dd>
                     <dt>Responsive</dt>
-                    <dd>Desktop sidebar · mobile bottom navigation</dd>
+                    <dd>{review.plan.template === "hotel-marketing" ? "Responsive website header and footer" : "Desktop sidebar · mobile bottom navigation"}</dd>
                     <dt>Motion</dt>
                     <dd>
                       {review.plan.motion === "none"

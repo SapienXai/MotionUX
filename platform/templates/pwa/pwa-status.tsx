@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useApp } from "./frame";
+import { useOptionalApp } from "./frame";
 
 type InstallationPrompt = Event & {
   prompt(): Promise<unknown>;
@@ -28,7 +28,7 @@ function prepareOffline(controller: ServiceWorker) {
 }
 
 export function PwaStatus() {
-  const { theme } = useApp();
+  const theme = useOptionalApp()?.theme;
   const [online, setOnline] = useState(true);
   const [worker, setWorker] = useState<"preparing" | "ready" | "unavailable">(
     "preparing",
@@ -40,14 +40,17 @@ export function PwaStatus() {
   const [installStatus, setInstallStatus] = useState("");
 
   useEffect(() => {
-    const container = document.querySelector(".motionux-pwa .hotel");
-    const color =
-      container &&
-      getComputedStyle(container).getPropertyValue("--hotel-panel").trim();
-    if (color)
-      document
-        .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", color);
+    const container = document.querySelector(".motionux-pwa :is(.hotel, .site)");
+    if (!container) return;
+    const scheme = matchMedia("(prefers-color-scheme: dark)");
+    const apply = () => {
+      const color = getComputedStyle(container)
+        .getPropertyValue(container.classList.contains("site") ? "--site-paper" : "--hotel-panel").trim();
+      if (color) document.querySelector('meta[name="theme-color"]')?.setAttribute("content", color);
+    };
+    apply();
+    scheme.addEventListener("change", apply);
+    return () => scheme.removeEventListener("change", apply);
   }, [theme]);
 
   useEffect(() => {

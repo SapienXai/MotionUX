@@ -30,26 +30,25 @@ import {
   Drawer,
   Puck,
   createUsePuck,
-  type Config,
   type Data,
-  type Slot,
 } from "@puckeditor/core";
 import "@puckeditor/core/puck.css";
-import { RenderBlock } from "@motionux/app-blocks";
-import { AppFrame } from "@motionux/app-blocks/frame";
+import "@motionux/app-blocks/marketing.css";
+import { RuntimeContext, config, fromPuck, puckItem, sectionItems, toPuck, type PuckItem } from "./puck-projection";
+import { InteractPreview } from "./interact-preview";
+import { MediaFields, MediaPanel } from "./media-fields";
 import { MotionDnaFields } from "./motion-dna-fields";
 import { RuntimeInspector } from "./runtime-inspector";
 import { IntegrationLab } from "./integration-lab";
 import {
   allBlocks,
-  blockSchema,
   families,
   makeBlock,
   registry,
   compatibleBlock,
+  isMarketing,
   metricOptions,
   routeSlug,
-  type Block,
   type BlockId,
   type BlockProps,
   type BuildPage,
@@ -57,9 +56,7 @@ import {
   type Document,
 } from "@motionux/build-core";
 import {
-  createContext,
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
@@ -76,14 +73,6 @@ type Preview = {
   peakBytes?: number;
 };
 type History = { past: Document[]; present: Document; future: Document[] };
-type Runtime = {
-  document: Document;
-  page: BuildPage;
-  device: Device;
-  theme?: "light" | "dark";
-  navigate: (route: string) => void;
-};
-const RuntimeContext = createContext<Runtime | null>(null);
 const useSelector = createUsePuck();
 const blockList = Object.keys(registry) as BlockId[];
 const presets = [
@@ -97,177 +86,6 @@ const same = (a: unknown, b: unknown) =>
 const describe = (error: unknown) =>
   error instanceof Error ? error.message : "The operation failed.";
 
-function RuntimeRoot({ children }: { children: ReactNode }) {
-  const runtime = useContext(RuntimeContext);
-  if (!runtime) return null;
-  const { document, page, device, theme, navigate } = runtime;
-  return (
-    <AppFrame
-      document={document}
-      route={page.route}
-      device={device}
-      themeOverride={theme}
-      navigate={navigate}
-      studio
-    >
-      {children}
-    </AppFrame>
-  );
-}
-type EditorConfig = Config<
-  Record<BlockId, BlockProps> & { SidebarInset: BlockProps & { items: Slot } }
->;
-const staticBlocks = new Set<BlockId>([
-  "PageHeader",
-  "KpiCard",
-  "KpiGrid",
-  "ChartCard",
-  "RecentActivity",
-  "StatusBadge",
-]);
-function previewBlock(
-  type: BlockId,
-): EditorConfig["components"]["PageHeader"]["render"] {
-  return ({
-    id,
-    title,
-    description,
-    variant,
-    motion,
-    visibility,
-    accessibleLabel,
-    dataBinding,
-    puck,
-  }) => {
-    const block: Block = {
-      id,
-      type,
-      version: 1,
-      props: {
-        title,
-        description,
-        variant,
-        motion,
-        visibility,
-        accessibleLabel,
-        dataBinding,
-      },
-    };
-    // Editing selects the block through Puck. It must not also activate an app control.
-    return puck.isEditing && !staticBlocks.has(type) ? (
-      <>
-        <span className="build-sr">{registry[type].title}</span>
-        <div inert>
-          <RenderBlock block={block} />
-        </div>
-      </>
-    ) : (
-      <RenderBlock block={block} />
-    );
-  };
-}
-const config: EditorConfig = {
-  components: {
-    ...Object.fromEntries(
-      blockList
-        .filter((type) => type !== "SidebarInset")
-        .map((type) => [
-          type,
-          {
-            label: registry[type].title,
-            defaultProps: makeBlock(type, "b-default").props,
-            render: previewBlock(type),
-          },
-        ]),
-    ),
-    SidebarInset: {
-      label: registry.SidebarInset.title,
-      inline: true,
-      fields: { items: { type: "slot", disallow: ["SidebarInset"] } },
-      defaultProps: {
-        ...makeBlock("SidebarInset", "b-default").props,
-        items: [],
-      },
-      render: ({
-        id,
-        title,
-        description,
-        variant,
-        motion,
-        visibility,
-        accessibleLabel,
-        dataBinding,
-        items: Items,
-        puck,
-      }: Parameters<
-        EditorConfig["components"]["SidebarInset"]["render"]
-      >[0]) => (
-        <RenderBlock
-          block={{
-            id,
-            type: "SidebarInset",
-            version: 1,
-            props: {
-              title,
-              description,
-              variant,
-              motion,
-              visibility,
-              accessibleLabel,
-              dataBinding,
-            },
-          }}
-          edit={puck.isEditing}
-          dragRef={puck.dragRef}
-          slot={
-            <Items
-              className="hotel-layout-slot"
-              minEmptyHeight={44}
-              aria-label="Section blocks"
-            />
-          }
-        />
-      ),
-    },
-  } as unknown as EditorConfig["components"],
-  root: { render: ({ children }) => <RuntimeRoot>{children}</RuntimeRoot> },
-};
-type PuckItem = Data["content"][number];
-function puckItem(block: Block): PuckItem {
-  return {
-    type: block.type,
-    props: {
-      id: block.id,
-      ...block.props,
-      ...(block.type === "SidebarInset" && {
-        items: (block.children ?? []).map(puckItem),
-      }),
-    },
-  };
-}
-function toPuck(blocks: Block[]): Data {
-  return { content: blocks.map(puckItem), root: { props: {} } };
-}
-function decode(item: PuckItem, nested = false): unknown {
-  const { id, items, ...fields } = item.props;
-  if (nested && items !== undefined)
-    throw new Error("Only one section level is supported.");
-  return {
-    id,
-    type: item.type,
-    version: 1,
-    props: fields,
-    ...(Array.isArray(items) && {
-      children: items.map((child) => decode(child, true)),
-    }),
-  };
-}
-function fromPuck(data: Data) {
-  return data.content.map((item) => blockSchema.parse(decode(item)));
-}
-function sectionItems(item?: PuckItem): PuckItem[] {
-  return Array.isArray(item?.props.items) ? item.props.items : [];
-}
 function newHistory(document: Document): History {
   return { past: [], present: document, future: [] };
 }
@@ -344,7 +162,7 @@ export function Editor({
   const [device, setDevice] = useState<Device>("desktop");
   const [theme, setTheme] = useState<"light" | "dark">();
   const [preview, setPreview] = useState<Preview>({ status: "idle" });
-  const [mode, setMode] = useState<"edit" | "run">("edit");
+  const [mode, setMode] = useState<"edit" | "interact" | "run">("edit");
   const [panel, setPanel] = useState<"left" | "canvas" | "right">("canvas");
   const [busy, setBusy] = useState("");
   const [message, setMessage] = useState("");
@@ -355,6 +173,9 @@ export function Editor({
     document.pages.find((item) => item.id === pageId) ?? document.pages[0];
   const dirty = !same(document, saved.document);
   const defaultTheme = theme ?? document.theme;
+  const marketing = document.template === "hotel-marketing";
+  const tr = document.locale === "tr";
+  const mediaBase = "/api/build/" + initial.id + "/media/";
 
   const commit = useCallback((update: (previous: Document) => Document) => {
     setHistory((previous) => {
@@ -576,6 +397,7 @@ export function Editor({
     page,
     device,
     theme: defaultTheme,
+    mediaBase,
     navigate: (route: string) => {
       const target = document.pages.find((item) => item.route === route);
       if (target) setPageId(target.id);
@@ -611,7 +433,10 @@ export function Editor({
             aria-pressed={mode === "edit"}
             onClick={() => setMode("edit")}
           >
-            Edit
+            {tr ? "Düzenle" : "Edit"}
+          </button>
+          <button type="button" aria-pressed={mode === "interact"} onClick={() => { setMode("interact"); setPanel("canvas"); }}>
+            {tr ? "Etkileşim" : "Interact"}
           </button>
           <button
             type="button"
@@ -733,6 +558,7 @@ export function Editor({
                 }
                 count={page.blocks.length}
               />
+              {marketing && <MediaPanel project={initial.id} document={document} onDocument={commit} />}
             </aside>
             <section className="build-canvas" aria-label="Application canvas">
               <div className="build-canvas-bar">
@@ -774,6 +600,7 @@ export function Editor({
                   <div hidden={mode !== "edit"}>
                     <Puck.Preview />
                   </div>
+                  {mode === "interact" && <InteractPreview document={document} page={page} navigate={runtime.navigate} device={device} theme={defaultTheme} mediaBase={mediaBase} />}
                   {mode === "run" &&
                     (previewOwned && preview.status === "ready" ? (
                       <iframe
@@ -816,10 +643,11 @@ export function Editor({
               </div>
               <footer className="build-canvas-foot">
                 <span>
-                  {mode === "edit" ? "Instant canvas" : "Isolated Next.js"} ·{" "}
+                  {mode === "edit" ? "Instant canvas" : mode === "interact" ? (tr ? "Canlı taslak" : "Interactive draft") : "Isolated Next.js"} ·{" "}
                   {device}
                 </span>
-                {mode === "edit" && (
+                {mode === "edit" && <a href="/discover" target="_blank" rel="noreferrer">{tr ? "Galeri" : "Gallery"} <ExternalLink size={13} /></a>}
+                {mode === "edit" && !marketing && (
                   <IntegrationLab
                     key={saved.revision + ":" + page.route}
                     project={saved.id}
@@ -1273,6 +1101,7 @@ function Properties({
                 onChange={(event) => props({ description: event.target.value })}
               />
             </label>
+            {isMarketing(current.type) && <MediaFields key={current.id} type={current.type} props={current.props} document={document} change={props} />}
             <label>
               Appearance
               <select
@@ -1493,13 +1322,14 @@ function Properties({
           <select
             value={document.theme}
             onChange={(event) => {
-              const theme = event.target.value === "dark" ? "dark" : "light";
+              const theme = event.target.value === "system" ? "system" : event.target.value === "dark" ? "dark" : "light";
               onDocument((item) => ({ ...item, theme }));
               setTheme(undefined);
             }}
           >
             <option value="light">Light</option>
             <option value="dark">Dark</option>
+            {document.template === "hotel-marketing" && <option value="system">System</option>}
           </select>
         </label>
         <label>

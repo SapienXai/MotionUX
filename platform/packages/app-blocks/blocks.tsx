@@ -691,7 +691,7 @@ function Hero({ title, description }: BlockProps) {
     </div>
   );
 }
-const views: Record<BlockId, View> = {
+const views: Partial<Record<BlockId, View>> = {
   AppSidebar: (props) => (
     <Card {...props}>
       <WorkspaceSwitcher />
@@ -856,7 +856,7 @@ export function RenderBlock({
             ) : null)}
         </Card>
       ) : (
-        document.data === "crm-demo-v1" && (type === "KpiGrid" || type === "KpiCard") ? <SalesKpis title={props.title} binding={type === "KpiCard" ? props.dataBinding : undefined} /> : view(props)
+        document.data === "crm-demo-v1" && (type === "KpiGrid" || type === "KpiCard") ? <SalesKpis title={props.title} binding={type === "KpiCard" ? props.dataBinding : undefined} /> : view?.(props)
       )}
     </section>
   );

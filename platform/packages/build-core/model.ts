@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { marketingBlocks, isMarketing } from "./marketing-spec.ts";
+import { marketingTemplate } from "./marketing-template.ts";
+export { isMarketing, seedImages, seedImageIds, isSeedImage } from "./marketing-spec.ts";
 import { motionDnaSchema } from "./motion-dna.ts";
 export {
   defaultMotionDna,
@@ -13,6 +16,7 @@ export const families = [
   "Shell",
   "Dashboard",
   "Forms",
+  "Marketing",
   "Feedback",
   "Content",
 ] as const;
@@ -189,16 +193,33 @@ export const registry = {
   Pipeline: define("Dashboard", "Sales pipeline", "Move opportunities across stages and review value"),
   SalesActivity: define("Dashboard", "Sales activity", "Inspect meetings, notes and follow-ups"),
   SalesBreakdown: define("Dashboard", "Pipeline breakdown", "Compare opportunity counts and values by stage"),
+  MarketingHeader: define("Marketing", ...marketingBlocks.MarketingHeader),
+  HeroEditorial: define("Marketing", ...marketingBlocks.HeroEditorial),
+  HeroSplit: define("Marketing", ...marketingBlocks.HeroSplit),
+  LogoCloud: define("Marketing", ...marketingBlocks.LogoCloud),
+  FeatureBento: define("Marketing", ...marketingBlocks.FeatureBento),
+  StatsStrip: define("Marketing", ...marketingBlocks.StatsStrip),
+  StorySection: define("Marketing", ...marketingBlocks.StorySection),
+  GalleryGrid: define("Marketing", ...marketingBlocks.GalleryGrid),
+  RoomCollection: define("Marketing", ...marketingBlocks.RoomCollection),
+  AmenityGrid: define("Marketing", ...marketingBlocks.AmenityGrid),
+  Testimonials: define("Marketing", ...marketingBlocks.Testimonials),
+  PricingCards: define("Marketing", ...marketingBlocks.PricingCards),
+  FAQAccordion: define("Marketing", ...marketingBlocks.FAQAccordion),
+  CTASection: define("Marketing", ...marketingBlocks.CTASection),
+  ContactForm: define("Marketing", ...marketingBlocks.ContactForm),
+  MarketingFooter: define("Marketing", ...marketingBlocks.MarketingFooter),
 } as const;
 export type BlockId = keyof typeof registry;
 const blockIds = Object.keys(registry) as [BlockId, ...BlockId[]];
 
-export const templates = ["hotel-dashboard", "crm-dashboard", "blank-app"] as const;
+export const templates = ["hotel-dashboard", "crm-dashboard", "blank-app", "hotel-marketing"] as const;
 export type Template = (typeof templates)[number];
 export const adapterFor = {
   "hotel-dashboard": "hotel-demo-v1",
   "crm-dashboard": "crm-demo-v1",
   "blank-app": "local-form-v1",
+  "hotel-marketing": "marketing-demo-v1",
 } as const;
 export type Adapter = (typeof adapterFor)[Template];
 
@@ -208,6 +229,10 @@ const withoutData: BlockId[] = ["WorkspaceSwitcher", "KpiCard", "KpiGrid"];
 export type DemoAction = "navigate" | "select-local" | "inspect" | "filter-sort-page" | "filter-sort" |
   "change-demo-stage" | "undo-local" | "validate-local" | "announce" | "reset-local";
 const actionsByBlock: Partial<Record<BlockId, readonly DemoAction[]>> = {
+  MarketingHeader: ["navigate"], MarketingFooter: ["navigate"], HeroEditorial: ["navigate"],
+  HeroSplit: ["navigate"], RoomCollection: ["navigate"], GalleryGrid: ["inspect"],
+  PricingCards: ["navigate"], FAQAccordion: ["inspect"], CTASection: ["navigate"],
+  ContactForm: ["validate-local"],
   AppSidebar: ["navigate"], IconRail: ["navigate"], CollapsibleSidebar: ["navigate", "select-local"], SidebarInset: ["navigate"],
   WorkspaceSwitcher: ["select-local"], Topbar: ["navigate", "inspect"], CommandPalette: ["navigate"], MobileBottomNav: ["navigate"], MobileDrawer: ["navigate"],
   Hero: ["navigate"], DataTable: ["filter-sort-page", "inspect"], FilterBar: ["filter-sort-page"], SearchField: ["filter-sort-page"], DateRangeFilter: ["filter-sort-page"],
@@ -219,9 +244,12 @@ export const metricOptions = {
   "hotel-demo-v1": ["automatic", "occupancy", "arrivals", "revenue"],
   "crm-demo-v1": ["automatic", "pipeline-value", "qualified-deals", "contacts", "open-tasks"],
   "local-form-v1": ["automatic"],
+  "marketing-demo-v1": ["automatic"],
 } as const;
 export const blockSpecVersion = 2 as const;
 export function compatibleBlock(type: BlockId, data: Adapter) {
+  if (isMarketing(type) || data === "marketing-demo-v1")
+    return data === "marketing-demo-v1" && (isMarketing(type) || type === "PageHeader");
   return hotelOnly.includes(type) ? data === "hotel-demo-v1"
     : crmOnly.includes(type) ? data === "crm-demo-v1"
     : !withoutData.includes(type) || data !== "local-form-v1";
@@ -247,6 +275,11 @@ export function blockSpec(type: BlockId) {
 }
 
 const text = (max: number) => z.string().max(max);
+export const mediaId = z.string().regex(/^(?:[a-f0-9]{64}|seed-(?:coast|room|pool))$/);
+const landingRoute = z.string().regex(/^(?:\/|\/[a-z][a-z0-9-]{0,39})$/);
+const image = z.strictObject({
+  asset: mediaId, alt: text(180), focal: z.enum(["top", "center", "bottom"]),
+});
 export const blockProps = z.strictObject({
   title: text(72),
   description: text(180),
@@ -257,6 +290,13 @@ export const blockProps = z.strictObject({
   dataBinding: z
     .enum(["automatic", "occupancy", "arrivals", "revenue", "pipeline-value", "qualified-deals", "contacts", "open-tasks"])
     .default("automatic"),
+  image: image.optional(),
+  items: z.array(z.strictObject({
+    title: text(72), text: text(300), asset: mediaId.optional(), alt: text(180).optional(),
+    focal: z.enum(["top", "center", "bottom"]).optional(), destination: landingRoute.optional(),
+  })).max(12).optional(),
+  cta: text(64).optional(),
+  destination: landingRoute.optional(),
 });
 const leafSchema = z.strictObject({
   id: z.string().regex(/^(?:b-[a-z0-9-]{3,50}|[A-Za-z]{3,32}-[a-f0-9-]{36})$/),
@@ -303,17 +343,17 @@ const compositionFields = z
     name: text(80).min(1),
     template: z.enum(templates),
     runtime: z.literal("next-16"),
-    theme: z.enum(["light", "dark"]),
+    theme: z.enum(["light", "dark", "system"]),
     sidebar: z.enum(["expanded", "rail"]),
     motionProfile: z.enum(["system", "none"]),
     data: z.enum(Object.values(adapterFor)),
-    assets: z.tuple([]),
+    assets: z.array(mediaId).max(30),
     pages: z.array(pageSchema).min(1).max(12),
   });
 export const documentSchema = compositionFields.extend({
   locale: z.enum(["en", "tr"]).default("en"),
   motionDna: motionDnaSchema.optional(),
-}).superRefine(({ pages, data, template }, context) => {
+}).superRefine(({ pages, data, template, assets }, context) => {
     if (adapterFor[template] !== data)
       context.addIssue({ code: "custom", message: "Template and adapter are incompatible.", path: ["data"] });
     for (const page of pages) for (const block of allBlocks(page.blocks)) {
@@ -326,6 +366,15 @@ export const documentSchema = compositionFields.extend({
       ...allBlocks(page.blocks).map((block) => block.id),
     ]);
     const routes = pages.map((page) => page.route);
+    const references = new Set(assets);
+    if (references.size !== assets.length)
+      context.addIssue({ code: "custom", message: "Media IDs must be unique.", path: ["assets"] });
+    for (const page of pages) for (const block of allBlocks(page.blocks)) {
+      const items = [block.props.image, ...(block.props.items ?? [])];
+      if (items.some((item) => item?.asset && !references.has(item.asset)) ||
+          [block.props.destination, ...(block.props.items ?? []).map((item) => item.destination)].some((route) => route && !routes.includes(route)))
+        context.addIssue({ code: "custom", message: "Choose owned media and an existing page.", path: ["pages", page.id, block.id] });
+    }
     if (
       ids.length !== new Set(ids).size ||
       routes.length !== new Set(routes).size ||
@@ -363,7 +412,7 @@ const projectFields = {
 };
 const v1 = z.strictObject({
   ...projectFields, schemaVersion: z.literal(1),
-  document: compositionFields.extend({ template: z.literal("hotel-dashboard"), data: z.literal("hotel-demo-v1") }),
+  document: compositionFields.extend({ template: z.literal("hotel-dashboard"), data: z.literal("hotel-demo-v1"), theme: z.enum(["light", "dark"]), assets: z.tuple([]) }),
 });
 export const blueprintProvenance = z.strictObject({
   source: z.literal("codex"),
@@ -493,8 +542,9 @@ export function templatePlan() {
     },
   });
 }
-export function manualDocument(template: Template): Document {
+export function manualDocument(template: Template, locale: "en" | "tr" = "en"): Document {
   if (template === "hotel-dashboard") return templatePlan().document;
+  if (template === "hotel-marketing") return documentSchema.parse(marketingTemplate(makeBlock, locale));
   if (template === "blank-app") return documentSchema.parse({
     name: "Untitled workspace", locale: "en", template, runtime: "next-16", theme: "light", sidebar: "expanded",
     motionProfile: "none", data: adapterFor[template], assets: [],
@@ -516,6 +566,11 @@ export function manualDocument(template: Template): Document {
       page("settings", "Settings", "Manage display and local preferences for this demo workspace.", [["SettingsPanel", "Workspace preferences"]]),
     ],
   });
+}
+
+export function referencedMedia(document: Document) {
+  return new Set(document.pages.flatMap((page) => allBlocks(page.blocks).flatMap(({ props }) =>
+    [props.image?.asset, ...(props.items ?? []).map((item) => item.asset)].filter((value): value is string => Boolean(value)))));
 }
 
 export function newProject(id: string, document = manualDocument("hotel-dashboard"), blueprint?: BuildProject["blueprint"]): BuildProject {

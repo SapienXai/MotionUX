@@ -31,7 +31,7 @@ export const workspaceProfiles = {
     alternatePreference: "Important updates only",
   },
 } satisfies Record<
-  Adapter,
+  Exclude<Adapter, "marketing-demo-v1">,
   {
     label: string;
     mark: string;

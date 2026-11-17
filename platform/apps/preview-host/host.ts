@@ -179,7 +179,7 @@ async function run(
       );
     await ensurePort();
     cwd = await mkdtemp(resolve(root, "replica-"));
-    const tree = source ?? await exportTree(repo, project);
+    const tree = source ?? await exportTree(repo, project, { vault });
     if (JSON.parse(String(tree["motionux-manifest.json"])).documentDigest !== session.state.documentDigest)
       throw new BuildError(409, "Preview document changed.");
     await writeTree(cwd, tree);
