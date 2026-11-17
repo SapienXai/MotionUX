@@ -1,4 +1,4 @@
-import { performSourceStep } from "./source-target.mjs";
+import { hasRenderedSource, performSourceStep } from "./source-target.mjs";
 import assert from "node:assert/strict";
 import { expect } from "@playwright/test";
 import { AxeBuilder } from "@axe-core/playwright";
@@ -35,12 +35,7 @@ try {
       if (!await region.count() || !await region.first().isVisible()) continue;
       await expect(region).toHaveCount(1);
       assert.equal(await region.getAttribute("data-source"), item.source, "Source mount identity changed.");
-      const rendered = await region.evaluate((root) => [...root.children].some((child) => {
-        const box = child.getBoundingClientRect();
-        const style = getComputedStyle(child);
-        return box.width > 0 && box.height > 0 && style.display !== "none" && style.visibility !== "hidden" &&
-          Boolean(child.textContent?.trim() || child.children.length || ["IMG", "SVG", "CANVAS", "INPUT", "BUTTON"].includes(child.tagName));
-      }));
+      const rendered = await hasRenderedSource(region);
       if (rendered) observed.add(route + "#" + item.id);
     }
   }

@@ -1,4 +1,4 @@
-import { sourceTarget, performSourceStep } from "../apps/preview-host/source-target.mjs";
+import { hasRenderedSource, sourceTarget, performSourceStep } from "../apps/preview-host/source-target.mjs";
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
 import { once } from "node:events";
@@ -54,6 +54,12 @@ try {
             await new Promise((done) => setTimeout(done, 25));
           assert(await scroll.evaluate((node) => node.scrollTop) > 0);
           await assert.rejects(performSourceStep(page, { role: "img", name: "Fixture surface", action: "drag", value: "900,0" }));
+          await page.setContent('<section id="source" style="position:relative;min-height:64px"><div style="height:0"><button style="position:absolute;bottom:0">Source undo</button></div></section>');
+          const positioned = page.locator("#source");
+          assert.equal(await hasRenderedSource(positioned), true, "A positioned source descendant remains rendered inside a zero-height anchor.");
+          await positioned.locator("button").evaluate((node) => { node.hidden = true; });
+          assert.equal(await hasRenderedSource(positioned), false, "An empty positioned anchor cannot establish source output.");
+          console.log("Positioned source descendants render correctly and empty anchors fail verification");
           await page.close();
           console.log("Modal-scoped verification keeps the background filter unchanged");
         }

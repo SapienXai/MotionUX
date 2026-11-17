@@ -1,3 +1,12 @@
+export async function hasRenderedSource(region) {
+  return region.evaluate((root) => [...root.querySelectorAll("*")].some((child) => {
+    const box = child.getBoundingClientRect();
+    const style = getComputedStyle(child);
+    return box.width > 0 && box.height > 0 && style.display !== "none" && style.visibility !== "hidden" &&
+      Boolean(child.textContent?.trim() || child.children.length || ["IMG", "SVG", "CANVAS", "INPUT", "BUTTON"].includes(child.tagName));
+  }));
+}
+
 export async function sourceTarget(page, step) {
   const dialog = page.getByRole("dialog").or(page.getByRole("alertdialog")).filter({ visible: true });
   if (await dialog.count() === 1) {
