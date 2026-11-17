@@ -169,6 +169,7 @@ export function ComposerHome({
   const alertRef = useRef<HTMLParagraphElement>(null);
 
   const [preferred, setPreferred] = useState<string>();
+  const [includeLocal, setIncludeLocal] = useState(false);
   const sourceOperation = useSourceJob("home", async (id) => {
     openCanvas(await request<BuildProject>("/" + id));
   });
@@ -185,6 +186,7 @@ export function ComposerHome({
     const params = new URLSearchParams(location.search);
     const selected = params.get("project");
     setPreferred(params.get("source") ?? undefined);
+    setIncludeLocal(params.get("local") === "1");
     void (async () => {
       try {
         setRows(await request<Row[]>("", "GET", undefined, controller.signal));
@@ -379,7 +381,7 @@ export function ComposerHome({
                     void generate(event);
                   } else {
                     event.preventDefault();
-                    void sourceOperation.start(brief, { preferred });
+                    void sourceOperation.start(brief, { preferred, ...(includeLocal && { includeLocal: true }) });
                   }
                 }}
                 aria-labelledby="brief-label"
@@ -401,9 +403,14 @@ export function ComposerHome({
                   readOnly={generating || sourceOperation.active}
                   onChange={(event) => setBrief(event.target.value)}
                 />
+                <label className="compose-local-option">
+                  <input type="checkbox" checked={includeLocal} disabled={generating || sourceOperation.active}
+                    onChange={(event) => setIncludeLocal(event.target.checked)} />
+                  Include local sources. Projects that use them run locally and cannot be exported.
+                </label>
                 <div className="compose-form-foot">
                   <span id="brief-hint">
-                    <LockKeyhole size={14} /> Codex receives the brief and selected source excerpts with export rights. Use fictional data.
+                    <LockKeyhole size={14} /> Codex receives the brief, exportable source excerpts and metadata for local sources. Use fictional data.
                   </span>
                   {generating ? (
                     <button

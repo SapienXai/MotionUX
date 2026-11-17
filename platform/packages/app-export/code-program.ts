@@ -1,9 +1,10 @@
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { codeProposalSchema, codeProjectSchema, type CodeProject } from "@motionux/build-core/code-project";
+import { codeProposalSchema, codeProjectSchema, isLocalCodePin, localSourceRights, type CodeProject } from "@motionux/build-core/code-project";
 import type { BuildProject, Document } from "@motionux/build-core";
 import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
-import { codeProfileFor, restoreCodeSources, type SourceModule } from "./code-catalog.ts";
+import { codeProfileFor, localSourceTemplate, restoreCodeSources, type SourceModule } from "./code-catalog.ts";
+import { galleryOrigin, localFramePath } from "../../../scripts/studio/build-local-sources.mjs";
 import { programHashes, validateProgram } from "./code-validator.ts";
 import { mediaBytes } from "./media.ts";
 
@@ -43,10 +44,13 @@ async function profile(repo: string, sources: SourceModule[]) {
   const root = resolve(repo, "platform/templates");
   const read = (file: string) => readFile(resolve(root, file), "utf8");
   const dependencyProfile = await codeProfileFor(repo, sources.flatMap(({ packages }) => packages));
-  const [lock, pkg, state, next, postcss, tsconfig, proxy] = await Promise.all([
+  const [lock, pkg, state, nextTemplate, postcss, tsconfig, proxy] = await Promise.all([
     read(dependencyProfile + "/package-lock.json"), read(dependencyProfile + "/package.json"), read("source-driven/project-state.ts"),
     read("hotel-dashboard/next.config.mjs"), read("hotel-dashboard/postcss.config.mjs"), read("hotel-dashboard/tsconfig.json"), read("hotel-dashboard/proxy.ts"),
   ]);
+  const next = sources.some(({ pin }) => isLocalCodePin(pin))
+    ? nextTemplate.replace("frame-ancestors http://127.0.0.1:5200", `frame-src ${galleryOrigin}${localFramePath}; frame-ancestors http://127.0.0.1:5200`)
+    : nextTemplate;
   return { lock, pkg, state, next, postcss, tsconfig, proxy, compiler: fingerprint(canonical({ abi: 3, state, screenTemplate, next, postcss, tsconfig, proxy })) };
 }
 
@@ -69,9 +73,11 @@ export function codeDocument(codeProject: CodeProject): Document {
     pages: codeProject.pages.map(({ id, title, route }) => ({ id: "p-" + id, title, route, blocks: [] })) };
 }
 
-export async function compileCodeProject(repo: string, project: BuildProject) {
+export async function compileCodeProject(repo: string, project: BuildProject, use: "export" | "local" = "export") {
   const graph = codeProjectSchema.parse(project.document.codeProject);
-  const sources = await restoreCodeSources(repo, graph.sources);
+  const hasLocal = graph.sources.some(isLocalCodePin);
+  if (hasLocal && use === "export") throw new BuildError(409, localSourceRights);
+  const sources = await restoreCodeSources(repo, graph.sources, use);
   const environment = await profile(repo, sources);
   if (fingerprint(environment.lock) !== graph.lock || environment.compiler !== graph.compiler)
     throw new BuildError(409, "The pinned compiler or dependency lock changed. Rebuild this code project before running or exporting.");
@@ -93,6 +99,7 @@ export async function compileCodeProject(repo: string, project: BuildProject) {
     digest: fingerprint(canonical(project.document)), kinds: Object.fromEntries(graph.controls.map(({ key, kind }) => [key, kind])),
   }, null, 2) + ";\n";
   files["runtime/screen.tsx"] = screenTemplate;
+  if (hasLocal) files["runtime/local-source.tsx"] = await readFile(resolve(repo, localSourceTemplate), "utf8");
   files["app/layout.tsx"] = `import type { ReactNode } from "react";
 import "@fontsource-variable/inter";
 import "../styles/host.css";
@@ -146,7 +153,9 @@ export default async function Page({ params }: Props) {
       assetPins.push({ path, sha256: fingerprint(image), rights: "MotionUX-generated demonstration image" });
     }
   }
-  files["README.md"] = "# " + graph.name + "\n\nRun npm ci, npm run build and npm start. The application stores fictional data in the browser. Original source notices are in sources/. No production integration is included.\n";
+  files["README.md"] = "# " + graph.name + "\n\n" + (hasLocal
+    ? "Local MotionUX Run replica. Its pinned originals are served by the local Gallery.\n"
+    : "Run npm ci, npm run build and npm start. The application stores fictional data in the browser. Original source notices are in sources/. No production integration is included.\n");
   files["SOURCE-MANIFEST.json"] = JSON.stringify({
     version, revision: project.revision, digest: fingerprint(canonical(project.document)), sources: sources.map(({ pin }) => pin),
     usages: graph.usages, generated: graph.generated, artifacts, assets: assetPins, design: graph.design, limitations: graph.limitations,

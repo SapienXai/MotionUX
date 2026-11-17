@@ -1,6 +1,6 @@
 import { executeCodeGeneration, type CodeRetry } from "./code-generation";
-import { codeProposalSchema } from "@motionux/build-core/code-project";
-import { inspectCodeCatalog, sourceRead, sameCodePin } from "@motionux/app-export/code-catalog";
+import { codePin, codeProposalSchema } from "@motionux/build-core/code-project";
+import { inspectCodeCatalog, restoreCodeSources, sourceRead } from "@motionux/app-export/code-catalog";
 import { randomBytes } from "node:crypto";
 import { lstat, mkdir, readFile, realpath, readdir, rename, unlink, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -39,7 +39,7 @@ type Job = {
 type InProgress = { controller: AbortController; ended: Promise<void> };
 const live = new Map<string, InProgress>();
 const terminal = new Set<Stage>(["ready", "failed", "cancelled"]);
-type Request = { brief: string; preferred?: string; project?: string; revision?: number };
+type Request = { brief: string; preferred?: string; includeLocal?: boolean; project?: string; revision?: number };
 
 async function directory(path: string) {
   await mkdir(path, { mode: 0o700 }).catch((error) => { if (error.code !== "EEXIST") throw error; });
@@ -101,13 +101,8 @@ export async function retrySourceJob(repo: string, vault: string, id: string) {
     throw new BuildError(409, "The candidate trace is invalid.");
   const inventory = await inspectCodeCatalog(repo);
   const pins = prior.sourcePins;
-  if (Array.isArray(pins)) {
-    for (const pin of pins) {
-      const source = inventory.sources.get(pin.id);
-      if (!source || !sameCodePin(pin, source.pin))
-        throw new BuildError(409, "A pinned source changed. Start a fresh generation.");
-    }
-  } else if (inventory.fingerprint !== prior.inventoryFingerprint)
+  const restored = Array.isArray(pins) ? await restoreCodeSources(repo, pins.map((pin) => codePin.parse(pin)), "local") : undefined;
+  if (!restored && inventory.fingerprint !== prior.inventoryFingerprint)
     throw new BuildError(409, "The source inventory changed. Start a fresh generation.");
   const path = "build/code-attempts/" + id + "-" + last.attempt + ".json";
   const stat = await lstat(resolve(vault, path));
@@ -117,7 +112,7 @@ export async function retrySourceJob(repo: string, vault: string, id: string) {
   const proposal = codeProposalSchema.parse(JSON.parse(text));
   const selection = prior.selection as { sources?: { id: string }[] } | undefined;
   if (!selection?.sources?.length) throw new BuildError(409, "The inspected source context is unavailable.");
-  const sources = selection.sources.map(({ id }) => {
+  const sources = restored ?? selection.sources.map(({ id }) => {
     const source = inventory.sources.get(id);
     if (!source) throw new BuildError(409, "A selected source is unavailable.");
     return source;
@@ -154,7 +149,8 @@ function planPrompt(brief: string, intent: Intent, sources: ResolvedSource[], pr
 export async function startSourceJob(repo: string, vault: string, input: unknown, retry?: CodeRetry) {
   const payload = input as Request;
   if (!payload || typeof payload.brief !== "string" || payload.brief.trim().length < 12 || payload.brief.length > 3200 ||
-    Object.keys(payload).some((key) => !["brief", "preferred", "project", "revision"].includes(key)) ||
+    Object.keys(payload).some((key) => !["brief", "preferred", "includeLocal", "project", "revision"].includes(key)) ||
+    (payload.includeLocal !== undefined && typeof payload.includeLocal !== "boolean") ||
     (payload.preferred !== undefined && (typeof payload.preferred !== "string" || !sourcePattern.test(payload.preferred))) ||
     (payload.project !== undefined && (!idPattern.test(payload.project) || !Number.isSafeInteger(payload.revision))))
     throw new BuildError(422, "Provide a brief between 12 and 3200 characters.");

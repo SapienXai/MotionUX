@@ -5,8 +5,8 @@ import { createBrain } from "../../../src/brain/ranker.ts";
 import { verifyIndex } from "../../../src/brain/indexer.ts";
 import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
 import type { Intent } from "@motionux/build-core/source-graph";
-import type { CodePin } from "@motionux/build-core/code-project";
-import { localBuildSource } from "../../../scripts/studio/build-local-sources.mjs";
+import { isLocalCodePin, type CodePin, type LocalCodePin } from "@motionux/build-core/code-project";
+import { localBuildSource, localSourceFrameURL } from "../../../scripts/studio/build-local-sources.mjs";
 import { adaptCodeComparison, adaptHeroVideo, coastVideo, comparisonSource, heroVideoSource } from "./code-adaptations.ts";
 
 type Pin = { path: string; upstreamPath?: string; sha256: string; installedSHA256?: string };
@@ -313,20 +313,55 @@ export async function inspectCodeCatalog(repo: string) {
     fingerprint: fingerprint(canonical(rows)) };
 }
 
-export async function listLocalBuildSources(repo: string) {
+async function localEntries(repo: string) {
   const catalog = JSON.parse(await sourceRead(resolve(repo, ".motionux-v9"), "catalog.last-good.json", 24_000_000)) as Entry[];
-  return catalog.filter(localBuildSource).map(({ id, slug, title, provider, upstreamHash }) => ({
+  return catalog.filter((entry): entry is Entry & { slug: string; group: string } => localBuildSource(entry));
+}
+
+export async function listLocalBuildSources(repo: string) {
+  return (await localEntries(repo)).map(({ id, slug, title, provider, upstreamHash }) => ({
     id, slug, title, provider, pin: upstreamHash,
   }));
 }
 
-export async function discoverCodeSources(repo: string, intent: Intent, preferred?: string) {
+export const localSourceTemplate = "platform/templates/source-driven/local-source.tsx";
+
+export async function localCodeSources(repo: string): Promise<SourceModule[]> {
+  const entries = await localEntries(repo);
+  if (!entries.length) return [];
+  const bridge = fingerprint(await sourceRead(repo, localSourceTemplate));
+  return entries.map(({ id, slug, group, title, provider, upstreamHash, sourceURL }) => {
+    const src = localSourceFrameURL(id, slug, upstreamHash, true);
+    const code = `"use client";
+import { LocalSourceFrame } from "../../runtime/local-source";
+export default function LocalSource({ height }: { height?: number }) {
+  return <LocalSourceFrame src=${JSON.stringify(src)} title=${JSON.stringify(title)} height={height} />;
+}
+`;
+    const pin: LocalCodePin = { id, slug, group, title, provider, revision: upstreamHash, url: sourceURL,
+      fidelity: "local-frame", license: "local-only", entry: "local.tsx", closure: fingerprint(canonical({ id, group, bridge, code })) };
+    return { pin, files: { "local.tsx": code }, hashes: { "local.tsx": fingerprint(code) }, upstreamHashes: {},
+      preparationPatches: [], patches: [], exports: ["default"], types: "default LocalSource(props: { height?: number })",
+      packages: [], css: [], api: "Interactive isolated original with its own sample content and state. The app can position the frame and set its height, but cannot read or control its contents.",
+      example: "<LocalSource height={380} />", assets: [] };
+  });
+}
+
+export async function discoverCodeSources(repo: string, intent: Intent, preferred?: string, includeLocal = false) {
   const inventory = await inspectCodeCatalog(repo);
+  const rows = new Map(inventory.rows.map((row) => [row.id, row]));
+  if (includeLocal) for (const source of await localCodeSources(repo)) {
+    inventory.sources.set(source.pin.id, source);
+    rows.set(source.pin.id, { id: source.pin.id, title: source.pin.title, provider: source.pin.provider,
+      entry: source.pin.entry, ready: true, reason: "local-only", details: source.api, types: source.types,
+      exports: source.exports, license: source.pin.license });
+  }
   const index = verifyIndex(JSON.parse(await sourceRead(resolve(repo, ".motionux-v9"), "brain/index.v1.json", 24_000_000)));
   const brain = createBrain(index);
   const scored = new Map<string, { score: number; needs: string[] }>();
   for (const need of intent.requirements) {
-    const matches = brain.query("search", { schemaVersion: 1, query: need.search, maxResults: 20, require: { integrationKind: ["react"] } });
+    const matches = brain.query("search", { schemaVersion: 1, query: need.search, maxResults: 20,
+      ...(!includeLocal && { require: { integrationKind: ["react"] } }) });
     for (const item of matches.candidates) {
       if (!inventory.sources.has(item.id)) continue;
       const existing = scored.get(item.id) ?? { score: 0, needs: [] };
@@ -336,11 +371,11 @@ export async function discoverCodeSources(repo: string, intent: Intent, preferre
     }
   }
   const ordered = [...scored].sort((a, b) => b[1].score - a[1].score).slice(0, 23).map(([id, match]) => ({
-    ...inventory.rows.find((row) => row.id === id)!, match,
+    ...rows.get(id)!, match,
   }));
   if (preferred && inventory.sources.has(preferred) && !ordered.some(({ id }) => id === preferred))
-    ordered.push({ ...inventory.rows.find((row) => row.id === preferred)!, match: { score: 0, needs: [] } });
-  return { inventory, candidates: ordered, preferred: preferred ? inventory.rows.find(({ id }) => id === preferred) ?? { id: preferred, ready: false, reason: "missing-source" } : undefined };
+    ordered.push({ ...rows.get(preferred)!, match: { score: 0, needs: [] } });
+  return { inventory, candidates: ordered, preferred: preferred ? rows.get(preferred) ?? { id: preferred, ready: false, reason: "missing-source" } : undefined };
 }
 
 export function sameCodePin(expected: CodePin, current: CodePin) {
@@ -348,10 +383,12 @@ export function sameCodePin(expected: CodePin, current: CodePin) {
   return canonical({ ...expected, fidelity: current.fidelity }) === canonical(current);
 }
 
-export async function restoreCodeSources(repo: string, pins: CodePin[]) {
+export async function restoreCodeSources(repo: string, pins: CodePin[], use: "export" | "local" = "export") {
   const inventory = await inspectCodeCatalog(repo);
+  const local = use === "local" && pins.some(isLocalCodePin)
+    ? new Map((await localCodeSources(repo)).map((source) => [source.pin.id, source])) : undefined;
   return pins.map((pin) => {
-    const current = inventory.sources.get(pin.id);
+    const current = isLocalCodePin(pin) ? local?.get(pin.id) : inventory.sources.get(pin.id);
     if (!current || !sameCodePin(pin, current.pin)) throw new BuildError(409, "Pinned source changed or is unavailable: " + pin.id);
     return current;
   });

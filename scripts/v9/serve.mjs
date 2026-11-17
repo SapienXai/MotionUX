@@ -10,7 +10,7 @@ import { describeKit, kitArchive } from "../studio/v11/kits.mjs";
 import { loadThumbnails } from "../studio/v11/thumbnail-cache.mjs";
 import { requestURL, safeFile } from "../studio/v11/paths.mjs";
 import { groupPattern } from "../originals/editions.mjs";
-import { localBuildSource } from "../studio/build-local-sources.mjs";
+import { localBuildSource, localFramePath } from "../studio/build-local-sources.mjs";
 import localAssets from "../studio/build-local-assets.json" with { type: "json" };
 
 const shell = resolve(process.env.MOTIONUX_STUDIO_SHELL ?? "dist");
@@ -133,7 +133,9 @@ onload="document.documentElement.dataset.previewLoaded='true'"></iframe></body><
 }
 
 async function buildPreview(request, response, item, options) {
-  if (request.headers["sec-fetch-dest"] !== "iframe" || request.headers["sec-fetch-site"] !== "same-site")
+  response.setHeader("Vary", "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site");
+  if (request.headers["sec-fetch-dest"] !== "iframe" || request.headers["sec-fetch-mode"] !== "navigate" ||
+      request.headers["sec-fetch-site"] !== "same-site")
     return response.writeHead(403).end();
   if (!localBuildSource(item) || options.get("item") !== item.slug || options.get("pin") !== item.upstreamHash)
     return response.writeHead(404).end();
@@ -144,16 +146,18 @@ async function buildPreview(request, response, item, options) {
   const upstream = await readFile(await safeFile(directory, file, vault), "utf8");
   const html = isHtml ? await localTypography(upstream, "/v9/live/designbookmark/original/assets/") : upstream;
   const selector = item.id === "designbookmark-command-button" ? "#root .command button" : "#specimen > *";
+  const run = options.get("view") === "run";
+  const recipient = run ? "http://127.0.0.1:5202" : "http://127.0.0.1:5200";
   const wasm = item.id === "animateui-components-animate-code-tabs" ? "'wasm-unsafe-eval' " : "";
   const ready = '<script>document.addEventListener("DOMContentLoaded", () => {' +
     'const ready = () => { if (' + (isHtml ? 'document.body.childElementCount' : 'document.querySelector(' + JSON.stringify(selector) + ')') + ')' +
-    ' { observer.disconnect(); parent.postMessage({ motionuxLocalSource: "ready" }, "http://127.0.0.1:5200"); } };' +
+    ' { observer.disconnect(); parent.postMessage({ motionuxLocalSource: "ready" }, ' + JSON.stringify(recipient) + '); } };' +
     'const observer = new MutationObserver(ready); observer.observe(document.body, {childList:true,subtree:true}); ready();' +
     '}, {once:true})</script>';
   response.setHeader("Content-Type", types[".html"]);
   response.setHeader("Referrer-Policy", "no-referrer");
   response.setHeader("Content-Security-Policy", [
-    "sandbox allow-scripts", "frame-ancestors http://127.0.0.1:5200", "default-src 'none'",
+    "sandbox allow-scripts", "frame-ancestors http://127.0.0.1:5200" + (run ? " " + recipient : ""), "default-src 'none'",
     "script-src 'unsafe-inline' " + wasm + assets, "style-src 'unsafe-inline' " + assets,
     "font-src data: " + assets, "img-src data: blob: " + assets, "media-src data: blob: " + assets,
     "connect-src " + assets, "worker-src blob:", "base-uri 'none'", "form-action 'none'",
@@ -242,8 +246,8 @@ const server = createServer({ requestTimeout: 15000, headersTimeout: 5000, maxHe
       await sendFile(response, resolve(vault, "thumbnails"), basename(file));
     } else if (path.startsWith("/v10/preview/")) {
       await studioPreview(response, byId.get(path.slice("/v10/preview/".length)), url.searchParams);
-    } else if (path.startsWith("/v10/build-preview/")) {
-      await buildPreview(request, response, byId.get(path.slice("/v10/build-preview/".length)), url.searchParams);
+    } else if (path.startsWith(localFramePath)) {
+      await buildPreview(request, response, byId.get(path.slice(localFramePath.length)), url.searchParams);
     } else if (path === "/v9/catalog.json") {
       const record = id ? detailCatalog.get(id) : undefined;
       const payload = id ? record && JSON.stringify(record) : visibleCatalog;

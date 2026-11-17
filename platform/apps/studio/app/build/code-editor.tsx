@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import type { BuildProject } from "@motionux/build-core";
-import type { CodeProject } from "@motionux/build-core/code-project";
+import { isLocalCodePin, localSourceRights, type CodeProject } from "@motionux/build-core/code-project";
 import { sourceRequest, SourceJobStatus, useSourceJob } from "./source-job";
 
 type Preview = { documentDigest?: string; id?: string; revision?: number; status: string; url?: string; message?: string };
@@ -23,6 +23,7 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
   const [busy, setBusy] = useState(false);
   const [inventory, setInventory] = useState<{ counts: { total: number; compilerReady: number; reasons: Record<string, number> } }>();
   const program = draft.document.codeProject!;
+  const localOnly = saved.document.codeProject!.sources.some(isLocalCodePin);
   const dimensions = device === "mobile" ? [390, 844] : device === "tablet" ? [768, 1024] : [1440, 1000];
   const scale = Math.min(1, (availableWidth || dimensions[0]) / dimensions[0]);
   useEffect(() => {
@@ -135,10 +136,11 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
           setSaved(next); setDraft(next); setPast([]); setFuture([]);
         })}>Save</button>
         <button type="button" className="build-button" disabled={locked || dirty} onClick={() => void action(preview ? stop : run)}>{preview ? "Stop Run" : "Run"}</button>
-        <button type="button" className="build-button" disabled={locked || dirty} onClick={() => void action(() => download(false))}>Export</button>
-        <button type="button" className="build-button" disabled={locked || dirty} onClick={() => void action(() => download(true))}>Export PWA</button>
+        <button type="button" className="build-button" disabled={locked || dirty || localOnly} onClick={() => void action(() => download(false))}>Export</button>
+        <button type="button" className="build-button" disabled={locked || dirty || localOnly} onClick={() => void action(() => download(true))}>Export PWA</button>
       </div>
     </header>
+    {localOnly && <p className="build-local-export-note">{localSourceRights}</p>}
     {error && <p className="build-alert" role="alert">{error}</p>}
     <SourceJobStatus operation={operation} />
     <nav className="build-mobile-panels" aria-label="Editor panes">{["outline", "canvas", "properties"].map((value) =>

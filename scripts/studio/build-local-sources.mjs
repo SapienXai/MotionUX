@@ -1,6 +1,14 @@
 const reactBits = "https://github.com/DavidHDev/react-bits";
 const animateUi = "https://github.com/imskyleen/animate-ui";
 const slug = /^[a-z0-9-]{1,96}$/;
+export const galleryOrigin = "http://127.0.0.1:5199";
+export const localFramePath = "/v10/build-preview/";
+
+export function localSourceFrameURL(id, item, pin, run = false) {
+  const query = new URLSearchParams({ item, pin });
+  if (run) query.set("view", "run");
+  return galleryOrigin + localFramePath + encodeURIComponent(id) + "?" + query;
+}
 
 export function localBuildSource(entry) {
   if (entry?.availability !== "ready" || !/^[a-f0-9]{64}$/.test(entry.upstreamHash) ||

@@ -17,7 +17,9 @@ import { setTimeout as delay } from "node:timers/promises";
 import type { BuildProject } from "@motionux/build-core";
 import type { InspectionReport } from "@motionux/build-core/inspection";
 import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
-import { exportTree, writeTree } from "@motionux/app-export";
+import { previewTree, writeTree } from "@motionux/app-export";
+import { isLocalCodePin } from "@motionux/build-core/code-project";
+import { localSourceFrameURL } from "../../../scripts/studio/build-local-sources.mjs";
 import { codeProfiles } from "@motionux/app-export/code-catalog";
 
 type PreviewState = {
@@ -163,7 +165,7 @@ async function run(
   vault: string,
   project: BuildProject,
   session: Session,
-  source?: Awaited<ReturnType<typeof exportTree>>,
+  source?: Awaited<ReturnType<typeof previewTree>>,
 ) {
   const signal = session.abort.signal;
   let cwd: string | undefined;
@@ -181,7 +183,7 @@ async function run(
       );
     await ensurePort();
     cwd = await mkdtemp(resolve(root, "replica-"));
-    const tree = source ?? await exportTree(repo, project, { vault });
+    const tree = source ?? await previewTree(repo, project, vault);
     if (JSON.parse(String(tree["motionux-manifest.json"])).documentDigest !== session.state.documentDigest)
       throw new BuildError(409, "Preview document changed.");
     await writeTree(cwd, tree);
@@ -450,7 +452,7 @@ function beginPreview(
   repo: string,
   vault: string,
   project: BuildProject,
-  source?: Awaited<ReturnType<typeof exportTree>>,
+  source?: Awaited<ReturnType<typeof previewTree>>,
 ): Session {
   if (process.platform !== "darwin")
     throw new BuildError(
@@ -508,7 +510,7 @@ export async function withIntegrationSlot<T>(work: () => Promise<T>): Promise<T>
 
 export async function inspectIntegration(
   repo: string, vault: string, project: BuildProject,
-  tree: Awaited<ReturnType<typeof exportTree>>,
+  tree: Awaited<ReturnType<typeof previewTree>>,
   route: string, title: string, phase: "integrated" | "restored", signal: AbortSignal,
 ): Promise<InspectionReport> {
   if (!globalState.motionuxIntegrationSlot)
@@ -555,6 +557,9 @@ export async function verifySourcePreview(repo: string, project: BuildProject, s
             .map((usage) => ({ id: usage.instance, source: usage.source, kind: "source" })) }))
             : graph!.pages.map(({ route, instances }) => ({ route, instances: instances.map(({ id, kind }) => ({ id, kind })) })),
           journeys: code?.journeys,
+          localFrames: code?.sources.filter(isLocalCodePin).map(({ id, group, slug, revision }) => ({
+            id, group, url: localSourceFrameURL(id, slug, revision, true),
+          })),
 
         }),
       },

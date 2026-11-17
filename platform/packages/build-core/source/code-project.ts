@@ -7,11 +7,20 @@ const text = z.string().min(1).max(600);
 export const codeRoute = z.string().regex(/^\/(?:[a-z][a-z0-9-]{0,39}(?:\/[a-z][a-z0-9-]{0,39}){0,2})?$/)
   .refine((path) => !/^\/(?:api|pwa|media|sources|block-review)(?:\/|$)/.test(path));
 export const modulePath = z.string().regex(/^(?:components\/[a-z][a-z0-9-]*\.tsx|lib\/[a-z][a-z0-9-]*\.ts|styles\/app\.css)$/);
-export const codePin = z.strictObject({
-  id: sourceId, provider: text, title: text, revision: z.string().regex(/^[a-f0-9]{40}$/),
-  fidelity: z.enum(["upstream-original", "source-adapted"]),
-  url: z.url(), entry: z.string().max(300), closure: hash, license: z.enum(["MIT", "Apache-2.0"]),
+const sourceIdentity = z.strictObject({
+  id: sourceId, provider: text, title: text, url: z.url(), entry: z.string().max(300), closure: hash,
 });
+const portablePin = sourceIdentity.extend({
+  revision: z.string().regex(/^[a-f0-9]{40}$/),
+  fidelity: z.enum(["upstream-original", "source-adapted"]),
+  license: z.enum(["MIT", "Apache-2.0"]),
+});
+const localPin = sourceIdentity.extend({
+  revision: hash, slug: sourceId, group: sourceId,
+  fidelity: z.literal("local-frame"), license: z.literal("local-only"),
+});
+export const codePin = z.union([portablePin, localPin]);
+export const localSourceRights = "This project uses local-only sources. Export is unavailable.";
 const control = z.strictObject({
   key: identifier, label: z.string().min(1).max(80), value: z.string().max(500),
   kind: z.enum(["text", "color", "spacing", "size", "motion"]),
@@ -76,3 +85,5 @@ export const codeProjectSchema = codeProposalSchema.extend({
 export type CodeProject = z.infer<typeof codeProjectSchema>;
 export type CodeProposal = z.infer<typeof codeProposalSchema>;
 export type CodePin = z.infer<typeof codePin>;
+export type LocalCodePin = z.infer<typeof localPin>;
+export const isLocalCodePin = (pin: CodePin): pin is LocalCodePin => pin.license === "local-only";

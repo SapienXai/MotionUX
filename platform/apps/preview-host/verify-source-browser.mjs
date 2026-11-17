@@ -3,8 +3,21 @@ import assert from "node:assert/strict";
 import { expect } from "@playwright/test";
 import { AxeBuilder } from "@axe-core/playwright";
 import { chromium } from "playwright";
+import { galleryOrigin } from "../../../scripts/studio/build-local-sources.mjs";
 
-const { origin, digest, pages, code, journeys } = JSON.parse(process.env.MOTIONUX_SOURCE_VERIFICATION);
+const { origin, digest, pages, code, journeys, localFrames = [] } = JSON.parse(process.env.MOTIONUX_SOURCE_VERIFICATION);
+const frameByID = new Map(localFrames.map((frame) => [frame.id, frame]));
+const frameByURL = new Map(localFrames.map((frame) => [frame.url, frame]));
+function localFrameRequest(request, url) {
+  if (url.origin !== galleryOrigin || !frameByURL.size) return false;
+  if (request.isNavigationRequest()) return frameByURL.has(url.href);
+  let owner;
+  try { owner = request.frame().url(); } catch { return false; }
+  const frame = frameByURL.get(owner);
+  if (!frame) return false;
+  const prefix = `/v9/live/${frame.group}/original/`;
+  return url.pathname.startsWith(prefix) && /^[a-f0-9]{36}\/assets\//.test(url.pathname.slice(prefix.length));
+}
 const browser = await chromium.launch();
 try {
   const errors = [];
@@ -12,8 +25,10 @@ try {
   async function scenario(width, reducedMotion = "reduce") {
     const context = await browser.newContext({ serviceWorkers: "block", viewport: { width, height: 1000 }, reducedMotion });
     await context.route("**/*", (route) => {
-      const url = new URL(route.request().url());
+      const request = route.request();
+      const url = new URL(request.url());
       if (url.origin === origin && !url.pathname.startsWith("/api/")) return route.continue();
+      if (localFrameRequest(request, url)) return route.continue();
       unauthorized.add(url.origin + url.pathname);
       return route.abort();
     });
@@ -35,6 +50,14 @@ try {
       if (!await region.count() || !await region.first().isVisible()) continue;
       await expect(region).toHaveCount(1);
       assert.equal(await region.getAttribute("data-source"), item.source, "Source mount identity changed.");
+      const local = frameByID.get(item.source);
+      if (local) {
+        const original = region.locator('[data-local-source-frame="ready"] iframe');
+        await expect(original).toHaveAttribute("src", local.url);
+        await expect(original).toHaveAttribute("sandbox", "allow-scripts");
+        observed.add(route + "#" + item.id);
+        continue;
+      }
       const rendered = await hasRenderedSource(region);
       if (rendered) observed.add(route + "#" + item.id);
     }

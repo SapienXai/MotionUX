@@ -108,10 +108,18 @@ async function addPwa(repo: string, project: ReturnType<typeof projectSchema.par
   return { appId, routes, offline: "precache-local-snapshot", worker: "/sw.js" };
 }
 
-export async function exportTree(repo: string, value: unknown, options: { pwa?: boolean; vault?: string } = {}) {
+export function exportTree(repo: string, value: unknown, options: { pwa?: boolean; vault?: string } = {}) {
+  return buildTree(repo, value, options, "export");
+}
+
+export function previewTree(repo: string, value: unknown, vault: string) {
+  return buildTree(repo, value, { vault }, "local");
+}
+
+async function buildTree(repo: string, value: unknown, options: { pwa?: boolean; vault?: string }, use: "export" | "local") {
   const project = projectSchema.parse(value);
   if (project.document.codeProject) {
-    const { files, sources: provenance, assets } = await compileCodeProject(repo, project);
+    const { files, sources: provenance, assets } = await compileCodeProject(repo, project, use);
     const output: SourceFiles = { ...files };
     let pwa;
     if (options.pwa) {

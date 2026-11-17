@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { readFile, writeFile } from "node:fs/promises";
+import { cp, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { parseNativeOutput } from "../packages/build-core/composer/codex.ts";
-import { createCodeFixture } from "./b11r-fixture.mjs";
+import { createCodeFixture, repo } from "./b11r-fixture.mjs";
 import { sealCodeProject, codeDocument, compileCodeProject } from "../packages/app-export/code-program.ts";
-import { analyzeModule, inspectCodeCatalog, restoreCodeSources } from "../packages/app-export/code-catalog.ts";
+import { analyzeModule, inspectCodeCatalog, localCodeSources, localSourceTemplate, restoreCodeSources } from "../packages/app-export/code-catalog.ts";
 import { validateProgram } from "../packages/app-export/code-validator.ts";
-import { exportTree, zipTree } from "../packages/app-export/export.ts";
+import { exportTree, previewTree, zipTree } from "../packages/app-export/export.ts";
 import { documentSchema, manualDocument } from "../packages/build-core/model.ts";
 import { fingerprint } from "../packages/build-core/store.ts";
 import { localBuildSource } from "../../scripts/studio/build-local-sources.mjs";
@@ -28,6 +28,41 @@ test("local Build frames require a prepared catalog identity and a pinned source
   assert(localBuildSource(react));
   assert(!localBuildSource({ ...react, upstreamCommit: "a".repeat(40) }));
   assert(!localBuildSource({ ...react, group: "v14-reactbits-unknown" }));
+});
+
+test("mixed local projects compile only for Run and recheck the exact private source pins", async (t) => {
+  const fixture = await createCodeFixture();
+  t.after(fixture.close);
+  const id = "designbookmark-local-test";
+  const local = { availability: "ready", id, slug: "local-test", group: "designbookmark", sourceKind: "html",
+    title: "Owned test specimen", provider: "Fixture", upstreamHash: "e".repeat(64),
+    sourceURL: "https://designbookmark.com/motion-src/code/db-local-test.txt" };
+  const path = resolve(fixture.vault, "catalog.last-good.json");
+  const catalog = JSON.parse(await readFile(path, "utf8"));
+  await writeFile(path, JSON.stringify([...catalog, local]));
+  await cp(resolve(repo, localSourceTemplate), resolve(fixture.fake, localSourceTemplate));
+  const sources = [...fixture.sources, ...await localCodeSources(fixture.fake)];
+  assert.equal(sources.length, 2);
+  assert(!((await inspectCodeCatalog(fixture.fake)).sources.has(id)));
+  const { proposal } = fixture;
+  proposal.files[0].content = proposal.files[0].content
+    .replace('import { useState }', `import LocalSpecimen from "../sources/${id}";\nimport { useState }`)
+    .replace("</main>", `<section data-instance="local" data-source="${id}"><LocalSpecimen /></section></main>`);
+  proposal.usages.push({ source: id, module: "components/app.tsx", route: "/", instance: "local",
+    reason: "Display isolated local specimen", interaction: "Try the specimen" });
+  const graph = await sealCodeProject(fixture.fake, proposal, sources);
+  const project = { ...fixture.project, document: codeDocument(graph) };
+  for (const pwa of [false, true]) await assert.rejects(exportTree(fixture.fake, project, { pwa }), /local-only/);
+  const preview = await previewTree(fixture.fake, project, fixture.vault);
+  assert.match(preview[`sources/${id}/local.tsx`], /\/v10\/build-preview\/.+&view=run/);
+  assert.match(preview["runtime/local-source.tsx"], /sandbox="allow-scripts"/);
+  assert.match(preview["next.config.mjs"], /frame-src http:\/\/127\.0\.0\.1:5199\/v10\/build-preview\//);
+  assert.equal(preview[`sources/${id}/LICENSE.txt`], undefined);
+  await writeFile(path, JSON.stringify([...catalog, { ...local, upstreamHash: "d".repeat(64) }]));
+  await assert.rejects(previewTree(fixture.fake, project, fixture.vault), /Pinned source changed/);
+  // The export decision is made from the saved graph even if its local vault record disappears.
+  await writeFile(path, JSON.stringify(catalog));
+  await assert.rejects(exportTree(fixture.fake, project), /local-only/);
 });
 
 test("a novel source API compiles into real modules, keeps editable config and deterministic Next/PWA closures", async (t) => {
