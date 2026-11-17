@@ -4,7 +4,7 @@ B8 keeps Gallery on its existing loopback origin and allows the Studio entry to 
 
 The shared header exchanges appearance, search and location updates with the Gallery window only. It pins both loopback origins and the expected window references. Managed image backups stream through the Build route's local host and same-origin checks with an explicit byte cap. Restore validates project identity, image format, dimensions, metadata, both rendition hashes and the per-project quota before publishing images. Purge checks all retained document references using the same lock as saves and recovery drafts.
 
-Studio writes a validated versioned document under a server-generated project ID in the ignored vault. Document text is data. It cannot name a filesystem target, import, command, external image or executable component. The app registry distinguishes owned exportable blocks from private originals, which are excluded from exports.
+Studio writes a validated versioned document under a server-generated project ID in the ignored vault. Document text is data. It cannot name a filesystem target, import, command, external image or executable component. Legacy documents select owned blocks. B11 source-driven graphs reference eligible catalog entries when the pinned closure, notices and runtime compatibility pass verification. Private and restricted source stays in the vault.
 
 The local HTTP API requires the configured loopback host and an exact browser origin for mutations. Project writes check the saved revision and preserve the prior verified document for recovery. Generated apps receive only the explicitly exported project document and registered source. The existing Agent V4 and MCP boundaries also apply to Build.
 
@@ -37,3 +37,7 @@ The writable target is a generated child of the private Build integration folder
 ## B10 authorship boundary
 
 Preset, layout and record types use finite enum and numeric bounds. Recipes can instantiate only registered compatible blocks with known export rights. Section nesting, shell landmarks inside slots, arbitrary style strings, unknown fields and unowned media remain invalid. Composer proposal fields for style and sections are declarative choices reviewed by the same exact-digest contract. Local runtime task status is validated against authored IDs before use and cannot create records or authorize a server action.
+
+## B11 managed source generation
+
+The signed-in native bridge receives the brief and bounded excerpts from eligible public implementations. Source text is reference data. The model response cannot introduce file paths, dependencies, commands, remote assets or server actions. The local compiler emits the modules. Next builds with no network in the macOS sandbox. Preview runs on a separate loopback origin. The Studio API requires the exact Studio origin and fetch-site metadata. [B11 architecture](BUILD-B11-SOURCE-DRIVEN-ARCHITECTURE.md)

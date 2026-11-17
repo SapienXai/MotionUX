@@ -4,7 +4,9 @@
   "type": "module",
   "exports": {
     ".": "./export.ts",
-    "./media": "./media.ts"
+    "./media": "./media.ts",
+    "./source-catalog": "./source-catalog.ts",
+    "./source-tree": "./source-tree.ts"
   },
   "dependencies": {
     "@motionux/build-core": "workspace:*",

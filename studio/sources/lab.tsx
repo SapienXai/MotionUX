@@ -132,6 +132,7 @@ function Comparison({ entry, route, scheme, navigate, back }: {
             <option value="auto">Fit available space</option><option value="320">320 px</option><option value="390">390 px</option><option value="768">768 px</option>
           </select></label>}
           <button type="button" className="mx-button" onClick={() => setReset(reset + 1)}><RotateCcw size={15} aria-hidden="true" /> {route.compare ? "Reset all" : "Replay preview"}</button>
+          {!html && <a className="mx-button" href={"http://127.0.0.1:5200/build?source=" + encodeURIComponent(entry.id)} target="_blank" rel="noreferrer">Use in Build</a>}
           <button type="button" className="mx-button" aria-pressed={route.compare === true} onClick={() => navigate({ ...route, compare: !route.compare }, true)}>Compare</button>
         </div>
       </div>

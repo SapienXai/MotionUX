@@ -1,5 +1,8 @@
 "use client";
 
+import { SourceEditor } from "./source-editor";
+import { SourceJobStatus, useSourceJob } from "./source-job";
+
 import { projectPathKey } from "../../../../../lib/studio-bridge";
 import {
   ArrowDown,
@@ -162,6 +165,11 @@ export function ComposerHome({
   const reviewHeading = useRef<HTMLHeadingElement>(null);
   const alertRef = useRef<HTMLParagraphElement>(null);
 
+  const [preferred, setPreferred] = useState<string>();
+  const sourceOperation = useSourceJob("home", async (id) => {
+    openCanvas(await request<BuildProject>("/" + id));
+  });
+
   function openCanvas(value: BuildProject) {
     setReview(undefined);
     setEdits(undefined);
@@ -171,7 +179,9 @@ export function ComposerHome({
   }
   useEffect(() => {
     const controller = new AbortController();
-    const selected = new URLSearchParams(location.search).get("project");
+    const params = new URLSearchParams(location.search);
+    const selected = params.get("project");
+    setPreferred(params.get("source") ?? undefined);
     void (async () => {
       try {
         setRows(await request<Row[]>("", "GET", undefined, controller.signal));
@@ -293,6 +303,12 @@ export function ComposerHome({
     [routes[index], routes[next]] = [routes[next], routes[index]];
     setEdits({ ...edits, routes });
   }
+  if (project?.document.sourceGraph)
+    return <SourceEditor key={project.id} initial={project} onBack={() => {
+      setProject(undefined);
+      rememberProject("/build");
+      void request<Row[]>().then(setRows, (error) => setError(messageFor(error)));
+    }} />;
   if (project)
     return (
       <Canvas
@@ -344,15 +360,21 @@ export function ComposerHome({
                   Build something real.
                 </h1>
                 <p>
-                  Describe the app you want. Codex proposes a blueprint from
-                  verified blocks; you choose what goes into your workspace.
+                  Describe how your app should work. Build searches your source catalog and opens the verified application in Studio.
                 </p>
               </div>
               <form
                 className="compose-form"
                 method="post"
                 action="/api/build/compose/generate"
-                onSubmit={generate}
+                onSubmit={(event) => {
+                  if ((event.nativeEvent as SubmitEvent).submitter?.getAttribute("data-mode") === "blueprint") {
+                    void generate(event);
+                  } else {
+                    event.preventDefault();
+                    void sourceOperation.start(brief, { preferred });
+                  }
+                }}
                 aria-labelledby="brief-label"
               >
                 <label id="brief-label" htmlFor="app-brief">
@@ -369,13 +391,12 @@ export function ComposerHome({
                   rows={4}
                   placeholder="A sales workspace with a clean contacts directory, a deal board and a mobile navigation bar…"
                   value={brief}
-                  readOnly={generating}
+                  readOnly={generating || sourceOperation.active}
                   onChange={(event) => setBrief(event.target.value)}
                 />
                 <div className="compose-form-foot">
                   <span id="brief-hint">
-                    <LockKeyhole size={14} /> Use fictional data. No passwords
-                    or customer information.
+                    <LockKeyhole size={14} /> Codex receives the brief and selected source excerpts with export rights. Use fictional data.
                   </span>
                   {generating ? (
                     <button
@@ -386,15 +407,14 @@ export function ComposerHome({
                       Cancel
                     </button>
                   ) : (
-                    <button
-                      className="build-button accent"
-                      type="submit"
-                      disabled={busy}
-                    >
-                      <Sparkles size={16} /> Generate blueprint
-                    </button>
+                    <div className="b11-create-actions">
+                      <button className="build-button accent" type="submit" disabled={busy || sourceOperation.active}><Sparkles size={16} /> Create app</button>
+                      <button className="build-text-button" type="submit" data-mode="blueprint" disabled={busy || sourceOperation.active}>Generate blueprint</button>
+                    </div>
                   )}
                 </div>
+                {preferred && <p>Selected source <strong>{preferred}</strong> <button type="button" className="build-text-button" onClick={() => setPreferred(undefined)}>Remove</button></p>}
+                <SourceJobStatus operation={sourceOperation} />
               </form>
               <div className="compose-pills" aria-label="Example briefs">
                 {choices.map(({ id, label, Icon, brief }) => (

@@ -75,3 +75,7 @@ Prepare builds the exact baseline and Dialog-enhanced source into private siblin
 ## B10 creator
 
 The same validated document owns optional design identity, one-level section slots, responsive layout and typed content. Puck projects concrete blocks into its installed Slot API. Editor selection and temporary style preview are session state. The document and validated history remain the source of truth for Edit, Interact, saved Run and Export. The standalone runtime receives the same semantic tokens and section CSS. [Layout and section contract](BUILD-B10-RESPONSIVE-AND-SECTIONS.md) · [Migration](BUILD-B10-MIGRATIONS.md)
+
+## B11 source-driven projects
+
+Create app starts a versioned source graph. Manual starters and reviewed Blueprints retain their legacy editor and exporter. [B11 architecture](BUILD-B11-SOURCE-DRIVEN-ARCHITECTURE.md) traces source resolution, compiler, preview and export.

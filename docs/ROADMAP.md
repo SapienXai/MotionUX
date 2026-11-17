@@ -149,7 +149,7 @@ B8.0 records the inherited architecture and trust boundaries. B8.1 routes discov
 
 | Planned phase | Capability | Entry condition |
 | --- | --- | --- |
-| B11 | Motion DNA for more pinned originals | Prove source and behavior parity for each supported integration. |
+| B11 | Source-driven authoring and structure | Verify native generation, meaningful source usage, synthesis, revision and independent app behavior. [B11 gates](BUILD-B11-ACCEPTANCE.md) |
 | B12 | Site-wide Inspector and guided improvements | Verify findings across routes, secure the proposal and keep changes user-reviewed. |
 | B13 | Real-project integration | Require an independently authenticated host approval channel and proven rollback in representative applications. |
 

@@ -17,7 +17,7 @@ import { composerPrompt, responseSchema } from "./blueprint.ts";
 const cli =
   "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex";
 const seatbelt = "/usr/bin/sandbox-exec";
-const deadline = 75_000;
+
 const responseLimit = 192 * 1024;
 const scratchLimit = 32 * 1024 * 1024;
 const unavailable = () =>
@@ -85,6 +85,7 @@ export async function runCodex(
   vault: string,
   brief: string,
   signal?: AbortSignal,
+  operation?: { prompt: string; schema: object; deadlineMs: number },
 ): Promise<PlanningResult> {
   if (signal?.aborted) throw canceled();
   if (process.platform !== "darwin") throw unavailable();
@@ -126,7 +127,7 @@ export async function runCodex(
     await mkdir(codexHome, { mode: 0o700 });
     await mkdir(temp, { mode: 0o700 });
     await symlink(auth, resolve(codexHome, "auth.json"));
-    await writeFile(schema, JSON.stringify(responseSchema), {
+    await writeFile(schema, JSON.stringify(operation?.schema ?? responseSchema), {
       flag: "wx",
       mode: 0o600,
     });
@@ -143,6 +144,7 @@ export async function runCodex(
           "exec",
           "--ignore-user-config",
           "--ignore-rules",
+          ...(operation ? ["-c", 'model_reasoning_effort="low"'] : []),
           "--ephemeral",
           "--sandbox",
           "read-only",
@@ -219,7 +221,7 @@ export async function runCodex(
           stop(
             new BuildError(504, "Codex took too long. Try a shorter brief."),
           ),
-        deadline,
+        operation?.deadlineMs ?? 75_000,
       );
       let measuring = false;
       let peakScratchBytes = 0;
@@ -249,7 +251,7 @@ export async function runCodex(
       if (signal?.aborted) abort();
       child.once("error", () => stop(unavailable()));
       child.stdin.on("error", () => {});
-      child.stdin.end(composerPrompt(brief));
+      child.stdin.end(operation?.prompt ?? composerPrompt(brief));
       child.stderr.on("data", (chunk: Buffer) => {
         bytes += chunk.byteLength;
         if (bytes > responseLimit)

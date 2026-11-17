@@ -9,7 +9,9 @@
     "./blueprint": "./composer/blueprint.ts",
     "./composer": "./composer/service.ts",
     "./inspection": "./inspection.ts",
-    "./integration": "./integration.ts"
+    "./integration": "./integration.ts",
+    "./source-graph": "./source/graph.ts",
+    "./native-codex": "./composer/codex.ts"
   },
   "dependencies": {
     "zod": "4.6.6"

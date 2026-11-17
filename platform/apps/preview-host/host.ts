@@ -107,7 +107,7 @@ function runNext(
     .join(" ");
   const profile =
     "(version 1) (allow default) (deny network*) (deny file-write*) " +
-    '(deny file-read-data (subpath "/Users")) (allow file-read-data ' +
+    '(deny file-read-data (subpath "/Users") (subpath "/Volumes") (subpath "/private/tmp") (subpath "/private/var/folders") (subpath "/opt") (subpath "/usr/local")) (allow file-read-data ' +
     subpaths +
     ") " +
     '(allow file-write* (literal "/dev/null") (subpath ' +
@@ -520,5 +520,34 @@ export async function inspectIntegration(
     return report;
   } finally {
     await stopPreview(true);
+  }
+}
+
+export async function verifySourcePreview(repo: string, project: BuildProject, signal: AbortSignal) {
+  const session = globalState.motionuxPreview;
+  const graph = project.document.sourceGraph;
+  if (!graph || !session || session.state.status !== "ready" ||
+    session.state.id !== project.id || session.state.revision !== project.revision ||
+    session.state.documentDigest !== fingerprint(canonical(project.document))) {
+    throw new BuildError(409, "The exact source revision is not running.");
+  }
+  try {
+    const { stdout } = await exec(process.execPath, [resolve(repo, "platform/apps/preview-host/verify-source-browser.mjs")], {
+      cwd: repo, timeout: 45_000, maxBuffer: 96_000,
+      signal: AbortSignal.any([signal, session.abort.signal]),
+      env: {
+        NODE_ENV: "production", PATH: dirname(process.execPath) + ":/usr/bin:/bin",
+        HOME: process.env.HOME, PLAYWRIGHT_BROWSERS_PATH: process.env.PLAYWRIGHT_BROWSERS_PATH,
+        MOTIONUX_SOURCE_VERIFICATION: JSON.stringify({
+          origin, digest: session.state.documentDigest,
+          pages: graph.pages.map(({ route, instances }) => ({ route, instances: instances.map(({ id, kind }) => ({ id, kind })) })),
+        }),
+      },
+    });
+    return JSON.parse(stdout) as { routes: number; instances: number; width: number; engine: string };
+  } catch (error) {
+    signal.throwIfAborted();
+    const diagnostic = (error as { stderr?: string }).stderr?.split("\n").find((line) => /AssertionError/.test(line));
+    throw new BuildError(422, diagnostic?.slice(0, 180) ?? "Local Chromium could not verify the generated routes.");
   }
 }

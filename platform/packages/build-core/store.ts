@@ -270,7 +270,7 @@ export function createStore(vault: string) {
     }
   }
   return {
-    async create(document?: Document, blueprint?: BuildProject["blueprint"]) {
+    async create(document?: Document, blueprint?: BuildProject["blueprint"], reservedId?: string) {
       await roots();
       return locked(projects, async () => {
         const ids = await readdir(projects);
@@ -279,7 +279,7 @@ export function createStore(vault: string) {
             409,
             "The local vault already holds 24 projects.",
           );
-        const id = randomId();
+        const id = reservedId ? projectId.parse(reservedId) : randomId();
         const project = newProject(id, document, blueprint);
         const root = resolve(projects, id);
         await mkdir(root, { mode: 0o700 });

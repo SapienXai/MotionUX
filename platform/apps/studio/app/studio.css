@@ -1366,3 +1366,34 @@ select:focus-visible {
   background: var(--build-selected);
   cursor: grab;
 }
+
+.b11-create-actions, .b11-editor-title { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.source-job-status { padding: 8px 14px; overflow-wrap: anywhere; color: var(--build-text); background: var(--build-panel); border: 1px solid var(--build-border); border-radius: 8px; }
+.source-job-status p { margin-block: 5px; }
+.b11-workspace { display: grid; grid-template-columns: minmax(146px, 210px) minmax(0, 1fr) minmax(186px, 245px); min-block-size: 70vh; }
+.b11-workspace > * { min-inline-size: 0; padding: 12px; }
+.b11-outline, .b11-properties { background: var(--build-panel); display: flex; flex-direction: column; align-items: stretch; gap: 8px; overflow-wrap: anywhere; }
+.b11-outline { border-inline-end: 1px solid var(--build-border); }
+.b11-properties { border-inline-start: 1px solid var(--build-border); }
+.b11-workspace h2 { margin-block: 6px 0; font-size: 14px; }
+.b11-outline nav, .b11-properties form, .b11-properties label, .b11-properties fieldset { display: grid; gap: 6px; min-inline-size: 0; }
+.b11-outline .build-button { justify-content: start; text-align: start; white-space: normal; }
+.b11-outline .build-button[aria-pressed="true"] { border-color: var(--build-accent); color: var(--build-accent); background: var(--build-selected); }
+.b11-properties :is(input:not([type="checkbox"]),textarea,select), .b11-canvas-bar select { inline-size: 100%; padding: 7px; border: 1px solid var(--build-border); border-radius: 5px; color: var(--build-text); background: var(--build-input); }
+.b11-source { margin-block: 8px; }
+.b11-source small { display: block; color: var(--build-muted); }
+.b11-canvas { text-align: center; }
+.b11-canvas-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding-block-end: 12px; text-align: start; }
+.b11-canvas-bar select { inline-size: auto; }
+.b11-canvas iframe { inline-size: 100%; min-block-size: 74dvh; border: 1px solid var(--build-border); border-radius: 8px; }
+.b11-canvas iframe[data-size="tablet"] { max-inline-size: 768px; }
+.b11-canvas iframe[data-size="mobile"] { max-inline-size: 390px; }
+.b11-editor a[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+@media (max-width: 780px) {
+  .b11-workspace { grid-template-columns: minmax(0, 1fr); }
+  .b11-workspace[data-pane="outline"] > :not(.b11-outline),
+  .b11-workspace[data-pane="properties"] > :not(.b11-properties),
+  .b11-workspace[data-pane="canvas"] > :not(.b11-canvas) { display: none; }
+}
+
+.b11-properties fieldset label:has(input[type="checkbox"]) { display: flex; align-items: center; }

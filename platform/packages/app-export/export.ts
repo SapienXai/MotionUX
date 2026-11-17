@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 import { strToU8, zipSync } from "fflate";
 import { allBlocks, blockSpec, blockSpecVersion, defaultMotionDna, projectSchema, referencedMedia } from "@motionux/build-core";
 import { canonical, fingerprint } from "@motionux/build-core/store";
+import { compileSourceTree } from "./source-tree.ts";
 import { mediaBytes } from "./media.ts";
 
 const templateFiles = [
@@ -30,6 +31,7 @@ const sources = {
   "runtime/frame.tsx": "app-blocks/frame.tsx",
   "runtime/hotel.css": "app-blocks/hotel.css",
   "runtime/model.ts": "build-core/model.ts",
+  "runtime/source-graph.ts": "build-core/source/graph.ts",
   "runtime/page-patterns.ts": "build-core/page-patterns.ts",
   "runtime/marketing-spec.ts": "build-core/marketing-spec.ts",
   "runtime/marketing-template.ts": "build-core/marketing-template.ts",
@@ -42,6 +44,7 @@ const sources = {
 } as const;
 const localImports = (contents: string) =>
   contents
+    .replaceAll('from "./source/graph.ts"', 'from "./source-graph"')
     .replaceAll('from "@motionux/build-core"', 'from "./model"')
     .replace(/(from|export \* from) "(\.\/[a-z-]+)\.tsx?"/g, '$1 "$2"');
 
@@ -62,6 +65,14 @@ async function addPwa(repo: string, project: ReturnType<typeof projectSchema.par
     files[path] = await readFile(resolve(template, name), "utf8");
   }
   const { document, id } = project;
+  if (document.sourceGraph) {
+    files["app/layout.tsx"] = String(files["app/layout.tsx"]).replace('import "./globals.css";', 'import "../runtime/screen.css";')
+      .replace('<html lang={locale}>', '<html lang={locale} dir={project.document.sourceGraph.direction}>');
+    files["runtime/pwa-status.tsx"] = String(files["runtime/pwa-status.tsx"])
+      .replace('import { useOptionalApp } from "./frame";', 'import { project } from "./project";')
+      .replace('useOptionalApp()?.theme', 'project.document.theme');
+    files["runtime/pwa-screen.tsx"] = String(files["runtime/pwa-screen.tsx"]).replace(' documentNavigation', '');
+  }
   const theme = document.template === "hotel-dashboard" ? "hotel" : document.template === "crm-dashboard" ? "crm" : "blank";
   for (const icon of ["192", "512", "maskable"]) {
     files["public/pwa/icon-" + icon + ".png"] = await readFile(resolve(template, "icons", theme + "-" + icon + ".png"));
@@ -77,7 +88,7 @@ async function addPwa(repo: string, project: ReturnType<typeof projectSchema.par
   const appId = "/?app=" + id;
   files["public/manifest.webmanifest"] = JSON.stringify({
     id: appId, name: document.name, short_name: Array.from(document.name).slice(0, 24).join(""),
-    lang: document.locale, start_url: "/", scope: "/", display: "standalone",
+    lang: document.locale, ...(document.sourceGraph && { dir: document.sourceGraph.direction }), start_url: "/", scope: "/", display: "standalone",
     background_color: background, theme_color: background, icons,
   }, null, 2) + "\n";
   const routes = document.pages.map((page) => page.route).sort();
@@ -96,6 +107,26 @@ async function addPwa(repo: string, project: ReturnType<typeof projectSchema.par
 
 export async function exportTree(repo: string, value: unknown, options: { pwa?: boolean; vault?: string } = {}) {
   const project = projectSchema.parse(value);
+  if (project.document.sourceGraph) {
+    const { files, sources: provenance } = await compileSourceTree(repo, project);
+    const output: SourceFiles = { ...files };
+    output.LICENSE = await readFile(resolve(repo, "LICENSE"), "utf8");
+    const pwa = options.pwa ? await addPwa(repo, project, output) : undefined;
+    const entries = Object.keys(output).sort().map((path) => ({ path, sha256: fingerprint(output[path]) }));
+    output["motionux-manifest.json"] = JSON.stringify({
+      schemaVersion: project.schemaVersion, revision: project.revision,
+      documentDigest: fingerprint(canonical(project.document)), digest: fingerprint(canonical(entries)),
+      design: project.document.sourceGraph.tone, motion: project.document.sourceGraph.motion,
+      sources: provenance, artifacts: project.document.sourceGraph.artifacts,
+      requirements: project.document.sourceGraph.requirements.map((need) => ({
+        ...need, instances: project.document.sourceGraph!.pages.flatMap(({ route, instances }) =>
+          instances.filter((item) => item.requirement === need.id).map(({ id, source, kind }) => ({ route, id, source, kind }))),
+      })),
+      limitations: project.document.sourceGraph.limitations,
+      ...(pwa && { pwa }), files: entries,
+    }, null, 2) + "\n";
+    return Object.fromEntries(Object.entries(output).sort(([a], [b]) => a.localeCompare(b)));
+  }
   const template = resolve(repo, "platform/templates/hotel-dashboard");
   const files: SourceFiles = {};
   for (const path of templateFiles)

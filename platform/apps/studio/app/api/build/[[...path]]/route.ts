@@ -1,4 +1,5 @@
 import { resolve } from "node:path";
+import { cancelSourceJob, getSourceJob, startSourceJob } from "../source-jobs";
 import {
   createStore,
   maxDocument,
@@ -129,6 +130,12 @@ async function handle(request: Request, { params }: Context) {
       }
     }
     const [id, action] = path;
+    if (id === "source-jobs" && path.length === 2) {
+      if (method === "POST" && action === "start") return json(await startSourceJob(repo, vault, await documentBody(request, 15_000)), 202);
+      if (method === "GET") return json(await getSourceJob(vault, action));
+      if (method === "DELETE") return json(await cancelSourceJob(vault, action));
+      return json({ message: "Unknown source generation action." }, 404);
+    }
     if (id === "compose" && path.length === 2) {
       const composer = composerFor(vault);
       if (method === "DELETE") return json(composer.cancel(action));

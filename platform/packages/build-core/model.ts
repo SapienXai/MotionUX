@@ -1,3 +1,4 @@
+import { sourceGraphSchema } from "./source/graph.ts";
 import { z } from "zod";
 import { articlesSchema, defaultSectionLayout, identitySchema, recipeIds, sectionLayoutSchema, taskCollectionSchema } from "./creator-design.ts";
 export * from "./creator-design.ts";
@@ -355,9 +356,9 @@ export type BlockProps = z.infer<typeof blockProps>;
 export const projectId = z.string().regex(/^[a-f0-9]{32}$/);
 export const routeSlug = z
   .string()
-  .regex(/^(?:\/|\/[a-z][a-z0-9-]{0,39})$/)
+  .regex(/^\/(?:[a-z][a-z0-9-]{0,39}(?:\/[a-z][a-z0-9-]{0,39}){0,2})?$/)
   .refine(
-    (route) => !["/api", "/block-review"].includes(route),
+    (route) => !/^\/(?:api|pwa|block-review)(?:\/|$)/.test(route),
     "Reserved route.",
   );
 export const pageSchema = z.strictObject({
@@ -385,8 +386,11 @@ export const documentSchema = compositionFields.extend({
   locale: z.enum(["en", "tr"]).default("en"),
   motionDna: motionDnaSchema.optional(),
   identity: identitySchema.optional(),
+  sourceGraph: sourceGraphSchema.optional(),
   tasks: taskCollectionSchema.optional(),
-}).superRefine(({ pages, data, template, assets, tasks }, context) => {
+}).superRefine(({ pages, data, template, assets, tasks, sourceGraph }, context) => {
+    if (sourceGraph && (template !== "blank-app" || pages.length !== sourceGraph.pages.length || pages.some((page, index) => page.id !== "p-" + sourceGraph.pages[index].id || page.route !== sourceGraph.pages[index].route || page.blocks.length) || assets.length))
+      context.addIssue({ code: "custom", message: "Invalid source project projection.", path: ["sourceGraph"] });
     if (tasks && data !== "operations-demo-v1")
       context.addIssue({ code: "custom", message: "Task records require the Operations adapter.", path: ["tasks"] });
     if (adapterFor[template] !== data)
