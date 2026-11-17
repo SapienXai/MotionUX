@@ -228,9 +228,12 @@ export function StudioChrome({ children }: { children: ReactNode }) {
             <Search size={16} aria-hidden="true" />
           </button>
         </form>
-        <label className="studio-appearance">
-          <span className="build-sr">{t("Studio theme", "Studio teması")}</span>
+        <div className="studio-appearance">
+          <label htmlFor="studio-appearance" className="build-sr">
+            {t("Studio theme", "Studio teması")}
+          </label>
           <select
+            id="studio-appearance"
             value={appearance ?? "system"}
             onChange={(event) => {
               const next = event.target.value;
@@ -248,7 +251,7 @@ export function StudioChrome({ children }: { children: ReactNode }) {
             <option value="light">{t("Light", "Açık")}</option>
             <option value="dark">{t("Dark", "Koyu")}</option>
           </select>
-        </label>
+        </div>
       </header>
       <div id="workspace-content" tabIndex={-1} className="studio-content">
         {children}

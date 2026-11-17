@@ -370,7 +370,7 @@ select:focus-visible {
   display: grid;
   place-items: center;
   border-radius: 7px;
-  background: #322949;
+  background: var(--build-selected);
   color: var(--build-accent);
   width: 35px;
   height: 35px;
@@ -583,18 +583,18 @@ select:focus-visible {
 }
 .build-pages button[aria-current],
 .build-outline button[aria-pressed="true"] {
-  background: #332949;
-  color: #e7dcff;
-  border-color: #574870;
+  background: var(--build-selected);
+  color: var(--build-accent);
+  border-color: var(--build-border);
 }
 .build-text-button {
   justify-content: flex-start;
   padding-inline: 0;
   color: var(--build-accent);
 }
-.build-pages button:hover,
-.build-outline button:hover {
-  background: #2b2737;
+.build-pages button:not([aria-current]):hover,
+.build-outline button:not([aria-pressed="true"]):hover {
+  background: var(--build-raised);
   color: var(--build-text);
 }
 .build-selected-label {

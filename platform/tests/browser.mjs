@@ -553,7 +553,15 @@ try {
     .click();
   await picture(page, "editor-desktop");
   await metrics(page, "studio-editor");
-  await audit(page, "editor");
+  const studioTheme = page.getByLabel("Studio theme", { exact: true });
+  const currentPage = page.getByRole("navigation", { name: "Project pages" }).locator('button[aria-current="page"]');
+  for (const theme of ["light", "dark"]) {
+    await studioTheme.selectOption(theme);
+    await expect(page.locator("html")).toHaveAttribute("data-studio-appearance", theme);
+    await currentPage.hover();
+    await audit(page, "editor active page hover · " + theme);
+  }
+  await studioTheme.selectOption("system");
   check(
     "keyboard editing, reorder, duplicate, remove, history, pages and save/reload",
   );
