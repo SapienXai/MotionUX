@@ -2,6 +2,8 @@
 
 B8 keeps Gallery on its existing loopback origin and allows the Studio entry to frame the permitted Gallery documents. Original opaque sandbox frames, private asset paths and local-only APIs retain their existing restrictions. The Build API continues to enforce loopback host, same-origin request and managed-project rules. For verified media bytes, export rights and ownership checks, see [B8 managed media](BUILD-B8-MEDIA.md).
 
+The shared header exchanges appearance, search and location updates with the Gallery window only. It pins both loopback origins and the expected window references. Managed image backups stream through the Build route's local host and same-origin checks with an explicit byte cap. Restore validates project identity, image format, dimensions, metadata, both rendition hashes and the per-project quota before publishing images. Purge checks all retained document references using the same lock as saves and recovery drafts.
+
 Studio writes a validated versioned document under a server-generated project ID in the ignored vault. Document text is data. It cannot name a filesystem target, import, command, external image or executable component. The app registry distinguishes owned exportable blocks from private originals, which are excluded from exports.
 
 The local HTTP API requires the configured loopback host and an exact browser origin for mutations. Project writes check the saved revision and preserve the prior verified document for recovery. Generated apps receive only the explicitly exported project document and registered source. The existing Agent V4 and MCP boundaries also apply to Build.

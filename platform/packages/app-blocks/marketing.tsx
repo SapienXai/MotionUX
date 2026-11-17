@@ -123,9 +123,11 @@ function Action({ cta, destination }: Pick<BlockProps, "cta" | "destination">) {
 function Navigation({
   footer = false,
   title,
+  presentation,
 }: {
   footer?: boolean;
   title: string;
+  presentation: Record<string, string>;
 }) {
   const { document, route } = useSite();
   const [open, setOpen] = useState(false);
@@ -151,7 +153,7 @@ function Navigation({
     </ul>
   );
   return footer ? (
-    <footer className="site-footer">
+    <footer className="site-footer" {...presentation}>
       <SiteLink href="/" className="site-wordmark">
         {title || document.name}
       </SiteLink>
@@ -163,7 +165,7 @@ function Navigation({
       </p>
     </footer>
   ) : (
-    <header className="site-header">
+    <header className="site-header" {...presentation}>
       <SiteLink href="/" className="site-wordmark">
         {title || document.name}
       </SiteLink>
@@ -378,6 +380,7 @@ function Contact({ props }: { props: BlockProps }) {
 export function MarketingBlockView({ block }: { block: Block }) {
   const p = block.props;
   const shared = {
+    "data-marketing-block": block.type,
     "data-visibility": p.visibility,
     "data-block-motion": p.motion,
     "data-variant": p.variant,
@@ -385,9 +388,9 @@ export function MarketingBlockView({ block }: { block: Block }) {
   let node: ReactNode;
   switch (block.type) {
     case "MarketingHeader":
-      return <Navigation title={p.title} />;
+      return <Navigation title={p.title} presentation={shared} />;
     case "MarketingFooter":
-      return <Navigation title={p.title} footer />;
+      return <Navigation title={p.title} presentation={shared} footer />;
     case "HeroEditorial":
       node = <Hero props={p} editorial />;
       break;

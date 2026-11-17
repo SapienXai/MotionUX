@@ -10,4 +10,8 @@ With workspace dependencies and the local originals prepared, run `npm run studi
 
 Costa di Sera uses responsive page sections, editable editorial content and local imagery. Hotel Desk and Meridian CRM remain separate dashboard templates. The browser preview uses the authoring device width and theme. Exported pages use the configured site theme and system settings.
 
-Discover uses the existing Gallery runtime and preserves its direct links. Build and Gallery currently keep separate search, theme and browser history. Returning to Build from Gallery starts a fresh Build navigation. The editor's originals shortcut opens a separate tab so the draft stays open.
+The shared Studio search opens Gallery results from any workspace. Use `/` or `Ctrl/⌘ + K` to focus it. The Studio theme has System, Light and Dark choices. The theme inside the app you are creating remains a project setting.
+
+Use **Gallery** and then **Build** in the same tab to resume the project. The checkpoint restores the unsaved document, active page, selected block, viewport and editing pane. It preserves the saved revision until you save explicitly. For an older draft, Studio shows a restore or discard decision.
+
+The **Media backup** section downloads or restores the uploaded image files for that managed project. You can permanently delete a detached image once the saved project, its previous revision and the recovery draft release it. [Media backup and deletion](BUILD-B8-MEDIA.md)

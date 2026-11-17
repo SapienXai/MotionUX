@@ -2,7 +2,7 @@
 
 The [B8 creator architecture](BUILD-B8-ARCHITECTURE.md) describes unified navigation, draft rendering, managed media and the marketing template.
 
-The transition keeps the Vite-era Gallery and library at port 5199. A native Next App Router shell serves new product routes at port 5200. Navigation uses explicit links between the two loopback services. Existing API origin checks stay in place. The legacy npm lock and fixture-specific npm locks remain authoritative for their lanes. The platform workspace has its own pnpm lock, without a second copy of Brain, Agent, MCP or the original vault.
+The transition keeps the Vite-era Gallery and library at port 5199. The Next App Router shell on port 5200 provides the shared header and exposes Gallery through Discover. Existing API origin checks stay in place. The legacy npm lock and fixture-specific npm locks remain authoritative for their lanes. The platform workspace has its own pnpm lock, without a second copy of Brain, Agent, MCP or the original vault.
 
 ```mermaid
 flowchart LR
