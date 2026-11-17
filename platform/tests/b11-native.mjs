@@ -13,7 +13,11 @@ const cases = [
   ["E1", "Build a marine fieldwork log for volunteer teams. Every crew needs a sortable dive inspection queue, a way to review locations and conditions, and a clear record detail for follow-up assessments. Include local editing, status filters and a compact mobile-first checklist."],
   ["E2", "Create a ceramics exhibition preparation app. Curators should compare a few objects across a collection, filter by material and readiness, and switch to a route grouping the pieces by gallery room. Let curators edit the label text and condition in local records."],
 ];
-const chosen = process.argv.slice(2);
+const chosen = process.argv.slice(2).filter((value) => !value.startsWith("--"));
+const preferred = process.argv.find((value) => value.startsWith("--source="))?.slice(9);
+const suffix = process.argv.find((value) => value.startsWith("--suffix="))?.slice(9) ?? "";
+assert(!suffix || /^[a-zA-Z0-9-]+$/.test(suffix));
+assert(!preferred || /^[a-z0-9-]{1,96}$/.test(preferred));
 const browser = await chromium.launch();
 await mkdir(evidence, { recursive: true, mode: 0o700 });
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: "light", acceptDownloads: true });
@@ -21,7 +25,8 @@ const page = await context.newPage();
 const button = (label) => page.getByRole("button", { name: label, exact: true });
 
 async function run(label, brief) {
-  await page.goto(origin + "/build", { waitUntil: "networkidle" });
+  label += suffix;
+  await page.goto(origin + "/build" + (preferred ? "?source=" + encodeURIComponent(preferred) : ""), { waitUntil: "networkidle" });
   await page.getByRole("textbox", { name: "Describe your app" }).fill(brief);
   const starting = page.waitForResponse((response) => response.url().endsWith("/source-jobs/start"));
   await button("Create app").click();

@@ -2,7 +2,7 @@
 
 Run the portable contract lane with **pnpm --dir platform test**. The source tests use owned fixtures for code selection, hash checks, generated artifacts, generic routing and rejection of unsupported or redirected sources.
 
-On a signed-in Mac, run **pnpm --dir platform build** and **node platform/start.mjs --built --fixture=build-browser-b11native** on a free port 5200. With the prepared catalog, run **node platform/tests/b11-native.mjs** from the repo root. Optional case IDs are A, B, C, E1 and E2. Native evidence appears under the ignored .motionux-v9/evidence/build-b11 directory. Run **node platform/tests/b11-consumer.mjs --all-engines A B C** on completed ZIPs for independent Next.js builds, source interactions and offline behavior.
+On a signed-in Mac, run **pnpm --dir platform build** and **node platform/start.mjs --built --fixture=build-browser-b11native** on a free port 5200. With the prepared catalog, run **node platform/tests/b11-native.mjs** from the repo root. Optional case IDs are A, B, C, E1 and E2. Use the optional --source argument to exercise a Gallery-selected API and --suffix to retain separate evidence. Run **node platform/tests/b11-revision.mjs A** on the same current compiler and fixture to test a saved edit, targeted native revision, export and cancellation. Native evidence appears under the ignored .motionux-v9/evidence/build-b11 directory. Run **node platform/tests/b11-consumer.mjs --all-engines A B C** on completed ZIPs for independent Next.js builds, source interactions and offline behavior.
 
 | Gate | Required evidence |
 | --- | --- |

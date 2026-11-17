@@ -46,7 +46,7 @@ export const sourcePinSchema = z.strictObject({
   upstream: z.url().refine((value) => value.startsWith("https://")),
   entry: z.string().max(250),
   context: digest, closure: digest,
-  adapter: z.enum(["disclosure", "accordion", "tabs", "transition", "slots", "number", "compare", "highlight"]),
+  adapter: z.enum(["disclosure", "accordion", "tabs", "transition", "slots", "number", "wheel", "highlight"]),
   license: z.string().max(60), matched: z.array(z.string().max(200)).max(8),
 });
 export const sourceGraphSchema = sourcePlanSchema.extend({

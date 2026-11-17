@@ -103,7 +103,11 @@ export function AppScreen({ id, page, status }: { id: string; page: { route: str
   const [editing, setEditing] = useState<{ entity: Entity; row?: Row; prefill?: string[] }>();
   const dialog = useRef<HTMLDialogElement>(null);
   const returnFocus = useRef<HTMLElement>(null);
+  const returnSection = useRef<HTMLElement>(null);
   useEffect(() => { setData(restore(key)); }, [key]);
+  useEffect(() => {
+    if (editing && !dialog.current?.open) dialog.current?.showModal();
+  }, [editing]);
   function store(next: Records) {
     setData(next);
     try { localStorage.setItem(key, JSON.stringify({ version: 1, records: next })); } catch { /* Current view retains changes. */ }
@@ -116,9 +120,9 @@ export function AppScreen({ id, page, status }: { id: string; page: { route: str
   }
   function start(entity: Entity, row?: Row, prefill?: string[]) {
     returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    returnSection.current = returnFocus.current?.closest("[data-instance]") ?? null;
     setError("");
     setEditing({ entity, row, prefill });
-    dialog.current?.showModal();
   }
   function save(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -161,7 +165,7 @@ export function AppScreen({ id, page, status }: { id: string; page: { route: str
           };
           const Component = instance.kind === "generated" ? generated[instance.id] : adapters[instance.source];
           return <section className="mx-section" aria-labelledby={instance.id + "-title"} id={instance.id} key={instance.id}
-            data-instance={instance.id} data-kind={instance.kind} data-layout={instance.layout}>
+            data-instance={instance.id} data-kind={instance.kind} data-layout={instance.layout} tabIndex={-1}>
             <h2 id={instance.id + "-title"}>{instance.title}</h2>
             {instance.description && <p>{instance.description}</p>}
             {instance.media && <picture className="mx-photo">
@@ -178,15 +182,15 @@ export function AppScreen({ id, page, status }: { id: string; page: { route: str
         {graph.entities.length > 0 && <footer className="mx-footer">{labels.local} {status}</footer>}
         {graph.entities.length === 0 && status}
       </main>
-      <dialog className="mx-dialog" ref={dialog} aria-labelledby="record-dialog-title" onClose={() => { setEditing(undefined); returnFocus.current?.focus(); }}>
+      <dialog className="mx-dialog" ref={dialog} aria-labelledby="record-dialog-title" onClose={() => { setEditing(undefined); (returnFocus.current?.isConnected ? returnFocus.current : returnSection.current)?.focus(); }}>
         {editing && <form method="dialog" onSubmit={save}>
           <h2 id="record-dialog-title">{editing.row ? labels.edit : labels.add} {editing.entity.label}</h2>
           {editing.entity.fields.map((field, index) => <label key={field.id}>{field.label}
             {field.type === "choice" ?
-              <select name={field.id} defaultValue={editing.row?.values[index] ?? editing.prefill?.[index] ?? ""} required={field.required}>
+              <select name={field.id} defaultValue={editing.prefill?.[index] ?? editing.row?.values[index] ?? ""} required={field.required}>
                 <option value="">—</option>{field.options.map((value) => <option key={value}>{value}</option>)}
               </select> :
-              <input dir="auto" name={field.id} type={field.type} defaultValue={editing.row?.values[index] ?? editing.prefill?.[index] ?? ""} maxLength={200} required={field.required} />}
+              <input dir="auto" name={field.id} type={field.type} defaultValue={editing.prefill?.[index] ?? editing.row?.values[index] ?? ""} maxLength={200} required={field.required} />}
           </label>)}
           {error && <p role="alert">{error}</p>}
           <div className="mx-row-actions"><button type="button" onClick={() => dialog.current?.close()}>{labels.cancel}</button><button className="mx-primary">{labels.save}</button></div>

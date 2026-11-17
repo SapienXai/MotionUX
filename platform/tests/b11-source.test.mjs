@@ -114,6 +114,7 @@ test("restricted, unpinned, escaped, symlinked and network-importing recipes fai
   await assert.rejects(restoreSources(temp, [source.pin]), { status: 409 });
   for (const [code, terms, declared] of [
     [original, "All rights reserved", true], [original, notice, false],
+    [original, notice + "\nCommons Clause License Condition v1.0", true],
     ['import something from "../outside";\n' + original, notice, true],
     [original + '\nvoid fetch("https://example.test/");', notice, true],
   ]) {

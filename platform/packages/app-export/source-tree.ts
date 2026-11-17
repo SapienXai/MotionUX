@@ -19,19 +19,25 @@ const snippets = {
       {items.map((item, index) => <div key={index} className="mx-source-content">{item.text}</div>)}</Original0></>`,
   highlight: `<div className="mx-source-tabs"><Original0 defaultValue={String(active)} transition={still ? { duration: 0 } : undefined}>
     {items.map((item, index) => <button key={index} type="button" data-id={String(index)} aria-pressed={index === active} onClick={() => select(index)}>{item.label}</button>)}</Original0></div>`,
-  slots: `<><Original0 host={{ name: instance.title }} days={days} onBook={(slot) => {
+  wheel: `<Original0 label={instance.title} className="mx-source-body" columns={[{
+    id: "choice", label: instance.title, options: items.map(({ label }) => ({ label, value: label })),
+  }]} value={{ choice: items[active]?.label ?? "" }} onValueChange={({ choice }) => {
+    const index = items.findIndex(({ label }) => label === choice);
+    if (index >= 0) select(index);
+  }} />`,
+  slots: `<><Original0 key={slotEpoch} host={{ name: instance.title }} days={days} onBook={(slot) => {
     const hours = Math.floor(slot.start / 60);
     const time = String(hours).padStart(2, "0") + ":" + String(slot.start % 60).padStart(2, "0");
     setNotice(slot.date + " · " + time + " · " + slot.minutes + " min");
     if (entity && instance.action === "edit") {
       const end = slot.start + slot.minutes;
       const endTime = String(Math.floor(end / 60)).padStart(2, "0") + ":" + String(end % 60).padStart(2, "0");
+      setSlotEpoch((current) => current + 1);
       edit(undefined, entity.fields.map((field) => field.type === "date" ? slot.date :
         field.id === entity.collision[1] ? time : field.id === entity.collision[2] ? endTime : ""));
     }
   }} /><output role="status">{notice}</output></>`,
   number: `still ? <span>{rows.length}</span> : <Original0 value={rows.length} />`,
-  compare: `<article>{items.map((item) => <p key={item.label}>{item.text}</p>)}</article>`,
 } as const;
 
 const projectModel = "build-core/source/graph.ts";
@@ -61,7 +67,7 @@ function component(source: ResolvedSource) {
   const { id, entry, adapter } = source.pin;
   const path = "./sources/" + id + "/" + entry.replace(/\.tsx?$/, "");
   const exports = source.exports.map((name, index) => name + " as Original" + index).join(", ");
-  const imports = adapter === "tabs" || adapter === "slots"
+  const imports = adapter === "tabs" || adapter === "slots" || adapter === "wheel"
     ? "import Original0 from " + JSON.stringify(path) + ";"
     : adapter === "disclosure" ? "import Upstream from " + JSON.stringify(path) + ";\nconst { Disclosure: Original0, DisclosureTrigger: Original1, DisclosureContent: Original2 } = Upstream;"
       : "import { " + exports + " } from " + JSON.stringify(path) + ";";
@@ -73,13 +79,18 @@ ${imports}
 export default function SourceAdapter({ instance, rows, entity, still, onSelect, activeFilter, edit }: SourceProps) {
   const [active, setActive] = useState(0);
   const [notice, setNotice] = useState("");
-  const items = instance.items.length ? instance.items : rows.slice(0, 7).map(({ values }) => ({ label: values[0], text: values.slice(1).join(" · ") }));
+  const choices = ${JSON.stringify(adapter === "wheel")} ? entity?.fields.find(({ type }) => type === "choice")?.options ?? [] : [];
+  const items = instance.items.length ? instance.items : choices.length ? choices.map((label) => ({ label, text: label })) :
+    rows.slice(0, 7).map(({ values }) => ({ label: values[0], text: values.slice(1).join(" · ") }));
   function select(index: number) {
     setActive(index);
-    if (instance.action === "filter" && items[index]) onSelect?.(items[index].label === activeFilter ? "" : items[index].label);
+    if (!items[index]) return;
+    if (instance.action === "filter") onSelect?.(items[index].label === activeFilter ? "" : items[index].label);
+    if (${JSON.stringify(adapter === "wheel")} && instance.action === "edit") onSelect?.(items[index].label);
   }
   ${adapter === "slots" ? `const dateIndex = entity?.fields.findIndex(({ type }) => type === "date") ?? -1;
   const [calendar, setCalendar] = useState<string[]>([]);
+  const [slotEpoch, setSlotEpoch] = useState(0);
   useEffect(() => {
     const now = new Date();
     setCalendar(Array.from({ length: 7 }, (_, index) => new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + index)).toISOString().slice(0, 10)));
@@ -89,11 +100,14 @@ export default function SourceAdapter({ instance, rows, entity, still, onSelect,
   const clock = (value: string) => { const [h, m] = value.split(":").map(Number); return h * 60 + m; };
   const from = entity?.fields.findIndex(({ id }) => id === entity.collision[1]) ?? -1;
   const to = entity?.fields.findIndex(({ id }) => id === entity.collision[2]) ?? -1;
-  const days = (savedDates.length ? savedDates : calendar).map((date) => ({
-    date, open: [540, 1080] as [number, number],
-    busy: rows.filter(({ values }) => values[dateIndex] === date && values[from] && values[to])
-      .map(({ values }) => [clock(values[from]), clock(values[to])] as [number, number]).filter(([a, b]) => Number.isFinite(a) && b > a),
-  }));
+  const days = (savedDates.length ? savedDates : calendar).map((date) => {
+    const busy = rows.filter(({ values }) => values[dateIndex] === date && values[from] && values[to])
+      .map(({ values }) => [clock(values[from]), clock(values[to])] as [number, number])
+      .filter(([a, b]) => Number.isFinite(a) && b > a && a >= 0 && b <= 1440);
+    // SlotPicker draws busy intervals in absolute coordinates relative to this open window.
+    const open: [number, number] = [Math.min(540, ...busy.map(([start]) => start)), Math.max(1080, ...busy.map(([, end]) => end))];
+    return { date, open, busy };
+  });
   if (!days.length) return <p role="status">{instance.description || instance.title}</p>;` : ""}
   return <MotionConfig reducedMotion={still ? "always" : "user"}>${adapter === "number" ? "{" + snippets[adapter] + "}" : snippets[adapter]}</MotionConfig>;
 }
@@ -125,6 +139,7 @@ import type { SourceProps } from "./screen";
 export default function GeneratedInteraction(props: SourceProps) {
   const [choice, choose] = useState("");
   const [comparison, compare] = useState("");
+  const [sourceChoice, setSourceChoice] = useState("");
   const rows = props.rows;
   const selected = rows.find((row) => row.id === choice) ?? rows[0];
   const other = rows.find((row) => row.id === comparison);
@@ -134,7 +149,10 @@ export default function GeneratedInteraction(props: SourceProps) {
   profile === "range-review" ? `const index = props.entity?.fields.findIndex(({ id }) => id === props.entity?.collision[1]) ?? 0;
   const ordered = [...rows].sort((a, b) => a.values[Math.max(0, index)].localeCompare(b.values[Math.max(0, index)]));` : ""}
   return <div className="mx-source-body">
-    <SourceInteraction {...props} />
+    <SourceInteraction {...props} onSelect={(value) => {
+      if (props.instance.action === "edit") setSourceChoice(value);
+      else props.onSelect?.(value);
+    }} />
     {rows.length > 0 && <div className="mx-tools mx-generated-action">
       <label>${words.choose}<select value={selected?.id ?? ""} onChange={(event) => choose(event.target.value)}>
         {rows.map((row) => <option key={row.id} value={row.id}>{row.values[0]}</option>)}
@@ -142,7 +160,11 @@ export default function GeneratedInteraction(props: SourceProps) {
       {${JSON.stringify(profile === "compare")} && <label>${words.compare}<select value={comparison} onChange={(event) => compare(event.target.value)}>
         <option value="">—</option>{rows.filter((row) => row.id !== selected?.id).map((row) => <option key={row.id} value={row.id}>{row.values[0]}</option>)}
       </select></label>}
-      {props.instance.action === "edit" && <button type="button" className="mx-primary" onClick={() => props.edit(selected)}>${words.edit}</button>}
+      {props.instance.action === "edit" && <button type="button" className="mx-primary" onClick={() => {
+        const prefill = selected && props.entity?.fields.map((field, index) =>
+          sourceChoice && field.type === "choice" && field.options.includes(sourceChoice) ? sourceChoice : selected.values[index]);
+        props.edit(selected, prefill);
+      }}>${words.edit}</button>}
     </div>}
     ${panel}
   </div>;

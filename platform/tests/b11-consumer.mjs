@@ -61,6 +61,44 @@ async function inspect(page, origin, graph) {
         await expect(locator.getByRole("tab").nth(1)).toHaveAttribute("aria-selected", "true");
         interaction = "selected second source tab";
       }
+      if (pin.adapter === "slots" && instance.action === "edit") {
+        const start = locator.getByRole("button", { name: /no time picked/i }).first();
+        if (await start.count()) {
+          await start.press("Enter");
+          await locator.getByRole("button", { name: "Confirm", exact: true }).click();
+          const dialog = page.getByRole("dialog");
+          await expect(dialog).toBeVisible();
+          const controls = dialog.locator('input[type="time"]');
+          if (await controls.count() >= 2) {
+            assert(await controls.nth(0).inputValue());
+            assert(await controls.nth(1).inputValue());
+            interaction = "selected upstream time via keyboard and passed both times to the app form";
+          }
+          await dialog.getByRole("button", { name: graph.locale === "tr" ? "İptal" : "Cancel", exact: true }).click();
+          await expect(dialog).not.toBeVisible();
+        }
+      }
+      if (pin.adapter === "wheel") {
+        const wheel = locator.getByRole("spinbutton").first();
+        if (await wheel.count() && instance.items.length > 1) {
+          const earlier = await wheel.getAttribute("aria-valuetext");
+          await wheel.press("ArrowUp");
+          await expect(wheel).not.toHaveAttribute("aria-valuetext", earlier ?? "");
+          const selected = await wheel.getAttribute("aria-valuetext");
+          const action = locator.getByRole("button", { name: graph.locale === "tr" ? "Düzenle" : "Edit", exact: true });
+          if (selected && instance.kind === "generated" && await action.count()) {
+            const entity = graph.entities.find(({ id }) => id === instance.entity);
+            const field = entity?.fields.find(({ options }) => options.includes(selected));
+            if (field) {
+              await action.click();
+              const dialog = page.getByRole("dialog");
+              await expect(dialog.locator('[name="' + field.id + '"]')).toHaveValue(selected);
+              await dialog.getByRole("button", { name: graph.locale === "tr" ? "İptal" : "Cancel", exact: true }).click();
+              interaction = "changed the upstream wheel by keyboard and populated the generated edit form";
+            }
+          }
+        }
+      }
       if (pin.adapter === "disclosure") {
         const trigger = locator.locator("button[aria-expanded]").first();
         if (await trigger.count()) {
@@ -84,7 +122,7 @@ async function inspect(page, origin, graph) {
   return observed;
 }
 
-async function createLocalRecord(page, area, entity, locale) {
+async function createLocalRecord(page, area, entity, locale, blocked = false) {
   await area.getByRole("button", { name: (locale === "tr" ? "Ekle " : "Add ") + entity.label, exact: true }).click();
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
@@ -95,6 +133,10 @@ async function createLocalRecord(page, area, entity, locale) {
       field.type === "time" ? (field.id === entity.collision[2] ? "11:00" : "10:00") : "Browser offline evidence");
   }
   await dialog.getByRole("button", { name: locale === "tr" ? "Kaydet" : "Save", exact: true }).click();
+  if (blocked) {
+    await expect(dialog.getByRole("alert")).toHaveText(locale === "tr" ? "Bu saat aralığı başka bir kayıtla çakışıyor." : "This time range overlaps another record.");
+    await dialog.getByRole("button", { name: locale === "tr" ? "İptal" : "Cancel", exact: true }).click();
+  }
   await expect(dialog).not.toBeVisible();
 }
 
@@ -108,6 +150,7 @@ async function offline(page, context, origin, graph) {
     const records = graph.pages.flatMap((page) => page.instances.map((item) => ({ ...item, route: page.route })))
       .find((item) => ["records", "agenda", "board"].includes(item.kind) && item.action === "edit");
     let mutation = false;
+    let collision = false;
     if (records) {
       assert((await page.goto(origin + records.route))?.fromServiceWorker());
       const area = page.locator('[data-instance="' + records.id + '"]');
@@ -115,6 +158,11 @@ async function offline(page, context, origin, graph) {
       const entity = graph.entities.find(({ id }) => id === records.entity);
       await createLocalRecord(page, area, entity, graph.locale);
       await expect(area.locator(".mx-record")).toHaveCount(before + 1);
+      if (entity.collision.length) {
+        await createLocalRecord(page, area, entity, graph.locale, true);
+        await expect(area.locator(".mx-record")).toHaveCount(before + 1);
+        collision = true;
+      }
       await page.reload();
       await expect(area.locator(".mx-record")).toHaveCount(before + 1);
       await context.setOffline(false);
@@ -122,7 +170,7 @@ async function offline(page, context, origin, graph) {
       await expect(area.locator(".mx-record")).toHaveCount(before + 1);
       mutation = true;
     }
-    return { worker: true, localMutationRetained: mutation };
+    return { worker: true, localMutationRetained: mutation, overlapRejected: collision };
   } finally { await context.setOffline(false); }
 }
 

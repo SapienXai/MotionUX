@@ -12,6 +12,7 @@ const packages = new Set(["react", "react-dom", "motion", "clsx", "tailwind-merg
 const providerHosts = new Set(["github.com", "raw.githubusercontent.com"]);
 const types = [
   { adapter: "tabs", exports: ["SmoothTab"], hint: "Controlled motion tabs, rendering distinct content and mobile swipe. Provide item labels." },
+  { adapter: "wheel", exports: ["WheelPicker"], hint: "A controlled keyboard and touch wheel for choosing a playlist, status or known option." },
   { adapter: "slots", exports: ["SlotPicker"], hint: "Select an available date/time/duration from supplied availability. onBook is a local selection." },
   { adapter: "accordion", exports: ["Accordion", "AccordionItem", "AccordionTrigger", "AccordionContent"], hint: "Open and close grouped details, choices, FAQs or reference content." },
   { adapter: "disclosure", exports: ["Disclosure", "DisclosureTrigger", "DisclosureContent"], hint: "Expandable details and contextual help." },
@@ -90,9 +91,12 @@ async function loadSource(vault: string, item: Entry, matched: string[], reposit
     notice = file.content;
   } else throw new Error("Source has no rights record.");
   // License grants are evaluated on the actual notice. Sources without a recognized grant stay out of export and model context.
-  const license = /Permission is hereby granted, free of charge[\s\S]+to deal in the Software without restriction/i.test(notice.replace(/\s+/g, " "))
+  const grant = notice.replace(/\s+/g, " ").trim();
+  const license = /^MIT License Copyright /i.test(grant) &&
+    /Permission is hereby granted, free of charge[\s\S]+to deal in the Software without restriction/i.test(grant) &&
+    !/commons clause|non[- ]commercial|additional restrictions|commercial license/i.test(grant)
     ? "MIT"
-    : /Apache License[\s\S]+Version 2\.0[\s\S]+Grant of Copyright License/i.test(notice.replace(/\s+/g, " ")) ? "Apache-2.0" : "";
+    : /Apache License[\s\S]+Version 2\.0[\s\S]+Grant of Copyright License/i.test(grant) ? "Apache-2.0" : "";
   if (!license) throw new Error("Source redistribution terms require review.");
   if (license === "Apache-2.0" && recipe.files.some(({ path }) => /(?:^|\/)NOTICE(?:\.|$)/i.test(path) && path !== item.licenseNoticePath))
     throw new Error("Additional Apache notices require review.");
