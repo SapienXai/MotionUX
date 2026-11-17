@@ -13,6 +13,7 @@ The starting revision was `df9b26117672c2fb66c237a786512804bb40f7b5`. Its five G
 | Discovery | Local Gallery loads through the Studio entry. Existing Gallery URLs and personal data keep their original runtime. |
 | Creator | Heading edits appear immediately. Managed media selection, alt and focal edits carry into the saved document. Room navigation, FAQ and keyboard lightbox use the registered runtime. |
 | Saved Run | Isolated Next.js rendered the edited heading and uploaded image. Inspector checked the saved home route at 390, 768 and 1,440 CSS pixels. |
+| B7 rollback | Native browser acceptance exercised Ed25519 host approval, isolated installation and verified rollback in disposable Sales CRM and Hotel Desk projects. |
 | Independent export | Fresh npm install, TypeScript and production build from the generated project. Six routes, hash-checked manifest, local form validation, mobile nav and lightbox in Chromium, WebKit and Firefox. Chromium verified service-worker navigation and an imported image offline. |
 | Media | Byte decoding, rights, bounded import, cancellation, deduplication, symlink rejection and cross-project ownership are covered by the platform tests. |
 | Composer | Native signed-in English and Turkish proposals each passed review and created a disposable six-route project. The test reopened each saved document and rejected a repeated approval. Deterministic fixture cases check bilingual output, stable plan digests and rejected untrusted fields. |
@@ -29,10 +30,10 @@ The run uses local Node 24.20.0 and Apple Silicon macOS. The measurements are lo
 | --- | --- | --- |
 | Standalone hotel website LCP at 1,440 px | New route | 40 ms Chromium |
 | Layout stability | New route | 0.0113 CLS |
-| Initial encoded JavaScript | New route | 168,972 bytes |
-| Input to updated preview heading | No comparable Interact path | 9–12 ms across four edits |
-| Saved Run to rendered heading | Comparable baseline pending | 6.47 s |
-| Studio production build directory | 361 MiB | 386 MiB |
+| Initial encoded JavaScript | New route | 168,407 bytes |
+| Input to updated preview heading | No comparable Interact path | 11–14 ms across four edits |
+| Saved Run to rendered heading | Comparable baseline pending | 5.45 s |
+| Studio production build directory | 361 MiB | 408 MiB |
 | Local vault after completed B8 browser cleanup | 3.0 GiB | 3.0 GiB at rounded precision |
 | Peak RAM and repeat-run latency | Pending | Pending |
 
