@@ -43,12 +43,13 @@ function restore(key: string): Records {
 export type SourceProps = {
   instance: SourceInstance; rows: Row[]; entity?: Entity; still: boolean;
   edit: (row?: Row) => void;
+  activeFilter?: string;
+  onSelect?: (label: string) => void;
 };
 export type Adapter = (props: SourceProps) => ReactNode;
 
-function DataView({ instance, rows, entity, edit, remove }: SourceProps & { remove: (row: Row) => void }) {
+function DataView({ instance, rows, entity, edit, remove, activeFilter: group = "", onSelect }: SourceProps & { remove: (row: Row) => void }) {
   const [filter, setFilter] = useState("");
-  const [group, setGroup] = useState("");
   if (!entity) return null;
   const choice = entity.fields.findIndex((field) => field.type === "choice");
   const search = filter.toLocaleLowerCase(graph.locale);
@@ -71,7 +72,7 @@ function DataView({ instance, rows, entity, edit, remove }: SourceProps & { remo
   return <>
     <div className="mx-tools">
       <label>{labels.find}<input type="search" value={filter} onChange={(event) => setFilter(event.target.value)} /></label>
-      {choice >= 0 && <label>{entity.fields[choice].label}<select value={group} onChange={(event) => setGroup(event.target.value)}>
+      {choice >= 0 && <label>{entity.fields[choice].label}<select value={group} onChange={(event) => onSelect?.(event.target.value)}>
         <option value="">{labels.all}</option>{entity.fields[choice].options.map((value) => <option key={value}>{value}</option>)}
       </select></label>}
       {instance.action === "edit" && <button type="button" className="mx-primary" onClick={() => edit()}>{labels.add} {entity.label}</button>}
@@ -91,6 +92,7 @@ export function AppScreen({ id, page, status }: { id: string; page: { route: str
   const key = "motionux:source:" + id;
   const [data, setData] = useState<Records>(initial);
   const [previous, setPrevious] = useState<Records>();
+  const [filters, setFilters] = useState<Record<string, string>>({});
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [editing, setEditing] = useState<{ entity: Entity; row?: Row }>();
@@ -146,7 +148,12 @@ export function AppScreen({ id, page, status }: { id: string; page: { route: str
         <div className="mx-grid" data-layout={active.layout}>{active.instances.map((instance) => {
           const entity = graph.entities.find(({ id }) => id === instance.entity);
           const props = { instance, entity, rows: data[instance.entity] ?? [], still: graph.motion === "still" || instance.motion === "still",
-            edit: (row?: Row) => { if (entity) start(entity, row); } };
+            edit: (row?: Row) => { if (entity) start(entity, row); }, activeFilter: filters[instance.entity] ?? "",
+            onSelect: (label: string) => {
+              const choices = entity?.fields.find(({ type }) => type === "choice")?.options;
+              if (entity && choices?.length) setFilters((previous) => ({ ...previous, [entity.id]: choices.includes(label) ? label : "" }));
+            },
+          };
           const Component = instance.kind === "generated" ? generated[instance.id] : adapters[instance.source];
           return <section className="mx-section" aria-labelledby={instance.id + "-title"} id={instance.id} key={instance.id}
             data-instance={instance.id} data-kind={instance.kind} data-layout={instance.layout}>

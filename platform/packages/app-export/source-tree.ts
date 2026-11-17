@@ -12,13 +12,13 @@ const snippets = {
       <Original3 className="mx-source-content">{item.text}</Original3></Original1>)}</Original0>`,
   disclosure: `<Original0 transition={still ? { duration: 0 } : undefined} className="mx-source-body">
     <Original1><button type="button" className="mx-primary">{items[0]?.label ?? instance.title}</button></Original1><Original2>{items[0]?.text ?? instance.description}</Original2></Original0>`,
-  tabs: `<Original0 value={String(active)} onChange={(value) => setActive(Number(value))} label={instance.title} className="mx-source-body"
+  tabs: `<Original0 value={String(active)} onChange={(value) => select(Number(value))} label={instance.title} className="mx-source-body"
     items={items.map((item, index) => ({ id: String(index), title: item.label, content: <div className="mx-source-content">{item.text}</div> }))} />`,
-  transition: `<><div className="mx-source-tabs">{items.map((item, index) => <button key={index} type="button" aria-pressed={index === active} onClick={() => setActive(index)}>{item.label}</button>)}</div>
+  transition: `<><div className="mx-source-tabs">{items.map((item, index) => <button key={index} type="button" aria-pressed={index === active} onClick={() => select(index)}>{item.label}</button>)}</div>
     <Original0 activeIndex={active} transition={still ? { duration: 0 } : undefined} className="mx-source-body">
       {items.map((item, index) => <div key={index} className="mx-source-content">{item.text}</div>)}</Original0></>`,
   highlight: `<div className="mx-source-tabs"><Original0 defaultValue={String(active)} transition={still ? { duration: 0 } : undefined}>
-    {items.map((item, index) => <button key={index} type="button" data-id={String(index)} aria-pressed={index === active} onClick={() => setActive(index)}>{item.label}</button>)}</Original0></div>`,
+    {items.map((item, index) => <button key={index} type="button" data-id={String(index)} aria-pressed={index === active} onClick={() => select(index)}>{item.label}</button>)}</Original0></div>`,
   slots: `<><Original0 host={{ name: instance.title }} days={days} onBook={(slot) => {
     const hours = Math.floor(slot.start / 60);
     const time = String(hours).padStart(2, "0") + ":" + String(slot.start % 60).padStart(2, "0");
@@ -64,10 +64,14 @@ import { useState } from "react";
 import { MotionConfig } from "motion/react";
 import type { SourceProps } from "./screen";
 ${imports}
-export default function SourceAdapter({ instance, rows, entity, still }: SourceProps) {
+export default function SourceAdapter({ instance, rows, entity, still, onSelect, activeFilter }: SourceProps) {
   const [active, setActive] = useState(0);
   const [notice, setNotice] = useState("");
   const items = instance.items.length ? instance.items : rows.slice(0, 7).map(({ values }) => ({ label: values[0], text: values.slice(1).join(" · ") }));
+  function select(index: number) {
+    setActive(index);
+    if (instance.action === "filter" && items[index]) onSelect?.(items[index].label === activeFilter ? "" : items[index].label);
+  }
   const dateIndex = entity?.fields.findIndex(({ type }) => type === "date") ?? -1;
   const days = [...new Set(rows.map(({ values }) => values[dateIndex]).filter((value) => /^\\d{4}-\\d{2}-\\d{2}$/.test(value ?? "")))].slice(0, 7)
     .map((date) => ({ date, open: [540, 1080] as [number, number], busy: [] }));

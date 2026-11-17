@@ -53,7 +53,9 @@ async function run(label, brief) {
     await page.getByRole("link", { name: target, exact: true }).click();
     await (await saving).saveAs(resolve(evidence, "native-" + label + "-" + tag + ".zip"));
   }
+  const stopping = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
   await button("Stop Run").click();
+  assert((await stopping).ok(), "Stop the verified run before starting the next brief.");
 }
 
 try {
