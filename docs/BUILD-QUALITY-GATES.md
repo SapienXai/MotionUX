@@ -1,5 +1,7 @@
 # Build quality gates
 
+For B8 run `pnpm --dir platform test`, `pnpm --dir platform typecheck`, `pnpm --dir platform build` and `node platform/tests/b8-browser.mjs` in sequence. With macOS Run and local originals available, add `--local` to the browser command and use `node platform/tests/b8-codex-live.mjs` for the signed-in native acceptance cases. Keep image, draft/export parity and accessibility evidence under `.motionux-v9/evidence/build-b8/`. [B8 quality report](BUILD-B8-QUALITY-REPORT.md)
+
 Verify the document contract and filesystem boundaries, then build the platform and test real editing in Chromium, Firefox and WebKit. Install exported source independently and verify production SSR, navigation, app interactions and axe. Compare original Gallery routes and source hashes before and after. Keep private screenshots, traces and metrics in the ignored vault. Record manual assistive technology, physical devices and unavailable metrics separately.
 
 Run from the repository root:

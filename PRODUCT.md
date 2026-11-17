@@ -2,6 +2,8 @@
 
 <!-- impeccable:product-schema 1 -->
 
+MotionUX is a component-powered AI App Studio. Designers and developers use it with Codex to turn a brief into a working web app or installable PWA, inspect it in a browser and take ownership of the Next.js source.
+
 ## Platform
 
 web
@@ -23,6 +25,8 @@ MotionUX distributes individual source files through its shadcn GitHub registry.
 
 ## Visual application studio
 
+The workflow goes from Discover to Create or Compose, then Edit, Interact, Run, Inspect and Export. Edit and Interact render the current document. Run and Export use the saved revision. A working app has navigable routes, accessible controls and meaningful local behaviors in a clean export built from its own lockfile.
+
 MotionUX helps design engineers and Codex users build managed web apps with proven components. The daily workflow is to discover an interaction, assemble typed blocks, inspect the real app at different sizes and export readable source. The Gallery, Playground, My Library and Project Kit remain useful on their own.
 
 Build uses a versioned document, a local project vault and an owned block registry. The editor, renderer and exporter share that document. The hotel template uses local demo data and has no access to reservations, payments or customer systems. Build exports installable apps that can open their saved pages offline after initial setup. Backend integration and collaboration are future tracks. Real project writes remain disabled.
@@ -34,3 +38,5 @@ Hotel Desk and Meridian CRM demonstrate distinct operations and sales workflows 
 Build's Inspector audits one saved page in the actual Next.js preview. Findings identify the viewport and checked rule. Automated accessibility results carry manual review items, and the interaction report names the flow it exercised.
 
 Integration Lab lets an independently authorized operator test a reviewed change in a disposable Build export and verify restoration in a fresh browser run. The source application stays read-only throughout the trial.
+
+Costa di Sera demonstrates a six-page boutique hotel website with owned marketing blocks, a managed image library and a local inquiry form. Media is scoped to the managed project. Uploaded images require an export-rights attestation. Inquiry validation runs in the browser and has no reservation, delivery or payment service. Composer proposes a site using registered blocks and the project's image choices remain under the user's control. [Creator workflow](docs/BUILD-B8-CREATOR-UX.md)

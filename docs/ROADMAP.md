@@ -139,5 +139,18 @@ Registry-wide Motion DNA adapters and source-linked motion traces remain later p
 | B5 | Motion DNA in Build | Saved timing, easing, page transition and reduced-motion settings match Studio, Run and offline PWA |
 | B6 | Inspector | Reproducible layout, accessibility and interaction regression analysis |
 | B7 | Host-authorized Integration Lab | Detached host approval, a reviewed disposable Build integration and verified rollback |
+| B8 | Unified Studio and Creator Experience | In-shell originals, live document preview, managed images, Costa di Sera, typed marketing proposals and independent export. See the [quality report](BUILD-B8-QUALITY-REPORT.md) for verified coverage. |
 
 B0–B2 are available locally in Foundation V1 with 31 owned blocks, a managed canvas, macOS runtime preview and standalone Next.js export. B3 adds a manual CRM template and an isolated macOS Composer. Check the [B3 quality gates](BUILD-QUALITY-GATES.md) for native and portable acceptance. B4 adds the optional PWA source export for CRM, Hotel and blank projects. B5 adds [Motion DNA](BUILD-MOTION-DNA.md) to Build. B6 adds [Inspector](BUILD-INSPECTOR.md) to Run. B7 adds the [Integration Lab](BUILD-INTEGRATION.md) for disposable Build copies. Real-project writes remain gated by P3d. Public hosting, accounts and collaboration are planned. [Build architecture](BUILD-ARCHITECTURE.md)
+
+B8.0 records the inherited architecture and trust boundaries. B8.1 routes discovery through the Build entry while preserving the Gallery's separate loopback origin. B8.2 makes draft interactions available in the canvas. B8.3 adds project-owned images and the export manifest verifies their bytes. B8.4 adds the Costa di Sera website. B8.5 extends constrained planning to this marketing template. B8.6 isolates the Puck projection and verification suite. [B8 architecture](BUILD-B8-ARCHITECTURE.md) · [B8 evidence](BUILD-B8-QUALITY-REPORT.md)
+
+| Planned phase | Capability | Entry condition |
+| --- | --- | --- |
+| B9 | Generalized page patterns and content adapters | Publish a constrained block grammar and prove the schema with independent templates. |
+| B10 | First-party design system, reusable sections, responsive overrides and advanced media | Preserve document migrations, asset ownership and export portability. |
+| B11 | Motion DNA for more pinned originals | Prove source and behavior parity for each supported integration. |
+| B12 | Site-wide Inspector and guided improvements | Verify findings across routes, secure the proposal and keep changes user-reviewed. |
+| B13 | Real-project integration | Require an independently authenticated host approval channel and proven rollback in representative applications. |
+
+Collaboration, remote preview, hosting, commerce, external backends, distribution and a marketplace remain future product tracks.

@@ -1,5 +1,7 @@
 # Build design system
 
+The Costa di Sera template uses a dedicated editorial system with locally bundled image renditions, paper and olive palettes, responsive section layouts and visible focus. The authored site retains its own palette in the monochrome discovery shell. Its mobile navigation uses one primary landmark, and the room gallery supports focus restoration, directional keys and Escape. [B8 creator workflow](BUILD-B8-CREATOR-UX.md)
+
 Studio uses neutral graphite surfaces and violet editing accents. Hotel Desk uses warm off-white paper, deep green accents and calm plum-free dark surfaces. Both use a 4/8px rhythm, geometric sans text, tabular figures, visible focus and semantic surface, border, text, accent, warning and success tokens.
 
 Use semantic HTML tables, labels and native dialogs. Explain local demo state in context. Provide keyboard alternatives for dragging, responsive navigation and scroll containers. Keep transitions on focus-independent state, opacity and transforms, and remove them when reduced motion is useful or requested. Review light and dark screenshots at mobile, tablet and desktop widths before calling a block ready.

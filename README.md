@@ -70,14 +70,16 @@ The prepared Studio includes pinned React originals and standalone HTML examples
 [Design principles](docs/DESIGN-PRINCIPLES.md) · [Quality gates](docs/QUALITY-GATES.md) · [Studio scaling evidence](docs/V13-1-PERFORMANCE.md)
 
 
-## Build a local app
+## Create with MotionUX Studio
 
-With Node 24 and pnpm 10.30.3, install the platform and open the editor:
+Install the workspace with Node 24 and pnpm 10.30.3. Once you're set up, start Gallery and Build together with `npm run studio:build -- --with-gallery`.
 
 ```sh
 npm ci
 pnpm --dir platform install --frozen-lockfile --ignore-scripts
-npm run studio:build
+npm run studio:build -- --with-gallery
 ```
 
-Open [Build](http://127.0.0.1:5200/build). Describe a sales or operations app and review the Codex Blueprint, or open **Sales CRM**, **Hotel Desk** or a blank canvas directly. Save the project and run the Next.js preview on macOS. Use **Inspector** to audit a saved page across three screen sizes. Use **Integration Lab** to review a host-signed trial in a disposable copy. **Export** downloads standalone Next.js source and **Export PWA** includes installation and offline support. The 500 originals and personal collections continue to use the Gallery served by `npm run studio`. [Test an integration](docs/BUILD-INTEGRATION.md) · [Inspect a page](docs/BUILD-INSPECTOR.md) · [Tune Motion DNA](docs/BUILD-MOTION-DNA.md) · [Install and work offline](docs/BUILD-PWA.md) · [App Composer guide](docs/BUILD-COMPOSER-B3.md) · [Build architecture](docs/BUILD-ARCHITECTURE.md) · [Verification commands](docs/BUILD-QUALITY-GATES.md)
+From [MotionUX Studio](http://127.0.0.1:5200/), browse the prepared originals or open Build and choose **New Hotel Marketing**. Explore Costa di Sera, swap the hero photograph and try the room gallery straight from the canvas. Use the Composer to review a hotel website, CRM or operations app from a brief, or start with a manual template.
+
+Save and **Run** the actual app on macOS, check three viewports in **Inspector**, and take the standalone Next.js source with **Export**. Use **Export PWA** for an installable snapshot with offline access. [Creator workflow](docs/BUILD-B8-CREATOR-UX.md) · [Inspect a page](docs/BUILD-INSPECTOR.md) · [Tune Motion DNA](docs/BUILD-MOTION-DNA.md) · [Install and work offline](docs/BUILD-PWA.md) · [Build architecture](docs/BUILD-ARCHITECTURE.md) · [Verification commands](docs/BUILD-QUALITY-GATES.md)
