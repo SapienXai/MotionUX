@@ -2,7 +2,6 @@
 
 import {
   ArrowDown,
-  Layers3,
   ArrowUp,
   Blocks,
   Check,
@@ -40,6 +39,7 @@ import { MediaFields, MediaPanel } from "./media-fields";
 import { MotionDnaFields } from "./motion-dna-fields";
 import { RuntimeInspector } from "./runtime-inspector";
 import { IntegrationLab } from "./integration-lab";
+import { readLocalDraft, selectBlock, writeLocalDraft } from "./creator-recovery";
 import {
   allBlocks,
   families,
@@ -53,6 +53,7 @@ import {
   type BlockProps,
   type BuildPage,
   type BuildProject,
+  type CreatorDraft,
   type Document,
 } from "@motionux/build-core";
 import {
@@ -137,17 +138,6 @@ function ToolbarButton({
     </button>
   );
 }
-function Brand() {
-  return (
-    <a href="/" className="build-brand">
-      <span className="build-mark">
-        <Layers3 size={17} />
-      </span>
-      MotionUX <span>Build</span>
-    </a>
-  );
-}
-
 export function Editor({
   initial,
   onBack,
@@ -155,19 +145,33 @@ export function Editor({
   initial: BuildProject;
   onBack: () => void;
 }) {
-  const [history, setHistory] = useState(() => newHistory(initial.document));
+  const [checkpoint] = useState(() => readLocalDraft(initial.id));
+  const originalDraft = checkpoint?.baseRevision === initial.revision ? checkpoint : null;
+  const [conflict, setConflict] = useState<CreatorDraft | null>(() =>
+    checkpoint && !originalDraft && !same(checkpoint.document, initial.document) ? checkpoint : null,
+  );
+  const [history, setHistory] = useState(() => originalDraft
+    ? { past: same(originalDraft.document, initial.document) ? [] : [initial.document], present: originalDraft.document, future: [] }
+    : newHistory(initial.document),
+  );
   const [saved, setSaved] = useState(initial);
-  const [pageId, setPageId] = useState(initial.document.pages[0].id);
+  const [pageId, setPageId] = useState(originalDraft?.pageId ?? initial.document.pages[0].id);
+  const [selected, setSelected] = useState<string | null>(originalDraft?.selected ?? null);
   const [epoch, setEpoch] = useState(0);
-  const [device, setDevice] = useState<Device>("desktop");
+  const [device, setDevice] = useState<Device>(originalDraft?.device ?? "desktop");
   const [theme, setTheme] = useState<"light" | "dark">();
   const [preview, setPreview] = useState<Preview>({ status: "idle" });
-  const [mode, setMode] = useState<"edit" | "interact" | "run">("edit");
-  const [panel, setPanel] = useState<"left" | "canvas" | "right">("canvas");
+  const [mode, setMode] = useState<"edit" | "interact" | "run">(originalDraft?.mode ?? "edit");
+  const [panel, setPanel] = useState<"left" | "canvas" | "right">(originalDraft?.panel ?? "canvas");
   const [busy, setBusy] = useState("");
   const [message, setMessage] = useState("");
   const [recent, setRecent] = useState<BlockId[]>([]);
   const launch = useRef(false);
+  const changed = useRef(false);
+  const [recoveryReady, setRecoveryReady] = useState(false);
+  const [draftSafe, setDraftSafe] = useState(Boolean(originalDraft));
+  const stored = useRef(checkpoint?.updatedAt ?? 0);
+  const remoteDraft = useRef<number | null>(null);
   const document = history.present;
   const page =
     document.pages.find((item) => item.id === pageId) ?? document.pages[0];
@@ -178,6 +182,7 @@ export function Editor({
   const mediaBase = "/api/build/" + initial.id + "/media/";
 
   const commit = useCallback((update: (previous: Document) => Document) => {
+    changed.current = true;
     setHistory((previous) => {
       const next = update(previous.present);
       if (same(previous.present, next)) return previous;
@@ -188,6 +193,74 @@ export function Editor({
       };
     });
   }, []);
+  const restoreDraft = useCallback((draft: CreatorDraft) => {
+    setHistory({ past: [saved.document], present: draft.document, future: [] });
+    setPageId(draft.pageId);
+    setSelected(draft.selected);
+    setDevice(draft.device);
+    setMode(draft.mode);
+    setPanel(draft.panel);
+    setEpoch((value) => value + 1);
+    setConflict(null);
+  }, [saved.document]);
+  useEffect(() => {
+    const controller = new AbortController();
+    // Check the vault once. The browser checkpoint survives immediate navigation.
+    void request<CreatorDraft | null>("/" + initial.id + "/draft", "GET", undefined, controller.signal)
+      .then((draft) => {
+        if (!draft || changed.current || (checkpoint && checkpoint.updatedAt >= draft.updatedAt) ||
+            same(draft.document, initial.document)) return;
+        stored.current = draft.updatedAt;
+        remoteDraft.current = draft.updatedAt;
+        if (draft.baseRevision === initial.revision) restoreDraft(draft);
+        else setConflict(draft);
+      })
+      .catch(() => {})
+      .finally(() => { if (!controller.signal.aborted) setRecoveryReady(true); });
+    return () => controller.abort();
+    // The server fallback is only needed when opening this editor.
+  }, [initial.id]);
+  useEffect(() => {
+    if (!recoveryReady || conflict) return;
+    const previous = stored.current;
+    const draft: CreatorDraft = {
+      version: 1, baseRevision: saved.revision, updatedAt: Math.max(Date.now(), previous + 1),
+      document, pageId: page.id, selected, device, mode: mode === "run" ? "edit" : mode, panel,
+    };
+    const body = JSON.stringify(draft);
+    if (new TextEncoder().encode(body).length > 192 * 1024) {
+      setDraftSafe(false);
+      return;
+    }
+    const local = writeLocalDraft(initial.id, body);
+    setDraftSafe(local);
+    stored.current = draft.updatedAt;
+    if (!dirty) {
+      const timestamp = remoteDraft.current;
+      if (timestamp !== null) {
+        remoteDraft.current = null;
+        void request("/" + initial.id + "/draft", "DELETE", { updatedAt: timestamp }).catch(() => {});
+      }
+      return;
+    }
+    const controller = new AbortController();
+    const timer = setTimeout(() => {
+      void request("/" + initial.id + "/draft", "PUT", draft, controller.signal)
+        .then(() => {
+          remoteDraft.current = draft.updatedAt;
+          if (stored.current === draft.updatedAt) setDraftSafe(true);
+        }).catch(() => {});
+    }, 350);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [initial.id, saved.revision, document, page.id, selected, device, mode, panel, dirty, conflict, recoveryReady]);
+  async function discardDraft() {
+    if (!conflict) return;
+    try {
+      await request("/" + initial.id + "/draft", "DELETE", { updatedAt: conflict.updatedAt });
+      setConflict(null);
+    } catch (error) { setMessage(describe(error)); }
+  }
+
   const historyStep = useCallback(
     (forward = false) => {
       const source = forward ? history.future : history.past;
@@ -253,13 +326,20 @@ export function Editor({
     const beforeUnload = (event: BeforeUnloadEvent) => {
       if (dirty) event.preventDefault();
     };
+    const beforeLeave = (event: Event) => {
+      if (!confirm("Leave this project with unsaved changes?")) event.preventDefault();
+    };
     window.addEventListener("keydown", key);
-    if (dirty) window.addEventListener("beforeunload", beforeUnload);
+    if (dirty && !draftSafe) {
+      window.addEventListener("beforeunload", beforeUnload);
+      window.addEventListener("motionux:before-leave", beforeLeave);
+    }
     return () => {
       window.removeEventListener("keydown", key);
       window.removeEventListener("beforeunload", beforeUnload);
+      window.removeEventListener("motionux:before-leave", beforeLeave);
     };
-  }, [busy, dirty, historyStep, save]);
+  }, [busy, dirty, historyStep, save, draftSafe]);
   useEffect(() => {
     if (mode !== "run") return;
     let stale = false;
@@ -406,13 +486,11 @@ export function Editor({
   return (
     <main className="build-app">
       <header className="build-toolbar">
-        <Brand />
-        <span className="build-toolbar-divider" />
         <button
           type="button"
           className="build-button build-project-title"
           onClick={() => {
-            if (!dirty || confirm("Leave this project with unsaved changes?"))
+            if (!dirty || draftSafe || confirm("Leave this project with unsaved changes?"))
               onBack();
           }}
         >
@@ -511,6 +589,11 @@ export function Editor({
           </button>
         </div>
       )}
+      {conflict && <div className="build-alert" role="status">
+        {tr ? "Taslak daha eski bir revizyona ait." : "A recovery draft belongs to an older revision."}
+        <button type="button" className="build-button" onClick={() => restoreDraft(conflict)}>{tr ? "Taslağı aç" : "Restore draft"}</button>
+        <button type="button" className="build-button" onClick={() => void discardDraft()}>{tr ? "Taslağı at" : "Discard draft"}</button>
+      </div>}
       <nav className="build-mobile-panels" aria-label="Editor panes">
         {(["left", "canvas", "right"] as const).map((id) => (
           <button
@@ -531,11 +614,13 @@ export function Editor({
         <Puck
           key={page.id + ":" + epoch}
           data={toPuck(page.blocks)}
+          ui={{ itemSelector: selectBlock(page, selected) }}
           config={config}
           iframe={{ enabled: false }}
           dnd={{ behavior: "static" }}
           onChange={onChange}
         >
+          <RememberSelection onSelect={setSelected} />
           <div className="build-workspace" data-pane={panel}>
             <aside className="build-left" aria-label="Pages and blocks">
               <Pages
@@ -558,7 +643,12 @@ export function Editor({
                 }
                 count={page.blocks.length}
               />
-              {marketing && <MediaPanel project={initial.id} document={document} onDocument={commit} />}
+              {marketing && <MediaPanel project={initial.id} document={document} onDocument={commit}
+                onPurged={(id) => setHistory((previous) => ({
+                  ...previous,
+                  past: previous.past.filter(({ assets }) => !assets.includes(id)),
+                  future: previous.future.filter(({ assets }) => !assets.includes(id)),
+                }))} />}
             </aside>
             <section className="build-canvas" aria-label="Application canvas">
               <div className="build-canvas-bar">
@@ -646,7 +736,6 @@ export function Editor({
                   {mode === "edit" ? "Instant canvas" : mode === "interact" ? (tr ? "Canlı taslak" : "Interactive draft") : "Isolated Next.js"} ·{" "}
                   {device}
                 </span>
-                {mode === "edit" && <a href="/discover" target="_blank" rel="noreferrer">{tr ? "Galeri" : "Gallery"} <ExternalLink size={13} /></a>}
                 {mode === "edit" && !marketing && (
                   <IntegrationLab
                     key={saved.revision + ":" + page.route}
@@ -841,6 +930,12 @@ function Pages({
       </dialog>
     </section>
   );
+}
+
+function RememberSelection({ onSelect }: { onSelect: (id: string | null) => void }) {
+  const selected = useSelector((store) => store.selectedItem?.props.id ?? null);
+  useEffect(() => { onSelect(selected); }, [onSelect, selected]);
+  return null;
 }
 
 function useBlockActions() {

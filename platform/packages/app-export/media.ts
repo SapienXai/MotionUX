@@ -330,3 +330,265 @@ export async function verifyMediaOwnership(
     await mediaBytes(repo, vault, project, id, 720);
   }
 }
+
+const maxRendition = 1024 * 1024;
+export const maxMediaBackup = 65 * 1024 * 1024;
+type MediaBundle = { index: MediaIndex; small: Buffer; large: Buffer };
+
+async function readBundle(root: string, id: string): Promise<MediaBundle> {
+  const folder = resolve(root, id);
+  const index = await indexFor(folder, id);
+  const small = await privateFile(resolve(folder, "360.webp"), maxRendition);
+  const large = await privateFile(resolve(folder, "720.webp"), maxRendition);
+  if (
+    fingerprint(small) !== index.hashes[360] ||
+    fingerprint(large) !== index.hashes[720] ||
+    small.length + large.length !== index.bytes
+  )
+    throw new BuildError(
+      409,
+      "The saved image bytes do not match their hashes.",
+    );
+  return { index, small, large };
+}
+
+async function saveBundle(
+  folder: string,
+  { index, small, large }: MediaBundle,
+) {
+  const options = { flag: "wx", mode: 0o600, flush: true };
+  await mkdir(folder, { mode: 0o700 });
+  await writeFile(resolve(folder, "360.webp"), small, options);
+  await writeFile(resolve(folder, "720.webp"), large, options);
+  await writeFile(
+    resolve(folder, "image.json"),
+    JSON.stringify(index),
+    options,
+  );
+}
+
+export async function backupMedia(vault: string, project: string) {
+  const root = await mediaRoot(vault, project).catch((error) => {
+    if (!missing(error)) throw error;
+    return null;
+  });
+  if (!root) return { version: 1, project, assets: [] };
+  const ids = (await readdir(root)).filter((id) => idPattern.test(id)).sort();
+  if (ids.length > maxAssets)
+    throw new BuildError(409, "Media quota exceeded.");
+  const assets = [];
+  for (const id of ids) {
+    const { index, small, large } = await readBundle(root, id);
+    assets.push({
+      index,
+      small: small.toString("base64"),
+      large: large.toString("base64"),
+    });
+  }
+  return { version: 1, project, assets };
+}
+
+function decodeRendition(value: unknown) {
+  if (
+    typeof value !== "string" ||
+    value.length > Math.ceil(maxRendition / 3) * 4
+  )
+    throw new BuildError(422, "Invalid backup image length.");
+  const decoded = Buffer.from(value, "base64");
+  if (
+    !decoded.length ||
+    decoded.length > maxRendition ||
+    decoded.toString("base64") !== value
+  )
+    throw new BuildError(422, "Invalid backup image encoding.");
+  return decoded;
+}
+
+async function checkedBundle(value: unknown): Promise<MediaBundle> {
+  if (typeof value !== "object" || value === null)
+    throw new BuildError(422, "Invalid backup image.");
+  const {
+    index,
+    small: smallText,
+    large: largeText,
+  } = value as Partial<Record<"index" | "small" | "large", unknown>>;
+  if (typeof index !== "object" || index === null)
+    throw new BuildError(422, "Invalid backup image metadata.");
+  const { id, name, width, height, bytes, rights, hashes } =
+    index as Partial<MediaIndex>;
+  const small = decodeRendition(smallText);
+  const large = decodeRendition(largeText);
+  if (
+    typeof id !== "string" ||
+    !idPattern.test(id) ||
+    typeof name !== "string" ||
+    !name.trim() ||
+    name.length > 100 ||
+    /[\/\\\u0000-\u001f\u007f]/u.test(name) ||
+    typeof width !== "number" ||
+    typeof height !== "number" ||
+    ![width, height].every(
+      (size) => Number.isSafeInteger(size) && size > 0 && size <= 5000,
+    ) ||
+    width * height > 12_000_000 ||
+    rights !== "uploader-attested" ||
+    bytes !== small.length + large.length ||
+    hashes?.[720] !== id ||
+    fingerprint(large) !== id ||
+    hashes[360] !== fingerprint(small)
+  ) {
+    throw new BuildError(
+      422,
+      "Backup media integrity or rights verification failed.",
+    );
+  }
+  try {
+    const { default: sharp } = await import("sharp");
+    for (const [size, input] of [
+      [360, small],
+      [720, large],
+    ] as const) {
+      const image = sharp(input, {
+        limitInputPixels: size * size,
+        failOn: "warning",
+      });
+      const meta = await image.metadata();
+      if (
+        meta.format !== "webp" ||
+        meta.width !== size ||
+        meta.height !== size ||
+        (meta.pages ?? 1) !== 1 ||
+        meta.exif ||
+        meta.icc ||
+        meta.iptc ||
+        meta.xmp
+      )
+        throw new Error();
+      await image.stats();
+    }
+  } catch {
+    throw new BuildError(422, "The backup contains an invalid WebP rendition.");
+  }
+  return {
+    index: {
+      id,
+      name,
+      width,
+      height,
+      bytes,
+      rights,
+      hashes: { 360: hashes[360], 720: id },
+    },
+    small,
+    large,
+  };
+}
+
+export async function restoreMedia(
+  vault: string,
+  project: string,
+  value: unknown,
+  signal: AbortSignal,
+) {
+  const archive = value as {
+    version?: unknown;
+    project?: unknown;
+    assets?: unknown;
+  };
+  if (
+    !archive ||
+    archive.version !== 1 ||
+    archive.project !== project ||
+    !Array.isArray(archive.assets) ||
+    archive.assets.length > maxAssets
+  )
+    throw new BuildError(
+      422,
+      "Choose a version 1 media backup for this project.",
+    );
+  const root = await mediaRoot(vault, project, true);
+  const known = new Set(
+    (await readdir(root)).filter((id) => idPattern.test(id)),
+  );
+  const stage = await mkdtemp(resolve(root, ".restore-"));
+  const incoming = new Set<string>();
+  const installed: string[] = [];
+  try {
+    for (const value of archive.assets) {
+      signal.throwIfAborted();
+      const bundle = await checkedBundle(value);
+      const { id } = bundle.index;
+      if (incoming.has(id))
+        throw new BuildError(422, "Duplicate backup image.");
+      incoming.add(id);
+      if (known.has(id)) {
+        const current = await readBundle(root, id);
+        if (current.index.hashes[360] !== bundle.index.hashes[360])
+          throw new BuildError(
+            409,
+            "The backup conflicts with an existing rendition.",
+          );
+      } else {
+        if (known.size >= maxAssets)
+          throw new BuildError(
+            413,
+            "This project has reached its 24-image limit.",
+          );
+        await saveBundle(resolve(stage, id), bundle);
+        known.add(id);
+      }
+    }
+    signal.throwIfAborted();
+    await directory(root);
+    for (const id of await readdir(stage)) {
+      await rename(resolve(stage, id), resolve(root, id));
+      installed.push(id);
+    }
+    return {
+      restored: installed.length,
+      existing: incoming.size - installed.length,
+    };
+  } catch (error) {
+    for (const id of installed)
+      await rename(resolve(root, id), resolve(stage, id));
+    throw error;
+  } finally {
+    await rm(stage, { force: true, recursive: true });
+  }
+}
+
+export async function purgeMedia(
+  vault: string,
+  project: string,
+  id: string,
+  documents: Document[],
+) {
+  if (!idPattern.test(id))
+    throw new BuildError(404, "Only uploaded images can be deleted.");
+  if (documents.some(({ assets }) => assets.includes(id)))
+    throw new BuildError(
+      409,
+      "This image is held by the saved project, its previous revision or a recovery draft.",
+    );
+  const root = await mediaRoot(vault, project);
+  await readBundle(root, id).catch((error) => {
+    if (missing(error))
+      throw new BuildError(404, "This image no longer exists.");
+    throw error;
+  });
+  const target = resolve(root, id);
+  if (
+    (await readdir(target)).sort().join(",") !== "360.webp,720.webp,image.json"
+  )
+    throw new BuildError(409, "The image folder contains unexpected files.");
+  // Hide the asset from subsequent reads before removing its verified files.
+  const stage = await mkdtemp(resolve(root, ".purge-"));
+  try {
+    await rename(target, resolve(stage, id));
+  } catch (error) {
+    await rm(stage, { recursive: true, force: true });
+    throw error;
+  }
+  await rm(stage, { recursive: true, force: true });
+  return { deleted: id };
+}

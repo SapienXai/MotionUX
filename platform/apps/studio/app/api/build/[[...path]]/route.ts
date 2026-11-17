@@ -7,9 +7,9 @@ import {
   fingerprint,
 } from "@motionux/build-core/store";
 import { createComposer, type Composer } from "@motionux/build-core/composer";
-import { manualDocument, projectSchema, templates } from "@motionux/build-core";
+import { manualDocument, templates, type Document } from "@motionux/build-core";
 import { exportTree, zipTree } from "@motionux/app-export";
-import { ingestMedia, listMedia, mediaBytes, verifyMediaOwnership } from "@motionux/app-export/media";
+import { backupMedia, ingestMedia, listMedia, maxMediaBackup, mediaBytes, purgeMedia, restoreMedia, verifyMediaOwnership } from "@motionux/app-export/media";
 import {
   getPreview, inspectPreview, startPreview, stopPreview,
   inspectIntegration, withIntegrationSlot,
@@ -142,24 +142,49 @@ async function handle(request: Request, { params }: Context) {
     }
     if (path.length === 1 && method === "GET")
       return json(await store.open(id));
+    const verifyAssets = (document: Document) => verifyMediaOwnership(repo, vault, id, document);
     if (path.length === 1 && method === "PUT") {
-      const body = await documentBody(request);
-      const checked = projectSchema.safeParse(body);
-      if (checked.success && checked.data.document.assets.length)
-        await verifyMediaOwnership(repo, vault, id, checked.data.document);
-      return json(await store.save(id, body));
+      return json(await store.save(id, await documentBody(request), verifyAssets));
+    }
+    if (path.length === 2 && action === "draft") {
+      if (method === "GET") return json(await store.openDraft(id));
+      if (method === "PUT") return json(await store.saveDraft(id, await documentBody(request), verifyAssets));
+      if (method === "DELETE") {
+        const value = await documentBody(request, 128);
+        if (!Number.isSafeInteger(value?.updatedAt) || value.updatedAt < 0 || Object.keys(value).length !== 1)
+          throw new BuildError(422, "An exact recovery draft timestamp is required.");
+        await store.clearDraft(id, value.updatedAt);
+        return json({ cleared: true });
+      }
     }
     if (action === "media") {
       const project = await store.open(id);
       const seeds = project.document.template === "hotel-marketing";
       if (path.length === 2 && method === "GET") return json(await listMedia(vault, id, seeds));
-      if (path.length === 2 && method === "POST") return json(await ingestMedia(vault, id, request), 201);
+      if (path.length === 2 && method === "POST")
+        return json(await store.withProjectLock(id, () => ingestMedia(vault, id, request)), 201);
+      if (path.length === 3 && path[2] === "backup") {
+        if (method === "GET") {
+          const archive = await store.withProjectLock(id, () => backupMedia(vault, id));
+          return Response.json(archive, { headers: {
+            "Content-Disposition": 'attachment; filename="motionux-media-' + id + '.json"',
+            "Cache-Control": "no-store",
+            "X-Content-Type-Options": "nosniff",
+          } });
+        }
+        if (method === "POST") {
+          const archive = await documentBody(request, maxMediaBackup);
+          return json(await store.withProjectLock(id, () => restoreMedia(vault, id, archive, request.signal)));
+        }
+      }
+      if (path.length === 3 && method === "DELETE")
+        return json(await store.withMediaReferences(id, (documents) => purgeMedia(vault, id, path[2], documents)));
       if (path.length === 3 && method === "GET") {
         const image = /^(seed-(?:coast|room|pool)|[a-f0-9]{64})-(360|720)\.webp$/.exec(path[2]);
         if (!image || (!seeds && image[1].startsWith("seed-"))) throw new BuildError(404, "Unknown image.");
         const bytes = await mediaBytes(repo, vault, id, image[1], image[2] === "360" ? 360 : 720);
         return new Response(new Uint8Array(bytes), { headers: {
-          "Content-Type": "image/webp", "Cache-Control": "private, max-age=86400, immutable", "X-Content-Type-Options": "nosniff",
+          "Content-Type": "image/webp", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff",
         } });
       }
       throw new BuildError(404, "Unknown media action.");

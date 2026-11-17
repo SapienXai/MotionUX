@@ -12,9 +12,11 @@ import { resolve } from "node:path";
 import { randomBytes, createHash } from "node:crypto";
 import {
   newProject,
+  draftSchema,
   projectId,
   projectSchema,
   type BuildProject,
+  type CreatorDraft,
   type Document,
 } from "./model.ts";
 
@@ -87,7 +89,7 @@ export const fingerprint = (contents: string | Uint8Array) =>
 
 async function atomic(
   root: string,
-  name: "project.json" | "previous.json",
+  name: "project.json" | "previous.json" | "draft.json",
   encoded: string,
 ) {
   const target = resolve(root, name);
@@ -208,6 +210,15 @@ export function createStore(vault: string) {
       throw error;
     }
   }
+  async function loadDraft(root: string): Promise<CreatorDraft | null> {
+    try {
+      return draftSchema.parse(JSON.parse(await read(resolve(root, "draft.json"))));
+    } catch (error) {
+      if (missing(error)) return null;
+      if (error instanceof BuildError) throw error;
+      throw new BuildError(422, "The recovery draft cannot be read safely.");
+    }
+  }
   function ownerAlive(value: string) {
     try {
       const owner = JSON.parse(value);
@@ -294,7 +305,55 @@ export function createStore(vault: string) {
     async open(id: string) {
       return load(await rootFor(id), id);
     },
-    async save(id: string, body: unknown) {
+    async openDraft(id: string) {
+      return loadDraft(await rootFor(id));
+    },
+    async saveDraft(id: string, body: unknown, verify: (document: Document) => Promise<void>) {
+      const parsed = draftSchema.safeParse(body);
+      if (!parsed.success) throw new BuildError(422, "Invalid recovery draft.");
+      const next = parsed.data;
+      const encoded = canonical(next);
+      if (Buffer.byteLength(encoded) > maxDocument) throw new BuildError(413, "Recovery draft is too large.");
+      const root = await rootFor(id);
+      return locked(root, async () => {
+        const current = await load(root, id);
+        if (next.baseRevision !== current.revision)
+          throw new BuildError(409, "The draft belongs to a different saved revision.");
+        const previous = await loadDraft(root);
+        if (previous && previous.updatedAt > next.updatedAt)
+          throw new BuildError(409, "A newer recovery draft already exists.");
+        await verify(next.document);
+        await atomic(root, "draft.json", encoded);
+        return next;
+      });
+    },
+    async clearDraft(id: string, updatedAt: number) {
+      const root = await rootFor(id);
+      return locked(root, async () => {
+        const draft = await loadDraft(root);
+        if (!draft) return;
+        if (draft.updatedAt !== updatedAt)
+          throw new BuildError(409, "The recovery draft changed. Reopen the project.");
+        await unlink(resolve(root, "draft.json"));
+      });
+    },
+    async withProjectLock<T>(id: string, action: (project: BuildProject) => Promise<T>) {
+      const root = await rootFor(id);
+      return locked(root, async () => action(await load(root, id)));
+    },
+    async withMediaReferences<T>(id: string, action: (documents: Document[]) => Promise<T>) {
+      const root = await rootFor(id);
+      return locked(root, async () => {
+        const current = await load(root, id);
+        const previous = await load(root, id, true).catch((error) => {
+          if (error instanceof BuildError && error.status === 404) return null;
+          throw error;
+        });
+        const draft = await loadDraft(root);
+        return action([current.document, ...(previous ? [previous.document] : []), ...(draft ? [draft.document] : [])]);
+      });
+    },
+    async save(id: string, body: unknown, verify?: (document: Document) => Promise<void>) {
       const result = projectSchema.safeParse(body);
       if (!result.success || result.data.id !== id)
         throw new BuildError(
@@ -319,8 +378,12 @@ export function createStore(vault: string) {
         const encoded = canonical(next);
         if (Buffer.byteLength(encoded) > maxDocument)
           throw new BuildError(413, "Project is too large.");
+        await verify?.(next.document);
+        const draft = await loadDraft(root).catch(() => null);
         await atomic(root, "previous.json", await read(resolve(root, "project.json")));
         await atomic(root, "project.json", encoded);
+        if (draft && canonical(draft.document) === canonical(next.document))
+          await unlink(resolve(root, "draft.json")).catch(() => {});
         return next;
       });
     },

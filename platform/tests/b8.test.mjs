@@ -19,7 +19,10 @@ import {
 } from "../packages/build-core/composer/blueprint.ts";
 import { exportTree, zipTree } from "../packages/app-export/export.ts";
 import {
+  backupMedia,
   ingestMedia,
+  purgeMedia,
+  restoreMedia,
   mediaBytes,
   verifyMediaOwnership,
 } from "../packages/app-export/media.ts";
@@ -215,4 +218,105 @@ test("Media validates content, rights, ownership, deduplication and bounded immu
   await rm(source);
   await symlink(resolve(repo, "README.md"), source);
   await assert.rejects(mediaBytes(repo, vault, project.id, image.id, 360));
+});
+
+test("Media archives validate every rendition before publishing, and deletion respects saved and recovery references", async (t) => {
+  await mkdir(root, { recursive: true, mode: 0o700 });
+  const vault = await mkdtemp(resolve(root, "b8-recovery-"));
+  t.after(() => rm(vault, { recursive: true, force: true }));
+  const store = createStore(vault);
+  const project = await store.create(manualDocument("hotel-marketing"));
+  const other = await store.create(manualDocument("hotel-marketing"));
+  const bytes = await readFile(
+    resolve(
+      repo,
+      "platform/templates/hotel-marketing/media/seed-room-720.webp",
+    ),
+  );
+  const upload = () =>
+    new Request("http://127.0.0.1/media", {
+      method: "POST",
+      body: bytes,
+      headers: {
+        "Content-Type": "image/webp",
+        "X-MotionUX-Image-Name": "Room.webp",
+        "X-MotionUX-Image-Rights": "confirmed",
+      },
+    });
+  const run = (fn) => store.withProjectLock(project.id, fn);
+  const asset = await run(() => ingestMedia(vault, project.id, upload()));
+  const verify = (document) =>
+    verifyMediaOwnership(repo, vault, project.id, document);
+  const remove = () =>
+    store.withMediaReferences(project.id, (documents) =>
+      purgeMedia(vault, project.id, asset.id, documents),
+    );
+  const archive = await run(() => backupMedia(vault, project.id));
+  assert.equal(archive.assets.length, 1);
+  const draft = {
+    version: 1,
+    baseRevision: 0,
+    updatedAt: 1,
+    pageId: project.document.pages[0].id,
+    document: {
+      ...project.document,
+      assets: [...project.document.assets, asset.id],
+    },
+    selected: project.document.pages[0].blocks[0].id,
+    mode: "interact",
+    device: "mobile",
+    panel: "canvas",
+  };
+  await store.saveDraft(project.id, draft, verify);
+  assert.equal((await store.openDraft(project.id)).selected, draft.selected);
+  await assert.rejects(remove(), { status: 409 });
+  const saved = await store.save(
+    project.id,
+    { ...project, document: draft.document },
+    verify,
+  );
+  assert.equal(await store.openDraft(project.id), null);
+  await assert.rejects(store.saveDraft(project.id, draft, verify), {
+    status: 409,
+  });
+  const detached = await store.save(
+    project.id,
+    { ...saved, document: project.document },
+    verify,
+  );
+  await assert.rejects(remove(), { status: 409 });
+  const renamed = await store.save(
+    project.id,
+    { ...detached, document: { ...detached.document, name: "Media room" } },
+    verify,
+  );
+  await remove();
+  await assert.rejects(mediaBytes(repo, vault, project.id, asset.id, 720), {
+    status: 404,
+  });
+  await assert.rejects(
+    store.save(project.id, { ...renamed, document: draft.document }, verify),
+    { status: 404 },
+  );
+  const restore = (body, signal = new AbortController().signal) =>
+    run(() => restoreMedia(vault, project.id, body, signal));
+  const corrupted = structuredClone(archive);
+  corrupted.assets.push({
+    ...archive.assets[0],
+    small: archive.assets[0].large,
+  });
+  await assert.rejects(restore(corrupted), { status: 422 });
+  assert.equal(
+    (await run(() => backupMedia(vault, project.id))).assets.length,
+    0,
+  );
+  await assert.rejects(restore({ ...archive, project: other.id }), {
+    status: 422,
+  });
+  await assert.rejects(restore(archive, AbortSignal.abort()), {
+    name: "AbortError",
+  });
+  assert.deepEqual(await restore(archive), { restored: 1, existing: 0 });
+  assert.deepEqual(await restore(archive), { restored: 0, existing: 1 });
+  assert.deepEqual(await run(() => backupMedia(vault, project.id)), archive);
 });

@@ -431,6 +431,19 @@ export const projectSchema = z.union([v2, v1.transform((old): z.input<typeof v2>
 export type BuildProject = z.infer<typeof v2>;
 export type Document = z.infer<typeof documentSchema>;
 
+export const draftSchema = z.strictObject({
+  version: z.literal(1),
+  baseRevision: z.number().int().nonnegative(),
+  updatedAt: z.number().int().nonnegative(),
+  document: documentSchema,
+  pageId: z.string().max(80),
+  selected: z.string().max(80).nullable(),
+  device: z.enum(["desktop", "tablet", "mobile"]),
+  mode: z.enum(["edit", "interact"]),
+  panel: z.enum(["left", "canvas", "right"]),
+});
+export type CreatorDraft = z.infer<typeof draftSchema>;
+
 export function makeBlock(
   type: BlockId,
   id: string,

@@ -21,10 +21,12 @@ export function MediaPanel({
   project,
   document,
   onDocument,
+  onPurged,
 }: {
   project: string;
   document: Document;
   onDocument: (edit: (previous: Document) => Document) => void;
+  onPurged: (id: string) => void;
 }) {
   const endpoint = "/api/build/" + project + "/media";
   const [items, setItems] = useState<Record[]>([]);
@@ -35,6 +37,8 @@ export function MediaPanel({
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [preview, setPreview] = useState<Record>();
+  const [backupFile, setBackupFile] = useState<File>();
+  const confirmation = useRef<HTMLDialogElement>(null);
   const modal = useRef<HTMLDialogElement>(null);
   const job = useRef<AbortController>(null);
   const tr = document.locale === "tr";
@@ -112,6 +116,80 @@ export function MediaPanel({
       setBusy(false);
     }
   }
+  async function manage(operation: "backup" | "restore" | "purge") {
+    if (job.current) return;
+    const controller = new AbortController();
+    job.current = controller;
+    setBusy(true);
+    setError("");
+    setMessage("");
+    try {
+      const target =
+        operation === "purge"
+          ? endpoint + "/" + preview?.id
+          : endpoint + "/backup";
+      const response = await fetch(target, {
+        method:
+          operation === "purge"
+            ? "DELETE"
+            : operation === "restore"
+              ? "POST"
+              : "GET",
+        headers: {
+          "X-MotionUX-Build": "1",
+          ...(operation === "restore"
+            ? { "Content-Type": "application/json" }
+            : {}),
+        },
+        body: operation === "restore" ? backupFile : undefined,
+        signal: controller.signal,
+      });
+      if (!response.ok) throw new Error((await response.json()).message);
+      if (operation === "backup") {
+        const url = URL.createObjectURL(await response.blob());
+        const link = window.document.createElement("a");
+        link.href = url;
+        link.download = "motionux-media-" + project + ".json";
+        link.click();
+        window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+        setMessage(t("Media backup downloaded.", "Görsel yedeği indirildi."));
+      } else if (operation === "restore") {
+        const { restored, existing } = await response.json();
+        const refreshed = await fetch(endpoint, { signal: controller.signal });
+        if (!refreshed.ok)
+          throw new Error(
+            t("Media library could not load.", "Görseller yüklenemedi."),
+          );
+        setItems(await refreshed.json());
+        setBackupFile(undefined);
+        setMessage(
+          t(
+            `${restored} ${restored === 1 ? "image" : "images"} restored, ${existing} already present.`,
+            `${restored} görsel geri yüklendi, ${existing} görsel zaten vardı.`,
+          ),
+        );
+      } else if (preview) {
+        setItems((current) => current.filter(({ id }) => id !== preview.id));
+        onPurged(preview.id);
+        confirmation.current?.close();
+        modal.current?.close();
+        setMessage(
+          t("Image permanently deleted.", "Görsel kalıcı olarak silindi."),
+        );
+      }
+    } catch (cause) {
+      if (!controller.signal.aborted)
+        setError(
+          cause instanceof Error
+            ? cause.message
+            : t("Media operation failed.", "Görsel işlemi başarısız."),
+        );
+      confirmation.current?.close();
+    } finally {
+      job.current = null;
+      setBusy(false);
+    }
+  }
   return (
     <section className="build-panel-section build-media">
       <div className="build-panel-title">
@@ -163,7 +241,35 @@ export function MediaPanel({
           </button>
         )}
       </form>
-      {error && <p role="alert">{error}</p>}
+      <details className="build-media-backup">
+        <summary>{t("Media backup", "Görsel yedeği")}</summary>
+        <button
+          className="build-button"
+          type="button"
+          disabled={busy}
+          onClick={() => void manage("backup")}
+        >
+          {t("Download media backup", "Görsel yedeğini indir")}
+        </button>
+        <label>
+          {t("Backup file", "Yedek dosyası")}
+          <input
+            type="file"
+            accept="application/json,.json"
+            disabled={busy}
+            onChange={(event) => setBackupFile(event.target.files?.[0])}
+          />
+        </label>
+        <button
+          className="build-button"
+          type="button"
+          disabled={busy || !backupFile}
+          onClick={() => void manage("restore")}
+        >
+          {t("Restore media backup", "Görsel yedeğini yükle")}
+        </button>
+      </details>
+      {error && !preview && <p role="alert">{error}</p>}
       <p role="status">{message}</p>
       <label>
         {t("Find images", "Görselleri ara")}
@@ -183,6 +289,7 @@ export function MediaPanel({
                 type="button"
                 aria-label={t("Preview ", "Önizle ") + item.name}
                 onClick={() => {
+                  setError("");
                   setPreview(item);
                   modal.current?.showModal();
                 }}
@@ -203,6 +310,7 @@ export function MediaPanel({
         className="build-dialog build-image-dialog"
         aria-label={t("Image preview", "Görsel önizlemesi")}
         ref={modal}
+        onClose={() => setPreview(undefined)}
       >
         {preview && (
           <>
@@ -248,6 +356,17 @@ export function MediaPanel({
             )}
           </>
         )}
+        {preview?.rights === "uploader-attested" && (
+          <button
+            type="button"
+            className="build-button"
+            disabled={busy || document.assets.includes(preview.id)}
+            onClick={() => confirmation.current?.showModal()}
+          >
+            {t("Delete image permanently", "Görseli kalıcı olarak sil")}
+          </button>
+        )}
+        {error && preview && <p role="alert">{error}</p>}
         <button
           type="button"
           className="build-button"
@@ -255,6 +374,42 @@ export function MediaPanel({
         >
           {t("Close", "Kapat")}
         </button>
+      </dialog>
+      <dialog
+        className="build-dialog"
+        ref={confirmation}
+        aria-labelledby="media-purge-title"
+      >
+        <h2 id="media-purge-title">
+          {t(
+            "Delete this image permanently?",
+            "Bu görsel kalıcı olarak silinsin mi?",
+          )}
+        </h2>
+        <p>
+          {t(
+            "A media backup is required to recover the image after deletion.",
+            "Sildikten sonra görseli kurtarmak için medya yedeği gerekir.",
+          )}
+        </p>
+        <div>
+          <button
+            className="build-button"
+            type="button"
+            autoFocus
+            onClick={() => confirmation.current?.close()}
+          >
+            {t("Keep image", "Görseli tut")}
+          </button>
+          <button
+            className="build-button"
+            type="button"
+            disabled={busy}
+            onClick={() => void manage("purge")}
+          >
+            {t("Delete image", "Görseli sil")}
+          </button>
+        </div>
       </dialog>
     </section>
   );

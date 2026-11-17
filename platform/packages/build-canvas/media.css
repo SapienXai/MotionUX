@@ -59,3 +59,7 @@
 .build-media-items fieldset {
   margin-block: 10px;
 }
+
+.build-media-backup { margin-block: 12px; }
+.build-media-backup > :is(label, button) { margin-block-start: 8px; }
+.build-image-dialog > button { margin-block-start: 8px; margin-inline-end: 6px; }
