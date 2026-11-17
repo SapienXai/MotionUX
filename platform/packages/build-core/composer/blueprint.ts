@@ -1,6 +1,12 @@
 import { z } from "zod";
 import {
   adapterFor,
+  availableSections,
+  designPresets,
+  identityFor,
+  recipeIds,
+  sectionFromRecipe,
+  sectionRecipes,
   blockSpec,
   blockSpecVersion,
   compatibleBlock,
@@ -71,6 +77,10 @@ export function normalizeBrief(value: unknown) {
     );
   return brief;
 }
+const presetChoices = ["starter", ...designPresets] as const;
+const recipeChoices = ["none", ...recipeIds] as const;
+const mobileChoices = ["default", "single", "two"] as const;
+
 export const proposalSchema = z.strictObject({
   template: z.enum(templates),
   locale: z.enum(["en", "tr"]),
@@ -79,6 +89,7 @@ export const proposalSchema = z.strictObject({
   theme: z.enum(["light", "dark", "system"]),
   sidebar: z.enum(["expanded", "rail"]),
   motion: z.enum(["system", "none"]),
+  preset: z.enum(presetChoices).optional(),
   pages: z
     .array(
       z.strictObject({
@@ -86,6 +97,8 @@ export const proposalSchema = z.strictObject({
         label: clean(60),
         heading: clean(72),
         purpose: clean(160),
+        section: z.enum(recipeChoices).optional(),
+        mobileColumns: z.enum(mobileChoices).optional(),
         blocks: z
           .array(z.strictObject({ id: z.enum(ids), reason: clean(160) }))
           .min(1)
@@ -118,12 +131,15 @@ export const responseSchema = strict({
   theme: str(["light", "dark", "system"]),
   sidebar: str(["expanded", "rail"]),
   motion: str(["system", "none"]),
+  preset: str(presetChoices),
   pages: rows(
     strict({
       route: str(),
       label: str(),
       heading: str(),
       purpose: str(),
+      section: str(recipeChoices),
+      mobileColumns: str(mobileChoices),
       blocks: rows(strict({ id: str(ids), reason: str() })),
     }),
   ),
@@ -132,6 +148,7 @@ export const responseSchema = strict({
 export const catalogFacts = templates.map((template) => ({
   template,
   adapter: adapterFor[template],
+  sections: availableSections(adapterFor[template]).map(([id]) => id),
   routes: manualDocument(template).pages.map(({ route, blocks }) => ({
     route,
     typicalBlocks: blocks
@@ -143,6 +160,7 @@ export const catalogFacts = templates.map((template) => ({
       (id) =>
         compatibleBlock(id, adapterFor[template]) &&
         ![
+          "CreatorSection",
           "PageHeader",
           "AppSidebar",
           "IconRail",
@@ -164,7 +182,7 @@ export const catalogFacts = templates.map((template) => ({
     })),
 }));
 const forbiddenShell = new Set<BlockId>(
-  ids.filter((id) => registry[id].family === "Shell").concat("PageHeader", "MarketingHeader", "MarketingFooter"),
+  ids.filter((id) => registry[id].family === "Shell").concat("CreatorSection", "PageHeader", "MarketingHeader", "MarketingFooter"),
 );
 export const composerPrompt = (brief: string) =>
   [
@@ -175,6 +193,7 @@ export const composerPrompt = (brief: string) =>
     "CRM contacts have basic search, filtering and sorting; the pipeline can move demo deals locally and undo a move. The block catalog actions are verified. Distinguish these interactions from external services. List identity, payments, email, external-data and native-binary in unsupported when requested. Brand and headings should be descriptive plain text with no PII, URLs, paths or code. No fictitious chart totals or records.",
     "For a handbook or knowledge base choose knowledge-base with / and /guides for ArticleLibrary and /feedback with WorkspaceResponse. For an operations work queue choose operations-workspace with / for OperationsSummary, /queue for OperationsQueue and /runbooks for ArticleLibrary. All changes are browser-local.",
     "For a boutique hotel website choose hotel-marketing. Include / with HeroEditorial, /rooms with RoomCollection, /about with HeroSplit, and /contact with ContactForm. The compiler supplies finite room details and local imagery. The inquiry form validates locally. It does not make reservations or send mail. Use system theme when appearance is unspecified.",
+    "Choose a design preset from starter, editorial, precision or warm. Use starter unless a coherent alternative suits the brief. Each page may request one optional compatible section from the selected template's sections list. Use none if no section is needed. Set mobileColumns to default unless the brief explicitly prefers one or two columns for an added grid. These are approved layout choices.",
     JSON.stringify({ catalog: catalogFacts, brief }),
   ].join("\n");
 
@@ -199,6 +218,7 @@ function requiredLimitations(brief: string) {
 const editSchema = z.strictObject({
   name: clean(80),
   routes: z.array(routeSlug).min(1).max(8),
+  preset: z.enum(presetChoices).optional(),
   theme: z.enum(["dark", "light", "system"]),
   sidebar: z.enum(["expanded", "rail"]),
 });
@@ -303,6 +323,11 @@ export function resolveBlueprint(raw: unknown, brief: string) {
         422,
         "The proposed route is not available in this template.",
       );
+    if (page.section && page.section !== "none" && !availableSections(seed.data).some(([key]) => key === page.section))
+      throw new BuildError(422, "A proposed section is incompatible with this application.");
+    if (page.mobileColumns && page.mobileColumns !== "default" &&
+        (!page.section || page.section === "none" || sectionRecipes[page.section].mode === "stack"))
+      throw new BuildError(422, "A proposed mobile layout needs a compatible section.");
     const primary = primaryBlocks[proposal.template][page.route];
     if (primary && !page.blocks.some(({ id }) => id === primary))
       throw new BuildError(
@@ -331,7 +356,7 @@ export function resolveBlueprint(raw: unknown, brief: string) {
     ...new Set([...proposal.unsupported, ...requiredLimitations(brief)]),
   ].sort();
   const marketing = proposal.template === "hotel-marketing";
-  const pages = marketing
+  const pages: Proposal["pages"] = marketing
     ? [
         ...proposal.pages,
         ...seed.pages.filter(({ route }) => !proposal.pages.some((page) => page.route === route))
@@ -364,6 +389,7 @@ export function editsFor(proposal: Proposal) {
     routes: proposal.pages.map((page) => page.route),
     theme: proposal.theme,
     sidebar: proposal.sidebar,
+    preset: proposal.preset ?? "starter",
   };
 }
 export type ResolvedProposal = ReturnType<typeof resolveBlueprint>;
@@ -375,6 +401,7 @@ export function compileDocument(
   if (!edit.success)
     throw new BuildError(422, "Check the app name, pages and appearance.");
   const { name, theme, sidebar, routes } = edit.data;
+  const preset = edit.data.preset ?? proposal.preset ?? "starter";
   if (routes[0] !== "/" || new Set(routes).size !== routes.length)
     throw new BuildError(
       422,
@@ -457,7 +484,19 @@ export function compileDocument(
     theme,
     sidebar,
     motionProfile: proposal.motion,
-    pages,
+    ...(preset === "starter" ? {} : { identity: identityFor(preset) }),
+    pages: pages.map((page) => {
+      const choice = proposal.pages.find((entry) => entry.route === page.route);
+      if (!choice?.section || choice.section === "none") return page;
+      let index = 0;
+      const section = sectionFromRecipe(seed, choice.section, () => "b-" + page.id.slice(2, 30) + "-section-" + ++index);
+      const layout = section.props.layout!;
+      if (choice.mobileColumns === "single" || choice.mobileColumns === "two")
+        section.props.layout = { ...layout, mobile: { columns: choice.mobileColumns === "single" ? 1 : 2 } };
+      const footer = page.blocks.findIndex((block) => block.type === "MarketingFooter");
+      const position = footer < 0 ? page.blocks.length : footer;
+      return { ...page, blocks: [...page.blocks.slice(0, position), section, ...page.blocks.slice(position)] };
+    }),
   });
   const reviewedPages = marketing ? pages.map(({ route, title, blocks }) => {
     const page = proposal.pages.find((entry) => entry.route === route)!;
@@ -475,6 +514,7 @@ export function compileDocument(
     name,
     theme,
     sidebar,
+    preset,
     routes: pages.map((page) => page.route),
     template: proposal.template,
     locale: proposal.locale,
@@ -482,6 +522,7 @@ export function compileDocument(
     summary: recap[proposal.template][proposal.locale],
     pages: reviewedPages.map((page) => ({
       ...page,
+      addedSection: document.pages.find(({ route }) => route === page.route)?.blocks.find(({ type }) => type === "CreatorSection")?.props.sectionRecipe?.id,
       blocks: page.blocks.map((block) => ({
         ...block,
         label: registry[block.id].title,

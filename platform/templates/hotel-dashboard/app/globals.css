@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "../runtime/tokens.css";
 @import "../runtime/hotel.css";
+@import "../runtime/identity.css";
 html,
 body {
   min-height: 100%;

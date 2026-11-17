@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import {
   isMarketing,
+  identityAttributes,
   defaultMotionDna,
   motionEasings,
   type Block,
@@ -28,11 +29,14 @@ import {
 } from "@motionux/build-core";
 import type { CSSProperties } from "react";
 
+import { CreatorSection } from "./creator-section.tsx";
+
 type Context = {
   document: Document;
   route: string;
   navigate?: (route: string) => void;
   mediaBase: string;
+  thumbnail?: boolean;
 };
 const Site = createContext<Context | null>(null);
 function useSite() {
@@ -88,13 +92,13 @@ function Photo({
   focal = "center",
   priority = false,
 }: Visual & { priority?: boolean }) {
-  const { mediaBase } = useSite();
+  const { mediaBase, thumbnail } = useSite();
   if (!asset) return null;
   return (
     <img
       className="site-photo"
-      src={mediaBase + asset + "-720.webp"}
-      srcSet={
+      src={mediaBase + asset + (thumbnail ? "-360.webp" : "-720.webp")}
+      srcSet={thumbnail ? undefined :
         mediaBase +
         asset +
         "-360.webp 360w, " +
@@ -209,17 +213,17 @@ function SectionTitle({
     </div>
   );
 }
-function Hero({ props, editorial }: { props: BlockProps; editorial: boolean }) {
+function Hero({ props, editorial, nested }: { props: BlockProps; editorial: boolean; nested?: boolean }) {
   return (
     <section className={editorial ? "site-hero editorial" : "site-hero split"}>
       <div className="site-hero-copy">
-        <h1>{props.title}</h1>
+        {nested ? <h2>{props.title}</h2> : <h1>{props.title}</h1>}
         {props.description && <p>{props.description}</p>}
         <Action {...props} />
       </div>
       {props.image && (
         <div className="site-hero-photo">
-          <Photo {...props.image} priority />
+          <Photo {...props.image} priority={!nested} />
         </div>
       )}
     </section>
@@ -327,14 +331,14 @@ function Rooms({ props }: { props: BlockProps }) {
     </section>
   );
 }
-function Contact({ props }: { props: BlockProps }) {
+function Contact({ props, nested }: { props: BlockProps; nested?: boolean }) {
   const { document } = useSite();
   const [validated, setValidated] = useState(false);
   const t = (en: string, tr: string) => localeText(document.locale, en, tr);
   return (
     <section className="site-section site-contact">
       <div>
-        <h1>{props.title}</h1>
+        {nested ? <h2>{props.title}</h2> : <h1>{props.title}</h1>}
         <p>
           {props.description ||
             t(
@@ -377,13 +381,19 @@ function Contact({ props }: { props: BlockProps }) {
   );
 }
 
-export function MarketingBlockView({ block }: { block: Block }) {
+export function MarketingBlockView({ block, slot, nested }: { block: Block; slot?: ReactNode; nested?: boolean }) {
+  if (block.type === "CreatorSection") return (
+    <CreatorSection id={block.id} props={block.props} editorSlot={Boolean(slot)}>
+      {slot ?? block.children?.map((child) => <MarketingBlockView key={child.id} block={child} nested />)}
+    </CreatorSection>
+  );
   const p = block.props;
   const shared = {
     "data-marketing-block": block.type,
     "data-visibility": p.visibility,
     "data-block-motion": p.motion,
     "data-variant": p.variant,
+    ...(p.imageFit && { "data-image-fit": p.imageFit }),
   };
   let node: ReactNode;
   switch (block.type) {
@@ -392,10 +402,10 @@ export function MarketingBlockView({ block }: { block: Block }) {
     case "MarketingFooter":
       return <Navigation title={p.title} presentation={shared} footer />;
     case "HeroEditorial":
-      node = <Hero props={p} editorial />;
+      node = <Hero props={p} editorial nested={nested} />;
       break;
     case "HeroSplit":
-      node = <Hero props={p} editorial={false} />;
+      node = <Hero props={p} editorial={false} nested={nested} />;
       break;
     case "PageHeader":
       node = (
@@ -412,7 +422,7 @@ export function MarketingBlockView({ block }: { block: Block }) {
       node = <Gallery props={p} />;
       break;
     case "ContactForm":
-      node = <Contact props={p} />;
+      node = <Contact props={p} nested={nested} />;
       break;
     case "StorySection":
       node = (
@@ -531,6 +541,7 @@ export function MarketingSurface({
   navigate,
   mediaBase = "/media/",
   theme,
+  thumbnail,
   children,
 }: Context & {
   theme?: Document["theme"];
@@ -538,10 +549,11 @@ export function MarketingSurface({
 }) {
   const dna = document.motionDna ?? defaultMotionDna;
   return (
-    <Site.Provider value={{ document, route, navigate, mediaBase }}>
+    <Site.Provider value={{ document, route, navigate, mediaBase, thumbnail }}>
       <div className="site-preview">
         <div
           className="site"
+          {...identityAttributes(document.identity)}
           lang={document.locale}
           data-theme={theme ?? document.theme}
           data-motion={document.motionProfile}
@@ -599,7 +611,7 @@ export function MarketingPage({
           .filter(({ type }) =>
             isMarketing(type)
               ? !["MarketingHeader", "MarketingFooter"].includes(type)
-              : type === "PageHeader",
+              : type === "PageHeader" || type === "CreatorSection",
           )
           .map((block) => (
             <MarketingBlockView key={block.id} block={block} />

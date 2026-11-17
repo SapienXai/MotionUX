@@ -31,13 +31,13 @@ import {
   type CSSProperties,
   type MouseEvent,
 } from "react";
-import { defaultMotionDna, motionEasings, type Document } from "@motionux/build-core";
+import { defaultMotionDna, identityAttributes, motionEasings, type Document, type TaskRecord } from "@motionux/build-core";
 
-import { readTaskProgress, type OperationsTaskId } from "./operations-data.ts";
+import { readTaskChanges, starterTasks, type TaskChanges } from "./operations-data.ts";
 
 export type TaskProgress = {
-  completed: OperationsTaskId[];
-  update: (tasks: OperationsTaskId[]) => void;
+  changes: TaskChanges;
+  update: (changes: TaskChanges) => void;
 };
 import { workspaceProfiles } from "./profile.ts";
 import { readStageChanges, opportunities, type Stage, type StageChanges } from "./crm-data.ts";
@@ -46,8 +46,9 @@ type AppContext = {
   profile: (typeof workspaceProfiles)[keyof typeof workspaceProfiles];
   stageChanges: StageChanges;
   setStage: (id: string, stage: Stage) => void;
-  completedTasks: OperationsTaskId[];
-  toggleTask: (id: OperationsTaskId) => void;
+  tasks: TaskRecord[];
+  completedTasks: string[];
+  toggleTask: (id: string) => void;
   document: Document;
   route: string;
   storageKey: string;
@@ -382,16 +383,21 @@ export function AppFrame({
   const [stageChanges, setStageChanges] = useState<StageChanges>({});
   const taskKey = storageKey + "-ops-v1-r" + revision;
   const operations = document.data === "operations-demo-v1";
-  const [localTasks, setLocalTasks] = useState<OperationsTaskId[]>([]);
-  const completedTasks = taskProgress?.completed ?? localTasks;
+  const tasks = operations ? document.tasks?.records ?? starterTasks(document.locale) : [];
+  const [localTasks, setLocalTasks] = useState<TaskChanges>({});
+  const changes = taskProgress?.changes ?? localTasks;
+  const completedTasks = operations ? tasks.filter(({ id, status }) =>
+    (Object.hasOwn(changes, id) ? changes[id] : status === "completed"),
+  ).map(({ id }) => id) : [];
   useEffect(() => {
     if (studio || !operations) return;
-    try { setLocalTasks(readTaskProgress(localStorage.getItem(taskKey))); }
-    catch { setLocalTasks([]); }
-  }, [taskKey, studio, operations]);
-  function toggleTask(id: OperationsTaskId) {
-    if (!operations) return;
-    const next = completedTasks.includes(id) ? completedTasks.filter((task) => task !== id) : [...completedTasks, id];
+    try {
+      setLocalTasks(readTaskChanges(localStorage.getItem(taskKey), document.tasks?.records ?? starterTasks(document.locale)));
+    } catch { setLocalTasks({}); }
+  }, [taskKey, studio, operations, document.tasks, document.locale]);
+  function toggleTask(id: string) {
+    if (!operations || !tasks.some((task) => task.id === id)) return;
+    const next = { ...changes, [id]: !completedTasks.includes(id) };
     if (taskProgress) taskProgress.update(next);
     else setLocalTasks(next);
     if (!studio) try { localStorage.setItem(taskKey, JSON.stringify(next)); } catch { /* Current view still works. */ }
@@ -464,6 +470,7 @@ export function AppFrame({
         profile,
         stageChanges,
         setStage,
+        tasks,
         completedTasks,
         toggleTask,
         route,
@@ -477,6 +484,7 @@ export function AppFrame({
     >
       <div
         className="hotel"
+        {...identityAttributes(document.identity)}
         data-template={document.template}
         data-theme={theme}
         data-device={device}

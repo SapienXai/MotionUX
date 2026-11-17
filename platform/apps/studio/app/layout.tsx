@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import "@motionux/design-system/tokens.css";
 import "@fontsource-variable/inter";
 import "./studio.css";
+import "@motionux/design-system/identity.css";
 import { StudioChrome } from "./studio-chrome";
 import { appearanceKey } from "../../../../lib/studio-bridge";
 

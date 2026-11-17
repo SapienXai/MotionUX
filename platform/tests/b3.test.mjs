@@ -101,7 +101,7 @@ test("v1 custom Hotel opens without writing bytes, retains nested bindings and s
 test("owned manifests audit all original Hotel blocks plus only four CRM-specific ones", () => {
   const types = Object.keys(registry);
   assert.equal(
-    types.filter((id) => compatibleBlock(id, "hotel-demo-v1")).length,
+    types.filter((id) => id !== "CreatorSection" && compatibleBlock(id, "hotel-demo-v1")).length,
     31,
   );
   assert.deepEqual(

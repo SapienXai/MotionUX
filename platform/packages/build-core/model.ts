@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { articlesSchema, defaultSectionLayout, identitySchema, recipeIds, sectionLayoutSchema, taskCollectionSchema } from "./creator-design.ts";
+export * from "./creator-design.ts";
+export { availableSections, sectionFromRecipe, sectionRecipes } from "./sections.ts";
 import { marketingBlocks, isMarketing } from "./marketing-spec.ts";
 import { pagePatternIds, pagePatterns, pagePatternVersion, workspaceStarters, type PagePatternId } from "./page-patterns.ts";
 export type { PagePatternId } from "./page-patterns.ts";
@@ -196,6 +199,7 @@ export const registry = {
   SalesActivity: define("Dashboard", "Sales activity", "Inspect meetings, notes and follow-ups"),
   SalesBreakdown: define("Dashboard", "Pipeline breakdown", "Compare opportunity counts and values by stage"),
   ArticleLibrary: define("Content", "Article library", "Search and read editable local reference guides"),
+  CreatorSection: define("Content", "Section", "A responsive group of editable blocks"),
   WorkspaceResponse: define("Forms", "Local response", "Validate a browser-only response without sending or retaining it"),
   OperationsQueue: define("Dashboard", "Operations queue", "Filter and complete fictional tasks in this workspace"),
   OperationsSummary: define("Dashboard", "Operations summary", "Count open and completed tasks from the same queue"),
@@ -262,6 +266,7 @@ export const blockSpecVersion = 2 as const;
 export function compatibleBlock(type: BlockId, data: Adapter) {
   const operations = data === "operations-demo-v1";
   const knowledge = data === "knowledge-demo-v1";
+  if (type === "CreatorSection") return true;
   if (type === "ArticleLibrary" || type === "WorkspaceResponse") return operations || knowledge;
   if (type === "OperationsQueue" || type === "OperationsSummary") return operations;
   if ((operations || knowledge) && withoutData.includes(type)) return false;
@@ -277,7 +282,7 @@ export function blockSpec(type: BlockId) {
     ...entry, id: type, blockSpecVersion,
     propsContract: type === "KpiCard" ? "presentation+metric-binding" : type === "SidebarInset" ? "presentation+bounded-slot" : "presentation",
     tags: [entry.family.toLowerCase(), ...entry.title.toLowerCase().split(" ")],
-    allowedLayouts: type === "SidebarInset" ? ["page"] : ["page", "section"],
+    allowedLayouts: isBlockGroup(type) ? ["page"] : ["page", "section"],
     supportedDataAdapters: Object.values(adapterFor).filter((adapter) => compatibleBlock(type, adapter)),
     actionCapabilities: actionsByBlock[type] ?? [],
     bindings: type === "KpiCard" ? metricOptions : undefined,
@@ -287,7 +292,7 @@ export function blockSpec(type: BlockId) {
     accessibilityRequirements: ["visible keyboard focus", "accessible names", "reduced motion"],
     motionBehavior: "state feedback only", reducedMotionBehavior: "disable transitions",
     performanceCost: ["ChartCard", "Contacts", "Pipeline"].includes(type) ? "interactive" : "light",
-    testEvidence: ["ArticleLibrary", "WorkspaceResponse", "OperationsQueue", "OperationsSummary"].includes(type) ? "platform/tests/b9-browser.mjs" : type === "SidebarInset" || !crmOnly.includes(type) ? "platform/tests/browser.mjs" : "platform/tests/b3-browser.mjs",
+    testEvidence: type === "CreatorSection" ? "platform/tests/b10-browser.mjs" : ["ArticleLibrary", "WorkspaceResponse", "OperationsQueue", "OperationsSummary"].includes(type) ? "platform/tests/b9-browser.mjs" : type === "SidebarInset" || !crmOnly.includes(type) ? "platform/tests/browser.mjs" : "platform/tests/b3-browser.mjs",
   };
 }
 
@@ -308,6 +313,10 @@ export const blockProps = z.strictObject({
     .enum(["automatic", "occupancy", "arrivals", "revenue", "pipeline-value", "qualified-deals", "contacts", "open-tasks"])
     .default("automatic"),
   image: image.optional(),
+  imageFit: z.enum(["cover", "contain"]).optional(),
+  layout: sectionLayoutSchema.optional(),
+  sectionRecipe: z.strictObject({ id: z.enum(recipeIds), version: z.literal(1) }).optional(),
+  articles: articlesSchema.optional(),
   items: z.array(z.strictObject({
     title: text(72), text: text(300), asset: mediaId.optional(), alt: text(180).optional(),
     focal: z.enum(["top", "center", "bottom"]).optional(), destination: landingRoute.optional(),
@@ -321,19 +330,23 @@ const leafSchema = z.strictObject({
   version: z.literal(1),
   props: blockProps,
 });
+export const isBlockGroup = (type: string) => type === "SidebarInset" || type === "CreatorSection";
+export const isSectionChild = (type: BlockId) => !isBlockGroup(type) &&
+  type !== "MarketingHeader" && type !== "MarketingFooter" && type !== "PageHeader" && registry[type].family !== "Shell";
 export const blockSchema = leafSchema
   .extend({ children: z.array(leafSchema).max(12).optional() })
   .superRefine((block, context) => {
-    if (
-      block.children &&
-      (block.type !== "SidebarInset" ||
-        block.children.some((item) => item.type === "SidebarInset"))
-    )
-      context.addIssue({
-        code: "custom",
-        message: "Only a top-level sidebar inset can hold other blocks.",
-        path: ["children"],
-      });
+    if (block.children && (!isBlockGroup(block.type) ||
+      block.children.some((item) => isBlockGroup(item.type)))) {
+      context.addIssue({ code: "custom", message: "Only top-level groups can contain blocks.", path: ["children"] });
+    }
+    for (const item of [block, ...(block.children ?? [])]) {
+      const section = item.type === "CreatorSection";
+      if (section !== Boolean(item.props.layout) || (!section && item.props.sectionRecipe) ||
+          (item.props.articles && item.type !== "ArticleLibrary"))
+        context.addIssue({ code: "custom", message: "This property is incompatible with the selected block.", path: ["props"] });
+    }
+    if (block.type === "CreatorSection" && block.children?.some(({ type }) => !isSectionChild(type))) context.addIssue({ code: "custom", message: "Page landmarks belong outside sections.", path: ["children"] });
   });
 export type Block = z.infer<typeof blockSchema>;
 export const allBlocks = (blocks: Block[]): Block[] =>
@@ -371,7 +384,11 @@ const compositionFields = z
 export const documentSchema = compositionFields.extend({
   locale: z.enum(["en", "tr"]).default("en"),
   motionDna: motionDnaSchema.optional(),
-}).superRefine(({ pages, data, template, assets }, context) => {
+  identity: identitySchema.optional(),
+  tasks: taskCollectionSchema.optional(),
+}).superRefine(({ pages, data, template, assets, tasks }, context) => {
+    if (tasks && data !== "operations-demo-v1")
+      context.addIssue({ code: "custom", message: "Task records require the Operations adapter.", path: ["tasks"] });
     if (adapterFor[template] !== data)
       context.addIssue({ code: "custom", message: "Template and adapter are incompatible.", path: ["data"] });
     for (const page of pages) for (const block of allBlocks(page.blocks)) {
@@ -479,6 +496,7 @@ export function makeBlock(
       visibility: "all",
       accessibleLabel: "",
       dataBinding: "automatic",
+      ...(type === "CreatorSection" && { layout: defaultSectionLayout }),
       ...overrides,
     },
   };

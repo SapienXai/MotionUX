@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
+  allBlocks,
   referencedMedia,
   seedImages,
   type BlockId,
@@ -10,7 +11,7 @@ import {
 } from "@motionux/build-core";
 import "./media.css";
 
-type Record = {
+export type MediaRecord = {
   id: string;
   name: string;
   width: number;
@@ -22,21 +23,24 @@ export function MediaPanel({
   document,
   onDocument,
   onPurged,
+  onInventory,
 }: {
   project: string;
   document: Document;
   onDocument: (edit: (previous: Document) => Document) => void;
   onPurged: (id: string) => void;
+  onInventory?: (items: MediaRecord[]) => void;
 }) {
   const endpoint = "/api/build/" + project + "/media";
-  const [items, setItems] = useState<Record[]>([]);
+  const [items, setItems] = useState<MediaRecord[]>([]);
   const [file, setFile] = useState<File>();
   const [rights, setRights] = useState(false);
   const [query, setQuery] = useState("");
+  const [usage, setUsage] = useState("all");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  const [preview, setPreview] = useState<Record>();
+  const [preview, setPreview] = useState<MediaRecord>();
   const [backupFile, setBackupFile] = useState<File>();
   const confirmation = useRef<HTMLDialogElement>(null);
   const modal = useRef<HTMLDialogElement>(null);
@@ -59,6 +63,7 @@ export function MediaPanel({
       job.current?.abort();
     };
   }, [endpoint, tr]);
+  useEffect(() => { onInventory?.(items); }, [items, onInventory]);
   const references = referencedMedia(document);
   function add(id: string) {
     onDocument((previous) =>
@@ -89,7 +94,7 @@ export function MediaPanel({
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.message);
-      const asset: Record = result;
+      const asset: MediaRecord = result;
       setItems((current) =>
         current.some(({ id }) => id === asset.id)
           ? current
@@ -278,10 +283,18 @@ export function MediaPanel({
           onChange={(event) => setQuery(event.target.value)}
         />
       </label>
+      <label>{t("Image usage", "Görsel kullanımı")}
+        <select value={usage} onChange={(event) => setUsage(event.target.value)}>
+          <option value="all">{t("All images", "Tüm görseller")}</option>
+          <option value="used">{t("Used in draft", "Taslakta kullanılıyor")}</option>
+          <option value="unused">{t("Unused in draft", "Taslakta kullanılmıyor")}</option>
+        </select>
+      </label>
       <ul className="build-media-grid">
         {items
-          .filter(({ name }) =>
-            name.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+          .filter(({ name, id }) =>
+            (usage === "all" || references.has(id) === (usage === "used")) &&
+            name.toLocaleLowerCase(document.locale).includes(query.toLocaleLowerCase(document.locale)),
           )
           .map((item) => (
             <li key={item.id}>
@@ -327,6 +340,11 @@ export function MediaPanel({
                 ? t("Used on the site", "Sitede kullanılıyor")
                 : t("Unused", "Kullanılmıyor")}
             </p>
+            {references.has(preview.id) && <ul className="creator-media-usage">
+              {document.pages.filter((page) => allBlocks(page.blocks).some(({ props }) =>
+                props.image?.asset === preview.id || props.items?.some(({ asset }) => asset === preview.id),
+              )).map((page) => <li key={page.id}>{page.title}</li>)}
+            </ul>}
             {document.assets.includes(preview.id) ? (
               <button
                 type="button"
@@ -419,17 +437,21 @@ export function MediaFields({
   type,
   props,
   document,
+  media,
+  mediaBase,
   change,
 }: {
   type: BlockId;
   props: BlockProps;
   document: Document;
+  media: MediaRecord[];
+  mediaBase: string;
   change: (next: Partial<BlockProps>) => void;
 }) {
   const tr = document.locale === "tr";
   const options = document.assets.map((id) => (
     <option key={id} value={id}>
-      {seedImages[id as keyof typeof seedImages] ?? id.slice(0, 12)}
+      {media.find((item) => item.id === id)?.name ?? seedImages[id as keyof typeof seedImages] ?? id.slice(0, 12)}
     </option>
   ));
   const routes = document.pages.map((page) => (
@@ -448,7 +470,6 @@ export function MediaFields({
     type,
   );
   const hasItems = [
-    "ArticleLibrary",
     "LogoCloud",
     "FeatureBento",
     "StatsStrip",
@@ -472,7 +493,7 @@ export function MediaFields({
                   image: event.target.value
                     ? {
                         asset: event.target.value,
-                        alt: props.image?.alt ?? "",
+                        alt: props.image?.asset === event.target.value ? props.image.alt : "",
                         focal: props.image?.focal ?? "center",
                       }
                     : undefined,
@@ -485,6 +506,17 @@ export function MediaFields({
           </label>
           {props.image && (
             <>
+              <div className="creator-crop-preview">
+                <img src={mediaBase + props.image.asset + "-360.webp"} alt=""
+                  width="360" height="360" loading="lazy"
+                  style={{ objectPosition: props.image.focal, objectFit: props.imageFit ?? "cover" }} />
+              </div>
+              <label>{tr ? "Görseli yerleştir" : "Image fit"}
+                <select value={props.imageFit ?? "cover"} onChange={(event) => change({ imageFit: event.target.value === "contain" ? "contain" : "cover" })}>
+                  <option value="cover">{tr ? "Doldur ve kırp" : "Fill and crop"}</option>
+                  <option value="contain">{tr ? "Görselin tamamını göster" : "Show whole image"}</option>
+                </select>
+              </label>
               <label>
                 {tr ? "Alternatif metin" : "Image alt text"}
                 <input
@@ -498,6 +530,7 @@ export function MediaFields({
                   }}
                 />
               </label>
+              <p className="build-hint">{tr ? "Anlamlı görselleri kısaca tarif edin. Dekoratif görselleri boş bırakın." : "Describe meaningful images briefly. Leave decorative images blank."}</p>
               <label>
                 {tr ? "Odak" : "Image focal position"}
                 <select

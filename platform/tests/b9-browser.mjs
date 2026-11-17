@@ -174,7 +174,7 @@ async function createProject(page, app, work) {
   assert.equal(saved.revision, 1);
   const added = saved.document.pages.find(({ route }) => route === guideRoute);
   assert.deepEqual(added.pattern, { id: "reference", version: 1 });
-  assert.equal(added.blocks[1].props.items[0].title, app.authored);
+  assert.equal(added.blocks[1].props.articles.records[0].title, app.authored);
   await page.reload();
   await projectPage(page, guide).click();
   await expect(canvas.locator("summary:visible").filter({ hasText: app.authored })).toBeVisible();

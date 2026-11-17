@@ -4,7 +4,7 @@
   "type": "module",
   "exports": {
     ".": "./blocks.tsx",
-    "./frame": "./frame.tsx",
+    "./operations-data":"./operations-data.ts", "./frame": "./frame.tsx",
     "./marketing": "./marketing.tsx",
     "./marketing.css": "./marketing.css",
     "./styles.css": "./hotel.css"

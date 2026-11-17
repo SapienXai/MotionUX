@@ -1,10 +1,9 @@
 "use client";
 import { useId, useState } from "react";
-import type { BlockProps } from "@motionux/build-core";
+import { articleRecords, type BlockProps } from "@motionux/build-core";
 import { useApp } from "./frame.tsx";
-import { operationsTasks } from "./operations-data.ts";
 
-export function ArticleLibrary({ title, description, items = [] }: BlockProps) {
+export function ArticleLibrary({ title, description, articles, items }: BlockProps) {
   const { document } = useApp();
   const tr = document.locale === "tr";
   const t = (en: string, turkish: string) => tr ? turkish : en;
@@ -12,8 +11,8 @@ export function ArticleLibrary({ title, description, items = [] }: BlockProps) {
   const [query, setQuery] = useState("");
   const lower = (value: string) => value.toLocaleLowerCase(document.locale);
   const search = lower(query.trim());
-  const articles = items.map((item, index) => ({ ...item, index }))
-    .filter(({ title, text }) => lower(title + " " + text).includes(search));
+  const matches = articleRecords(articles, items)
+    .filter(({ title, body, tag }) => lower([title, body, tag].join(" ")).includes(search));
   return (
     <div className="hotel-card workspace-library">
       <div className="hotel-card-title"><h2>{title}</h2>{description && <p>{description}</p>}</div>
@@ -21,14 +20,15 @@ export function ArticleLibrary({ title, description, items = [] }: BlockProps) {
         <label htmlFor={id}>{t("Search guides", "Kılavuzları ara")}</label>
         <input id={id} type="search" value={query} onChange={(event) => setQuery(event.target.value)} />
       </div>
-      <p className="workspace-count" role="status">{t(`${articles.length} ${articles.length === 1 ? "guide" : "guides"}`, `${articles.length} kılavuz`)}</p>
-      {articles.length ? (
+      <p className="workspace-count" role="status">{t(`${matches.length} ${matches.length === 1 ? "guide" : "guides"}`, `${matches.length} kılavuz`)}</p>
+      {matches.length ? (
         <ul className="workspace-articles">
-          {articles.map(({ title, text, index }) => (
-            <li key={index}>
+          {matches.map(({ title, body, tag, id: articleId }) => (
+            <li key={articleId}>
               <details name={"guide-" + id}>
                 <summary>{title || t("Untitled guide", "Adsız kılavuz")}</summary>
-                <p>{text}</p>
+                {tag && <small>{tag}</small>}
+                <p>{body}</p>
               </details>
             </li>
           ))}
@@ -68,12 +68,12 @@ export function WorkspaceResponse({ title }: BlockProps) {
 }
 
 export function OperationsSummary({ title, description }: BlockProps) {
-  const { document, completedTasks } = useApp();
+  const { document, completedTasks, tasks } = useApp();
   const tr = document.locale === "tr";
   const totals = [
-    [tr ? "Açık" : "Open", operationsTasks.length - completedTasks.length],
+    [tr ? "Açık" : "Open", tasks.length - completedTasks.length],
     [tr ? "Tamamlanan" : "Completed", completedTasks.length],
-    [tr ? "Toplam" : "Total", operationsTasks.length],
+    [tr ? "Toplam" : "Total", tasks.length],
   ] as const;
   return (
     <div className="hotel-card">
@@ -86,13 +86,13 @@ export function OperationsSummary({ title, description }: BlockProps) {
 }
 
 export function OperationsQueue({ title, description }: BlockProps) {
-  const { document, completedTasks, toggleTask } = useApp();
+  const { document, completedTasks, toggleTask, tasks: records } = useApp();
   const tr = document.locale === "tr";
   const t = (en: string, turkish: string) => tr ? turkish : en;
   const id = useId();
   const [filter, setFilter] = useState("all");
   const [notice, setNotice] = useState("");
-  const tasks = operationsTasks.filter(({ id }) => filter === "all" || completedTasks.includes(id) === (filter === "completed"));
+  const tasks = records.filter(({ id }) => filter === "all" || completedTasks.includes(id) === (filter === "completed"));
   return (
     <div className="hotel-card">
       <div className="hotel-card-title">
@@ -119,10 +119,10 @@ export function OperationsQueue({ title, description }: BlockProps) {
             <tbody>
               {tasks.map((task) => {
                 const done = completedTasks.includes(task.id);
-                const label = task.title[tr ? 1 : 0];
+                const label = task.title || t("Untitled task", "Adsız görev");
                 const action = done ? t("Reopen", "Yeniden aç") : t("Complete", "Tamamla");
                 return <tr key={task.id}>
-                  <th scope="row">{label}</th>
+                  <th scope="row">{label}{task.summary && <small className="workspace-task-summary">{task.summary}</small>}</th>
                   <td>{task.owner}</td>
                   <td>{task.priority === "high" ? t("High", "Yüksek") : t("Normal", "Normal")}</td>
                   <td><span className="crm-chip">{done ? t("Completed", "Tamamlandı") : t("Open", "Açık")}</span></td>

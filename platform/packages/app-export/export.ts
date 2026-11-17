@@ -19,6 +19,7 @@ const templateFiles = [
   "tsconfig.json",
 ] as const;
 const sources = {
+  "runtime/creator-section.tsx": "app-blocks/creator-section.tsx",
   "runtime/blocks.tsx": "app-blocks/blocks.tsx",
   "runtime/crm-data.ts": "app-blocks/crm-data.ts",
   "runtime/crm.tsx": "app-blocks/crm.tsx",
@@ -33,12 +34,16 @@ const sources = {
   "runtime/marketing-spec.ts": "build-core/marketing-spec.ts",
   "runtime/marketing-template.ts": "build-core/marketing-template.ts",
   "runtime/motion-dna.ts": "build-core/motion-dna.ts",
+  "runtime/identity.css": "design-system/identity.css",
+  "runtime/sections.ts": "build-core/sections.ts",
+  "runtime/creator-catalog.ts": "build-core/creator-catalog.ts",
+  "runtime/creator-design.ts": "build-core/creator-design.ts",
   "runtime/tokens.css": "design-system/tokens.css",
 } as const;
 const localImports = (contents: string) =>
   contents
     .replaceAll('from "@motionux/build-core"', 'from "./model"')
-    .replace(/from "(\.\/[a-z-]+)\.tsx?"/g, 'from "$1"');
+    .replace(/(from|export \* from) "(\.\/[a-z-]+)\.tsx?"/g, '$1 "$2"');
 
 type SourceFiles = Record<string, string | Uint8Array>;
 const pwaFiles = {

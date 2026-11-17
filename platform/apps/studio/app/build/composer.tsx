@@ -23,6 +23,7 @@ import {
   type ComponentType,
   type FormEvent,
 } from "react";
+import { designPresets, presetDetails, sectionRecipeNames } from "@motionux/build-core/creator-catalog";
 import type { BuildProject, Template } from "@motionux/build-core";
 import type { ReviewedPlan } from "@motionux/build-core/blueprint";
 
@@ -34,12 +35,13 @@ type Row = {
   error: boolean;
 };
 type Review = { job: string; plan: ReviewedPlan };
-type Edits = Pick<ReviewedPlan, "name" | "theme" | "sidebar" | "routes">;
-const editFor = ({ name, theme, sidebar, routes }: ReviewedPlan): Edits => ({
+type Edits = Pick<ReviewedPlan, "name" | "theme" | "sidebar" | "routes" | "preset">;
+const editFor = ({ name, theme, sidebar, routes, preset }: ReviewedPlan): Edits => ({
   name,
   theme,
   sidebar,
   routes,
+  preset,
 });
 const actionLabels: Record<string, string> = {
   navigate: "Open another page",
@@ -559,6 +561,16 @@ export function ComposerHome({
                         <option value="system">System</option>
                       </select>
                     </label>
+                    <label className="review-field">
+                      Design preset
+                      <select value={edits.preset} onChange={(event) => {
+                        const preset = designPresets.find((value) => value === event.target.value) ?? "starter";
+                        setEdits({ ...edits, preset });
+                      }}>
+                        <option value="starter">Starter appearance</option>
+                        {designPresets.map((value) => <option key={value} value={value}>{presetDetails[value].name[review.plan.locale === "tr" ? 1 : 0]}</option>)}
+                      </select>
+                    </label>
                     {review.plan.template !== "hotel-marketing" && <label className="review-field">
                       Desktop navigation{" "}
                       <select
@@ -632,6 +644,7 @@ export function ComposerHome({
                             )}
                           </div>
                           <p>{page.purpose}</p>
+                          {page.addedSection && <p>{sectionRecipeNames[page.addedSection][review.plan.locale === "tr" ? 1 : 0]}</p>}
                           <details>
                             <summary>
                               {page.blocks.length}{" "}

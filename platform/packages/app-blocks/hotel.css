@@ -1187,3 +1187,6 @@
   resize: vertical;
 }
 [data-block="WorkspaceResponse"] textarea:focus-visible { outline: 2px solid var(--hotel-ring); outline-offset: 2px; }
+
+.workspace-task-summary { display: block; margin-block-start: 4px; color: var(--hotel-muted); font-weight: 400; white-space: normal; }
+.workspace-articles details > small { display: block; color: var(--hotel-muted); padding-inline: 4px; }

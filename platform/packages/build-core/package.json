@@ -4,6 +4,7 @@
   "type": "module",
   "exports": {
     ".": "./model.ts",
+    "./creator-catalog": "./creator-catalog.ts",
     "./store": "./store.ts",
     "./blueprint": "./composer/blueprint.ts",
     "./composer": "./composer/service.ts",

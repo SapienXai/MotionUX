@@ -14,6 +14,8 @@ import {
   GripVertical,
   LoaderCircle,
   Monitor,
+  Maximize2,
+  Minimize2,
   Moon,
   Plus,
   Redo2,
@@ -36,13 +38,19 @@ import "@motionux/app-blocks/marketing.css";
 import { RuntimeContext, config, fromPuck, puckItem, sectionItems, toPuck, type PuckItem } from "./puck-projection";
 import { InteractPreview } from "./interact-preview";
 import type { TaskProgress } from "@motionux/app-blocks/frame";
-import { MediaFields, MediaPanel } from "./media-fields";
+import { MediaFields, MediaPanel, type MediaRecord } from "./media-fields";
+import { SectionLayoutFields, SectionLibrary } from "./section-fields";
+import { ArticleFields, TaskFields } from "./collection-fields";
+import { FrameSize } from "./frame-size";
+import { IdentityFields } from "./identity-fields";
 import { MotionDnaFields } from "./motion-dna-fields";
 import { RuntimeInspector } from "./runtime-inspector";
 import { IntegrationLab } from "./integration-lab";
 import { readLocalDraft, selectBlock, writeLocalDraft } from "./creator-recovery";
 import {
   allBlocks,
+  sectionFromRecipe,
+  type RecipeId,
   appendPageFromPattern,
   availablePagePatterns,
   families,
@@ -50,6 +58,8 @@ import {
   registry,
   compatibleBlock,
   isMarketing,
+  isBlockGroup,
+  isSectionChild,
   metricOptions,
   routeSlug,
   type BlockId,
@@ -57,15 +67,18 @@ import {
   type BuildPage,
   type PagePatternId,
   type BuildProject,
+  type DesignIdentity,
   type CreatorDraft,
   type Document,
 } from "@motionux/build-core";
 import {
   useCallback,
   useEffect,
+  useImperativeHandle,
   useRef,
   useState,
   type ReactNode,
+  type Ref,
 } from "react";
 
 type Device = "desktop" | "tablet" | "mobile";
@@ -164,13 +177,18 @@ export function Editor({
   const [epoch, setEpoch] = useState(0);
   const [device, setDevice] = useState<Device>(originalDraft?.device ?? "desktop");
   const [theme, setTheme] = useState<"light" | "dark">();
+  const [mediaInventory, setMediaInventory] = useState<MediaRecord[]>([]);
+  const pageDialog = useRef<{ add: (pattern: PagePatternId) => void }>(null);
+  const frameElement = useRef<HTMLDivElement>(null);
+  const [focusCanvas, setFocusCanvas] = useState(false);
+  const [identityPreview, setIdentityPreview] = useState<DesignIdentity>();
   const [preview, setPreview] = useState<Preview>({ status: "idle" });
   const [mode, setMode] = useState<"edit" | "interact" | "run">(originalDraft?.mode ?? "edit");
   const [panel, setPanel] = useState<"left" | "canvas" | "right">(originalDraft?.panel ?? "canvas");
   const [busy, setBusy] = useState("");
   const [message, setMessage] = useState("");
   const [recent, setRecent] = useState<BlockId[]>([]);
-  const [completedTasks, setCompletedTasks] = useState<TaskProgress["completed"]>([]);
+  const [taskChanges, setTaskChanges] = useState<TaskProgress["changes"]>({});
   const launch = useRef(false);
   const changed = useRef(false);
   const [recoveryReady, setRecoveryReady] = useState(false);
@@ -471,8 +489,9 @@ export function Editor({
   }
   const previewOwned =
     preview.id === initial.id && preview.revision === saved.revision;
+  const renderDocument = identityPreview ? { ...document, identity: identityPreview } : document;
   const runtime = {
-    document,
+    document: renderDocument,
     page,
     device,
     theme: defaultTheme,
@@ -599,7 +618,7 @@ export function Editor({
             type="button"
             key={id}
             aria-pressed={panel === id}
-            onClick={() => setPanel(id)}
+            onClick={() => { setPanel(id); setFocusCanvas(false); }}
           >
             {id === "left"
               ? "Library"
@@ -620,7 +639,7 @@ export function Editor({
           onChange={onChange}
         >
           <RememberSelection onSelect={setSelected} />
-          <div className="build-workspace" data-pane={panel}>
+          <div className="build-workspace" data-pane={panel} data-focus-canvas={focusCanvas}>
             <aside className="build-left" aria-label="Pages and blocks">
               <Pages
                 document={document}
@@ -628,9 +647,13 @@ export function Editor({
                 onSelect={setPageId}
                 onAdd={addPage}
                 onRename={updatePage}
+                dialogHandle={pageDialog}
               />
               <Palette
-                data={document.data}
+                document={document}
+                route={page.route}
+                mediaBase={mediaBase}
+                onPattern={(pattern) => pageDialog.current?.add(pattern)}
                 recent={recent}
                 onUsed={(type) =>
                   setRecent((value) =>
@@ -642,7 +665,7 @@ export function Editor({
                 }
                 count={page.blocks.length}
               />
-              {marketing && <MediaPanel project={initial.id} document={document} onDocument={commit}
+              {marketing && <MediaPanel onInventory={setMediaInventory} project={initial.id} document={document} onDocument={commit}
                 onPurged={(id) => setHistory((previous) => ({
                   ...previous,
                   past: previous.past.filter(({ assets }) => !assets.includes(id)),
@@ -651,6 +674,7 @@ export function Editor({
             </aside>
             <section className="build-canvas" aria-label="Application canvas">
               <div className="build-canvas-bar">
+                {identityPreview && mode !== "run" && <button type="button" className="build-button" onClick={() => setIdentityPreview(undefined)}>Close style preview</button>}
                 <span className="build-route">
                   <Code2 size={15} /> {page.route}
                 </span>
@@ -665,7 +689,13 @@ export function Editor({
                       <Icon size={16} />
                     </ToolbarButton>
                   ))}
+                  <FrameSize frame={frameElement} />
                 </div>
+                <div className="creator-canvas-actions">
+                <ToolbarButton label={focusCanvas ? "Restore panels" : "Focus canvas"} aria-pressed={focusCanvas}
+                  onClick={() => setFocusCanvas((value) => !value)}>
+                  {focusCanvas ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+                </ToolbarButton>
                 <ToolbarButton
                   label={
                     defaultTheme === "dark"
@@ -683,13 +713,15 @@ export function Editor({
                     <Moon size={16} />
                   )}
                 </ToolbarButton>
+                </div>
               </div>
               <div className="build-canvas-scroll">
-                <div className="build-canvas-paper" data-device={device}>
+                <div ref={frameElement} className="build-canvas-paper" data-device={device}>
                   <div hidden={mode !== "edit"}>
+                    {page.blocks.length === 0 && <p className="creator-empty-page">{tr ? "Bu sayfaya Kitaplık’tan bir blok veya bölüm ekleyin." : "Add a block or section from the Library to start this page."}</p>}
                     <Puck.Preview />
                   </div>
-                  {mode === "interact" && <InteractPreview document={document} page={page} navigate={runtime.navigate} device={device} theme={defaultTheme} mediaBase={mediaBase} taskProgress={{ completed: completedTasks, update: setCompletedTasks }} />}
+                  {mode === "interact" && <InteractPreview document={renderDocument} page={page} navigate={runtime.navigate} device={device} theme={defaultTheme} mediaBase={mediaBase} taskProgress={{ changes: taskChanges, update: setTaskChanges }} />}
                   {mode === "run" &&
                     (previewOwned && preview.status === "ready" ? (
                       <iframe
@@ -783,10 +815,15 @@ export function Editor({
               </footer>
             </section>
             <aside className="build-right" aria-label="Properties">
+
               <Properties
                 document={document}
                 page={page}
                 onDocument={commit}
+                device={device}
+                media={mediaInventory}
+                mediaBase={mediaBase}
+                previewIdentity={setIdentityPreview}
                 setTheme={setTheme}
               />
             </aside>
@@ -803,12 +840,14 @@ function Pages({
   onSelect,
   onAdd,
   onRename,
+  dialogHandle,
 }: {
   document: Document;
   page: BuildPage;
   onSelect: (id: string) => void;
   onAdd: (title: string, route: string, pattern: PagePatternId) => void;
   onRename: (page: BuildPage) => void;
+  dialogHandle: Ref<{ add: (pattern: PagePatternId) => void }>;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [action, setAction] = useState<"add" | "rename">("add");
@@ -818,14 +857,15 @@ function Pages({
   const [title, setTitle] = useState("");
   const [route, setRoute] = useState("");
   const [error, setError] = useState("");
-  function show(next: "add" | "rename") {
+  function show(next: "add" | "rename", preset: PagePatternId = "blank") {
     setAction(next);
-    setPattern("blank");
+    setPattern(preset);
     setTitle(next === "add" ? "" : page.title);
     setRoute(next === "add" ? "/" : page.route);
     setError("");
     dialog.current?.showModal();
   }
+  useImperativeHandle(dialogHandle, () => ({ add: (preset) => show("add", preset) }));
   return (
     <section className="build-panel-section">
       <div className="build-panel-title">
@@ -986,21 +1026,29 @@ function useBlockActions() {
   return { items, select, update, replace };
 }
 function Palette({
-  data,
+  document,
+  route,
+  mediaBase,
+  onPattern,
   recent,
   onUsed,
   count,
 }: {
-  data: Document["data"];
+  document: Document;
+  route: string;
+  mediaBase: string;
+  onPattern: (pattern: PagePatternId) => void;
   recent: BlockId[];
   onUsed: (type: BlockId) => void;
   count: number;
 }) {
+  const data = document.data;
+  const [kind, setKind] = useState<"blocks" | "sections" | "patterns">("blocks");
   const [query, setQuery] = useState("");
   const [family, setFamily] = useState("All blocks");
   const [target, setTarget] = useState("");
   const { items, update } = useBlockActions();
-  const groups = items.filter((item) => item.type === "SidebarInset");
+  const groups = items.filter((item) => isBlockGroup(item.type));
   const group = groups.find((item) => item.props.id === target);
   const siblings = group ? sectionItems(group) : items;
   const full = group ? siblings.length >= 12 : count >= 36;
@@ -1010,29 +1058,56 @@ function Palette({
       : blockList.filter(
           (id) => family === "All blocks" || registry[id].family === family,
         )
-  ).filter((id) => compatibleBlock(id, data) &&
+  ).filter((id) => id !== "CreatorSection" && compatibleBlock(id, data) &&
     (registry[id].title + " " + registry[id].detail)
       .toLowerCase()
       .includes(query.trim().toLowerCase()),
   );
+  function insert(recipe: RecipeId) {
+    if (items.length >= 36) return;
+    const block = sectionFromRecipe(document, recipe, () => id("b"));
+    const footer = items.findIndex((item) => item.type === "MarketingFooter");
+    const position = footer < 0 ? items.length : footer;
+    update([...items.slice(0, position), puckItem(block), ...items.slice(position)], position);
+  }
   return (
     <section className="build-panel-section build-palette">
       <div className="build-panel-title">
         <h2>
-          <Blocks size={16} /> Blocks
+          <Blocks size={16} /> Library
         </h2>
-        <span>{blockList.length}</span>
+
+      </div>
+      <div className="creator-library-switch" role="group" aria-label="Library type">
+        {(["blocks", "sections", "patterns"] as const).map((type) => (
+          <button type="button" key={type} aria-pressed={kind === type} onClick={() => { setKind(type); setQuery(""); }}>
+            {type[0].toUpperCase() + type.slice(1)}
+          </button>
+        ))}
       </div>
       <label className="build-sr" htmlFor="block-search">
-        Search blocks
+        {"Search " + kind}
       </label>
       <input
         id="block-search"
         type="search"
-        placeholder="Find a block…"
+        placeholder={"Find " + kind + "…"}
         value={query}
         onChange={(event) => setQuery(event.target.value)}
       />
+      {kind === "sections" ? <SectionLibrary document={document} route={route} mediaBase={mediaBase} query={query} insert={insert} /> : kind === "patterns" ? (
+        <div className="creator-sections">
+          {availablePagePatterns(document).filter(({ label, summary }) =>
+            (label + " " + summary).toLocaleLowerCase(document.locale).includes(query.toLocaleLowerCase(document.locale).trim())
+          ).map(({ id, label, summary }) => (
+            <div className="creator-section-card" key={id}>
+              <button type="button" className="creator-section-choice" onClick={() => onPattern(id)}>
+                <strong>{label}</strong><span>{summary}</span>
+              </button>
+            </div>
+          ))}
+        </div>
+      ) : <>
       <label className="build-sr" htmlFor="block-family">
         Block family
       </label>
@@ -1080,7 +1155,7 @@ function Palette({
             </Drawer.Item>
             <ToolbarButton
               label={"Add " + registry[type].title}
-              disabled={full || Boolean(group && type === "SidebarInset")}
+              disabled={full || Boolean(group && (isBlockGroup(type) || (group.type === "CreatorSection" && !isSectionChild(type))))}
               onClick={() => {
                 const block = makeBlock(type, id("b"));
                 update(
@@ -1096,6 +1171,7 @@ function Palette({
           </div>
         ))}
       </Drawer>
+      </>}
     </section>
   );
 }
@@ -1103,11 +1179,19 @@ function Properties({
   document,
   page,
   onDocument,
+  device,
+  media,
+  mediaBase,
+  previewIdentity,
   setTheme,
 }: {
   document: Document;
   page: BuildPage;
   onDocument: (edit: (previous: Document) => Document) => void;
+  device: Device;
+  media: MediaRecord[];
+  mediaBase: string;
+  previewIdentity: (value?: DesignIdentity) => void;
   setTheme: (theme: "light" | "dark" | undefined) => void;
 }) {
   const selected = useSelector((store) => store.selectedItem);
@@ -1163,7 +1247,7 @@ function Properties({
     } else {
       const destination = root.find((item) => item.props.id === target);
       const children = sectionItems(destination);
-      if (destination?.type !== "SidebarInset" || children.length >= 12) return;
+      if (!destination || !isBlockGroup(destination.type) || (destination.type === "CreatorSection" && !isSectionChild(current.type)) || children.length >= 12) return;
       replace(
         root.map((item) =>
           item === destination
@@ -1210,7 +1294,11 @@ function Properties({
                 onChange={(event) => props({ description: event.target.value })}
               />
             </label>
-            {(isMarketing(current.type) || current.type === "ArticleLibrary") && <MediaFields key={current.id} type={current.type} props={current.props} document={document} change={props} />}
+            {isMarketing(current.type) && <MediaFields key={current.id} type={current.type} props={current.props} document={document} media={media} mediaBase={mediaBase} change={props} />}
+            {current.type === "ArticleLibrary" && <ArticleFields key={current.id} props={current.props} tr={document.locale === "tr"} change={props} />}
+            {current.props.layout && <SectionLayoutFields key={current.id} value={current.props.layout} device={device} onChange={(layout) => props({ layout })} />}
+            <details className="creator-settings creator-block-style">
+            <summary>{document.locale === "tr" ? "Stil ve etkileşim" : "Style and interaction"}</summary>
             <label>
               Appearance
               <select
@@ -1269,6 +1357,7 @@ function Properties({
                 }
               />
             </label>
+            </details>
             {current.type === "KpiCard" && (
               <label>
                 Metric source
@@ -1287,8 +1376,8 @@ function Properties({
                 </select>
               </label>
             )}
-            {current.type !== "SidebarInset" &&
-              items.some((item) => item.type === "SidebarInset") && (
+            {!isBlockGroup(current.type) &&
+              items.some((item) => isBlockGroup(item.type)) && (
                 <label>
                   Block location
                   <select
@@ -1299,7 +1388,7 @@ function Properties({
                   >
                     <option value="">Page</option>
                     {items
-                      .filter((item) => item.type === "SidebarInset")
+                      .filter((item) => isBlockGroup(item.type))
                       .map((item) => (
                         <option
                           key={item.props.id}
@@ -1389,7 +1478,7 @@ function Properties({
                   aria-pressed={selected?.props.id === item.props.id}
                   onClick={() => select(index)}
                 >
-                  {index + 1}. {registry[item.type as BlockId].title}
+                  {index + 1}. {item.type === "CreatorSection" ? item.props.title : registry[item.type as BlockId].title}
                 </button>
                 {sectionItems(item).map((child, childIndex) => (
                   <button
@@ -1410,6 +1499,8 @@ function Properties({
           <p className="build-hint">Add a block to start this page.</p>
         )}
       </section>
+      <IdentityFields document={document} onChange={onDocument} preview={previewIdentity} />
+      {document.data === "operations-demo-v1" && <TaskFields document={document} change={onDocument} />}
       <MotionDnaFields document={document} onChange={onDocument} />
       <section className="build-panel-section">
         <div className="build-panel-title">
@@ -1438,7 +1529,7 @@ function Properties({
           >
             <option value="light">Light</option>
             <option value="dark">Dark</option>
-            {(document.template === "hotel-marketing" || document.template === "knowledge-base" || document.template === "operations-workspace") && <option value="system">System</option>}
+            <option value="system">System</option>
           </select>
         </label>
         <label>

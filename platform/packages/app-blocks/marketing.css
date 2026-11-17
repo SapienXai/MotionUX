@@ -502,3 +502,5 @@
     display: none;
   }
 }
+
+[data-image-fit="contain"] .site-photo { object-fit: contain; }

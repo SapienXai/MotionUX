@@ -489,6 +489,7 @@ try {
   );
   await expect(nested).toHaveCount(1);
   await page.getByLabel("Metric source").selectOption("revenue");
+  await page.getByText("Style and interaction", { exact: true }).click();
   await page.getByLabel("Accessible label").fill("Revenue detail");
   await expect(nested).toHaveAttribute("aria-label", "Revenue detail");
   await expect(nested).toContainText("$4,390");
@@ -788,7 +789,7 @@ try {
   }
 
   const project = (await api(page, "/" + id)).data;
-  const libraryIds = Object.keys(registry).filter((id) => compatibleBlock(id, "hotel-demo-v1"));
+  const libraryIds = Object.keys(registry).filter((id) => id !== "CreatorSection" && compatibleBlock(id, "hotel-demo-v1"));
   const qaBlocks = libraryIds.map((type, index) =>
     makeBlock(type, "b-review-" + index),
   );

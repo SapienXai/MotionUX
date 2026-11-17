@@ -11,6 +11,8 @@ import {
 import {
   blockSchema,
   isMarketing,
+  isBlockGroup,
+  isSectionChild,
   makeBlock,
   registry,
   type BuildPage,
@@ -61,7 +63,7 @@ function RuntimeRoot({ children }: { children: ReactNode }) {
   );
 }
 type EditorConfig = Config<
-  Record<BlockId, BlockProps> & { SidebarInset: BlockProps & { items: Slot } }
+  Omit<Record<BlockId, BlockProps>, "SidebarInset" | "CreatorSection"> & Record<"SidebarInset" | "CreatorSection", Omit<BlockProps, "items"> & { items: Slot }>
 >;
 const staticBlocks = new Set<BlockId>([
   "PageHeader",
@@ -84,6 +86,8 @@ function previewBlock(
     accessibleLabel,
     dataBinding,
     image,
+    imageFit,
+    articles,
     items,
     cta,
     destination,
@@ -103,6 +107,8 @@ function previewBlock(
         accessibleLabel,
         dataBinding,
         image,
+        imageFit,
+        articles,
         items,
         cta,
         destination,
@@ -111,7 +117,7 @@ function previewBlock(
     // Editing selects the block through Puck. It must not also activate an app control.
     const content =
       runtime?.document.template === "hotel-marketing" ? (
-        <MarketingBlockView block={block} />
+        <MarketingBlockView block={block} nested={runtime.page.blocks.some((entry) => entry.type === "CreatorSection" && entry.children?.some((child) => child.id === id))} />
       ) : (
         <RenderBlock block={block} />
       );
@@ -129,7 +135,7 @@ export const config: EditorConfig = {
   components: {
     ...Object.fromEntries(
       blockList
-        .filter((type) => type !== "SidebarInset")
+        .filter((type) => !isBlockGroup(type))
         .map((type) => [
           type,
           {
@@ -139,10 +145,23 @@ export const config: EditorConfig = {
           },
         ]),
     ),
+    CreatorSection: {
+      label: "Section",
+      fields: { items: { type: "slot", allow: blockList.filter(isSectionChild) } },
+      defaultProps: { ...makeBlock("CreatorSection", "b-default").props, items: [] },
+      render: function SectionPreview({ id, items: Items, puck: _puck, ...props }: Parameters<EditorConfig["components"]["CreatorSection"]["render"]>[0]) {
+        const runtime = useContext(RuntimeContext);
+        const block: Block = { id, type: "CreatorSection", version: 1, props };
+        const slot = <Items className="creator-section-grid" minEmptyHeight={64} aria-label="Section blocks" />;
+        return runtime?.document.template === "hotel-marketing"
+          ? <MarketingBlockView block={block} slot={slot} />
+          : <RenderBlock block={block} slot={slot} />;
+      },
+    },
     SidebarInset: {
       label: registry.SidebarInset.title,
       inline: true,
-      fields: { items: { type: "slot", disallow: ["SidebarInset"] } },
+      fields: { items: { type: "slot", disallow: ["SidebarInset", "CreatorSection"] } },
       defaultProps: {
         ...makeBlock("SidebarInset", "b-default").props,
         items: [],
@@ -198,7 +217,7 @@ export function puckItem(block: Block): PuckItem {
     props: {
       id: block.id,
       ...block.props,
-      ...(block.type === "SidebarInset" && {
+      ...(isBlockGroup(block.type) && {
         items: (block.children ?? []).map(puckItem),
       }),
     },
@@ -209,8 +228,8 @@ export function toPuck(blocks: Block[]): Data {
 }
 function decode(item: PuckItem, nested = false): unknown {
   const { id, items, ...rest } = item.props;
-  const children = item.type === "SidebarInset" ? items : undefined;
-  const fields = item.type === "SidebarInset" ? rest : { ...rest, items };
+  const children = isBlockGroup(item.type) ? items : undefined;
+  const fields = isBlockGroup(item.type) ? rest : { ...rest, items };
   if (nested && children !== undefined)
     throw new Error("Only one section level is supported.");
   return {
@@ -227,7 +246,7 @@ export function fromPuck(data: Data) {
   return data.content.map((item) => blockSchema.parse(decode(item)));
 }
 export function sectionItems(item?: PuckItem): PuckItem[] {
-  return item?.type === "SidebarInset" && Array.isArray(item.props.items)
+  return item && isBlockGroup(item.type) && Array.isArray(item.props.items)
     ? item.props.items
     : [];
 }

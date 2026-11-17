@@ -1,1 +1,1 @@
-{"name":"@motionux/design-system","private":true,"exports":{"./tokens.css":"./tokens.css"}}
+{"name":"@motionux/design-system","private":true,"exports":{"./tokens.css":"./tokens.css","./identity.css":"./identity.css"}}

@@ -99,3 +99,5 @@ jobs:
         run: node platform/tests/b8-browser.mjs
       - name: B9 reusable pages, domain adapters and independent exports
         run: node platform/tests/b9-browser.mjs
+      - name: B10 creator, responsive sections and independent Next and PWA apps
+        run: node platform/tests/b10-browser.mjs

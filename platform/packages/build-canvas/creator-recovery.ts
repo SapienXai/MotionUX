@@ -1,5 +1,6 @@
 import {
   draftSchema,
+  isBlockGroup,
   type CreatorDraft,
   type BuildPage,
 } from "@motionux/build-core";
@@ -31,7 +32,7 @@ export function selectBlock(page: BuildPage, selected: string | null) {
   const index = page.blocks.findIndex(({ id }) => id === selected);
   if (index >= 0) return { index };
   for (const block of page.blocks) {
-    if (block.type !== "SidebarInset") continue;
+    if (!isBlockGroup(block.type)) continue;
     const index = block.children?.findIndex(({ id }) => id === selected) ?? -1;
     if (index >= 0) return { index, zone: block.id + ":items" };
   }

@@ -12,6 +12,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { useEffect, useId, useState, type ReactNode, type Ref } from "react";
+import { CreatorSection } from "./creator-section.tsx";
 import type { Block, BlockId, BlockProps } from "@motionux/build-core";
 import {
   CommandPalette,
@@ -833,6 +834,11 @@ export function RenderBlock({
   const { type, props } = block;
   const { document } = useHotel();
   const view = views[type];
+  if (type === "CreatorSection") return (
+    <CreatorSection id={block.id} props={props} editorSlot={Boolean(slot)}>
+      {slot ?? block.children?.map((child) => <RenderBlock key={child.id} block={child} />)}
+    </CreatorSection>
+  );
   return (
     <section
       aria-label={props.accessibleLabel || undefined}
