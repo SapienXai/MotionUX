@@ -19,6 +19,12 @@ jobs:
       - run: npm run verify
         env:
           MOTIONUX_TEST_PREVIEW: "1"
+      - uses: pnpm/action-setup@v4
+        with:
+          version: "10.30.3"
+      - run: pnpm --dir platform install --frozen-lockfile --ignore-scripts
+      - name: B11R typed module compiler and independent code/PWA fixture
+        run: node platform/tests/b11r-portable.mjs --controls
       - run: node scripts/v9/check-public.mjs
       - uses: actions/upload-artifact@v4
         if: failure()
@@ -89,8 +95,6 @@ jobs:
           NEXT_TELEMETRY_DISABLED: "1"
       - run: npx playwright install --with-deps chromium
       - run: node platform/tests/browser.mjs
-      - name: B11R typed module compiler and independent code/PWA fixture
-        run: node platform/tests/b11r-portable.mjs --controls
       - name: B3 CRM clean source export and Chromium smoke
         run: node platform/tests/b3-browser.mjs
       - name: Inspector detects seeded faults and blocks out-of-scope requests
