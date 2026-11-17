@@ -19,6 +19,7 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
   const imports = new Map<string, string[]>();
   const sourceImports = new Map<string, Set<string>>();
   const sourceUses = new Set<string>();
+  const instanceAttributes = new Map<string, { literal: Set<string>; dynamic: boolean }>();
   function fail(path: string, message: string): never { throw new BuildError(422, path + ": " + message); }
   for (const { path, content } of proposal.files) {
     if (path.endsWith(".css")) {
@@ -31,6 +32,13 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
     const module = analyzeModule(path, content);
     if (module.forbidden.length) fail(path, "Disallowed capability " + module.forbidden.join(", "));
     const file = ts.createSourceFile(path, content, ts.ScriptTarget.Latest, true, path.endsWith("x") ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
+    let checker: ts.TypeChecker | undefined;
+    function locallyBound(node: ts.Identifier) {
+      checker ??= ts.createProgram([path], { noLib: true, noResolve: true, types: [], jsx: ts.JsxEmit.Preserve }, {
+        ...ts.createCompilerHost({}), getSourceFile: (name) => name === path ? file : undefined,
+      }).getTypeChecker();
+      return Boolean(checker.getSymbolAtLocation(node));
+    }
     const diagnostics = (file as ts.SourceFile & { parseDiagnostics: ts.Diagnostic[] }).parseDiagnostics;
     if (diagnostics.length) fail(path, ts.flattenDiagnosticMessageText(diagnostics[0].messageText, " "));
     const local: string[] = [];
@@ -69,14 +77,24 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
       if (bindings && ts.isNamespaceImport(bindings)) names.push(bindings.name.text);
       runtimeBindings.set(absolute.slice(8), names);
     }
+    const instances = { literal: new Set<string>(), dynamic: false };
     const invoked = new Set<string>();
     function runtimeReference(node: ts.Node) {
+      if (ts.isJsxAttribute(node) && node.name.getText(file) === "data-instance" && node.initializer) {
+        if (ts.isStringLiteral(node.initializer)) instances.literal.add(node.initializer.text);
+        else if (ts.isJsxExpression(node.initializer) && node.initializer.expression) {
+          const value = node.initializer.expression;
+          if (ts.isStringLiteralLike(value)) instances.literal.add(value.text);
+          else instances.dynamic = true;
+        }
+      }
       if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node))
         invoked.add(node.tagName.getText(file).split(".")[0]);
       if (ts.isCallExpression(node)) invoked.add(node.expression.getText(file).split(".")[0]);
       ts.forEachChild(node, runtimeReference);
     }
     runtimeReference(file);
+    instanceAttributes.set(path, instances);
     for (const id of ownSources) {
       if (!runtimeBindings.get(id)?.some((name) => invoked.has(name)))
         fail(path, "The imported source is never rendered or invoked: " + id);
@@ -97,7 +115,7 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
         const owner = node.parent;
         const propertyName = ts.isPropertyAccessExpression(owner) && owner.name === node ||
           (ts.isPropertyAssignment(owner) || ts.isPropertySignature(owner) || ts.isJsxAttribute(owner)) && owner.name === node;
-        if (!propertyName) fail(path, "Use the host-provided route and persistent state APIs.");
+        if (!propertyName && !locallyBound(node)) fail(path, "Use the host-provided APIs instead of ambient " + node.text + ".");
       }
       if (ts.isPropertyAccessExpression(node) && ["constructor", "__proto__", "prototype", "cookie", "localStorage", "sessionStorage", "createElement", "write", "sendBeacon", "postMessage", "location"].includes(node.name.text)) {
         fail(path, "Disallowed browser capability: " + node.name.text);
@@ -130,8 +148,9 @@ export function validateProgram(raw: unknown, sources: SourceModule[]): CodeProp
   for (const path of imports.keys()) if (!visited.has(path)) fail(path, "Unreachable generated module.");
   for (const use of proposal.usages) {
     if (!sourceImports.get(use.module)?.has(use.source)) fail(use.module, "Declared usage must import the real source.");
-    if (!proposal.files.find(({ path, content }) => path === use.module && content.includes(use.instance)))
-      fail(use.module, "Add the declared data-instance identifier to the actual source mount.");
+    const instances = instanceAttributes.get(use.module);
+    if (!instances?.literal.has(use.instance) && !instances?.dynamic)
+      fail(use.module, "Add the declared data-instance attribute to the actual source mount. Computed values will be checked in the browser.");
     if (!proposal.pages.some(({ route }) => route === use.route)) fail(use.module, "Unknown usage route.");
   }
   for (const id of sourceUses) if (!proposal.usages.some(({ source }) => source === id)) fail(id, "Missing source interaction provenance.");

@@ -16,6 +16,10 @@ try {
   const page = await context.newPage();
   const errors = [];
   page.setDefaultTimeout(4500);
+  page.on("response", (response) => {
+    if (response.status() >= 400 && !new URL(response.url()).pathname.endsWith("/favicon.ico"))
+      errors.push(new URL(response.url()).pathname + " returned " + response.status());
+  });
   page.on("pageerror", (error) => errors.push(error.message.slice(0, 160)));
   const observed = new Set();
   async function collectInstances(route) {
@@ -30,6 +34,7 @@ try {
     }
   }
   for (const definition of pages) {
+    await page.setViewportSize({ width: 390, height: 844 });
     const response = await page.goto(origin + definition.route, { waitUntil: "networkidle" });
     assert(response?.ok(), "A planned route returned an error.");
     assert.equal(response.headers()["x-motionux-document"], digest, "The runtime digest changed.");
@@ -46,6 +51,7 @@ try {
       for (const width of [320, 390, 768, 1440]) {
         await page.setViewportSize({ width, height: 900 });
         assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), "Overflow at " + definition.route + " width " + width);
+        await collectInstances(definition.route);
       }
     }
     const layout = await page.evaluate(() => {

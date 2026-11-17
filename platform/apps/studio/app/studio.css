@@ -1397,3 +1397,9 @@ select:focus-visible {
 }
 
 .b11-properties fieldset label:has(input[type="checkbox"]) { display: flex; align-items: center; }
+
+.b11-preview-viewport { inline-size: 100%; min-inline-size: 0; }
+.b11-preview-frame { position: relative; overflow: hidden; margin-inline: auto; border-radius: 8px; }
+.b11-preview-frame iframe { position: absolute; inset: 0 auto auto 0; min-block-size: 0; max-inline-size: none; transform-origin: top left; }
+.b11-preview-caption { display: flex; justify-content: center; gap: 16px; font-size: 12px; color: var(--build-muted); }
+.b11-code { max-block-size: 360px; overflow: auto; font-size: 11px; line-height: 1.6; text-align: start; white-space: pre; }

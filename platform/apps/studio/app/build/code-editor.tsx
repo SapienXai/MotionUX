@@ -8,6 +8,8 @@ type Preview = { documentDigest?: string; id?: string; revision?: number; status
 
 export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack: () => void }) {
   const frame = useRef<HTMLIFrameElement>(null);
+  const viewport = useRef<HTMLDivElement>(null);
+  const [availableWidth, setAvailableWidth] = useState(0);
   const [saved, setSaved] = useState(initial);
   const [draft, setDraft] = useState(initial);
   const [past, setPast] = useState<BuildProject[]>([]);
@@ -21,6 +23,21 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
   const [busy, setBusy] = useState(false);
   const [inventory, setInventory] = useState<{ counts: { total: number; compilerReady: number; reasons: Record<string, number> } }>();
   const program = draft.document.codeProject!;
+  const dimensions = device === "mobile" ? [390, 844] : device === "tablet" ? [768, 1024] : [1440, 1000];
+  const scale = Math.min(1, (availableWidth || dimensions[0]) / dimensions[0]);
+  useEffect(() => {
+    const node = viewport.current;
+    if (!node) return;
+    const measure = () => setAvailableWidth(node.clientWidth);
+    measure();
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", measure);
+      return () => window.removeEventListener("resize", measure);
+    }
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [preview?.status]);
   const dirty = JSON.stringify(saved.document) !== JSON.stringify(draft.document);
   const operation = useSourceJob(saved.id, async (id) => {
     const next = await sourceRequest<BuildProject>("/" + id);
@@ -134,11 +151,12 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
           if (event.currentTarget.open && !inventory)
             void sourceRequest<typeof inventory>("/source-jobs/inventory").then(setInventory, (error: Error) => setError(error.message));
         }}><summary>Sources / Used components</summary>
-          {inventory && <div><p>{inventory.counts.compilerReady} compiler-compatible of {inventory.counts.total} prepared sources</p>
+          {inventory && <div><p>{inventory.counts.compilerReady} eligible closures of {inventory.counts.total} prepared sources</p>
             <details><summary>Eligibility breakdown</summary>{Object.entries(inventory.counts.reasons).map(([reason, count]) => <p key={reason}>{reason} · {count}</p>)}</details></div>}{program.sources.map((source) => <div key={source.id} className="b11-source">
           <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a><small>{source.provider} · {source.license} · {source.fidelity} · {source.revision.slice(0, 8)}</small>
           {program.usages.filter((usage) => usage.source === source.id).map((usage) => <p key={usage.instance}>{usage.route} · {usage.reason}</p>)}
         </div>)}</details>
+        <details><summary>Application source</summary>{program.files.map((file) => <details key={file.path}><summary>{file.path}</summary><pre className="b11-code" tabIndex={0} aria-label={file.path}><code>{file.content}</code></pre></details>)}</details>
         <details><summary>Generated modules</summary>{program.generated.map((file) => <div key={file.file} className="b11-source"><strong>{file.file}</strong><p>{file.purpose}</p><small>{file.generatedFrom.join(", ")}</small></div>)}</details>
         <details><summary>Design and limitations</summary><p>{program.design.composition}</p><p>{program.design.mobile}</p>{program.limitations.map((limit) => <p key={limit}>{limit}</p>)}</details>
       </aside>
@@ -146,7 +164,13 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
         <div className="b11-canvas-bar"><span role="status">{preview?.message ?? "Open the saved application"}</span>
           <label>Preview size<select value={device} onChange={(event) => setDevice(event.target.value)}><option value="desktop">Desktop</option><option value="tablet">Tablet</option><option value="mobile">Mobile</option></select></label></div>
         {preview?.status === "ready" && preview.url ?
-          <iframe ref={frame} onLoad={projectControls} title="Live source application" sandbox="allow-scripts allow-same-origin allow-forms" referrerPolicy="no-referrer" data-size={device} src={preview.url + route} /> :
+          <div ref={viewport} className="b11-preview-viewport">
+            <div className="b11-preview-frame" style={{ width: dimensions[0] * scale, height: dimensions[1] * scale }}>
+              <iframe ref={frame} onLoad={projectControls} title="Live source application" sandbox="allow-scripts allow-same-origin allow-forms" referrerPolicy="no-referrer" data-size={device}
+                style={{ width: dimensions[0], height: dimensions[1], transform: "scale(" + scale + ")" }} src={preview.url + route} />
+            </div>
+            <p className="b11-preview-caption">{dimensions[0]} × {dimensions[1]} · {Math.round(scale * 100)}% <a href={preview.url + route} target="_blank" rel="noreferrer">Open Run</a></p>
+          </div> :
           <button className="build-button" disabled={locked || dirty || preview?.status === "building" || preview?.status === "starting"} onClick={() => void action(run)}>Open saved preview</button>}
       </section>
       <aside className="b11-properties" aria-label="Source properties">

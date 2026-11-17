@@ -2,7 +2,7 @@
 
 import { useEffect, useEffectEvent, useState } from "react";
 
-type Job = { id: string; status: string; message: string; project?: string; warnings?: string[] };
+type Job = { id: string; status: string; message: string; project?: string; warnings?: string[]; attempts?: unknown[] };
 const terminal = new Set(["failed", "cancelled", "ready"]);
 
 export async function sourceRequest<T>(path: string, method = "GET", value?: unknown, signal?: AbortSignal): Promise<T> {
@@ -69,17 +69,29 @@ export function useSourceJob(scope: string, onReady: (projectId: string) => Prom
     try { setJob(await sourceRequest<Job>("/source-jobs/" + job.id, "DELETE")); }
     catch (error) { setError((error as Error).message); }
   }
-  return { active, start, cancel, starting, job, error };
+  async function retry() {
+    if (!job || active) return;
+    setStarting(true); setError("");
+    try {
+      const result = await sourceRequest<Job>("/source-jobs/" + job.id + "/retry", "POST");
+      try { sessionStorage.setItem(key, result.id); } catch { /* Optional resume hint. */ }
+      setJob(result);
+    } catch (error) { setError((error as Error).message); }
+    finally { setStarting(false); }
+  }
+  return { active, start, cancel, retry, starting, job, error };
 }
 
 export function SourceJobStatus({ operation }: { operation: ReturnType<typeof useSourceJob> }) {
-  const { job, active, starting, error, cancel } = operation;
+  const { job, active, starting, error, cancel, retry } = operation;
   if (!job && !active && !error) return null;
   return <div className="source-job-status">
     <p role={job?.status === "failed" || error ? "alert" : "status"}>
       {error || job?.message || "Starting source generation"}
     </p>
     {job?.warnings?.map((warning) => <p key={warning}>{warning}</p>)}
+    {!active && job && ["failed", "cancelled"].includes(job.status) && Boolean(job.attempts?.length) &&
+      <button type="button" className="build-button" onClick={() => void retry()}>Retry generated application</button>}
     {active && <button type="button" className="build-button" onClick={() => void cancel()} disabled={starting}>Cancel generation</button>}
   </div>;
 }

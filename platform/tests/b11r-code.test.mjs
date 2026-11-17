@@ -4,7 +4,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { parseNativeOutput } from "../packages/build-core/composer/codex.ts";
 import { createCodeFixture } from "./b11r-fixture.mjs";
-import { compileCodeProject } from "../packages/app-export/code-program.ts";
+import { sealCodeProject, codeDocument, compileCodeProject } from "../packages/app-export/code-program.ts";
 import { restoreCodeSources } from "../packages/app-export/code-catalog.ts";
 import { validateProgram } from "../packages/app-export/code-validator.ts";
 import { exportTree, zipTree } from "../packages/app-export/export.ts";
@@ -32,6 +32,12 @@ test("a novel source API compiles into real modules, keeps editable config and d
   changed.document.codeProject.controls[0].value = "Changed in Studio";
   const tree = await exportTree(fixture.fake, changed);
   assert(tree["runtime/config.ts"].includes("Changed in Studio"));
+  const photos = structuredClone(fixture.proposal);
+  photos.files[0].content += '\nconst image = (name: string) => `/media/seed-${name}-720.webp`;';
+  const photoProject = { ...fixture.project, document: codeDocument(await sealCodeProject(fixture.fake, photos, fixture.sources)) };
+  const photoTree = await exportTree(fixture.fake, photoProject);
+  for (const name of ["coast", "room", "pool"]) for (const size of [360, 720])
+    assert(photoTree["public/media/seed-" + name + "-" + size + ".webp"], "Dynamic owned photo references need their pinned renditions");
   assert.equal(tree["components/app.tsx"], fixture.proposal.files[0].content);
   assert(documentSchema.safeParse(fixture.project.document).success);
   assert(documentSchema.safeParse(manualDocument("hotel-dashboard")).success);
@@ -45,16 +51,19 @@ test("untrusted generated imports, HTML, CSS, asset URLs and stale hashes fail c
     'void fetch("https://example.test");', 'void process.env;', 'eval("1");',
     'const x = <iframe src="/api/build" />;', 'const x = <div dangerouslySetInnerHTML={{__html:"unsafe"}} />;',
     'document.cookie;', 'const capability = ({})["constructor"];', 'window["fetch"]("https://example.test");',
-    'setTimeout("eval()", 1);', 'window.parent.postMessage("escape","*");',
+    'setTimeout("eval()", 1);', 'window.parent.postMessage("escape","*");', 'void opener;', 'void top;',
   ]) {
     const bad = structuredClone(fixture.proposal);
     bad.files[0].content += "\n" + code;
     assert.throws(() => validateProgram(bad, fixture.sources), { status: 422 }, code);
   }
   const geometry = structuredClone(fixture.proposal);
-  geometry.files[0].content += '\nfunction offset(rect: DOMRect) { return rect.top; }';
+  geometry.files[0].content += '\nfunction offset(rect: DOMRect) { const opener = rect; return opener.top; }';
   geometry.files[1].content += " .app .panel-body { color: inherit; }";
   assert.doesNotThrow(() => validateProgram(geometry, fixture.sources));
+  const computed = structuredClone(fixture.proposal);
+  computed.files[0].content = computed.files[0].content.replace('data-instance="notice"', 'data-instance={route === "/" ? "notice" : "notice-notes"}');
+  assert.doesNotThrow(() => validateProgram(computed, fixture.sources));
   const unused = structuredClone(fixture.proposal);
   unused.files[0].content = unused.files[0].content.replace("<ExpandingNotice title=", "<FakeNotice title=");
   assert.throws(() => validateProgram(unused, fixture.sources), { status: 422 });

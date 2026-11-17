@@ -1,4 +1,6 @@
-import { executeCodeGeneration } from "./code-generation";
+import { executeCodeGeneration, type CodeRetry } from "./code-generation";
+import { codeProposalSchema } from "@motionux/build-core/code-project";
+import { inspectCodeCatalog, sourceRead } from "@motionux/app-export/code-catalog";
 import { randomBytes } from "node:crypto";
 import { lstat, mkdir, readFile, realpath, readdir, rename, unlink, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -28,6 +30,8 @@ const stageText = {
 
 type Stage = keyof typeof stageText;
 type Job = {
+  [key: string]: unknown;
+  request?: Request;
   id: string; status: Stage; message: string; started: number; updated: number;
   project?: string; revision?: number; digest?: string; warnings?: string[];
   measurements?: { routes: number; instances: number; engine: string; width: number; calls: number; inputTokens: number; outputTokens: number; repairs: number };
@@ -88,6 +92,42 @@ export async function cancelSourceJob(vault: string, id: string) {
   return getSourceJob(vault, id);
 }
 
+export async function retrySourceJob(repo: string, vault: string, id: string) {
+  const prior = await getSourceJob(vault, id);
+  if (!["failed", "cancelled"].includes(prior.status) || !Array.isArray(prior.attempts) || !prior.attempts.length)
+    throw new BuildError(409, "This job has no generated candidate to retry.");
+  const last = prior.attempts.at(-1) as { attempt: number; sha256: string };
+  if (!Number.isInteger(last.attempt) || last.attempt < 0 || last.attempt > 2 || !/^[a-f0-9]{64}$/.test(last.sha256))
+    throw new BuildError(409, "The candidate trace is invalid.");
+  const inventory = await inspectCodeCatalog(repo);
+  const pins = prior.sourcePins;
+  if (Array.isArray(pins)) {
+    for (const pin of pins) {
+      const source = inventory.sources.get(pin.id);
+      if (!source || canonical(source.pin) !== canonical(pin))
+        throw new BuildError(409, "A pinned source changed. Start a fresh generation.");
+    }
+  } else if (inventory.fingerprint !== prior.inventoryFingerprint)
+    throw new BuildError(409, "The source inventory changed. Start a fresh generation.");
+  const path = "build/code-attempts/" + id + "-" + last.attempt + ".json";
+  const stat = await lstat(resolve(vault, path));
+  if ((stat.mode & 0o777) !== 0o600) throw new BuildError(403, "Candidate trace permissions changed.");
+  const text = await sourceRead(vault, path, 192 * 1024);
+  if (fingerprint(text) !== last.sha256) throw new BuildError(409, "Candidate bytes changed.");
+  const proposal = codeProposalSchema.parse(JSON.parse(text));
+  const selection = prior.selection as { sources?: { id: string }[] } | undefined;
+  if (!selection?.sources?.length) throw new BuildError(409, "The inspected source context is unavailable.");
+  const sources = selection.sources.map(({ id }) => {
+    const source = inventory.sources.get(id);
+    if (!source) throw new BuildError(409, "A selected source is unavailable.");
+    return source;
+  });
+  return startSourceJob(repo, vault, prior.request ?? { brief: "Retry this exact previously generated application and preserve its workflows and design." }, {
+    proposal, sources, design: prior.selection, inventory: inventory.counts,
+    inventoryFingerprint: inventory.fingerprint, retryOf: id,
+  });
+}
+
 function planPrompt(brief: string, intent: Intent, sources: ResolvedSource[], preferred?: string, diagnostic?: string) {
   return [
     "Build an application specific to the brief, not a demo template. The structured response is compiled into Next.js source and interactive components.",
@@ -111,7 +151,7 @@ function planPrompt(brief: string, intent: Intent, sources: ResolvedSource[], pr
   ].filter(Boolean).join("\n");
 }
 
-export async function startSourceJob(repo: string, vault: string, input: unknown) {
+export async function startSourceJob(repo: string, vault: string, input: unknown, retry?: CodeRetry) {
   const payload = input as Request;
   if (!payload || typeof payload.brief !== "string" || payload.brief.trim().length < 12 || payload.brief.length > 3200 ||
     Object.keys(payload).some((key) => !["brief", "preferred", "project", "revision"].includes(key)) ||
@@ -133,9 +173,9 @@ export async function startSourceJob(repo: string, vault: string, input: unknown
       const stat = await lstat(path).catch(() => null);
       if (stat?.isFile() && stat.nlink === 1 && now - stat.mtimeMs > 7 * 86_400_000) await unlink(path).catch(() => {});
     }
-    const job: Job = { id, started: now, updated: now, status: "analyzing", message: stageText.analyzing };
+    const job: Job = { id, request: payload, started: now, updated: now, status: "analyzing", message: stageText.analyzing };
     await persist(root, job);
-    reservation.ended = execute(repo, vault, root, job, payload, controller.signal).finally(() => live.delete(id));
+    reservation.ended = execute(repo, vault, root, job, payload, controller.signal, retry).finally(() => live.delete(id));
     return job;
   } catch (error) {
     live.delete(id);
@@ -143,11 +183,11 @@ export async function startSourceJob(repo: string, vault: string, input: unknown
   }
 }
 
-async function execute(repo: string, vault: string, root: string, job: Job, payload: Request, signal: AbortSignal) {
+async function execute(repo: string, vault: string, root: string, job: Job, payload: Request, signal: AbortSignal, retry?: CodeRetry) {
   try {
     const previous = payload.project ? await createStore(vault).open(payload.project) : undefined;
     if (!previous?.document.sourceGraph)
-      return await executeCodeGeneration(repo, vault, job, payload, signal, (current) => persist(root, current as Job));
+      return await executeCodeGeneration(repo, vault, job, payload, signal, (current) => persist(root, current as Job), retry);
     return await executeLegacy(repo, vault, root, job, payload, signal);
   } catch (error) {
     Object.assign(job, { status: signal.aborted ? "cancelled" : "failed",

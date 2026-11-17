@@ -44,11 +44,12 @@ export async function serve(work) {
   throw new Error("The exported application did not start.");
 }
 
-export async function journeys(page, origin, program) {
+export async function journeys(page, origin, program, observe = async () => {}) {
   const results = [];
   page.setDefaultTimeout(6000);
   for (const journey of program.journeys) {
     await page.goto(origin + journey.route, { waitUntil: "networkidle" });
+    await observe(journey.route, results.length);
     for (const step of journey.steps) {
       const node = page.getByRole(step.role, { name: step.name, exact: true });
       if (step.action === "click") await node.click();
@@ -57,6 +58,7 @@ export async function journeys(page, origin, program) {
       if (step.action === "press") await node.press(step.value);
       await expect(page.locator("body")).toContainText(step.expected);
       results.push({ journey: journey.title, target: step.name, action: step.action, observed: step.expected });
+      await observe(journey.route, results.length);
     }
   }
   return results;
@@ -67,6 +69,23 @@ export async function inspect(browser, origin, project, label, format) {
   const context = await browser.newContext({ reducedMotion: "reduce", colorScheme: "light" });
   const page = await context.newPage();
   const errors = [];
+  const unauthorized = new Set();
+  await context.route("**/*", (route) => {
+    const url = new URL(route.request().url());
+    if (url.origin === origin && !url.pathname.startsWith("/api/")) return route.continue();
+    unauthorized.add(url.origin + url.pathname);
+    return route.abort();
+  });
+  const observed = new Set();
+  async function collect(route) {
+    for (const usage of program.usages.filter((usage) => usage.route === route)) {
+      const node = page.locator('[data-instance="' + usage.instance + '"]');
+      if (!await node.count() || !await node.first().isVisible()) continue;
+      await expect(node).toHaveCount(1);
+      await expect(node).toHaveAttribute("data-source", usage.source);
+      observed.add(route + "#" + usage.instance);
+    }
+  }
   await page.addInitScript(() => {
     window.motionuxLab = { lcp: 0, cls: 0 };
     if (PerformanceObserver.supportedEntryTypes.includes("largest-contentful-paint"))
@@ -74,11 +93,16 @@ export async function inspect(browser, origin, project, label, format) {
     if (PerformanceObserver.supportedEntryTypes.includes("layout-shift"))
       new PerformanceObserver((list) => { for (const item of list.getEntries()) if (!item.hadRecentInput) window.motionuxLab.cls += item.value; }).observe({ type: "layout-shift", buffered: true });
   });
+  page.on("response", (response) => {
+    if (response.status() >= 400 && !new URL(response.url()).pathname.endsWith("/favicon.ico"))
+      errors.push(new URL(response.url()).pathname + " returned " + response.status());
+  });
   page.on("pageerror", (error) => errors.push(error.message));
   const dimensions = [];
   const performanceSamples = [];
   const structures = [];
   for (const route of program.pages) {
+    await page.setViewportSize({ width: 1440, height: 1000 });
     assert((await page.goto(origin + route.route, { waitUntil: "networkidle" }))?.ok());
     await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
     performanceSamples.push(await page.evaluate(() => ({
@@ -93,20 +117,23 @@ export async function inspect(browser, origin, project, label, format) {
       }
       return shape(root, 4);
     }));
-    for (const usage of program.usages.filter((usage) => usage.route === route.route)) {
-      const node = page.locator('[data-instance="' + usage.instance + '"]');
-      await expect(node).toHaveAttribute("data-source", usage.source);
-      await expect(node).toBeVisible();
-    }
+    await collect(route.route);
     for (const width of widths) {
       await page.setViewportSize({ width, height: width === 1440 ? 1000 : 844 });
       await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width + 1);
+      await collect(route.route);
       dimensions.push({ route: route.route, width });
       if (browser.browserType().name() === "chromium")
         await page.screenshot({ path: resolve(evidence, label + "-" + format + "-" + route.id + "-" + width + ".png"), fullPage: true });
     }
   }
-  const journeyResults = await journeys(page, origin, program);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  const journeyResults = await journeys(page, origin, program, async (route, step) => {
+    await collect(route);
+    if (format === "next" && browser.browserType().name() === "chromium")
+      await page.screenshot({ path: resolve(evidence, label + "-journey-" + step + ".png"), fullPage: true });
+  });
+  for (const usage of program.usages) assert(observed.has(usage.route + "#" + usage.instance), "The source never became usable: " + usage.instance);
   await page.goto(origin);
   const violations = (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze()).violations
     .map(({ id, impact, nodes }) => ({ id, impact, targets: nodes.map(({ target }) => target) }));
@@ -120,6 +147,7 @@ export async function inspect(browser, origin, project, label, format) {
     await context.setOffline(false);
     await page.reload();
   }
+  assert.deepEqual([...unauthorized], [], "Unexpected external or API request");
   assert.deepEqual(errors, []);
   await context.close();
   return { engine: browser.browserType().name(), version: browser.version(), dimensions, performanceSamples, structures, journeys: journeyResults, offline, violations };

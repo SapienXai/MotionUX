@@ -12,7 +12,8 @@ const cases = [
   ["E1", "Create a premium volunteer observatory workspace. The opening view should be tonight's observing run with a chronological instrument schedule. Add observation targets, inspect their preparation notes, filter readiness, edit session times with overlap validation, and retain records locally. On mobile put the next observation and readiness action first. Give it a night-oriented scientific visual identity and no giant KPI dashboard."],
   ["E2", "Create an editorial ceramics exhibition catalog for a small gallery. Visitors should discover objects in an image-led collection, compare two pieces, inspect dimensions and technique, and add a visit-interest note that is stored only on this device. Curator view should edit fictional catalog entries and readiness. Use a warm print-inspired composition with quiet interaction. Mobile discovery and comparisons must stay legible."],
 ];
-const ids = process.argv.slice(2);
+const ids = process.argv.slice(2).filter((argument) => !argument.startsWith("--"));
+const retries = Object.fromEntries(process.argv.slice(2).filter((argument) => argument.startsWith("--retry=")).map((argument) => argument.slice(8).split(":")));
 await mkdir(evidence, { recursive: true, mode: 0o700 });
 const browser = await chromium.launch();
 const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, acceptDownloads: true });
@@ -22,9 +23,14 @@ try {
   for (const [label, brief] of cases.filter(([id]) => !ids.length || ids.includes(id))) {
     try {
       await page.goto(origin + "/build", { waitUntil: "networkidle" });
+      const retry = retries[label];
+      if (retry) {
+        await page.evaluate((id) => sessionStorage.setItem("motionux:source-job:home", id), retry);
+        await page.reload();
+      }
       await page.getByRole("textbox", { name: "Describe your app" }).fill(brief);
-      const starting = page.waitForResponse((response) => response.url().endsWith("/source-jobs/start"));
-      await page.getByRole("button", { name: "Create app", exact: true }).click();
+      const starting = page.waitForResponse((response) => response.url().endsWith(retry ? "/" + retry + "/retry" : "/source-jobs/start"));
+      await page.getByRole("button", { name: retry ? "Retry generated application" : "Create app", exact: true }).click();
       const response = await starting;
       let job = await response.json();
       assert(response.ok(), JSON.stringify(job));

@@ -35,6 +35,7 @@ export async function createCodeFixture() {
   await cp(resolve(repo, "platform/templates/hotel-dashboard"), resolve(fake, "platform/templates/hotel-dashboard"), {
     recursive: true, filter: (path) => !path.split("/").some((part) => ["node_modules", ".next"].includes(part)),
   });
+  await cp(resolve(repo, "platform/templates/hotel-marketing/media"), resolve(fake, "platform/templates/hotel-marketing/media"), { recursive: true });
   await cp(resolve(repo, "platform/templates/pwa"), resolve(fake, "platform/templates/pwa"), { recursive: true });
   await mkdir(resolve(fake, "platform/templates/source-driven"), { recursive: true });
   await cp(resolve(repo, "platform/templates/source-driven/project-state.ts"), resolve(fake, "platform/templates/source-driven/project-state.ts"));

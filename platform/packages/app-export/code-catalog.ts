@@ -168,7 +168,7 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
     // Type erasure only. React 19 makes an unparameterized element's props unknown.
     if (code.includes("React.cloneElement(child,") && code.includes("React.isValidElement(child)")) {
       code = code.replaceAll("React.isValidElement(child)", "React.isValidElement<Record<string, unknown>>(child)")
-        .replaceAll("child as React.ReactElement)", "child as React.ReactElement<Record<string, unknown>>)");
+        .replaceAll("child as React.ReactElement)", "child as React.ReactElement<Record<string, unknown> & { className?: string }>)");
       patches.push({ file: path, reason: "Parameterize ReactElement for React 19 props typing." });
     }
     files[path] = code;

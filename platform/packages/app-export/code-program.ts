@@ -7,6 +7,38 @@ import { restoreCodeSources, type SourceModule } from "./code-catalog.ts";
 import { programHashes, validateProgram } from "./code-validator.ts";
 import { mediaBytes } from "./media.ts";
 
+const screenTemplate = `"use client";
+import { useEffect, useState } from "react";
+import { MotionConfig } from "motion/react";
+import Application from "../components/app";
+import { settings } from "./config";
+const editable: Record<string, string> = settings.kinds;
+const digest = settings.digest;
+export function AppScreen({ page }: { page: { route: string } }) {
+  const [config, setConfig] = useState<Record<string, string>>(settings.values);
+  useEffect(() => {
+    function receive(event: MessageEvent) {
+      if (event.source !== window.parent || event.origin === "null") return;
+      try { if (new URL(event.origin).origin !== "http://127.0.0.1:5200") return; } catch { return; }
+      const data = event.data;
+      if (!data || data.type !== "motionux:controls" || data.digest !== digest || typeof data.values !== "object" || !data.values) return;
+      const entries = Object.entries(data.values);
+      if (entries.length !== Object.keys(editable).length) return;
+      for (const [key, value] of entries) {
+        if (!Object.hasOwn(editable, key) || typeof value !== "string" || value.length > 500) return;
+        if (editable[key] === "color" && !/^#[a-f0-9]{6}$/i.test(value)) return;
+        if (["spacing", "size"].includes(editable[key]) && !/^\\d{1,2}(?:px|rem)$/.test(value)) return;
+        if (editable[key] === "motion" && !["still", "system"].includes(value)) return;
+      }
+      setConfig(Object.fromEntries(entries) as Record<string, string>);
+    }
+    addEventListener("message", receive);
+    return () => removeEventListener("message", receive);
+  }, []);
+  return <MotionConfig reducedMotion={Object.entries(editable).some(([key, kind]) => kind === "motion" && config[key] === "still") ? "always" : "user"}><Application route={page.route} config={config} /></MotionConfig>;
+}
+`;
+
 async function profile(repo: string) {
   const root = resolve(repo, "platform/templates");
   const read = (file: string) => readFile(resolve(root, file), "utf8");
@@ -14,7 +46,7 @@ async function profile(repo: string) {
     read("hotel-dashboard/package-lock.json"), read("hotel-dashboard/package.json"), read("source-driven/project-state.ts"),
     read("hotel-dashboard/next.config.mjs"), read("hotel-dashboard/postcss.config.mjs"), read("hotel-dashboard/tsconfig.json"), read("hotel-dashboard/proxy.ts"),
   ]);
-  return { lock, pkg, state, next, postcss, tsconfig, proxy, compiler: fingerprint(canonical({ abi: 2, state, next, postcss, tsconfig, proxy })) };
+  return { lock, pkg, state, next, postcss, tsconfig, proxy, compiler: fingerprint(canonical({ abi: 3, state, screenTemplate, next, postcss, tsconfig, proxy })) };
 }
 
 export async function sealCodeProject(repo: string, proposal: unknown, sources: SourceModule[]): Promise<CodeProject> {
@@ -57,38 +89,9 @@ export async function compileCodeProject(repo: string, project: BuildProject) {
   files["runtime/state.ts"] = environment.state;
   files["runtime/config.ts"] = "export const settings = " + JSON.stringify({
     id: project.id, revision: project.revision, values: config, name: graph.name,
+    digest: fingerprint(canonical(project.document)), kinds: Object.fromEntries(graph.controls.map(({ key, kind }) => [key, kind])),
   }, null, 2) + ";\n";
-  const editable = Object.fromEntries(graph.controls.map(({ key, kind }) => [key, kind]));
-  files["runtime/screen.tsx"] = `"use client";
-import { useEffect, useState } from "react";
-import Application from "../components/app";
-import { settings } from "./config";
-const editable: Record<string, string> = ${JSON.stringify(editable)};
-const digest = ${JSON.stringify(fingerprint(canonical(project.document)))};
-export function AppScreen({ page }: { page: { route: string } }) {
-  const [config, setConfig] = useState<Record<string, string>>(settings.values);
-  useEffect(() => {
-    function receive(event: MessageEvent) {
-      if (event.source !== window.parent || event.origin === "null") return;
-      try { if (new URL(event.origin).origin !== "http://127.0.0.1:5200") return; } catch { return; }
-      const data = event.data;
-      if (!data || data.type !== "motionux:controls" || data.digest !== digest || typeof data.values !== "object" || !data.values) return;
-      const entries = Object.entries(data.values);
-      if (entries.length !== Object.keys(editable).length) return;
-      for (const [key, value] of entries) {
-        if (!Object.hasOwn(editable, key) || typeof value !== "string" || value.length > 500) return;
-        if (editable[key] === "color" && !/^#[a-f0-9]{6}$/i.test(value)) return;
-        if (["spacing", "size"].includes(editable[key]) && !/^\\d{1,2}(?:px|rem)$/.test(value)) return;
-        if (editable[key] === "motion" && !["still", "system"].includes(value)) return;
-      }
-      setConfig(Object.fromEntries(entries) as Record<string, string>);
-    }
-    addEventListener("message", receive);
-    return () => removeEventListener("message", receive);
-  }, []);
-  return <Application route={page.route} config={config} />;
-}
-`;
+  files["runtime/screen.tsx"] = screenTemplate;
   files["app/layout.tsx"] = `import type { ReactNode } from "react";
 import "@fontsource-variable/inter";
 import "../styles/host.css";
@@ -126,7 +129,7 @@ export default async function Page({ params }: Props) {
   const requested = graph.files.map(({ content }) => content).join("\n");
   const assetPins: { path: string; sha256: string; rights: string }[] = [];
   for (const id of ["seed-coast", "seed-room", "seed-pool"]) {
-    if (!requested.includes(id)) continue;
+    if (!requested.includes(id) && !requested.includes("/media/seed-${")) continue;
     for (const size of [360, 720] as const) {
       const path = "public/media/" + id + "-" + size + ".webp";
       const image = await mediaBytes(repo, undefined, project.id, id, size);
