@@ -18,6 +18,34 @@ const selectionSchema = z.strictObject({
 });
 const selectedResponse = z.toJSONSchema(selectionSchema);
 const programResponse = z.toJSONSchema(codeProposalSchema);
+const patchSchema = z.strictObject({
+  files: z.array(codeProposalSchema.shape.files.element).max(12),
+  remove: z.array(z.string()).max(8),
+  controls: codeProposalSchema.shape.controls.nullable(),
+  usages: codeProposalSchema.shape.usages.nullable(),
+  generated: codeProposalSchema.shape.generated.nullable(),
+  journeys: codeProposalSchema.shape.journeys.nullable(),
+  pages: codeProposalSchema.shape.pages.nullable(),
+  design: codeProposalSchema.shape.design.nullable(),
+  limitations: codeProposalSchema.shape.limitations.nullable(),
+});
+const patchResponse = z.toJSONSchema(patchSchema);
+
+function mergePatch(previous: unknown, raw: unknown) {
+  const current = codeProposalSchema.strip().parse(previous);
+  const patch = patchSchema.parse(raw);
+  const replacements = new Map(patch.files.map((file) => [file.path, file]));
+  const kept = current.files.filter(({ path }) => !patch.remove.includes(path)).map((file) => {
+    const next = replacements.get(file.path);
+    replacements.delete(file.path);
+    return next ?? file;
+  });
+  return { ...current, files: [...kept, ...replacements.values()],
+    controls: patch.controls ?? current.controls, usages: patch.usages ?? current.usages,
+    generated: patch.generated ?? current.generated, journeys: patch.journeys ?? current.journeys,
+    pages: patch.pages ?? current.pages, design: patch.design ?? current.design, limitations: patch.limitations ?? current.limitations,
+  };
+}
 type Stage = "analyzing" | "selecting" | "composing" | "building" | "verifying" | "ready" | "failed" | "cancelled";
 type Job = { id: string; status: Stage; message: string; started: number; updated: number; [key: string]: unknown };
 
@@ -105,7 +133,12 @@ export async function executeCodeGeneration(repo: string, vault: string, job: Jo
       cancellation.throwIfAborted();
       await update("composing", attempt ? "Correcting generated modules from verification feedback" : "Writing application-specific components and styles");
       try {
-        const proposal = await native(programResponse, prompt(payload.brief, sources, design, previous, diagnostic, rejected), 480_000);
+        const patchBase = rejected ?? previous;
+        const message = prompt(payload.brief, sources, design, previous, diagnostic, rejected);
+        const proposal = patchBase
+          ? mergePatch(patchBase, await native(patchResponse,
+            message + "\nPATCH OUTPUT: Return only changed file contents in files. Preserve all unaffected files. Use null for unchanged metadata, [] for remove unless an obsolete module truly needs removal. Do not regenerate the application. Fix the exact diagnostic or requested edit.", 360_000))
+          : await native(programResponse, message, 480_000);
         rejected = proposal;
         const graph = await sealCodeProject(repo, proposal, sources);
         const document = codeDocument(graph);
@@ -139,6 +172,7 @@ export async function executeCodeGeneration(repo: string, vault: string, job: Jo
         diagnostic = error instanceof Error ? error.message.slice(0, 4400) : "Invalid generated program.";
         repairs++;
         job.lastDiagnostic = diagnostic;
+        await persist(job);
       } finally {
         if (running) { await stopPreview(); running = false; }
       }
