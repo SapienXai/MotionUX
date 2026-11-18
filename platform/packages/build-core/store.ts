@@ -295,11 +295,15 @@ export function createStore(vault: string) {
       return Promise.all(
         ids.slice(0, 24).map(async (id) => {
           try {
-            const value = await load(await rootFor(id), id);
+            const root = await rootFor(id);
+            const value = await load(root, id);
+            const updatedAt = await lstat(resolve(root, "project.json")).then((stat) => stat.mtimeMs, () => undefined);
             return {
               id,
               name: value.document.name,
+              updatedAt,
               revision: value.revision,
+              pages: value.document.pages.length,
               error: false,
             };
           } catch {
@@ -310,6 +314,10 @@ export function createStore(vault: string) {
     },
     async open(id: string) {
       return load(await rootFor(id), id);
+    },
+    async openPrevious(id: string) {
+      const root = await rootFor(id);
+      return locked(root, () => load(root, id, true));
     },
     async openDraft(id: string) {
       return loadDraft(await rootFor(id));

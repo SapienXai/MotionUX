@@ -56,6 +56,7 @@ test("mixed local projects compile only for Run and recheck the exact private so
   const preview = await previewTree(fixture.fake, project, fixture.vault);
   assert.match(preview[`sources/${id}/local.tsx`], /\/v10\/build-preview\/.+&view=run/);
   assert.match(preview["runtime/local-source.tsx"], /sandbox="allow-scripts"/);
+  assert.match(preview["runtime/screen.tsx"], /motionux:controls-ready/);
   assert.match(preview["next.config.mjs"], /frame-src http:\/\/127\.0\.0\.1:5199\/v10\/build-preview\//);
   assert.equal(preview[`sources/${id}/LICENSE.txt`], undefined);
   await writeFile(path, JSON.stringify([...catalog, { ...local, upstreamHash: "d".repeat(64) }]));
@@ -114,6 +115,7 @@ test("a novel source API compiles into real modules, keeps editable config and d
     assert(tree["components/app.tsx"].includes("ExpandingNotice"));
     assert(tree["sources/portable-source/component.tsx"]);
     assert(!tree["runtime/screen.tsx"].includes("mx-section"));
+    assert(!tree["runtime/screen.tsx"].includes("motionux:controls-ready"));
     for (const { path, sha256 } of manifest.files) assert.equal(fingerprint(tree[path]), sha256);
     assert.deepEqual(zipTree(tree), zipTree(await exportTree(fixture.fake, fixture.project, { pwa })));
   }

@@ -1,83 +1,118 @@
 "use client";
 
-import { Check, Layers3, Plus, Search, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowUpRight, Check, Layers3, Plus, Search, X } from "lucide-react";
+import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { maxCompositionSources } from "@motionux/build-core/code-project";
 import { sourceRequest } from "./source-job";
 import { ComponentPreview } from "./component-preview";
+import { openStudioSheet, StudioSheet, useStudioCopy } from "./kinetic-ui";
 
 export type CompositionComponent = {
   id: string; title: string; provider: string; mode: "direct" | "connected" | "reference";
   preview?: { slug: string; pin: string };
 };
-const modeLabel = { direct: "Original component", connected: "Connected · local", reference: "Design reference" };
 
-export function ComponentPicker({ selected, onChange, disabled }: {
+export function ComponentPicker({ selected, onChange, disabled, idea, footer, localOption }: {
   selected: string[]; onChange: (ids: string[]) => void; disabled: boolean;
+  idea: ReactNode; footer: ReactNode; localOption?: ReactNode;
 }) {
+  const t = useStudioCopy();
   const [rows, setRows] = useState<CompositionComponent[]>();
   const [focused, setFocused] = useState<string>();
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const field = useRef<HTMLInputElement>(null);
+  const needsCatalog = open || selected.length > 0;
   useEffect(() => {
+    if (!needsCatalog || rows) return;
     const controller = new AbortController();
     void sourceRequest<CompositionComponent[]>("/source-jobs/components", "GET", undefined, controller.signal)
       .then(setRows, () => { if (!controller.signal.aborted) setError(true); });
     return () => controller.abort();
-  }, [attempt]);
-  const query = search.trim().toLowerCase();
-  const visible = (rows ?? []).filter(({ title, provider, id }) =>
-    query.split(/\s+/).every((term) => `${title} ${provider} ${id}`.toLowerCase().includes(term)));
+  }, [attempt, needsCatalog, rows]);
+
+  const terms = search.toLowerCase().trim().split(/\s+/);
+  const visible = (rows ?? []).filter(({ title, provider, id }) => terms.every((term) => `${title} ${provider} ${id}`.toLowerCase().includes(term)));
   const atLimit = selected.length >= maxCompositionSources;
   const chosenRows = selected.flatMap((id) => rows?.find((row) => row.id === id) ?? []);
-  return <><section className="compose-components" aria-labelledby="compose-components-title">
-    <div className="compose-components-heading">
-      <Layers3 size={18} aria-hidden="true" />
-      <h2 id="compose-components-title">Components</h2>
-      <span>{selected.length}/{maxCompositionSources}</span>
+  const labels = { direct: t("Original component", "Orijinal bileşen"), connected: t("Connected · local", "Bağlı · yerel"),
+    reference: t("Design reference", "Tasarım referansı") };
+  const browse = t("Browse components", "Bileşenlere göz at");
+
+  function toggle(id: string) {
+    if (selected.includes(id)) {
+      const remaining = selected.filter((value) => value !== id);
+      if (focused === id) setFocused(remaining.at(-1));
+      onChange(remaining);
+    } else if (!atLimit) { setFocused(id); onChange([...selected, id]); }
+  }
+  function show(event: MouseEvent<HTMLButtonElement>) {
+    setOpen(true);
+    openStudioSheet(dialog.current, event.currentTarget);
+    field.current?.focus();
+  }
+  return <>
+    <div className="kinetic-idea-card">
+      {idea}
+      {localOption ?? <section className="kinetic-choices" aria-labelledby="compose-components-title">
+        <div className="kinetic-choices-head"><h2 id="compose-components-title">{t("Shape it with components", "Bileşenlerle şekillendir")} <small>{selected.length}/{maxCompositionSources}</small></h2>
+          <button type="button" className="kinetic-text" aria-haspopup="dialog" onClick={show} disabled={disabled}>{browse}<ArrowUpRight size={13} aria-hidden="true" /></button>
+        </div>
+        {selected.length ? <ul className="kinetic-selected" aria-label={t("Selected components", "Seçilen bileşenler")}>
+          {selected.map((id) => {
+            const source = chosenRows.find((item) => item.id === id);
+            return <li key={id}>
+              <button type="button" className="kinetic-selected-source" aria-pressed={focused === id || !focused && id === selected.at(-1)}
+                onClick={() => setFocused(id)}><span className="kinetic-source-icon"><Layers3 size={16} aria-hidden="true" /></span><span>
+                  <strong>{source?.title ?? id}</strong>{source && <small>{source.provider} · {labels[source.mode]}</small>}
+                </span></button>
+              <button type="button" className="kinetic-icon" aria-label={t("Remove ", "Kaldır ") + (source?.title ?? id)}
+                title={t("Remove component", "Bileşeni kaldır")} onClick={() => toggle(id)} disabled={disabled}><X size={15} aria-hidden="true" /></button>
+            </li>;
+          })}
+        </ul> : <button type="button" className="kinetic-source-empty" aria-haspopup="dialog" disabled={disabled} onClick={show}>
+          <span className="kinetic-source-icon"><Plus size={17} aria-hidden="true" /></span>
+          <span><strong>{t("Add a component", "Bileşen ekle")}</strong><small>{t("Optional. Build can find sources for you.", "İsteğe bağlı. Build uygun kaynakları bulabilir.")}</small></span>
+        </button>}
+      </section>}
+      {footer}
     </div>
-    {selected.length === 0 && <p>Choose components for your product, or let Build find a fit.</p>}
-    {selected.length > 0 && <ul className="compose-selected" aria-label="Selected components">
-      {selected.map((id) => {
-        const item = rows?.find((row) => row.id === id);
-        return <li key={id}><div><strong>{item?.title ?? id}</strong>
-          {item && <small>{item.provider} · {modeLabel[item.mode]}</small>}</div>
-          <button type="button" className="build-icon-button" aria-label={"Remove " + (item?.title ?? id)} disabled={disabled}
-            onClick={() => onChange(selected.filter((value) => value !== id))}><X size={16} /></button></li>;
-      })}
-    </ul>}
-    <details open={open} onToggle={(event) => setOpen(event.currentTarget.open)}>
-      <summary><Plus size={16} aria-hidden="true" /> Browse components</summary>
-      {open && <div className="compose-catalog">
-        <search className="compose-catalog-search" aria-label="Component catalog">
-          <Search size={15} aria-hidden="true" />
-          <input type="search" aria-label="Find components for your app" placeholder="Search names or providers"
-            value={search} onChange={(event) => setSearch(event.target.value)}
-            onKeyDown={(event) => { if (event.key === "Enter") event.preventDefault(); }} />
-        </search>
-        {error && <p role="status">Catalog unavailable. <button type="button" className="build-text-button"
-          onClick={() => { setError(false); setAttempt(attempt + 1); }}>Retry</button></p>}
-        {rows && !visible.length && <p role="status">No matching components.</p>}
-        {!rows && !error && <p role="status">Loading catalog…</p>}
-        <ul aria-label="Component results">
+    <ComponentPreview components={chosenRows} focused={focused} onFocus={setFocused} />
+    <StudioSheet dialog={dialog} title={browse}>
+      <div className="kinetic-catalog">
+        <div className="kinetic-filter"><Search size={16} aria-hidden="true" />
+          <input ref={field} type="search" aria-label={t("Find components for your app", "Uygulaman için bileşen bul")}
+            placeholder={t("Search names or providers", "Ad veya sağlayıcı ara")} value={search}
+            onChange={(event) => setSearch(event.target.value)} onKeyDown={(event) => {
+              if (event.key === "Enter") event.preventDefault();
+              if (event.key === "Escape" && !event.nativeEvent.isComposing) {
+                // Native search inputs may consume Escape to clear their query before the dialog sees it.
+                event.preventDefault();
+                dialog.current?.close();
+              }
+            }} />
+        </div>
+        <p role="status">{atLimit ? t("Four components selected. Remove one to add another.", "Dört bileşen seçildi. Bir tane eklemek için birini kaldır.") :
+          t("Selected sources ", "Seçilen kaynaklar ") + selected.length + " / " + maxCompositionSources}</p>
+        {error && <p role="alert">{t("Catalog unavailable.", "Katalog açılamadı.")} <button type="button" className="kinetic-text"
+          onClick={() => { setError(false); setAttempt(attempt + 1); }}>{t("Retry", "Yeniden dene")}</button></p>}
+        {!rows && !error && <p role="status">{t("Loading catalog…", "Katalog yükleniyor…")}</p>}
+        {rows && !visible.length && <p role="status">{t("No matching components.", "Eşleşen bileşen yok.")}</p>}
+        <ul aria-label={t("Component results", "Bileşen sonuçları")}>
           {visible.slice(0, 32).map((item) => {
             const chosen = selected.includes(item.id);
-            return <li key={item.id}><button type="button" aria-pressed={chosen} disabled={disabled || (atLimit && !chosen)}
-              onClick={() => {
-                if (!chosen) setFocused(item.id);
-                onChange(chosen ? selected.filter((id) => id !== item.id) : [...selected, item.id]);
-              }}>
-              <span><strong>{item.title}</strong><small>{item.provider} · {modeLabel[item.mode]}</small></span>
-              {chosen ? <Check size={16} /> : <Plus size={16} />}
+            return <li key={item.id}><button type="button" aria-pressed={chosen} disabled={disabled || atLimit && !chosen} onClick={() => toggle(item.id)}>
+              <span><strong>{item.title}</strong><small>{item.provider} · {labels[item.mode]}</small></span>
+              {chosen ? <Check size={16} aria-hidden="true" /> : <Plus size={16} aria-hidden="true" />}
             </button></li>;
           })}
         </ul>
-        {visible.length > 32 && <p>Showing 32 of {visible.length}. Search to narrow the list.</p>}
-      </div>}
-    </details>
-  </section>
-  <ComponentPreview components={chosenRows} focused={focused} onFocus={setFocused} />
+        {visible.length > 32 && <p>{t("Showing 32 of ", "Gösterilen 32, toplam ") + visible.length}</p>}
+        <button type="button" className="kinetic-button kinetic-primary" onClick={() => dialog.current?.close()}>{t("Done", "Bitti")}</button>
+      </div>
+    </StudioSheet>
   </>;
 }

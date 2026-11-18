@@ -1,3 +1,4 @@
+import { exportFromSourceEditor } from "./source-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { setTimeout as delay } from "node:timers/promises";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -54,9 +55,7 @@ async function run(label, brief) {
   }
   await page.setViewportSize({ width: 1440, height: 900 });
   for (const [target, tag] of [["Export", "next"], ["Export PWA", "pwa"]]) {
-    const saving = page.waitForEvent("download");
-    await page.getByRole("link", { name: target, exact: true }).click();
-    await (await saving).saveAs(resolve(evidence, "native-" + label + "-" + tag + ".zip"));
+    await (await exportFromSourceEditor(page, target)).saveAs(resolve(evidence, "native-" + label + "-" + tag + ".zip"));
   }
   const stopping = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
   await button("Stop Run").click();

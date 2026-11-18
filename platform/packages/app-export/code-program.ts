@@ -98,7 +98,12 @@ export async function compileCodeProject(repo: string, project: BuildProject, us
     id: project.id, revision: project.revision, values: config, name: graph.name,
     digest: fingerprint(canonical(project.document)), kinds: Object.fromEntries(graph.controls.map(({ key, kind }) => [key, kind])),
   }, null, 2) + ";\n";
-  files["runtime/screen.tsx"] = screenTemplate;
+  // Run acknowledges its listener after hydration so Studio can replay draft controls.
+  // Keep the pinned standalone runtime and both export formats byte-stable.
+  files["runtime/screen.tsx"] = use === "local" ? screenTemplate.replace(
+    '    addEventListener("message", receive);',
+    '    addEventListener("message", receive);\n    if (window.parent !== window) window.parent.postMessage({ type: "motionux:controls-ready", digest }, "http://127.0.0.1:5200");',
+  ) : screenTemplate;
   if (sources.some(({ pin }) => pin.fidelity === "local-frame")) files["runtime/local-source.tsx"] = await readFile(resolve(repo, localSourceTemplate), "utf8");
   files["app/layout.tsx"] = `import type { ReactNode } from "react";
 import "@fontsource-variable/inter";

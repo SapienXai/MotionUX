@@ -9,7 +9,7 @@ import {
   type FormEvent,
   type ReactNode,
 } from "react";
-import { Layers3, Search } from "lucide-react";
+import { Compass, Layers3, Library, Search, Sun } from "lucide-react";
 import {
   appearanceKey,
   galleryOrigin,
@@ -27,6 +27,7 @@ export function StudioChrome({ children }: { children: ReactNode }) {
   const [resume, setResume] = useState("/build");
   const [query, setQuery] = useState("");
   const [view, setView] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
   const [turkish, setTurkish] = useState(false);
   const t = (english: string, tr: string) => (turkish ? tr : english);
   const search = useRef<HTMLInputElement>(null);
@@ -39,7 +40,9 @@ export function StudioChrome({ children }: { children: ReactNode }) {
     );
   }
   useEffect(() => {
-    setTurkish(navigator.language.toLowerCase().startsWith("tr"));
+    const tr = navigator.language.toLowerCase().startsWith("tr");
+    setTurkish(tr);
+    document.documentElement.lang = tr ? "tr" : "en";
     const initial = document.documentElement.dataset.studioAppearance;
     setAppearance(isAppearance(initial) ? initial : "system");
     function follow(event: StorageEvent) {
@@ -85,7 +88,7 @@ export function StudioChrome({ children }: { children: ReactNode }) {
         return;
       if (event.data?.type === "motionux:gallery-ready")
         sendAppearance(current);
-      if (event.data?.type === "motionux:focus-search") search.current?.focus();
+      if (event.data?.type === "motionux:focus-search") openSearch();
       if (
         event.data?.type === "motionux:gallery-route" &&
         isGalleryPath(event.data.path)
@@ -122,14 +125,19 @@ export function StudioChrome({ children }: { children: ReactNode }) {
           ))
       ) {
         event.preventDefault();
-        search.current?.focus();
+        openSearch();
       }
     }
     window.addEventListener("keydown", shortcut);
     return () => window.removeEventListener("keydown", shortcut);
   }, []);
+  function openSearch() {
+    setSearchOpen(true);
+    requestAnimationFrame(() => search.current?.focus());
+  }
   function submit(event: FormEvent) {
     event.preventDefault();
+    setSearchOpen(false);
     const value = query.trim();
     const frame = activeFrame();
     if (pathname === "/discover" && frame?.contentWindow) {
@@ -148,6 +156,7 @@ export function StudioChrome({ children }: { children: ReactNode }) {
     );
   }
   const filter = query.trim() ? "q=" + encodeURIComponent(query.trim()) : "";
+  const kinetic = pathname.startsWith("/build");
   const gallery = pathname === "/discover" && view !== "library";
   const library = pathname === "/discover" && view === "library";
   return (
@@ -155,7 +164,7 @@ export function StudioChrome({ children }: { children: ReactNode }) {
       <a className="studio-skip" href="#workspace-content">
         {t("Skip to workspace", "Çalışma alanına geç")}
       </a>
-      <header className="studio-home-nav studio-chrome">
+      <header className={"studio-home-nav studio-chrome" + (kinetic ? " kinetic-chrome" : "")} data-search={searchOpen}>
         <Link
           href="/"
           onNavigate={(event) => {
@@ -178,7 +187,7 @@ export function StudioChrome({ children }: { children: ReactNode }) {
             }}
             aria-current={gallery ? "page" : undefined}
           >
-            {t("Gallery", "Galeri")}
+            {kinetic && <Compass className="kinetic-nav-icon" size={16} aria-hidden="true" />}<span>{t("Gallery", "Galeri")}</span>
           </Link>
           <Link
             href={"/discover?view=library" + (filter ? "&" + filter : "")}
@@ -188,7 +197,7 @@ export function StudioChrome({ children }: { children: ReactNode }) {
             }}
             aria-current={library ? "page" : undefined}
           >
-            {t("My Library", "Kitaplığım")}
+            {kinetic && <Library className="kinetic-nav-icon" size={16} aria-hidden="true" />}<span>{t("My Library", "Kitaplığım")}</span>
           </Link>
           <Link
             href={resume}
@@ -198,6 +207,8 @@ export function StudioChrome({ children }: { children: ReactNode }) {
             {t("Build", "Oluştur")}
           </Link>
         </nav>
+        {kinetic && <button type="button" className="kinetic-icon kinetic-search-toggle" aria-label={t("Search components", "Bileşenleri ara")}
+          aria-expanded={searchOpen} onClick={() => searchOpen ? setSearchOpen(false) : openSearch()}><Search size={16} aria-hidden="true" /></button>}
         <form
           className="studio-search"
           role="search"
@@ -217,9 +228,10 @@ export function StudioChrome({ children }: { children: ReactNode }) {
             maxLength={160}
             onChange={(event) => setQuery(event.target.value)}
             onKeyDown={(event) => {
-              if (event.key === "Escape") search.current?.blur();
+              if (event.key === "Escape") { setSearchOpen(false); search.current?.blur(); }
             }}
           />
+          {kinetic && <kbd aria-hidden="true">⌘ / Ctrl K</kbd>}
           <button
             type="submit"
             className="build-icon"
@@ -229,6 +241,7 @@ export function StudioChrome({ children }: { children: ReactNode }) {
           </button>
         </form>
         <div className="studio-appearance">
+          {kinetic && <Sun className="kinetic-theme-icon" size={16} aria-hidden="true" />}
           <label htmlFor="studio-appearance" className="build-sr">
             {t("Studio theme", "Studio teması")}
           </label>

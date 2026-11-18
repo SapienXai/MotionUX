@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useEffectEvent, useState } from "react";
+import type { BuildProject } from "@motionux/build-core";
 export { SourceJobStatus } from "./source-job-status";
 
 type SourceInput = { brief: string; preferred?: string; includeLocal?: boolean; kit?: string[]; project?: string; revision?: number };
@@ -19,6 +20,16 @@ export async function sourceRequest<T>(path: string, method = "GET", value?: unk
   const result = await response.json();
   if (!response.ok) throw new Error(result.message ?? "The local workspace could not complete this action.");
   return result;
+}
+
+export async function restoreSourceRevision(current: BuildProject) {
+  const path = "/" + current.id;
+  const previous = await sourceRequest<BuildProject>(path + "/previous");
+  if (previous.revision >= current.revision ||
+      Boolean(previous.document.codeProject) !== Boolean(current.document.codeProject) ||
+      Boolean(previous.document.sourceGraph) !== Boolean(current.document.sourceGraph))
+    throw new Error("The previous revision does not match this workspace. Reopen the project.");
+  return sourceRequest<BuildProject>(path, "PUT", { ...current, document: previous.document });
 }
 
 export function useSourceJob(scope: string, onReady: (projectId: string) => Promise<void>, onResume?: (request: SourceInput) => void) {

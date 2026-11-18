@@ -7,7 +7,6 @@ import {
   Check,
   ChevronDown,
   CircleAlert,
-  Code2,
   Copy,
   Download,
   ExternalLink,
@@ -392,6 +391,8 @@ export function Editor({
     }
     setBusy("Starting preview");
     setMode("run");
+    setPanel("canvas");
+    setFocusCanvas(true);
     try {
       const active = await request<Preview>("/preview");
       if (
@@ -502,7 +503,7 @@ export function Editor({
     },
   };
   return (
-    <main className="build-app">
+    <main className="build-app kinetic-puck">
       <header className="build-toolbar">
         <button
           type="button"
@@ -527,7 +528,7 @@ export function Editor({
           <button
             type="button"
             aria-pressed={mode === "edit"}
-            onClick={() => setMode("edit")}
+            onClick={() => { setMode("edit"); setFocusCanvas(false); }}
           >
             {tr ? "Düzenle" : "Edit"}
           </button>
@@ -675,9 +676,10 @@ export function Editor({
             <section className="build-canvas" aria-label="Application canvas">
               <div className="build-canvas-bar">
                 {identityPreview && mode !== "run" && <button type="button" className="build-button" onClick={() => setIdentityPreview(undefined)}>Close style preview</button>}
-                <span className="build-route">
-                  <Code2 size={15} /> {page.route}
-                </span>
+                <div className="kinetic-puck-page">
+                  <h1 dir="auto">{page.title}</h1>
+                  <small className="build-route">{page.route}</small>
+                </div>
                 <div className="build-viewports" aria-label="Viewport">
                   {presets.map(([Icon, value]) => (
                     <ToolbarButton

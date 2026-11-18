@@ -1,3 +1,4 @@
+import { exportFromSourceEditor } from "./source-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -71,9 +72,7 @@ try {
         }
       } finally { await runtime.close(); }
       for (const [button, format] of [["Export", "next"], ["Export PWA", "pwa"]]) {
-        const download = page.waitForEvent("download");
-        await page.getByRole("button", { name: button, exact: true }).click();
-        await (await download).saveAs(resolve(evidence, label + "-" + format + ".zip"));
+        await (await exportFromSourceEditor(page, button)).saveAs(resolve(evidence, label + "-" + format + ".zip"));
       }
       const stopping = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
       await page.getByRole("button", { name: "Stop Run", exact: true }).click();

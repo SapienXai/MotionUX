@@ -1,3 +1,4 @@
+import { openProjectActions } from "./source-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -27,9 +28,9 @@ try {
     await page.getByText("Browse components", { exact: true }).click();
     await page.getByRole("searchbox", { name: "Find components for your app" }).fill("animated number motion primitives");
     await page.getByRole("button", { name: /Animated Number.*Motion Primitives/ }).click();
-    const selection = page.getByRole("list", { name: "Selected components" });
-    await expect(selection.getByRole("listitem")).toHaveCount(2);
-    await page.getByText("Browse components", { exact: true }).click();
+    await page.getByRole("searchbox", { name: "Find components for your app" }).press("Escape");
+    await expect(page.getByRole("button", { name: "Browse components", exact: true })).toBeFocused();
+    await expect(page.getByRole("list", { name: "Selected components" }).getByRole("listitem")).toHaveCount(2);
     await page.getByRole("textbox", { name: "Describe your app" }).fill(brief);
     await page.screenshot({ path: resolve(evidence, "compose-desktop.png") });
     await page.setViewportSize({ width: 390, height: 840 });
@@ -64,7 +65,9 @@ try {
     return [reply.status, reply.headers.get("Content-Disposition")];
   })), job.project);
   assert.deepEqual(denials, [[409, null], [409, null]]);
-  await expect(page.getByRole("button", { name: "Export", exact: true })).toBeDisabled();
+  const actions = await openProjectActions(page);
+  await expect(actions.getByRole("button", { name: "Export", exact: true })).toBeDisabled();
+  await actions.getByRole("button", { name: "Close", exact: true }).click();
   const runButton = page.getByRole("button", { name: "Run", exact: true });
   if (await runButton.isVisible()) await runButton.click();
   await expect(page.locator('iframe[title="Live source application"]')).toBeVisible({ timeout: 45_000 });

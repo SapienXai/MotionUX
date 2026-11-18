@@ -151,6 +151,8 @@ test("writes are serialized, revisions conflict, valid backup survives corrupt J
   const reopened = await createStore(vault).open(old.id);
   assert.equal(reopened.revision, 1);
   assert.equal(reopened.document.name, first.document.name);
+  assert.deepEqual(await store.openPrevious(old.id), old);
+  await assert.rejects(store.restore(old.id), { status: 409 });
   const root = resolve(vault, "build/projects", old.id);
   await writeFile(
     resolve(root, ".save-lock"),

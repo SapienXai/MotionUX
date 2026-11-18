@@ -1,3 +1,4 @@
+import { exportFromSourceEditor, openSourceProperties } from "./source-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -25,14 +26,20 @@ try {
   await page.goto(base + "/build?project=" + original.id);
   const outline = page.getByRole("complementary", { name: "Project outline" });
   await outline.getByRole("navigation", { name: "Project pages" }).getByRole("button", { name: generatedPage.title, exact: true }).click();
+  await outline.getByText("Sections", { exact: true }).click();
   await outline.getByRole("button", { name: generated.title, exact: true }).click();
   const fields = page.getByRole("complementary", { name: "Source properties" });
   const title = fields.getByLabel("Title", { exact: true });
   await title.fill(manualTitle);
+  await page.keyboard.press("Escape");
   await button("Undo").click();
+  await openSourceProperties(page);
   await expect(title).toHaveValue(generated.title);
+  await page.keyboard.press("Escape");
   await button("Redo").click();
+  await openSourceProperties(page);
   await expect(title).toHaveValue(manualTitle);
+  await page.keyboard.press("Escape");
 
   const saving = page.waitForResponse((response) => response.url().endsWith("/api/build/" + original.id) && response.request().method() === "PUT");
   await button("Save").click();
@@ -49,7 +56,7 @@ try {
 
   const brief = "Change only the visible title of the instance " + source.id + " to exactly " + revisedTitle +
     ". Keep all other section content, routes, records and sources unchanged.";
-  await fields.getByLabel("Revise with Codex").fill(brief);
+  await page.getByLabel("Revise with Codex", { exact: true }).fill(brief);
   const starting = page.waitForResponse((response) => response.url().endsWith("/source-jobs/start"));
   await button("Revise saved application").click();
   const started = await starting;
@@ -66,9 +73,7 @@ try {
   expected.pages.flatMap(({ instances }) => instances).find(({ id }) => id === source.id).title = revisedTitle;
   assert.deepEqual(revised.document.sourceGraph, expected);
   await expect(frame.locator(named(generated.id)).getByRole("heading", { name: manualTitle })).toBeVisible({ timeout: 25_000 });
-  const savingArchive = page.waitForEvent("download");
-  await page.getByRole("link", { name: "Export", exact: true }).click();
-  await (await savingArchive).saveAs(resolve(evidence, "native-" + lane + "-revised.zip"));
+  await (await exportFromSourceEditor(page, "Export")).saveAs(resolve(evidence, "native-" + lane + "-revised.zip"));
   await page.screenshot({ path: resolve(evidence, "native-" + lane + "-revised-editor.png") });
   await writeFile(resolve(evidence, "native-" + lane + "-revision.json"), JSON.stringify({
     priorRevision: original.revision, editedRevision: edited.revision, revised: job,
@@ -84,7 +89,7 @@ try {
   await page.getByRole("textbox", { name: "Describe your app" }).fill("A fictional local research schedule. This job will be cancelled.");
   await button("Create app").click();
   await button("Cancel generation").click();
-  await expect(page.getByRole("status").filter({ hasText: "Cancelled" })).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByRole("status").filter({ hasText: "Generation cancelled" })).toBeVisible({ timeout: 20_000 });
   const after = await page.evaluate(async () => (await fetch("/api/build")).json());
   assert.deepEqual(after, before);
   console.log("Cancellation published no managed project.");

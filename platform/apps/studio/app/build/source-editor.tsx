@@ -3,22 +3,24 @@
 import { useEffect, useState, type FormEvent } from "react";
 import type { BuildProject } from "@motionux/build-core";
 import type { SourceGraph, SourceInstance } from "@motionux/build-core/source-graph";
-import { SourceJobStatus, sourceRequest, useSourceJob } from "./source-job";
+import { SourceJobStatus, restoreSourceRevision, sourceRequest, useSourceJob } from "./source-job";
 
-type Pane = "outline" | "canvas" | "properties";
-type Preview = { id?: string; status: string; url?: string; revision?: number; message?: string };
+import { KineticEditor, type SourcePreview as Preview } from "./kinetic-editor";
+import { useStudioCopy } from "./kinetic-ui";
 type Draft = { baseRevision: number; document: BuildProject["document"] };
 
 export function SourceEditor({ initial, onBack }: { initial: BuildProject; onBack: () => void }) {
+  const t = useStudioCopy();
   const [saved, setSaved] = useState(initial);
   const [draft, setDraft] = useState(initial);
   const [past, setPast] = useState<BuildProject[]>([]);
   const [future, setFuture] = useState<BuildProject[]>([]);
   const [route, setRoute] = useState("/");
   const [selected, setSelected] = useState("");
-  const [pane, setPane] = useState<Pane>("canvas");
+  const [inspectRequest, setInspectRequest] = useState(0);
+  const [draftSaved, setDraftSaved] = useState(false);
+  const [feedback, setFeedback] = useState("");
   const [preview, setPreview] = useState<Preview>();
-  const [width, setWidth] = useState("desktop");
   const [brief, setBrief] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -34,14 +36,15 @@ export function SourceEditor({ initial, onBack }: { initial: BuildProject; onBac
   const operation = useSourceJob(initial.id, async (id) => {
     load(await sourceRequest<BuildProject>("/" + id));
     setBrief("");
-    setPane("canvas");
-  });
+    setFeedback(t("Codex revision saved.", "Codex revizyonu kaydedildi."));
+  }, (input) => setBrief(input.brief));
 
   useEffect(() => {
     const controller = new AbortController();
     void sourceRequest<Draft | null>("/" + initial.id + "/draft", "GET", undefined, controller.signal).then((stored) => {
-      if (stored?.baseRevision === initial.revision && stored.document.sourceGraph)
-        setDraft({ ...initial, document: stored.document });
+      if (stored?.baseRevision === initial.revision && stored.document.sourceGraph) {
+        setDraft({ ...initial, document: stored.document }); setDraftSaved(true);
+      }
     }, () => {});
     return () => controller.abort();
   }, [initial]);
@@ -53,7 +56,8 @@ export function SourceEditor({ initial, onBack }: { initial: BuildProject; onBac
       void sourceRequest("/" + saved.id + "/draft", "PUT", {
         version: 1, baseRevision: saved.revision, updatedAt: Date.now(), document: draft.document,
         pageId: "p-" + page.id, selected: node.id, device: "desktop", mode: "edit", panel: "canvas",
-      }, controller.signal).catch((error: Error) => { if (!controller.signal.aborted) setError(error.message); });
+      }, controller.signal).then(() => { if (!controller.signal.aborted) setDraftSaved(true); },
+        (error: Error) => { if (!controller.signal.aborted) setError(error.message); });
     }, 450);
     return () => { controller.abort(); window.clearTimeout(timer); };
   }, [dirty, draft, node.id, page.id, saved.id, saved.revision]);
@@ -79,6 +83,7 @@ export function SourceEditor({ initial, onBack }: { initial: BuildProject; onBac
   }, [preview, saved.id, saved.revision]);
 
   function edit(change: (graph: SourceGraph) => SourceGraph) {
+    setDraftSaved(false);
     const next = change(graph);
     setPast((items) => [...items.slice(-29), draft]);
     setFuture([]);
@@ -95,11 +100,11 @@ export function SourceEditor({ initial, onBack }: { initial: BuildProject; onBac
     if (!candidate) return;
     if (forward) { setFuture(future.slice(0, -1)); setPast([...past, draft]); }
     else { setPast(past.slice(0, -1)); setFuture([...future, draft]); }
-    setDraft(candidate);
+    setDraftSaved(false); setDraft(candidate);
   }
-  async function action(callback: () => Promise<void>) {
-    setError(""); setBusy(true);
-    try { await callback(); } catch (error) { setError((error as Error).message); }
+  async function action(callback: () => Promise<void>, confirmed = "") {
+    setError(""); setFeedback(t("Working…", "İşleniyor…")); setBusy(true);
+    try { await callback(); setFeedback(confirmed); } catch (error) { setError((error as Error).message); setFeedback(""); }
     finally { setBusy(false); }
   }
   async function stop() {
@@ -109,108 +114,76 @@ export function SourceEditor({ initial, onBack }: { initial: BuildProject; onBac
   }
   function revise(event: FormEvent) {
     event.preventDefault();
-    if (dirty || operation.active) return;
+    if (dirty || busy || operation.active || brief.trim().length < 12) return;
     void action(async () => { await stop(); await operation.start(brief, { project: saved.id, revision: saved.revision }); });
   }
 
   const locked = busy || operation.active;
-  return <main className="b11-editor">
-    <header className="build-toolbar">
-      <div className="b11-editor-title"><button type="button" className="build-button" onClick={() => { void stop().catch(() => {}); onBack(); }}>Projects</button><strong dir="auto">{saved.document.name}</strong></div>
-      <div className="build-toolbar-actions">
-        <span role="status">{dirty ? "Unsaved changes" : "Revision " + saved.revision}</span>
-        <button type="button" className="build-button" onClick={() => history()} disabled={!past.length || locked}>Undo</button>
-        <button type="button" className="build-button" onClick={() => history(true)} disabled={!future.length || locked}>Redo</button>
-        <button type="button" className="build-button" disabled={!dirty || locked} onClick={() => void action(async () => {
-          await stop(); load(await sourceRequest<BuildProject>("/" + saved.id, "PUT", draft));
-        })}>Save</button>
-        <button type="button" className="build-button" disabled={dirty || locked || preview?.status === "building"} onClick={() => void action(async () => {
-          if (preview) await stop();
-          else {
-            setPreview(await sourceRequest<Preview>("/" + saved.id + "/preview", "POST", { revision: saved.revision }));
-            setPane("canvas");
-          }
-        })}>{preview ? "Stop Run" : "Run"}</button>
-        <a aria-disabled={dirty || locked} href={!dirty && !locked ? "/api/build/" + saved.id + "/export" : undefined}
-          onClick={(event) => { event.preventDefault(); if (!dirty && !locked) void action(() => download(saved.id, false)); }} className="build-button" >Export</a>
-        <a aria-disabled={dirty || locked} href={!dirty && !locked ? "/api/build/" + saved.id + "/export-pwa" : undefined}
-          onClick={(event) => { event.preventDefault(); if (!dirty && !locked) void action(() => download(saved.id, true)); }} className="build-button">Export PWA</a>
-      </div>
-    </header>
-    {error && <p className="build-alert" role="alert">{error}</p>}
-    <SourceJobStatus operation={operation} />
-    <nav className="build-mobile-panels" aria-label="Source editor panes">{(["outline", "canvas", "properties"] as const).map((item) =>
-      <button type="button" className="build-button" aria-pressed={pane === item} key={item} onClick={() => setPane(item)}>{item}</button>)}</nav>
-    <div className="b11-workspace" data-pane={pane}>
-      <aside className="b11-outline" aria-label="Project outline">
-        <h2>Pages</h2>
-        <nav aria-label="Project pages">{graph.pages.map((item) => <button type="button" key={item.id} className="build-button"
-          aria-pressed={page.id === item.id} onClick={() => { setRoute(item.route); setSelected(""); }}>{item.title}</button>)}</nav>
-        <h2>Sections</h2>
-        {page.instances.map((item) => <button type="button" key={item.id} className="build-button" aria-pressed={node.id === item.id} onClick={() => {
-          setSelected(item.id); setPane("properties");
-        }}>{item.title}</button>)}
-        <details><summary>Sources and limits</summary>
-          {graph.sources.map((source) => <div key={source.id} className="b11-source">
-            <a href={source.upstream} target="_blank" rel="noreferrer">{source.title}</a>
-            <small>{source.provider} · {source.license} · {source.revision.slice(0, 8)}</small>
-          </div>)}
-          {graph.artifacts.map((item) => <div key={item.instance} className="b11-source"><small>{item.instance} · Generated from {item.generatedFrom.join(", ")}</small></div>)}
-          {graph.limitations.map((item) => <p key={item}>{item}</p>)}
-        </details>
-      </aside>
-      <section className="b11-canvas" aria-label="Application canvas">
-        <div className="b11-canvas-bar">
-          <span>{dirty ? "Run reflects the last saved revision." : preview?.message ?? page.title}</span>
-          <label>Preview size <select value={width} onChange={(event) => setWidth(event.target.value)}><option value="desktop">Desktop</option><option value="tablet">Tablet</option><option value="mobile">Mobile</option></select></label>
-        </div>
-        {preview?.status === "ready" && preview.url ? <iframe title="Live source application" data-size={width}
-          sandbox="allow-scripts allow-same-origin allow-forms" referrerPolicy="no-referrer" src={preview.url + page.route + (selected ? "#" + encodeURIComponent(node.id) : "")} /> :
-          <button type="button" className="build-button" disabled={locked || dirty || Boolean(preview && preview.status === "building")}
-            onClick={() => void action(async () => {
-              if (preview) await stop();
-              setPreview(await sourceRequest<Preview>("/" + saved.id + "/preview", "POST", { revision: saved.revision }));
-            })}>Open saved preview</button>}
-      </section>
-      <aside className="b11-properties" aria-label="Source properties">
-        <h2>Section properties</h2>
-        <label>Title<input dir="auto" maxLength={400} value={node.title} disabled={locked} onChange={(event) => editInstance({ title: event.target.value })} /></label>
-        <label>Description<textarea dir="auto" maxLength={600} value={node.description} disabled={locked} onChange={(event) => editInstance({ description: event.target.value })} /></label>
-        <label>Placement<select value={node.layout} disabled={locked} onChange={(event) => editInstance({ layout: event.target.value === "column" ? "column" : "full" })}>
-          <option value="full">Full width</option><option value="column">In grid</option></select></label>
-        {node.entity && <fieldset disabled={locked}><legend>Data fields</legend>
+  const outline = <details><summary>{t("Sections", "Bölümler")}</summary><div className="kinetic-page-list">
+    {page.instances.map((item) => <button type="button" key={item.id} aria-pressed={node.id === item.id}
+      onClick={(event) => { event.currentTarget.focus({ preventScroll: true }); setSelected(item.id); setInspectRequest((value) => value + 1); }}><span dir="auto">{item.title}</span></button>)}
+  </div></details>;
+  const sources = <details className="kinetic-source-disclosure">
+    <summary>{t("Used sources", "Kullanılan kaynaklar")} <small>{graph.sources.length}</small></summary>
+    {graph.sources.map((source) => <div key={source.id} className="kinetic-source-record"><a href={source.upstream} target="_blank" rel="noreferrer">{source.title}</a>
+      <small>{source.provider} · {source.license} · {source.revision.slice(0, 8)}</small></div>)}
+    {graph.artifacts.map((item) => <div key={item.instance} className="kinetic-source-record"><small>{item.instance} · {item.generatedFrom.join(", ")}</small></div>)}
+    {graph.limitations.map((item) => <p key={item}>{item}</p>)}
+  </details>;
+  const inspector = <><h3 dir="auto">{node.title}</h3>
+        <label>{t("Title", "Başlık")}<input dir="auto" maxLength={400} value={node.title} disabled={locked} onChange={(event) => editInstance({ title: event.target.value })} /></label>
+        <label>{t("Description", "Açıklama")}<textarea dir="auto" maxLength={600} value={node.description} disabled={locked} onChange={(event) => editInstance({ description: event.target.value })} /></label>
+        <label>{t("Placement", "Yerleşim")}<select value={node.layout} disabled={locked} onChange={(event) => editInstance({ layout: event.target.value === "column" ? "column" : "full" })}>
+          <option value="full">{t("Full width", "Tam genişlik")}</option><option value="column">{t("In grid", "Izgarada")}</option></select></label>
+        {node.entity && <fieldset disabled={locked}><legend>{t("Data fields", "Veri alanları")}</legend>
           {graph.entities.find((entity) => entity.id === node.entity)?.fields.map((field) => <label key={field.id}>
             <input type="checkbox" checked={node.fields.includes(field.id)} onChange={(event) => editInstance({
               fields: event.target.checked ? [...node.fields, field.id] : node.fields.filter((id) => id !== field.id),
             })} /> {field.label}
           </label>)}
         </fieldset>}
-        {node.media && <label>Image description<input dir="auto" maxLength={200} value={node.alternative} disabled={locked}
+        {node.media && <label>{t("Image description", "Görsel açıklaması")}<input dir="auto" maxLength={200} value={node.alternative} disabled={locked}
           onChange={(event) => editInstance({ alternative: event.target.value })} /></label>}
-        <label>Motion<select value={node.motion} disabled={locked} onChange={(event) => editInstance({ motion: event.target.value === "still" ? "still" : "inherit" })}>
-          <option value="inherit">Follow project</option><option value="still">Reduced</option></select></label>
-        {node.items.map((item, index) => <fieldset key={index} disabled={locked}><legend>Item {index + 1}</legend>
-          <label>Label<input dir="auto" maxLength={400} value={item.label} onChange={(event) => editInstance({ items: node.items.map((row, at) => at === index ? { ...row, label: event.target.value } : row) })} /></label>
-          <label>Text<textarea dir="auto" maxLength={400} value={item.text} onChange={(event) => editInstance({ items: node.items.map((row, at) => at === index ? { ...row, text: event.target.value } : row) })} /></label>
+        <label>{t("Motion", "Hareket")}<select value={node.motion} disabled={locked} onChange={(event) => editInstance({ motion: event.target.value === "still" ? "still" : "inherit" })}>
+          <option value="inherit">{t("Follow project", "Projeyi izle")}</option><option value="still">{t("Reduced", "Azaltılmış")}</option></select></label>
+        {node.items.map((item, index) => <fieldset key={index} disabled={locked}><legend>{t("Item", "Öğe")} {index + 1}</legend>
+          <label>{t("Label", "Etiket")}<input dir="auto" maxLength={400} value={item.label} onChange={(event) => editInstance({ items: node.items.map((row, at) => at === index ? { ...row, label: event.target.value } : row) })} /></label>
+          <label>{t("Text", "Metin")}<textarea dir="auto" maxLength={400} value={item.text} onChange={(event) => editInstance({ items: node.items.map((row, at) => at === index ? { ...row, text: event.target.value } : row) })} /></label>
         </fieldset>)}
-        <details><summary>Project appearance</summary>
-          <label>Theme<select disabled={locked} value={graph.theme} onChange={(event) => {
+        <details><summary>{t("Project appearance", "Proje görünümü")}</summary>
+          <label>{t("Theme", "Tema")}<select disabled={locked} value={graph.theme} onChange={(event) => {
             const theme = event.target.value;
             if (theme === "system" || theme === "light" || theme === "dark") edit((current) => ({ ...current, theme }));
-          }}><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
-          <label>Project motion<select disabled={locked} value={graph.motion} onChange={(event) => {
+          }}><option value="system">{t("System", "Sistem")}</option><option value="light">{t("Light", "Açık")}</option><option value="dark">{t("Dark", "Koyu")}</option></select></label>
+          <label>{t("Project motion", "Proje hareketi")}<select disabled={locked} value={graph.motion} onChange={(event) => {
             const motion = event.target.value === "still" ? "still" : "system";
             edit((current) => ({ ...current, motion }));
-          }}><option value="system">Follow system</option><option value="still">Reduced</option></select></label>
+          }}><option value="system">{t("Follow system", "Sistemi izle")}</option><option value="still">{t("Reduced", "Azaltılmış")}</option></select></label>
         </details>
-        <form onSubmit={revise}>
-          <label>Revise with Codex<textarea dir="auto" value={brief} minLength={12} maxLength={3200} required disabled={locked} onChange={(event) => setBrief(event.target.value)} /></label>
-          <button type="submit" className="build-button" disabled={dirty || locked}>Revise saved application</button>
-        </form>
-        <button type="button" className="build-button" disabled={dirty || locked} onClick={() => void action(async () => { await stop(); load(await sourceRequest<BuildProject>("/" + saved.id + "/recover", "POST")); })}>Restore previous revision</button>
-      </aside>
-    </div>
-  </main>;
+    <button type="button" className="kinetic-button" disabled={dirty || locked || !saved.revision} onClick={() => {
+      if (!confirm(t("Restore the previous revision as a new saved revision?", "Önceki revizyon yeni bir kayıt olarak geri yüklensin mi?"))) return;
+      void action(async () => {
+        await stop();
+        load(await restoreSourceRevision(saved));
+      }, t("Previous revision restored.", "Önceki revizyon geri yüklendi."));
+    }}>{t("Restore previous revision", "Önceki revizyonu geri yükle")}</button>
+    {error && <p role="alert">{error}</p>}
+  </>;
+  return <KineticEditor name={saved.document.name} revision={saved.revision} dirty={dirty} draftSaved={draftSaved} locked={locked} error={error} feedback={feedback}
+    pages={graph.pages} route={page.route} onPage={(next) => { setRoute(next); setSelected(""); }} outline={outline} sources={sources}
+    inspectorTitle={t("Section properties", "Bölüm özellikleri")} inspector={inspector} inspectRequest={inspectRequest}
+    preview={preview} previewPath={page.route + (selected ? "#" + encodeURIComponent(node.id) : "")}
+    onBack={() => { void stop().catch(() => {}); onBack(); }} canUndo={Boolean(past.length)} canRedo={Boolean(future.length)}
+    onUndo={() => history()} onRedo={() => history(true)}
+    onSave={() => void action(async () => {
+      await stop(); load(await sourceRequest<BuildProject>("/" + saved.id, "PUT", draft));
+    }, t("Revision saved.", "Revizyon kaydedildi."))}
+    onRun={() => void action(async () => {
+      if (preview && !["failed", "idle"].includes(preview.status)) await stop();
+      else setPreview(await sourceRequest<Preview>("/" + saved.id + "/preview", "POST", { revision: saved.revision }));
+    })}
+    onExport={(pwa) => void action(() => download(saved.id, pwa), pwa ? t("PWA source downloaded.", "PWA kaynak kodu indirildi.") : t("Next.js source downloaded.", "Next.js kaynak kodu indirildi."))}
+    brief={brief} onBrief={setBrief} onRevise={revise} job={<SourceJobStatus operation={operation} />} />;
 }
 
 async function download(id: string, pwa: boolean) {

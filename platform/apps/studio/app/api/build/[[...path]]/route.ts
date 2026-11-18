@@ -243,6 +243,8 @@ async function handle(request: Request, { params }: Context) {
     }
     if (path.length === 2 && method === "POST" && action === "recover")
       return json(await store.restore(id));
+    if (path.length === 2 && method === "GET" && action === "previous")
+      return json(await store.openPrevious(id));
     if (path.length === 2 && method === "POST" && action === "preview") {
       const project = await store.open(id);
       if (hasBody(request)) {

@@ -2,16 +2,18 @@
 
 import { SourceJobStatus, useSourceJob } from "./source-job";
 import { ComponentPicker } from "./component-picker";
+import { useStudioCopy } from "./kinetic-ui";
 
 import { projectPathKey } from "../../../../../lib/studio-bridge";
 import {
   ArrowDown,
   ArrowRight,
   ArrowUp,
+  ArrowUpRight,
+  Layers3,
   Building2,
   BookOpen,
   ListChecks,
-  ChevronRight,
   LayoutTemplate,
   LockKeyhole,
   Plus,
@@ -24,6 +26,7 @@ import {
   useRef,
   useState,
   type ComponentType,
+  type CSSProperties,
   type FormEvent,
 } from "react";
 import { designPresets, presetDetails, sectionRecipeNames } from "@motionux/build-core/creator-catalog";
@@ -36,6 +39,8 @@ type Row = {
   name: string;
   revision: number | null;
   error: boolean;
+  pages?: number;
+  updatedAt?: number;
 };
 type Review = { job: string; plan: ReviewedPlan };
 type Edits = Pick<ReviewedPlan, "name" | "theme" | "sidebar" | "routes" | "preset">;
@@ -151,6 +156,8 @@ export function ComposerHome({
   SourceCanvas: ComponentType<Pick<CanvasProps, "initial" | "onBack">>;
   prepareCanvas: () => Promise<unknown>;
 }) {
+  const t = useStudioCopy();
+  const [allProjects, setAllProjects] = useState(false);
   const [rows, setRows] = useState<Row[]>([]);
   const [project, setProject] = useState<BuildProject>();
   const [loading, setLoading] = useState(true);
@@ -171,6 +178,8 @@ export function ComposerHome({
 
   const [preferred, setPreferred] = useState<string>();
   const [kit, setKit] = useState<string[]>([]);
+  const createAction = useRef<HTMLButtonElement>(null);
+  const restoredForm = useRef(false);
   const [includeLocal, setIncludeLocal] = useState(false);
   const sourceOperation = useSourceJob("home", async (id) => {
     openCanvas(await request<BuildProject>("/" + id));
@@ -198,6 +207,14 @@ export function ComposerHome({
     setIncludeLocal(params.get("local") === "1");
     if (params.get("source") && params.get("local") !== "1") setKit([params.get("source")!]);
     const from = params.get("composeFrom");
+    if (!selected && !from && !params.has("source")) {
+      try {
+        const stored = JSON.parse(sessionStorage.getItem("motionux:kinetic-brief") ?? "null");
+        if (typeof stored?.brief === "string") setBrief(stored.brief.slice(0, 3200));
+        if (Array.isArray(stored?.kit)) setKit(stored.kit.filter((id: unknown) => typeof id === "string" && /^[a-z0-9-]{1,96}$/.test(id)).slice(0, 4));
+      } catch { /* A new form remains available. */ }
+    }
+    restoredForm.current = true;
     void (async () => {
       try {
         setRows(await request<Row[]>("", "GET", undefined, controller.signal));
@@ -235,6 +252,13 @@ export function ComposerHome({
   useEffect(() => {
     if (error) alertRef.current?.focus();
   }, [error]);
+
+  function rememberIdea(nextBrief: string, nextKit: string[]) {
+    if (!restoredForm.current) return;
+    try { sessionStorage.setItem("motionux:kinetic-brief", JSON.stringify({ brief: nextBrief, kit: nextKit })); } catch { /* Session persistence is optional. */ }
+  }
+  function updateBrief(next: string) { setBrief(next); rememberIdea(next, kit); }
+  function updateKit(next: string[]) { setKit(next); rememberIdea(brief, next); }
 
   async function load(path: string, method = "GET", value?: unknown) {
     if (busy || generation.current) return;
@@ -367,7 +391,7 @@ export function ComposerHome({
         ]
       : [];
   return (
-    <main className="project-dashboard compose-home">
+    <main className="project-dashboard compose-home kinetic kinetic-home">
       <div className="compose-width">
         {error && (
           <p className="build-error" ref={alertRef} tabIndex={-1} role="alert">
@@ -376,167 +400,107 @@ export function ComposerHome({
         )}
         {!review ? (
           <>
-            <section className="compose-hero compose-product" aria-labelledby="compose-title">
-              <div className="compose-intro">
-                <h1 id="compose-title">Create an app</h1>
-                <p>Describe the product and choose the components that should shape it.</p>
-                <a className="build-text-button" href="/build/local-sources">Browse local sources</a>
+            <section className="kinetic-create" aria-labelledby="compose-title">
+              <div className="kinetic-hero">
+                <div>
+                  <h1 id="compose-title">{t("What will we ", "Bugün ne ")}<span>{t("build?", "yapıyoruz?")}</span></h1>
+                  <p>{t("Start with an idea. Bring in real components. See it take shape.", "Bir fikirle başla. Gerçek bileşenler seç. Uygulamanın şekillenişini izle.")}</p>
+                </div>
+                <a className="kinetic-button kinetic-library-link" href="/build/local-sources"><Layers3 size={15} aria-hidden="true" />{t("Browse local sources", "Yerel kaynaklara göz at")}</a>
               </div>
-              <form
-                className="compose-form"
-                method="post"
-                action="/api/build/compose/generate"
-                onSubmit={(event) => {
-                  if ((event.nativeEvent as SubmitEvent).submitter?.getAttribute("data-mode") === "blueprint") {
-                    void generate(event);
-                  } else {
-                    event.preventDefault();
+              <form className="kinetic-create-grid" aria-labelledby="brief-label" onSubmit={(event) => {
+                if ((event.nativeEvent as SubmitEvent).submitter?.getAttribute("data-mode") === "blueprint") {
+                  void generate(event);
+                } else {
+                  event.preventDefault();
+                  if (brief.trim().length >= 12 && !busy && !generating)
                     void sourceOperation.start(brief, includeLocal ? { preferred, includeLocal: true } : { kit });
-                  }
-                }}
-                aria-labelledby="brief-label"
-              >
+                }
+              }}>
                 <SourceJobStatus operation={sourceOperation} />
-                <div className="compose-brief"><label id="brief-label" htmlFor="app-brief">
-                  Describe your app
-                </label>
-                <textarea
-                  ref={briefInput}
-                  id="app-brief"
-                  name="brief"
-                  aria-describedby="brief-hint"
-                  required
-                  minLength={12}
-                  maxLength={3200}
-                  rows={4}
-                  placeholder="A sales workspace with a clean contacts directory, a deal board and a mobile navigation bar…"
-                  value={brief}
-                  readOnly={generating || sourceOperation.active}
-                  onChange={(event) => setBrief(event.target.value)}
-                /></div>
-                {includeLocal ? <label className="compose-local-option">
-                  <input type="checkbox" checked={includeLocal} disabled={generating || sourceOperation.active}
-                    onChange={(event) => setIncludeLocal(event.target.checked)} />
-                  Include local sources for isolated preview
-                </label> : <ComponentPicker selected={kit} onChange={setKit} disabled={generating || sourceOperation.active} />}
-                <div className="compose-form-foot">
-                  <span id="brief-hint">
-                    <LockKeyhole size={14} /> Use fictional data. Build sends selected component context to Codex.
-                  </span>
-                  {generating ? (
-                    <button
-                      type="button"
-                      className="build-button"
-                      onClick={cancel}
-                    >
-                      Cancel
-                    </button>
-                  ) : (
-                    <div className="b11-create-actions">
-                      <button className="build-button accent" type="submit" disabled={busy || sourceOperation.active}><Sparkles size={16} /> Create app</button>
-                      <details><summary>Legacy starter planning</summary><button className="build-text-button" type="submit" data-mode="blueprint" disabled={busy || sourceOperation.active}>Generate blueprint</button></details>
+                <ComponentPicker selected={kit} onChange={updateKit} disabled={generating || sourceOperation.active}
+                  localOption={includeLocal ? <label className="kinetic-local-option">
+                    <input type="checkbox" checked={includeLocal} disabled={generating || sourceOperation.active}
+                      onChange={(event) => setIncludeLocal(event.target.checked)} />
+                    {t("Include local sources for isolated preview", "İzole önizlemeye yerel kaynakları dahil et")}
+                    {preferred && <strong>{preferred}</strong>}
+                  </label> : undefined}
+                  idea={<div className="kinetic-idea">
+                    <label id="brief-label" htmlFor="app-brief">{t("Describe your app", "Uygulamanı anlat")}</label>
+                    <div className="kinetic-prompt">
+                      <textarea ref={briefInput} id="app-brief" name="brief" dir="auto" aria-describedby="brief-hint"
+                        required minLength={12} maxLength={3200} rows={5} value={brief}
+                        placeholder={t("Describe what you want to create…", "Ne oluşturmak istediğini anlat…")}
+                        readOnly={generating || sourceOperation.active} onChange={(event) => updateBrief(event.target.value)}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter" && (event.metaKey || event.ctrlKey) && !event.nativeEvent.isComposing) {
+                            event.preventDefault();
+                            if (!createAction.current?.disabled) event.currentTarget.form?.requestSubmit(createAction.current ?? undefined);
+                          }
+                        }} />
+                      <div className="kinetic-prompt-foot">
+                        <details className="kinetic-starters"><summary>{t("Example briefs", "Örnek fikirler")}</summary>
+                          <ul>{choices.map(({ id, label, brief: example }) => <li key={id}><button type="button"
+                            disabled={generating || sourceOperation.active} onClick={(event) => {
+                              updateBrief(example); event.currentTarget.closest("details")?.removeAttribute("open"); briefInput.current?.focus();
+                            }}>{label}</button></li>)}</ul>
+                        </details>
+                        <span>{t("Describe the experience you want.", "İstediğin deneyimi anlat.")}</span>
+                      </div>
                     </div>
-                  )}
-                </div>
-                {includeLocal && preferred && <p>Preview source <strong>{preferred}</strong></p>}
+                  </div>}
+                  footer={<footer className="kinetic-create-foot">
+                    <p id="brief-hint"><LockKeyhole size={14} aria-hidden="true" />
+                      {brief.trim().length < 12 ? t("Write at least 12 characters. Use fictional data.", "En az 12 karakter yaz. Kurgusal veri kullan.") :
+                        t("Use fictional data. Selected source context is sent to Codex.", "Kurgusal veri kullan. Seçili kaynak bağlamı Codex’e gönderilir.")}</p>
+                    {generating ? <button type="button" className="kinetic-button" onClick={cancel}>{t("Cancel", "İptal")}</button> :
+                      <button ref={createAction} className="kinetic-button kinetic-primary" type="submit"
+                        aria-keyshortcuts="Meta+Enter Control+Enter" disabled={busy || sourceOperation.active || brief.trim().length < 12}>
+                        {sourceOperation.active ? t("Creating app…", "Uygulama oluşturuluyor…") : t("Create app", "Uygulama oluştur")}<ArrowRight size={16} aria-hidden="true" />
+                      </button>}
+                  </footer>} />
+                <details className="kinetic-blueprint"><summary>{t("Legacy starter planning", "Önceki planlama akışı")}</summary>
+                  <button className="kinetic-button" type="submit" data-mode="blueprint"
+                    disabled={busy || generating || sourceOperation.active || brief.trim().length < 12}>{t("Generate blueprint", "Plan oluştur")}</button>
+                </details>
+                {status && <p className="kinetic-build-status" role="status">{status}</p>}
               </form>
-              <div className="compose-pills" aria-label="Example briefs">
-                {choices.map(({ id, label, Icon, brief }) => (
-                  <button
-                    disabled={generating}
-                    type="button"
-                    key={id}
-                    className="build-button"
-                    onClick={() => {
-                      setBrief(brief);
-                      setError("");
-                      briefInput.current?.focus();
-                    }}
-                  >
-                    <Icon size={15} /> {label}
-                  </button>
-                ))}
-              </div>
-              <p className="compose-status" role="status">
-                {status}
-              </p>
             </section>
-            <div className="compose-shelves">
-              <section aria-labelledby="manual-title">
-                <div className="compose-section-title">
-                  <h2 id="manual-title">Start from a template</h2>
-                  <p>Open the canvas directly. No Codex session needed.</p>
-                </div>
-                <div className="projects-list">
-                  {choices.map(({ id, label, description, Icon }) => (
-                    <button
-                      className="project-row"
-                      type="button"
-                      aria-label={"New " + label}
-                      disabled={busy || generating}
-                      key={id}
-                      onClick={() =>
-                        void load("", "POST", {
-                          template: id satisfies Template,
-                        })
-                      }
-                    >
-                      <span>
-                        <Icon size={18} />
-                      </span>
-                      <div>
-                        <strong>New {label}</strong>
-                        <small>{description}</small>
-                      </div>
-                      <ChevronRight size={16} aria-hidden="true" />
-                    </button>
-                  ))}
-                </div>
-              </section>
-              <section aria-labelledby="projects-title">
-                <div className="compose-section-title">
-                  <h2 id="projects-title">Your projects</h2>
-                  <p>Stored on this computer and ready to reopen.</p>
-                </div>
-                <div className="projects-list" aria-busy={loading}>
-                  {loading && <p role="status">Loading projects…</p>}
-                  {!loading && !rows.length && (
-                    <div className="projects-empty">
-                      <LayoutTemplate size={23} />
-                      <strong>No saved projects yet</strong>
-                      <p>Blueprints become projects after you choose Create.</p>
-                    </div>
-                  )}
-                  {rows.map((row) => (
-                    <button
-                      className="project-row"
-                      type="button"
-                      disabled={busy || generating}
-                      key={row.id}
-                      onClick={() =>
-                        void load(
-                          "/" + row.id + (row.error ? "/recover" : ""),
-                          row.error ? "POST" : "GET",
-                        )
-                      }
-                    >
-                      <span>
-                        <LayoutTemplate size={18} />
-                      </span>
-                      <div>
-                        <strong>{row.name}</strong>
-                        <small>
-                          {row.error
-                            ? "Restore the last verified revision"
-                            : "Revision " + row.revision}
-                        </small>
-                      </div>
-                      <ChevronRight size={16} aria-hidden="true" />
-                    </button>
-                  ))}
-                </div>
-              </section>
-            </div>
+            <section className="kinetic-projects" aria-labelledby="projects-title" aria-busy={loading}>
+              <header className="kinetic-projects-head"><div><h2 id="projects-title">{t("Pick up where you left off", "Kaldığın yerden devam et")}</h2>
+                <p>{t("Open a project directly in the studio.", "Projeni doğrudan stüdyoda aç.")}</p></div>
+                {rows.length > 3 && <button type="button" className="kinetic-text" aria-expanded={allProjects} aria-controls="kinetic-project-grid"
+                  onClick={() => setAllProjects(!allProjects)}>{allProjects ? t("Show recent projects", "Son projeleri göster") : t("View all projects", "Tüm projeleri gör")}
+                  <ArrowUpRight size={14} aria-hidden="true" /></button>}
+              </header>
+              {loading && <p role="status">{t("Loading projects…", "Projeler yükleniyor…")}</p>}
+              {!loading && !rows.length && <div className="kinetic-project-empty"><LayoutTemplate size={21} aria-hidden="true" />
+                <strong>{t("No saved projects yet", "Henüz kayıtlı proje yok")}</strong></div>}
+              <div className="kinetic-project-grid" id="kinetic-project-grid">
+                {[...rows].sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0)).slice(0, allProjects ? undefined : 3).map((row) => <button className="kinetic-project-card" type="button" disabled={busy || generating || sourceOperation.active} key={row.id}
+                  style={{ "--project-hue": parseInt(row.id.slice(0, 4), 16) % 360 } as CSSProperties} onClick={() => void load("/" + row.id + (row.error ? "/recover" : ""), row.error ? "POST" : "GET")}>
+                  <span className="kinetic-project-art" aria-hidden="true"><LayoutTemplate size={28} strokeWidth={1.25} /></span>
+                  <span className="kinetic-project-caption"><span>
+                    <strong dir="auto">{row.error ? t("Recovery needed", "Kurtarma gerekli") : row.name}</strong>
+                    <small>{row.error ? t("Restore the last verified revision", "Son doğrulanmış revizyonu geri yükle") :
+                      t("Revision ", "Revizyon ") + row.revision + (row.pages ? " · " + row.pages + t(row.pages === 1 ? " page" : " pages", " sayfa") : "")}</small>
+                  </span><ArrowUpRight size={15} aria-hidden="true" /></span>
+                </button>)}
+              </div>
+            </section>
+            <section className="kinetic-templates" aria-labelledby="manual-title">
+              <header><h2 id="manual-title">{t("Start from a template", "Şablondan başla")}</h2>
+                <p>{t("Open the canvas directly. No Codex session needed.", "Tuvali doğrudan aç. Codex oturumu gerekmez.")}</p></header>
+              <div className="kinetic-template-shelf">
+                {choices.map(({ id, label, description, Icon }) => <div className="kinetic-template" key={id}>
+                  <Icon size={17} aria-hidden="true" /><div>
+                    <button type="button" aria-describedby={"kinetic-template-" + id} disabled={busy || generating || sourceOperation.active}
+                      onClick={() => void load("", "POST", { template: id satisfies Template })}>{t("New ", "Yeni ")}{label}</button>
+                    <small id={"kinetic-template-" + id}>{description}</small>
+                  </div>
+                </div>)}
+              </div>
+            </section>
           </>
         ) : (
           edits && (

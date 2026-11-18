@@ -1,3 +1,4 @@
+import { exportFromSourceEditor, openSourceProperties } from "./source-editor-ui.mjs";
 import { sameCodePin } from "../packages/app-export/code-catalog.ts";
 import assert from "node:assert/strict";
 import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
@@ -20,12 +21,12 @@ try {
   await page.goto(origin + "/build?project=" + baseline.id);
   let saved = baseline;
   if (!onlyCode) {
-    const input = page.getByRole("complementary", { name: "Source properties" }).getByLabel(control.label, { exact: true });
-    await input.waitFor();
     await page.getByRole("button", { name: "Run", exact: true }).click();
     const frame = page.frameLocator('iframe[title="Live source application"]');
     await expect(frame.getByRole("heading", { level: 1 })).toContainText(control.value, { timeout: 90_000 });
-    await input.fill(value);
+    const properties = await openSourceProperties(page);
+    await properties.getByLabel(control.label, { exact: true }).fill(value);
+    await page.keyboard.press("Escape");
     await expect(frame.getByRole("heading", { level: 1 })).toContainText(value);
     await page.getByRole("button", { name: "Undo", exact: true }).click();
     await expect(frame.getByRole("heading", { level: 1 })).toContainText(control.value);
@@ -39,9 +40,7 @@ try {
     assert.deepEqual(saved.document.codeProject.sources, baseline.document.codeProject.sources);
     await writeFile(resolve(evidence, label + "-props-project.json"), JSON.stringify(saved, null, 2), { mode: 0o600 });
     for (const [button, format] of [["Export", "next"], ["Export PWA", "pwa"]]) {
-      const download = page.waitForEvent("download");
-      await page.getByRole("button", { name: button, exact: true }).click();
-      await (await download).saveAs(resolve(evidence, label + "-props-" + format + ".zip"));
+      await (await exportFromSourceEditor(page, button)).saveAs(resolve(evidence, label + "-props-" + format + ".zip"));
     }
     console.log(label, "live draft, Undo, Redo, exact Save and edited Next/PWA archives passed");
   }
@@ -81,9 +80,7 @@ try {
   }
   await runtime.close();
   for (const [button, format] of [["Export", "next"], ["Export PWA", "pwa"]]) {
-    const download = page.waitForEvent("download");
-    await page.getByRole("button", { name: button, exact: true }).click();
-    await (await download).saveAs(resolve(evidence, label + "-" + format + ".zip"));
+    await (await exportFromSourceEditor(page, button)).saveAs(resolve(evidence, label + "-" + format + ".zip"));
   }
   const stopping = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
   await page.getByRole("button", { name: "Stop Run", exact: true }).click();

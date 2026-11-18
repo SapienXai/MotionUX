@@ -1,3 +1,4 @@
+import { openProjectActions } from "./source-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -47,7 +48,9 @@ try {
   }
   const project = await page.evaluate(async (id) => (await fetch("/api/build/" + id)).json(), job.project);
   assert(project.document.codeProject.sources.some(({ id, license }) => id === sourceID && license === "local-only"));
-  for (const label of ["Export", "Export PWA"]) await expect(page.getByRole("button", { name: label, exact: true })).toBeDisabled();
+  const actions = await openProjectActions(page);
+  for (const label of ["Export", "Export PWA"]) await expect(actions.getByRole("button", { name: label, exact: true })).toBeDisabled();
+  await actions.getByRole("button", { name: "Close", exact: true }).click();
   await expect(page.getByText("This project uses local-only sources. Export is unavailable.", { exact: true })).toBeVisible();
   const exports = await page.evaluate(async ({ id, revision }) => Promise.all(["export", "export-pwa"].map(async (action) => {
     const response = await fetch("/api/build/" + id + "/" + action, { headers: { "X-MotionUX-Revision": String(revision) } });
