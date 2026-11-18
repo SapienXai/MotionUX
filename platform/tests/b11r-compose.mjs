@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { expect } from "@playwright/test";
@@ -15,38 +15,45 @@ await mkdir(evidence, { recursive: true, mode: 0o700 });
 const browser = await chromium.launch();
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
-  await page.goto(studio + "/build/local-sources?source=" + pins[0], { waitUntil: "networkidle" });
-  await page.getByRole("link", { name: "Use in Create app" }).click();
-  await expect(page.getByRole("list", { name: "Selected components" })).toContainText("Plan switch");
-  await page.getByText("Browse components", { exact: true }).click();
-  await page.getByRole("searchbox", { name: "Find components for your app" }).fill("animated number motion primitives");
-  await page.getByRole("button", { name: /Animated Number.*Motion Primitives/ }).click();
-  const selection = page.getByRole("list", { name: "Selected components" });
-  await expect(selection.getByRole("listitem")).toHaveCount(2);
-  await page.getByText("Browse components", { exact: true }).click();
-  await page.getByRole("textbox", { name: "Describe your app" }).fill(brief);
-  await page.screenshot({ path: resolve(evidence, "compose-desktop.png") });
-  await page.setViewportSize({ width: 390, height: 840 });
-  assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
-  await page.screenshot({ path: resolve(evidence, "compose-mobile.png"), fullPage: true });
-  await page.setViewportSize({ width: 1440, height: 1000 });
-  const starting = page.waitForResponse((response) => response.url().endsWith("/source-jobs/start") && response.request().method() === "POST");
-  await page.getByRole("button", { name: "Create app", exact: true }).click();
-  const response = await starting;
-  assert.deepEqual(response.request().postDataJSON().kit, pins);
-  let job = await response.json();
-  assert(response.ok(), JSON.stringify(job));
-  let last;
-  for (;;) {
-    job = await page.evaluate(async (id) => (await fetch("/api/build/source-jobs/" + id)).json(), job.id);
-    if (job.status !== last) console.log(job.status, job.message);
-    last = job.status;
-    if (["ready", "failed", "cancelled"].includes(last)) break;
-    await delay(1750);
+  let job;
+  if (process.argv.includes("--reuse")) {
+    job = JSON.parse(await readFile(resolve(evidence, "job.json"), "utf8"));
+    assert.equal(job.status, "ready");
+    await page.goto(studio + "/build?project=" + job.project, { waitUntil: "networkidle" });
+  } else {
+    await page.goto(studio + "/build/local-sources?source=" + pins[0], { waitUntil: "networkidle" });
+    await page.getByRole("link", { name: "Use in Create app" }).click();
+    await expect(page.getByRole("list", { name: "Selected components" })).toContainText("Plan switch");
+    await page.getByText("Browse components", { exact: true }).click();
+    await page.getByRole("searchbox", { name: "Find components for your app" }).fill("animated number motion primitives");
+    await page.getByRole("button", { name: /Animated Number.*Motion Primitives/ }).click();
+    const selection = page.getByRole("list", { name: "Selected components" });
+    await expect(selection.getByRole("listitem")).toHaveCount(2);
+    await page.getByText("Browse components", { exact: true }).click();
+    await page.getByRole("textbox", { name: "Describe your app" }).fill(brief);
+    await page.screenshot({ path: resolve(evidence, "compose-desktop.png") });
+    await page.setViewportSize({ width: 390, height: 840 });
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
+    await page.screenshot({ path: resolve(evidence, "compose-mobile.png"), fullPage: true });
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    const starting = page.waitForResponse((response) => response.url().endsWith("/source-jobs/start") && response.request().method() === "POST");
+    await page.getByRole("button", { name: "Create app", exact: true }).click();
+    const response = await starting;
+    assert.deepEqual(response.request().postDataJSON().kit, pins);
+    job = await response.json();
+    assert(response.ok(), JSON.stringify(job));
+    let last;
+    for (;;) {
+      job = await page.evaluate(async (id) => (await fetch("/api/build/source-jobs/" + id)).json(), job.id);
+      if (job.status !== last) console.log(job.status, job.message);
+      last = job.status;
+      if (["ready", "failed", "cancelled"].includes(last)) break;
+      await delay(1750);
+    }
+    await writeFile(resolve(evidence, "job.json"), JSON.stringify(job, null, 2), { mode: 0o600 });
+    assert.equal(job.status, "ready", job.message);
+    await page.waitForURL(/project=/);
   }
-  await writeFile(resolve(evidence, "job.json"), JSON.stringify(job, null, 2), { mode: 0o600 });
-  assert.equal(job.status, "ready", job.message);
-  await page.waitForURL(/project=/);
   const project = await page.evaluate(async (id) => (await fetch("/api/build/" + id)).json(), job.project);
   assert(project.document.codeProject.sources.some(({ id, fidelity }) => id === pins[0] && fidelity === "local-adapter"));
   for (const id of pins) assert(project.document.codeProject.usages.some(({ source }) => source === id));
@@ -58,13 +65,16 @@ try {
   })), job.project);
   assert.deepEqual(denials, [[409, null], [409, null]]);
   await expect(page.getByRole("button", { name: "Export", exact: true })).toBeDisabled();
+  const runButton = page.getByRole("button", { name: "Run", exact: true });
+  if (await runButton.isVisible()) await runButton.click();
   await expect(page.locator('iframe[title="Live source application"]')).toBeVisible({ timeout: 45_000 });
   await page.screenshot({ path: resolve(evidence, "editor-desktop.png") });
   const proofs = [];
   for (const engine of [chromium, firefox, webkit]) {
     const consumer = await engine.launch();
     try {
-      const screen = await consumer.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
+      const context = await consumer.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
+      const screen = await context.newPage();
       assert((await screen.goto(run, { waitUntil: "networkidle" }))?.ok());
       assert.equal(await screen.locator("iframe").count(), 0);
       const pricing = screen.locator('[data-source="designbookmark-plan-switch"]');
