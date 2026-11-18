@@ -1454,6 +1454,8 @@ select:focus-visible {
 .b11-project-identity span, .b11-canvas-label span { color: var(--build-muted); font-size: .75rem; }
 .b11-action-group { display: flex; gap: .25rem; border-inline-end: 1px solid var(--build-border); padding-inline-end: .5rem; }
 .b11-action-group .build-button { border-color: transparent; background: transparent; }
+:is(.b11-product-bar, .compose-product) .build-button { transition-property: transform; }
+:is(.b11-product-bar, .compose-product) .build-button:not(.accent):hover:not(:disabled) { background: var(--build-selected); color: var(--build-accent); }
 .b11-workspace .b11-canvas { padding: clamp(.75rem, 2vw, 1.5rem); }
 .b11-canvas-label { display: grid; gap: .125rem; }
 .b11-canvas-bar label { display: flex; gap: .5rem; align-items: center; color: var(--build-muted); font-size: .8rem; }

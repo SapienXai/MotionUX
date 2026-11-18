@@ -45,7 +45,7 @@ export function ComponentPicker({ selected, onChange, disabled }: {
     <details open={open} onToggle={(event) => setOpen(event.currentTarget.open)}>
       <summary><Plus size={16} aria-hidden="true" /> Browse components</summary>
       {open && <div className="compose-catalog">
-        <search className="compose-catalog-search">
+        <search className="compose-catalog-search" aria-label="Component catalog">
           <Search size={15} aria-hidden="true" />
           <input type="search" aria-label="Find components for your app" placeholder="Search names or providers"
             value={search} onChange={(event) => setSearch(event.target.value)}
