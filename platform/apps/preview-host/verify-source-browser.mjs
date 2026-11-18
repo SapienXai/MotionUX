@@ -5,7 +5,7 @@ import { AxeBuilder } from "@axe-core/playwright";
 import { chromium } from "playwright";
 import { galleryOrigin } from "../../../scripts/studio/build-local-sources.mjs";
 
-const { origin, digest, pages, code, journeys, localFrames = [] } = JSON.parse(process.env.MOTIONUX_SOURCE_VERIFICATION);
+const { origin, digest, pages, code, journeys, localFrames = [], connected = [] } = JSON.parse(process.env.MOTIONUX_SOURCE_VERIFICATION);
 const frameByID = new Map(localFrames.map((frame) => [frame.id, frame]));
 const frameByURL = new Map(localFrames.map((frame) => [frame.url, frame]));
 function localFrameRequest(request, url) {
@@ -43,6 +43,29 @@ try {
   }
   let { context, page } = await scenario(390);
   const observed = new Set();
+  const confirmed = new Set();
+  async function checkBilling(region) {
+    const monthly = region.locator('.mx-billing-period input[value="monthly"]');
+    const yearly = region.locator('.mx-billing-period input[value="yearly"]');
+    const amounts = region.locator("[data-billing-amount]:visible");
+    await expect(monthly).toHaveCount(1);
+    await expect(yearly).toHaveCount(1);
+    assert(await amounts.count() > 0, "The Plan Switch section must contain the visible pricing amounts.");
+    const before = await monthly.isChecked() ? monthly : yearly;
+    const target = before === monthly ? yearly : monthly;
+    const snapshot = () => amounts.allTextContents();
+    const baseline = await snapshot();
+    assert(baseline.every((amount) => /\d/.test(amount)), "Pricing amount nodes must contain prices.");
+    await target.press("Space");
+    await expect(target).toBeChecked();
+    const numbers = (prices) => prices.map((price) => price.replace(/[^\d]/g, ""));
+    await expect.poll(async () => numbers(await snapshot()), { message: "Changing billing period must change a visible numeric price" }).not.toEqual(numbers(baseline));
+    assert.equal(await amounts.count(), baseline.length, "Both periods must show the same tiers.");
+    await before.press("Space");
+    await expect(before).toBeChecked();
+    await expect.poll(snapshot).toEqual(baseline);
+    await before.blur();
+  }
   async function collectInstances(route) {
     if (!code) return;
     for (const item of pages.find((page) => page.route === route)?.instances ?? []) {
@@ -57,6 +80,10 @@ try {
         await expect(original).toHaveAttribute("sandbox", "allow-scripts");
         observed.add(route + "#" + item.id);
         continue;
+      }
+      if (connected.includes(item.source) && !confirmed.has(route + "#" + item.id)) {
+        await checkBilling(region);
+        confirmed.add(route + "#" + item.id);
       }
       const rendered = await hasRenderedSource(region);
       if (rendered) observed.add(route + "#" + item.id);
@@ -143,7 +170,7 @@ try {
     assert(observed.has(definition.route + "#" + item.id), "Source mount never became usable in the declared journeys: " + definition.route + "#" + item.id);
   assert.deepEqual([...unauthorized], [], "The application attempted an unauthorized resource request");
   assert.deepEqual(errors, [], "Browser runtime errors");
-  console.log(JSON.stringify({ routes: pages.length, instances: pages.reduce((n, p) => n + p.instances.length, 0), width: 390, journeySteps, motionModes: code ? 2 : 1, engine: browser.version() }));
+  console.log(JSON.stringify({ routes: pages.length, instances: pages.reduce((n, p) => n + p.instances.length, 0), width: 390, journeySteps, connected: confirmed.size, motionModes: code ? 2 : 1, engine: browser.version() }));
 } catch (error) {
   console.error("MOTIONUX_VERIFY_DIAGNOSTIC=" + JSON.stringify(error.message.slice(0, 2800)));
   process.exitCode = 1;

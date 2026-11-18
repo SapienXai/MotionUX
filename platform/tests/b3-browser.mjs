@@ -263,7 +263,7 @@ try {
   const page = await context.newPage();
   await page.goto(studio + "/build");
   await expect(
-    page.getByRole("heading", { name: /Start with an idea/ }),
+    page.getByRole("heading", { name: "Create an app" }),
   ).toBeVisible();
   await metrics(page, "composer-landing");
   await audit(page, "Composer landing");

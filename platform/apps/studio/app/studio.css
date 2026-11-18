@@ -1406,7 +1406,62 @@ select:focus-visible {
 .build-local-sources { display: grid; gap: 1rem; }
 .compose-form .compose-local-option { display: flex; align-items: baseline; gap: .5rem; }
 .compose-local-option input { flex: none; accent-color: var(--build-accent); }
-.build-local-export-note { margin: 0; padding: .625rem 1rem; border-block-end: 1px solid var(--build-border); }
+.build-local-export-note { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; margin: 0; padding: .625rem 1rem; border-block-end: 1px solid var(--build-border); }
+.build-local-source-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.compose-product { max-width: none; }
+.compose-product .compose-intro { text-align: start; max-inline-size: 48rem; margin-block-end: 1.75rem; }
+.compose-product .compose-intro h1 { margin: 0; font-size: clamp(2.5rem, 5vw, 4.25rem); line-height: 1.04; }
+.compose-product .compose-intro > p { margin: .75rem 0 .5rem; max-width: none; }
+.compose-product .compose-form { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: start; gap: 1.3rem; padding: clamp(1rem, 3vw, 1.7rem); border: 1px solid var(--build-border); border-radius: 1rem; box-shadow: 0 12px 32px #09061312; }
+.compose-brief { display: grid; gap: .75rem; }
+.compose-product .compose-brief textarea { min-block-size: 13rem; padding: 1rem; line-height: 1.55; }
+.compose-product .compose-form-foot, .compose-product .compose-local-option,
+.compose-product .compose-form > :not(.compose-brief, .compose-components) { grid-column: 1 / -1; }
+.compose-product .compose-form-foot { border-block-start: 1px solid var(--build-border); padding-block-start: 1rem; }
+.compose-components { min-inline-size: 0; border: 1px solid var(--build-border); border-radius: .75rem; padding: .875rem; background: var(--build-input); }
+.compose-components-heading, .compose-components summary { display: flex; align-items: center; gap: .5rem; }
+.compose-components-heading h2 { font-size: .95rem; margin: 0; }
+.compose-components-heading > span { margin-inline-start: auto; color: var(--build-muted); font-variant-numeric: tabular-nums; font-size: .8rem; }
+.compose-components p { margin: .65rem 0; line-height: 1.4; color: var(--build-muted); font-size: .82rem; }
+.compose-components summary { min-block-size: 2.75rem; cursor: pointer; color: var(--build-accent); font-weight: 650; }
+.compose-components summary::-webkit-details-marker { display: none; }
+.compose-components ul { padding: 0; margin: 0; list-style: none; }
+.compose-selected { margin-block-start: .6rem !important; }
+.compose-selected li, .compose-catalog li button { display: flex; align-items: center; justify-content: space-between; gap: .5rem; min-inline-size: 0; padding: .5rem .625rem; }
+.compose-selected li { border-block-end: 1px solid var(--build-border); }
+.compose-selected .build-icon-button { display: grid; flex: none; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; padding: 0; border: 0; border-radius: .5rem; background: transparent; color: var(--build-muted); cursor: pointer; }
+.compose-selected .build-icon-button:hover { color: var(--build-text); background: var(--build-selected); }
+.compose-selected strong, .compose-catalog strong { display: block; overflow-wrap: anywhere; font-size: .83rem; }
+.compose-selected small, .compose-catalog small { display: block; color: var(--build-muted); font-size: .72rem; }
+.compose-catalog-search { display: flex; align-items: center; gap: .5rem; padding: .45rem .65rem; border: 1px solid var(--build-border); border-radius: .5rem; background: var(--build-panel); }
+.compose-catalog-search input { inline-size: 100%; min-inline-size: 0; border: 0; background: transparent; color: var(--build-text); }
+.compose-catalog-search:focus-within { outline: 2px solid var(--build-accent); outline-offset: 2px; }
+.compose-catalog ul { max-block-size: 17rem; overflow: auto; overscroll-behavior: contain; margin-block-start: .4rem; }
+.compose-catalog li button { width: 100%; text-align: start; color: var(--build-text); border: 0; border-radius: .375rem; background: transparent; min-block-size: 2.75rem; cursor: pointer; }
+.compose-catalog li button:is(:hover, [aria-pressed="true"]) { background: var(--build-selected); }
+.compose-catalog li button:disabled { opacity: .5; cursor: default; }
+.compose-catalog svg, .compose-components svg { flex: none; }
+.b11-workspace :is(.b11-outline,.b11-properties) { padding: 1rem; }
+.b11-workspace :is(.b11-outline,.b11-properties) > h2 { margin: .125rem 0 .375rem; font-size: 1rem; }
+.b11-outline details { padding-block: .45rem; border-block-end: 1px solid var(--build-border); }
+.b11-outline summary { cursor: pointer; }
+.b11-properties form { gap: .625rem; border-block-start: 1px solid var(--build-border); padding-block-start: .875rem; margin-block-start: .5rem; }
+.b11-properties textarea { min-block-size: 5rem; resize: vertical; }
+.b11-product-bar { justify-content: space-between; gap: .75rem; }
+.b11-product-bar :is(.build-toolbar-actions,.b11-editor-title,.b11-action-group) { flex-wrap: wrap; }
+.b11-project-identity { display: grid; gap: .125rem; min-inline-size: 0; overflow-wrap: anywhere; }
+.b11-project-identity strong { letter-spacing: -.02em; }
+.b11-project-identity span, .b11-canvas-label span { color: var(--build-muted); font-size: .75rem; }
+.b11-action-group { display: flex; gap: .25rem; border-inline-end: 1px solid var(--build-border); padding-inline-end: .5rem; }
+.b11-action-group .build-button { border-color: transparent; background: transparent; }
+.b11-workspace .b11-canvas { padding: clamp(.75rem, 2vw, 1.5rem); }
+.b11-canvas-label { display: grid; gap: .125rem; }
+.b11-canvas-bar label { display: flex; gap: .5rem; align-items: center; color: var(--build-muted); font-size: .8rem; }
+.b11-preview-caption a { display: inline-flex; align-items: center; gap: .25rem; }
+@media (max-width: 720px) {
+  .compose-product .compose-form { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .compose-product .compose-brief textarea { min-block-size: 9rem; }
+}
 .build-local-filters { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; }
 .build-local-filters label { display: grid; gap: .375rem; min-inline-size: 0; flex: 1 1 15rem; }
 .build-local-filters :is(input, select) {

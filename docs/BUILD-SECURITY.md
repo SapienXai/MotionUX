@@ -28,6 +28,8 @@ Build and Run use the prepared Gallery output on loopback for local originals. T
 
 The local code compiler links selected originals through trusted iframe wrappers, so raw original bytes stay in Gallery and outside the model prompt and Run build directory. The verifier permits the exact selected frame URLs and their own group assets. The public export compiler independently restores the exportable source closure and blocks any saved graph with a local-only pin before ZIP and PWA packaging.
 
+Product composition resolves the selected IDs on the host. Connected local modules come from reviewed MotionUX code pinned to known catalog facts. Design references contribute bounded provenance metadata. Both paths keep private upstream bytes outside the model and the generated app. A connected local pin carries the same export restriction as an isolated local pin.
+
 ## Inspector boundary
 
 The Studio API uses the existing loopback origin and mutation gates. A request identifies one page on the active saved Run revision. The worker checks the preview session and document headers, allows only GET and HEAD at the fixed preview origin, blocks redirects and service workers, and starts fresh browser contexts. The host runs a single inspection per preview with a wall-time and output limit. Stopping Run cancels the audit. The application and exports receive no inspection code or reports.

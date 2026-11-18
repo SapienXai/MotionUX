@@ -5,7 +5,7 @@ import { createBrain } from "../../../src/brain/ranker.ts";
 import { verifyIndex } from "../../../src/brain/indexer.ts";
 import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
 import type { Intent } from "@motionux/build-core/source-graph";
-import { isLocalCodePin, type CodePin, type LocalCodePin } from "@motionux/build-core/code-project";
+import { isLocalCodePin, type CodePin, type LocalCodePin, type SourceReference } from "@motionux/build-core/code-project";
 import { localBuildSource, localSourceFrameURL } from "../../../scripts/studio/build-local-sources.mjs";
 import { adaptCodeComparison, adaptHeroVideo, coastVideo, comparisonSource, heroVideoSource } from "./code-adaptations.ts";
 
@@ -202,6 +202,12 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
       code = adaptHeroVideo(code);
       patches.push({ file: path, reason: "Run the original entry animation in a native modal with a pinned local video." });
     }
+    if (path === item.entry && item.id === "motionprimitives-animated-number" &&
+      hashes[path] === "3b4a9f3262cb79527fba01a76576e920e340137f0643bf34a7732f7f8b1ff792") {
+      code = code.replace("motion.create(as as keyof JSX.IntrinsicElements)",
+        "motion.create(as as keyof React.JSX.IntrinsicElements) as unknown as typeof motion.span");
+      patches.push({ file: path, reason: "Use React 19 intrinsic element types. Keep the source animation and runtime props." });
+    }
     if (path === item.entry && item.id === "smoothui-ai-message" &&
       hashes[path] === "88ca4b848c774446f8f6b8275532c71bb8356f602ac811b5f4f298b7f96cd433") {
       code = code.replace("<style dangerouslySetInnerHTML={{ __html: ACTION_STYLES }} />", "<style>{ACTION_STYLES}</style>");
@@ -325,6 +331,39 @@ export async function listLocalBuildSources(repo: string) {
 }
 
 export const localSourceTemplate = "platform/templates/source-driven/local-source.tsx";
+export const planSwitchID = "designbookmark-plan-switch";
+
+async function connectedSource(repo: string, entries: Awaited<ReturnType<typeof localEntries>>): Promise<SourceModule | undefined> {
+  const original = entries.find(({ id, upstreamHash }) => id === planSwitchID &&
+    upstreamHash === "e349989db70d39ad10adf574a5fa662bc131e6c47ff5371bb42b68296f3c29f1");
+  if (!original) return;
+  const entry = "billing-period.tsx";
+  const style = "billing-period.css";
+  const paths = [entry, style];
+  const files = Object.fromEntries(await Promise.all(paths.map(async (path) => [path, await sourceRead(repo, "platform/templates/source-driven/" + path)])));
+  const pin: LocalCodePin = { id: original.id, slug: original.slug, group: original.group, title: original.title,
+    provider: original.provider, revision: original.upstreamHash, url: original.sourceURL, fidelity: "local-adapter",
+    license: "local-only", entry, closure: fingerprint(canonical(files)) };
+  return { pin, files, hashes: Object.fromEntries(paths.map((path) => [path, fingerprint(files[path])])), upstreamHashes: {},
+    preparationPatches: [], patches: [{ file: entry, reason: "MotionUX-owned controlled billing period based on the reviewed plan-switch behavior." }],
+    exports: ["default"], types: 'default BillingPeriod(props: { value: "monthly" | "yearly"; onChange: (value: "monthly" | "yearly") => void; label: string; monthlyLabel: string; yearlyLabel: string; className?: string }): React element; export type BillingPeriodValue = "monthly" | "yearly";',
+    packages: ["motion"], css: [style], assets: [], api: "Controlled accessible billing period for the application's real price plans.",
+    example: '<BillingPeriod value={period} onChange={setPeriod} label="Billing period" monthlyLabel="Monthly" yearlyLabel="Yearly" />' };
+}
+
+export async function compositionCatalog(repo: string, prepared?: Awaited<ReturnType<typeof inspectCodeCatalog>>) {
+  const inventory = prepared ?? await inspectCodeCatalog(repo);
+  const local = await localEntries(repo);
+  const adapter = await connectedSource(repo, local);
+  const references: SourceReference[] = local.filter(({ id }) => id !== adapter?.pin.id).map(({ id, provider, title, upstreamHash }) =>
+    ({ id, provider, title, pin: upstreamHash }));
+  const rows = [
+    ...inventory.rows.filter(({ ready }) => ready).map(({ id, provider, title }) => ({ id, provider, title, mode: "direct" as const })),
+    ...(adapter ? [{ id: adapter.pin.id, provider: adapter.pin.provider, title: adapter.pin.title, mode: "connected" as const }] : []),
+    ...references.map(({ id, provider, title }) => ({ id, provider, title, mode: "reference" as const })),
+  ].sort((a, b) => a.title.localeCompare(b.title) || a.id.localeCompare(b.id));
+  return { rows, adapter, references };
+}
 
 export async function localCodeSources(repo: string): Promise<SourceModule[]> {
   const entries = await localEntries(repo);
@@ -347,9 +386,20 @@ export default function LocalSource({ height }: { height?: number }) {
   });
 }
 
-export async function discoverCodeSources(repo: string, intent: Intent, preferred?: string, includeLocal = false) {
+export async function discoverCodeSources(repo: string, intent: Intent, preferred?: string, includeLocal = false, kit?: string[]) {
   const inventory = await inspectCodeCatalog(repo);
   const rows = new Map(inventory.rows.map((row) => [row.id, row]));
+  const composition = kit && await compositionCatalog(repo, inventory);
+  const references = composition ? composition.references.filter(({ id }) => kit?.includes(id)) : [];
+  const adapter = composition && composition.adapter && kit?.includes(composition.adapter.pin.id) ? composition.adapter : undefined;
+  if (adapter) {
+    inventory.sources.set(adapter.pin.id, adapter);
+    rows.set(adapter.pin.id, { id: adapter.pin.id, title: adapter.pin.title, provider: adapter.pin.provider,
+      entry: adapter.pin.entry, ready: true, reason: "local-connected", details: adapter.api, types: adapter.types,
+      exports: adapter.exports, license: adapter.pin.license });
+  }
+  if (kit?.some((id) => !inventory.sources.has(id) && !references.some((reference) => reference.id === id)))
+    throw new BuildError(422, "A selected component is no longer available. Update your selection.");
   if (includeLocal) for (const source of await localCodeSources(repo)) {
     inventory.sources.set(source.pin.id, source);
     rows.set(source.pin.id, { id: source.pin.id, title: source.pin.title, provider: source.pin.provider,
@@ -373,9 +423,10 @@ export async function discoverCodeSources(repo: string, intent: Intent, preferre
   const ordered = [...scored].sort((a, b) => b[1].score - a[1].score).slice(0, 23).map(([id, match]) => ({
     ...rows.get(id)!, match,
   }));
-  if (preferred && inventory.sources.has(preferred) && !ordered.some(({ id }) => id === preferred))
-    ordered.push({ ...rows.get(preferred)!, match: { score: 0, needs: [] } });
-  return { inventory, candidates: ordered, preferred: preferred ? rows.get(preferred) ?? { id: preferred, ready: false, reason: "missing-source" } : undefined };
+  for (const id of kit ?? (preferred ? [preferred] : []))
+    if (inventory.sources.has(id) && !ordered.some((candidate) => candidate.id === id))
+      ordered.push({ ...rows.get(id)!, match: { score: 0, needs: [] } });
+  return { inventory, candidates: ordered, references, preferred: preferred ? rows.get(preferred) ?? { id: preferred, ready: false, reason: "missing-source" } : undefined };
 }
 
 export function sameCodePin(expected: CodePin, current: CodePin) {
@@ -385,10 +436,12 @@ export function sameCodePin(expected: CodePin, current: CodePin) {
 
 export async function restoreCodeSources(repo: string, pins: CodePin[], use: "export" | "local" = "export") {
   const inventory = await inspectCodeCatalog(repo);
-  const local = use === "local" && pins.some(isLocalCodePin)
+  const local = use === "local" && pins.some(({ fidelity }) => fidelity === "local-frame")
     ? new Map((await localCodeSources(repo)).map((source) => [source.pin.id, source])) : undefined;
+  const adapter = use === "local" && pins.some(({ fidelity }) => fidelity === "local-adapter")
+    ? await connectedSource(repo, await localEntries(repo)) : undefined;
   return pins.map((pin) => {
-    const current = isLocalCodePin(pin) ? local?.get(pin.id) : inventory.sources.get(pin.id);
+    const current = pin.fidelity === "local-adapter" ? adapter : isLocalCodePin(pin) ? local?.get(pin.id) : inventory.sources.get(pin.id);
     if (!current || !sameCodePin(pin, current.pin)) throw new BuildError(409, "Pinned source changed or is unavailable: " + pin.id);
     return current;
   });

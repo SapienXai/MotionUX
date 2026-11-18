@@ -1,0 +1,11 @@
+.mx-billing-period { min-inline-size: 0; border: 0; padding: 0; margin: 0; color: inherit; }
+.mx-billing-period legend { font-size: .8em; font-weight: 650; padding: 0; margin-block-end: .5rem; }
+.mx-billing-options { display: inline-grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .125rem; max-inline-size: 100%; padding: .25rem; border: 1px solid var(--billing-border, #7b7b83); border-radius: .75rem; background: var(--billing-track, #e9e9ee); }
+.mx-billing-option { position: relative; isolation: isolate; display: grid; place-items: center; min-block-size: 2.75rem; padding-inline: .875rem; border-radius: .5rem; color: var(--billing-text, #22222a); cursor: pointer; overflow-wrap: anywhere; }
+.mx-billing-option input { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+.mx-billing-option:has(input:focus-visible) { outline: 2px solid var(--billing-focus, #5743ad); outline-offset: 2px; }
+.mx-billing-indicator { position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: var(--billing-selected-background, #fff); box-shadow: 0 1px 3px #08081830; }
+.mx-billing-label { font-weight: 650; text-align: center; }
+@media (forced-colors: active) {
+  .mx-billing-option:has(input:checked) { border: 1px solid Highlight; }
+}

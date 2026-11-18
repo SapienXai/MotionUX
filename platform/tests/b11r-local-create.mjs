@@ -25,7 +25,7 @@ try {
   } else {
     await page.goto(studio + "/build/local-sources?source=" + sourceID);
     await expect(page.getByRole("combobox", { name: "Source" }).locator("option")).toHaveCount(132);
-    await page.getByRole("link", { name: "Use in Create app" }).click();
+    await page.getByRole("link", { name: "Try in isolated app" }).click();
     await expect(page.getByRole("checkbox", { name: /Include local sources/ })).toBeChecked();
     await page.getByRole("textbox", { name: "Describe your app" }).fill(brief);
     const start = page.waitForResponse((response) => response.url().endsWith("/source-jobs/start") && response.request().method() === "POST");

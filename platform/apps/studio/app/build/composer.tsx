@@ -1,6 +1,7 @@
 "use client";
 
 import { SourceJobStatus, useSourceJob } from "./source-job";
+import { ComponentPicker } from "./component-picker";
 
 import { projectPathKey } from "../../../../../lib/studio-bridge";
 import {
@@ -169,6 +170,7 @@ export function ComposerHome({
   const alertRef = useRef<HTMLParagraphElement>(null);
 
   const [preferred, setPreferred] = useState<string>();
+  const [kit, setKit] = useState<string[]>([]);
   const [includeLocal, setIncludeLocal] = useState(false);
   const sourceOperation = useSourceJob("home", async (id) => {
     openCanvas(await request<BuildProject>("/" + id));
@@ -187,6 +189,8 @@ export function ComposerHome({
     const selected = params.get("project");
     setPreferred(params.get("source") ?? undefined);
     setIncludeLocal(params.get("local") === "1");
+    if (params.get("source") && params.get("local") !== "1") setKit([params.get("source")!]);
+    const from = params.get("composeFrom");
     void (async () => {
       try {
         setRows(await request<Row[]>("", "GET", undefined, controller.signal));
@@ -199,6 +203,14 @@ export function ComposerHome({
               controller.signal,
             ),
           );
+        if (!selected && from) {
+          const base = await request<BuildProject>("/" + encodeURIComponent(from), "GET", undefined, controller.signal);
+          if (base.document.codeProject) {
+            const program = base.document.codeProject;
+            setKit([...program.sources, ...(program.references ?? [])].slice(0, 4).map(({ id }) => id));
+            setBrief([`Rebuild ${program.name}.`, program.summary, ...program.pages.map(({ firstTask }) => firstTask)].join(" ").slice(0, 3200));
+          }
+        }
       } catch (error) {
         if (!controller.signal.aborted) setError(messageFor(error));
       } finally {
@@ -357,19 +369,10 @@ export function ComposerHome({
         )}
         {!review ? (
           <>
-            <section className="compose-hero" aria-labelledby="compose-title">
+            <section className="compose-hero compose-product" aria-labelledby="compose-title">
               <div className="compose-intro">
-                <span className="studio-overline">
-                  <span className="compose-dot" /> MotionUX App Studio
-                </span>
-                <h1 id="compose-title">
-                  Start with an idea.
-                  <br />
-                  Build something real.
-                </h1>
-                <p>
-                  Describe how your app should work. Build searches your source catalog and opens the verified application in Studio.
-                </p>
+                <h1 id="compose-title">Create an app</h1>
+                <p>Describe the product and choose the components that should shape it.</p>
                 <a className="build-text-button" href="/build/local-sources">Browse local sources</a>
               </div>
               <form
@@ -381,12 +384,12 @@ export function ComposerHome({
                     void generate(event);
                   } else {
                     event.preventDefault();
-                    void sourceOperation.start(brief, { preferred, ...(includeLocal && { includeLocal: true }) });
+                    void sourceOperation.start(brief, includeLocal ? { preferred, includeLocal: true } : { kit });
                   }
                 }}
                 aria-labelledby="brief-label"
               >
-                <label id="brief-label" htmlFor="app-brief">
+                <div className="compose-brief"><label id="brief-label" htmlFor="app-brief">
                   Describe your app
                 </label>
                 <textarea
@@ -402,15 +405,15 @@ export function ComposerHome({
                   value={brief}
                   readOnly={generating || sourceOperation.active}
                   onChange={(event) => setBrief(event.target.value)}
-                />
-                <label className="compose-local-option">
+                /></div>
+                {includeLocal ? <label className="compose-local-option">
                   <input type="checkbox" checked={includeLocal} disabled={generating || sourceOperation.active}
                     onChange={(event) => setIncludeLocal(event.target.checked)} />
-                  Include local sources. Projects that use them run locally and cannot be exported.
-                </label>
+                  Include local sources for isolated preview
+                </label> : <ComponentPicker selected={kit} onChange={setKit} disabled={generating || sourceOperation.active} />}
                 <div className="compose-form-foot">
                   <span id="brief-hint">
-                    <LockKeyhole size={14} /> Codex receives the brief, exportable source excerpts and metadata for local sources. Use fictional data.
+                    <LockKeyhole size={14} /> Use fictional data. Build sends selected component context to Codex.
                   </span>
                   {generating ? (
                     <button
@@ -427,7 +430,7 @@ export function ComposerHome({
                     </div>
                   )}
                 </div>
-                {preferred && <p>Selected source <strong>{preferred}</strong> <button type="button" className="build-text-button" onClick={() => setPreferred(undefined)}>Remove</button></p>}
+                {includeLocal && preferred && <p>Preview source <strong>{preferred}</strong></p>}
                 <SourceJobStatus operation={sourceOperation} />
               </form>
               <div className="compose-pills" aria-label="Example briefs">

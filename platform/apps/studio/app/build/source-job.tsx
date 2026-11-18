@@ -51,7 +51,7 @@ export function useSourceJob(scope: string, onReady: (projectId: string) => Prom
     return () => { controller.abort(); window.clearTimeout(timer); };
   }, [job, key]);
 
-  async function start(brief: string, options: { preferred?: string; includeLocal?: boolean; project?: string; revision?: number } = {}) {
+  async function start(brief: string, options: { preferred?: string; includeLocal?: boolean; kit?: string[]; project?: string; revision?: number } = {}) {
     if (active) return;
     setError("");
     setStarting(true);

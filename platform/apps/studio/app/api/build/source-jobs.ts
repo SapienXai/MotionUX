@@ -1,5 +1,5 @@
 import { executeCodeGeneration, type CodeRetry } from "./code-generation";
-import { codePin, codeProposalSchema } from "@motionux/build-core/code-project";
+import { codePin, codeProposalSchema, maxCompositionSources, sourceReferenceSchema } from "@motionux/build-core/code-project";
 import { inspectCodeCatalog, restoreCodeSources, sourceRead } from "@motionux/app-export/code-catalog";
 import { randomBytes } from "node:crypto";
 import { lstat, mkdir, readFile, realpath, readdir, rename, unlink, writeFile } from "node:fs/promises";
@@ -39,7 +39,7 @@ type Job = {
 type InProgress = { controller: AbortController; ended: Promise<void> };
 const live = new Map<string, InProgress>();
 const terminal = new Set<Stage>(["ready", "failed", "cancelled"]);
-type Request = { brief: string; preferred?: string; includeLocal?: boolean; project?: string; revision?: number };
+type Request = { brief: string; preferred?: string; includeLocal?: boolean; kit?: string[]; project?: string; revision?: number };
 
 async function directory(path: string) {
   await mkdir(path, { mode: 0o700 }).catch((error) => { if (error.code !== "EEXIST") throw error; });
@@ -120,6 +120,7 @@ export async function retrySourceJob(repo: string, vault: string, id: string) {
   return startSourceJob(repo, vault, prior.request ?? { brief: "Retry this exact previously generated application and preserve its workflows and design." }, {
     proposal, sources, design: prior.selection, inventory: inventory.counts,
     inventoryFingerprint: inventory.fingerprint, retryOf: id,
+    references: Array.isArray(prior.references) ? prior.references.map((reference) => sourceReferenceSchema.parse(reference)) : undefined,
   });
 }
 
@@ -149,7 +150,10 @@ function planPrompt(brief: string, intent: Intent, sources: ResolvedSource[], pr
 export async function startSourceJob(repo: string, vault: string, input: unknown, retry?: CodeRetry) {
   const payload = input as Request;
   if (!payload || typeof payload.brief !== "string" || payload.brief.trim().length < 12 || payload.brief.length > 3200 ||
-    Object.keys(payload).some((key) => !["brief", "preferred", "includeLocal", "project", "revision"].includes(key)) ||
+    Object.keys(payload).some((key) => !["brief", "preferred", "includeLocal", "kit", "project", "revision"].includes(key)) ||
+    (payload.kit !== undefined && (!Array.isArray(payload.kit) || payload.kit.length > maxCompositionSources ||
+      new Set(payload.kit).size !== payload.kit.length || payload.includeLocal ||
+      payload.kit.some((id) => typeof id !== "string" || !sourcePattern.test(id)))) ||
     (payload.includeLocal !== undefined && typeof payload.includeLocal !== "boolean") ||
     (payload.preferred !== undefined && (typeof payload.preferred !== "string" || !sourcePattern.test(payload.preferred))) ||
     (payload.project !== undefined && (!idPattern.test(payload.project) || !Number.isSafeInteger(payload.revision))))

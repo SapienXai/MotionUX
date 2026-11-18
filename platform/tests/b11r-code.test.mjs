@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 import { parseNativeOutput } from "../packages/build-core/composer/codex.ts";
 import { createCodeFixture, repo } from "./b11r-fixture.mjs";
 import { sealCodeProject, codeDocument, compileCodeProject } from "../packages/app-export/code-program.ts";
-import { analyzeModule, inspectCodeCatalog, localCodeSources, localSourceTemplate, restoreCodeSources } from "../packages/app-export/code-catalog.ts";
+import { analyzeModule, compositionCatalog, inspectCodeCatalog, localCodeSources, localSourceTemplate, planSwitchID, restoreCodeSources } from "../packages/app-export/code-catalog.ts";
 import { validateProgram } from "../packages/app-export/code-validator.ts";
 import { exportTree, previewTree, zipTree } from "../packages/app-export/export.ts";
 import { documentSchema, manualDocument } from "../packages/build-core/model.ts";
@@ -63,6 +63,33 @@ test("mixed local projects compile only for Run and recheck the exact private so
   // The export decision is made from the saved graph even if its local vault record disappears.
   await writeFile(path, JSON.stringify(catalog));
   await assert.rejects(exportTree(fixture.fake, project), /local-only/);
+});
+
+test("composition resolves a reviewed local behavior and keeps reference-only sources out of executable imports", async (t) => {
+  const fixture = await createCodeFixture();
+  t.after(fixture.close);
+  const path = resolve(fixture.vault, "catalog.last-good.json");
+  const catalog = JSON.parse(await readFile(path, "utf8"));
+  const plan = { availability: "ready", id: planSwitchID, slug: "plan-switch", group: "designbookmark", sourceKind: "html",
+    title: "Plan switch", provider: "DesignBookmark", upstreamHash: "e349989db70d39ad10adf574a5fa662bc131e6c47ff5371bb42b68296f3c29f1",
+    sourceURL: "https://designbookmark.com/motion-src/code/db-plan-switch.txt" };
+  const reference = { ...plan, id: "designbookmark-test-reference", slug: "test-reference", title: "Reference", upstreamHash: "a".repeat(64) };
+  await writeFile(path, JSON.stringify([...catalog, plan, reference]));
+  for (const file of ["billing-period.tsx", "billing-period.css"]) {
+    const template = "platform/templates/source-driven/" + file;
+    await cp(resolve(repo, template), resolve(fixture.fake, template));
+  }
+  const available = await compositionCatalog(fixture.fake);
+  assert.equal(available.rows.find(({ id }) => id === reference.id).mode, "reference");
+  assert.deepEqual(available.references.map(({ id }) => id), [reference.id]);
+  assert.equal(available.adapter.pin.fidelity, "local-adapter");
+  assert.equal(available.adapter.pin.license, "local-only");
+  assert.match(available.adapter.files["billing-period.tsx"], /onChange/);
+  assert.doesNotMatch(available.adapter.files["billing-period.tsx"], /iframe/);
+  assert.deepEqual((await restoreCodeSources(fixture.fake, [available.adapter.pin], "local")).map(({ pin }) => pin.id), [planSwitchID]);
+  await assert.rejects(restoreCodeSources(fixture.fake, [available.adapter.pin]), /Pinned source changed/);
+  await writeFile(path, JSON.stringify([...catalog, { ...plan, upstreamHash: "b".repeat(64) }, reference]));
+  await assert.rejects(restoreCodeSources(fixture.fake, [available.adapter.pin], "local"), /Pinned source changed/);
 });
 
 test("a novel source API compiles into real modules, keeps editable config and deterministic Next/PWA closures", async (t) => {

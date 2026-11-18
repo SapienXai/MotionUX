@@ -16,9 +16,9 @@ import { promisify } from "node:util";
 import { setTimeout as delay } from "node:timers/promises";
 import type { BuildProject } from "@motionux/build-core";
 import type { InspectionReport } from "@motionux/build-core/inspection";
+import type { LocalCodePin } from "@motionux/build-core/code-project";
 import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
 import { previewTree, writeTree } from "@motionux/app-export";
-import { isLocalCodePin } from "@motionux/build-core/code-project";
 import { localSourceFrameURL } from "../../../scripts/studio/build-local-sources.mjs";
 import { codeProfiles } from "@motionux/app-export/code-catalog";
 
@@ -557,9 +557,10 @@ export async function verifySourcePreview(repo: string, project: BuildProject, s
             .map((usage) => ({ id: usage.instance, source: usage.source, kind: "source" })) }))
             : graph!.pages.map(({ route, instances }) => ({ route, instances: instances.map(({ id, kind }) => ({ id, kind })) })),
           journeys: code?.journeys,
-          localFrames: code?.sources.filter(isLocalCodePin).map(({ id, group, slug, revision }) => ({
+          localFrames: code?.sources.filter((pin): pin is LocalCodePin => pin.fidelity === "local-frame").map(({ id, group, slug, revision }) => ({
             id, group, url: localSourceFrameURL(id, slug, revision, true),
           })),
+          connected: code?.sources.filter(({ fidelity }) => fidelity === "local-adapter").map(({ id }) => id),
 
         }),
       },

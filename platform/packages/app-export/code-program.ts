@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { codeProposalSchema, codeProjectSchema, isLocalCodePin, localSourceRights, type CodeProject } from "@motionux/build-core/code-project";
+import { codeProposalSchema, codeProjectSchema, isLocalCodePin, localSourceRights, type CodeProject, type SourceReference } from "@motionux/build-core/code-project";
 import type { BuildProject, Document } from "@motionux/build-core";
 import { BuildError, canonical, fingerprint } from "@motionux/build-core/store";
 import { codeProfileFor, localSourceTemplate, restoreCodeSources, type SourceModule } from "./code-catalog.ts";
@@ -48,18 +48,18 @@ async function profile(repo: string, sources: SourceModule[]) {
     read(dependencyProfile + "/package-lock.json"), read(dependencyProfile + "/package.json"), read("source-driven/project-state.ts"),
     read("hotel-dashboard/next.config.mjs"), read("hotel-dashboard/postcss.config.mjs"), read("hotel-dashboard/tsconfig.json"), read("hotel-dashboard/proxy.ts"),
   ]);
-  const next = sources.some(({ pin }) => isLocalCodePin(pin))
+  const next = sources.some(({ pin }) => pin.fidelity === "local-frame")
     ? nextTemplate.replace("frame-ancestors http://127.0.0.1:5200", `frame-src ${galleryOrigin}${localFramePath}; frame-ancestors http://127.0.0.1:5200`)
     : nextTemplate;
   return { lock, pkg, state, next, postcss, tsconfig, proxy, compiler: fingerprint(canonical({ abi: 3, state, screenTemplate, next, postcss, tsconfig, proxy })) };
 }
 
-export async function sealCodeProject(repo: string, proposal: unknown, sources: SourceModule[]): Promise<CodeProject> {
+export async function sealCodeProject(repo: string, proposal: unknown, sources: SourceModule[], references?: SourceReference[]): Promise<CodeProject> {
   const clean = validateProgram(proposal, sources);
   const selected = [...new Set(clean.usages.map(({ source }) => source))];
   const environment = await profile(repo, sources.filter(({ pin }) => selected.includes(pin.id)));
   const result = codeProjectSchema.safeParse({
-    ...clean, version: 2,
+    ...clean, version: 2, ...(references?.length && { references }),
     sources: selected.map((id) => sources.find(({ pin }) => pin.id === id)!.pin),
     artifacts: programHashes(clean), lock: fingerprint(environment.lock), compiler: environment.compiler,
   });
@@ -99,7 +99,7 @@ export async function compileCodeProject(repo: string, project: BuildProject, us
     digest: fingerprint(canonical(project.document)), kinds: Object.fromEntries(graph.controls.map(({ key, kind }) => [key, kind])),
   }, null, 2) + ";\n";
   files["runtime/screen.tsx"] = screenTemplate;
-  if (hasLocal) files["runtime/local-source.tsx"] = await readFile(resolve(repo, localSourceTemplate), "utf8");
+  if (sources.some(({ pin }) => pin.fidelity === "local-frame")) files["runtime/local-source.tsx"] = await readFile(resolve(repo, localSourceTemplate), "utf8");
   files["app/layout.tsx"] = `import type { ReactNode } from "react";
 import "@fontsource-variable/inter";
 import "../styles/host.css";
@@ -154,7 +154,7 @@ export default async function Page({ params }: Props) {
     }
   }
   files["README.md"] = "# " + graph.name + "\n\n" + (hasLocal
-    ? "Local MotionUX Run replica. Its pinned originals are served by the local Gallery.\n"
+    ? "Local MotionUX Run replica. Its local-only source pins are resolved by Build.\n"
     : "Run npm ci, npm run build and npm start. The application stores fictional data in the browser. Original source notices are in sources/. No production integration is included.\n");
   files["SOURCE-MANIFEST.json"] = JSON.stringify({
     version, revision: project.revision, digest: fingerprint(canonical(project.document)), sources: sources.map(({ pin }) => pin),

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ExternalLink, Play, Square } from "lucide-react";
 import type { BuildProject } from "@motionux/build-core";
 import { isLocalCodePin, localSourceRights, type CodeProject } from "@motionux/build-core/code-project";
 import { sourceRequest, SourceJobStatus, useSourceJob } from "./source-job";
@@ -24,6 +25,7 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
   const [inventory, setInventory] = useState<{ counts: { total: number; compilerReady: number; reasons: Record<string, number> } }>();
   const program = draft.document.codeProject!;
   const localOnly = saved.document.codeProject!.sources.some(isLocalCodePin);
+  const hasSpecimens = saved.document.codeProject!.sources.some(({ fidelity }) => fidelity === "local-frame");
   const dimensions = device === "mobile" ? [390, 844] : device === "tablet" ? [768, 1024] : [1440, 1000];
   const scale = Math.min(1, (availableWidth || dimensions[0]) / dimensions[0]);
   useEffect(() => {
@@ -124,23 +126,31 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   return <main className="b11-editor">
-    <header className="build-toolbar">
-      <div className="b11-editor-title"><button className="build-button" type="button" onClick={() => void action(async () => { await stop(); onBack(); })}>Projects</button><strong>{saved.document.name}</strong></div>
+    <header className="build-toolbar b11-product-bar">
+      <div className="b11-editor-title"><button className="build-button" type="button" onClick={() => void action(async () => { await stop(); onBack(); })}><ArrowLeft size={15} aria-hidden="true" />Projects</button>
+        <div className="b11-project-identity"><strong>{saved.document.name}</strong>
+          <span role="status">{dirty ? "Unsaved changes" : "Saved revision " + saved.revision}</span></div></div>
       <div className="build-toolbar-actions">
-        <span role="status">{dirty ? "Draft preview · save before Run or export" : "Saved revision " + saved.revision}</span>
-        <button type="button" className="build-button" disabled={!past.length || locked} onClick={() => history(false)}>Undo</button>
-        <button type="button" className="build-button" disabled={!future.length || locked} onClick={() => history(true)}>Redo</button>
+        <div className="b11-action-group" role="group" aria-label="Project history">
+          <button type="button" className="build-button" disabled={!past.length || locked} onClick={() => history(false)}>Undo</button>
+          <button type="button" className="build-button" disabled={!future.length || locked} onClick={() => history(true)}>Redo</button>
+        </div>
         <button type="button" className="build-button" disabled={!dirty || locked} onClick={() => void action(async () => {
           await stop();
           const next = await sourceRequest<BuildProject>("/" + saved.id, "PUT", draft);
           setSaved(next); setDraft(next); setPast([]); setFuture([]);
         })}>Save</button>
-        <button type="button" className="build-button" disabled={locked || dirty} onClick={() => void action(preview ? stop : run)}>{preview ? "Stop Run" : "Run"}</button>
-        <button type="button" className="build-button" disabled={locked || dirty || localOnly} onClick={() => void action(() => download(false))}>Export</button>
-        <button type="button" className="build-button" disabled={locked || dirty || localOnly} onClick={() => void action(() => download(true))}>Export PWA</button>
+        <div className="b11-action-group" role="group" aria-label="Export formats">
+          <button type="button" className="build-button" disabled={locked || dirty || localOnly} onClick={() => void action(() => download(false))}>Export</button>
+          <button type="button" className="build-button" disabled={locked || dirty || localOnly} onClick={() => void action(() => download(true))}>Export PWA</button>
+        </div>
+        <button type="button" className={"build-button" + (preview ? "" : " accent")} disabled={locked || dirty}
+          onClick={() => void action(preview ? stop : run)}>{preview ? <Square size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}{preview ? "Stop Run" : "Run"}</button>
       </div>
     </header>
-    {localOnly && <p className="build-local-export-note">{localSourceRights}</p>}
+    {localOnly && <div className="build-local-export-note"><span>{localSourceRights}</span>
+      {hasSpecimens && <a className="build-text-button" href={"/build?composeFrom=" + encodeURIComponent(saved.id)}>Rebuild as a new app</a>}
+    </div>}
     {error && <p className="build-alert" role="alert">{error}</p>}
     <SourceJobStatus operation={operation} />
     <nav className="build-mobile-panels" aria-label="Editor panes">{["outline", "canvas", "properties"].map((value) =>
@@ -158,12 +168,15 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
           <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a><small>{source.provider} · {source.license} · {source.fidelity} · {source.revision.slice(0, 8)}</small>
           {program.usages.filter((usage) => usage.source === source.id).map((usage) => <p key={usage.instance}>{usage.route} · {usage.reason}</p>)}
         </div>)}</details>
+        {!!program.references?.length && <details><summary>Design references</summary>{program.references.map((reference) =>
+          <p key={reference.id}>{reference.title} · {reference.provider}</p>)}</details>}
         <details><summary>Application source</summary>{program.files.map((file) => <details key={file.path}><summary>{file.path}</summary><pre className="b11-code" tabIndex={0} aria-label={file.path}><code>{file.content}</code></pre></details>)}</details>
         <details><summary>Generated modules</summary>{program.generated.map((file) => <div key={file.file} className="b11-source"><strong>{file.file}</strong><p>{file.purpose}</p><small>{file.generatedFrom.join(", ")}</small></div>)}</details>
         <details><summary>Design and limitations</summary><p>{program.design.composition}</p><p>{program.design.mobile}</p>{program.limitations.map((limit) => <p key={limit}>{limit}</p>)}</details>
       </aside>
       <section className="b11-canvas" aria-label="Application canvas">
-        <div className="b11-canvas-bar"><span role="status">{preview?.message ?? "Open the saved application"}</span>
+        <div className="b11-canvas-bar"><div className="b11-canvas-label"><strong>Preview</strong>
+          <span role="status">{preview?.status === "ready" ? "Live" : preview?.message ?? "Saved application"}</span></div>
           <label>Preview size<select value={device} onChange={(event) => setDevice(event.target.value)}><option value="desktop">Desktop</option><option value="tablet">Tablet</option><option value="mobile">Mobile</option></select></label></div>
         {preview?.status === "ready" && preview.url ?
           <div ref={viewport} className="b11-preview-viewport">
@@ -171,7 +184,7 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
               <iframe ref={frame} onLoad={projectControls} title="Live source application" sandbox="allow-scripts allow-same-origin allow-forms" referrerPolicy="no-referrer" data-size={device}
                 style={{ width: dimensions[0], height: dimensions[1], transform: "scale(" + scale + ")" }} src={preview.url + route} />
             </div>
-            <p className="b11-preview-caption">{dimensions[0]} × {dimensions[1]} · {Math.round(scale * 100)}% <a href={preview.url + route} target="_blank" rel="noreferrer">Open Run</a></p>
+            <p className="b11-preview-caption">{dimensions[0]} × {dimensions[1]} · {Math.round(scale * 100)}% <a href={preview.url + route} target="_blank" rel="noreferrer">Open Run <ExternalLink size={13} aria-hidden="true" /></a></p>
           </div> :
           <button className="build-button" disabled={locked || dirty || preview?.status === "building" || preview?.status === "starting"} onClick={() => void action(run)}>Open saved preview</button>}
       </section>

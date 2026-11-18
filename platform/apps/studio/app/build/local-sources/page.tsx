@@ -57,7 +57,7 @@ export default function LocalSourcesPage() {
         <div className="compose-intro">
           <a className="build-text-button" href="/build">Back to Build</a>
           <h1 id="local-sources-title">Local sources</h1>
-          <p>Try originals from your local library or use one in Create app. Projects with local sources can open in Run. Their exports are disabled.</p>
+          <p>Explore the original interactions and choose what to bring into your app.</p>
         </div>
         {error && <p role="alert">{error}</p>}
         {!error && !sources && <p role="status">Loading local catalog…</p>}
@@ -70,7 +70,10 @@ export default function LocalSourcesPage() {
           <p role="status">{matches?.length} local sources</p>
         </div>}
         {source && <>
-          <a className="build-text-button" href={"/build?local=1&source=" + encodeURIComponent(source.id)}>Use in Create app</a>
+          <div className="build-local-source-actions">
+            <a className="build-button accent" href={"/build?source=" + encodeURIComponent(source.id)}>Use in Create app</a>
+            <a className="build-text-button" href={"/build?local=1&source=" + encodeURIComponent(source.id)}>Try in isolated app</a>
+          </div>
           <LocalPreview key={source.id} source={source} />
         </>}
       </section>

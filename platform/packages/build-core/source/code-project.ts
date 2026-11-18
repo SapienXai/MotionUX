@@ -17,10 +17,13 @@ const portablePin = sourceIdentity.extend({
 });
 const localPin = sourceIdentity.extend({
   revision: hash, slug: sourceId, group: sourceId,
-  fidelity: z.literal("local-frame"), license: z.literal("local-only"),
+  fidelity: z.enum(["local-frame", "local-adapter"]), license: z.literal("local-only"),
 });
 export const codePin = z.union([portablePin, localPin]);
 export const localSourceRights = "This project uses local-only sources. Export is unavailable.";
+export const maxCompositionSources = 4;
+export const sourceReferenceSchema = z.strictObject({ id: sourceId, title: text, provider: text, pin: hash });
+export type SourceReference = z.infer<typeof sourceReferenceSchema>;
 const control = z.strictObject({
   key: identifier, label: z.string().min(1).max(80), value: z.string().max(500),
   kind: z.enum(["text", "color", "spacing", "size", "motion"]),
@@ -30,7 +33,7 @@ const usage = z.strictObject({
   instance: identifier, route: codeRoute, interaction: text,
 });
 const journeyStep = z.strictObject({
-  role: z.enum(["button", "link", "textbox", "combobox", "spinbutton", "checkbox", "tab", "img", "region", "group"]),
+  role: z.enum(["button", "link", "textbox", "combobox", "spinbutton", "checkbox", "radio", "tab", "img", "region", "group"]),
   name: z.string().min(1).max(160),
   action: z.enum(["click", "fill", "select", "press", "hover", "drag", "wheel"]),
   value: z.string().max(300),
@@ -55,6 +58,7 @@ export const codeProposalSchema = z.strictObject({
 export const codeProjectSchema = codeProposalSchema.extend({
   version: z.literal(2),
   sources: z.array(codePin).min(1).max(6),
+  references: z.array(sourceReferenceSchema).max(maxCompositionSources).optional(),
   lock: hash, compiler: hash, artifacts: z.array(z.strictObject({ path: modulePath, sha256: hash })).min(2).max(12),
 }).superRefine((graph, ctx) => {
   function require(condition: unknown, message: string) {
@@ -65,6 +69,7 @@ export const codeProjectSchema = codeProposalSchema.extend({
   require(unique(graph.files.map(({ path }) => path)) && graph.files.some(({ path }) => path === "components/app.tsx") &&
     graph.files.some(({ path }) => path === "styles/app.css"), "Require unique module paths, components/app.tsx and styles/app.css.");
   require(unique(graph.controls.map(({ key }) => key)) && unique(graph.sources.map(({ id }) => id)), "Duplicate control or source.");
+  require(!graph.references || unique([...graph.sources, ...graph.references].map(({ id }) => id)), "A component must have one composition role.");
   require(graph.controls.every(({ kind, value }) => {
     if (kind === "color") return /^#[a-f0-9]{6}$/i.test(value);
     if (kind === "spacing" || kind === "size") return /^\d{1,2}(?:px|rem)$/.test(value);
