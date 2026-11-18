@@ -174,6 +174,13 @@ export function ComposerHome({
   const [includeLocal, setIncludeLocal] = useState(false);
   const sourceOperation = useSourceJob("home", async (id) => {
     openCanvas(await request<BuildProject>("/" + id));
+  }, (input) => {
+    const params = new URLSearchParams(location.search);
+    if (["project", "source", "composeFrom"].some((name) => params.has(name))) return;
+    setBrief(input.brief);
+    setKit(input.kit ?? []);
+    setPreferred(input.preferred);
+    setIncludeLocal(Boolean(input.includeLocal));
   });
 
   function openCanvas(value: BuildProject) {
@@ -389,6 +396,7 @@ export function ComposerHome({
                 }}
                 aria-labelledby="brief-label"
               >
+                <SourceJobStatus operation={sourceOperation} />
                 <div className="compose-brief"><label id="brief-label" htmlFor="app-brief">
                   Describe your app
                 </label>
@@ -431,7 +439,6 @@ export function ComposerHome({
                   )}
                 </div>
                 {includeLocal && preferred && <p>Preview source <strong>{preferred}</strong></p>}
-                <SourceJobStatus operation={sourceOperation} />
               </form>
               <div className="compose-pills" aria-label="Example briefs">
                 {choices.map(({ id, label, Icon, brief }) => (

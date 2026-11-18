@@ -137,7 +137,11 @@ async function buildPreview(request, response, item, options) {
   if (request.headers["sec-fetch-dest"] !== "iframe" || request.headers["sec-fetch-mode"] !== "navigate" ||
       request.headers["sec-fetch-site"] !== "same-site")
     return response.writeHead(403).end();
-  if (!localBuildSource(item) || options.get("item") !== item.slug || options.get("pin") !== item.upstreamHash)
+  const picker = options.get("view") === "picker";
+  const eligible = picker
+    ? item?.availability === "ready" && ["html", "react"].includes(item.sourceKind) && /^[a-z0-9-]{1,96}$/.test(item.slug) && /^[a-f0-9]{64}$/.test(item.upstreamHash)
+    : localBuildSource(item);
+  if (!eligible || options.get("item") !== item.slug || options.get("pin") !== item.upstreamHash)
     return response.writeHead(404).end();
   const directory = resolve(vault, "runtime", item.group, "original", "dist");
   const isHtml = item.sourceKind === "html";
@@ -151,7 +155,8 @@ async function buildPreview(request, response, item, options) {
   const wasm = item.id === "animateui-components-animate-code-tabs" ? "'wasm-unsafe-eval' " : "";
   const ready = '<script>document.addEventListener("DOMContentLoaded", () => {' +
     'const ready = () => { if (' + (isHtml ? 'document.body.childElementCount' : 'document.querySelector(' + JSON.stringify(selector) + ')') + ')' +
-    ' { observer.disconnect(); parent.postMessage({ motionuxLocalSource: "ready" }, ' + JSON.stringify(recipient) + '); } };' +
+    ' { observer.disconnect(); parent.postMessage({ motionuxLocalSource: "ready" }, ' + JSON.stringify(recipient) + '); }' +
+    'else if (document.querySelector("#root > [role=alert]")) { observer.disconnect(); parent.postMessage({ motionuxLocalSource: "failed" }, ' + JSON.stringify(recipient) + '); } };' +
     'const observer = new MutationObserver(ready); observer.observe(document.body, {childList:true,subtree:true}); ready();' +
     '}, {once:true})</script>';
   response.setHeader("Content-Type", types[".html"]);

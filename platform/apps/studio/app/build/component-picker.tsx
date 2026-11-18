@@ -4,21 +4,26 @@ import { Check, Layers3, Plus, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { maxCompositionSources } from "@motionux/build-core/code-project";
 import { sourceRequest } from "./source-job";
+import { ComponentPreview } from "./component-preview";
 
-type Component = { id: string; title: string; provider: string; mode: "direct" | "connected" | "reference" };
+export type CompositionComponent = {
+  id: string; title: string; provider: string; mode: "direct" | "connected" | "reference";
+  preview?: { slug: string; pin: string };
+};
 const modeLabel = { direct: "Original component", connected: "Connected · local", reference: "Design reference" };
 
 export function ComponentPicker({ selected, onChange, disabled }: {
   selected: string[]; onChange: (ids: string[]) => void; disabled: boolean;
 }) {
-  const [rows, setRows] = useState<Component[]>();
+  const [rows, setRows] = useState<CompositionComponent[]>();
+  const [focused, setFocused] = useState<string>();
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   useEffect(() => {
     const controller = new AbortController();
-    void sourceRequest<Component[]>("/source-jobs/components", "GET", undefined, controller.signal)
+    void sourceRequest<CompositionComponent[]>("/source-jobs/components", "GET", undefined, controller.signal)
       .then(setRows, () => { if (!controller.signal.aborted) setError(true); });
     return () => controller.abort();
   }, [attempt]);
@@ -26,7 +31,8 @@ export function ComponentPicker({ selected, onChange, disabled }: {
   const visible = (rows ?? []).filter(({ title, provider, id }) =>
     query.split(/\s+/).every((term) => `${title} ${provider} ${id}`.toLowerCase().includes(term)));
   const atLimit = selected.length >= maxCompositionSources;
-  return <section className="compose-components" aria-labelledby="compose-components-title">
+  const chosenRows = selected.flatMap((id) => rows?.find((row) => row.id === id) ?? []);
+  return <><section className="compose-components" aria-labelledby="compose-components-title">
     <div className="compose-components-heading">
       <Layers3 size={18} aria-hidden="true" />
       <h2 id="compose-components-title">Components</h2>
@@ -59,7 +65,10 @@ export function ComponentPicker({ selected, onChange, disabled }: {
           {visible.slice(0, 32).map((item) => {
             const chosen = selected.includes(item.id);
             return <li key={item.id}><button type="button" aria-pressed={chosen} disabled={disabled || (atLimit && !chosen)}
-              onClick={() => onChange(chosen ? selected.filter((id) => id !== item.id) : [...selected, item.id])}>
+              onClick={() => {
+                if (!chosen) setFocused(item.id);
+                onChange(chosen ? selected.filter((id) => id !== item.id) : [...selected, item.id]);
+              }}>
               <span><strong>{item.title}</strong><small>{item.provider} · {modeLabel[item.mode]}</small></span>
               {chosen ? <Check size={16} /> : <Plus size={16} />}
             </button></li>;
@@ -68,5 +77,7 @@ export function ComponentPicker({ selected, onChange, disabled }: {
         {visible.length > 32 && <p>Showing 32 of {visible.length}. Search to narrow the list.</p>}
       </div>}
     </details>
-  </section>;
+  </section>
+  <ComponentPreview components={chosenRows} focused={focused} onFocus={setFocused} />
+  </>;
 }

@@ -1,6 +1,7 @@
 import { executeCodeGeneration, type CodeRetry } from "./code-generation";
 import { codePin, codeProposalSchema, maxCompositionSources, sourceReferenceSchema } from "@motionux/build-core/code-project";
-import { inspectCodeCatalog, restoreCodeSources, sourceRead } from "@motionux/app-export/code-catalog";
+import { inspectCodeCatalog, modelSelectorId, restoreCodeSources, sourceRead } from "@motionux/app-export/code-catalog";
+import { validateProgram } from "@motionux/app-export/code-validator";
 import { randomBytes } from "node:crypto";
 import { lstat, mkdir, readFile, realpath, readdir, rename, unlink, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -96,20 +97,11 @@ export async function retrySourceJob(repo: string, vault: string, id: string) {
   const prior = await getSourceJob(vault, id);
   if (!["failed", "cancelled"].includes(prior.status) || !Array.isArray(prior.attempts) || !prior.attempts.length)
     throw new BuildError(409, "This job has no generated candidate to retry.");
-  const last = prior.attempts.at(-1) as { attempt: number; sha256: string };
-  if (!Number.isInteger(last.attempt) || last.attempt < 0 || last.attempt > 2 || !/^[a-f0-9]{64}$/.test(last.sha256))
-    throw new BuildError(409, "The candidate trace is invalid.");
   const inventory = await inspectCodeCatalog(repo);
-  const pins = prior.sourcePins;
-  const restored = Array.isArray(pins) ? await restoreCodeSources(repo, pins.map((pin) => codePin.parse(pin)), "local") : undefined;
+  const pins = Array.isArray(prior.sourcePins) ? prior.sourcePins.map((pin) => codePin.parse(pin)) : undefined;
+  const restored = pins && await restoreCodeSources(repo, pins, "local", { upgradeSelector: true });
   if (!restored && inventory.fingerprint !== prior.inventoryFingerprint)
     throw new BuildError(409, "The source inventory changed. Start a fresh generation.");
-  const path = "build/code-attempts/" + id + "-" + last.attempt + ".json";
-  const stat = await lstat(resolve(vault, path));
-  if ((stat.mode & 0o777) !== 0o600) throw new BuildError(403, "Candidate trace permissions changed.");
-  const text = await sourceRead(vault, path, 192 * 1024);
-  if (fingerprint(text) !== last.sha256) throw new BuildError(409, "Candidate bytes changed.");
-  const proposal = codeProposalSchema.parse(JSON.parse(text));
   const selection = prior.selection as { sources?: { id: string }[] } | undefined;
   if (!selection?.sources?.length) throw new BuildError(409, "The inspected source context is unavailable.");
   const sources = restored ?? selection.sources.map(({ id }) => {
@@ -117,6 +109,31 @@ export async function retrySourceJob(repo: string, vault: string, id: string) {
     if (!source) throw new BuildError(409, "A selected source is unavailable.");
     return source;
   });
+  const oldSelector = pins?.find(({ id }) => id === modelSelectorId);
+  const newSelector = sources.find(({ pin }) => pin.id === modelSelectorId);
+  const renamed = oldSelector && newSelector && oldSelector.closure !== newSelector.pin.closure;
+  let proposal;
+  for (const trace of prior.attempts.slice().reverse() as { attempt: number; sha256: string }[]) {
+    if (!trace || !Number.isInteger(trace.attempt) || trace.attempt < 0 || trace.attempt > 2 || !/^[a-f0-9]{64}$/.test(trace.sha256))
+      throw new BuildError(409, "The candidate trace is invalid.");
+    const path = "build/code-attempts/" + id + "-" + trace.attempt + ".json";
+    const stat = await lstat(resolve(vault, path));
+    if ((stat.mode & 0o777) !== 0o600) throw new BuildError(403, "Candidate trace permissions changed.");
+    const text = await sourceRead(vault, path, 192 * 1024);
+    if (fingerprint(text) !== trace.sha256) throw new BuildError(409, "Candidate bytes changed.");
+    const candidate = codeProposalSchema.safeParse(JSON.parse(text));
+    if (!candidate.success) continue;
+    if (renamed) for (const journey of candidate.data.journeys) for (const step of journey.steps) {
+      if (step.role === "button") step.name = step.name.replace(/^Model: (.+), (.+) effort\. Change$/, (_, model, effort) =>
+        effort === "undefined" ? model : model + " " + effort);
+    }
+    proposal ??= candidate.data;
+    try {
+      proposal = validateProgram(candidate.data, sources);
+      break;
+    } catch { /* A later failed repair may be less complete than the previous candidate. */ }
+  }
+  if (!proposal) throw new BuildError(409, "No saved candidate matches the current program schema.");
   return startSourceJob(repo, vault, prior.request ?? { brief: "Retry this exact previously generated application and preserve its workflows and design." }, {
     proposal, sources, design: prior.selection, inventory: inventory.counts,
     inventoryFingerprint: inventory.fingerprint, retryOf: id,
