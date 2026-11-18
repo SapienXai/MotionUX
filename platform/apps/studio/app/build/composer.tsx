@@ -208,7 +208,7 @@ export function ComposerHome({
           if (base.document.codeProject) {
             const program = base.document.codeProject;
             setKit([...program.sources, ...(program.references ?? [])].slice(0, 4).map(({ id }) => id));
-            setBrief([`Rebuild ${program.name}.`, program.summary, ...program.pages.map(({ firstTask }) => firstTask)].join(" ").slice(0, 3200));
+            setBrief([`Rebuild ${program.name} around the selected components.`, ...program.pages.map(({ firstTask }) => firstTask)].join(" ").slice(0, 3200));
           }
         }
       } catch (error) {
