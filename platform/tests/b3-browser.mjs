@@ -1,4 +1,4 @@
-import { revealTemplates } from "./project-editor-ui.mjs";
+import { chooseProjectExport, revealTemplates } from "./project-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
 import { spawn, execFile } from "node:child_process";
@@ -262,10 +262,8 @@ try {
       sources: false,
     });
   const page = await context.newPage();
-  await page.goto(studio + "/build");
-  await expect(
-    page.getByRole("heading", { name: "Create an app" }),
-  ).toBeVisible();
+  await page.goto(studio);
+  await expect(head(page, "What are we building today?")).toBeVisible();
   await metrics(page, "composer-landing");
   await audit(page, "Composer landing");
   await shot(page, "studio-desktop");
@@ -347,7 +345,7 @@ try {
     await page.getByRole("button", { name: /New Sales CRM/ }).click();
   }
   await expect(
-    page.getByRole("button", {
+    page.locator(".unified-workspace-head").getByRole("heading", {
       name: live ? "Meridian CRM · Reviewed" : "Meridian CRM",
       exact: true,
     }),
@@ -404,7 +402,7 @@ try {
     await click(page, "Desktop").click();
   }
   if (local) {
-    await click(page, "Run").click();
+    await click(page, "Preview").click();
     await expect(
       page
         .frameLocator("iframe")
@@ -421,7 +419,7 @@ try {
     check("Actual Next preview serves the same saved CRM digest");
   }
   const download = page.waitForEvent("download");
-  await click(page, "Export").click();
+  await chooseProjectExport(page);
   const zip = resolve(temp, "crm-dashboard-source.zip");
   await (await download).saveAs(zip);
   if (local)
