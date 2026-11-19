@@ -170,7 +170,10 @@ test("writes are serialized, revisions conflict, valid backup survives corrupt J
   );
   assert.deepEqual(await store.open(old.id), updated);
   await writeFile(resolve(root, "project.json"), "{", { mode: 0o600 });
-  assert.equal((await store.list())[0].error, true);
+  const [invalid] = await store.list();
+  assert.equal(invalid.error, true);
+  assert.equal(invalid.recoverable, true);
+  assert.equal(invalid.name, "Coastal Hotel");
   const restored = await store.restore(old.id);
   assert.equal(restored.document.name, "Coastal Hotel");
   assert.equal(restored.revision, 3);

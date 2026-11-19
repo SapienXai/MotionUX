@@ -297,20 +297,28 @@ export function createStore(vault: string) {
           try {
             const root = await rootFor(id);
             const value = await load(root, id);
-            const updatedAt = await lstat(resolve(root, "project.json")).then((stat) => stat.mtimeMs, () => undefined);
+            const draft = await loadDraft(root).catch(() => null);
+            const hasDraft = draft?.baseRevision === value.revision && canonical(draft.document) !== canonical(value.document);
+            const updatedAt = await lstat(resolve(root, hasDraft ? "draft.json" : "project.json"))
+              .then((stat) => stat.mtimeMs, () => undefined);
             return {
               id,
               name: value.document.name,
               updatedAt,
               revision: value.revision,
               pages: value.document.pages.length,
+              hasDraft,
               ...(value.document.codeProject && {
                 codeSources: value.document.codeProject.sources.map(({ id }) => id),
               }),
               error: false,
             };
           } catch {
-            return { id, name: "Recovery needed", revision: null, error: true };
+            const previous = await rootFor(id).then((root) => load(root, id, true)).catch(() => undefined);
+            return {
+              id, name: previous?.document.name ?? "Unavailable project", revision: null,
+              error: true, recoverable: Boolean(previous),
+            };
           }
         }),
       );

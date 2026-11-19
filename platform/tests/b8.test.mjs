@@ -269,6 +269,7 @@ test("Media archives validate every rendition before publishing, and deletion re
   };
   await store.saveDraft(project.id, draft, verify);
   assert.equal((await store.openDraft(project.id)).selected, draft.selected);
+  assert.equal((await store.list()).find(({ id }) => id === project.id).hasDraft, true);
   await assert.rejects(remove(), { status: 409 });
   const saved = await store.save(
     project.id,
@@ -276,6 +277,7 @@ test("Media archives validate every rendition before publishing, and deletion re
     verify,
   );
   assert.equal(await store.openDraft(project.id), null);
+  assert.equal((await store.list()).find(({ id }) => id === project.id).hasDraft, false);
   await assert.rejects(store.saveDraft(project.id, draft, verify), {
     status: 409,
   });

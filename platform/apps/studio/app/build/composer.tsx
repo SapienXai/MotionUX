@@ -42,6 +42,8 @@ type Row = {
   name: string;
   revision: number | null;
   error: boolean;
+  hasDraft?: boolean;
+  recoverable?: boolean;
   pages?: number;
   updatedAt?: number;
 };
@@ -148,6 +150,37 @@ function rememberProject(path: string) {
   window.history.replaceState(window.history.state, "", path);
   try { sessionStorage.setItem(projectPathKey, path); } catch { /* optional navigation memory */ }
   window.dispatchEvent(new Event("motionux:project"));
+}
+
+function ProjectCard({ row, disabled, open }: { row: Row; disabled: boolean; open: () => void }) {
+  const t = useStudioCopy();
+  const state = row.error ? (row.recoverable ? "recoverable" : "unavailable") : (row.hasDraft ? "draft" : "saved");
+  const captions = {
+    saved: { status: t("Saved", "Kayıtlı"), action: t("Open Studio", "Studio’yu aç") },
+    draft: { status: t("Draft", "Taslak"), action: t("Open draft", "Taslağı aç") },
+    recoverable: { status: t("Recovery", "Kurtarma"), action: t("Recover project", "Projeyi kurtar") },
+    unavailable: { status: t("Unavailable", "Kullanılamıyor"), action: "" },
+  };
+  const { status, action } = captions[state];
+  const subtitle = {
+    recoverable: t("A saved revision is available to recover", "Kurtarılabilir bir kayıtlı revizyon var"),
+    unavailable: t("No saved revision could be recovered", "Kurtarılabilir bir kayıtlı revizyon bulunamadı"),
+  };
+  const revision = t("Revision ", "Revizyon ") + row.revision +
+    (row.pages ? " · " + row.pages + t(row.pages === 1 ? " page" : " pages", " sayfa") : "");
+  return <button className="kinetic-project-card" type="button" disabled={disabled || state === "unavailable"}
+    style={{ "--project-hue": parseInt(row.id.slice(0, 4), 16) % 360 } as CSSProperties} onClick={open}>
+    <span className="kinetic-project-art" aria-hidden="true"><LayoutTemplate size={28} strokeWidth={1.25} /></span>
+    <span className="kinetic-project-caption"><span>
+      <strong dir="auto">{state === "unavailable" ? t("Unavailable project", "Proje açılamıyor") : row.name}</strong>
+      <small>{state === "recoverable" || state === "unavailable" ? subtitle[state] : revision}</small>
+    </span><span className="unified-project-status" data-state={state}>{status}</span></span>
+    <span className="unified-project-meta">
+      {row.updatedAt ? <time dateTime={new Date(row.updatedAt).toISOString()}><Clock3 size={13} aria-hidden="true" />
+        {new Intl.DateTimeFormat(t("en", "tr"), { dateStyle: "medium" }).format(row.updatedAt)}</time> : <span />}
+      {action && <span>{action} <ArrowUpRight size={13} aria-hidden="true" /></span>}
+    </span>
+  </button>;
 }
 
 export function ComposerHome({
@@ -505,20 +538,9 @@ export function ComposerHome({
               {!loading && !rows.length && <div className="kinetic-project-empty"><LayoutTemplate size={21} aria-hidden="true" />
                 <strong>{t("No saved projects yet", "Henüz kayıtlı proje yok")}</strong></div>}
               <div className="kinetic-project-grid" id="kinetic-project-grid">
-                {[...rows].sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0)).slice(0, allProjects ? undefined : 3).map((row) => <button className="kinetic-project-card" type="button" disabled={busy || generating || sourceOperation.active} key={row.id}
-                  style={{ "--project-hue": parseInt(row.id.slice(0, 4), 16) % 360 } as CSSProperties} onClick={() => void load("/" + row.id + (row.error ? "/recover" : ""), row.error ? "POST" : "GET")}>
-                  <span className="kinetic-project-art" aria-hidden="true"><LayoutTemplate size={28} strokeWidth={1.25} /></span>
-                  <span className="kinetic-project-caption"><span>
-                    <strong dir="auto">{row.error ? t("Recovery needed", "Kurtarma gerekli") : row.name}</strong>
-                    <small>{row.error ? t("Restore the last verified revision", "Son doğrulanmış revizyonu geri yükle") :
-                      t("Revision ", "Revizyon ") + row.revision + (row.pages ? " · " + row.pages + t(row.pages === 1 ? " page" : " pages", " sayfa") : "")}</small>
-                  </span><span className="unified-project-status" data-recovery={row.error}>{row.error ? t("Recovery", "Kurtarma") : t("Saved", "Kayıtlı")}</span></span>
-                  <span className="unified-project-meta">
-                    {row.updatedAt ? <time dateTime={new Date(row.updatedAt).toISOString()}><Clock3 size={13} aria-hidden="true" />
-                      {new Intl.DateTimeFormat(t("en", "tr"), { dateStyle: "medium" }).format(row.updatedAt)}</time> : <span />}
-                    <span>{row.error ? t("Recover project", "Projeyi kurtar") : t("Open Studio", "Studio’yu aç")} <ArrowUpRight size={13} aria-hidden="true" /></span>
-                  </span>
-                </button>)}
+                {[...rows].sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0)).slice(0, allProjects ? undefined : 3).map((row) =>
+                  <ProjectCard key={row.id} row={row} disabled={busy || generating || sourceOperation.active}
+                    open={() => void load("/" + row.id + (row.error ? "/recover" : ""), row.error ? "POST" : "GET")} />)}
               </div>
             </section>
             <details className="kinetic-templates">

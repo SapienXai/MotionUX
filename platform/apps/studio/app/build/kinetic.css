@@ -218,7 +218,8 @@
 .kinetic-project-caption small, .kinetic-template small { display: block; margin-block-start: .25rem; color: var(--k-muted); font-size: .74rem; line-height: 1.35; }
 .kinetic-project-caption svg, .kinetic-template > svg { color: var(--k-accent); }
 .unified-project-status { flex: none; color: var(--k-success); font-size: .73rem; font-weight: 650; }
-.unified-project-status[data-recovery="true"] { color: var(--k-danger); }
+.unified-project-status:is([data-state="recoverable"], [data-state="unavailable"]) { color: var(--k-danger); }
+.unified-project-status[data-state="draft"] { color: var(--k-accent); }
 .unified-project-status::before {
   content: ""; display: inline-block; inline-size: .3rem; block-size: .3rem; margin-inline-end: .38rem;
   border-radius: 50%; background: currentColor; vertical-align: middle;
