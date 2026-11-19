@@ -152,9 +152,11 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
   </label>);
   const inspector = <>
     <p>{t("Adjust the controls exposed by this application.", "Bu uygulamanın sunduğu kontrolleri düzenle.")}</p>
-    {[[t("Content", "İçerik"), "text"], [t("Appearance", "Görünüm"), "appearance"], [t("Interaction", "Etkileşim"), "motion"]].map(([label, kind]) => {
+    {[[t("Content", "İçerik"), "text"], [t("Style", "Stil"), "appearance"], [t("Motion", "Hareket"), "motion"]].map(([label, kind]) => {
       const controls = fields.filter((_, index) => (["color", "size", "spacing"].includes(program.controls[index].kind) ? "appearance" : program.controls[index].kind) === kind);
-      return controls.length ? <section key={kind}><h3>{label}</h3>{controls}</section> : null;
+      if (!controls.length) return null;
+      return kind === "text" ? <section key={kind}><h3>{label}</h3>{controls}</section> :
+        <details key={kind}><summary>{label}</summary><section>{controls}</section></details>;
     })}
     <button type="button" className="kinetic-button" disabled={locked || dirty || !saved.revision} onClick={() => {
       if (!confirm(t("Restore the previous revision as a new saved revision?", "Önceki revizyon yeni bir kayıt olarak geri yüklensin mi?"))) return;
@@ -167,7 +169,7 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
     {error && <p role="alert">{error}</p>}
     {feedback && <p role="status">{feedback}</p>}
   </>;
-  return <KineticEditor name={saved.document.name} revision={saved.revision} dirty={dirty} draftSaved={draftSaved} locked={locked}
+  return <KineticEditor projectId={saved.id} name={saved.document.name} revision={saved.revision} dirty={dirty} draftSaved={draftSaved} locked={locked}
     error={error} feedback={feedback} pages={program.pages} route={route} onPage={setRoute}
     inspectorTitle={t("Application controls", "Uygulama kontrolleri")} inspector={inspector} sources={sources}
     preview={preview} frame={frame} onFrameLoad={projectControls} exportBlocked={localOnly}

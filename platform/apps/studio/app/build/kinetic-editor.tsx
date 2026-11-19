@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent, type ReactNode, type RefObject } from "react";
-import { ArrowDownToLine, ArrowLeft, ArrowRight, ChevronDown, ExternalLink, File, Monitor, PanelLeft, Play, Redo2, Save, Settings2, Smartphone, Sparkles, Square, Tablet, Undo2 } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, ChevronDown, ExternalLink, File, List, Monitor, PanelLeft, Play, Redo2, Save, Settings2, Smartphone, Sparkles, Square, Tablet, Undo2 } from "lucide-react";
+import { useWideWorkspace, WorkspaceHeader, WorkspaceStructure } from "@motionux/build-canvas/workspace";
+import { RuntimeInspector } from "@motionux/build-canvas/runtime-inspector";
 import { SegmentedControl } from "../../../../../components/navigation/motion-selector";
 import { openStudioSheet, StudioSheet, useStudioCopy } from "./kinetic-ui";
+import { sourceRequest } from "./source-job";
 
 export type SourcePreview = { documentDigest?: string; id?: string; revision?: number; status: string; url?: string; message?: string };
 const screens = {
@@ -14,10 +17,10 @@ const screens = {
 type Device = keyof typeof screens;
 type Page = { id: string; title: string; route: string };
 
-export function KineticEditor({ name, revision, dirty, draftSaved, locked, error, feedback, notice, pages, route, onPage,
+export function KineticEditor({ projectId, name, revision, dirty, draftSaved, locked, error, feedback, notice, pages, route, onPage,
   outline, sources, inspector, inspectorTitle, inspectRequest, preview, frame, onFrameLoad, previewPath, onBack, onUndo, onRedo,
   onSave, onRun, onExport, canUndo, canRedo, exportBlocked, brief, onBrief, onRevise, job }: {
-  name: string; revision: number; dirty: boolean; draftSaved: boolean; locked: boolean;
+  projectId: string; name: string; revision: number; dirty: boolean; draftSaved: boolean; locked: boolean;
   error: string; feedback: string; notice?: ReactNode; pages: Page[]; route: string; onPage: (route: string) => void;
   outline?: ReactNode; sources: ReactNode; inspector: ReactNode; inspectorTitle: string; inspectRequest?: number;
   preview?: SourcePreview; frame?: RefObject<HTMLIFrameElement | null>; onFrameLoad?: () => void; previewPath?: string;
@@ -28,6 +31,7 @@ export function KineticEditor({ name, revision, dirty, draftSaved, locked, error
   const t = useStudioCopy();
   const [device, setDevice] = useState<Device>(() => typeof window === "undefined" ? "desktop" :
     window.matchMedia("(max-width: 600px)").matches ? "mobile" : window.matchMedia("(max-width: 1050px)").matches ? "tablet" : "desktop");
+  const wide = useWideWorkspace();
   const [fullSize, setFullSize] = useState(false);
   const [rail, setRail] = useState(true);
   const [width, setWidth] = useState(0);
@@ -41,7 +45,7 @@ export function KineticEditor({ name, revision, dirty, draftSaved, locked, error
   const currentPage = pages.find((page) => route === page.route) ?? pages[0];
   const ready = preview?.status === "ready" && preview.url;
   const running = Boolean(preview && ["building", "starting", "ready"].includes(preview.status));
-  const title = running ? t("Stop Run", "Önizlemeyi durdur") : t("Run", "Çalıştır");
+  const title = running ? t("Stop preview", "Önizlemeyi durdur") : t("Preview", "Önizleme");
   const dimensions = idealWidth + " × " + height + " · " + Math.round(scale * 100) + "%";
   const canRevise = !locked && !dirty && brief.trim().length >= 12;
 
@@ -59,8 +63,8 @@ export function KineticEditor({ name, revision, dirty, draftSaved, locked, error
     return () => observer.disconnect();
   }, [ready]);
   useEffect(() => {
-    if (inspectRequest && !properties.current?.open) properties.current?.showModal();
-  }, [inspectRequest]);
+    if (inspectRequest && !wide && !properties.current?.open) properties.current?.showModal();
+  }, [inspectRequest, wide]);
 
   useEffect(() => {
     if (!dirty || draftSaved) return;
@@ -85,19 +89,10 @@ export function KineticEditor({ name, revision, dirty, draftSaved, locked, error
   const exportReason = exportBlocked ? t("Local sources restrict export.", "Yerel kaynaklar dışa aktarmayı kısıtlıyor.") :
     dirty ? t("Save your changes before exporting.", "Dışa aktarmadan önce değişiklikleri kaydet.") : undefined;
   return <main className="kinetic kinetic-editor">
-    <header className="kinetic-command">
-      <button type="button" className="kinetic-button kinetic-back" onClick={() => { if (!dirty || draftSaved || confirm(t("Leave before the draft is saved?", "Taslak kaydedilmeden çıkılsın mı?"))) onBack(); }} disabled={locked}
-        aria-label={t("Projects", "Projeler")}><ArrowLeft size={16} aria-hidden="true" /><span>{t("Projects", "Projeler")}</span></button>
-      <div className="kinetic-project-name"><h1 dir="auto">{name}</h1><span role="status" data-saved={!dirty || draftSaved}>
-        {dirty ? draftSaved ? t("Draft saved locally", "Taslak yerelde kaydedildi") : t("Unsaved changes", "Kaydedilmemiş değişiklikler") :
-          t("Saved revision ", "Kayıtlı revizyon ") + revision}
-      </span></div>
-      <div className="kinetic-command-actions">
-        <SegmentedControl className="kinetic-devices" label={t("Preview size", "Önizleme boyutu")} value={device}
-          options={Object.entries(screens).map(([value, { Icon }]) => ({
-            value, label: value === "desktop" ? t("Desktop", "Masaüstü") : value === "tablet" ? "Tablet" : t("Mobile", "Mobil"),
-            icon: <Icon size={14} aria-hidden="true" />,
-          }))} onValueChange={(value) => setDevice(value as Device)} />
+    <WorkspaceHeader name={name} revision={revision} dirty={dirty} draftSaved={draftSaved} busy={locked}
+      backLabel={t("Projects", "Projeler")} statusLabels={{ saved: t("All changes saved", "Tüm değişiklikler kaydedildi"),
+        draft: t("Draft saved locally", "Taslak yerelde kaydedildi"), unsaved: t("Unsaved changes", "Kaydedilmemiş değişiklikler") }}
+      onBack={() => { if (!dirty || draftSaved || confirm(t("Leave before the draft is saved?", "Taslak kaydedilmeden çıkılsın mı?"))) onBack(); }}>
         <div className="kinetic-history">
           <button className="kinetic-icon" type="button" aria-label={t("Undo", "Geri al")} title={t("Undo", "Geri al")} disabled={!canUndo || locked} onClick={onUndo}><Undo2 size={16} /></button>
           <button className="kinetic-icon" type="button" aria-label={t("Redo", "Yinele")} title={t("Redo", "Yinele")} disabled={!canRedo || locked} onClick={onRedo}><Redo2 size={16} /></button>
@@ -110,33 +105,34 @@ export function KineticEditor({ name, revision, dirty, draftSaved, locked, error
         <button className="kinetic-button kinetic-export" type="button" aria-haspopup="dialog" aria-label={t("Export and actions", "Dışa aktar ve işlemler")} onClick={(event) => openStudioSheet(actions.current, event.currentTarget)}>
           <span>{t("Export and actions", "Dışa aktar ve işlemler")}</span><ChevronDown size={14} aria-hidden="true" />
         </button>
-      </div>
-    </header>
+    </WorkspaceHeader>
     {notice}
     {error && <p className="kinetic-editor-notice" role="alert">{error}</p>}
     {feedback && <p className="kinetic-editor-notice" role="status">{feedback}</p>}
-    <div className="kinetic-workspace" data-rail={rail}>
-      <aside className="kinetic-rail" hidden={!rail} aria-label={t("Project outline", "Proje yapısı")}>
+    <div className="kinetic-workspace" data-rail={rail} data-properties={wide}>
+      <WorkspaceStructure className="kinetic-rail" hidden={!rail} aria-label={t("Project outline", "Proje yapısı")}>
         <h2>{t("Pages", "Sayfalar")}</h2>{pageLinks()}{outline}{sources}
-      </aside>
+      </WorkspaceStructure>
       <section className="kinetic-stage" aria-label={t("Application canvas", "Uygulama tuvali")}>
         <div className="kinetic-stage-bar">
           <button type="button" className="kinetic-icon kinetic-rail-toggle" onClick={() => setRail(!rail)}
             aria-label={t("Toggle workspace rail", "Çalışma panelini aç veya kapat")} aria-pressed={rail}
             title={t("Toggle workspace rail", "Çalışma panelini aç veya kapat")}><PanelLeft size={16} aria-hidden="true" /></button>
-          <button type="button" className="kinetic-icon kinetic-pages-trigger" aria-haspopup="dialog" onClick={(event) => openStudioSheet(navigation.current, event.currentTarget)}
-            aria-label={t("Pages and sources", "Sayfalar ve kaynaklar")} title={t("Pages and sources", "Sayfalar ve kaynaklar")}><PanelLeft size={16} aria-hidden="true" /></button>
           <div className="kinetic-stage-heading"><h2 dir="auto">{currentPage.title}</h2>
             <span role="status">{ready ? dirty ? onFrameLoad ? t("Live preview · draft controls", "Canlı önizleme · taslak kontrolleri")
                 : t("Live preview · saved revision", "Canlı önizleme · kayıtlı revizyon") : t("Live preview", "Canlı önizleme") :
               preview?.message ?? t("Saved application", "Kayıtlı uygulama")}</span>
           </div>
+        <SegmentedControl className="kinetic-devices" label={t("Preview size", "Önizleme boyutu")} value={device}
+          options={Object.entries(screens).map(([value, { Icon }]) => ({
+            value, label: value === "desktop" ? t("Desktop", "Masaüstü") : value === "tablet" ? "Tablet" : t("Mobile", "Mobil"),
+            icon: <Icon size={14} aria-hidden="true" />,
+          }))} onValueChange={(value) => setDevice(value as Device)} />
           <div className="kinetic-stage-actions">
             {ready && <select className="kinetic-scale" aria-label={t("Preview scale", "Önizleme ölçeği")} value={fullSize ? "actual" : "fit"}
               onChange={(event) => setFullSize(event.target.value === "actual")}>
               <option value="fit">{t("Fit", "Sığdır")}</option><option value="actual">100%</option>
             </select>}
-            <button type="button" className="kinetic-button" aria-haspopup="dialog" onClick={(event) => openStudioSheet(properties.current, event.currentTarget)}><Settings2 size={15} aria-hidden="true" />{t("Inspector", "Denetçi")}</button>
           </div>
         </div>
         {ready ? <>
@@ -150,13 +146,13 @@ export function KineticEditor({ name, revision, dirty, draftSaved, locked, error
           </div>
           <div className="kinetic-frame-caption"><span>{dimensions}</span>
             <a href={preview.url + (previewPath ?? currentPage.route)} target="_blank" rel="noreferrer">{t("Open Run", "Önizlemeyi aç")}<ExternalLink size={13} aria-hidden="true" /></a>
-            <button type="button" className="kinetic-button kinetic-mobile-stop" disabled={locked} onClick={onRun}>{title}</button>
+            <RuntimeInspector key={revision} pages={pages} route={currentPage.route} revision={revision} disabled={dirty || locked}
+              inspect={(route, signal) => sourceRequest("/" + projectId + "/inspect", "POST", { route, revision }, signal)} />
           </div>
         </> : <div className="kinetic-stage-empty">
           <span className="kinetic-empty-icon"><Monitor size={26} aria-hidden="true" /></span>
           <strong>{running ? t("Starting the application", "Uygulama başlatılıyor") : t("Your application canvas", "Uygulama tuvalin")}</strong>
           <p>{dirty ? t("Save changes to run this revision.", "Bu revizyonu çalıştırmak için kaydet.") : t("Run the saved application to interact with it here.", "Burada etkileşim için kayıtlı uygulamayı çalıştır.")}</p>
-          {!running && <button type="button" className="kinetic-button kinetic-primary" disabled={dirty || locked} onClick={onRun}><Play size={15} aria-hidden="true" />{t("Open saved preview", "Kayıtlı önizlemeyi aç")}</button>}
         </div>}
         <div className="kinetic-revision">
           {job}
@@ -179,10 +175,24 @@ export function KineticEditor({ name, revision, dirty, draftSaved, locked, error
           </form>
         </div>
       </section>
+      {wide && <aside className="kinetic-properties unified-properties" aria-label={inspectorTitle}>
+        <h2>{t("Properties", "Özellikler")}</h2>{inspector}
+      </aside>}
     </div>
-    <StudioSheet dialog={properties} title={inspectorTitle} side>
-      <aside className="kinetic-properties" aria-label={t("Source properties", "Kaynak özellikleri")}>{inspector}</aside>
-    </StudioSheet>
+    {!wide && <nav className="unified-source-mobile-nav" aria-label={t("Editor panes", "Düzenleme panelleri")}>
+      <button type="button" className="kinetic-button" aria-haspopup="dialog" onClick={(event) => openStudioSheet(navigation.current, event.currentTarget)}>
+        <List size={17} aria-hidden="true" />{t("Pages", "Sayfalar")}
+      </button>
+      <button type="button" className="kinetic-button" disabled={locked || dirty && !running} onClick={onRun}>
+        {running ? <Square size={17} aria-hidden="true" /> : <Play size={17} aria-hidden="true" />}{running ? t("Stop", "Durdur") : t("Preview", "Önizleme")}
+      </button>
+      <button type="button" className="kinetic-button" aria-haspopup="dialog" onClick={(event) => openStudioSheet(properties.current, event.currentTarget)}>
+        <Settings2 size={17} aria-hidden="true" />{t("Properties", "Özellikler")}
+      </button>
+    </nav>}
+    {!wide && <StudioSheet dialog={properties} title={inspectorTitle} side>
+      <div className="kinetic-properties">{inspector}</div>
+    </StudioSheet>}
     <StudioSheet dialog={navigation} title={t("Pages and sources", "Sayfalar ve kaynaklar")} side>
       <div className="kinetic-rail-content">{pageLinks(() => navigation.current?.close())}{outline}{sources}</div>
     </StudioSheet>

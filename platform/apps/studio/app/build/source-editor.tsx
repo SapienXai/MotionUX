@@ -169,7 +169,7 @@ export function SourceEditor({ initial, onBack }: { initial: BuildProject; onBac
     }}>{t("Restore previous revision", "Önceki revizyonu geri yükle")}</button>
     {error && <p role="alert">{error}</p>}
   </>;
-  return <KineticEditor name={saved.document.name} revision={saved.revision} dirty={dirty} draftSaved={draftSaved} locked={locked} error={error} feedback={feedback}
+  return <KineticEditor projectId={saved.id} name={saved.document.name} revision={saved.revision} dirty={dirty} draftSaved={draftSaved} locked={locked} error={error} feedback={feedback}
     pages={graph.pages} route={page.route} onPage={(next) => { setRoute(next); setSelected(""); }} outline={outline} sources={sources}
     inspectorTitle={t("Section properties", "Bölüm özellikleri")} inspector={inspector} inspectRequest={inspectRequest}
     preview={preview} previewPath={page.route + (selected ? "#" + encodeURIComponent(node.id) : "")}

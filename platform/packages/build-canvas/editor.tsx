@@ -4,8 +4,6 @@ import {
   ArrowDown,
   ArrowUp,
   Blocks,
-  Check,
-  ChevronDown,
   CircleAlert,
   Copy,
   Download,
@@ -43,6 +41,7 @@ import { ArticleFields, TaskFields } from "./collection-fields";
 import { FrameSize } from "./frame-size";
 import { IdentityFields } from "./identity-fields";
 import { MotionDnaFields } from "./motion-dna-fields";
+import { openStudioSheet, StudioSheet, useWideWorkspace, WorkspaceHeader, WorkspaceStructure } from "./workspace-shell";
 import { RuntimeInspector } from "./runtime-inspector";
 import { IntegrationLab } from "./integration-lab";
 import { readLocalDraft, selectBlock, writeLocalDraft } from "./creator-recovery";
@@ -179,11 +178,20 @@ export function Editor({
   const [mediaInventory, setMediaInventory] = useState<MediaRecord[]>([]);
   const pageDialog = useRef<{ add: (pattern: PagePatternId) => void }>(null);
   const frameElement = useRef<HTMLDivElement>(null);
+  const exportDialog = useRef<HTMLDialogElement>(null);
+  const libraryDialog = useRef<HTMLDialogElement>(null);
+  const propertiesDialog = useRef<HTMLDialogElement>(null);
+  const wide = useWideWorkspace();
   const [focusCanvas, setFocusCanvas] = useState(false);
   const [identityPreview, setIdentityPreview] = useState<DesignIdentity>();
   const [preview, setPreview] = useState<Preview>({ status: "idle" });
   const [mode, setMode] = useState<"edit" | "interact" | "run">(originalDraft?.mode ?? "edit");
   const [panel, setPanel] = useState<"left" | "canvas" | "right">(originalDraft?.panel ?? "canvas");
+  useEffect(() => {
+    if (wide) return;
+    const next = panel === "left" ? libraryDialog.current : panel === "right" ? propertiesDialog.current : null;
+    if (next && !next.open) next.showModal();
+  }, [panel, wide]);
   const [busy, setBusy] = useState("");
   const [message, setMessage] = useState("");
   const [recent, setRecent] = useState<BlockId[]>([]);
@@ -502,20 +510,56 @@ export function Editor({
       if (target) setPageId(target.id);
     },
   };
+  const library = <>
+    <Pages
+      document={document}
+      page={page}
+      onSelect={setPageId}
+      onAdd={addPage}
+      onRename={updatePage}
+      dialogHandle={pageDialog}
+    />
+    <Palette
+      document={document}
+      route={page.route}
+      mediaBase={mediaBase}
+      onPattern={(pattern) => pageDialog.current?.add(pattern)}
+      recent={recent}
+      onUsed={(type) =>
+        setRecent((value) =>
+          [type, ...value.filter((item) => item !== type)].slice(
+            0,
+            4,
+          ),
+        )
+      }
+      count={page.blocks.length}
+    />
+    {marketing && <MediaPanel onInventory={setMediaInventory} project={initial.id} document={document} onDocument={commit}
+      onPurged={(id) => setHistory((previous) => ({
+        ...previous,
+        past: previous.past.filter(({ assets }) => !assets.includes(id)),
+        future: previous.future.filter(({ assets }) => !assets.includes(id)),
+      }))} />}
+  </>;
+  const properties = <Properties
+      document={document}
+      page={page}
+      onDocument={commit}
+      device={device}
+      media={mediaInventory}
+      mediaBase={mediaBase}
+      previewIdentity={setIdentityPreview}
+      setTheme={setTheme}
+    />;
   return (
     <main className="build-app kinetic-puck">
-      <header className="build-toolbar">
-        <button
-          type="button"
-          className="build-button build-project-title"
-          onClick={() => {
-            if (!dirty || draftSafe || confirm("Leave this project with unsaved changes?"))
-              onBack();
-          }}
-        >
-          <span>{document.name}</span>
-          <ChevronDown size={14} />
-        </button>
+      <WorkspaceHeader name={document.name} revision={saved.revision} dirty={dirty} draftSaved={draftSafe} busy={Boolean(busy)}
+        backLabel={tr ? "Projeler" : "Projects"}
+        statusLabels={{ saved: tr ? "Tüm değişiklikler kaydedildi" : "All changes saved",
+          draft: tr ? "Taslak yerelde kaydedildi" : "Draft saved locally",
+          unsaved: tr ? "Kaydedilmemiş değişiklikler" : "Unsaved changes" }}
+        onBack={() => { if (!dirty || draftSafe || confirm("Leave this project with unsaved changes?")) onBack(); }}>
       {initial.blueprint && <details className="build-blueprint-note">
         <summary>App blueprint</summary>
         <div><strong>Codex plan · spec v{initial.blueprint.blockSpecVersion}</strong>
@@ -545,16 +589,6 @@ export function Editor({
           </button>
         </div>
         <div className="build-toolbar-actions">
-          <span className="build-state" role="status">
-            {busy ||
-              (dirty ? (
-                "Unsaved"
-              ) : (
-                <>
-                  <Check size={13} /> Saved
-                </>
-              ))}
-          </span>
           <ToolbarButton
             label="Undo"
             disabled={!history.past.length}
@@ -577,25 +611,19 @@ export function Editor({
           >
             <Save size={15} /> Save
           </button>
-          <button
-            type="button"
-            className="build-button accent"
-            disabled={Boolean(busy)}
-            onClick={() => void download()}
-          >
-            <Download size={15} /> Export
-          </button>
-          <button
-            type="button"
-            className="build-button"
-            title="Download installable source with offline pages"
-            disabled={Boolean(busy)}
-            onClick={() => void download(true)}
-          >
-            Export PWA
+          <button type="button" className="build-button accent" aria-haspopup="dialog" disabled={Boolean(busy)}
+            onClick={(event) => openStudioSheet(exportDialog.current, event.currentTarget)}>
+            <Download size={15} aria-hidden="true" /> Export
           </button>
         </div>
-      </header>
+      </WorkspaceHeader>
+      <StudioSheet dialog={exportDialog} title={tr ? "Uygulamayı dışa aktar" : "Export application"}>
+        <div className="kinetic-export-actions">
+          <button className="build-button" type="button" onClick={() => { exportDialog.current?.close(); void download(); }}>Export Next.js</button>
+          <button className="build-button" type="button" onClick={() => { exportDialog.current?.close(); void download(true); }}>Export PWA</button>
+          {dirty && <p>{tr ? "Dışa aktarmadan önce değişiklikler kaydedilir." : "Changes will be saved before export."}</p>}
+        </div>
+      </StudioSheet>
       {message && (
         <div className="build-alert" role="alert">
           <CircleAlert size={16} /> {message}
@@ -613,22 +641,6 @@ export function Editor({
         <button type="button" className="build-button" onClick={() => restoreDraft(conflict)}>{tr ? "Taslağı aç" : "Restore draft"}</button>
         <button type="button" className="build-button" onClick={() => void discardDraft()}>{tr ? "Taslağı at" : "Discard draft"}</button>
       </div>}
-      <nav className="build-mobile-panels" aria-label="Editor panes">
-        {(["left", "canvas", "right"] as const).map((id) => (
-          <button
-            type="button"
-            key={id}
-            aria-pressed={panel === id}
-            onClick={() => { setPanel(id); setFocusCanvas(false); }}
-          >
-            {id === "left"
-              ? "Library"
-              : id === "right"
-                ? "Properties"
-                : "Canvas"}
-          </button>
-        ))}
-      </nav>
       <RuntimeContext.Provider value={runtime}>
         <Puck
           key={page.id + ":" + epoch}
@@ -640,44 +652,13 @@ export function Editor({
           onChange={onChange}
         >
           <RememberSelection onSelect={setSelected} />
-          <div className="build-workspace" data-pane={panel} data-focus-canvas={focusCanvas}>
-            <aside className="build-left" aria-label="Pages and blocks">
-              <Pages
-                document={document}
-                page={page}
-                onSelect={setPageId}
-                onAdd={addPage}
-                onRename={updatePage}
-                dialogHandle={pageDialog}
-              />
-              <Palette
-                document={document}
-                route={page.route}
-                mediaBase={mediaBase}
-                onPattern={(pattern) => pageDialog.current?.add(pattern)}
-                recent={recent}
-                onUsed={(type) =>
-                  setRecent((value) =>
-                    [type, ...value.filter((item) => item !== type)].slice(
-                      0,
-                      4,
-                    ),
-                  )
-                }
-                count={page.blocks.length}
-              />
-              {marketing && <MediaPanel onInventory={setMediaInventory} project={initial.id} document={document} onDocument={commit}
-                onPurged={(id) => setHistory((previous) => ({
-                  ...previous,
-                  past: previous.past.filter(({ assets }) => !assets.includes(id)),
-                  future: previous.future.filter(({ assets }) => !assets.includes(id)),
-                }))} />}
-            </aside>
+          <div className="build-workspace" data-focus-canvas={focusCanvas} data-compact={!wide}>
+            {wide && <WorkspaceStructure className="build-left" aria-label="Pages and blocks">{library}</WorkspaceStructure>}
             <section className="build-canvas" aria-label="Application canvas">
               <div className="build-canvas-bar">
                 {identityPreview && mode !== "run" && <button type="button" className="build-button" onClick={() => setIdentityPreview(undefined)}>Close style preview</button>}
                 <div className="kinetic-puck-page">
-                  <h1 dir="auto">{page.title}</h1>
+                  <h2 dir="auto">{page.title}</h2>
                   <small className="build-route">{page.route}</small>
                 </div>
                 <div className="build-viewports" aria-label="Viewport">
@@ -816,22 +797,31 @@ export function Editor({
                   )}
               </footer>
             </section>
-            <aside className="build-right" aria-label="Properties">
+            {wide && <aside className="build-right" aria-label="Properties">{properties}</aside>}
 
-              <Properties
-                document={document}
-                page={page}
-                onDocument={commit}
-                device={device}
-                media={mediaInventory}
-                mediaBase={mediaBase}
-                previewIdentity={setIdentityPreview}
-                setTheme={setTheme}
-              />
-            </aside>
           </div>
+          {!wide && <>
+            <StudioSheet dialog={libraryDialog} title={tr ? "Sayfalar ve bloklar" : "Pages and blocks"} side onDismiss={() => setPanel("canvas")}>{library}</StudioSheet>
+            <StudioSheet dialog={propertiesDialog} title={tr ? "Özellikler" : "Properties"} side onDismiss={() => setPanel("canvas")}>{properties}</StudioSheet>
+          </>}
         </Puck>
       </RuntimeContext.Provider>
+      <nav className="build-mobile-panels unified-mobile-workspace-nav" aria-label="Editor panes">
+        {(["left", "canvas", "right"] as const).map((id) => (
+          <button
+            type="button"
+            key={id}
+            aria-pressed={panel === id}
+            onClick={(event) => { event.currentTarget.focus({ preventScroll: true }); setPanel(id); setFocusCanvas(false); }}
+          >
+            {id === "left"
+              ? "Library"
+              : id === "right"
+                ? "Properties"
+                : "Canvas"}
+          </button>
+        ))}
+      </nav>
     </main>
   );
 }

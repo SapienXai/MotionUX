@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./editor.tsx"
+    ".": "./editor.tsx",
+    "./workspace": "./workspace-shell.tsx",
+    "./runtime-inspector": "./runtime-inspector.tsx"
   },
   "dependencies": {
     "@motionux/app-blocks": "workspace:*",
