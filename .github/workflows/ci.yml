@@ -18,6 +18,15 @@ jobs:
         with:
           node-version: "24"
           cache: npm
+      - name: Install ZIP verifier from Ubuntu Noble
+        run: |
+          unzip_package="$RUNNER_TEMP/motionux-unzip.deb"
+          curl --fail --silent --show-error --retry 3 --max-time 60 \
+            --output "$unzip_package" \
+            https://archive.ubuntu.com/ubuntu/pool/main/u/unzip/unzip_6.0-28ubuntu4.1_amd64.deb
+          printf '%s  %s\n' a505b9d491386167bd8e14e3383315a4a7d6539e4406745901ccf009a7988271 "$unzip_package" | sha256sum --check
+          dpkg-deb --extract "$unzip_package" "$RUNNER_TEMP/motionux-tools"
+          printf '%s\n' "$RUNNER_TEMP/motionux-tools/usr/bin" >> "$GITHUB_PATH"
       - run: npm ci
       - run: npm run verify
         env:
