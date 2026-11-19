@@ -411,7 +411,6 @@ export function Editor({
     setBusy("Starting preview");
     setMode("run");
     setPanel("canvas");
-    setFocusCanvas(true);
     try {
       const active = await request<Preview>("/preview");
       if (
@@ -526,7 +525,10 @@ export function Editor({
     <Pages
       document={document}
       page={page}
-      onSelect={setPageId}
+      onSelect={(id) => {
+        setPageId(id);
+        if (!wide) libraryDialog.current?.close();
+      }}
       onAdd={addPage}
       onRename={updatePage}
       dialogHandle={pageDialog}
