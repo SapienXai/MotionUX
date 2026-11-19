@@ -304,7 +304,7 @@ async function stage(page, app, work) {
 }
 async function verifyRun(page, app, saved, digest) {
   const start = performance.now();
-  await button(page, "Run").click();
+  await button(page, "Preview").click();
   const frame = page.frameLocator('iframe[title="Live Next.js application"]');
   await expect(frame.locator(".site,.hotel")).toHaveAttribute("data-project-identity", app.preset, { timeout: 120_000 });
   const state = await page.evaluate(() => fetch("/api/build/preview").then((r) => r.json()));

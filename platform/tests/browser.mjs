@@ -529,7 +529,7 @@ try {
     .getByRole("button", { name: /Overview/ })
     .click();
   await button(page, "Save").click();
-  await expect(page.getByText("Saved", { exact: true })).toBeVisible();
+  await expect(page.locator(".unified-workspace-head").getByRole("status")).toHaveText("All changes saved");
   const saved = await api(page, "/" + id);
   assert.ok(saved.data.revision > initial.data.revision);
   const edited = saved.data.document.pages[0].blocks;
@@ -586,7 +586,7 @@ try {
   check("HTTP origin, schema and revision rejection");
 
   if (localSuite) {
-    await button(page, "Run").click();
+    await button(page, "Preview").click();
     await expect(
       page.locator('iframe[title="Live Next.js application"]'),
     ).toBeVisible({ timeout: 120000 });

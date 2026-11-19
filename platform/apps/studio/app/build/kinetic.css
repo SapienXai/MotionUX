@@ -401,7 +401,7 @@
     background: var(--k-surface); border-block-start: 1px solid var(--k-line);
   }
   .unified-mobile-workspace-nav button { min-block-size: 44px; }
-  .unified-source-mobile-nav button {
+  .unified-source-mobile-nav > button {
     flex: 1; min-inline-size: 0; min-block-size: 48px; padding: .2rem; flex-direction: column; gap: .22rem;
     border-color: transparent; background: transparent; font-size: .73rem; overflow-wrap: anywhere;
   }
@@ -410,7 +410,7 @@
 .kinetic-puck .build-canvas { background-color: var(--k-bg); background-image: radial-gradient(var(--k-line) .6px, transparent .7px); background-size: 17px 17px; }
 .kinetic-puck .build-canvas-paper { border-radius: 14px; box-shadow: var(--k-shadow); }
 .kinetic-puck .kinetic-puck-page { display: grid; min-inline-size: 0; }
-.kinetic-puck .kinetic-puck-page h2 { margin: 0; font-size: .9rem; overflow-wrap: anywhere; }
+.kinetic-puck .kinetic-puck-page strong { font-size: .9rem; overflow-wrap: anywhere; }
 .kinetic-puck .kinetic-puck-page small { color: var(--k-muted); font-size: .72rem; }
 
 @media (prefers-reduced-motion: no-preference) {

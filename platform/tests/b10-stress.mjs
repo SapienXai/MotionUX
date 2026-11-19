@@ -155,7 +155,7 @@ try {
       await page.setViewportSize({ width, height: 900 });
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), theme + " " + width + " overflow");
       await expect(button(page, "Save")).toBeInViewport();
-      await expect(button(page, "Run")).toBeInViewport();
+      await expect(button(page, "Preview")).toBeInViewport();
       result.widths.push({ theme, width });
     }
     await page.setViewportSize({ width: 320, height: 844 });

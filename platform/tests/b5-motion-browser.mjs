@@ -170,7 +170,7 @@ export async function configureMotion(page, spec, local, validateRun) {
   };
 
   if (local) {
-    await page.getByRole("button", { name: "Run", exact: true }).click();
+    await page.getByRole("button", { name: "Preview", exact: true }).click();
     const frame = page.frameLocator('iframe[title="Live Next.js application"]');
     await expect(
       frame.getByRole("heading", { name: spec.hero, exact: true }),

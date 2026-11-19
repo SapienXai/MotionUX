@@ -9,7 +9,7 @@ const browser = await chromium.launch();
 const studio = await browser.newPage();
 try {
   await studio.goto("http://127.0.0.1:5200/build?project=" + project.id);
-  await studio.getByRole("button", { name: "Run", exact: true }).click();
+  await studio.getByRole("button", { name: "Preview", exact: true }).click();
   await expect(studio.frameLocator('iframe[title="Live source application"]').getByRole("heading", { level: 1 })).toBeVisible({ timeout: 90_000 });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
   await page.goto("http://127.0.0.1:5202/");

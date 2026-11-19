@@ -71,7 +71,7 @@ try {
   for (const name of ["project.json", "next.zip", "pwa.zip", "1440.png", "390.png"])
     await cp(resolve(evidence, label + "-" + name), resolve(before, name));
   await writeFile(resolve(evidence, label + "-project.json"), JSON.stringify(project, null, 2), { mode: 0o600 });
-  await expect(page.getByRole("status").filter({ hasText: "Saved revision " + project.revision })).toBeVisible();
+  await expect(page.locator(".unified-workspace-head").getByRole("status")).toHaveAttribute("title", "All changes saved · " + project.revision);
   const runtime = await browser.newPage({ reducedMotion: "reduce" });
   for (const width of [1440, 768, 390, 320]) {
     await runtime.setViewportSize({ width, height: width === 1440 ? 1000 : 844 });

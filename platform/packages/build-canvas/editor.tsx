@@ -15,6 +15,7 @@ import {
   Minimize2,
   Moon,
   Plus,
+  Play,
   Redo2,
   Save,
   Smartphone,
@@ -579,27 +580,9 @@ export function Editor({
           <code>{initial.blueprint.digest.slice(0, 12)}</code>
         </div>
       </details>}
-        <div className="build-mode" aria-label="Canvas mode">
-          <button
-            type="button"
-            aria-pressed={mode === "edit"} disabled={revising}
-            onClick={() => { setMode("edit"); setFocusCanvas(false); }}
-          >
-            {tr ? "Düzenle" : "Edit"}
-          </button>
-          <button type="button" aria-pressed={mode === "interact"} disabled={revising} onClick={() => { setMode("interact"); setPanel("canvas"); }}>
-            {tr ? "Etkileşim" : "Interact"}
-          </button>
-          <button
-            type="button"
-            aria-pressed={mode === "run"}
-            disabled={locked}
-            onClick={run}
-          >
-            Run
-          </button>
-        </div>
         <div className="build-toolbar-actions">
+          <button type="button" className="kinetic-button" disabled={locked}
+            onClick={run}><Play size={15} aria-hidden="true" />{tr ? "Önizleme" : "Preview"}</button>
           <ToolbarButton
             label="Undo"
             disabled={!history.past.length || locked}
@@ -669,8 +652,14 @@ export function Editor({
               <div className="build-canvas-bar">
                 {identityPreview && mode !== "run" && <button type="button" className="build-button" onClick={() => setIdentityPreview(undefined)}>Close style preview</button>}
                 <div className="kinetic-puck-page">
-                  <h2 dir="auto">{page.title}</h2>
+                  <strong dir="auto">{page.title}</strong>
                   <small className="build-route">{page.route}</small>
+                </div>
+                <div className="build-mode" role="group" aria-label={tr ? "Tuval modu" : "Canvas mode"}>
+                  <button type="button" aria-pressed={mode === "edit"} disabled={revising}
+                    onClick={() => { setMode("edit"); setFocusCanvas(false); }}>{tr ? "Düzenle" : "Edit"}</button>
+                  <button type="button" aria-pressed={mode === "interact"} disabled={revising}
+                    onClick={() => { setMode("interact"); setPanel("canvas"); }}>{tr ? "Etkileşim" : "Interact"}</button>
                 </div>
                 <div className="build-viewports" aria-label="Viewport">
                   {presets.map(([Icon, value]) => (

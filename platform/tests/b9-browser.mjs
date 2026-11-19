@@ -183,7 +183,7 @@ async function createProject(page, app, work) {
   evidenceReport.studio.push({ template: app.name, routes: saved.document.pages.length, editMs });
   if (local) {
     const launch = performance.now();
-    await button(page, "Run").click();
+    await button(page, "Preview").click();
     const run = page.frameLocator('iframe[title="Live Next.js application"]');
     await expect(heading(run, guide)).toBeVisible({ timeout: 120_000 });
     const readyMs = Math.round(performance.now() - launch);

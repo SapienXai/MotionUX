@@ -473,7 +473,7 @@ try {
   );
   if (local) {
     const started = performance.now();
-    await button(page, "Run").click();
+    await button(page, "Preview").click();
     const run = page.frameLocator('iframe[title="Live Next.js application"]');
     await expect(heading(run, "A quieter bay")).toBeVisible({
       timeout: 120_000,
@@ -519,7 +519,7 @@ try {
       );
     for (let attempt = 0; attempt < 3; attempt++) {
       const started = performance.now();
-      await button(page, "Run").click();
+      await button(page, "Preview").click();
       await expect(heading(run, "A quieter bay")).toBeVisible({
         timeout: 120_000,
       });
