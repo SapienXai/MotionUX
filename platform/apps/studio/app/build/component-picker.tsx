@@ -70,7 +70,7 @@ export function ComponentPicker({ selected, onChange, disabled, idea, footer, lo
     <div className="kinetic-idea-card">
       {idea}
       {localOption ?? <section className="kinetic-choices" aria-labelledby="compose-components-title">
-        <div className="kinetic-choices-head"><h2 id="compose-components-title">{t("Shape it with components", "Bileşenlerle şekillendir")} <small>{selected.length}/{maxCompositionSources}</small></h2>
+        <div className="kinetic-choices-head"><h2 id="compose-components-title">{t("Components", "Bileşenler")}{selected.length > 0 && <small> {selected.length}/{maxCompositionSources}</small>}</h2>
           <div className="kinetic-choices-links">{!disabled && discover}
             <button type="button" className="kinetic-text" aria-haspopup="dialog" onClick={show} disabled={disabled}>{browse}<ArrowUpRight size={13} aria-hidden="true" /></button>
           </div>
@@ -87,14 +87,11 @@ export function ComponentPicker({ selected, onChange, disabled, idea, footer, lo
                 title={t("Remove component", "Bileşeni kaldır")} onClick={() => toggle(id)} disabled={disabled}><X size={15} aria-hidden="true" /></button>
             </li>;
           })}
-        </ul> : <button type="button" className="kinetic-source-empty" aria-haspopup="dialog" disabled={disabled} onClick={show}>
-          <span className="kinetic-source-icon"><Plus size={17} aria-hidden="true" /></span>
-          <span><strong>{t("Add a component", "Bileşen ekle")}</strong><small>{t("Optional. Build can find sources for you.", "İsteğe bağlı. Build uygun kaynakları bulabilir.")}</small></span>
-        </button>}
+        </ul> : null}
       </section>}
       {footer}
     </div>
-    <ComponentPreview components={chosenRows} focused={focused} onFocus={setFocused} />
+    {selected.length > 0 && <ComponentPreview components={chosenRows} focused={focused} onFocus={setFocused} />}
     <StudioSheet dialog={dialog} title={browse}>
       <div className="kinetic-catalog">
         <div className="kinetic-filter"><Search size={16} aria-hidden="true" />

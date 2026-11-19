@@ -9,16 +9,14 @@ import {
   type FormEvent,
   type ReactNode,
 } from "react";
-import { Compass, Layers3, Library, Search, Sun } from "lucide-react";
+import { Compass, Grid2X2, Layers3, Search, Sun } from "lucide-react";
 import {
   appearanceKey,
   buildDraftKey,
   buildSourceIds,
   galleryOrigin,
   isAppearance,
-  isBuildPath,
   isGalleryPath,
-  projectPathKey,
   type Appearance,
 } from "../../../../lib/studio-bridge";
 import { sourceRequest } from "./build/source-job";
@@ -28,9 +26,7 @@ export function StudioChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [appearance, setAppearance] = useState<Appearance | null>(null);
-  const [resume, setResume] = useState("/build");
   const [query, setQuery] = useState("");
-  const [view, setView] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [turkish, setTurkish] = useState(false);
   const t = (english: string, tr: string) => (turkish ? tr : english);
@@ -61,14 +57,8 @@ export function StudioChrome({ children }: { children: ReactNode }) {
       const url = new URL(location.href);
       if (url.pathname === "/discover") {
         setQuery((url.searchParams.get("q") ?? "").slice(0, 160));
-        setView(url.searchParams.get("view") ?? "");
       }
-      try {
-        const path = sessionStorage.getItem(projectPathKey);
-        if (isBuildPath(path)) setResume(path);
-      } catch {
-        /* The default Build link remains available. */
-      }
+
     }
     refresh();
     window.addEventListener("motionux:project", refresh);
@@ -98,7 +88,6 @@ export function StudioChrome({ children }: { children: ReactNode }) {
         isGalleryPath(event.data.path)
       ) {
         const url = new URL(event.data.path, galleryOrigin);
-        setView(url.searchParams.get("view") ?? "");
         setQuery((url.searchParams.get("q") ?? "").slice(0, 160));
         window.history.replaceState(
           window.history.state,
@@ -200,15 +189,13 @@ export function StudioChrome({ children }: { children: ReactNode }) {
     );
   }
   const filter = query.trim() ? "q=" + encodeURIComponent(query.trim()) : "";
-  const kinetic = pathname.startsWith("/build");
-  const gallery = pathname === "/discover" && view !== "library";
-  const library = pathname === "/discover" && view === "library";
+  const discover = pathname === "/discover";
   return (
     <>
       <a className="studio-skip" href="#workspace-content">
         {t("Skip to workspace", "Çalışma alanına geç")}
       </a>
-      <header className={"studio-home-nav studio-chrome" + (kinetic ? " kinetic-chrome" : "")} data-search={searchOpen}>
+      <header className="studio-home-nav studio-chrome kinetic-chrome" data-search={searchOpen}>
         <Link
           href="/"
           onNavigate={(event) => {
@@ -223,36 +210,21 @@ export function StudioChrome({ children }: { children: ReactNode }) {
           <span>MotionUX</span>
         </Link>
         <nav aria-label={t("Studio navigation", "Studio gezinme")}>
-          <Link
-            href={"/discover" + (filter ? "?" + filter : "")}
-            prefetch={false}
-            onNavigate={(event) => {
-              if (!canLeave()) event.preventDefault();
-            }}
-            aria-current={gallery ? "page" : undefined}
-          >
-            {kinetic && <Compass className="kinetic-nav-icon" size={16} aria-hidden="true" />}<span>{t("Gallery", "Galeri")}</span>
+          <Link href="/" prefetch={false}
+            onNavigate={(event) => { if (!canLeave()) event.preventDefault(); }}
+            aria-current={!discover ? "page" : undefined}>
+            <Grid2X2 className="kinetic-nav-icon" size={16} aria-hidden="true" />
+            <span>{t("Projects", "Projeler")}</span>
           </Link>
-          <Link
-            href={"/discover?view=library" + (filter ? "&" + filter : "")}
-            prefetch={false}
-            onNavigate={(event) => {
-              if (!canLeave()) event.preventDefault();
-            }}
-            aria-current={library ? "page" : undefined}
-          >
-            {kinetic && <Library className="kinetic-nav-icon" size={16} aria-hidden="true" />}<span>{t("My Library", "Kitaplığım")}</span>
-          </Link>
-          <Link
-            href={resume}
-            prefetch={false}
-            aria-current={pathname === "/build" ? "page" : undefined}
-          >
-            {t("Build", "Oluştur")}
+          <Link href={"/discover" + (filter ? "?" + filter : "")} prefetch={false}
+            onNavigate={(event) => { if (!canLeave()) event.preventDefault(); }}
+            aria-current={discover ? "page" : undefined}>
+            <Compass className="kinetic-nav-icon" size={16} aria-hidden="true" />
+            <span>{t("Discover", "Keşfet")}</span>
           </Link>
         </nav>
-        {kinetic && <button type="button" className="kinetic-icon kinetic-search-toggle" aria-label={t("Search components", "Bileşenleri ara")}
-          aria-expanded={searchOpen} onClick={() => searchOpen ? setSearchOpen(false) : openSearch()}><Search size={16} aria-hidden="true" /></button>}
+        <button type="button" className="kinetic-icon kinetic-search-toggle" aria-label={t("Search components", "Bileşenleri ara")}
+          aria-expanded={searchOpen} onClick={() => searchOpen ? setSearchOpen(false) : openSearch()}><Search size={16} aria-hidden="true" /></button>
         <form
           className="studio-search"
           role="search"
@@ -275,7 +247,7 @@ export function StudioChrome({ children }: { children: ReactNode }) {
               if (event.key === "Escape") { setSearchOpen(false); search.current?.blur(); }
             }}
           />
-          {kinetic && <kbd aria-hidden="true">⌘ / Ctrl K</kbd>}
+          <kbd aria-hidden="true">⌘ / Ctrl K</kbd>
           <button
             type="submit"
             className="build-icon"
@@ -285,7 +257,7 @@ export function StudioChrome({ children }: { children: ReactNode }) {
           </button>
         </form>
         <div className="studio-appearance">
-          {kinetic && <Sun className="kinetic-theme-icon" size={16} aria-hidden="true" />}
+          <Sun className="kinetic-theme-icon" size={16} aria-hidden="true" />
           <label htmlFor="studio-appearance" className="build-sr">
             {t("Studio theme", "Studio teması")}
           </label>

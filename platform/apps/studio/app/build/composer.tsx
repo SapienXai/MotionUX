@@ -10,8 +10,8 @@ import {
   ArrowRight,
   ArrowUp,
   ArrowUpRight,
-  Layers3,
   Building2,
+  Clock3,
   BookOpen,
   ListChecks,
   LayoutTemplate,
@@ -421,12 +421,12 @@ export function ComposerHome({
             <section className="kinetic-create" aria-labelledby="compose-title">
               <div className="kinetic-hero">
                 <div>
-                  <h1 id="compose-title">{t("What will we ", "Bugün ne ")}<span>{t("build?", "yapıyoruz?")}</span></h1>
-                  <p>{t("Start with an idea. Bring in real components. See it take shape.", "Bir fikirle başla. Gerçek bileşenler seç. Uygulamanın şekillenişini izle.")}</p>
+                  <h1 id="compose-title">{t("What are we building today", "Bugün ne yapıyoruz")}<span>?</span></h1>
+                  <p>{t("Turn an idea into a working app, refine it in Studio, and take the source with you.", "Fikrini çalışan bir uygulamaya dönüştür, Studio’da düzenle ve kaynak kodunu yanında götür.")}</p>
                 </div>
-                <a className="kinetic-button kinetic-library-link" href="/build/local-sources"><Layers3 size={15} aria-hidden="true" />{t("Browse local sources", "Yerel kaynaklara göz at")}</a>
+                <span className="unified-compose-mark" aria-hidden="true"><Sparkles size={26} /></span>
               </div>
-              <form className="kinetic-create-grid" aria-labelledby="brief-label" onSubmit={(event) => {
+              <form className="kinetic-create-grid unified-compose-form" data-has-selection={kit.length > 0} aria-labelledby="brief-label" onSubmit={(event) => {
                 if ((event.nativeEvent as SubmitEvent).submitter?.getAttribute("data-mode") === "blueprint") {
                   void generate(event);
                 } else {
@@ -444,11 +444,11 @@ export function ComposerHome({
                     {preferred && <strong>{preferred}</strong>}
                   </label> : undefined}
                   idea={<div className="kinetic-idea">
-                    <label id="brief-label" htmlFor="app-brief">{t("Describe your app", "Uygulamanı anlat")}</label>
+                    <label id="brief-label" htmlFor="app-brief"><Sparkles size={16} aria-hidden="true" />{t("Describe your app", "Uygulamanı anlat")}</label>
                     <div className="kinetic-prompt">
                       <textarea ref={briefInput} id="app-brief" name="brief" dir="auto" aria-describedby="brief-hint"
-                        required minLength={12} maxLength={3200} rows={5} value={brief}
-                        placeholder={t("Describe what you want to create…", "Ne oluşturmak istediğini anlat…")}
+                        required minLength={12} maxLength={3200} rows={3} value={brief}
+                        placeholder={t("A workspace for my team with a task board, schedules, and simple reports…", "Ekibim için görev panosu, takvim ve raporları olan bir çalışma alanı…")}
                         readOnly={generating || sourceOperation.active} onChange={(event) => updateBrief(event.target.value)}
                         onKeyDown={(event) => {
                           if (event.key === "Enter" && (event.metaKey || event.ctrlKey) && !event.nativeEvent.isComposing) {
@@ -463,7 +463,6 @@ export function ComposerHome({
                               updateBrief(example); event.currentTarget.closest("details")?.removeAttribute("open"); briefInput.current?.focus();
                             }}>{label}</button></li>)}</ul>
                         </details>
-                        <span>{t("Describe the experience you want.", "İstediğin deneyimi anlat.")}</span>
                       </div>
                     </div>
                   </div>}
@@ -477,7 +476,8 @@ export function ComposerHome({
                         {sourceOperation.active ? t("Creating app…", "Uygulama oluşturuluyor…") : t("Create app", "Uygulama oluştur")}<ArrowRight size={16} aria-hidden="true" />
                       </button>}
                   </footer>} />
-                <details className="kinetic-blueprint"><summary>{t("Legacy starter planning", "Önceki planlama akışı")}</summary>
+                <details className="kinetic-blueprint"><summary>{t("Advanced creation", "Gelişmiş oluşturma")}</summary>
+                  <a className="kinetic-text" href="/build/local-sources">{t("Browse local sources", "Yerel kaynaklara göz at")}</a>
                   <button className="kinetic-button" type="submit" data-mode="blueprint"
                     disabled={busy || generating || sourceOperation.active || brief.trim().length < 12}>{t("Generate blueprint", "Plan oluştur")}</button>
                 </details>
@@ -485,8 +485,8 @@ export function ComposerHome({
               </form>
             </section>
             <section className="kinetic-projects" aria-labelledby="projects-title" aria-busy={loading}>
-              <header className="kinetic-projects-head"><div><h2 id="projects-title">{t("Pick up where you left off", "Kaldığın yerden devam et")}</h2>
-                <p>{t("Open a project directly in the studio.", "Projeni doğrudan stüdyoda aç.")}</p></div>
+              <header className="kinetic-projects-head"><div><h2 id="projects-title">{t("Your projects", "Projelerin")}</h2>
+                <p>{t("Pick up where you left off.", "Kaldığın yerden devam et.")}</p></div>
                 {rows.length > 3 && <button type="button" className="kinetic-text" aria-expanded={allProjects} aria-controls="kinetic-project-grid"
                   onClick={() => setAllProjects(!allProjects)}>{allProjects ? t("Show recent projects", "Son projeleri göster") : t("View all projects", "Tüm projeleri gör")}
                   <ArrowUpRight size={14} aria-hidden="true" /></button>}
@@ -502,13 +502,17 @@ export function ComposerHome({
                     <strong dir="auto">{row.error ? t("Recovery needed", "Kurtarma gerekli") : row.name}</strong>
                     <small>{row.error ? t("Restore the last verified revision", "Son doğrulanmış revizyonu geri yükle") :
                       t("Revision ", "Revizyon ") + row.revision + (row.pages ? " · " + row.pages + t(row.pages === 1 ? " page" : " pages", " sayfa") : "")}</small>
-                  </span><ArrowUpRight size={15} aria-hidden="true" /></span>
+                  </span><span className="unified-project-status" data-recovery={row.error}>{row.error ? t("Recovery", "Kurtarma") : t("Saved", "Kayıtlı")}</span></span>
+                  <span className="unified-project-meta">
+                    {row.updatedAt ? <time dateTime={new Date(row.updatedAt).toISOString()}><Clock3 size={13} aria-hidden="true" />
+                      {new Intl.DateTimeFormat(t("en", "tr"), { dateStyle: "medium" }).format(row.updatedAt)}</time> : <span />}
+                    <span>{row.error ? t("Recover project", "Projeyi kurtar") : t("Open Studio", "Studio’yu aç")} <ArrowUpRight size={13} aria-hidden="true" /></span>
+                  </span>
                 </button>)}
               </div>
             </section>
-            <section className="kinetic-templates" aria-labelledby="manual-title">
-              <header><h2 id="manual-title">{t("Start from a template", "Şablondan başla")}</h2>
-                <p>{t("Open the canvas directly. No Codex session needed.", "Tuvali doğrudan aç. Codex oturumu gerekmez.")}</p></header>
+            <details className="kinetic-templates">
+              <summary>{t("Examples and templates", "Örnekler ve şablonlar")}</summary>
               <div className="kinetic-template-shelf">
                 {choices.map(({ id, label, description, Icon }) => <div className="kinetic-template" key={id}>
                   <Icon size={17} aria-hidden="true" /><div>
@@ -518,7 +522,7 @@ export function ComposerHome({
                   </div>
                 </div>)}
               </div>
-            </section>
+            </details>
           </>
         ) : (
           edits && (
