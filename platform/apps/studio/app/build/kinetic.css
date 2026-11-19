@@ -228,7 +228,14 @@
 .kinetic-catalog li button:hover, .kinetic-catalog li button[aria-pressed="true"] { background: var(--k-selected); color: var(--k-accent); }
 .kinetic-catalog li button:disabled { opacity: .55; cursor: default; }
 .kinetic-catalog li small { display: block; margin-block-start: .2rem; color: var(--k-muted); font-size: .72rem; }
-.kinetic-catalog > .kinetic-primary { justify-self: end; min-inline-size: 7rem; }
+.kinetic-choices-links, .kinetic-catalog-footer, .kinetic-catalog-pages {
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+}
+.kinetic-choices-links { justify-content: flex-end; }
+.kinetic-catalog-footer { justify-content: space-between; }
+.kinetic-catalog-footer .kinetic-primary { min-inline-size: 7rem; margin-inline-start: auto; }
+.kinetic-catalog-pages { justify-content: center; }
+.kinetic-catalog-pages p { margin: 0; color: var(--k-muted); font-size: .8rem; font-variant-numeric: tabular-nums; }
 
 .kinetic-editor { background: var(--k-bg); min-block-size: calc(100dvh - var(--studio-chrome-size)); }
 .kinetic-command {

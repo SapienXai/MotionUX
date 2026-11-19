@@ -12,6 +12,7 @@ import { LibraryStore } from "../library/store";
 import { LibraryFeedback } from "../library/actions";
 import "../library/library.css";
 import { OriginalsGallery } from "../sources/gallery";
+import { useGalleryBuildSelection } from "../sources/build-selection";
 import type { GalleryReturn } from "../sources/gallery-window";
 
 const LibraryView = lazy(() => import("../library/view"));
@@ -50,6 +51,7 @@ function StudioRoutes() {
   const [route, setRoute] = useState(initialRoute);
   const [schemeOverride, setSchemeOverride] = useState(savedScheme);
   const [embedded, setEmbedded] = useState(false);
+  const buildSelection = useGalleryBuildSelection(embedded);
   const systemDark = useSyncExternalStore(subscribeToScheme, systemUsesDarkScheme);
   const scheme = schemeOverride ?? (systemDark ? "dark" : "light");
   const [lastItem, setLastItem] = useState(route.item);
@@ -174,7 +176,7 @@ function StudioRoutes() {
       {localStudio && route.page !== "library" && <div className="mx-library-toast"><LibraryFeedback /></div>}
       <div className={`mx-view mx-view-${route.page}`} key={route.page} data-entering={entered || undefined}>
         {route.page === "gallery" ? localStudio && !route.collection
-          ? <OriginalsGallery {...local} route={route} scheme={scheme} navigate={navigate} restore={galleryReturn} />
+          ? <OriginalsGallery {...local} route={route} scheme={scheme} navigate={navigate} restore={galleryReturn} selection={buildSelection} />
           : <Gallery items={items} route={route} open={open} reduced={platformReduced} clear={clear} scheme={scheme} selectCategory={category => navigate({ ...route, category })} /> :
           route.page === "library" && localStudio ? <Suspense fallback={<section className="mx-inner-page"><h1 tabIndex={-1}>My Library</h1><p role="status">Loading saved originals…</p></section>}>
             <LibraryView originals={originals} route={route} navigate={navigate} />
@@ -182,10 +184,12 @@ function StudioRoutes() {
           route.page === "components" ? <Components items={items} route={route} open={open} clear={clear} /> :
           route.page === "guides" ? <Guides /> : route.page === "examples" ? <Examples route={route} open={open} /> :
           route.page === "sources" ? <Suspense fallback={<PreviewLoading />}>
-            {route.source ? <Unavailable id={route.source} back={back} /> : <Discovery originals={originals} route={route} />}
+            {route.source ? <Unavailable id={route.source} back={back} /> :
+              <Discovery originals={originals} route={route} navigate={navigate} buildSelection={buildSelection} />}
           </Suspense> :
           originalId ? <Suspense fallback={<section className="mx-inner-page"><h1 tabIndex={-1} className="mx-sr">Source Playground</h1><p role="status">Loading source Playground…</p></section>}>
-            <SourceDetail key={originalId} id={originalId} route={route} scheme={scheme} back={back} navigate={navigate} />
+            <SourceDetail key={originalId} id={originalId} route={route} scheme={scheme} back={back} navigate={navigate}
+              buildSelection={buildSelection} originals={originals} />
           </Suspense> :
           item ? <Suspense fallback={<PreviewLoading />}><Playground key={item.id} item={item} route={route}
             back={back} reduced={platformReduced} systemReduced={platformReduced} scheme={scheme} /></Suspense> :

@@ -99,7 +99,7 @@ export async function retrySourceJob(repo: string, vault: string, id: string) {
     throw new BuildError(409, "This job has no generated candidate to retry.");
   const inventory = await inspectCodeCatalog(repo);
   const pins = Array.isArray(prior.sourcePins) ? prior.sourcePins.map((pin) => codePin.parse(pin)) : undefined;
-  const restored = pins && await restoreCodeSources(repo, pins, "local", { upgradeSelector: true });
+  const restored = pins && await restoreCodeSources(repo, pins, "local", { upgradeAccessibility: true });
   if (!restored && inventory.fingerprint !== prior.inventoryFingerprint)
     throw new BuildError(409, "The source inventory changed. Start a fresh generation.");
   const selection = prior.selection as { sources?: { id: string }[] } | undefined;

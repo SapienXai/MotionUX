@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowDownToLine, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowDownToLine, Layers3, RotateCcw } from "lucide-react";
 import { hrefFor, type Route } from "../app/catalog-view";
 import { intercept } from "../app/shell";
 import { Collect, Favorite, PersonalEdit } from "../library/actions";
 import { useLibrary } from "../library/store";
 import { SourceFrame, type Original, type OriginalCard, type SourceLane } from "./local";
+import { BuildPickButton, BuildSelectionTray, type GalleryBuildSelection } from "./build-selection";
 import reference from "../../metadata/v9-reference.json";
 import "./sources.css";
 
 type Scheme = "light" | "dark";
 type Candidates = typeof import("../../metadata/v9-provider-candidates.json");
 
-export function Discovery({ originals, route }: { originals: Map<string, OriginalCard>; route: Route }) {
+export function Discovery({ originals, route, navigate, buildSelection }: {
+  originals: Map<string, OriginalCard>; route: Route; navigate: (route: Route) => void; buildSelection: GalleryBuildSelection;
+}) {
   const [data, setData] = useState<Candidates>();
   const [failed, setFailed] = useState(false);
   const [provider, setProvider] = useState("");
@@ -28,8 +31,15 @@ export function Discovery({ originals, route }: { originals: Map<string, Origina
   const query = route.query.toLowerCase().trim();
   const matching = candidates.filter(item => (!provider || provider === item.group.id) &&
     [item.title, item.id.replaceAll("-", " "), item.group.name, item.category].join(" ").toLowerCase().includes(query));
+  const gallery: Route = { page: "gallery", item: "", category: "", query: route.query };
   return <section className="mx-source-lab mx-inner-page">
     <header><h1 tabIndex={-1}>Discovery</h1><p>Browse upstream candidates outside the installed gallery.</p></header>
+    {buildSelection.embedded && <div className="mx-source-actions">
+      <a className="mx-button" href={hrefFor(gallery)} onClick={event => intercept(event, () => navigate(gallery))}>
+        <Layers3 size={15} aria-hidden="true" /> Choose components for Build
+      </a>
+    </div>}
+    {buildSelection.ids.length > 0 && <BuildSelectionTray originals={originals} selection={buildSelection} />}
     {failed ? <p role="alert">The provider index could not be loaded. Reload to retry.</p> :
       !data ? <p role="status">Loading provider catalogs…</p> : <>
       <div className="mx-source-toolbar">
@@ -61,8 +71,9 @@ export function Unavailable({ id, back }: { id: string; back: () => void }) {
   </section>;
 }
 
-export default function SourceDetail({ id, route, scheme, back, navigate }: {
+export default function SourceDetail({ id, route, scheme, back, navigate, buildSelection, originals }: {
   id: string; route: Route; scheme: Scheme; back: () => void; navigate: (route: Route, replace?: boolean) => void;
+  buildSelection: GalleryBuildSelection; originals: Map<string, OriginalCard>;
 }) {
   const [entry, setEntry] = useState<Original>();
   const [failed, setFailed] = useState(false);
@@ -75,12 +86,14 @@ export default function SourceDetail({ id, route, scheme, back, navigate }: {
     return () => controller.abort();
   }, [id]);
   if (failed || entry?.availability === "unavailable") return <Unavailable id={id} back={back} />;
-  return entry ? <Comparison entry={entry} route={route} scheme={scheme} navigate={navigate} back={back} /> :
+  return entry ? <Comparison entry={entry} route={route} scheme={scheme} navigate={navigate} back={back}
+    buildSelection={buildSelection} originals={originals} /> :
     <section className="mx-inner-page"><h1 tabIndex={-1} className="mx-sr">Source Playground</h1><p role="status">Loading original source…</p></section>;
 }
 
-function Comparison({ entry, route, scheme, navigate, back }: {
+function Comparison({ entry, route, scheme, navigate, back, buildSelection, originals }: {
   entry: Original; route: Route; scheme: Scheme; back: () => void; navigate: (route: Route, replace?: boolean) => void;
+  buildSelection: GalleryBuildSelection; originals: Map<string, OriginalCard>;
 }) {
   const pane = route.sourcePanel ?? "provenance";
   const html = entry.sourceKind === "html";
@@ -132,11 +145,13 @@ function Comparison({ entry, route, scheme, navigate, back }: {
             <option value="auto">Fit available space</option><option value="320">320 px</option><option value="390">390 px</option><option value="768">768 px</option>
           </select></label>}
           <button type="button" className="mx-button" onClick={() => setReset(reset + 1)}><RotateCcw size={15} aria-hidden="true" /> {route.compare ? "Reset all" : "Replay preview"}</button>
-          {!html && <a className="mx-button" href={"http://127.0.0.1:5200/build?source=" + encodeURIComponent(entry.id)} target="_blank" rel="noreferrer">Use in Build</a>}
+          {buildSelection.embedded ? <BuildPickButton entry={entry} selection={buildSelection} /> :
+            !html && <a className="mx-button" href={"http://127.0.0.1:5200/build?source=" + encodeURIComponent(entry.id)} target="_blank" rel="noreferrer">Use in Build</a>}
           <button type="button" className="mx-button" aria-pressed={route.compare === true} onClick={() => navigate({ ...route, compare: !route.compare }, true)}>Compare</button>
         </div>
       </div>
     </div>
+    {buildSelection.ids.length > 0 && <BuildSelectionTray originals={originals} selection={buildSelection} />}
     {route.compare && <p className="mx-comparison-note">The capture and Studio use the same upstream source. Studio applies its preview host. The installed consumer is built separately from the registry package. {html &&
       "The installed React host embeds the original HTML document. "}Reset all lanes together and repeat the interaction in each lane.</p>}
     <div className={route.compare ? "mx-source-comparison" : "mx-source-comparison mx-source-single"}>

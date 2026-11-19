@@ -32,7 +32,7 @@ export async function restoreSourceRevision(current: BuildProject) {
   return sourceRequest<BuildProject>(path, "PUT", { ...current, document: previous.document });
 }
 
-export function useSourceJob(scope: string, onReady: (projectId: string) => Promise<void>, onResume?: (request: SourceInput) => void) {
+export function useSourceJob(scope: string, onReady: (projectId: string) => Promise<void>, onResume?: (request: SourceInput) => void | false) {
   const [job, setJob] = useState<Job>();
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState("");
@@ -51,7 +51,7 @@ export function useSourceJob(scope: string, onReady: (projectId: string) => Prom
     if (id) void sourceRequest<Job>("/source-jobs/" + id, "GET", undefined, controller.signal)
       .then((current) => {
         if (controller.signal.aborted) return;
-        if (current.request) resume(current.request);
+        if (current.request && resume(current.request) === false && terminal.has(current.status)) return;
         setJob(current);
       }, () => {});
     return () => controller.abort();

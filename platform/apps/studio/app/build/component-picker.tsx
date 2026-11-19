@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Check, Layers3, Plus, Search, X } from "lucide-react";
+import { ArrowUpRight, Check, ChevronLeft, ChevronRight, Compass, Layers3, Plus, Search, X } from "lucide-react";
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { maxCompositionSources } from "@motionux/build-core/code-project";
 import { sourceRequest } from "./source-job";
@@ -11,6 +11,7 @@ export type CompositionComponent = {
   id: string; title: string; provider: string; mode: "direct" | "connected" | "reference";
   preview?: { slug: string; pin: string };
 };
+const pageSize = 32;
 
 export function ComponentPicker({ selected, onChange, disabled, idea, footer, localOption }: {
   selected: string[]; onChange: (ids: string[]) => void; disabled: boolean;
@@ -22,9 +23,11 @@ export function ComponentPicker({ selected, onChange, disabled, idea, footer, lo
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(0);
   const [open, setOpen] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const field = useRef<HTMLInputElement>(null);
+  const results = useRef<HTMLUListElement>(null);
   const needsCatalog = open || selected.length > 0;
   useEffect(() => {
     if (!needsCatalog || rows) return;
@@ -36,6 +39,8 @@ export function ComponentPicker({ selected, onChange, disabled, idea, footer, lo
 
   const terms = search.toLowerCase().trim().split(/\s+/);
   const visible = (rows ?? []).filter(({ title, provider, id }) => terms.every((term) => `${title} ${provider} ${id}`.toLowerCase().includes(term)));
+  const start = page * pageSize;
+  const end = Math.min(start + pageSize, visible.length);
   const atLimit = selected.length >= maxCompositionSources;
   const chosenRows = selected.flatMap((id) => rows?.find((row) => row.id === id) ?? []);
   const labels = { direct: t("Original component", "Orijinal bileşen"), connected: t("Connected · local", "Bağlı · yerel"),
@@ -54,12 +59,21 @@ export function ComponentPicker({ selected, onChange, disabled, idea, footer, lo
     openStudioSheet(dialog.current, event.currentTarget);
     field.current?.focus();
   }
+  function movePage(next: number) {
+    setPage(next);
+    results.current?.scrollTo(0, 0);
+  }
+  const discover = <a className="kinetic-text" href="/discover">
+    <Compass size={15} aria-hidden="true" />{t("Choose in Gallery", "Galeriden seç")}
+  </a>;
   return <>
     <div className="kinetic-idea-card">
       {idea}
       {localOption ?? <section className="kinetic-choices" aria-labelledby="compose-components-title">
         <div className="kinetic-choices-head"><h2 id="compose-components-title">{t("Shape it with components", "Bileşenlerle şekillendir")} <small>{selected.length}/{maxCompositionSources}</small></h2>
-          <button type="button" className="kinetic-text" aria-haspopup="dialog" onClick={show} disabled={disabled}>{browse}<ArrowUpRight size={13} aria-hidden="true" /></button>
+          <div className="kinetic-choices-links">{!disabled && discover}
+            <button type="button" className="kinetic-text" aria-haspopup="dialog" onClick={show} disabled={disabled}>{browse}<ArrowUpRight size={13} aria-hidden="true" /></button>
+          </div>
         </div>
         {selected.length ? <ul className="kinetic-selected" aria-label={t("Selected components", "Seçilen bileşenler")}>
           {selected.map((id) => {
@@ -86,7 +100,7 @@ export function ComponentPicker({ selected, onChange, disabled, idea, footer, lo
         <div className="kinetic-filter"><Search size={16} aria-hidden="true" />
           <input ref={field} type="search" aria-label={t("Find components for your app", "Uygulaman için bileşen bul")}
             placeholder={t("Search names or providers", "Ad veya sağlayıcı ara")} value={search}
-            onChange={(event) => setSearch(event.target.value)} onKeyDown={(event) => {
+            onChange={(event) => { setSearch(event.target.value); movePage(0); }} onKeyDown={(event) => {
               if (event.key === "Enter") event.preventDefault();
               if (event.key === "Escape" && !event.nativeEvent.isComposing) {
                 // Native search inputs may consume Escape to clear their query before the dialog sees it.
@@ -101,8 +115,8 @@ export function ComponentPicker({ selected, onChange, disabled, idea, footer, lo
           onClick={() => { setError(false); setAttempt(attempt + 1); }}>{t("Retry", "Yeniden dene")}</button></p>}
         {!rows && !error && <p role="status">{t("Loading catalog…", "Katalog yükleniyor…")}</p>}
         {rows && !visible.length && <p role="status">{t("No matching components.", "Eşleşen bileşen yok.")}</p>}
-        <ul aria-label={t("Component results", "Bileşen sonuçları")}>
-          {visible.slice(0, 32).map((item) => {
+        <ul ref={results} aria-label={t("Component results", "Bileşen sonuçları")}>
+          {visible.slice(start, end).map((item) => {
             const chosen = selected.includes(item.id);
             return <li key={item.id}><button type="button" aria-pressed={chosen} disabled={disabled || atLimit && !chosen} onClick={() => toggle(item.id)}>
               <span><strong>{item.title}</strong><small>{item.provider} · {labels[item.mode]}</small></span>
@@ -110,8 +124,16 @@ export function ComponentPicker({ selected, onChange, disabled, idea, footer, lo
             </button></li>;
           })}
         </ul>
-        {visible.length > 32 && <p>{t("Showing 32 of ", "Gösterilen 32, toplam ") + visible.length}</p>}
-        <button type="button" className="kinetic-button kinetic-primary" onClick={() => dialog.current?.close()}>{t("Done", "Bitti")}</button>
+        {visible.length > pageSize && <nav className="kinetic-catalog-pages" aria-label={t("Component result pages", "Bileşen sonuç sayfaları")}>
+          <button type="button" className="kinetic-icon" aria-label={t("Previous results", "Önceki sonuçlar")} disabled={!page}
+            onClick={() => movePage(page - 1)}><ChevronLeft size={16} aria-hidden="true" /></button>
+          <p role="status">{start + 1}–{end} / {visible.length}</p>
+          <button type="button" className="kinetic-icon" aria-label={t("Next results", "Sonraki sonuçlar")} disabled={end === visible.length}
+            onClick={() => movePage(page + 1)}><ChevronRight size={16} aria-hidden="true" /></button>
+        </nav>}
+        <div className="kinetic-catalog-footer">{!disabled && discover}
+          <button type="button" className="kinetic-button kinetic-primary" onClick={() => dialog.current?.close()}>{t("Done", "Bitti")}</button>
+        </div>
       </div>
     </StudioSheet>
   </>;

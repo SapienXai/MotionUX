@@ -8,17 +8,21 @@ import { useLibrary } from "../library/store";
 import { PreviewError, SourceFrame, type OriginalCard } from "./local";
 import { useGalleryPreviews } from "./gallery-previews";
 import { useGalleryWindow, GalleryRow, type GalleryJump, type GalleryReturn } from "./gallery-window";
+import { BuildPickButton, BuildSelectionTray, type GalleryBuildSelection } from "./build-selection";
 import "./originals.css";
 type Thumbnail = { url: string; height: number; width: number; scheme: "light" | "dark" };
 
-export function OriginalsGallery({ originals, loading, failed, route, scheme, navigate, restore }: {
+export function OriginalsGallery({ originals, loading, failed, route, scheme, navigate, restore, selection }: {
   originals: Map<string, OriginalCard>; loading: boolean; failed?: boolean;
   route: Route; scheme: "light" | "dark"; navigate: (route: Route) => void; restore?: GalleryReturn;
+  selection: GalleryBuildSelection;
 }) {
   const library = useLibrary();
   const picker = useRef<HTMLDialogElement>(null);
   const pickerTitle = useId();
   const [collecting, setCollecting] = useState<OriginalCard>();
+  const [buildOnly, setBuildOnly] = useState(false);
+  const modes = selection.modes;
   const openCollection = useCallback((entry: OriginalCard) => {
     setCollecting(entry);
     picker.current?.showModal();
@@ -61,11 +65,12 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
     const favoriteIDs = new Set(favorites);
     const terms = query ? query.split(/\s+/) : [];
     return sorted.filter(item => (!route.category || route.category === item.category.toLowerCase()) &&
+      (!buildOnly || modes?.has(item.id)) &&
       (!route.provider || route.provider === item.provider) && (!route.kind || route.kind === item.sourceKind) &&
       (route.subset !== "new" || item.editionOrdinal === edition) &&
       (route.subset !== "favorites" || favoriteIDs.has(item.id)) &&
       terms.every(term => index.get(item.id)!.includes(term)));
-  }, [sorted, index, edition, favorites, query, route.category, route.kind, route.provider, route.subset]);
+  }, [sorted, index, edition, favorites, query, route.category, route.kind, route.provider, route.subset, buildOnly, modes]);
   const { mounted, retained, register, refresh, rapidScroll } = useGalleryPreviews(grid, items.length > 0);
   const held = useMemo(() => collecting ? new Set([...retained, collecting.id]) : retained, [collecting, retained]);
   const windowing = useGalleryWindow(grid, items, held, restore);
@@ -80,7 +85,7 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
     });
     refresh();
   }, [refresh]);
-  const clear = () => navigate({ page: "gallery", item: "", category: "", query: "" });
+  const clear = () => { setBuildOnly(false); navigate({ page: "gallery", item: "", category: "", query: "" }); };
   return <>
     <header className="mx-originals-header">
       <div className="mx-originals-title">
@@ -102,6 +107,8 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
         <p role="status">{loading ? "Loading the local catalog…" :
           items.length !== catalog.length ? `${items.length} of ${catalog.length} originals` : `${ready} live originals`}</p>
         <div>
+          {modes && <button id="mx-build-compatible" type="button" className="mx-build-filter" aria-pressed={buildOnly}
+            onClick={() => { setBuildOnly(!buildOnly); window.scrollTo({ top: 0, behavior: "instant" }); }}>Build compatible</button>}
           <select aria-label="Provider" value={route.provider ?? ""} onChange={event => navigate({ ...route, provider: event.target.value || undefined })}>
             <option value="">All providers</option>
             {providers.map(provider => <option key={provider}>{provider}</option>)}
@@ -116,7 +123,8 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
         </div>
       </div>
     </header>
-    {edition >= 13 && !route.sort && !route.subset && !query && !route.category && !route.provider && !route.kind &&
+    <BuildSelectionTray originals={originals} selection={selection} />
+    {edition >= 13 && !buildOnly && !route.sort && !route.subset && !query && !route.category && !route.provider && !route.kind &&
       <h2 className="mx-new-arrivals">V{edition} New arrivals <span>{newCount}</span></h2>}
     {ready < catalog.length && <p className="mx-catalog-notice" role="status">{catalog.length - ready} local records are unavailable. Run <code>npm run studio:doctor</code> for details.</p>}
     {failed ? <p role="alert">The local catalog could not be read. <a href={location.href}>Retry</a> or restart <code>npm run studio</code>.</p> :
@@ -131,7 +139,7 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
             nextRow={index === row.items.length - 1 && row.index + 1 < (rendered[position + 1]?.index ?? windowing.rowCount) ? row.index + 1 : undefined}
             moveFocus={windowing.focusRow}
             previouslyFailed={failures.has(scheme + ":" + entry.id)} rememberFailure={rememberFailure} register={register}
-            route={route} scheme={scheme} navigate={navigate} openCollection={openCollection} collectionDisabled={!library?.data} />)}
+            route={route} scheme={scheme} navigate={navigate} openCollection={openCollection} collectionDisabled={!library?.data} selection={selection} />)}
         </GalleryRow>)}
       </div> : !loading && <Empty clear={clear}>Try another search or clear the filters.</Empty>}
     <dialog className="mx-library-dialog" aria-labelledby={pickerTitle} ref={picker} onClose={() => setCollecting(undefined)}>
@@ -141,12 +149,13 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
   </>;
 }
 
-const OriginalCardView = memo(function OriginalCardView({ entry, ordinal, total, fresh, priority, previews, mounted, deferThumbnail, previouslyFailed, rememberFailure, register, scheme, route, navigate, openCollection, collectionDisabled, previousRow, nextRow, moveFocus }: {
+const OriginalCardView = memo(function OriginalCardView({ entry, ordinal, total, fresh, priority, previews, mounted, deferThumbnail, previouslyFailed, rememberFailure, register, scheme, route, navigate, openCollection, collectionDisabled, previousRow, nextRow, moveFocus, selection }: {
   entry: OriginalCard; ordinal: number; total: number; fresh: boolean; priority: boolean; previews?: Thumbnail[]; mounted: boolean;
   deferThumbnail: boolean; previouslyFailed: boolean; rememberFailure: (id: string, failed: boolean) => void;
   register: (id: string, node: HTMLDivElement | null) => void; scheme: "light" | "dark"; route: Route; navigate: (route: Route) => void;
   openCollection: (entry: OriginalCard) => void; collectionDisabled: boolean;
   previousRow?: number; nextRow?: number; moveFocus: (target: GalleryJump) => void;
+  selection: GalleryBuildSelection;
 }) {
   const detail = (pane?: Route["sourcePanel"]): Route => ({ ...route, page: "playground", item: entry.id, sourcePanel: pane });
   const stage = useCallback((node: HTMLDivElement | null) => register(entry.id, node), [entry.id, register]);
@@ -176,6 +185,7 @@ const OriginalCardView = memo(function OriginalCardView({ entry, ordinal, total,
           <FolderPlus size={16} aria-hidden="true" /></button></div>
     </header>
     <footer className="mx-original-actions">
+      <BuildPickButton entry={entry} selection={selection} />
       <a href={hrefFor(detail())} aria-label={`Open playground for ${entry.title}`} onClick={event => intercept(event, () => navigate(detail()))}><Play size={13} aria-hidden="true" /> Playground</a>
       <a href={entry.demoURL} target="_blank" rel="noreferrer" aria-label={`Original demo for ${entry.title}`}>Original <ArrowUpRight size={13} aria-hidden="true" /></a>
       <a href={hrefFor(detail("code"))} aria-label={`Code for ${entry.title}`} onClick={event => intercept(event, () => navigate(detail("code")))}><Code2 size={13} aria-hidden="true" /> Code</a>

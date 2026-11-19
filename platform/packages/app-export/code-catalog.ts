@@ -11,6 +11,11 @@ import { adaptCodeComparison, adaptHeroVideo, coastVideo, comparisonSource, hero
 
 export const modelSelectorId = "kokonut-ai-model-selector";
 export const previousModelSelectorClosure = "c9290ff0bf87a88515547022875a7deaa9ae4c85ca43cfba9473cde3964ef05a";
+const accordionId = "motionprimitives-accordion";
+const accessibilityPredecessors = new Map([
+  [modelSelectorId, previousModelSelectorClosure],
+  [accordionId, "55a528e3b189fd1a25e0afe3e4d101a8b7a5d71780616a0398f5e6e2e214292b"],
+]);
 
 type Pin = { path: string; upstreamPath?: string; sha256: string; installedSHA256?: string };
 type Entry = {
@@ -108,7 +113,7 @@ function validRegistryName(item: Entry, name: string) {
     name === prefix + "-" + item.slug && basename(item.installRecipe) === name + ".json");
 }
 
-async function resolveModule(repo: string, item: Entry, catalog: Entry[], dependencies: Set<string>, legacySelector = false): Promise<SourceModule> {
+async function resolveModule(repo: string, item: Entry, catalog: Entry[], dependencies: Set<string>, legacyAccessibility = false): Promise<SourceModule> {
   if (!/^[a-z0-9][a-z0-9-]{0,95}$/.test(item.id) || !safe(item.entry) || !/\.tsx?$/.test(item.entry)) throw new Error("unreviewed-html");
   if (!/^[a-f0-9]{40}$/.test(item.upstreamCommit ?? "") || !item.sourceURL.includes(item.upstreamCommit!) ||
     !/^https:\/\/(?:github\.com|raw\.githubusercontent\.com)\//.test(item.sourceURL)) throw new Error("unverified-pin");
@@ -205,7 +210,7 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
       code = adaptHeroVideo(code);
       patches.push({ file: path, reason: "Run the original entry animation in a native modal with a pinned local video." });
     }
-    if (!legacySelector && path === item.entry && item.id === modelSelectorId &&
+    if (!legacyAccessibility && path === item.entry && item.id === modelSelectorId &&
       hashes[path] === "27cdc8d98d591df02cec9a8240e84b428933fbccb17d84990dfb57594843cfa5") {
       code = code.replace("const panelId = useId();", "const panelId = useId();\n  const triggerNameId = useId();\n  const triggerEffortId = useId();")
         .replace('aria-label={`Model: ${model.name}, ${effort?.label} effort. Change`}',
@@ -213,6 +218,11 @@ async function resolveModule(repo: string, item: Entry, catalog: Entry[], depend
         .replace('<span className="font-medium">{model.name}</span>', '<span className="font-medium" id={triggerNameId}>{model.name}</span>{" "}')
         .replace("              {effort?.label}", "              <span id={triggerEffortId}>{effort?.label}</span>");
       patches.push({ file: path, reason: "Name the selector from its visible model and effort labels in every locale." });
+    }
+    if (!legacyAccessibility && path === item.entry && item.id === accordionId &&
+      hashes[path] === "f1793550464c665625444c23e19782ea6ff0d12222db88651414dbcee1fc4989") {
+      code = code.replace(" aria-orientation='vertical'", "");
+      patches.push({ file: path, reason: "Remove unsupported aria-orientation from the generic accordion container." });
     }
     if (path === item.entry && item.id === "motionprimitives-animated-number" &&
       hashes[path] === "3b4a9f3262cb79527fba01a76576e920e340137f0643bf34a7732f7f8b1ff792") {
@@ -309,7 +319,7 @@ export async function codeProfileFor(repo: string, packages: Iterable<string>) {
   return profile.name;
 }
 
-export async function inspectCodeCatalog(repo: string, legacySelector = false) {
+export async function inspectCodeCatalog(repo: string) {
   const vault = resolve(repo, ".motionux-v9");
   const catalog = JSON.parse(await sourceRead(vault, "catalog.last-good.json", 24_000_000)) as Entry[];
   const dependencies = new Set((await profileDependencies(repo)).flatMap((profile) => [...profile.dependencies]));
@@ -317,7 +327,7 @@ export async function inspectCodeCatalog(repo: string, legacySelector = false) {
   const rows: InventoryRow[] = [];
   for (const entry of catalog) {
     try {
-      const source = await resolveModule(repo, entry, catalog, dependencies, legacySelector);
+      const source = await resolveModule(repo, entry, catalog, dependencies);
       sources.set(entry.id, source);
       rows.push({ id: entry.id, title: entry.title, provider: entry.provider, entry: entry.entry, ready: true, reason: "compiler-ready",
         details: source.pin.fidelity === "source-adapted" ? "Source imports need tracked local adaptation." : "Pinned public source and dependency closure.",
@@ -465,22 +475,28 @@ export function sameCodePin(expected: CodePin, current: CodePin) {
   return canonical({ ...expected, fidelity: current.fidelity }) === canonical(current);
 }
 
-export async function restoreCodeSources(repo: string, pins: CodePin[], use: "export" | "local" = "export", { upgradeSelector = false } = {}) {
-  const predecessor = pins.find(({ id, closure }) => id === modelSelectorId && closure === previousModelSelectorClosure);
-  const inventory = await inspectCodeCatalog(repo, Boolean(predecessor) && !upgradeSelector);
-  if (predecessor && upgradeSelector) {
-    const original = inventory.catalog.find(({ id }) => id === modelSelectorId);
+export async function restoreCodeSources(repo: string, pins: CodePin[], use: "export" | "local" = "export", { upgradeAccessibility = false } = {}) {
+  const predecessors = pins.filter(({ id, closure }) => closure === accessibilityPredecessors.get(id));
+  const inventory = await inspectCodeCatalog(repo);
+  const legacySources = new Map<string, SourceModule>();
+  if (predecessors.length) {
     const dependencies = new Set((await profileDependencies(repo)).flatMap((profile) => [...profile.dependencies]));
-    const legacy = original && await resolveModule(repo, original, inventory.catalog, dependencies, true);
-    if (!legacy || !sameCodePin(predecessor, legacy.pin)) throw new BuildError(409, "Pinned selector identity changed.");
+    for (const pin of predecessors) {
+      const original = inventory.catalog.find(({ id }) => id === pin.id);
+      const legacy = original && await resolveModule(repo, original, inventory.catalog, dependencies, true);
+      if (!legacy || !sameCodePin(pin, legacy.pin)) throw new BuildError(409, "Pinned source identity changed: " + pin.id);
+      legacySources.set(pin.id, legacy);
+    }
   }
   const local = use === "local" && pins.some(({ fidelity }) => fidelity === "local-frame")
     ? new Map((await localCodeSources(repo)).map((source) => [source.pin.id, source])) : undefined;
   const adapter = use === "local" && pins.some(({ fidelity }) => fidelity === "local-adapter")
     ? await connectedSource(repo, await localEntries(repo)) : undefined;
   return pins.map((pin) => {
-    const current = pin.fidelity === "local-adapter" ? adapter : isLocalCodePin(pin) ? local?.get(pin.id) : inventory.sources.get(pin.id);
-    if (!current || (pin !== predecessor || !upgradeSelector) && !sameCodePin(pin, current.pin))
+    const legacy = legacySources.get(pin.id);
+    const current = pin.fidelity === "local-adapter" ? adapter : isLocalCodePin(pin) ? local?.get(pin.id) :
+      (!upgradeAccessibility && legacy) || inventory.sources.get(pin.id);
+    if (!current || !(upgradeAccessibility && legacy) && !sameCodePin(pin, current.pin))
       throw new BuildError(409, "Pinned source changed or is unavailable: " + pin.id);
     return current;
   });

@@ -12,6 +12,8 @@ import {
 import { Compass, Layers3, Library, Search, Sun } from "lucide-react";
 import {
   appearanceKey,
+  buildDraftKey,
+  buildSourceIds,
   galleryOrigin,
   isAppearance,
   isBuildPath,
@@ -19,6 +21,8 @@ import {
   projectPathKey,
   type Appearance,
 } from "../../../../lib/studio-bridge";
+import { sourceRequest } from "./build/source-job";
+import type { CompositionComponent } from "./build/component-picker";
 
 export function StudioChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -106,6 +110,46 @@ export function StudioChrome({ children }: { children: ReactNode }) {
     window.addEventListener("message", receive);
     return () => window.removeEventListener("message", receive);
   }, [appearance, pathname]);
+  useEffect(() => {
+    if (pathname !== "/discover") return;
+    const controller = new AbortController();
+    let catalog: Promise<Map<string, "direct" | "connected">> | undefined;
+    async function receiveBuildSelection(event: MessageEvent) {
+      const frame = activeFrame()?.contentWindow;
+      if (!frame || event.origin !== galleryOrigin || event.source !== frame ||
+        location.pathname !== "/discover") return;
+      if (event.data?.type === "motionux:build-catalog-request") {
+        catalog ??= sourceRequest<CompositionComponent[]>("/source-jobs/components", "GET", undefined, controller.signal)
+          .then((rows) => new Map(rows.flatMap(({ id, mode }) => mode === "reference" ? [] : [[id, mode]])));
+        try {
+          const entries = await catalog;
+          if (controller.signal.aborted || activeFrame()?.contentWindow !== frame) return;
+          let draft: string[] = [];
+          try {
+            draft = buildSourceIds(JSON.parse(sessionStorage.getItem(buildDraftKey) ?? "null")?.kit) ?? [];
+          } catch { /* A new selection remains available. */ }
+          frame.postMessage({ type: "motionux:build-catalog", entries: [...entries], selected: draft }, galleryOrigin);
+        } catch {
+          catalog = undefined;
+          if (!controller.signal.aborted) frame.postMessage({ type: "motionux:build-catalog-unavailable" }, galleryOrigin);
+        }
+      }
+      if (event.data?.type === "motionux:build-selection" && catalog) {
+        const ids = buildSourceIds(event.data.ids);
+        if (!ids?.length) return;
+        const entries = await catalog.catch(() => undefined);
+        if (controller.signal.aborted || activeFrame()?.contentWindow !== frame || !ids.every((id) => entries?.has(id))) return;
+        const params = new URLSearchParams({ fromGallery: "1" });
+        ids.forEach((id) => params.append("source", id));
+        router.push("/build?" + params);
+      }
+    }
+    window.addEventListener("message", receiveBuildSelection);
+    return () => {
+      controller.abort();
+      window.removeEventListener("message", receiveBuildSelection);
+    };
+  }, [pathname, router]);
   useEffect(() => {
     function shortcut(event: KeyboardEvent) {
       if (

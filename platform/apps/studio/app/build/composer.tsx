@@ -4,7 +4,7 @@ import { SourceJobStatus, useSourceJob } from "./source-job";
 import { ComponentPicker } from "./component-picker";
 import { useStudioCopy } from "./kinetic-ui";
 
-import { projectPathKey } from "../../../../../lib/studio-bridge";
+import { buildDraftKey, buildSourceIds, projectPathKey } from "../../../../../lib/studio-bridge";
 import {
   ArrowDown,
   ArrowRight,
@@ -185,6 +185,8 @@ export function ComposerHome({
     openCanvas(await request<BuildProject>("/" + id));
   }, (input) => {
     const params = new URLSearchParams(location.search);
+    if (params.get("fromGallery") === "1" &&
+      JSON.stringify(input.kit) !== JSON.stringify(params.getAll("source"))) return false;
     if (["project", "source", "composeFrom"].some((name) => params.has(name))) return;
     setBrief(input.brief);
     setKit(input.kit ?? []);
@@ -205,15 +207,23 @@ export function ComposerHome({
     const selected = params.get("project");
     setPreferred(params.get("source") ?? undefined);
     setIncludeLocal(params.get("local") === "1");
-    if (params.get("source") && params.get("local") !== "1") setKit([params.get("source")!]);
+    const picked = params.get("local") !== "1" ? buildSourceIds(params.getAll("source")) ?? [] : [];
+    const fromGallery = params.get("fromGallery") === "1" && picked.length > 0;
+    if (picked.length) setKit(picked);
     const from = params.get("composeFrom");
-    if (!selected && !from && !params.has("source")) {
+    if (!selected && !from && (!params.has("source") || fromGallery)) {
+      let restoredBrief = "";
       try {
-        const stored = JSON.parse(sessionStorage.getItem("motionux:kinetic-brief") ?? "null");
-        if (typeof stored?.brief === "string") setBrief(stored.brief.slice(0, 3200));
-        if (Array.isArray(stored?.kit)) setKit(stored.kit.filter((id: unknown) => typeof id === "string" && /^[a-z0-9-]{1,96}$/.test(id)).slice(0, 4));
+        const stored = JSON.parse(sessionStorage.getItem(buildDraftKey) ?? "null");
+        if (typeof stored?.brief === "string") {
+          restoredBrief = stored.brief.slice(0, 3200);
+          setBrief(restoredBrief);
+        }
+        if (fromGallery) sessionStorage.setItem(buildDraftKey, JSON.stringify({ brief: restoredBrief, kit: picked }));
+        else setKit(buildSourceIds(stored?.kit) ?? []);
       } catch { /* A new form remains available. */ }
     }
+    if (fromGallery) briefInput.current?.focus({ preventScroll: true });
     restoredForm.current = true;
     void (async () => {
       try {
@@ -255,7 +265,15 @@ export function ComposerHome({
 
   function rememberIdea(nextBrief: string, nextKit: string[]) {
     if (!restoredForm.current) return;
-    try { sessionStorage.setItem("motionux:kinetic-brief", JSON.stringify({ brief: nextBrief, kit: nextKit })); } catch { /* Session persistence is optional. */ }
+    try {
+      sessionStorage.setItem(buildDraftKey, JSON.stringify({ brief: nextBrief, kit: nextKit }));
+      const url = new URL(location.href);
+      if (url.searchParams.get("fromGallery") === "1") {
+        url.searchParams.delete("fromGallery");
+        url.searchParams.delete("source");
+        window.history.replaceState(window.history.state, "", url);
+      }
+    } catch { /* Session persistence is optional. */ }
   }
   function updateBrief(next: string) { setBrief(next); rememberIdea(next, kit); }
   function updateKit(next: string[]) { setKit(next); rememberIdea(brief, next); }
