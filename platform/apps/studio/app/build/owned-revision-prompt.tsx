@@ -1,14 +1,17 @@
 "use client";
 
 import { ArrowRight, Sparkles } from "lucide-react";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { OwnedRevisionControls } from "@motionux/build-canvas";
 import { useStudioCopy } from "./kinetic-ui";
 import { sourceRequest, SourceJobStatus, useSourceJob } from "./source-job";
+import { useRevisionViewport } from "./revision-viewport";
 
 export function OwnedRevisionPrompt({ saved, disabled, accept, pending }: OwnedRevisionControls) {
   const t = useStudioCopy();
   const fieldId = useId();
+  const prompt = useRef<HTMLTextAreaElement>(null);
+  useRevisionViewport(prompt);
   const [brief, setBrief] = useState("");
   const operation = useSourceJob(saved.id, async (id) => {
     accept(await sourceRequest("/" + id));
@@ -28,7 +31,7 @@ export function OwnedRevisionPrompt({ saved, disabled, accept, pending }: OwnedR
     }}>
       <label htmlFor={fieldId}><Sparkles size={15} aria-hidden="true" />{t("Revise with Codex", "Codex ile düzenle")}</label>
       <div className="kinetic-revision-input">
-        <textarea id={fieldId} rows={2} maxLength={3200} minLength={12} required dir="auto"
+        <textarea id={fieldId} ref={prompt} rows={2} maxLength={3200} minLength={12} required dir="auto"
           aria-describedby={fieldId + "-help"} value={brief} disabled={operation.active}
           placeholder={t("Ask to rename a section or improve its copy…", "Bir bölümü yeniden adlandırmayı veya metnini iyileştirmeyi iste…")}
           onChange={(event) => setBrief(event.target.value)} />

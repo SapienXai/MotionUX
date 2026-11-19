@@ -35,6 +35,20 @@ for (const engine of [chromium, webkit]) {
         } else {
           await expect(page.getByRole("navigation", { name: "Project pages" })).toBeVisible();
         }
+        if (width === 390) {
+          const prompt = page.getByRole("textbox", { name: "Revise with Codex" });
+          const submit = page.getByRole("button", { name: "Revise saved application" });
+          await prompt.fill("Keep the current interactions.");
+          await page.setViewportSize({ width, height: 440 });
+          await expect(prompt).toBeFocused();
+          for (const control of [prompt, submit]) {
+            await expect.poll(() => control.evaluate((node) => {
+              const rect = node.getBoundingClientRect();
+              return node.contains(document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2));
+            })).toBe(true);
+          }
+          await page.setViewportSize({ width, height: 844 });
+        }
       }
       await context.close();
       console.log(engine.name(), width, "Projects and all three workspace formats passed.");

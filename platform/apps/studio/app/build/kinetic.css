@@ -396,6 +396,9 @@
 .kinetic-puck .build-workspace[data-compact="true"] { grid-template-columns: minmax(0,1fr); }
 .unified-mobile-workspace-nav { display: none; }
 @media (max-width: 1099px) {
+  :root:has(.unified-mobile-workspace-nav, .unified-source-mobile-nav) {
+    scroll-padding-block-end: calc(3.75rem + env(safe-area-inset-bottom, 0px));
+  }
   .kinetic-puck .unified-mobile-workspace-nav, .unified-source-mobile-nav {
     display: flex; position: sticky; inset-block-end: 0; z-index: 3; justify-content: center;
     gap: .25rem; padding: .35rem .5rem max(.35rem, env(safe-area-inset-bottom));

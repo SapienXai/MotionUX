@@ -7,6 +7,7 @@ import { RuntimeInspector } from "@motionux/build-canvas/runtime-inspector";
 import { SegmentedControl } from "../../../../../components/navigation/motion-selector";
 import { openStudioSheet, StudioSheet, useStudioCopy } from "./kinetic-ui";
 import { sourceRequest } from "./source-job";
+import { useRevisionViewport } from "./revision-viewport";
 
 export type SourcePreview = { documentDigest?: string; id?: string; revision?: number; status: string; url?: string; message?: string };
 const screens = {
@@ -42,6 +43,7 @@ export function KineticEditor({ projectId, name, revision, dirty, draftSaved, lo
   const navigation = useRef<HTMLDialogElement>(null);
   const actions = useRef<HTMLDialogElement>(null);
   const prompt = useRef<HTMLTextAreaElement>(null);
+  useRevisionViewport(prompt);
   const { width: idealWidth, height } = screens[device];
   const scale = fullSize ? 1 : Math.min(1, (width || idealWidth) / idealWidth);
   const currentPage = pages.find((page) => route === page.route) ?? pages[0];
