@@ -7,9 +7,12 @@ import { openSavedPreview, sourceRequest, SourceJobStatus, restoreSourceRevision
 import { KineticEditor, type SourcePreview as Preview } from "./kinetic-editor";
 import { useStudioCopy } from "./kinetic-ui";
 import { SourceCatalogDialog } from "./source-catalog-dialog";
+import type { SourceAttachment } from "./source-attachment";
 import type { CompositionComponent } from "./component-picker";
 
-export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack: () => void }) {
+export function CodeEditor({ initial, onBack, attachment }: {
+  initial: BuildProject; onBack: () => void; attachment?: SourceAttachment;
+}) {
   const frame = useRef<HTMLIFrameElement>(null);
   const t = useStudioCopy();
   const [saved, setSaved] = useState(initial);
@@ -19,10 +22,13 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
   const [preview, setPreview] = useState<Preview>();
   const [route, setRoute] = useState("/");
   const [draftSaved, setDraftSaved] = useState(false);
-  const [feedback, setFeedback] = useState("");
-  const [error, setError] = useState("");
+  const [feedback, setFeedback] = useState(() => attachment?.rows.length
+    ? t("Components attached to your next revision.", "Bileşenler sonraki revizyona eklendi.") : "");
+  const [error, setError] = useState(() => attachment?.unavailable
+    ? t("These components could not be attached. Check the current selection in the project catalog.",
+      "Bu bileşenler eklenemedi. Proje kataloğundaki seçimi kontrol et.") : "");
   const [brief, setBrief] = useState("");
-  const [additions, setAdditions] = useState<CompositionComponent[]>([]);
+  const [additions, setAdditions] = useState<CompositionComponent[]>(attachment?.rows ?? []);
   const [busy, setBusy] = useState(false);
   const [inventory, setInventory] = useState<{ counts: { total: number; compilerReady: number; reasons: Record<string, number> } }>();
   const program = draft.document.codeProject!;

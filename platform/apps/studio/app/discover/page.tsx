@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GalleryFrame } from "./gallery-frame";
 
 export const metadata: Metadata = { title: "Gallery and Library" };
 export const dynamic = "force-dynamic";
@@ -37,12 +38,5 @@ export default async function Discover({
         <a href="/build">Open Build</a>
       </main>
     );
-  return (
-    <iframe
-      className="studio-discover"
-      src={url.href}
-      title="MotionUX Gallery, Playground and My Library"
-      referrerPolicy="no-referrer"
-    />
-  );
+  return <GalleryFrame src={url.href} />;
 }

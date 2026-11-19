@@ -61,7 +61,7 @@
 .mx-original-card-title { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 6px; }
 .mx-new-badge { padding: 2px 5px; border-radius: 5px; background: var(--chip); color: var(--muted); font-size: 10px; }
 
-.mx-build-filter, .mx-build-pick, .mx-build-open, .mx-build-tray li button, .mx-build-load button {
+.mx-build-filter, .mx-build-pick, .mx-build-open, .mx-build-project, .mx-build-tray li button, .mx-build-load button {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   min-block-size: 36px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 8px;
   background: var(--surface); color: var(--ink); font-size: 12px; font-weight: 600;
@@ -87,16 +87,18 @@
 }
 .mx-build-tray li { flex: none; }
 .mx-build-tray li button { min-block-size: 32px; background: var(--chip); }
+.mx-build-project { flex: none; margin-inline-start: auto; }
 .mx-build-open { flex: none; background: var(--ink); color: var(--surface); }
 @media (hover: hover) {
-  :is(.mx-build-filter, .mx-build-pick, .mx-build-tray li button):hover:not(:disabled) { background: var(--active); }
+  :is(.mx-build-filter, .mx-build-pick, .mx-build-project, .mx-build-tray li button):hover:not(:disabled) { background: var(--active); }
   .mx-build-open:hover { opacity: .88; }
 }
 @media (pointer: coarse), (max-width: 600px) {
-  :is(.mx-build-filter, .mx-build-pick, .mx-build-open, .mx-build-tray li button, .mx-build-load button) { min-block-size: 44px; }
+  :is(.mx-build-filter, .mx-build-pick, .mx-build-open, .mx-build-project, .mx-build-tray li button, .mx-build-load button) { min-block-size: 44px; }
   .mx-build-tray { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
   .mx-build-tray-content { display: contents; }
   .mx-build-tray p { grid-area: 1 / 1; align-self: center; }
   .mx-build-tray ul { grid-area: 2 / 1 / 3 / 3; }
   .mx-build-open { grid-area: 1 / 2; }
+  .mx-build-tray:has(.mx-build-project) .mx-build-project { grid-area: 3 / 1; margin-inline-start: 0; justify-self: start; }
 }

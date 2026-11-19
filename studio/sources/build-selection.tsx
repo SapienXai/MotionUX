@@ -1,5 +1,5 @@
 import { ArrowRight, Check, Layers3, Plus, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { buildSelectionLimit, buildSourceIds, studioOrigin } from "../../lib/studio-bridge";
 import type { OriginalCard } from "./local";
 
@@ -9,6 +9,7 @@ export function useGalleryBuildSelection(embedded: boolean) {
   const [modes, setModes] = useState<ReadonlyMap<string, Mode>>();
   const [ids, setIds] = useState<string[]>([]);
   const [failed, setFailed] = useState(false);
+  const projectTrigger = useRef<HTMLButtonElement>(null);
   const [context, setContext] = useState<{ purpose: "creation" | "revision"; limit: number; reasons: ReadonlyMap<string, string> }>();
 
   function send(message: object) {
@@ -23,6 +24,9 @@ export function useGalleryBuildSelection(embedded: boolean) {
     function receive(event: MessageEvent) {
       if (event.origin !== studioOrigin || event.source !== window.parent) return;
       if (event.data?.type === "motionux:build-catalog-unavailable") setFailed(true);
+      if (event.data?.type === "motionux:project-picker-closed") {
+        projectTrigger.current?.focus({ preventScroll: true });
+      }
       if (event.data?.type !== "motionux:build-catalog" || !Array.isArray(event.data.entries)) return;
       const entries = new Map<string, Mode>(event.data.entries);
       setModes(entries);
@@ -44,6 +48,10 @@ export function useGalleryBuildSelection(embedded: boolean) {
       previous.length < (context?.limit ?? buildSelectionLimit) ? [...previous, id] : previous);
   }
   return { embedded, modes, ids, failed, load, toggle, context,
+    chooseProject: (trigger: HTMLButtonElement) => {
+      projectTrigger.current = trigger;
+      send({ type: "motionux:choose-project", ids });
+    },
     openBuild: () => send({ type: "motionux:build-selection", ids }) };
 }
 
@@ -100,6 +108,8 @@ export function BuildSelectionTray({ originals, selection }: {
           }}>{title}<X size={13} aria-hidden="true" /></button></li>;
       })}</ul>
     </div>
+    {!context && <button className="mx-build-project" type="button" aria-haspopup="dialog"
+      onClick={(event) => selection.chooseProject(event.currentTarget)}>Use in project</button>}
     <button className="mx-build-open" type="button" onClick={openBuild}>{context?.purpose === "revision" ? "Attach to revision" :
       context?.purpose === "creation" ? "Use selected components" : "Continue to Build"} <ArrowRight size={15} aria-hidden="true" /></button>
   </aside>;

@@ -58,8 +58,9 @@ for (const engine of [chromium, webkit]) {
     await expect(fifth).toBeEnabled();
     await pickAction(...components[3]);
     await gallery.getByRole("link", { name: "Open playground for Morph Toggle" }).click();
-    await gallery.getByRole("button", { name: "Use in Build: Morph Toggle", exact: true }).click();
-    await tray.getByRole("button", { name: "Continue to Build" }).click();
+    const detail = gallery.getByRole("dialog", { name: "Morph Toggle component preview" });
+    await detail.getByRole("button", { name: "Use in Build: Morph Toggle", exact: true }).click();
+    await detail.getByRole("button", { name: "Continue to Build" }).click();
     await page.waitForURL(/\/build\?fromGallery=1/);
     assert.deepEqual(new URL(page.url()).searchParams.getAll("source"), components.map(([id]) => id));
     await expect(prompt).toBeFocused();

@@ -21,7 +21,10 @@ import {
 } from "../../../../lib/studio-bridge";
 import { sourceRequest } from "./build/source-job";
 import type { CompositionComponent } from "./build/component-picker";
+import { ProjectSourceHandoff } from "./build/project-source-handoff";
 import type { WorkspaceSearch } from "@motionux/build-canvas/workspace";
+
+const discoverSelectionKey = "motionux:discover-selection";
 
 export function StudioChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -30,6 +33,8 @@ export function StudioChrome({ children }: { children: ReactNode }) {
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [workspace, setWorkspace] = useState<WorkspaceSearch | null>(null);
+  const [handoff, setHandoff] = useState<CompositionComponent[]>([]);
+  const handoffDialog = useRef<HTMLDialogElement>(null);
   const [turkish, setTurkish] = useState(false);
   const t = (english: string, tr: string) => (turkish ? tr : english);
   const search = useRef<HTMLInputElement>(null);
@@ -109,32 +114,50 @@ export function StudioChrome({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (pathname !== "/discover") return;
     const controller = new AbortController();
-    let catalog: Promise<Map<string, "direct" | "connected">> | undefined;
+    let catalog: Promise<Map<string, CompositionComponent>> | undefined;
     async function receiveBuildSelection(event: MessageEvent) {
       const frame = activeFrame()?.contentWindow;
       if (!frame || event.origin !== galleryOrigin || event.source !== frame ||
         location.pathname !== "/discover") return;
       if (event.data?.type === "motionux:build-catalog-request") {
         catalog ??= sourceRequest<CompositionComponent[]>("/source-jobs/components", "GET", undefined, controller.signal)
-          .then((rows) => new Map(rows.flatMap(({ id, mode }) => mode === "reference" ? [] : [[id, mode]])));
+          .then((rows) => new Map(rows.filter(({ mode }) => mode !== "reference").map((row) => [row.id, row])));
         try {
           const entries = await catalog;
           if (controller.signal.aborted || activeFrame()?.contentWindow !== frame) return;
           let draft: string[] = [];
           try {
-            draft = buildSourceIds(JSON.parse(sessionStorage.getItem(buildDraftKey) ?? "null")?.kit) ?? [];
+            const previous = JSON.parse(sessionStorage.getItem(discoverSelectionKey) ?? "null");
+            draft = (previous?.search === location.search ? buildSourceIds(previous.ids) : undefined) ??
+              buildSourceIds(JSON.parse(sessionStorage.getItem(buildDraftKey) ?? "null")?.kit) ?? [];
           } catch { /* A new selection remains available. */ }
-          frame.postMessage({ type: "motionux:build-catalog", entries: [...entries], selected: draft }, galleryOrigin);
+          frame.postMessage({
+            type: "motionux:build-catalog",
+            entries: [...entries.values()].map(({ id, mode }) => [id, mode]),
+            selected: draft,
+          }, galleryOrigin);
         } catch {
           catalog = undefined;
           if (!controller.signal.aborted) frame.postMessage({ type: "motionux:build-catalog-unavailable" }, galleryOrigin);
         }
       }
-      if (event.data?.type === "motionux:build-selection" && catalog) {
+      const message = event.data?.type;
+      if ((message === "motionux:build-selection" || message === "motionux:choose-project") && catalog) {
         const ids = buildSourceIds(event.data.ids);
         if (!ids?.length) return;
         const entries = await catalog.catch(() => undefined);
-        if (controller.signal.aborted || activeFrame()?.contentWindow !== frame || !ids.every((id) => entries?.has(id))) return;
+        const selected = ids.flatMap((id) => entries?.get(id) ?? []);
+        if (controller.signal.aborted || activeFrame()?.contentWindow !== frame || selected.length !== ids.length) return;
+        try {
+          sessionStorage.setItem(discoverSelectionKey, JSON.stringify({ search: location.search, ids }));
+        } catch { /* The current frame keeps its selection. */ }
+        if (message === "motionux:choose-project") {
+          const dialog = handoffDialog.current;
+          if (!dialog || dialog.open) return;
+          setHandoff(selected);
+          dialog.showModal();
+          return;
+        }
         const params = new URLSearchParams({ fromGallery: "1" });
         ids.forEach((id) => params.append("source", id));
         router.push("/build?" + params);
@@ -304,6 +327,14 @@ export function StudioChrome({ children }: { children: ReactNode }) {
       <div id="workspace-content" tabIndex={-1} className="studio-content">
         {children}
       </div>
+      {discover && <ProjectSourceHandoff dialog={handoffDialog} selected={handoff} onDismiss={() => {
+        setHandoff([]);
+        activeFrame()?.contentWindow?.postMessage({ type: "motionux:project-picker-closed" }, galleryOrigin);
+      }} onOpen={(id, sources) => {
+        const params = new URLSearchParams({ project: id });
+        sources.forEach((source) => params.append("attach", source));
+        window.location.assign("/build?" + params);
+      }} />}
     </>
   );
 }

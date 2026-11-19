@@ -304,6 +304,9 @@ export function createStore(vault: string) {
               updatedAt,
               revision: value.revision,
               pages: value.document.pages.length,
+              ...(value.document.codeProject && {
+                codeSources: value.document.codeProject.sources.map(({ id }) => id),
+              }),
               error: false,
             };
           } catch {

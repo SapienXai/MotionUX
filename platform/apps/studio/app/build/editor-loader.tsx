@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import type { ComponentProps } from "react";
 import { ComposerHome } from "./composer";
 import { OwnedRevisionPrompt } from "./owned-revision-prompt";
+import type { SourceAttachment } from "./source-attachment";
 import "@motionux/app-blocks/styles.css";
 
 const loadEditor = () => import("@motionux/build-canvas").then((module) => module.Editor);
@@ -12,7 +13,7 @@ const Editor = dynamic(loadEditor, {
 });
 const SourceEditor = dynamic(async () => {
   const [legacy, code] = await Promise.all([import("./source-editor"), import("./code-editor")]);
-  return function SourceCanvas(props: Parameters<typeof legacy.SourceEditor>[0]) {
+  return function SourceCanvas(props: Parameters<typeof legacy.SourceEditor>[0] & { attachment?: SourceAttachment }) {
     return props.initial.document.codeProject ? <code.CodeEditor {...props} /> : <legacy.SourceEditor {...props} />;
   };
 }, {

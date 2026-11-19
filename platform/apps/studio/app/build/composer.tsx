@@ -2,7 +2,9 @@
 
 import { SourceJobStatus, useSourceJob } from "./source-job";
 import { ComponentPicker } from "./component-picker";
+import type { CompositionComponent } from "./component-picker";
 import { useStudioCopy } from "./kinetic-ui";
+import { attachmentIssue, type SourceAttachment } from "./source-attachment";
 
 import { buildDraftKey, buildSourceIds, projectPathKey } from "../../../../../lib/studio-bridge";
 import {
@@ -34,6 +36,7 @@ import type { BuildProject, Template } from "@motionux/build-core";
 import type { ReviewedPlan } from "@motionux/build-core/blueprint";
 
 type CanvasProps = { initial: BuildProject; onBack: () => void };
+type SourceCanvasProps = CanvasProps & { attachment?: SourceAttachment };
 type Row = {
   id: string;
   name: string;
@@ -153,13 +156,14 @@ export function ComposerHome({
   prepareCanvas,
 }: {
   Canvas: ComponentType<CanvasProps>;
-  SourceCanvas: ComponentType<Pick<CanvasProps, "initial" | "onBack">>;
+  SourceCanvas: ComponentType<SourceCanvasProps>;
   prepareCanvas: () => Promise<unknown>;
 }) {
   const t = useStudioCopy();
   const [allProjects, setAllProjects] = useState(false);
   const [rows, setRows] = useState<Row[]>([]);
   const [project, setProject] = useState<BuildProject>();
+  const [attachment, setAttachment] = useState<SourceAttachment>();
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [brief, setBrief] = useState("");
@@ -228,15 +232,20 @@ export function ComposerHome({
     void (async () => {
       try {
         setRows(await request<Row[]>("", "GET", undefined, controller.signal));
-        if (selected)
-          openCanvas(
-            await request<BuildProject>(
-              "/" + encodeURIComponent(selected),
-              "GET",
-              undefined,
-              controller.signal,
-            ),
-          );
+        if (selected) {
+          const saved = await request<BuildProject>("/" + encodeURIComponent(selected), "GET", undefined, controller.signal);
+          if (saved.document.codeProject && params.has("attach")) {
+            const ids = buildSourceIds(params.getAll("attach"));
+            const catalog = ids?.length ? await request<CompositionComponent[]>("/source-jobs/components",
+              "GET", undefined, controller.signal).catch(() => []) : [];
+            if (controller.signal.aborted) return;
+            const rows = (ids ?? []).flatMap((id) => catalog.find((row) => row.id === id) ?? []);
+            const unavailable = !rows.length || rows.length !== ids?.length ||
+              Boolean(attachmentIssue(rows, saved.document.codeProject.sources.map(({ id }) => id)));
+            setAttachment({ rows: unavailable ? [] : rows, unavailable });
+          }
+          openCanvas(saved);
+        }
         if (!selected && from) {
           const base = await request<BuildProject>("/" + encodeURIComponent(from), "GET", undefined, controller.signal);
           if (base.document.codeProject) {
@@ -373,8 +382,9 @@ export function ComposerHome({
     setEdits({ ...edits, routes });
   }
   if (project?.document.sourceGraph || project?.document.codeProject)
-    return <SourceCanvas key={project.id} initial={project} onBack={() => {
+    return <SourceCanvas key={project.id} initial={project} attachment={attachment} onBack={() => {
       setProject(undefined);
+      setAttachment(undefined);
       rememberProject("/build");
       void request<Row[]>().then(setRows, (error) => setError(messageFor(error)));
     }} />;

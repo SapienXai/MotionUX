@@ -515,3 +515,18 @@
   .unified-revision-sources .kinetic-button { min-block-size: 44px; }
 }
 .unified-owned-revision { padding: 0 .8rem .8rem; }
+.unified-handoff { padding: 0 1rem 1.1rem; }
+.unified-handoff > p { margin-block: .3rem .8rem; color: var(--k-muted); line-height: 1.5; }
+.unified-handoff :is(.unified-handoff-sources, .unified-handoff-projects) { list-style: none; margin: 0; padding: 0; }
+.unified-handoff .unified-handoff-sources { display: flex; flex-wrap: wrap; gap: .4rem; margin-block-end: 1rem; }
+.unified-handoff-sources > li {
+  padding: .32rem .55rem; border: 1px solid var(--k-line);
+  border-radius: 8px; color: var(--k-ink); overflow-wrap: anywhere;
+}
+.unified-handoff-projects > li {
+  display: flex; align-items: center; justify-content: space-between; gap: .7rem;
+  border-block-start: 1px solid var(--k-line); padding-block: .65rem;
+}
+.unified-handoff-projects li > span { min-inline-size: 0; overflow-wrap: anywhere; }
+.unified-handoff-projects small { display: block; margin-block-start: .2rem; color: var(--k-muted); }
+.unified-handoff-projects button { flex: none; min-block-size: 44px; }
