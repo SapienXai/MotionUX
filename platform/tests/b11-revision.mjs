@@ -1,4 +1,4 @@
-import { exportFromSourceEditor, openSourceProperties } from "./source-editor-ui.mjs";
+import { exportFromSourceEditor } from "./source-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -28,18 +28,13 @@ try {
   await outline.getByRole("navigation", { name: "Project pages" }).getByRole("button", { name: generatedPage.title, exact: true }).click();
   await outline.getByText("Sections", { exact: true }).click();
   await outline.getByRole("button", { name: generated.title, exact: true }).click();
-  const fields = page.getByRole("complementary", { name: "Source properties" });
+  const fields = page.getByRole("complementary", { name: "Section properties" });
   const title = fields.getByLabel("Title", { exact: true });
   await title.fill(manualTitle);
-  await page.keyboard.press("Escape");
   await button("Undo").click();
-  await openSourceProperties(page);
   await expect(title).toHaveValue(generated.title);
-  await page.keyboard.press("Escape");
   await button("Redo").click();
-  await openSourceProperties(page);
   await expect(title).toHaveValue(manualTitle);
-  await page.keyboard.press("Escape");
 
   const saving = page.waitForResponse((response) => response.url().endsWith("/api/build/" + original.id) && response.request().method() === "PUT");
   await button("Save").click();
@@ -47,11 +42,11 @@ try {
   assert(save.ok(), await save.text());
   const edited = await save.json();
   assert.equal(edited.revision, original.revision + 1);
-  await button("Run").click();
+  await button("Preview").click();
   const frame = page.frameLocator('iframe[title="Live source application"]');
   await expect(frame.locator(named(generated.id)).getByRole("heading", { name: manualTitle })).toBeVisible({ timeout: 40_000 });
   const stopping = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
-  await button("Stop Run").click();
+  await button("Stop preview").click();
   assert((await stopping).ok());
 
   const brief = "Change only the visible title of the instance " + source.id + " to exactly " + revisedTitle +
@@ -82,7 +77,7 @@ try {
   console.log("Saved edit, real Run and targeted native revision", job);
 
   const closing = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
-  await button("Stop Run").click();
+  await button("Stop preview").click();
   assert((await closing).ok());
   await page.goto(base + "/build", { waitUntil: "networkidle" });
   const before = await page.evaluate(async () => (await fetch("/api/build")).json());

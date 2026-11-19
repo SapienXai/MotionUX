@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowLeft, Check, X } from "lucide-react";
-import { useEffect, useId, useState, useSyncExternalStore, type ComponentProps, type ReactNode, type RefObject } from "react";
+import { useEffect, useEffectEvent, useId, useState, useSyncExternalStore, type ComponentProps, type ReactNode, type RefObject } from "react";
 
 const wideWorkspace = "(min-width: 1100px)";
 function subscribe(reactToViewport: () => void) {
@@ -14,6 +14,23 @@ function serverViewport() { return false; }
 
 export function useWideWorkspace() {
   return useSyncExternalStore(subscribe, wideViewport, serverViewport);
+}
+
+export type WorkspaceSearch = {
+  pages: readonly { title: string; route: string }[];
+  navigate: (route: string) => void;
+};
+
+export function useWorkspaceSearch(pages: WorkspaceSearch["pages"], onPage: WorkspaceSearch["navigate"]) {
+  const go = useEffectEvent(onPage);
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent<WorkspaceSearch>("motionux:workspace-search", {
+      detail: { pages, navigate: (route) => go(route) },
+    }));
+    return () => {
+      window.dispatchEvent(new CustomEvent("motionux:workspace-search", { detail: null }));
+    };
+  }, [pages]);
 }
 
 export function WorkspaceHeader({ name, revision, dirty, draftSaved, busy, backLabel, statusLabels, onBack, children }: {

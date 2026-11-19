@@ -25,7 +25,7 @@ MotionUX distributes individual source files through its shadcn GitHub registry.
 
 ## Visual application studio
 
-The workflow goes from Discover to Create or Compose, then Edit, Interact, Run, Inspect and Export. Edit and Interact render the current document. Run and Export use the saved revision. A working app has navigable routes, accessible controls and meaningful local behaviors in a clean export built from its own lockfile.
+Projects is the entry to app creation and recovery. Studio is the editing context for a project. Discover contains the original components, previews, source details and saved library. Edit and Interact render the current document where the project format supports it. Run and Export use the saved revision. A working app has navigable routes, accessible controls and meaningful local behaviors in a clean export built from its own lockfile.
 
 MotionUX helps design engineers and Codex users build managed web apps with proven components. The daily workflow is to discover an interaction, assemble typed blocks, inspect the real app at different sizes and export readable source. The Gallery, Playground, My Library and Project Kit remain useful on their own.
 

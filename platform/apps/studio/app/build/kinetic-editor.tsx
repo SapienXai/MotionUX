@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent, type ReactNode, type RefObject } from "react";
 import { ArrowDownToLine, ArrowRight, ChevronDown, ExternalLink, File, List, Monitor, PanelLeft, Play, Redo2, Save, Settings2, Smartphone, Sparkles, Square, Tablet, Undo2 } from "lucide-react";
-import { useWideWorkspace, WorkspaceHeader, WorkspaceStructure } from "@motionux/build-canvas/workspace";
+import { useWideWorkspace, useWorkspaceSearch, WorkspaceHeader, WorkspaceStructure } from "@motionux/build-canvas/workspace";
 import { RuntimeInspector } from "@motionux/build-canvas/runtime-inspector";
 import { SegmentedControl } from "../../../../../components/navigation/motion-selector";
 import { openStudioSheet, StudioSheet, useStudioCopy } from "./kinetic-ui";
@@ -19,7 +19,7 @@ type Page = { id: string; title: string; route: string };
 
 export function KineticEditor({ projectId, name, revision, dirty, draftSaved, locked, error, feedback, notice, pages, route, onPage,
   outline, sources, inspector, inspectorTitle, inspectRequest, preview, frame, onFrameLoad, previewPath, onBack, onUndo, onRedo,
-  onSave, onRun, onExport, canUndo, canRedo, exportBlocked, brief, onBrief, onRevise, job }: {
+  onSave, onRun, onExport, canUndo, canRedo, exportBlocked, brief, onBrief, onRevise, job, catalog, revisionContext }: {
   projectId: string; name: string; revision: number; dirty: boolean; draftSaved: boolean; locked: boolean;
   error: string; feedback: string; notice?: ReactNode; pages: Page[]; route: string; onPage: (route: string) => void;
   outline?: ReactNode; sources: ReactNode; inspector: ReactNode; inspectorTitle: string; inspectRequest?: number;
@@ -27,11 +27,13 @@ export function KineticEditor({ projectId, name, revision, dirty, draftSaved, lo
   onBack: () => void; onUndo: () => void; onRedo: () => void; onSave: () => void; onRun: () => void;
   onExport: (pwa: boolean) => void; canUndo: boolean; canRedo: boolean; exportBlocked?: boolean;
   brief: string; onBrief: (brief: string) => void; onRevise: (event: FormEvent) => void; job: ReactNode;
+  catalog: (compact: boolean) => ReactNode; revisionContext?: ReactNode;
 }) {
   const t = useStudioCopy();
   const [device, setDevice] = useState<Device>(() => typeof window === "undefined" ? "desktop" :
     window.matchMedia("(max-width: 600px)").matches ? "mobile" : window.matchMedia("(max-width: 1050px)").matches ? "tablet" : "desktop");
   const wide = useWideWorkspace();
+  useWorkspaceSearch(pages, onPage);
   const [fullSize, setFullSize] = useState(false);
   const [rail, setRail] = useState(true);
   const [width, setWidth] = useState(0);
@@ -112,6 +114,7 @@ export function KineticEditor({ projectId, name, revision, dirty, draftSaved, lo
     <div className="kinetic-workspace" data-rail={rail} data-properties={wide}>
       <WorkspaceStructure className="kinetic-rail" hidden={!rail} aria-label={t("Project outline", "Proje yapısı")}>
         <h2>{t("Pages", "Sayfalar")}</h2>{pageLinks()}{outline}{sources}
+        {wide && catalog(false)}
       </WorkspaceStructure>
       <section className="kinetic-stage" aria-label={t("Application canvas", "Uygulama tuvali")}>
         <div className="kinetic-stage-bar">
@@ -151,13 +154,15 @@ export function KineticEditor({ projectId, name, revision, dirty, draftSaved, lo
           </div>
         </> : <div className="kinetic-stage-empty">
           <span className="kinetic-empty-icon"><Monitor size={26} aria-hidden="true" /></span>
-          <strong>{running ? t("Starting the application", "Uygulama başlatılıyor") : t("Your application canvas", "Uygulama tuvalin")}</strong>
+          <strong>{preview?.status === "failed" ? t("Preview couldn’t start", "Önizleme başlatılamadı") :
+            running ? t("Starting the application", "Uygulama başlatılıyor") : t("Your application canvas", "Uygulama tuvalin")}</strong>
           <p>{dirty ? t("Save changes to run this revision.", "Bu revizyonu çalıştırmak için kaydet.") : t("Run the saved application to interact with it here.", "Burada etkileşim için kayıtlı uygulamayı çalıştır.")}</p>
         </div>}
         <div className="kinetic-revision">
           {job}
           <form onSubmit={onRevise}>
             <label htmlFor="kinetic-revision-brief"><Sparkles size={15} aria-hidden="true" />{t("Revise with Codex", "Codex ile düzenle")}</label>
+            {revisionContext}
             <div className="kinetic-revision-input">
               <textarea id="kinetic-revision-brief" ref={prompt} dir="auto" rows={2} required minLength={12} maxLength={3200}
                 value={brief} disabled={locked} onChange={(event) => onBrief(event.target.value)}
@@ -189,6 +194,7 @@ export function KineticEditor({ projectId, name, revision, dirty, draftSaved, lo
       <button type="button" className="kinetic-button" aria-haspopup="dialog" onClick={(event) => openStudioSheet(properties.current, event.currentTarget)}>
         <Settings2 size={17} aria-hidden="true" />{t("Properties", "Özellikler")}
       </button>
+      {catalog(true)}
     </nav>}
     {!wide && <StudioSheet dialog={properties} title={inspectorTitle} side>
       <div className="kinetic-properties">{inspector}</div>

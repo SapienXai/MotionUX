@@ -3,10 +3,11 @@
 import { useEffect, useState, type FormEvent } from "react";
 import type { BuildProject } from "@motionux/build-core";
 import type { SourceGraph, SourceInstance } from "@motionux/build-core/source-graph";
-import { SourceJobStatus, restoreSourceRevision, sourceRequest, useSourceJob } from "./source-job";
+import { openSavedPreview, SourceJobStatus, restoreSourceRevision, sourceRequest, useSourceJob } from "./source-job";
 
 import { KineticEditor, type SourcePreview as Preview } from "./kinetic-editor";
 import { useStudioCopy } from "./kinetic-ui";
+import { SourceCatalogDialog } from "./source-catalog-dialog";
 type Draft = { baseRevision: number; document: BuildProject["document"] };
 
 export function SourceEditor({ initial, onBack }: { initial: BuildProject; onBack: () => void }) {
@@ -172,6 +173,7 @@ export function SourceEditor({ initial, onBack }: { initial: BuildProject; onBac
   return <KineticEditor projectId={saved.id} name={saved.document.name} revision={saved.revision} dirty={dirty} draftSaved={draftSaved} locked={locked} error={error} feedback={feedback}
     pages={graph.pages} route={page.route} onPage={(next) => { setRoute(next); setSelected(""); }} outline={outline} sources={sources}
     inspectorTitle={t("Section properties", "Bölüm özellikleri")} inspector={inspector} inspectRequest={inspectRequest}
+    catalog={(compact) => <SourceCatalogDialog existing={graph.sources} selected={[]} disabled={locked} compact={compact} />}
     preview={preview} previewPath={page.route + (selected ? "#" + encodeURIComponent(node.id) : "")}
     onBack={() => { void stop().catch(() => {}); onBack(); }} canUndo={Boolean(past.length)} canRedo={Boolean(future.length)}
     onUndo={() => history()} onRedo={() => history(true)}
@@ -180,7 +182,7 @@ export function SourceEditor({ initial, onBack }: { initial: BuildProject; onBac
     }, t("Revision saved.", "Revizyon kaydedildi."))}
     onRun={() => void action(async () => {
       if (preview && !["failed", "idle"].includes(preview.status)) await stop();
-      else setPreview(await sourceRequest<Preview>("/" + saved.id + "/preview", "POST", { revision: saved.revision }));
+      else setPreview(await openSavedPreview<Preview>(saved.id, saved.revision));
     })}
     onExport={(pwa) => void action(() => download(saved.id, pwa), pwa ? t("PWA source downloaded.", "PWA kaynak kodu indirildi.") : t("Next.js source downloaded.", "Next.js kaynak kodu indirildi."))}
     brief={brief} onBrief={setBrief} onRevise={revise} job={<SourceJobStatus operation={operation} />} />;

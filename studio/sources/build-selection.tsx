@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { buildSelectionLimit, buildSourceIds, studioOrigin } from "../../lib/studio-bridge";
 import type { OriginalCard } from "./local";
 
-type Mode = "direct" | "connected";
+type Mode = "direct" | "connected" | "reference";
 
 export function useGalleryBuildSelection(embedded: boolean) {
   const [modes, setModes] = useState<ReadonlyMap<string, Mode>>();
   const [ids, setIds] = useState<string[]>([]);
   const [failed, setFailed] = useState(false);
+  const [context, setContext] = useState<{ purpose: "creation" | "revision"; limit: number; reasons: ReadonlyMap<string, string> }>();
 
   function send(message: object) {
     window.parent.postMessage(message, studioOrigin);
@@ -25,7 +26,12 @@ export function useGalleryBuildSelection(embedded: boolean) {
       if (event.data?.type !== "motionux:build-catalog" || !Array.isArray(event.data.entries)) return;
       const entries = new Map<string, Mode>(event.data.entries);
       setModes(entries);
-      setIds((buildSourceIds(event.data.selected) ?? []).filter((id) => entries.has(id)));
+      const limit = Number.isInteger(event.data.limit) && event.data.limit >= 0 && event.data.limit <= buildSelectionLimit
+        ? event.data.limit : buildSelectionLimit;
+      if ((event.data.purpose === "revision" || event.data.purpose === "creation") && Array.isArray(event.data.reasons)) {
+        setContext({ purpose: event.data.purpose, limit, reasons: new Map<string, string>(event.data.reasons) });
+      }
+      setIds((buildSourceIds(event.data.selected) ?? []).filter((id) => entries.has(id)).slice(0, limit));
     }
     window.addEventListener("message", receive);
     load();
@@ -35,9 +41,9 @@ export function useGalleryBuildSelection(embedded: boolean) {
   function toggle(id: string) {
     if (!modes?.has(id)) return;
     setIds((previous) => previous.includes(id) ? previous.filter((value) => value !== id) :
-      previous.length < buildSelectionLimit ? [...previous, id] : previous);
+      previous.length < (context?.limit ?? buildSelectionLimit) ? [...previous, id] : previous);
   }
-  return { embedded, modes, ids, failed, load, toggle,
+  return { embedded, modes, ids, failed, load, toggle, context,
     openBuild: () => send({ type: "motionux:build-selection", ids }) };
 }
 
@@ -47,13 +53,14 @@ export function BuildPickButton({ entry, selection }: { entry: OriginalCard; sel
   if (!selection.modes || entry.availability !== "ready") return null;
   const selected = selection.ids.includes(entry.id);
   const mode = selection.modes.get(entry.id);
-  if (!mode) return <span className="mx-build-reference" title="This component can be used as a design reference from Build.">Reference only</span>;
+  if (!mode) return <span className="mx-build-reference">{selection.context?.reasons.get(entry.id) ?? "Reference only"}</span>;
   const Icon = selected ? Check : Plus;
+  const label = selection.context?.purpose === "revision" ? "Select for revision" : mode === "reference" ? "Use as design reference" : "Use in Build";
   return <button type="button" className="mx-build-pick" aria-pressed={selected}
-    aria-label={`Use in Build: ${entry.title}${mode === "connected" ? " (local only)" : ""}`}
-    disabled={!selected && selection.ids.length >= buildSelectionLimit}
+    aria-label={`${label}: ${entry.title}${mode === "connected" ? " (local only)" : ""}`}
+    disabled={!selected && selection.ids.length >= (selection.context?.limit ?? buildSelectionLimit)}
     onClick={() => selection.toggle(entry.id)}>
-    <Icon size={14} aria-hidden="true" /> Use in Build
+    <Icon size={14} aria-hidden="true" /> {label}
     {mode === "connected" && <small aria-hidden="true">Local</small>}
   </button>;
 }
@@ -61,16 +68,22 @@ export function BuildPickButton({ entry, selection }: { entry: OriginalCard; sel
 export function BuildSelectionTray({ originals, selection }: {
   originals: ReadonlyMap<string, OriginalCard>; selection: GalleryBuildSelection;
 }) {
-  const { embedded, modes, ids, failed, load, toggle, openBuild } = selection;
+  const { embedded, modes, ids, failed, load, toggle, openBuild, context } = selection;
   if (!embedded) return null;
   if (failed) return <p className="mx-build-load" role="status">Build compatibility could not load. <button type="button" onClick={load}>Retry</button></p>;
   if (!modes) return <p className="mx-build-load" role="status">Checking Build compatibility…</p>;
-  const full = ids.length === buildSelectionLimit;
+  const limit = context?.limit ?? buildSelectionLimit;
+  const full = ids.length === limit;
   const local = ids.some((id) => modes.get(id) === "connected");
-  if (!ids.length) return <p className="mx-build-load" role="status">Choose up to {buildSelectionLimit} components to build an app with them.</p>;
+  if (!ids.length) return <div className="mx-build-load">
+    <p role="status">{context?.purpose === "revision"
+      ? limit ? `Choose up to ${limit} components to use in this revision.` : "Browse sources for this project. Direct additions are unavailable."
+      : `Choose up to ${limit} components to build an app with them.`}</p>
+    {context?.purpose === "creation" && <button type="button" onClick={openBuild}>Use automatic selection</button>}
+  </div>;
   return <aside className="mx-build-tray" aria-label="Build selection">
     <div className="mx-build-tray-content">
-      <p role="status"><Layers3 size={16} aria-hidden="true" /><strong>{ids.length} / {buildSelectionLimit} selected</strong>
+      <p role="status"><Layers3 size={16} aria-hidden="true" /><strong>{ids.length} / {limit} selected</strong>
         {full && <span className="mx-sr">. Remove a component to choose another.</span>}
         {local && <span>· Local project only</span>}
       </p>
@@ -87,6 +100,7 @@ export function BuildSelectionTray({ originals, selection }: {
           }}>{title}<X size={13} aria-hidden="true" /></button></li>;
       })}</ul>
     </div>
-    <button className="mx-build-open" type="button" onClick={openBuild}>Continue to Build <ArrowRight size={15} aria-hidden="true" /></button>
+    <button className="mx-build-open" type="button" onClick={openBuild}>{context?.purpose === "revision" ? "Attach to revision" :
+      context?.purpose === "creation" ? "Use selected components" : "Continue to Build"} <ArrowRight size={15} aria-hidden="true" /></button>
   </aside>;
 }

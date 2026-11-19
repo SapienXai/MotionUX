@@ -1,3 +1,4 @@
+import { revealTemplates } from "./project-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { spawn, execFile } from "node:child_process";
 import { randomBytes } from "node:crypto";
@@ -84,6 +85,7 @@ try {
   await page.goto(base + "/build");
   await page.waitForLoadState("networkidle");
   result.startJs = await encodedScripts();
+  await revealTemplates(page);
   await button(page, "New Knowledge Base").click();
   const canvas = page.getByRole("region", { name: "Application canvas" });
   const properties = page.getByRole("complementary", { name: "Properties" });

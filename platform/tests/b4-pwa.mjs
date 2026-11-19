@@ -1,3 +1,4 @@
+import { chooseProjectExport, revealTemplates } from "./project-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { execFile, spawn } from "node:child_process";
 import { randomBytes } from "node:crypto";
@@ -394,6 +395,7 @@ try {
     let appService;
     try {
       await page.goto(studio + "/build");
+      await revealTemplates(page);
       await button(page, spec.label).click();
       await expect(heading(page, spec.hero)).toBeVisible();
       await expect(button(page, "Export")).toBeVisible();
@@ -416,7 +418,7 @@ try {
           )
         : undefined;
       const download = page.waitForEvent("download");
-      await button(page, "Export PWA").click();
+      await chooseProjectExport(page, true);
       const file = await download;
       assert.equal(file.suggestedFilename(), spec.filename);
       const archive = resolve(temp, spec.filename);

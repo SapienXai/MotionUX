@@ -1,3 +1,4 @@
+import { chooseProjectExport, revealTemplates } from "./project-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { spawn, execFile } from "node:child_process";
 import { randomBytes } from "node:crypto";
@@ -267,6 +268,7 @@ async function editMedia(page) {
 async function stage(page, app, work) {
   const time = performance.now();
   await page.goto(base + "/build");
+  await revealTemplates(page);
   await button(page, "New " + app.starter).click();
   const canvas = canvasOf(page);
   await expect(heading(canvas, app.heading)).toBeVisible();
@@ -293,7 +295,7 @@ async function stage(page, app, work) {
   const archives = [];
   for (const pwa of app.formats) {
     const download = page.waitForEvent("download");
-    await button(page, pwa ? "Export PWA" : "Export").click();
+    await chooseProjectExport(page, pwa);
     const path = resolve(work, app.id + (pwa ? "-pwa" : "") + ".zip");
     await (await download).saveAs(path);
     archives.push({ app, saved, digest, path, pwa });

@@ -65,10 +65,11 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
     const favoriteIDs = new Set(favorites);
     const terms = query ? query.split(/\s+/) : [];
     return sorted.filter(item => (!route.category || route.category === item.category.toLowerCase()) &&
-      (!buildOnly || modes?.has(item.id)) &&
+      (!buildOnly || (modes?.has(item.id) && modes.get(item.id) !== "reference")) &&
       (!route.provider || route.provider === item.provider) && (!route.kind || route.kind === item.sourceKind) &&
       (route.subset !== "new" || item.editionOrdinal === edition) &&
       (route.subset !== "favorites" || favoriteIDs.has(item.id)) &&
+      (route.subset !== "verified" || item.visualAcceptance === "verified") &&
       terms.every(term => index.get(item.id)!.includes(term)));
   }, [sorted, index, edition, favorites, query, route.category, route.kind, route.provider, route.subset, buildOnly, modes]);
   const { mounted, retained, register, refresh, rapidScroll } = useGalleryPreviews(grid, items.length > 0);
@@ -89,12 +90,15 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
   return <>
     <header className="mx-originals-header">
       <div className="mx-originals-title">
-        <div><h1 tabIndex={-1}>Originals Gallery</h1><p>Live source previews from {providers.length} providers.</p></div>
+        <div><h1 tabIndex={-1}>{selection.embedded ? "Discover motion that means something." : "Originals Gallery"}</h1>
+          <p>{selection.embedded ? "Explore original interactions, inspect the source, and find components for your app." :
+            `Live source previews from ${providers.length} providers.`}</p></div>
       </div>
       <nav className="mx-originals-categories" aria-label="Filter originals">
         {[
           { label: "All originals", category: "", subset: undefined },
           ...(edition >= 13 ? [{ label: `New in V${edition}`, category: "", subset: "new" as const }] : []),
+          ...(selection.embedded ? [{ label: "Visually verified", category: "", subset: "verified" as const }] : []),
           { label: "Favorites", category: "", subset: "favorites" as const },
           ...categories.map(label => ({ label, category: label.toLowerCase(), subset: undefined })),
         ].map(({ label, category, subset }) => {
@@ -141,7 +145,9 @@ export function OriginalsGallery({ originals, loading, failed, route, scheme, na
             previouslyFailed={failures.has(scheme + ":" + entry.id)} rememberFailure={rememberFailure} register={register}
             route={route} scheme={scheme} navigate={navigate} openCollection={openCollection} collectionDisabled={!library?.data} selection={selection} />)}
         </GalleryRow>)}
-      </div> : !loading && <Empty clear={clear}>Try another search or clear the filters.</Empty>}
+      </div> : !loading && <Empty clear={clear}>{route.subset === "verified" ?
+        "No matching sources have completed visual review. Build compatibility is available separately." :
+        "Try another search or clear the filters."}</Empty>}
     <dialog className="mx-library-dialog" aria-labelledby={pickerTitle} ref={picker} onClose={() => setCollecting(undefined)}>
       {collecting && <><h2 id={pickerTitle}>Collections for {collecting.title}</h2>
         <MembershipForm source={collecting.id} missing={collecting.availability !== "ready"} close={() => picker.current?.close()} /></>}

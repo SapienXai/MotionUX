@@ -214,19 +214,10 @@ select:focus-visible {
 .studio-home-nav nav a:hover {
   color: var(--build-text);
 }
-.studio-welcome,
-.studio-lanes,
 .projects-inner {
   max-width: 1120px;
   margin: auto;
   padding: 0 clamp(16px, 4vw, 42px);
-}
-.studio-welcome {
-  min-height: 440px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  gap: 24px;
-  align-items: center;
 }
 .studio-overline {
   color: var(--build-accent);
@@ -236,7 +227,6 @@ select:focus-visible {
   gap: 6px;
   font-weight: 680;
 }
-.studio-welcome h1,
 .projects-heading h1 {
   font-size: clamp(37px, 6vw, 68px);
   line-height: 1.02;
@@ -244,74 +234,12 @@ select:focus-visible {
   margin: 12px 0;
   font-weight: 720;
 }
-.studio-welcome p,
 .projects-heading p {
   color: var(--build-muted);
   margin: 0 0 20px;
 }
-.studio-illustration {
-  min-height: 230px;
-  max-width: 405px;
-  padding: 13px;
-  display: grid;
-  grid-template-columns: 25% 1fr 1fr;
-  grid-template-rows: 32px 1fr 1fr;
-  gap: 8px;
-  border: 1px solid #524469;
-  border-radius: 16px;
-  background: #1a1723;
-  transform: rotate(-5deg);
-  box-shadow: 0 18px 52px #0d0a13d9;
-}
-.studio-illustration > div {
-  border-radius: 7px;
-  border: 1px solid #423657;
-  background: linear-gradient(150deg, #312741, #221d2e);
-}
-.studio-illustration > div:nth-child(1) {
-  grid-column: 1/-1;
-  background: #32274c;
-}
-.studio-illustration > div:nth-child(2) {
-  grid-row: span 2;
-}
-.studio-lanes {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  padding-bottom: 28px;
-}
-.studio-lanes > a {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 7px;
-  border: 1px solid var(--build-border);
-  background: var(--build-panel);
-  border-radius: 12px;
-  padding: 15px;
-}
-.studio-lanes > a:hover,
 .project-row:hover {
   border-color: #766791;
-}
-.studio-lanes > a > svg:first-child {
-  color: var(--build-accent);
-  width: 18px;
-  grid-column: 1/-1;
-}
-.studio-lanes > a > strong,
-.studio-lanes > a > span {
-  grid-column: 1;
-  font-size: 13px;
-}
-.studio-lanes > a > span {
-  color: var(--build-muted);
-  font-size: 12px;
-}
-.studio-lanes > a > svg:last-child {
-  grid-column: 2;
-  grid-row: 2/4;
 }
 .projects-inner {
   max-width: 900px;
@@ -985,24 +913,8 @@ select:focus-visible {
     height: calc(100dvh - var(--studio-chrome-size) - 205px);
     min-height: 340px;
   }
-  .studio-welcome {
-    min-height: 400px;
-  }
-  .studio-lanes {
-    grid-template-columns: 1fr;
-  }
 }
 @media (max-width: 450px) {
-  .studio-welcome {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding-top: 24px;
-    padding-bottom: 26px;
-  }
-  .studio-illustration {
-    min-height: 150px;
-    margin: 0 15px;
-  }
   .projects-heading {
     align-items: start;
     flex-direction: column;

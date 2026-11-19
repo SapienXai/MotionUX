@@ -1,3 +1,4 @@
+import { revealTemplates } from "./project-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
 import { spawn, execFile } from "node:child_process";
@@ -300,7 +301,7 @@ try {
     413,
   );
   if (process.platform !== "darwin" || live)
-    await page.locator("summary").filter({ hasText: "Legacy starter planning" }).click();
+    await page.locator("summary").filter({ hasText: "Advanced creation" }).click();
   if (process.platform !== "darwin") {
     await page
       .getByRole("textbox", { name: "Describe your app" })
@@ -342,6 +343,7 @@ try {
       "Live Codex → Blueprint Review → exact reviewed revision → new Puck project",
     );
   } else {
+    await revealTemplates(page);
     await page.getByRole("button", { name: /New Sales CRM/ }).click();
   }
   await expect(

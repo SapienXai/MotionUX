@@ -22,6 +22,7 @@ const localPin = sourceIdentity.extend({
 export const codePin = z.union([portablePin, localPin]);
 export const localSourceRights = "This project uses local-only sources. Export is unavailable.";
 export const maxCompositionSources = 4;
+export const maxProjectSources = 6;
 export const sourceReferenceSchema = z.strictObject({ id: sourceId, title: text, provider: text, pin: hash });
 export type SourceReference = z.infer<typeof sourceReferenceSchema>;
 const control = z.strictObject({
@@ -57,7 +58,7 @@ export const codeProposalSchema = z.strictObject({
 });
 export const codeProjectSchema = codeProposalSchema.extend({
   version: z.literal(2),
-  sources: z.array(codePin).min(1).max(6),
+  sources: z.array(codePin).min(1).max(maxProjectSources),
   references: z.array(sourceReferenceSchema).max(maxCompositionSources).optional(),
   lock: hash, compiler: hash, artifacts: z.array(z.strictObject({ path: modulePath, sha256: hash })).min(2).max(12),
 }).superRefine((graph, ctx) => {

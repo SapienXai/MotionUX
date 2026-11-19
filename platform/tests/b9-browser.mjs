@@ -1,3 +1,4 @@
+import { chooseProjectExport, revealTemplates } from "./project-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { execFile, spawn } from "node:child_process";
 import { randomBytes } from "node:crypto";
@@ -120,6 +121,7 @@ async function checkResponse(scope) {
 
 async function createProject(page, app, work) {
   await page.goto(studio + "/build");
+  await revealTemplates(page);
   await button(page, app.action).click();
   const canvas = page.getByRole("region", { name: "Application canvas" });
   await expect(heading(canvas, app.home)).toBeVisible();
@@ -208,7 +210,7 @@ async function createProject(page, app, work) {
     await button(page, "Edit").click();
   }
   const download = page.waitForEvent("download");
-  await button(page, app.pwa ? "Export PWA" : "Export").click();
+  await chooseProjectExport(page, app.pwa);
   const target = resolve(work, app.adapter + ".zip");
   await (await download).saveAs(target);
   return { target, digest: fingerprint(canonical(saved.document)) };

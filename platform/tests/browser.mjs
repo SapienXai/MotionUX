@@ -1,3 +1,4 @@
+import { chooseProjectExport, revealTemplates } from "./project-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
 import { spawn, execFile } from "node:child_process";
@@ -426,7 +427,7 @@ try {
   await track(page);
   await page.goto(studio, { waitUntil: "networkidle" });
   await expect(
-    heading(page, "From proven components to working apps."),
+    heading(page, "What are we building today?"),
   ).toBeVisible();
   const homeJs = await page.evaluate(
     () =>
@@ -437,7 +438,7 @@ try {
   assert.equal(await page.locator("iframe").count(), 0);
   await metrics(page, "next-studio-landing");
   feature.shellJsRequests = homeJs;
-  await page.getByRole("link", { name: "Open Build" }).click();
+  await revealTemplates(page);
   await button(page, "New Hotel Desk").click();
   await expect(heading(page, "Property overview")).toBeVisible();
   const id = new URL(page.url()).searchParams.get("project");
@@ -634,7 +635,7 @@ try {
   assertEditorClean();
   const [download] = await Promise.all([
     page.waitForEvent("download"),
-    button(page, "Export").click(),
+    chooseProjectExport(page),
   ]);
   const zip = resolve(sandbox, "app-source.zip");
   await download.saveAs(zip);
@@ -642,7 +643,7 @@ try {
   feature.exportHash = fingerprint(bytes);
   const [again] = await Promise.all([
     page.waitForEvent("download"),
-    button(page, "Export").click(),
+    chooseProjectExport(page),
   ]);
   assert.equal(
     fingerprint(await readFile(await again.path())),

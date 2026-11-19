@@ -41,7 +41,7 @@ import { ArticleFields, TaskFields } from "./collection-fields";
 import { FrameSize } from "./frame-size";
 import { IdentityFields } from "./identity-fields";
 import { MotionDnaFields } from "./motion-dna-fields";
-import { openStudioSheet, StudioSheet, useWideWorkspace, WorkspaceHeader, WorkspaceStructure } from "./workspace-shell";
+import { openStudioSheet, StudioSheet, useWideWorkspace, useWorkspaceSearch, WorkspaceHeader, WorkspaceStructure } from "./workspace-shell";
 import { RuntimeInspector } from "./runtime-inspector";
 import { IntegrationLab } from "./integration-lab";
 import { readLocalDraft, selectBlock, writeLocalDraft } from "./creator-recovery";
@@ -153,12 +153,19 @@ function ToolbarButton({
     </button>
   );
 }
+export type OwnedRevisionControls = {
+  saved: BuildProject; disabled: boolean; accept: (project: BuildProject) => void;
+  pending: (active: boolean) => void;
+};
+
 export function Editor({
   initial,
   onBack,
+  renderRevision,
 }: {
   initial: BuildProject;
   onBack: () => void;
+  renderRevision?: (controls: OwnedRevisionControls) => ReactNode;
 }) {
   const [checkpoint] = useState(() => readLocalDraft(initial.id));
   const originalDraft = checkpoint?.baseRevision === initial.revision ? checkpoint : null;
@@ -193,6 +200,8 @@ export function Editor({
     if (next && !next.open) next.showModal();
   }, [panel, wide]);
   const [busy, setBusy] = useState("");
+  const [revising, setRevising] = useState(false);
+  const locked = Boolean(busy) || revising;
   const [message, setMessage] = useState("");
   const [recent, setRecent] = useState<BlockId[]>([]);
   const [taskChanges, setTaskChanges] = useState<TaskProgress["changes"]>({});
@@ -333,6 +342,7 @@ export function Editor({
   useEffect(() => {
     function key(event: KeyboardEvent) {
       if (
+        revising ||
         !(event.metaKey || event.ctrlKey) ||
         event.isComposing ||
         event.defaultPrevented
@@ -369,7 +379,7 @@ export function Editor({
       window.removeEventListener("beforeunload", beforeUnload);
       window.removeEventListener("motionux:before-leave", beforeLeave);
     };
-  }, [busy, dirty, historyStep, save, draftSafe]);
+  }, [busy, dirty, historyStep, save, draftSafe, revising]);
   useEffect(() => {
     if (mode !== "run") return;
     let stale = false;
@@ -510,6 +520,7 @@ export function Editor({
       if (target) setPageId(target.id);
     },
   };
+  useWorkspaceSearch(document.pages, runtime.navigate);
   const library = <>
     <Pages
       document={document}
@@ -554,7 +565,7 @@ export function Editor({
     />;
   return (
     <main className="build-app kinetic-puck">
-      <WorkspaceHeader name={document.name} revision={saved.revision} dirty={dirty} draftSaved={draftSafe} busy={Boolean(busy)}
+      <WorkspaceHeader name={document.name} revision={saved.revision} dirty={dirty} draftSaved={draftSafe} busy={locked}
         backLabel={tr ? "Projeler" : "Projects"}
         statusLabels={{ saved: tr ? "Tüm değişiklikler kaydedildi" : "All changes saved",
           draft: tr ? "Taslak yerelde kaydedildi" : "Draft saved locally",
@@ -571,18 +582,18 @@ export function Editor({
         <div className="build-mode" aria-label="Canvas mode">
           <button
             type="button"
-            aria-pressed={mode === "edit"}
+            aria-pressed={mode === "edit"} disabled={revising}
             onClick={() => { setMode("edit"); setFocusCanvas(false); }}
           >
             {tr ? "Düzenle" : "Edit"}
           </button>
-          <button type="button" aria-pressed={mode === "interact"} onClick={() => { setMode("interact"); setPanel("canvas"); }}>
+          <button type="button" aria-pressed={mode === "interact"} disabled={revising} onClick={() => { setMode("interact"); setPanel("canvas"); }}>
             {tr ? "Etkileşim" : "Interact"}
           </button>
           <button
             type="button"
             aria-pressed={mode === "run"}
-            disabled={Boolean(busy)}
+            disabled={locked}
             onClick={run}
           >
             Run
@@ -591,14 +602,14 @@ export function Editor({
         <div className="build-toolbar-actions">
           <ToolbarButton
             label="Undo"
-            disabled={!history.past.length}
+            disabled={!history.past.length || locked}
             onClick={() => historyStep()}
           >
             <Undo2 size={16} />
           </ToolbarButton>
           <ToolbarButton
             label="Redo"
-            disabled={!history.future.length}
+            disabled={!history.future.length || locked}
             onClick={() => historyStep(true)}
           >
             <Redo2 size={16} />
@@ -606,12 +617,12 @@ export function Editor({
           <button
             type="button"
             className="build-button"
-            disabled={!dirty || Boolean(busy)}
+            disabled={!dirty || locked}
             onClick={() => void save()}
           >
             <Save size={15} /> Save
           </button>
-          <button type="button" className="build-button accent" aria-haspopup="dialog" disabled={Boolean(busy)}
+          <button type="button" className="build-button accent" aria-haspopup="dialog" disabled={locked}
             onClick={(event) => openStudioSheet(exportDialog.current, event.currentTarget)}>
             <Download size={15} aria-hidden="true" /> Export
           </button>
@@ -652,7 +663,7 @@ export function Editor({
           onChange={onChange}
         >
           <RememberSelection onSelect={setSelected} />
-          <div className="build-workspace" data-focus-canvas={focusCanvas} data-compact={!wide}>
+          <div className="build-workspace" data-focus-canvas={focusCanvas} data-compact={!wide} inert={revising}>
             {wide && <WorkspaceStructure className="build-left" aria-label="Pages and blocks">{library}</WorkspaceStructure>}
             <section className="build-canvas" aria-label="Application canvas">
               <div className="build-canvas-bar">
@@ -801,12 +812,20 @@ export function Editor({
 
           </div>
           {!wide && <>
-            <StudioSheet dialog={libraryDialog} title={tr ? "Sayfalar ve bloklar" : "Pages and blocks"} side onDismiss={() => setPanel("canvas")}>{library}</StudioSheet>
-            <StudioSheet dialog={propertiesDialog} title={tr ? "Özellikler" : "Properties"} side onDismiss={() => setPanel("canvas")}>{properties}</StudioSheet>
+            <StudioSheet dialog={libraryDialog} title={tr ? "Sayfalar ve bloklar" : "Pages and blocks"} side onDismiss={() => setPanel("canvas")}>
+              <WorkspaceStructure className="build-left" aria-label="Pages and blocks">{library}</WorkspaceStructure>
+            </StudioSheet>
+            <StudioSheet dialog={propertiesDialog} title={tr ? "Özellikler" : "Properties"} side onDismiss={() => setPanel("canvas")}>
+              <aside className="build-right" aria-label="Properties">{properties}</aside>
+            </StudioSheet>
           </>}
         </Puck>
       </RuntimeContext.Provider>
-      <nav className="build-mobile-panels unified-mobile-workspace-nav" aria-label="Editor panes">
+      {renderRevision?.({ saved, disabled: dirty || Boolean(busy), pending: setRevising, accept: (project) => {
+        setSaved(project); setHistory(newHistory(project.document)); setEpoch((value) => value + 1);
+        setPreview({ status: "idle" }); setMode("edit"); setFocusCanvas(false); setPanel("canvas");
+      } })}
+      <nav inert={revising} className="build-mobile-panels unified-mobile-workspace-nav" aria-label="Editor panes">
         {(["left", "canvas", "right"] as const).map((id) => (
           <button
             type="button"

@@ -1,3 +1,4 @@
+import { chooseProjectExport, revealTemplates } from "./project-editor-ui.mjs";
 import assert from "node:assert/strict";
 import { execFile, spawn } from "node:child_process";
 import { randomBytes } from "node:crypto";
@@ -143,7 +144,7 @@ try {
     await page.goto(studio + "/discover");
     const frame = page.frameLocator(".studio-discover");
     await expect(
-      page.getByRole("link", { name: "Build", exact: true }),
+      page.getByRole("link", { name: "Projects", exact: true }),
     ).toBeVisible();
     await expect(
       frame.getByRole("status").filter({ hasText: "500 live originals" }),
@@ -159,17 +160,17 @@ try {
     await expect(
       frame.locator('[data-preview-state="ready"]').first(),
     ).toBeVisible({ timeout: 15_000 });
-    await page
-      .getByRole("link", { name: "My Library", exact: true })
+    await frame
+      .getByRole("link", { name: "Saved", exact: true })
       .first()
       .click();
     await expect(
       frame.getByRole("heading", { name: "My Library", exact: true }),
     ).toBeVisible();
-    await page.getByRole("link", { name: "Build", exact: true }).click();
-    await expect(page).toHaveURL(studio + "/build");
+    await page.getByRole("link", { name: "Projects", exact: true }).click();
+    await expect(page).toHaveURL(studio + "/");
     await page.getByLabel("Studio theme").selectOption("dark");
-    await page.getByRole("link", { name: "Gallery", exact: true }).click();
+    await page.getByRole("link", { name: "Discover", exact: true }).click();
     await expect(frame.locator(".mx-studio")).toHaveAttribute(
       "data-scheme",
       "dark",
@@ -208,6 +209,7 @@ try {
     report.gallery = true;
   }
   await page.goto(studio + "/build");
+  await revealTemplates(page);
   await button(page, "New Hotel Marketing").click();
   const canvas = page.getByRole("region", { name: "Application canvas" });
   await expect(canvas.locator(".site-hero h1:visible")).toHaveText(
@@ -253,7 +255,7 @@ try {
   await button(page, "2. Split hero").click();
   await page.setViewportSize({ width: 390, height: 844 });
   await page
-    .getByRole("link", { name: "Gallery", exact: true })
+    .getByRole("link", { name: "Discover", exact: true })
     .first()
     .click();
   await expect(page).toHaveURL(/\/discover/);
@@ -261,7 +263,7 @@ try {
     await expect(
       page.frameLocator(".studio-discover").locator(".mx-studio"),
     ).toHaveAttribute("data-embedded", "true");
-  await page.getByRole("link", { name: "Build", exact: true }).click();
+  await page.goBack();
   await expect(page).toHaveURL(projectUrl);
   await expect(canvas.locator(".site-hero h1:visible")).toHaveText(
     "A room to come back to",
@@ -539,7 +541,7 @@ try {
     const exportDigests = [];
     for (let attempt = 0; attempt < 3; attempt++) {
       const download = page.waitForEvent("download");
-      await button(page, "Export").click();
+      await chooseProjectExport(page);
       const file = resolve(work, "source-" + attempt + ".zip");
       await (await download).saveAs(file);
       exportDigests.push(fingerprint(await readFile(file)));
@@ -548,7 +550,7 @@ try {
     report.repeatExportDigest = exportDigests[0];
   }
   const download = page.waitForEvent("download");
-  await button(page, "Export PWA").click();
+  await chooseProjectExport(page, true);
   const target = resolve(work, "source.zip");
   await (await download).saveAs(target);
   await studioBrowser.close();

@@ -8,7 +8,8 @@ export type Original = {
   installURL: string; format?: "html"; height?: number;
   codeFiles: { path: string; sha256: string }[];
   sourceKind: "react" | "html"; installed: boolean; availability: "ready" | "unavailable"; legacyId?: string;
-  dependencies: Record<string, string>; assets: { path: string; sourceURL: string; sha256: string }[]; notice?: string; visualAcceptance: "pending";
+  dependencies: Record<string, string>; assets: { path: string; sourceURL: string; sha256: string }[]; notice?: string;
+  visualAcceptance: "pending" | "verified";
   tags: string[]; preview: { height: number; rank?: number };
   editionOrdinal: number; addedSequence: number; renderCost?: "standard" | "heavy";
 };

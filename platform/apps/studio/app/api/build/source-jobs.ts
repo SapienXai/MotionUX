@@ -1,3 +1,4 @@
+import { executeOwnedRevision } from "./owned-generation";
 import { executeCodeGeneration, type CodeRetry } from "./code-generation";
 import { codePin, codeProposalSchema, maxCompositionSources, sourceReferenceSchema } from "@motionux/build-core/code-project";
 import { inspectCodeCatalog, modelSelectorId, restoreCodeSources, sourceRead } from "@motionux/app-export/code-catalog";
@@ -203,8 +204,21 @@ export async function startSourceJob(repo: string, vault: string, input: unknown
 async function execute(repo: string, vault: string, root: string, job: Job, payload: Request, signal: AbortSignal, retry?: CodeRetry) {
   try {
     const previous = payload.project ? await createStore(vault).open(payload.project) : undefined;
+    if (previous && !previous.document.sourceGraph && !previous.document.codeProject) {
+      if (previous.revision !== payload.revision || payload.kit?.length || payload.includeLocal || payload.preferred)
+        throw new BuildError(409, "Reopen the saved block project before revising its content.");
+      const result = await executeOwnedRevision(repo, vault, previous, payload.brief, signal, async (status, message) => {
+        await persist(root, Object.assign(job, { status, message, updated: Date.now() }));
+      });
+      const { project, ...verification } = result;
+      await persist(root, Object.assign(job, { status: "ready", message: "Your revised content is saved and browser-checked.",
+        project: project.id, revision: project.revision, digest: fingerprint(canonical(project.document)),
+        ownedVerification: verification, updated: Date.now() }));
+      return;
+    }
     if (!previous?.document.sourceGraph)
       return await executeCodeGeneration(repo, vault, job, payload, signal, (current) => persist(root, current as Job), retry);
+    if (payload.kit?.length) throw new BuildError(422, "This project format keeps its existing source set.");
     return await executeLegacy(repo, vault, root, job, payload, signal);
   } catch (error) {
     Object.assign(job, { status: signal.aborted ? "cancelled" : "failed",

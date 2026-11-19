@@ -21,7 +21,7 @@ try {
   await page.goto(origin + "/build?project=" + baseline.id);
   let saved = baseline;
   if (!onlyCode) {
-    await page.getByRole("button", { name: "Run", exact: true }).click();
+    await page.getByRole("button", { name: "Preview", exact: true }).click();
     const frame = page.frameLocator('iframe[title="Live source application"]');
     await expect(frame.getByRole("heading", { level: 1 })).toContainText(control.value, { timeout: 90_000 });
     const properties = await openSourceProperties(page);
@@ -83,7 +83,7 @@ try {
     await (await exportFromSourceEditor(page, button)).saveAs(resolve(evidence, label + "-" + format + ".zip"));
   }
   const stopping = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
-  await page.getByRole("button", { name: "Stop Run", exact: true }).click();
+  await page.getByRole("button", { name: "Stop preview", exact: true }).click();
   assert((await stopping).ok());
   console.log(label, "native revision preserved source pins and control edits", project.revision);
 } finally { await browser.close(); }

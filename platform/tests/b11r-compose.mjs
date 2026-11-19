@@ -68,7 +68,7 @@ try {
   const actions = await openProjectActions(page);
   await expect(actions.getByRole("button", { name: "Export", exact: true })).toBeDisabled();
   await actions.getByRole("button", { name: "Close", exact: true }).click();
-  const runButton = page.getByRole("button", { name: "Run", exact: true });
+  const runButton = page.getByRole("button", { name: "Preview", exact: true });
   if (await runButton.isVisible()) await runButton.click();
   await expect(page.locator('iframe[title="Live source application"]')).toBeVisible({ timeout: 45_000 });
   await page.screenshot({ path: resolve(evidence, "editor-desktop.png") });

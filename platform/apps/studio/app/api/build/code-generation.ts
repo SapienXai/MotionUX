@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { z } from "zod";
 import { newProject, type BuildProject } from "@motionux/build-core";
-import { codeProposalSchema, type CodeProject, type SourceReference } from "@motionux/build-core/code-project";
+import { codeProposalSchema, isLocalCodePin, maxProjectSources, type CodeProject, type SourceReference } from "@motionux/build-core/code-project";
 import { intentSchema } from "@motionux/build-core/source-graph";
 import { sourceIntentResponse } from "@motionux/build-core/source-revision";
 import { runCodex } from "@motionux/build-core/native-codex";
@@ -53,7 +53,7 @@ export type CodeRetry = { proposal: unknown; sources: SourceModule[]; references
 type Stage = "analyzing" | "selecting" | "composing" | "building" | "verifying" | "ready" | "failed" | "cancelled";
 type Job = { id: string; status: Stage; message: string; started: number; updated: number; [key: string]: unknown };
 
-function prompt(brief: string, selected: SourceModule[], design: unknown, references?: SourceReference[], prior?: CodeProject, diagnostic?: string, rejected?: unknown) {
+function prompt(brief: string, selected: SourceModule[], design: unknown, references?: SourceReference[], prior?: CodeProject, diagnostic?: string, rejected?: unknown, additions?: string[]) {
   return [
     "Author actual production-quality React TSX and CSS for this specific application. This is code generation. The application must own its markup and behavior. Output only the response schema.",
     "Create a visually accomplished, coherent application with art direction appropriate to this brief. Let its dominant task determine the opening screen and mobile layout. Avoid an undifferentiated giant heading plus repeated bordered cards. Prefer intentional layout, typography, calm space and high-quality interactive details.",
@@ -76,8 +76,9 @@ function prompt(brief: string, selected: SourceModule[], design: unknown, refere
     "Available package imports are react, react-dom (createPortal only), motion/react, lucide-react, clsx, tailwind-merge. Local imports are explicit '../sources/ID', '../runtime/state', '../runtime/config', or your own relative program modules. Preserve Next 16.4.6 React 19.3.1. Prefer named icons known in lucide-react 0.454.0, e.g. Plus, X, ChevronLeft, ChevronRight, Check, Search, ArrowUpRight, Menu, Clock, Music, Calendar, Filter, MoreHorizontal, Trash2.",
     "Journeys describe genuine deterministic interactions with roles and exact accessible names on an initial route. Provide a short two-to-five step primary workflow and a source interaction. Steps support click/fill/select/press/hover/drag/wheel. Use hover for pointer sources such as a lens. Drag and wheel use value as signed dx,dy pixels, each bounded to -800..800. Use accessible img, region or group targets when appropriate. Verify the source interaction itself. Every step's expected is a substring of visible page text AFTER the action, not a claim. Make dialogs and records editable with native controls. Use initial fictional data with stable expected labels.",
     prior ? "REVISION: preserve all existing pages, IDs, source pins, runtime storage keys, other controls and manual content. Emit a complete program but change only requested modules/fields. The brief is a targeted revision." : "",
+    prior && additions?.length ? "The user attached exact new components for this revision. Integrate all additions into real existing workflows with the native APIs supplied. Preserve every existing source mount." : "",
     diagnostic ? "REPAIR: change the specific rejected program below, preserve its design and data. Do not restart from a generic shell. The actual host diagnostic is: " + diagnostic : "",
-    JSON.stringify({ brief, design, references, previous: prior, rejected, sources: selected.map((source) => ({
+    JSON.stringify({ brief, design, references, previous: prior, rejected, additions, sources: selected.map((source) => ({
       id: source.pin.id, provider: source.pin.provider, revision: source.pin.revision, closure: source.pin.closure,
       exports: source.exports, propsAndTypes: source.types, notice: source.pin.license,
       ...(source.pin.fidelity === "local-frame" ? { localFrame: source.api } : {
@@ -120,8 +121,20 @@ export async function executeCodeGeneration(repo: string, vault: string, job: Jo
       sources = retry.sources; design = retry.design; references = retry.references ?? references;
       Object.assign(job, { selection: retry.design, inventory: retry.inventory,
         inventoryFingerprint: retry.inventoryFingerprint, retryOf: retry.retryOf });
-    } else if (previous) sources = await restoreCodeSources(repo, previous.sources, "local");
-    else if (payload.kit?.length) {
+    } else if (previous) {
+      sources = await restoreCodeSources(repo, previous.sources, "local");
+      if (payload.kit?.length) {
+        await update("selecting", "Checking the components attached to this revision");
+        if (sources.length + payload.kit.length > maxProjectSources ||
+          payload.kit.some((id) => sources?.some(({ pin }) => pin.id === id)))
+          throw new BuildError(422, "Choose new components within this project's source limit.");
+        const additions = await resolveExplicitCodeKit(repo, payload.kit);
+        if (additions?.sources.length !== payload.kit.length || additions.sources.some(({ pin }) => isLocalCodePin(pin)))
+          throw new BuildError(422, "Attach only portable components with current source pins.");
+        sources = [...sources, ...additions.sources];
+        references = references?.filter(({ id }) => !payload.kit?.includes(id));
+      }
+    } else if (payload.kit?.length) {
       await update("selecting", "Checking your selected components and dependencies");
       const kit = await resolveExplicitCodeKit(repo, payload.kit);
       if (kit) {
@@ -173,7 +186,7 @@ export async function executeCodeGeneration(repo: string, vault: string, job: Jo
       await update("composing", attempt ? "Correcting generated modules from verification feedback" : retry ? "Rechecking the exact stored candidate" : "Writing application-specific components and styles");
       try {
         const patchBase = rejected ?? previous;
-        const message = prompt(payload.brief, sources, design, references, previous, diagnostic, rejected);
+        const message = prompt(payload.brief, sources, design, references, previous, diagnostic, rejected, previous ? payload.kit : undefined);
         const proposal = attempt === 0 && retry ? retry.proposal : patchBase
           ? mergePatch(patchBase, await native(patchResponse,
             message + "\nPATCH OUTPUT: Return only changed file contents in files. Preserve all unaffected files. Use null for unchanged metadata, [] for remove unless an obsolete module truly needs removal. Do not regenerate the application. Fix the exact diagnostic or requested edit.", 360_000))
@@ -190,7 +203,8 @@ export async function executeCodeGeneration(repo: string, vault: string, job: Jo
         job.attempts = [...(job.attempts as unknown[] ?? []), { attempt, sha256: fingerprint(trace), bytes: Buffer.byteLength(trace) }];
         await persist(job);
         const graph = await sealCodeProject(repo, proposal, sources, references);
-        const required = payload.kit ?? (payload.includeLocal && payload.preferred ? [payload.preferred] : []);
+        const required = [...(previous?.sources.map(({ id }) => id) ?? []),
+          ...(payload.kit ?? (payload.includeLocal && payload.preferred ? [payload.preferred] : []))];
         for (const id of required.filter((id) => sources.some(({ pin }) => pin.id === id)))
           if (!graph.sources.some((source) => source.id === id)) throw new BuildError(422, "Connect the explicitly selected component " + id + " to its product section and declare the usage.");
         const document = codeDocument(graph);

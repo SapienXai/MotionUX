@@ -31,7 +31,7 @@ export const repoURL = "https://github.com/SapienXai/MotionUX";
 
 export type Route = { page: "gallery" | "playground" | "components" | "guides" | "examples" | "sources" | "library"; item: string; category: string; query: string; preset?: boolean; configuration?: string; panel?: "usage" | "install"; source?: string; sourcePanel?: "provenance" | "usage" | "install" | "code" | "evidence";
   collection?: "legacy"; provider?: string; kind?: "react" | "html"; sort?: "name" | "provider" | "oldest" | "featured";
-  subset?: "new" | "favorites"; compare?: boolean; shelf?: string; kit?: boolean; fromLibrary?: boolean; };
+  subset?: "new" | "favorites" | "verified"; compare?: boolean; shelf?: string; kit?: boolean; fromLibrary?: boolean; };
 export function readRoute(): Route {
   const params = new URLSearchParams(location.search);
   const page = params.get("view");
@@ -54,7 +54,7 @@ export function readRoute(): Route {
     provider: params.get("provider") ?? undefined,
     kind: kind === "react" || kind === "html" ? kind : undefined,
     sort: sort === "name" || sort === "provider" || sort === "oldest" || sort === "featured" ? sort : undefined,
-    subset: subset === "new" || subset === "favorites" ? subset : undefined,
+    subset: subset === "new" || subset === "favorites" || subset === "verified" ? subset : undefined,
     compare: params.get("compare") === "1",
     shelf: params.get("shelf") ?? undefined,
     kit: params.get("kit") === "1",

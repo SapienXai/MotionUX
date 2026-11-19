@@ -32,6 +32,16 @@ export async function restoreSourceRevision(current: BuildProject) {
   return sourceRequest<BuildProject>(path, "PUT", { ...current, document: previous.document });
 }
 
+export async function openSavedPreview<T extends { status: string; id?: string; revision?: number }>(project: string, revision: number) {
+  const current = await sourceRequest<T>("/preview");
+  if (current.id === project && current.revision === revision &&
+    ["ready", "building", "starting"].includes(current.status)) return current;
+  if (current.status !== "idle" && current.id !== project)
+    throw new Error("Another project has an active preview. Stop it before previewing this project.");
+  if (current.status !== "idle") await sourceRequest("/preview", "DELETE");
+  return sourceRequest<T>("/" + project + "/preview", "POST", { revision });
+}
+
 export function useSourceJob(scope: string, onReady: (projectId: string) => Promise<void>, onResume?: (request: SourceInput) => void | false) {
   const [job, setJob] = useState<Job>();
   const [starting, setStarting] = useState(false);

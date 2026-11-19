@@ -76,14 +76,14 @@ try {
     await sw.press("Space");
     await expect(sw).toHaveAttribute("aria-checked", initial === "true" ? "false" : "true");
   }
-  const stopped = page.getByRole("button", { name: "Stop Run", exact: true });
+  const stopped = page.getByRole("button", { name: "Stop preview", exact: true });
   if (await stopped.count()) {
     const stopping = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
     await stopped.click();
     assert((await stopping).ok());
   }
   await page.reload({ waitUntil: "networkidle" });
-  await page.getByRole("button", { name: "Run", exact: true }).click();
+  await page.getByRole("button", { name: "Preview", exact: true }).click();
   await expect(page.locator('iframe[title="Live source application"]')).toBeVisible({ timeout: 45_000 });
   await interact(page.frameLocator('iframe[title="Live source application"]'));
   await page.screenshot({ path: resolve(evidence, "canvas.png") });
@@ -101,7 +101,7 @@ try {
     } finally { await consumer.close(); }
   }
   const stopping = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
-  await page.getByRole("button", { name: "Stop Run", exact: true }).click();
+  await page.getByRole("button", { name: "Stop preview", exact: true }).click();
   assert((await stopping).ok());
   await writeFile(resolve(evidence, "browser.json"), JSON.stringify({ sourceID, project: project.id, revision: project.revision, digest: job.digest, exports, canvas: true, checks }, null, 2), { mode: 0o600 });
   console.log("Create app, saved Run, Canvas and both export denials verified.");

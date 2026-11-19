@@ -1,6 +1,8 @@
 "use client";
 import dynamic from "next/dynamic";
+import type { ComponentProps } from "react";
 import { ComposerHome } from "./composer";
+import { OwnedRevisionPrompt } from "./owned-revision-prompt";
 import "@motionux/app-blocks/styles.css";
 
 const loadEditor = () => import("@motionux/build-canvas").then((module) => module.Editor);
@@ -17,6 +19,10 @@ const SourceEditor = dynamic(async () => {
   ssr: false,
   loading: () => <main className="build-loading"><p role="status">Loading the source editor…</p></main>,
 });
+function OwnedCanvas(props: Pick<ComponentProps<typeof Editor>, "initial" | "onBack">) {
+  return <Editor {...props} renderRevision={(controls) => <OwnedRevisionPrompt {...controls} />} />;
+}
+
 export function EditorLoader() {
-  return <ComposerHome Canvas={Editor} SourceCanvas={SourceEditor} prepareCanvas={loadEditor} />;
+  return <ComposerHome Canvas={OwnedCanvas} SourceCanvas={SourceEditor} prepareCanvas={loadEditor} />;
 }

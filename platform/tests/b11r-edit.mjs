@@ -11,13 +11,13 @@ const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, ac
 const report = { project: initial.id, beforeRevision: initial.revision, checks: [] };
 try {
   await page.goto("http://127.0.0.1:5200/build?project=" + initial.id, { waitUntil: "networkidle" });
-  const active = page.getByRole("button", { name: "Stop Run", exact: true });
+  const active = page.getByRole("button", { name: "Stop preview", exact: true });
   if (await active.count()) {
     const stopped = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
     await active.click();
     assert((await stopped).ok());
   }
-  await page.getByRole("button", { name: "Run", exact: true }).click();
+  await page.getByRole("button", { name: "Preview", exact: true }).click();
   const frame = page.frameLocator('iframe[title="Live source application"]');
   const deck = frame.locator(".venue-deck");
   await expect(deck).toBeVisible({ timeout: 90_000 });
@@ -40,8 +40,7 @@ try {
   await expect.poll(() => frame.locator(".work-area").evaluate((node) => getComputedStyle(node).columnGap)).toBe("30px");
   await expect(deck.locator('[aria-live="polite"]')).toContainText("02 / 04");
   report.checks.push({ sourceProp: "CardStack.accent", value: accent, generatedLayoutGap: "30px", sourceStateRetained: true });
-  await page.keyboard.press("Escape");
-  await expect(page.getByRole("button", { name: "Inspector", exact: true })).toBeFocused();
+  await expect(properties).toBeVisible();
   await page.getByRole("button", { name: "Undo", exact: true }).click();
   await expect.poll(() => frame.locator(".work-area").evaluate((node) => getComputedStyle(node).columnGap)).toBe("24px");
   await page.getByRole("button", { name: "Redo", exact: true }).click();
@@ -52,7 +51,7 @@ try {
   assert.equal(saved.revision, initial.revision + 1);
   assert.deepEqual(saved.document.codeProject.files, initial.document.codeProject.files);
   assert.deepEqual(saved.document.codeProject.sources, initial.document.codeProject.sources);
-  await page.getByRole("button", { name: "Run", exact: true }).click();
+  await page.getByRole("button", { name: "Preview", exact: true }).click();
   await expect(deck).toBeVisible({ timeout: 90_000 });
   await expect.poll(() => deck.evaluate((node) => getComputedStyle(node).getPropertyValue("--deck-accent").trim())).toBe(accent);
   await expect.poll(() => frame.locator(".work-area").evaluate((node) => getComputedStyle(node).columnGap)).toBe("30px");
@@ -72,7 +71,7 @@ try {
     await (await exportFromSourceEditor(page, button)).saveAs(resolve(evidence, "A-" + format + ".zip"));
   }
   const stopping = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
-  await page.getByRole("button", { name: "Stop Run", exact: true }).click();
+  await page.getByRole("button", { name: "Stop preview", exact: true }).click();
   assert((await stopping).ok());
   await writeFile(resolve(evidence, "A-editor.json"), JSON.stringify({ ...report, savedRevision: saved.revision }, null, 2), { mode: 0o600 });
   console.log("Real source props, generated layout, responsive canvas state, Undo/Redo, Save, Run and downloaded artifacts passed", saved.revision);

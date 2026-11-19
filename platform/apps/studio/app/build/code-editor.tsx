@@ -2,10 +2,12 @@
 import { useEffect, useRef, useState } from "react";
 import type { BuildProject } from "@motionux/build-core";
 import { isLocalCodePin, localSourceRights, type CodeProject } from "@motionux/build-core/code-project";
-import { sourceRequest, SourceJobStatus, restoreSourceRevision, useSourceJob } from "./source-job";
+import { openSavedPreview, sourceRequest, SourceJobStatus, restoreSourceRevision, useSourceJob } from "./source-job";
 
 import { KineticEditor, type SourcePreview as Preview } from "./kinetic-editor";
 import { useStudioCopy } from "./kinetic-ui";
+import { SourceCatalogDialog } from "./source-catalog-dialog";
+import type { CompositionComponent } from "./component-picker";
 
 export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack: () => void }) {
   const frame = useRef<HTMLIFrameElement>(null);
@@ -20,6 +22,7 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
   const [feedback, setFeedback] = useState("");
   const [error, setError] = useState("");
   const [brief, setBrief] = useState("");
+  const [additions, setAdditions] = useState<CompositionComponent[]>([]);
   const [busy, setBusy] = useState(false);
   const [inventory, setInventory] = useState<{ counts: { total: number; compilerReady: number; reasons: Record<string, number> } }>();
   const program = draft.document.codeProject!;
@@ -28,7 +31,7 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
   const dirty = JSON.stringify(saved.document) !== JSON.stringify(draft.document);
   const operation = useSourceJob(saved.id, async (id) => {
     const next = await sourceRequest<BuildProject>("/" + id);
-    setSaved(next); setDraft(next); setPast([]); setFuture([]); setBrief("");
+    setSaved(next); setDraft(next); setPast([]); setFuture([]); setBrief(""); setAdditions([]);
     setFeedback(t("Codex revision saved.", "Codex revizyonu kaydedildi."));
   }, (input) => setBrief(input.brief));
   const locked = busy || operation.active;
@@ -110,8 +113,7 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
     setPreview(undefined);
   }
   async function run() {
-    if (preview && preview.status !== "idle") await stop();
-    setPreview(await sourceRequest<Preview>("/" + saved.id + "/preview", "POST", { revision: saved.revision }));
+    setPreview(await openSavedPreview<Preview>(saved.id, saved.revision));
   }
   async function download(pwa: boolean) {
     const response = await fetch("/api/build/" + saved.id + (pwa ? "/export-pwa" : "/export"), {
@@ -172,6 +174,12 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
   return <KineticEditor projectId={saved.id} name={saved.document.name} revision={saved.revision} dirty={dirty} draftSaved={draftSaved} locked={locked}
     error={error} feedback={feedback} pages={program.pages} route={route} onPage={setRoute}
     inspectorTitle={t("Application controls", "Uygulama kontrolleri")} inspector={inspector} sources={sources}
+    catalog={(compact) => <SourceCatalogDialog existing={program.sources} selected={additions} attach={setAdditions} disabled={locked} compact={compact} />}
+    revisionContext={additions.length > 0 && <ul className="unified-revision-sources" aria-label={t("Components attached to revision", "Revizyona eklenen bileşenler")}>
+      {additions.map(({ id, title }) => <li key={id}><button type="button" className="kinetic-button" disabled={locked}
+        aria-label={t("Remove ", "Kaldır ") + title}
+        onClick={() => setAdditions((previous) => previous.filter((source) => source.id !== id))}>{title} <span aria-hidden="true">×</span></button></li>)}
+    </ul>}
     preview={preview} frame={frame} onFrameLoad={projectControls} exportBlocked={localOnly}
     notice={localOnly && <div className="build-local-export-note"><span>{t(localSourceRights, "Bu proje yerel kaynaklar kullanıyor. Dışa aktarma kullanılamıyor.")}</span>
       {hasSpecimens && <a className="build-text-button" href={"/build?composeFrom=" + encodeURIComponent(saved.id)}>{t("Rebuild as a new app", "Yeni uygulama olarak oluştur")}</a>}
@@ -188,6 +196,6 @@ export function CodeEditor({ initial, onBack }: { initial: BuildProject; onBack:
     brief={brief} onBrief={setBrief} onRevise={(event) => {
       event.preventDefault();
       if (locked || dirty || brief.trim().length < 12) return;
-      void action(async () => { await stop(); await operation.start(brief, { project: saved.id, revision: saved.revision }); });
+      void action(async () => { await stop(); await operation.start(brief, { project: saved.id, revision: saved.revision, kit: additions.map(({ id }) => id) }); });
     }} job={<SourceJobStatus operation={operation} />} />;
 }

@@ -21,6 +21,7 @@ import {
 } from "../../../../lib/studio-bridge";
 import { sourceRequest } from "./build/source-job";
 import type { CompositionComponent } from "./build/component-picker";
+import type { WorkspaceSearch } from "@motionux/build-canvas/workspace";
 
 export function StudioChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -28,9 +29,15 @@ export function StudioChrome({ children }: { children: ReactNode }) {
   const [appearance, setAppearance] = useState<Appearance | null>(null);
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [workspace, setWorkspace] = useState<WorkspaceSearch | null>(null);
   const [turkish, setTurkish] = useState(false);
   const t = (english: string, tr: string) => (turkish ? tr : english);
   const search = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const update = (event: Event) => setWorkspace((event as CustomEvent<WorkspaceSearch | null>).detail);
+    window.addEventListener("motionux:workspace-search", update);
+    return () => window.removeEventListener("motionux:workspace-search", update);
+  }, []);
   const activeFrame = () =>
     document.querySelector<HTMLIFrameElement>(".studio-discover");
   function sendAppearance(value: Appearance) {
@@ -172,6 +179,9 @@ export function StudioChrome({ children }: { children: ReactNode }) {
     event.preventDefault();
     setSearchOpen(false);
     const value = query.trim();
+    const match = value && workspace?.pages.find(({ route, title }) =>
+      route.toLowerCase() === value.toLowerCase() || title.toLowerCase() === value.toLowerCase());
+    if (match) { workspace?.navigate(match.route); setQuery(""); return; }
     const frame = activeFrame();
     if (pathname === "/discover" && frame?.contentWindow) {
       frame.contentWindow.postMessage(
@@ -190,6 +200,8 @@ export function StudioChrome({ children }: { children: ReactNode }) {
   }
   const filter = query.trim() ? "q=" + encodeURIComponent(query.trim()) : "";
   const discover = pathname === "/discover";
+  const pageMatches = query.trim() && workspace?.pages.filter(({ title, route }) =>
+    (title + " " + route).toLowerCase().includes(query.toLowerCase().trim())).slice(0, 6);
   return (
     <>
       <a className="studio-skip" href="#workspace-content">
@@ -232,17 +244,18 @@ export function StudioChrome({ children }: { children: ReactNode }) {
           onSubmit={submit}
         >
           <label htmlFor="studio-search" className="build-sr">
-            {t("Search components", "Bileşenleri ara")}
+            {workspace ? t("Search pages and components", "Sayfa ve bileşen ara") : t("Search components", "Bileşenleri ara")}
           </label>
           <input
             ref={search}
             type="search"
             id="studio-search"
             name="q"
-            placeholder={t("Search components…", "Bileşenleri ara…")}
+            placeholder={workspace ? t("Search pages and components…", "Sayfa ve bileşen ara…") : t("Search components…", "Bileşenleri ara…")}
             value={query}
             maxLength={160}
             onChange={(event) => setQuery(event.target.value)}
+            onFocus={() => setSearchOpen(true)}
             onKeyDown={(event) => {
               if (event.key === "Escape") { setSearchOpen(false); search.current?.blur(); }
             }}
@@ -255,6 +268,12 @@ export function StudioChrome({ children }: { children: ReactNode }) {
           >
             <Search size={16} aria-hidden="true" />
           </button>
+          {searchOpen && pageMatches && pageMatches.length > 0 && <ul className="unified-search-pages"
+            aria-label={t("Matching project pages", "Eşleşen proje sayfaları")}>
+            {pageMatches.map(({ route, title }) => <li key={route}><button type="button" onClick={() => {
+              workspace?.navigate(route); setQuery(""); setSearchOpen(false); search.current?.blur();
+            }}><span dir="auto">{title}</span><small>{route}</small></button></li>)}
+          </ul>}
         </form>
         <div className="studio-appearance">
           <Sun className="kinetic-theme-icon" size={16} aria-hidden="true" />

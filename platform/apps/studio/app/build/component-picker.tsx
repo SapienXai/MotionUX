@@ -6,12 +6,14 @@ import { maxCompositionSources } from "@motionux/build-core/code-project";
 import { sourceRequest } from "./source-job";
 import { ComponentPreview } from "./component-preview";
 import { openStudioSheet, StudioSheet, useStudioCopy } from "./kinetic-ui";
+import { SourceCatalogDialog } from "./source-catalog-dialog";
 
 export type CompositionComponent = {
   id: string; title: string; provider: string; mode: "direct" | "connected" | "reference";
   preview?: { slug: string; pin: string };
 };
 const pageSize = 32;
+const noExistingSources: readonly CompositionComponent[] = [];
 
 export function ComponentPicker({ selected, onChange, disabled, idea, footer, localOption }: {
   selected: string[]; onChange: (ids: string[]) => void; disabled: boolean;
@@ -71,8 +73,11 @@ export function ComponentPicker({ selected, onChange, disabled, idea, footer, lo
       {idea}
       {localOption ?? <section className="kinetic-choices" aria-labelledby="compose-components-title">
         <div className="kinetic-choices-head"><h2 id="compose-components-title">{t("Components", "Bileşenler")}{selected.length > 0 && <small> {selected.length}/{maxCompositionSources}</small>}</h2>
-          <div className="kinetic-choices-links">{!disabled && discover}
-            <button type="button" className="kinetic-text" aria-haspopup="dialog" onClick={show} disabled={disabled}>{browse}<ArrowUpRight size={13} aria-hidden="true" /></button>
+          <div className="kinetic-choices-links">
+            <SourceCatalogDialog purpose="creation" existing={noExistingSources} selected={chosenRows} disabled={disabled}
+              triggerLabel={t("Choose components", "Bileşen seç")} attach={(choices) => onChange(choices.map(({ id }) => id))} />
+            <button type="button" className="kinetic-text" aria-haspopup="dialog" onClick={show} disabled={disabled}
+              title={t("List view", "Liste görünümü")}>{browse}<ArrowUpRight size={13} aria-hidden="true" /></button>
           </div>
         </div>
         {selected.length ? <ul className="kinetic-selected" aria-label={t("Selected components", "Seçilen bileşenler")}>

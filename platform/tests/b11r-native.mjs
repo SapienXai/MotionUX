@@ -75,7 +75,7 @@ try {
         await (await exportFromSourceEditor(page, button)).saveAs(resolve(evidence, label + "-" + format + ".zip"));
       }
       const stopping = page.waitForResponse((response) => response.url().endsWith("/api/build/preview") && response.request().method() === "DELETE");
-      await page.getByRole("button", { name: "Stop Run", exact: true }).click();
+      await page.getByRole("button", { name: "Stop preview", exact: true }).click();
       assert((await stopping).ok());
       console.log(label, project.document.name, project.document.codeProject.files.length + " authored modules",
         project.document.codeProject.sources.map((source) => source.id).join(", "));

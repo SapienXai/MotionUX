@@ -11,6 +11,7 @@
     "./inspection": "./inspection.ts",
     "./integration": "./integration.ts",
     "./source-graph": "./source/graph.ts",
+    "./owned-revision": "./source/owned-revision.ts",
     "./source-revision": "./source/revision.ts",
     "./native-codex": "./composer/codex.ts",
     "./code-project": "./source/code-project.ts"

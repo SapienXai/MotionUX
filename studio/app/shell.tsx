@@ -56,8 +56,8 @@ function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, cl
   return <LayoutGroup id={mobile ? "drawer" : "sidebar"}>
     <div className="mx-side-brand"><Brand navigate={navigate} />{mobile && <button type="button" aria-label="Close menu" className="mx-icon" onClick={close} autoFocus><X size={21} /></button>}</div>
     <div className="mx-side-scroll">
-      <nav className="mx-side-nav" aria-label="Studio">
-        {(originalCount === undefined ? nav : privateNav).filter(([page]) => !embedded || (page !== "gallery" && page !== "library")).map(([page, text, Icon]) => {
+      <nav className="mx-side-nav" aria-label={embedded ? "Explore components" : "Studio"}>
+        {(originalCount === undefined ? nav : privateNav).map(([page, text, Icon]) => {
           const legacy = page === "legacy";
           const current = legacy ? route.collection === "legacy" && route.page === "gallery" :
             route.page === page && (page !== "gallery" || !route.collection);
@@ -65,7 +65,8 @@ function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, cl
             ? { ...route, page, item: page === "playground" ? lastItem || FEATURED[0][0] : "", source: undefined }
             : { page: legacy ? "gallery" : page, item: "", category: "", query: "", collection: legacy ? "legacy" : undefined };
           return <a key={page} href={hrefFor(next)} className="mx-side-row" aria-current={current ? "page" : undefined}
-            onClick={event => intercept(event, () => navigate(next))}>{current && active("section")}<Icon size={20} aria-hidden="true" /><span>{page === "sources" ? "Discovery" : text}</span>
+            onClick={event => intercept(event, () => navigate(next))}>{current && active("section")}<Icon size={20} aria-hidden="true" /><span>{embedded && page === "gallery" ? "All components" :
+              embedded && page === "library" ? "Saved" : page === "sources" ? "Discovery" : text}</span>
             {page === "gallery" && originalCount !== undefined && <span className="mx-count" aria-hidden="true">{originalCount}</span>}</a>;
         })}
         {!embedded && originalCount !== undefined && <a href="http://127.0.0.1:5200/build" target="_top" className="mx-side-row"><LayoutTemplate size={20} aria-hidden="true" /><span>Build</span></a>}
@@ -85,9 +86,9 @@ function Sidebar({ route, navigate, lastItem, reduced, originalCount, mobile, cl
   </LayoutGroup>;
 }
 
-export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, reduced, lastItem, originalCount, embedded = false, children }: {
+export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, reduced, lastItem, originalCount, embedded = false, picker = false, children }: {
   route: Route; navigate: Navigate; updateQuery: (query: string) => void; scheme: "light" | "dark"; toggleScheme: () => void;
-  reduced: boolean; lastItem: string; originalCount?: number; embedded?: boolean; children: ReactNode;
+  reduced: boolean; lastItem: string; originalCount?: number; embedded?: boolean; picker?: boolean; children: ReactNode;
 }) {
   const drawer = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -98,9 +99,14 @@ export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, redu
   const swipe = useRef<{ x: number; y: number } | null>(null);
   useLayoutEffect(() => {
     function key(event: KeyboardEvent) {
+      if (picker && event.key === "Escape" && !event.isComposing &&
+        !document.querySelector("dialog[open]") && !(input.current === document.activeElement && route.query)) {
+        window.parent.postMessage({ type: "motionux:close-picker" }, studioOrigin);
+        return;
+      }
       if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k" || event.isComposing || drawer.current?.open) return;
       event.preventDefault();
-      if (embedded) { window.parent.postMessage({ type: "motionux:focus-search" }, studioOrigin); return; }
+      if (embedded && !picker) { window.parent.postMessage({ type: "motionux:focus-search" }, studioOrigin); return; }
       searchOrigin.current = document.activeElement as HTMLElement | null;
       input.current?.focus();
       input.current?.select();
@@ -110,7 +116,7 @@ export function Shell({ route, navigate, updateQuery, scheme, toggleScheme, redu
     window.addEventListener("keydown", key);
     wide.addEventListener("change", dismissDrawer);
     return () => { window.removeEventListener("keydown", key); wide.removeEventListener("change", dismissDrawer); };
-  }, [embedded]);
+  }, [embedded, picker, route.query]);
   useEffect(() => {
     if (!open) return;
     closeButton.current = drawer.current?.querySelector<HTMLButtonElement>("button") ?? null;

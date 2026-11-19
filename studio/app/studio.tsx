@@ -51,6 +51,7 @@ function StudioRoutes() {
   const [route, setRoute] = useState(initialRoute);
   const [schemeOverride, setSchemeOverride] = useState(savedScheme);
   const [embedded, setEmbedded] = useState(false);
+  const [picker] = useState(() => new URLSearchParams(location.search).get("picker") === "1");
   const buildSelection = useGalleryBuildSelection(embedded);
   const systemDark = useSyncExternalStore(subscribeToScheme, systemUsesDarkScheme);
   const scheme = schemeOverride ?? (systemDark ? "dark" : "light");
@@ -68,8 +69,16 @@ function StudioRoutes() {
   const local = useLocalSources();
   const { originals } = local;
   const originalId = localStudio && !route.collection && route.page === "playground" ? route.item : "";
+  const detail = useRef<HTMLDialogElement>(null);
+  const showDetail = Boolean(embedded && !picker && originalId && !route.fromLibrary);
   const originalCount = useMemo(() => localStudio ? [...originals.values()].filter(item => item.availability === "ready").length : undefined, [originals]);
   const title = originals.get(originalId)?.title;
+  useLayoutEffect(() => {
+    const dialog = detail.current;
+    if (!showDetail || !dialog) return;
+    dialog.showModal();
+    return () => { if (dialog.open) dialog.close(); };
+  }, [showDetail]);
   useEffect(() => {
     document.title = title ? `${title} | MotionUX Studio` : route.page === "sources" ? "Discovery | MotionUX Studio" : "MotionUX Studio";
   }, [route.page, title]);
@@ -123,7 +132,7 @@ function StudioRoutes() {
     focus.current = "none";
     if (target === "heading") {
       window.scrollTo(0, 0);
-      const heading = document.querySelector<HTMLElement>("#studio-main h1");
+      const heading = (detail.current?.open ? detail.current : document.getElementById("studio-main"))?.querySelector<HTMLElement>("h1");
       (heading ?? document.getElementById("studio-main"))?.focus({ preventScroll: true });
     } else if (target === "gallery" && !originalsGallery) {
       window.scrollTo(0, scroll.current);
@@ -169,14 +178,18 @@ function StudioRoutes() {
   const open = (id: string, configuration?: string, panel?: Route["panel"]) => navigate({ ...route, page: "playground", item: id, configuration, panel, preset: true });
   const clear = () => navigate({ ...route, query: "", category: "", item: "" });
   const back = () => navigate({ ...route, page: route.fromLibrary ? "library" : "gallery", item: "", source: undefined, sourcePanel: undefined, panel: undefined, compare: false, fromLibrary: false });
-  return <div className="mx-studio" data-scheme={scheme} data-embedded={embedded || undefined}>
+  const detailView = <SourceDetail key={originalId} id={originalId} route={route} scheme={scheme} back={back} navigate={navigate}
+    buildSelection={buildSelection} originals={originals} />;
+  const view = showDetail ? "gallery" : route.page;
+  const galleryRoute: Route = showDetail ? { ...route, page: "gallery", item: "", sourcePanel: undefined, compare: false } : route;
+  return <div className="mx-studio" data-scheme={scheme} data-embedded={embedded || undefined} data-catalog-picker={embedded && picker || undefined}>
     <Shell route={route} navigate={navigate} updateQuery={setQuery} scheme={scheme} toggleScheme={toggleScheme} reduced={platformReduced}
-      lastItem={lastItem} originalCount={originalCount} embedded={embedded}>
+      lastItem={lastItem} originalCount={originalCount} embedded={embedded} picker={embedded && picker}>
       {!localStudio && <p className="mx-public-shell">Legacy/public shell — launch <code>npm run studio</code> to see original sources.</p>}
       {localStudio && route.page !== "library" && <div className="mx-library-toast"><LibraryFeedback /></div>}
-      <div className={`mx-view mx-view-${route.page}`} key={route.page} data-entering={entered || undefined}>
-        {route.page === "gallery" ? localStudio && !route.collection
-          ? <OriginalsGallery {...local} route={route} scheme={scheme} navigate={navigate} restore={galleryReturn} selection={buildSelection} />
+      <div className={`mx-view mx-view-${view}`} key={view} data-entering={entered || undefined}>
+        {view === "gallery" ? localStudio && !route.collection
+          ? <OriginalsGallery {...local} route={galleryRoute} scheme={scheme} navigate={navigate} restore={galleryReturn} selection={buildSelection} />
           : <Gallery items={items} route={route} open={open} reduced={platformReduced} clear={clear} scheme={scheme} selectCategory={category => navigate({ ...route, category })} /> :
           route.page === "library" && localStudio ? <Suspense fallback={<section className="mx-inner-page"><h1 tabIndex={-1}>My Library</h1><p role="status">Loading saved originals…</p></section>}>
             <LibraryView originals={originals} route={route} navigate={navigate} />
@@ -188,13 +201,19 @@ function StudioRoutes() {
               <Discovery originals={originals} route={route} navigate={navigate} buildSelection={buildSelection} />}
           </Suspense> :
           originalId ? <Suspense fallback={<section className="mx-inner-page"><h1 tabIndex={-1} className="mx-sr">Source Playground</h1><p role="status">Loading source Playground…</p></section>}>
-            <SourceDetail key={originalId} id={originalId} route={route} scheme={scheme} back={back} navigate={navigate}
-              buildSelection={buildSelection} originals={originals} />
+            {detailView}
           </Suspense> :
           item ? <Suspense fallback={<PreviewLoading />}><Playground key={item.id} item={item} route={route}
             back={back} reduced={platformReduced} systemReduced={platformReduced} scheme={scheme} /></Suspense> :
           <section className="mx-inner-page"><h1 tabIndex={-1}>Specimen unavailable</h1><button className="mx-button" type="button" onClick={() => open(FEATURED[0][0])}>Open Sliding Tab Pill</button></section>}
       </div>
+      {showDetail && <dialog className="mx-discover-detail" ref={detail} aria-label={title ? title + " component preview" : "Component preview"}
+        onClose={back} onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }}>
+        <div className="mx-discover-detail-inner">
+          <button type="button" className="mx-button mx-discover-close" onClick={() => detail.current?.close()}>Close preview</button>
+          <Suspense fallback={<PreviewLoading />}>{detailView}</Suspense>
+        </div>
+      </dialog>}
     </Shell>
   </div>;
 }
