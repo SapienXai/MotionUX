@@ -8,6 +8,10 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    container:
+      # Keep the bundled browsers aligned with the locked Playwright version.
+      image: mcr.microsoft.com/playwright:v1.65.1-noble@sha256:766137e2d9caad4744187e53cdc89320ba6f2eb57cff097374020944b44dd0a9
+      options: --user 1001 --shm-size=1g
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -15,7 +19,6 @@ jobs:
           node-version: "24"
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium webkit firefox
       - run: npm run verify
         env:
           MOTIONUX_TEST_PREVIEW: "1"
